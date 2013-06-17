@@ -1,0 +1,9 @@
+{
+  "name": "Caliope-Beowulf",
+  "version": "0.01",
+   "dependencies": {
+    "jquery"             : "~2.0.2",
+    "angular-unstable"   : "~1.1.0",
+    "requirejs"          : "~2.1.6"
+  }
+}
