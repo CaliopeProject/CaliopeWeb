@@ -1,5 +1,5 @@
 {
-  "directory" : "app/vendor/",
+  "directory" : "app/libs-js-thirdparty/",
   "json": "bower.json",
   "searchpath": [
     "https://bower.herokuapp.com"
