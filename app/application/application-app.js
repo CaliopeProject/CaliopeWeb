@@ -1,21 +1,28 @@
+/*global require*/
 'use strict';
+define( ["angular"],(function (angular) {
+    /**
+    * The application angular app initializing the main module and
+    * creating namespaces and moduled for controllers, filters, services, and directives.
+    */
+    return {
+      Constants   : angular.module('application.constants'   , []),
 
-/**
-* The application angular app initializing the main module and 
-* creating namespaces and moduled for controllers, filters, services, and directives. 
-*/
+      Services    : angular.module('application.services'    , []),
 
-var Application = Application || {};
+      Controllers : angular.module('application.controllers' , []),
 
-Application.Constants   = angular.module('application.constants'   , []);
-Application.Services    = angular.module('application.services'    , []);
-Application.Controllers = angular.module('application.controllers' , []);
-Application.Filters     = angular.module('application.filters'     , []);
-Application.Directives  = angular.module('application.directives'  , []);
+      Filters     : angular.module('application.filters'     , []),
 
-angular.module('application', []).
-config(['$routeProvider', function($routeProvider) {
-  $routeProvider.
-  when('/', {templateUrl: 'login/login-partial.html'}).
-  otherwise({templateUrl: 'error/error-partial.html'});
-}]);
+      Directives  : angular.module('application.directives'  , []),
+
+      init        :  function () {
+        angular.module('application', []).
+        config(['$routeProvider', function($routeProvider) {
+          $routeProvider.
+          when('/', {templateUrl: 'login/login-partial.html'}).
+          otherwise({templateUrl: 'error/error-partial.html'});
+        }]);
+      }
+  };
+}()));
