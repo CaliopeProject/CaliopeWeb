@@ -1,3 +1,4 @@
 node-modules
 app/libs-js-thirdparty/*
 !app/libs-js-thirdparty/README.md
+.sass-cache
