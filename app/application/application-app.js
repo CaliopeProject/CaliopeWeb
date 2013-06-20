@@ -1,28 +1,8 @@
-/*global require*/
+/*global define*/
 'use strict';
-define( ["angular"],(function (angular) {
-    /**
-    * The application angular app initializing the main module and
-    * creating namespaces and moduled for controllers, filters, services, and directives.
-    */
-    return {
-      Constants   : angular.module('application.constants'   , []),
 
-      Services    : angular.module('application.services'    , []),
+define(['angular'], function (angular) {
+  return angular.module('caliope', []);
+});
 
-      Controllers : angular.module('application.controllers' , []),
 
-      Filters     : angular.module('application.filters'     , []),
-
-      Directives  : angular.module('application.directives'  , []),
-
-      init        :  function () {
-        angular.module('application', []).
-        config(['$routeProvider', function($routeProvider) {
-          $routeProvider.
-          when('/', {templateUrl: 'login/login-partial.html'}).
-          otherwise({templateUrl: 'error/error-partial.html'});
-        }]);
-      }
-  };
-}()));

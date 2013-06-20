@@ -5,10 +5,14 @@ require.config({
   "baseUrl": "../app/",
 
   "paths"  : {
-    "jquery"          : "libs-js-thirdparty/jquery",
+    //libs-thirdparty
+    "jquery"          : "libs-js-thirdparty/jquery/jquery",
     "angular"         : "libs-js-thirdparty/angular-unstable/angular",
     "ui-bootstrap"    : "libs-js-thirdparty/angular-ui-bootstrap-bower/ui-bootstrap",
-    "application-app" : "application/application-app"
+
+    //local modules scripts
+    "application-app"   : "application/application-app",
+    "application-route" : "application/application-route"
   },
 
   shim     : {
@@ -22,6 +26,10 @@ require.config({
   }
 });
 
-require(['angular','application-app','ui-bootstrap'], function(angular, app){
-  app.init;
+require([ 'angular',
+          'application-app',
+          'application-route'], function (angular) {
+  angular.element(document).ready(function() {
+    angular.bootstrap(document, ['caliope']);
+  });
 });
