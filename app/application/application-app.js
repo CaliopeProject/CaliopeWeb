@@ -1,8 +1,7 @@
-/*global define*/
-'use strict';
+define([
+	'angular'
+	], function (angular) {
+		'use strict';
 
-define(['angular'], function (angular) {
-  return angular.module('caliope', []);
+		return angular.module('caliope',[]);
 });
-
-
