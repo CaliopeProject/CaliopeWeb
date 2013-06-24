@@ -1,10 +1,15 @@
 require.config({
-  paths: {
+  paths: {    
     jquery                           : 'libs-js-thirdparty/jquery/jquery',
-    angular                          : 'libs-js-thirdparty/angular-unstable/angular',
+    dform                            : 'libs-js-thirdparty/jquery.dform/src/dform',
+    angular                          : 'libs-js-thirdparty/angular-unstable/angular',    
     'application-app'                : 'application/application-app',
     'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
-    'application-routes'             : 'application/application-routes'
+    'application-routes'             : 'application/application-routes',
+    'caliopeweb-templateServices'    : 'caliopeweb-forms/caliopeweb-template-services',    
+    'caliopeweb-templateControllers' : 'caliopeweb-forms/caliopeweb-template-controllers',
+    'caliopeweb-formDirectives'      : 'caliopeweb-forms/caliopeweb-form-directives',
+    'proyectosmtv-controller'        : 'proyectosmtv/proyectomtv-controller'
   },
   baseUrl: '/',
   shim: {
@@ -12,6 +17,10 @@ require.config({
     'application-app'                : {'exports' : 'app'},
     'application-routes'             : {'exports' : 'routes'},
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
+    'caliopeweb-templateServices'    : {'exports' : 'caliopeweb-templateServices'},
+    'caliopeweb-formDirectives'      : {'exports' : 'caliopeweb-formDirectives'},
+    'caliopeweb-templateControllers' : {'exports' : 'caliopeweb-templateControllers'},
+    'proyectosmtv-controller'        : {'exports' : 'proyectosmtv-controller'},
     'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
@@ -21,10 +30,11 @@ require.config({
 
 require([
   'jquery',
-  'angular',
+  'dform',
+  'angular',   
   'application-app',
   'application-routes'
-], function($, angular, app, routes) {
+], function($, $dForm, angular, app, routes) {
   'use strict';
 
   $(document).ready(function () {

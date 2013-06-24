@@ -1,10 +1,14 @@
 define([
 	'angular',
-	'application-servicesWebSocket'
+	'application-servicesWebSocket',
+	'caliopeweb-templateServices',
+	'caliopeweb-templateControllers',
+	'caliopeweb-formDirectives',	
+	'proyectosmtv-controller'
 	], function (
 	  angular,
 	  webSocket
 	  ){
 		'use strict';
-		return angular.module('caliope',['webSocket']);
+		return angular.module('caliope',['webSocket', 'caliopeweb-templateService','cwForm', 'caliopeFormsCtrl','cwDform', 'ProyectoCtrl']);
 });
