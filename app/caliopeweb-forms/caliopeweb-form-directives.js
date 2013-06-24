@@ -20,7 +20,7 @@ define(['angular'], function(angular) {
     return {        
         restrict: 'E',
         link: function(scope, element, attrs) {               
-          var jsonPlantilla = JSON.parse(scope.jsonPlantilla);              
+          var jsonPlantilla = JSON.parse(scope.jsonPlantilla);
           $(element).dform(jsonPlantilla); 
           $compile(element.contents())(scope);
         },          

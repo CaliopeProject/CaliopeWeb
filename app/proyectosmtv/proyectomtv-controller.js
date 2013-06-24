@@ -8,7 +8,7 @@ define(['angular'], function(angular) {
       var nombre = $scope.proyecto.nombre;  
       
       alert(id + ' ' + nombre);
-      proyectoSrv.create(id, nombre); 
+      //proyectoSrv.create(id, nombre); 
     };  
     
     

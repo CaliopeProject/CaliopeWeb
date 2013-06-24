@@ -1,7 +1,7 @@
 require.config({
   paths: {    
     jquery                           : 'libs-js-thirdparty/jquery/jquery',
-    dform                            : 'libs-js-thirdparty/jquery.dform/src/dform',
+    dform                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
     angular                          : 'libs-js-thirdparty/angular-unstable/angular',    
     'application-app'                : 'application/application-app',
     'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
@@ -34,7 +34,7 @@ require([
   'angular',   
   'application-app',
   'application-routes'
-], function($, $dForm, angular, app, routes) {
+], function($, dform, angular, app, routes) {
   'use strict';
 
   $(document).ready(function () {
