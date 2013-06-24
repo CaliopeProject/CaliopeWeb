@@ -1,16 +1,18 @@
 require.config({
   paths: {
-    jquery:  'libs-js-thirdparty/jquery/jquery',
-    angular: 'libs-js-thirdparty/angular-unstable/angular',
-    'application-app'     : 'application/application-app',
-    'application-routes'  : 'application/application-routes'  
+    jquery                           : 'libs-js-thirdparty/jquery/jquery',
+    angular                          : 'libs-js-thirdparty/angular-unstable/angular',
+    'application-app'                : 'application/application-app',
+    'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
+    'application-routes'             : 'application/application-routes'
   },
   baseUrl: '/',
   shim: {
-    'angular' : {'exports' : 'angular'},
-    'application-app'    : {'exports' : 'app'},
-    'application-routes' : {'exports' : 'routes'},
-    'angularMocks': {deps:['angular'], 'exports':'angular.mock'}
+    'angular'                        : {'exports' : 'angular'},
+    'application-app'                : {'exports' : 'app'},
+    'application-routes'             : {'exports' : 'routes'},
+    'application-servicesWebSocket'  : {'exports' : 'webSocket'},
+    'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
     "angular"
@@ -24,7 +26,9 @@ require([
   'application-routes'
 ], function($, angular, app, routes) {
   'use strict';
+
   $(document).ready(function () {
+
     var $html = $('html');
     angular.bootstrap($html, [app['name']]);
     // Because of RequireJS we need to bootstrap the app app manually

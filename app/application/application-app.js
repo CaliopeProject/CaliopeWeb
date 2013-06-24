@@ -1,7 +1,10 @@
 define([
-	'angular'
-	], function (angular) {
+	'angular',
+	'application-servicesWebSocket'
+	], function (
+	  angular,
+	  webSocket
+	  ){
 		'use strict';
-
-		return angular.module('caliope',[]);
+		return angular.module('caliope',['webSocket']);
 });
