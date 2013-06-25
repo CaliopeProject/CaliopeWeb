@@ -18,11 +18,13 @@ define(['angular'], function(angular) {
   
   angular.module('cwDform',[]).directive('cwDform', function($compile) {  
     return {        
-        restrict: 'E',
-        link: function(scope, element, attrs) {               
-          var jsonPlantilla = JSON.parse(scope.jsonPlantilla);
-          $(element).dform(jsonPlantilla); 
-          $compile(element.contents())(scope);
+        restrict: 'E',        
+        link: function(scope, element, attrs) {                  
+          //scope.jsonPlantilla = 'A';
+          //scope.jsonPlantilla = 'B';
+          //var jsonPlantilla = JSON.parse(scope.jsonPlantilla);
+          //$(element).dform(jsonPlantilla); 
+          //$compile(element.contents())(scope);
         },          
     };
   });

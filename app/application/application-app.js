@@ -10,5 +10,9 @@ define([
 	  webSocket
 	  ){
 		'use strict';
-		return angular.module('caliope',['webSocket', 'caliopeweb-templateService','cwForm', 'caliopeFormsCtrl','cwDform', 'ProyectoCtrl']);
+		return angular.module('caliope',['webSocket', 
+		                                 'caliopewebTemplateSrv', 
+		                                 'caliopewebFormsCtrl', 'ProyectoCtrl',
+		                                 'cwForm', 'cwDform', 
+		                                ]);
 });

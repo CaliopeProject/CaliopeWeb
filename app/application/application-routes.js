@@ -8,7 +8,7 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl: '/app/partials/partial2.html'    });
     $routeProvider.when('/proyectomtv/:plantilla/:mode', {
       templateUrl: '/proyectosmtv/proyecto-form.html'});   
-    $routeProvider.otherwise({redirectTo: '/view1'});
+    //$routeProvider.otherwise({redirectTo: '/view1'});
   }]);
 
 });
