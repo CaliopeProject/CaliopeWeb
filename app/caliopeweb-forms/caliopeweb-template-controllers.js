@@ -10,29 +10,22 @@ define(['angular'], function(angular) {
     caliopeForm.mode = $routeParams.mode; 
     $scope.caliopeForm = caliopeForm;
     
-    //$scope.jsonPlantilla = 'B';
-    //$scope.jsonPlantilla = 'B';
-    
- 
-    
-    $scope.load = function () {
+     $scope.load = function () {
       
-      //$scope.jsonPlantilla = 'B';           
-      $scope.jsonPlantilla = 'D';      
-      var promise = caliopewebTemplateSrv.load(caliopeForm);
+      //$scope.jsonPlantilla = 'B';                 
+       $scope.jsonPlantilla = caliopewebTemplateSrv.load(caliopeForm);
       
       //$scope.jsonPlantilla = jsonPlantilla;
 
-      $scope.$watch('jsonPlantilla', function(newValue, oldValue) { 
-        console.log('NV:',  newValue);
-        console.log('OV:',  oldValue)
-      }); 
+//      $scope.$watch('jsonPlantilla', function(newValue, oldValue) { 
+//        console.log('NV:',  newValue);
+//        console.log('OV:',  oldValue)
+//      }); 
       
     };    
     
     if( caliopeForm.mode == 'create' || caliopeForm.mode == 'edit') {
       $scope.load();
-      $scope.jsonPlantilla = 'C';
     }
 
   }]);
