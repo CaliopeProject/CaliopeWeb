@@ -11,8 +11,9 @@ define([
 	  ){
 		'use strict';
 		return angular.module('caliope',['webSocket', 
-		                                 'caliopewebTemplateSrv', 
-		                                 'caliopewebFormsCtrl', 'ProyectoCtrl',
-		                                 'cwForm', 'cwDform', 
+		                                 'CaliopeWebTemplatesServices', 
+		                                 'CaliopeWebTemplateControllers', 
+		                                 'ProyectoControllers',
+		                                 'CaliopeWebFormDirectives' 
 		                                ]);
 });
