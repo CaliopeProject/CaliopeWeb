@@ -6,6 +6,9 @@
     "angular-unstable"           : "~1.1.0",
     "angular-ui-bootstrap-bower" : "~0.3.0",    
     "requirejs"                  : "~2.1.6",
-    "jquery.dform"				 : "~1.1.0"
+    "jquery.dform"		 : "~1.1.0",
+    "jquery-file-upload"         : "~8.4.2",
+    "blueimp-load-image"         : "~1.7.3",
+    "blueimp-canvas-to-blob"     : "~2.0.6" 
   }
 }
