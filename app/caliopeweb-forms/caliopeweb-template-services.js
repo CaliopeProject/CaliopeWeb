@@ -7,7 +7,7 @@ define(['angular'], function(angular) {
       ['$q', '$rootScope', '$http', 'webSocket',  
        function($q, $rootScope, $http, webSocket) {
     
- // We return this object to anything injecting our service
+    //We return this object to anything injecting our service
     var Service = {};
 
     // Define a "getter" for getting customer data
@@ -21,13 +21,10 @@ define(['angular'], function(angular) {
   	      "uid" : null
 				};
       var promise = {};
-      var webSocketCaliope = webSocket.WebSocketCaliope("ws://127.0.0.1:8080/WebSocketTest/Templates");      
-      var webSocketTemplates = webSocket.WebSockets("templates");
-      //console.log("getConfig", webSocketTemplates.getConfig());
-
-      //alert('esperar');
-      promise = webSocketCaliope.sendRequest(request);
-      //promise = webSocket.sendRequest(request);
+      
+      var webSockets = webSocket.WebSockets();
+      promise = webSockets.templates.sendRequest(request);
+            
       return promise;
     }
 
