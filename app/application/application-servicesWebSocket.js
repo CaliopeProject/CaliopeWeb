@@ -1,6 +1,6 @@
 define(['angular'], function(angular) {
   'use strict';
-  angular.module('webSocket', []).factory('webSocket', ['$q', function($q) {
+  angular.module('webSocket', []).factory('MyService', ['$q', function($q) {
     // We return this object to anything injecting our service
     var Service = {};
     // Keep all pending requests here until they get responses

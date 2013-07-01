@@ -4,6 +4,7 @@ require.config({
     angular                          : 'libs-js-thirdparty/angular-unstable/angular',
     'application-app'                : 'application/application-app',
     'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
+    'application-controller'         : 'application/application-controller',
     'application-routes'             : 'application/application-routes'
   },
   baseUrl: '/',
@@ -12,6 +13,7 @@ require.config({
     'application-app'                : {'exports' : 'app'},
     'application-routes'             : {'exports' : 'routes'},
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
+    'application-controller'         : {'exports' : 'appcontroller'},
     'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
