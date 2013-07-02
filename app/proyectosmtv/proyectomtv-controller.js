@@ -9,8 +9,9 @@ define(['angular'], function(angular) {
       var id = $scope.proyecto.id;
       var nombre = $scope.proyecto.nombre;  
       
-      alert(id + ' ' + nombre);
-      //proyectoSrv.create(id, nombre); 
+      console.log('proyecto', $scope.proyecto)
+      
+      proyectoSrv.create($scope.proyecto); 
     };  
         
   }]); 
