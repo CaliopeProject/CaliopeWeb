@@ -8,7 +8,8 @@ define(['angular'], function(angular) {
     // Create a unique callback ID to map requests to responses
     var currentCallbackId = 0;
     // Create our websocket object with the address to the websocket
-    var ws = new WebSocket("ws://localhost:8000/socket/");
+    var ws = new WebSocket('ws://localhost:3333/sock');
+        //ws.send(JSON.stringify(request));
 
       ws.onopen = function(){
         console.log("Socket has been opened!");
@@ -27,7 +28,7 @@ define(['angular'], function(angular) {
         };
         request.callback_id = callbackId;
         console.log('Sending request', request);
-        ws.send(JSON.stringify(request));
+        ws.send("Here's some text that the server is urgently awaiting!"); 
         return defer.promise;
       }
 
@@ -58,6 +59,10 @@ define(['angular'], function(angular) {
         // Storing in a variable for clarity on what sendRequest returns
         var promise = sendRequest(request);
         return promise;
+      }
+
+      Service.getUndato = function(){
+        return { midato : 'Un dato para mostrar'}
       }
 
       return Service;
