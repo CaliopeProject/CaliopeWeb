@@ -8,7 +8,7 @@ define(['angular'], function(angular) {
     // Create a unique callback ID to map requests to responses
     var currentCallbackId = 0;
     // Create our websocket object with the address to the websocket
-    var ws = new WebSocket('ws://localhost:3333/sock');
+    var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/api/ws');
         //ws.send(JSON.stringify(request));
 
       ws.onopen = function(){
@@ -16,6 +16,7 @@ define(['angular'], function(angular) {
       };
 
       ws.onmessage = function(message) {
+        console.log("respuesta!");
         listener(JSON.parse(message.data));
       };
 
