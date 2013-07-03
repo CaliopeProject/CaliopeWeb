@@ -10,10 +10,8 @@ define(['angular'], function(angular) {
         $scope.create = function () {
           var id = $scope.proyecto.id;
           var nombre = $scope.proyecto.nombre;  
-          
-          console.log('proyecto', $scope.proyecto)
-          
-          //service.create($scope.proyecto); 
+                    
+          service.create($scope.proyecto); 
         };         
       }]
   ); 

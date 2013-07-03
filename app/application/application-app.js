@@ -6,7 +6,7 @@ define([
 	'caliopeweb-templateControllers',
 	'caliopeweb-formDirectives',	
 	'proyectosmtv-controller',
-	'proyectosmtv-services'
+	'proyectosmtv-service'
 	], function (
 	  angular,
 	  webSocket

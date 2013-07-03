@@ -25,7 +25,7 @@ define(['angular'], function(angular) {
           "version" : "3",
 				};
       var promise = {};
-      alert('Send Request');
+      
       var webSockets = webSocket.WebSockets();
       promise = webSockets.templates.sendRequest(request);
             
