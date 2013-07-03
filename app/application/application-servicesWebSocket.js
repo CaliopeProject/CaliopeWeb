@@ -13,7 +13,7 @@ define(['angular'], function(angular) {
 
       ws.onopen = function(){
         console.log("Socket has been opened!");
-        ws.send("Here's some text that the server is urgently awaiting!"); 
+        ws.send("Here's some text that the server is urgently awaiting!");
       };
 
       ws.onmessage = function(message) {
@@ -23,15 +23,15 @@ define(['angular'], function(angular) {
 
 
       function sendRequest(request) {
-        //var defer = $q.defer();
-        //var callbackId = getCallbackId();
-        //callbacks[callbackId] = {
-          //time: new Date(),
-          //cb:defer
-        //};
-        //request.callback_id = callbackId;
-        //console.log('Sending request', request);
-        //return defer.promise;
+        var defer = $q.defer();
+        var callbackId = getCallbackId();
+        callbacks[callbackId] = {
+          time: new Date(),
+          cb:defer
+        };
+        request.callback_id = callbackId;
+        console.log('Sending request', request);
+        return defer.promise;
       }
 
       function listener(data) {
