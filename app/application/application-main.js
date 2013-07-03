@@ -6,21 +6,25 @@ require.config({
     'application-app'                : 'application/application-app',
     'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
     'application-routes'             : 'application/application-routes',
+    'application-controller'         : 'application/application-controller',
     'caliopeweb-templateServices'    : 'caliopeweb-forms/caliopeweb-template-services',    
     'caliopeweb-templateControllers' : 'caliopeweb-forms/caliopeweb-template-controllers',
     'caliopeweb-formDirectives'      : 'caliopeweb-forms/caliopeweb-form-directives',
-    'proyectosmtv-controller'        : 'proyectosmtv/proyectomtv-controller'
+    'proyectosmtv-controller'        : 'proyectosmtv/proyectomtv-controller',
+    'proyectosmtv-service'           : 'proyectosmtv/proyectomtv-service'    
   },
   baseUrl: '/',
   shim: {
     'angular'                        : {'exports' : 'angular'},
     'application-app'                : {'exports' : 'app'},
-    'application-routes'             : {'exports' : 'routes'},
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
+    'application-routes'             : {'exports' : 'routes'},    
+    'application-controller'         : {'exports' : 'application-controller'},
     'caliopeweb-templateServices'    : {'exports' : 'caliopeweb-templateServices'},
     'caliopeweb-formDirectives'      : {'exports' : 'caliopeweb-formDirectives'},
     'caliopeweb-templateControllers' : {'exports' : 'caliopeweb-templateControllers'},
     'proyectosmtv-controller'        : {'exports' : 'proyectosmtv-controller'},
+    'proyectosmtv-service'           : {'exports' : 'proyectosmtv-service'},
     'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
@@ -36,9 +40,7 @@ require([
   'application-routes'
 ], function($, dform, angular, app, routes) {
   'use strict';
-
-  $(document).ready(function () {
-
+  $(document).ready(function () {    
     var $html = $('html');
     angular.bootstrap($html, [app['name']]);
     // Because of RequireJS we need to bootstrap the app app manually

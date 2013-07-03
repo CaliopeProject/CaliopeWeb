@@ -5,17 +5,22 @@ define(['angular'], function(angular) {
     
       var Service = {}; 
       var webSockets = {};
-      initWebSockets();   
+      //initWebSockets();   
         
       function initWebSockets() {                
         var wsTemplates = new WebSocketCaliope(
             "ws://127.0.0.1:8080/WebSocketTest/Templates"
+            //"ws://192.168.0.25:8099/api/ws"
           );
         var wsLogin = new WebSocketCaliope(
             "ws://127.0.0.1:8080/WebSocketTest/Templates"
           );
+        var wsTemplateLayout = new WebSocketCaliope(
+            "ws://127.0.0.1:8080/WebSocketTest/TemplatesLayout"
+          );
         webSockets.templates = wsTemplates;
         webSockets.login = wsLogin;
+        webSockets.templatesLayout = wsTemplateLayout;
       }
       
       function WebSocketCaliope(Url) {
@@ -40,8 +45,8 @@ define(['angular'], function(angular) {
           listener(JSON.parse(message.data));
         }; 
         
-        ws.onerror = function() {
-          
+        ws.onerror = function(errorEvent) {
+          console.log("Error en ws! ", errorEvent);
         }
         
         function getStatus() {
@@ -69,6 +74,8 @@ define(['angular'], function(angular) {
           var messageObj = data;
           console.log("Received data from websocket: ", messageObj);
           // If an object exists with callback_id in our callbacks object, resolve it
+//          console.log("messageObj.callback_id:", messageObj.callback_id);
+//          console.log("messageObj.data:", messageObj.data);
           if(callbacks.hasOwnProperty(messageObj.callback_id)) {
             $rootScope.$apply(
                 callbacks[messageObj.callback_id].cb.resolve(messageObj.data)
@@ -89,6 +96,10 @@ define(['angular'], function(angular) {
     
       Service.WebSockets = function() {
         return webSockets;
+      }
+      
+      Service.initWebSockets = function() {
+        initWebSockets();
       }
     
    

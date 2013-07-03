@@ -1,19 +1,27 @@
 define([
 	'angular',
 	'application-servicesWebSocket',
+	'application-controller',
 	'caliopeweb-templateServices',
 	'caliopeweb-templateControllers',
 	'caliopeweb-formDirectives',	
-	'proyectosmtv-controller'
+	'proyectosmtv-controller',
+	'proyectosmtv-services'
 	], function (
 	  angular,
 	  webSocket
 	  ){
 		'use strict';
-		return angular.module('caliope',['webSocket', 
+		var moduleApp = angular.module('caliope',[
+		                                 'webSocket', 
+		                                 'CaliopeController',
 		                                 'CaliopeWebTemplatesServices', 
-		                                 'CaliopeWebTemplateControllers', 
-		                                 'ProyectoControllers',
-		                                 'CaliopeWebFormDirectives' 
+		                                 'CaliopeWebTemplateControllers',
+		                                 'CaliopeWebFormDirectives',
+		                                 'ProyectoControllers',		                                 
+		                                 'ProyectoServices'
 		                                ]);
+
+		
+		return moduleApp;
 });
