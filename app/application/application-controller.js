@@ -1,4 +1,4 @@
-define(['angular'], function(angular) {
+define(['angular', 'application-servicesWebSocket'], function(angular, webSocket) {
   'use strict';
 
   var module = angular.module('CaliopeController', ['webSocket']);
@@ -12,7 +12,11 @@ define(['angular'], function(angular) {
         }
         
       }]
-  )
+  );
+  
+  module.controller('firstForm', ['$scope','MyService', function($scope, MyService){
+    $scope.customers = MyService.getCustomers();
+    $scope.undato    = MyService.getUndato();
+  }]);
     
 });
-

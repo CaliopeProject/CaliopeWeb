@@ -1,7 +1,7 @@
 define([
 	'angular',
-	'application-servicesWebSocket',
 	'application-controller',
+  'application-servicesWebSocket',	
 	'caliopeweb-templateServices',
 	'caliopeweb-templateControllers',
 	'caliopeweb-formDirectives',	
@@ -9,10 +9,11 @@ define([
 	'proyectosmtv-service'
 	], function (
 	  angular,
-	  webSocket
+	  webSocket,
+	  appcontroller
 	  ){
 		'use strict';
-		var moduleApp = angular.module('caliope',[
+		var moduleApp = angular.module('caliope',['CaliopeController',
 		                                 'webSocket', 
 		                                 'CaliopeController',
 		                                 'CaliopeWebTemplatesServices', 
@@ -21,7 +22,6 @@ define([
 		                                 'ProyectoControllers',		                                 
 		                                 'ProyectoServices'
 		                                ]);
-
 		
 		return moduleApp;
-});
+})		

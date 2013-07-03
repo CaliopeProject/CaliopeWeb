@@ -5,8 +5,8 @@ require.config({
     angular                          : 'libs-js-thirdparty/angular-unstable/angular',
     'application-app'                : 'application/application-app',
     'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
-    'application-routes'             : 'application/application-routes',
     'application-controller'         : 'application/application-controller',
+    'application-routes'             : 'application/application-routes',
     'caliopeweb-templateServices'    : 'caliopeweb-forms/caliopeweb-template-services',    
     'caliopeweb-templateControllers' : 'caliopeweb-forms/caliopeweb-template-controllers',
     'caliopeweb-formDirectives'      : 'caliopeweb-forms/caliopeweb-form-directives',
@@ -19,6 +19,7 @@ require.config({
     'application-app'                : {'exports' : 'app'},
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
     'application-routes'             : {'exports' : 'routes'},    
+    'application-controller'         : {'exports' : 'appcontroller'},    
     'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
