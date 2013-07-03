@@ -12,15 +12,17 @@ define(['angular'], function(angular) {
             "ws://127.0.0.1:8080/WebSocketTest/Templates"
             //"ws://192.168.0.25:8099/api/ws"
           );
+        /*
         var wsLogin = new WebSocketCaliope(
             "ws://127.0.0.1:8080/WebSocketTest/Templates"
           );
         var wsTemplateLayout = new WebSocketCaliope(
             "ws://127.0.0.1:8080/WebSocketTest/TemplatesLayout"
           );
+        */
         webSockets.templates = wsTemplates;
-        webSockets.login = wsLogin;
-        webSockets.templatesLayout = wsTemplateLayout;
+        //webSockets.login = wsLogin;
+        //webSockets.templatesLayout = wsTemplateLayout;
       }
       
       function WebSocketCaliope(Url) {
