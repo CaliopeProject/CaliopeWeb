@@ -11,7 +11,7 @@
     "blueimp-load-image"         : "~1.7.3",
     "heron-mc"                   : "~0.7.3",
     "geoext"                     : "~1.1.0",
-    "openlayers"                 : null    ,
+    "openlayers"                 : "release-2.13-rc7",
     "blueimp-canvas-to-blob"     : "~2.0.6"
   }
 }
