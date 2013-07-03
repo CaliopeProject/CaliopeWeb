@@ -2,7 +2,7 @@ require.config({
   paths: {    
     jquery                           : 'libs-js-thirdparty/jquery/jquery',
     dform                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
-    angular                          : 'libs-js-thirdparty/angular-unstable/angular',    
+    angular                          : 'libs-js-thirdparty/angular-unstable/angular',
     'application-app'                : 'application/application-app',
     'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
     'application-routes'             : 'application/application-routes',
@@ -19,12 +19,6 @@ require.config({
     'application-app'                : {'exports' : 'app'},
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
     'application-routes'             : {'exports' : 'routes'},    
-    'application-controller'         : {'exports' : 'application-controller'},
-    'caliopeweb-templateServices'    : {'exports' : 'caliopeweb-templateServices'},
-    'caliopeweb-formDirectives'      : {'exports' : 'caliopeweb-formDirectives'},
-    'caliopeweb-templateControllers' : {'exports' : 'caliopeweb-templateControllers'},
-    'proyectosmtv-controller'        : {'exports' : 'proyectosmtv-controller'},
-    'proyectosmtv-service'           : {'exports' : 'proyectosmtv-service'},
     'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
