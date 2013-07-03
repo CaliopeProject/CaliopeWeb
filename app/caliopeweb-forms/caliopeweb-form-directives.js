@@ -42,21 +42,40 @@ define(['angular'], function(angular) {
           if( value != null ) {
             renderDForm(value);
           }
-      });
+        });
+        
+        scope.$watch(attrs.layout, function(value) {          
+          if( value != null ) {
+            applyLayout(value);
+          }
+        });
       
-      /*
-       * Function that print the form with dForm  
-       */
-      function renderDForm(jsonPlantilla) {
-        try {
-          //var plantilla = JSON.parse(jsonPlantilla);
-          var plantilla = jsonPlantilla;
-          $(element).dform(plantilla); 
-          $compile(element.contents())(scope);
-        } catch (e) {
-          console.log('Error generating the dynamic form with dForm:', e)
+        /*
+         * Function that print the form with dForm  
+         */
+        function renderDForm(templateData) {
+          try {
+            //var plantilla = JSON.parse(templateData);
+            var plantilla = templateData;
+            $(element).dform(plantilla); 
+            $compile(element.contents())(scope);
+          } catch (e) {
+            console.log('Error generating the dynamic form with dForm:', e)
+          }
+        }    
+        
+        function applyLayout(templateLayout) {
+          console.log('$(element)', $(element));
+          var selector = '[name*=":name"]';
+          
+          for ( var i in templateLayout) {
+            var name = templateLayout[i].name;
+            var classTags = templateLayout[i].classTags;
+            var selectorDef = selector.replace(':name', name);
+            $(selectorDef).removeClass();
+            $(selectorDef).addClass(classTags);
+          }          
         }
-      }      
     }
     
     return linkFunction;

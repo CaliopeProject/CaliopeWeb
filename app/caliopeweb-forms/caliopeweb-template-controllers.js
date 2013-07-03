@@ -15,24 +15,24 @@ define(['angular'], function(angular) {
    */
   moduleControllers.controller('CaliopeWebTemplateCtrl', 
       ['caliopewebTemplateSrv', '$scope', '$routeParams', 
-       function (service, $scope, $routeParams) {
+      function (service, $scope, $routeParams) {
 
-    var caliopeForm = new Object(); 
-    
-    caliopeForm.id = $routeParams.plantilla;
-    caliopeForm.mode = $routeParams.mode; 
-    $scope.caliopeForm = caliopeForm;
-    
-    alert('caliopewebFormsCtrl');     
-    
-    $scope.load = function () {                       
-      $scope.jsonPlantilla = service.load(caliopeForm);       
-    };
-    
-    if( caliopeForm.mode == 'create' || caliopeForm.mode == 'edit') {
-      $scope.load();
-    }
+        var caliopeForm = new Object(); 
+        
+        caliopeForm.id = $routeParams.plantilla;
+        caliopeForm.mode = $routeParams.mode; 
+        $scope.caliopeForm = caliopeForm;
+                
+        $scope.load = function () {                       
+          $scope.jsonPlantilla = service.loadTemplateData(caliopeForm);
+          //$scope.jsonPlantillaLayout = service.loadTemplateLayout(caliopeForm)
+        };
+        
+        if( caliopeForm.mode == 'create' || caliopeForm.mode == 'edit') {
+          $scope.load();
+        }
 
-  }]);
+      }
+      ]);
   
 });
