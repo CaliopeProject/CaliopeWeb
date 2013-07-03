@@ -9,7 +9,6 @@ define(['angular'], function(angular) {
         
         $scope.init = function() {
           webSocket.initWebSockets();
-          console.log('init');
         }
         
       }]
