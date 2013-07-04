@@ -1,8 +1,8 @@
-define(['angular'], function(angular) {
+define(['angular', 'uuid'], function(angular, uuid) {
   'use strict';
   angular.module('webSocket', []).factory('webSocket', 
-      ['$q', '$rootScope', function($q, $rootScope) {
-    
+      ['$q', '$rootScope', function($q, $rootScope, uuid) {
+      
       var Service = {}; 
       var webSockets = {};
       //initWebSockets();   
@@ -11,6 +11,7 @@ define(['angular'], function(angular) {
         var wsTemplates = new WebSocketCaliope(
             "ws://127.0.0.1:8080/WebSocketTest/Templates"
             //"ws://192.168.0.25:8099/api/ws"
+            //"ws://192.168.50.101:9000/api/ws"
           );
         /*
         var wsLogin = new WebSocketCaliope(
@@ -61,7 +62,7 @@ define(['angular'], function(angular) {
         
         function sendRequest (request) {
           var defer = $q.defer();
-          var callbackId = getCallbackId();
+          var callbackId = UUIDjs.create().hex;
           callbacks[callbackId] = {
             time: new Date(),
             cb:defer
@@ -85,14 +86,6 @@ define(['angular'], function(angular) {
             delete callbacks[messageObj.callbackID];
           }
         }
-        // This creates a new callback ID for a request
-        var getCallbackId = function () {
-          currentCallbackId += 1;
-          if(currentCallbackId > 10000) {
-            currentCallbackId = 0;
-          }
-          return currentCallbackId;
-        } 
         
       }
     
@@ -103,8 +96,7 @@ define(['angular'], function(angular) {
       Service.initWebSockets = function() {
         initWebSockets();
       }
-    
-   
+     
       return Service;
 
   }])
