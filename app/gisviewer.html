@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Ejemplo basico</title>
+<link rel="stylesheet" type="text/css"
+	href="http://extjs.cachefly.net/ext-3.4.0/resources/css/ext-all.css" />	
+<link rel="stylesheet" type="text/css"
+	href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css" />
+<script data-main="application/application-main" src="libs-js-thirdparty/requirejs/require.js"></script>
+
+	
+<!-- OpenLayers - System Settings -->
+	<script type="text/javascript">
+		// --- OpenLayers - no pink tiles ---
+		
+		// OpenLayers.Util.MISSING_TILE_URL = "http://xxx.com/GEO/404.png";
+		// OpenLayers.Util.OSM.MISSING_TILE_URL = "http://openstreetmap.org/openlayers/img/404.png";
+		// Do not display any warning for missing tiles
+		// OpenLayers.Util.onImageLoadError = function(){this.src='http://xxx.com/LIB/OpenLayers/img/blank.gif';}
+		
+		// --- OpenLayers - ProxyHost, needed for Ajax requests like GetFeatureInfo ---
+		// OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
+		// OpenLayers.ProxyHost = "/cgi-bin/proxy.py?url=";
+		//OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
+		// Make openlayers compute scale according to the WMS spec (default is 72 dpi)
+		// 25.4 / 0.28 = 90.714285714285714285714285714286
+		
+	</script>
+
+</head>
+<body>
+
+</body>
+</html>
+
