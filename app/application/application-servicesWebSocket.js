@@ -1,8 +1,8 @@
-define(['angular'], function(angular) {
+define(['angular', 'uuid'], function(angular, uuid) {
   'use strict';
   angular.module('webSocket', []).factory('webSocket', 
-      ['$q', '$rootScope', function($q, $rootScope) {
-    
+      ['$q', '$rootScope', function($q, $rootScope, uuid) {
+      
       var Service = {}; 
       var webSockets = {};
       //initWebSockets();   
@@ -62,7 +62,7 @@ define(['angular'], function(angular) {
         
         function sendRequest (request) {
           var defer = $q.defer();
-          var callbackId = getCallbackId();
+          var callbackId = UUIDjs.create().hex;
           callbacks[callbackId] = {
             time: new Date(),
             cb:defer
@@ -86,14 +86,6 @@ define(['angular'], function(angular) {
             delete callbacks[messageObj.callbackID];
           }
         }
-        // This creates a new callback ID for a request
-        var getCallbackId = function () {
-          currentCallbackId += 1;
-          if(currentCallbackId > 10000) {
-            currentCallbackId = 0;
-          }
-          return currentCallbackId;
-        } 
         
       }
     
