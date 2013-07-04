@@ -2,16 +2,21 @@ require.config({
   paths: {    
     jquery                           : 'libs-js-thirdparty/jquery/jquery',
     dform                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
-    angular                          : 'libs-js-thirdparty/angular-unstable/angular',    
+    angular                          : 'libs-js-thirdparty/angular-unstable/angular',
+    Crypto                           : 'libs-js-thirdparty/cryptojs/lib/Crypto',    
+    CryptoSHA256                     : 'libs-js-thirdparty/cryptojs/lib/SHA256',    
     'application-app'                : 'application/application-app',
     'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
-    'application-routes'             : 'application/application-routes',
     'application-controller'         : 'application/application-controller',
+    'application-routes'             : 'application/application-routes',
     'caliopeweb-templateServices'    : 'caliopeweb-forms/caliopeweb-template-services',    
     'caliopeweb-templateControllers' : 'caliopeweb-forms/caliopeweb-template-controllers',
     'caliopeweb-formDirectives'      : 'caliopeweb-forms/caliopeweb-form-directives',
     'proyectosmtv-controller'        : 'proyectosmtv/proyectomtv-controller',
-    'proyectosmtv-service'           : 'proyectosmtv/proyectomtv-service'    
+    'proyectosmtv-service'           : 'proyectosmtv/proyectomtv-service',
+    'login-services'                 : 'login/login-services',
+    'login-controllers'              : 'login/login-controllers',    
+    'application-routes'             : 'application/application-routes'
   },
   baseUrl: '/',
   shim: {
@@ -19,12 +24,7 @@ require.config({
     'application-app'                : {'exports' : 'app'},
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
     'application-routes'             : {'exports' : 'routes'},    
-    'application-controller'         : {'exports' : 'application-controller'},
-    'caliopeweb-templateServices'    : {'exports' : 'caliopeweb-templateServices'},
-    'caliopeweb-formDirectives'      : {'exports' : 'caliopeweb-formDirectives'},
-    'caliopeweb-templateControllers' : {'exports' : 'caliopeweb-templateControllers'},
-    'proyectosmtv-controller'        : {'exports' : 'proyectosmtv-controller'},
-    'proyectosmtv-service'           : {'exports' : 'proyectosmtv-service'},
+    'application-controller'         : {'exports' : 'appcontroller'},    
     'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
@@ -35,10 +35,12 @@ require.config({
 require([
   'jquery',
   'dform',
+  'Crypto',  
+  'CryptoSHA256',
   'angular',   
   'application-app',
   'application-routes'
-], function($, dform, angular, app, routes) {
+], function($, dform, crypto, CryptoSHA256, angular, app, routes) {
   'use strict';
   $(document).ready(function () {    
     var $html = $('html');
