@@ -104,8 +104,7 @@ define(['angular'], function(angular) {
       Service.initWebSockets = function() {
         initWebSockets();
       }
-    
-   
+     
       return Service;
 
   }])

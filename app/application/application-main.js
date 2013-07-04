@@ -16,6 +16,7 @@ require.config({
     'proyectosmtv-service'           : 'proyectosmtv/proyectomtv-service',
     'login-services'                 : 'login/login-services',
     'login-controllers'              : 'login/login-controllers'    
+    'application-routes'             : 'application/application-routes'
   },
   baseUrl: '/',
   shim: {

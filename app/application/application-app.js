@@ -1,4 +1,5 @@
 define([
+<<<<<<< HEAD
 	'angular',
 	'application-controller',
   'application-servicesWebSocket',	
@@ -28,4 +29,4 @@ define([
 		                                ]);
 		
 		return moduleApp;
-})		
+});
