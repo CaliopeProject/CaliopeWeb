@@ -35,11 +35,11 @@ require.config({
     'application-routes'             : {'exports' : 'routes'},
     'application-controller'         : {'exports' : 'appcontroller'},
     'dform'                          : {deps      : ['jquery']},
-    'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
-	'geoext'                          : {deps      : ['ext-all','ext-base','openlayers']},
-	'heron'                          : {deps      : ['geoext']},
-	'Layout'                          : {deps      : ['heron']},
-	'Options'                          : {deps      : ['Layout']}
+    'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'},
+    'geoext'                         : {deps      : ['ext-all','ext-base','openlayers']},
+    'heron'                          : {deps      : ['geoext']},
+    'Layout'                         : {deps      : ['heron']},
+    'Options'                        : {deps      : ['Layout']}
   },
   priority: [
     "angular"
