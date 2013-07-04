@@ -11,6 +11,7 @@ define(['angular'], function(angular) {
         var wsTemplates = new WebSocketCaliope(
             "ws://127.0.0.1:8080/WebSocketTest/Templates"
             //"ws://192.168.0.25:8099/api/ws"
+            //"ws://192.168.50.101:9000/api/ws"
           );
         /*
         var wsLogin = new WebSocketCaliope(
