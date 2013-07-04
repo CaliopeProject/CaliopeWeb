@@ -27,6 +27,7 @@ require.config({
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
     'application-routes'             : {'exports' : 'routes'},
     'application-controller'         : {'exports' : 'appcontroller'},
+    'CryptoSHA256'                   : {deps      : ['Crypto']},
     'dform'                          : {deps      : ['jquery']},
     'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
   },
@@ -37,13 +38,10 @@ require.config({
 
 require([
   'jquery',
-  'dform',
-  'Crypto',
-  'CryptoSHA256',
   'angular',
   'application-app',
   'application-routes'
-], function(jQuery, dform, crypto, CryptoSHA256, angular, app, routes) {
+], function(jQuery, angular, app, routes) {
   'use strict';
   $(document).ready(function () {
     var $html = $('html');

@@ -1,4 +1,4 @@
-define(['angular'], function(angular) {
+define(['angular', 'dform'], function(angular) {
   'use strict';  
 
   var moduleDirectives = angular.module('CaliopeWebFormDirectives', []);

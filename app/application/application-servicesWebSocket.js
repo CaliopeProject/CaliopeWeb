@@ -10,15 +10,14 @@ define(['angular', 'uuid'], function(angular, uuid) {
       var webSockets = {};
 
       function initWebSockets() {
-        var wsTemplates = new WebSocketCaliope('ws://' + document.domain + ':' + location.port + '/api/ws'
+        var wsTemplates = new WebSocketCaliope("ws://127.0.0.1:8080/WebSocketTest/Templates"
           );
         webSockets.templates = wsTemplates;
         //webSockets.login = wsLogin;
         //webSockets.templatesLayout = wsTemplateLayout;
       }
 
-      function WebSocketCaliope(Url) {
-
+      function WebSocketCaliope(Url) {        
         // Keep all pending requests here until they get responses
         var callbacks = {};
         // Create a unique callback ID to map requests to responses

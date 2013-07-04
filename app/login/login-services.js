@@ -1,4 +1,4 @@
-define(['angular'], function(angular) {
+define(['angular', 'CryptoSHA256'], function(angular) {
   'use strict';
   
   var moduleServices = angular.module('LoginServices', []);
@@ -6,9 +6,9 @@ define(['angular'], function(angular) {
   moduleServices.factory('LoginSrv', 
       ['$q', '$rootScope', '$http', 'webSocket', 
        function($q, $rootScope, $http, webSocket) {
+        
         return {
-          authenticate : function(login) {
-            
+          authenticate : function(login) {  
             var user = login.username;
             var pwdSHA256 = Crypto.SHA256(login.password);
             var _login = {};
