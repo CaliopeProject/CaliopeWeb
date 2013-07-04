@@ -5,7 +5,12 @@ require.config({
     angular                          : 'libs-js-thirdparty/angular-unstable/angular',
     uuid                             : 'libs-js-thirdparty/uuid-js/lib/uuid',
     Crypto                           : 'libs-js-thirdparty/cryptojs/lib/Crypto',    
-    CryptoSHA256                     : 'libs-js-thirdparty/cryptojs/lib/SHA256',    
+    CryptoSHA256                     : 'libs-js-thirdparty/cryptojs/lib/SHA256',
+    heron                            : 'libs-js-thirdparty/heron-mc',
+    geoext                           : 'libs-js-thirdparty/geoext',
+    openlayers                       : 'libs-js-thirdparty/openlayers',
+    'ext-all'                        : 'libs-js-thirdparty/ext-all',
+    'ext-base'                       : 'libs-js-thirdparty/ext-base',
     'application-app'                : 'application/application-app',
     'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
     'application-controller'         : 'application/application-controller',
@@ -17,7 +22,9 @@ require.config({
     'proyectosmtv-service'           : 'proyectosmtv/proyectomtv-service',
     'login-services'                 : 'login/login-services',
     'login-controllers'              : 'login/login-controllers',    
-    'application-routes'             : 'application/application-routes'
+    'application-routes'             : 'application/application-routes',
+    'Layout'                         : 'gis-viewer/Layout',
+    'Options'                        : 'gis-viewer/Options'
   },
   baseUrl: '/',
   shim: {
