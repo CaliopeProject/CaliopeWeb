@@ -6,7 +6,9 @@ define([
 	'caliopeweb-templateControllers',
 	'caliopeweb-formDirectives',	
 	'proyectosmtv-controller',
-	'proyectosmtv-service'
+	'proyectosmtv-service',
+	'login-services',
+	'login-controllers'
 	], function (
 	  angular,
 	  webSocket,
@@ -20,7 +22,9 @@ define([
 		                                 'CaliopeWebTemplateControllers',
 		                                 'CaliopeWebFormDirectives',
 		                                 'ProyectoControllers',		                                 
-		                                 'ProyectoServices'
+		                                 'ProyectoServices',
+		                                 'LoginServices',
+		                                 'LoginControllers'
 		                                ]);
 		
 		return moduleApp;

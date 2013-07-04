@@ -3,6 +3,8 @@ require.config({
     jquery                           : 'libs-js-thirdparty/jquery/jquery',
     dform                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
     angular                          : 'libs-js-thirdparty/angular-unstable/angular',
+    Crypto                           : 'libs-js-thirdparty/cryptojs/lib/Crypto',    
+    CryptoSHA256                     : 'libs-js-thirdparty/cryptojs/lib/SHA256',    
     'application-app'                : 'application/application-app',
     'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
     'application-controller'         : 'application/application-controller',
@@ -11,7 +13,9 @@ require.config({
     'caliopeweb-templateControllers' : 'caliopeweb-forms/caliopeweb-template-controllers',
     'caliopeweb-formDirectives'      : 'caliopeweb-forms/caliopeweb-form-directives',
     'proyectosmtv-controller'        : 'proyectosmtv/proyectomtv-controller',
-    'proyectosmtv-service'           : 'proyectosmtv/proyectomtv-service'    
+    'proyectosmtv-service'           : 'proyectosmtv/proyectomtv-service',
+    'login-services'                 : 'login/login-services',
+    'login-controllers'              : 'login/login-controllers'    
   },
   baseUrl: '/',
   shim: {
@@ -30,10 +34,12 @@ require.config({
 require([
   'jquery',
   'dform',
+  'Crypto',  
+  'CryptoSHA256',
   'angular',   
   'application-app',
   'application-routes'
-], function($, dform, angular, app, routes) {
+], function($, dform, crypto, CryptoSHA256, angular, app, routes) {
   'use strict';
   $(document).ready(function () {    
     var $html = $('html');

@@ -10,7 +10,7 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl: '/proyectosmtv/proyecto-form.html'});
     $routeProvider.when('/login/:plantilla/:mode', {
       templateUrl: '/login/login-partial.html'});    
-    $routeProvider.otherwise({redirectTo: '/view1'});
+    //$routeProvider.otherwise({redirectTo: '/view1'});
   }]);
 
 });
