@@ -21,6 +21,8 @@ require.config({
   },
   baseUrl: '/',
   shim: {
+    'jquery'                         : {'exports' : 'jquery'},
+    'jquery'                         : {'exports' : 'jQuery'},
     'angular'                        : {'exports' : 'angular'},
     'application-app'                : {'exports' : 'app'},
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
