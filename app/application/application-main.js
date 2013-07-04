@@ -1,4 +1,5 @@
 require.config({
+//     waitSeconds: 60,
   paths: {
     'jquery'                           : 'libs-js-thirdparty/jquery/jquery',
     'dform'                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
@@ -6,25 +7,37 @@ require.config({
     'uuid'                             : 'libs-js-thirdparty/uuid-js/lib/uuid',
     'Crypto'                           : 'libs-js-thirdparty/cryptojs/lib/Crypto',
     'CryptoSHA256'                     : 'libs-js-thirdparty/cryptojs/lib/SHA256',
-    'application-app'                : 'application/application-app',
-    'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
-    'application-controller'         : 'application/application-controller',
-    'application-routes'             : 'application/application-routes',
-    'caliopeweb-templateServices'    : 'caliopeweb-forms/caliopeweb-template-services',
-    'caliopeweb-templateControllers' : 'caliopeweb-forms/caliopeweb-template-controllers',
-    'caliopeweb-formDirectives'      : 'caliopeweb-forms/caliopeweb-form-directives',
-    'proyectosmtv-controller'        : 'proyectosmtv/proyectomtv-controller',
-    'proyectosmtv-service'           : 'proyectosmtv/proyectomtv-service',
-    'login-services'                 : 'login/login-services',
-    'login-controllers'              : 'login/login-controllers',
-    'application-routes'             : 'application/application-routes',
-	'Layout'                        : 'gis-viewer/Layout',
-	'Options'                        : 'gis-viewer/Options',
-	'ext-all'                        : 'libs-js-thirdparty/ext-all',
-	'ext-base'                        : 'libs-js-thirdparty/ext-base',
-	'heron'                            : 'libs-js-thirdparty/heron-mc',
-	'geoext'                           : 'libs-js-thirdparty/geoext',
-	'openlayers'                       : 'libs-js-thirdparty/openlayers',
+    'application-app'                  : 'application/application-app',
+    'application-servicesWebSocket'    : 'application/application-servicesWebSocket',
+    'application-controller'           : 'application/application-controller',
+    'application-routes'               : 'application/application-routes',
+    'caliopeweb-templateServices'      : 'caliopeweb-forms/caliopeweb-template-services',
+    'caliopeweb-templateControllers'   : 'caliopeweb-forms/caliopeweb-template-controllers',
+    'caliopeweb-formDirectives'        : 'caliopeweb-forms/caliopeweb-form-directives',
+    'proyectosmtv-controller'          : 'proyectosmtv/proyectomtv-controller',
+    'proyectosmtv-service'             : 'proyectosmtv/proyectomtv-service',
+    'login-services'                   : 'login/login-services',
+    'login-controllers'                : 'login/login-controllers',
+    'application-routes'               : 'application/application-routes',
+    
+    'tools-filesuploader-ctrl'         : 'tools-files-uploader/files-uploader-controller',
+    'fileupload'                       : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload',
+    'fileupload-process'               : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-process',
+    'fileupload-image'                 : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-image',
+    'fileupload-audio'                 : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-audio',
+    'fileupload-video'                 : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-video',
+    'fileupload-validate'              : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-validate',
+    'fileupload-angular'               : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-angular',
+    
+     'gis-layout'                      : 'gis-viewer/Layout',
+     'gis-options'                     : 'gis-viewer/Options',
+     'gis-init'                        : 'gis-viewer/Init',
+     'gis-start'                       : 'gis-viewer/Start',
+     'gis-ext-all'                     : 'libs-js-thirdparty/geoext/ext-all',
+     'gis-ext-base'                    : 'libs-js-thirdparty/geoext/ext-base',
+     'gis-heron'                       : 'libs-js-thirdparty/heron-mc/heron',
+     'gis-geoext'                      : 'libs-js-thirdparty/geoext/GeoExt',
+     'gis-openlayers'                  : 'libs-js-thirdparty/openlayers/OpenLayers'
   },
   baseUrl: '/',
   shim: {
@@ -34,12 +47,25 @@ require.config({
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
     'application-routes'             : {'exports' : 'routes'},
     'application-controller'         : {'exports' : 'appcontroller'},
+    
+    'fileupload'                     : {deps      : [  'fileupload-process', 
+                                                       'fileupload-image',             
+                                                       'fileupload-audio',             
+                                                       'fileupload-video',           
+                                                       'fileupload-validate',          
+                                                       'fileupload-angular']},
+               
+    'tools-filesuploader-ctrl'       : {deps      : ['angular', 'jquery', 'fileupload']},
+
     'dform'                          : {deps      : ['jquery']},
-    'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'},
-    'geoext'                         : {deps      : ['ext-all','ext-base','openlayers']},
-    'heron'                          : {deps      : ['geoext']},
-    'Layout'                         : {deps      : ['heron']},
-    'Options'                        : {deps      : ['Layout']}
+    
+    'gis-ext-all'                    : {deps      : ['gis-ext-base']},
+    'gis-geoext'                     : {deps      : ['gis-ext-all','gis-openlayers']},
+    'gis-init'                       : {deps      : ['gis-geoext','gis-ext-all']},
+    'gis-heron'                      : {deps      : ['gis-init']},
+    'gis-start'                      : {deps      : ['gis-heron']},
+    
+    'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
     "angular"

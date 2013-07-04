@@ -1,6 +1,9 @@
-define(['angular,ext-all,ext-base,openlayers,geoext,heron,jQuery'], function(angular,ext-all,ext-base,openlayers,geoext,heron,jQuery) {
+define(['gis-ext-base','gis-openlayers'], function(Ext,OpenLayers) {
   'use strict';
-   heron.layout = {
+
+Ext.namespace("Heron");
+
+   Heron.layout = {
 	xtype: 'panel',
 	id: 'hr-container-main',
 	layout: 'border',
@@ -72,7 +75,7 @@ define(['angular,ext-all,ext-base,openlayers,geoext,heron,jQuery'], function(ang
 					region: 'center',
 					collapsible: false,
 					border: false,
-					hropts: heron.options.map
+					hropts: Heron.options.map
 				}
 			]
 		},
@@ -109,4 +112,5 @@ define(['angular,ext-all,ext-base,openlayers,geoext,heron,jQuery'], function(ang
 		}
 	]
 };
+
 });

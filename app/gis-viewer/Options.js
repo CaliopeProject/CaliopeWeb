@@ -1,5 +1,8 @@
-define(['angular,ext-all,ext-base,openlayers,geoext,heron,jQuery'], function(angular,ext-all,ext-base,openlayers,geoext,heron,jQuery) {
+define(['gis-ext-base','gis-openlayers','gis-heron'], function(Ext,OpenLayers,Heron) {
   'use strict';
+
+Ext.namespace("Heron");
+
 OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.Tile.Image.useBlankTile = false;
@@ -8,7 +11,7 @@ var bounds = new OpenLayers.Bounds(
         -74.45030703362895, 3.7310251306313797,
         -73.98650718403472, 4.836778959081053
     );
-heron.options.map.settings = {
+Heron.options.map.settings = {
 	projection: 'EPSG:4686',
 	units: 'degrees',
 	maxExtent: bounds,
@@ -19,7 +22,7 @@ heron.options.map.settings = {
 	theme: null
 };
 
-heron.options.map.layers = [
+Heron.options.map.layers = [
 
                         	/*
                         	 * ==================================
@@ -45,7 +48,7 @@ heron.options.map.layers = [
                         	)
                         	
                         ];
-                        heron.options.map.toolbar = [
+                        Heron.options.map.toolbar = [
                         	{type: "scale", options: {width: 110}},
                         	{type: "-"} ,
                         	{type: "featureinfo", options: {popupWindow: {}}},
