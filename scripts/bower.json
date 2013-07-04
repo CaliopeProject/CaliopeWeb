@@ -13,6 +13,7 @@
     "geoext"                     : "~1.1.0",
     "openlayers"                 : "release-2.13-rc7",
     "blueimp-canvas-to-blob"     : "~2.0.6",
-    "cryptojs"                   : "latest"
+    "cryptojs"                   : "latest",
+    "uuid-js"					 : "~0.7.4"
   }
 }
