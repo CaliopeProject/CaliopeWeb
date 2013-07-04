@@ -9,8 +9,11 @@ define(['angular', 'application-app'], function(angular, app) {
     $routeProvider.when('/proyectomtv/:plantilla/:mode', {
       templateUrl: '/proyectosmtv/proyecto-form.html'});
     $routeProvider.when('/login/:plantilla/:mode', {
-      templateUrl: '/login/login-partial.html'});    
+      templateUrl: '/login/login-partial.html'});  
+    $routeProvider.when('/tools/:upload/:files', {
+      templateUrl: '/tools-files-uploader/files-uploader-partial.html'});    
     //$routeProvider.otherwise({redirectTo: '/view1'});
   }]);
 
 });
+

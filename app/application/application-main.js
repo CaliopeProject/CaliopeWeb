@@ -1,41 +1,45 @@
 require.config({
-  paths: {    
-    jquery                           : 'libs-js-thirdparty/jquery/jquery',
-    dform                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
-    angular                          : 'libs-js-thirdparty/angular-unstable/angular',
-    uuid                             : 'libs-js-thirdparty/uuid-js/lib/uuid',
-    Crypto                           : 'libs-js-thirdparty/cryptojs/lib/Crypto',    
-    CryptoSHA256                     : 'libs-js-thirdparty/cryptojs/lib/SHA256',
-    heron                            : 'libs-js-thirdparty/heron-mc',
-    geoext                           : 'libs-js-thirdparty/geoext',
-    openlayers                       : 'libs-js-thirdparty/openlayers',
-    'ext-all'                        : 'libs-js-thirdparty/ext-all',
-    'ext-base'                       : 'libs-js-thirdparty/ext-base',
+  paths: {
+    'jquery'                           : 'libs-js-thirdparty/jquery/jquery',
+    'dform'                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
+    'angular'                          : 'libs-js-thirdparty/angular-unstable/angular',
+    'uuid'                             : 'libs-js-thirdparty/uuid-js/lib/uuid',
+    'Crypto'                           : 'libs-js-thirdparty/cryptojs/lib/Crypto',
+    'CryptoSHA256'                     : 'libs-js-thirdparty/cryptojs/lib/SHA256',
     'application-app'                : 'application/application-app',
     'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
     'application-controller'         : 'application/application-controller',
     'application-routes'             : 'application/application-routes',
-    'caliopeweb-templateServices'    : 'caliopeweb-forms/caliopeweb-template-services',    
+    'caliopeweb-templateServices'    : 'caliopeweb-forms/caliopeweb-template-services',
     'caliopeweb-templateControllers' : 'caliopeweb-forms/caliopeweb-template-controllers',
     'caliopeweb-formDirectives'      : 'caliopeweb-forms/caliopeweb-form-directives',
     'proyectosmtv-controller'        : 'proyectosmtv/proyectomtv-controller',
     'proyectosmtv-service'           : 'proyectosmtv/proyectomtv-service',
     'login-services'                 : 'login/login-services',
-    'login-controllers'              : 'login/login-controllers',    
+    'login-controllers'              : 'login/login-controllers',
     'application-routes'             : 'application/application-routes',
-    'Layout'                         : 'gis-viewer/Layout',
-    'Options'                        : 'gis-viewer/Options'
+	'Layout'                        : 'gis-viewer/Layout',
+	'Options'                        : 'gis-viewer/Options',
+	'ext-all'                        : 'libs-js-thirdparty/ext-all',
+	'ext-base'                        : 'libs-js-thirdparty/ext-base',
+	'heron'                            : 'libs-js-thirdparty/heron-mc',
+	'geoext'                           : 'libs-js-thirdparty/geoext',
+	'openlayers'                       : 'libs-js-thirdparty/openlayers',
   },
   baseUrl: '/',
   shim: {
     'jquery'                         : {'exports' : 'jquery'},
-    'jquery'                         : {'exports' : 'jQuery'},
     'angular'                        : {'exports' : 'angular'},
     'application-app'                : {'exports' : 'app'},
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
-    'application-routes'             : {'exports' : 'routes'},    
-    'application-controller'         : {'exports' : 'appcontroller'},    
+    'application-routes'             : {'exports' : 'routes'},
+    'application-controller'         : {'exports' : 'appcontroller'},
+    'dform'                          : {deps      : ['jquery']},
     'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
+	'geoext'                          : {deps      : ['ext-all','ext-base','openlayers']},
+	'heron'                          : {deps      : ['geoext']},
+	'Layout'                          : {deps      : ['heron']},
+	'Options'                          : {deps      : ['Layout']}
   },
   priority: [
     "angular"
@@ -45,14 +49,14 @@ require.config({
 require([
   'jquery',
   'dform',
-  'Crypto',  
+  'Crypto',
   'CryptoSHA256',
-  'angular',   
+  'angular',
   'application-app',
   'application-routes'
-], function($, dform, crypto, CryptoSHA256, angular, app, routes) {
+], function(jQuery, dform, crypto, CryptoSHA256, angular, app, routes) {
   'use strict';
-  $(document).ready(function () {    
+  $(document).ready(function () {
     var $html = $('html');
     angular.bootstrap($html, [app['name']]);
     // Because of RequireJS we need to bootstrap the app app manually
