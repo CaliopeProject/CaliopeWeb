@@ -3,6 +3,7 @@ require.config({
     jquery                           : 'libs-js-thirdparty/jquery/jquery',
     dform                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
     angular                          : 'libs-js-thirdparty/angular-unstable/angular',
+    uuid                             : 'libs-js-thirdparty/uuid-js/lib/uuid',
     Crypto                           : 'libs-js-thirdparty/cryptojs/lib/Crypto',    
     CryptoSHA256                     : 'libs-js-thirdparty/cryptojs/lib/SHA256',    
     'application-app'                : 'application/application-app',
