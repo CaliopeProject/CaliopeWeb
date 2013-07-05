@@ -9,6 +9,7 @@ define([
     'proyectosmtv-service',
     'login-services',
     'login-controllers',
+//     'tools-filesuploader-ctrl',
     'gis-view-ctrl'
 	], function (
 	  angular,
