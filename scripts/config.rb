@@ -1,11 +1,10 @@
 #https://github.com/thomas-mcdonald/bootstrap-sass
 require 'bootstrap-sass'
 # Require any additional compass plugins here.
-#
 # # Set this to the root of your project when deployed:
 # http_path = "/"
 css_dir         = "../app/common-css"
-sass_dir        = "../app/common-sass"
+sass_dir        = "../app/common-scss"
 images_dir      = "../app/common-img"
 #
 # # You can select your preferred output style here (can be overridden via the command line):

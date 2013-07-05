@@ -1,0 +1,1159 @@
+/* line 2, ../common-scss/w8-skins.scss */
+.skin-1 .navbar-inverse .navbar-inner {
+  background: #2c6aa0;
+}
+/* line 5, ../common-scss/w8-skins.scss */
+.skin-1 #sidebar:before {
+  background-color: #222a2d;
+  border-right: 0;
+}
+
+/* line 11, ../common-scss/w8-skins.scss */
+#sidebar {
+  border-right: 0;
+}
+
+/* line 16, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li {
+  border-color: #3f4e54;
+  border-top-width: 0;
+}
+/* line 19, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li > a {
+  background-color: #222a2d;
+  color: #b1bac1;
+}
+/* line 24, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min .nav-list > li.open > a {
+  background-color: #222a2d;
+  color: #b1bac1;
+}
+/* line 29, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li:hover > a {
+  background-color: #414b51;
+  color: #e1eaf1;
+}
+/* line 33, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li > a > .arrow {
+  color: #b1bac1;
+}
+/* line 36, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li.open > a > .arrow {
+  color: #85c0ec;
+}
+/* line 40, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li.active > a:after {
+  border-right-color: #FFF;
+  border-width: 16px 10px;
+  top: 2px;
+}
+/* line 45, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li.active.open > ul.submenu > li.active > a:after {
+  border-right-color: #FFF;
+  border-width: 16px 10px;
+  top: 2px;
+  top: 1px;
+}
+/* line 51, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li.active:after {
+  display: none;
+}
+/* line 57, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min .nav-list > li.active > a:after {
+  border-width: 10px 6px;
+  top: 8px;
+}
+/* line 61, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min .nav-list > li.active:hover > a:after {
+  border-right-color: #242a2b;
+}
+/* line 66, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li.open > a {
+  color: #85c0ec;
+  background-color: #222a2d;
+}
+/* line 69, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li.open > a:hover {
+  color: #85c0ec;
+  background-color: #222a2d;
+}
+/* line 74, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li.active > a {
+  background-color: #141a1b;
+  color: #55a0dc;
+}
+/* line 77, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li.active > a:hover {
+  background-color: #141a1b;
+  color: #55a0dc;
+}
+/* line 83, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min .nav-list > li.active > a {
+  background-color: #141a1b;
+  color: #55a0dc;
+}
+/* line 86, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min .nav-list > li.active > a:hover {
+  background-color: #141a1b;
+  color: #55a0dc;
+}
+/* line 92, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li > ul.submenu {
+  background-color: #3a4344;
+  border-top-color: #5a6364;
+}
+/* line 96, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li.active > ul.submenu {
+  background-color: #141a1b;
+  border-top-color: #2f3e44;
+}
+/* line 101, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li > .submenu > li > a {
+  color: #d1dae1;
+  border-bottom-color: #5a6364;
+}
+/* line 105, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li > .submenu > li:first-child > a {
+  border-top-color: transparent;
+}
+/* line 108, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li > .submenu > li > a:hover {
+  color: #8ab4de;
+}
+/* line 111, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li > .submenu > li.active > a {
+  color: #55a0dc;
+  border-bottom-color: #2f3e44;
+}
+/* line 115, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li > .submenu > li > a > [class*="icon-"]:first-child {
+  display: none;
+}
+/* line 121, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min .nav-list > li:hover > a {
+  color: #e1eaf1;
+}
+/* line 124, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min .nav-list > li > a > span {
+  background-color: #414b51;
+}
+/* line 128, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min .nav-list > li.active > a > span {
+  background-color: #242a2b;
+}
+/* line 131, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min .nav-list > li.active:hover > a, .skin-1 .menu-min .nav-list > li.active > a > span {
+  color: #55a0dc;
+}
+/* line 135, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min .nav-list > li > a.active, .skin-1 .menu-min .nav-list > li.open.active > a {
+  background-color: #141a1b;
+}
+/* line 139, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min .nav-list > li > a > span, .skin-1 .menu-min .nav-list > li > ul.submenu {
+  border-color: #3f4e54;
+  margin-top: 1px;
+  border-left-color: #242a2b;
+}
+/* line 147, ../common-scss/w8-skins.scss */
+.skin-1 .nav-list > li.active > .submenu > li:before, .skin-1 .nav-list > li.active > .submenu > li:after {
+  border-color: #3f4e54;
+}
+/* line 151, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min .nav-list > li > a.dropdown-toggle > span {
+  border-bottom-color: #5a606a;
+}
+/* line 154, ../common-scss/w8-skins.scss */
+.skin-1 #sidebar-collapse {
+  background-color: #141a1b;
+  border-color: #3f4e54;
+  border-top-width: 1px;
+}
+/* line 158, ../common-scss/w8-skins.scss */
+.skin-1 #sidebar-collapse:before {
+  border-color: #3f4e54;
+}
+/* line 161, ../common-scss/w8-skins.scss */
+.skin-1 #sidebar-collapse > [class*="icon-"] {
+  background-color: #222a2d;
+}
+/* line 165, ../common-scss/w8-skins.scss */
+.skin-1 #sidebar-shortcuts, .skin-1 #sidebar-shortcuts-mini, .skin-1 #sidebar > #nav-search {
+  background-color: #141a1b;
+  border-color: #3f4e54;
+}
+/* line 169, ../common-scss/w8-skins.scss */
+.skin-1 .menu-min #sidebar-shortcuts-large {
+  background-color: #141a1b;
+  top: -1px;
+  box-shadow: none;
+  border: 0;
+  top: 0;
+}
+/* line 176, ../common-scss/w8-skins.scss */
+.skin-1 #breadcrumbs {
+  border: 0;
+  background-color: #f0f0f0;
+}
+
+@media only screen and (max-width: 979px) {
+  /* line 184, ../common-scss/w8-skins.scss */
+  .skin-1 #sidebar {
+    border: 0;
+    box-shadow: none;
+  }
+  /* line 189, ../common-scss/w8-skins.scss */
+  .skin-1 .nav-list > li.active > a:after, .skin-1 .nav-list > li.active.open > ul.submenu > li.active > a:after {
+    display: none;
+  }
+}
+/* line 197, ../common-scss/w8-skins.scss */
+.skin-2 .navbar-inverse .navbar-inner {
+  background: #c6487e;
+}
+/* line 200, ../common-scss/w8-skins.scss */
+.skin-2 #sidebar {
+  border-right: 0;
+}
+/* line 201, ../common-scss/w8-skins.scss */
+.skin-2 #sidebar:before {
+  background-color: #505050;
+  border-right: 0;
+}
+/* line 207, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li {
+  border-color: #444;
+  border-top-width: 0;
+}
+/* line 210, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:last-child {
+  border-bottom-width: 0;
+}
+/* line 213, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > a {
+  background-color: #393939;
+}
+/* line 217, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li.open > a {
+  background-color: #393939;
+}
+/* line 222, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li.active > a {
+  color: #FFF;
+}
+/* line 225, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li.active > a:after {
+  border-right-color: #FFF;
+  right: 0;
+  top: 2px;
+  border-width: 16px 10px;
+}
+/* line 231, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li.active.open > ul.submenu > li.active > a:after {
+  border-right-color: #FFF;
+  right: 0;
+  top: 2px;
+  border-width: 16px 10px;
+  top: 1px;
+}
+/* line 239, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > a:hover:before {
+  display: none;
+}
+/* line 244, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li.active > a:after {
+  border-width: 10px 6px;
+  top: 8px;
+}
+/* line 248, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li.active:hover > a:after {
+  border-right-color: #292929;
+}
+/* line 254, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li.active:after {
+  display: none;
+}
+/* line 257, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li.active.open > .submenu > li.active > a:after {
+  border-right-color: #FFF;
+  right: -1px;
+}
+/* line 261, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li.active > .submenu {
+  background-color: #222;
+}
+/* line 264, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li.active > a:hover > span {
+  color: #FFF;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+/* line 270, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > .submenu {
+  background-color: #303030;
+  border-top-color: #666;
+}
+/* line 276, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > .submenu > li:first-child > a {
+  border-top: 0;
+}
+/* line 279, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > .submenu > li > a {
+  color: #CCC;
+  border-bottom-color: #555;
+}
+/* line 282, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > .submenu > li > a > [class*="icon-"]:first-child {
+  display: none;
+}
+/* line 288, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > a > span {
+  color: #DDD;
+}
+/* line 291, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > a:hover > span {
+  color: #000;
+  font-weight: bold;
+  opacity: .5;
+  filter: alpha(opacity=50);
+}
+/* line 300, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > a > .arrow {
+  color: #AAA;
+}
+/* line 303, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > a:hover > .arrow {
+  color: #FFF;
+}
+/* line 310, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li > a > span {
+  color: #FFF;
+  font-weight: bold;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  background-color: #292929;
+  border: 0;
+  box-shadow: none;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  margin-top: 2px;
+}
+/* line 321, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li > a.dropdown-toggle > span {
+  margin-top: 0;
+  background-color: #292929;
+}
+/* line 326, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li > ul.submenu {
+  box-shadow: none;
+  border: 0;
+  background-color: #303030;
+  margin-left: 1px;
+  margin-top: 1px;
+  border-left: 1px solid #FFF;
+}
+/* line 337, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > ul.submenu > li > a:hover {
+  color: #FFF;
+}
+/* line 340, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > ul.submenu > li:before, .skin-2 .nav-list > li > ul.submenu > li:after {
+  display: none;
+}
+/* line 343, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > ul.submenu > li > a {
+  padding-left: 28px;
+}
+/* line 347, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > a {
+  color: #CCC;
+}
+/* line 351, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li > a > span {
+  color: #CCC;
+}
+/* line 354, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(1) > a, .skin-2 .menu-min .nav-list > li:nth-child(1) > a > span {
+  color: #00be67;
+}
+/* line 357, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(2) > a, .skin-2 .menu-min .nav-list > li:nth-child(2) > a > span {
+  color: #5ed02b;
+}
+/* line 360, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(3) > a, .skin-2 .menu-min .nav-list > li:nth-child(3) > a > span {
+  color: #a7d700;
+}
+/* line 363, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(4) > a, .skin-2 .menu-min .nav-list > li:nth-child(4) > a > span {
+  color: #cee100;
+}
+/* line 366, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(5) > a, .skin-2 .menu-min .nav-list > li:nth-child(5) > a > span {
+  color: #f8c600;
+}
+/* line 369, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(6) > a, .skin-2 .menu-min .nav-list > li:nth-child(6) > a > span {
+  color: #ffab00;
+}
+/* line 372, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(7) > a, .skin-2 .menu-min .nav-list > li:nth-child(7) > a > span {
+  color: #ff6e00;
+}
+/* line 375, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(8) > a, .skin-2 .menu-min .nav-list > li:nth-child(8) > a > span {
+  color: #f21c30;
+}
+/* line 378, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(9) > a, .skin-2 .menu-min .nav-list > li:nth-child(9) > a > span {
+  color: #ee218b;
+}
+/* line 381, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(10) > a, .skin-2 .menu-min .nav-list > li:nth-child(10) > a > span {
+  color: #c55ee7;
+}
+/* line 384, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(11) > a, .skin-2 .menu-min .nav-list > li:nth-child(11) > a > span {
+  color: #218bee;
+}
+/* line 387, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(12) > a {
+  color: #2ecee7;
+}
+/* line 391, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(12) > a > span {
+  color: #2ecee7;
+}
+/* line 394, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li.active > a > [class*="icon-"] {
+  color: #FFF;
+}
+/* line 399, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:not(.active):hover > a > [class*="icon-"] {
+  color: #FFF;
+}
+/* line 403, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li.active > a > span {
+  color: #FFF;
+}
+/* line 406, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li.active > ul.submenu {
+  background-color: #222;
+}
+/* line 411, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > ul.submenu:before {
+  display: block;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #393939;
+  opacity: .12;
+}
+/* line 422, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > a:hover {
+  background-color: #c6487e;
+}
+/* line 428, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:hover > a, .skin-2 .menu-min .nav-list > li.active > a {
+  background-color: #c6487e;
+}
+/* line 433, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > ul.submenu:before {
+  background-color: #35262d;
+}
+/* line 436, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(1) > a:hover {
+  background-color: #00be67;
+}
+/* line 441, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(1):hover > a, .skin-2 .menu-min .nav-list > li.active:nth-child(1) > a {
+  background-color: #00be67;
+}
+/* line 446, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(1) > ul.submenu:before {
+  background-color: #00be67;
+}
+/* line 449, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(2) > a:hover {
+  background-color: #5ed02b;
+}
+/* line 454, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(2):hover > a, .skin-2 .menu-min .nav-list > li.active:nth-child(2) > a {
+  background-color: #5ed02b;
+}
+/* line 459, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(2) > ul.submenu:before {
+  background-color: #5ed02b;
+}
+/* line 462, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(3) > a:hover {
+  background-color: #a7d700;
+}
+/* line 467, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(3):hover > a, .skin-2 .menu-min .nav-list > li.active:nth-child(3) > a {
+  background-color: #a7d700;
+}
+/* line 472, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(3) > ul.submenu:before {
+  background-color: #a7d700;
+}
+/* line 475, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(4) > a:hover {
+  background-color: #cee100;
+}
+/* line 480, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(4):hover > a, .skin-2 .menu-min .nav-list > li.active:nth-child(4) > a {
+  background-color: #cee100;
+}
+/* line 485, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(4) > ul.submenu:before {
+  background-color: #cee100;
+}
+/* line 488, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(5) > a:hover {
+  background-color: #f8c600;
+}
+/* line 493, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(5):hover > a, .skin-2 .menu-min .nav-list > li.active:nth-child(5) > a {
+  background-color: #f8c600;
+}
+/* line 498, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(5) > ul.submenu:before {
+  background-color: #f8c600;
+}
+/* line 501, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(6) > a:hover {
+  background-color: #ffab00;
+}
+/* line 506, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(6):hover > a, .skin-2 .menu-min .nav-list > li.active:nth-child(6) > a {
+  background-color: #ffab00;
+}
+/* line 511, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(6) > ul.submenu:before {
+  background-color: #ffab00;
+}
+/* line 514, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(7) > a:hover {
+  background-color: #ff6e00;
+}
+/* line 519, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(7):hover > a, .skin-2 .menu-min .nav-list > li.active:nth-child(7) > a {
+  background-color: #ff6e00;
+}
+/* line 524, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(7) > ul.submenu:before {
+  background-color: #ff6e00;
+}
+/* line 527, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(8) > a:hover {
+  background-color: #f21c30;
+}
+/* line 532, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(8):hover > a, .skin-2 .menu-min .nav-list > li.active:nth-child(8) > a {
+  background-color: #f21c30;
+}
+/* line 537, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(8) > ul.submenu:before {
+  background-color: #f21c30;
+}
+/* line 540, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(9) > a:hover {
+  background-color: #ee218b;
+}
+/* line 545, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(9):hover > a, .skin-2 .menu-min .nav-list > li.active:nth-child(9) > a {
+  background-color: #ee218b;
+}
+/* line 550, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(9) > ul.submenu:before {
+  background-color: #ee218b;
+}
+/* line 553, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(10) > a:hover {
+  background-color: #c55ee7;
+}
+/* line 558, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(10):hover > a, .skin-2 .menu-min .nav-list > li.active:nth-child(10) > a {
+  background-color: #c55ee7;
+}
+/* line 563, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(10) > ul.submenu:before {
+  background-color: #c55ee7;
+}
+/* line 566, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(11) > a:hover {
+  background-color: #218bee;
+}
+/* line 571, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(11):hover > a, .skin-2 .menu-min .nav-list > li.active:nth-child(11) > a {
+  background-color: #218bee;
+}
+/* line 576, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(11) > ul.submenu:before {
+  background-color: #218bee;
+}
+/* line 579, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(12) > a:hover {
+  background-color: #2ecee7;
+}
+/* line 584, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li:nth-child(12):hover > a, .skin-2 .menu-min .nav-list > li.active:nth-child(12) > a {
+  background-color: #2ecee7;
+}
+/* line 589, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(12) > ul.submenu:before {
+  background-color: #2ecee7;
+}
+/* line 592, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > ul.submenu {
+  border-top-style: inset;
+}
+/* line 596, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min .nav-list > li > ul.submenu {
+  border-top-color: #666666 !important;
+}
+/* line 600, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > ul.submenu {
+  border-top-color: #c6487e;
+}
+/* line 603, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(1) > ul.submenu {
+  border-top-color: #00be67;
+}
+/* line 606, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(2) > ul.submenu {
+  border-top-color: #5ed02b;
+}
+/* line 609, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(3) > ul.submenu {
+  border-top-color: #a7d700;
+}
+/* line 612, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(4) > ul.submenu {
+  border-top-color: #cee100;
+}
+/* line 615, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(5) > ul.submenu {
+  border-top-color: #f8c600;
+}
+/* line 618, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(6) > ul.submenu {
+  border-top-color: #ffab00;
+}
+/* line 621, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(7) > ul.submenu {
+  border-top-color: #ff6e00;
+}
+/* line 624, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(8) > ul.submenu {
+  border-top-color: #f21c30;
+}
+/* line 627, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(9) > ul.submenu {
+  border-top-color: #ee218b;
+}
+/* line 630, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(10) > ul.submenu {
+  border-top-color: #c55ee7;
+}
+/* line 633, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(11) > ul.submenu {
+  border-top-color: #218bee;
+}
+/* line 636, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(12) > ul.submenu {
+  border-top-color: #2ecee7;
+}
+/* line 639, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li > ul.submenu > li.active > a {
+  color: #c6487e;
+}
+/* line 642, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(1) > ul.submenu > li.active > a {
+  color: #00be67;
+}
+/* line 645, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(2) > ul.submenu > li.active > a {
+  color: #5ed02b;
+}
+/* line 648, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(3) > ul.submenu > li.active > a {
+  color: #a7d700;
+}
+/* line 651, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(4) > ul.submenu > li.active > a {
+  color: #cee100;
+}
+/* line 654, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(5) > ul.submenu > li.active > a {
+  color: #f8c600;
+}
+/* line 657, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(6) > ul.submenu > li.active > a {
+  color: #ffab00;
+}
+/* line 660, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(7) > ul.submenu > li.active > a {
+  color: #ff6e00;
+}
+/* line 663, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(8) > ul.submenu > li.active > a {
+  color: #f21c30;
+}
+/* line 666, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(9) > ul.submenu > li.active > a {
+  color: #ee218b;
+}
+/* line 669, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(10) > ul.submenu > li.active > a {
+  color: #c55ee7;
+}
+/* line 672, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(11) > ul.submenu > li.active > a {
+  color: #218bee;
+}
+/* line 675, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li:nth-child(12) > ul.submenu > li.active > a {
+  color: #2ecee7;
+}
+/* line 678, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li.active > a {
+  background-color: #242424;
+}
+/* line 680, ../common-scss/w8-skins.scss */
+.skin-2 .nav-list > li.active > a:hover {
+  background-color: #242424;
+}
+/* line 685, ../common-scss/w8-skins.scss */
+.skin-2 #sidebar-collapse {
+  background-color: #2c2c2c;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #777;
+}
+/* line 689, ../common-scss/w8-skins.scss */
+.skin-2 #sidebar-collapse:before {
+  border-color: #666;
+}
+/* line 692, ../common-scss/w8-skins.scss */
+.skin-2 #sidebar-collapse > [class*="icon-"] {
+  background-color: #333;
+}
+/* line 696, ../common-scss/w8-skins.scss */
+.skin-2 #sidebar-shortcuts {
+  background-color: #393939;
+  border-color: #666;
+  min-height: 40px;
+}
+/* line 701, ../common-scss/w8-skins.scss */
+.skin-2 #sidebar > #nav-search {
+  background-color: #393939;
+  border-color: #666;
+}
+/* line 705, ../common-scss/w8-skins.scss */
+.skin-2 #sidebar-shortcuts .btn {
+  border-radius: 32px !important;
+  border-width: 2px;
+  background-color: #555555 !important;
+}
+/* line 709, ../common-scss/w8-skins.scss */
+.skin-2 #sidebar-shortcuts .btn:hover {
+  background-color: #222222 !important;
+}
+/* line 713, ../common-scss/w8-skins.scss */
+.skin-2 .menu-min #sidebar-shortcuts-large {
+  border: 0;
+  box-shadow: none;
+  background-color: #393939;
+  top: 0;
+}
+/* line 719, ../common-scss/w8-skins.scss */
+.skin-2 #sidebar-shortcuts-mini {
+  background-color: #141a1b;
+  border-color: #3f4e54;
+}
+/* line 722, ../common-scss/w8-skins.scss */
+.skin-2 #sidebar-shortcuts-mini .btn {
+  border-width: 2px !important;
+  border-radius: 32px !important;
+  padding: 6px !important;
+  opacity: 1;
+  background-color: inherit;
+}
+/* line 730, ../common-scss/w8-skins.scss */
+.skin-2 #breadcrumbs {
+  border: 0;
+  background-color: #e7f2f8;
+  margin: 8px 8px 0;
+  border-radius: 4px;
+}
+
+@media only screen and (max-width: 979px) {
+  /* line 740, ../common-scss/w8-skins.scss */
+  .skin-2 #sidebar {
+    border: 0;
+    box-shadow: none;
+  }
+  /* line 745, ../common-scss/w8-skins.scss */
+  .skin-2 .nav-list > li.active > a:after, .skin-2 .nav-list > li.active.open > .submenu > li.active > a:after {
+    display: none;
+  }
+  /* line 749, ../common-scss/w8-skins.scss */
+  .skin-2 #breadcrumbs {
+    margin: 0;
+    border-radius: 0;
+  }
+}
+/* line 757, ../common-scss/w8-skins.scss */
+.skin-3 #main-content {
+  background: #FFF;
+  background: -moz-linear-gradient(top, #eef5fa 0, white 8%) 0 4px;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#eef5fa), color-stop(4%, white)) 0 4px;
+  background: -webkit-linear-gradient(top, #eef5fa 0, white 8%) 0 4px;
+  background: -o-linear-gradient(top, #eef5fa 0, white 8%) 0 4px;
+  background: -ms-linear-gradient(top, #eef5fa 0, white 8%) 0 4px;
+  background: linear-gradient(top, #eef5fa 0%, #ffffff 8%) 0 4px;
+  -moz-background-size: 100% 26px;
+  -webkit-background-size: 100% 26px;
+  -o-background-size: 100% 26px;
+  -ms-background-size: 100% 26px;
+  background-size: 100% 26px;
+}
+/* line 771, ../common-scss/w8-skins.scss */
+.skin-3 .navbar-inverse .navbar-inner {
+  background: #393939;
+}
+/* line 774, ../common-scss/w8-skins.scss */
+.skin-3 #sidebar {
+  border-right: 1px solid #a4c6dd;
+}
+/* line 775, ../common-scss/w8-skins.scss */
+.skin-3 #sidebar:before {
+  background-color: #d6d6d6;
+  border-right: 1px solid #a4c6dd;
+}
+/* line 781, ../common-scss/w8-skins.scss */
+.skin-3 #page-content {
+  background-color: transparent;
+}
+/* line 784, ../common-scss/w8-skins.scss */
+.skin-3 .infobox:not(.infobox-dark) {
+  border-style: solid;
+  background-color: transparent;
+}
+/* line 788, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li {
+  border-color: #f2f2f2;
+  border-bottom-width: 0;
+  position: relative;
+}
+/* line 792, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li:before {
+  display: inline-block;
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  max-width: 0;
+  overflow: hidden;
+  border-left: 3px solid #444;
+}
+/* line 804, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.active:before {
+  border-left-color: #4d96cb;
+}
+/* line 807, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li:first-child {
+  border-top: 1px solid #f2f2f2;
+}
+/* line 810, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li:last-child {
+  border-bottom-width: 1px;
+}
+/* line 813, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li:hover {
+  border-left-color: #1963aa;
+  border-top-color: #EEE;
+}
+/* line 816, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li:hover + li {
+  border-top-color: #EEE;
+}
+/* line 820, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li:last-child:hover {
+  border-bottom-color: #EEE;
+}
+/* line 823, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.active {
+  border-left-color: #1a67bd;
+  border-top-color: #a4c6dd !important;
+}
+/* line 826, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.active + li {
+  border-top-color: #a4c6dd;
+}
+/* line 829, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.active:last-child {
+  border-bottom-color: #a4c6dd;
+}
+/* line 833, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li > a {
+  background-color: #e0e0e0;
+  color: #5a5a5a;
+}
+/* line 834, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li > a:hover:before {
+  display: none;
+}
+/* line 840, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li:hover > a {
+  background-color: #EEE;
+  color: #1963aa;
+}
+/* line 844, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li > a:focus {
+  color: #1963aa;
+}
+/* line 847, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.open > a {
+  background-color: #f3f3f3;
+  color: #1963aa;
+}
+/* line 853, ../common-scss/w8-skins.scss */
+.skin-3 .menu-min .nav-list > li.open > a {
+  background-color: #e0e0e0;
+  color: #5a5a5a;
+}
+/* line 856, ../common-scss/w8-skins.scss */
+.skin-3 .menu-min .nav-list > li.open > a > span {
+  color: #1963aa;
+}
+/* line 860, ../common-scss/w8-skins.scss */
+.skin-3 .menu-min .nav-list > li.active > a > span {
+  border-left-color: #EEE;
+}
+/* line 865, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.active > a {
+  background-color: #eef8ff;
+  color: #4d96cb;
+}
+/* line 868, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.active > a:after {
+  border-right-color: #FFF;
+  right: -1px;
+  top: 0;
+  z-index: 12;
+  border-width: 18px 12px;
+}
+/* line 877, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.active.open > .submenu > li.active > a:after {
+  border-right-color: #FFF;
+  right: -1px;
+  top: 0;
+  z-index: 12;
+  border-width: 18px 12px;
+}
+/* line 886, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.active.open > .submenu > li.active > a:before {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 11;
+  left: auto;
+  bottom: auto;
+  width: auto;
+  max-width: auto;
+  background-color: transparent;
+  border-style: solid;
+  border-width: 18px 12px;
+  border-color: transparent;
+  border-right-color: #a4c6dd;
+  border-width: 14px 10px;
+  top: 2px;
+}
+/* line 905, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.active.open > .submenu > li.active > a:after {
+  border-width: 14px 10px;
+  top: 2px;
+}
+/* line 910, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.active.open > a:before {
+  display: none;
+}
+/* line 915, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.active > a:before {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 11;
+  left: auto;
+  bottom: auto;
+  width: auto;
+  max-width: auto;
+  background-color: transparent;
+  border-style: solid;
+  border-width: 18px 12px;
+  border-color: transparent;
+  border-right-color: #a4c6dd;
+}
+/* line 932, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li.active:after {
+  display: none;
+}
+/* line 938, ../common-scss/w8-skins.scss */
+.skin-3 .menu-min .nav-list > li.active > a {
+  background-color: #4d96cb;
+  color: #FFF;
+}
+/* line 941, ../common-scss/w8-skins.scss */
+.skin-3 .menu-min .nav-list > li.active > a > span {
+  color: #4d96cb;
+}
+/* line 945, ../common-scss/w8-skins.scss */
+.skin-3 .menu-min .nav-list > li:before {
+  display: none;
+}
+/* line 950, ../common-scss/w8-skins.scss */
+.skin-3 .menu-min .nav-list > li.active > a:after {
+  border-width: 12px 7px;
+  top: 5px;
+}
+/* line 954, ../common-scss/w8-skins.scss */
+.skin-3 .menu-min .nav-list > li.active > a:before {
+  display: none;
+}
+/* line 958, ../common-scss/w8-skins.scss */
+.skin-3 .menu-min .nav-list > li.active.open > .submenu > li.active > a:before {
+  display: none;
+}
+/* line 963, ../common-scss/w8-skins.scss */
+.skin-3 .menu-min #sidebar-shortcuts {
+  border-left: none;
+}
+/* line 967, ../common-scss/w8-skins.scss */
+.skin-3 #sidebar.menu-min > #nav-search {
+  border-left: none;
+}
+/* line 971, ../common-scss/w8-skins.scss */
+.skin-3 .menu-min .nav-list > li > .submenu, .skin-3 .menu-min .nav-list > li.active > .submenu {
+  border-left-color: #CCC;
+}
+/* line 975, ../common-scss/w8-skins.scss */
+.skin-3 .nav-list > li > a > .arrow {
+  right: 12px;
+}
+/* line 978, ../common-scss/w8-skins.scss */
+.skin-3 #sidebar-collapse {
+  background-color: #d0d0d0;
+  border-color: #FFF;
+}
+/* line 981, ../common-scss/w8-skins.scss */
+.skin-3 #sidebar-collapse:before {
+  border-color: #FFF;
+}
+/* line 984, ../common-scss/w8-skins.scss */
+.skin-3 #sidebar-collapse > [class*="icon-"] {
+  background-color: #FFF;
+  border-color: #999;
+  color: #999;
+}
+/* line 990, ../common-scss/w8-skins.scss */
+.skin-3 #sidebar-shortcuts {
+  background-color: #e0e0e0;
+  border-bottom: 0;
+  border-color: #FFF;
+  min-height: 40px;
+  border-left: 3px solid #444;
+}
+/* line 997, ../common-scss/w8-skins.scss */
+.skin-3 #sidebar > #nav-search {
+  background-color: #e0e0e0;
+  border-bottom: 0;
+  border-color: #FFF;
+  border-left: 3px solid #444;
+}
+/* line 1003, ../common-scss/w8-skins.scss */
+.skin-3 #sidebar-shortcuts-mini {
+  background-color: #e0e0e0;
+}
+/* line 1005, ../common-scss/w8-skins.scss */
+.skin-3 #sidebar-shortcuts-mini > .btn {
+  opacity: 1;
+}
+/* line 1009, ../common-scss/w8-skins.scss */
+.skin-3 .menu-min #sidebar-shortcuts-large {
+  background-color: #f5f5f5;
+  top: -1px;
+}
+/* line 1013, ../common-scss/w8-skins.scss */
+.skin-3 #breadcrumbs {
+  border: 0;
+  border-radius: 4px;
+  background-color: #e7f2f8;
+  margin: 8px 8px 0;
+}
+/* line 1019, ../common-scss/w8-skins.scss */
+.skin-3 #nav-search-input {
+  border-radius: 4px;
+}
+/* line 1022, ../common-scss/w8-skins.scss */
+.skin-3 #page-content > .page-header:first-child {
+  border-bottom-color: #c9c9c9;
+}
+/* line 1025, ../common-scss/w8-skins.scss */
+.skin-3 .hr {
+  border-color: #d5d5d5;
+}
+
+@media only screen and (max-width: 979px) {
+  /* line 1032, ../common-scss/w8-skins.scss */
+  .skin-3 #sidebar, .skin-3 .nav-list > li, .skin-3 #sidebar-shortcuts {
+    border-left: none;
+  }
+  /* line 1035, ../common-scss/w8-skins.scss */
+  .skin-3 #sidebar {
+    border-color: #a4c6dd;
+  }
+  /* line 1038, ../common-scss/w8-skins.scss */
+  .skin-3 #breadcrumbs {
+    border-radius: 0;
+    margin: 0;
+  }
+  /* line 1042, ../common-scss/w8-skins.scss */
+  .skin-3 #menu-toggler {
+    background-color: #62a8d1;
+    color: #FFF;
+  }
+  /* line 1045, ../common-scss/w8-skins.scss */
+  .skin-3 #menu-toggler:after, .skin-3 #menu-toggler:before {
+    border-color: #FFF;
+  }
+  /* line 1048, ../common-scss/w8-skins.scss */
+  .skin-3 #menu-toggler > span {
+    border-top-color: #62a8d1;
+  }
+  /* line 1050, ../common-scss/w8-skins.scss */
+  .skin-3 #menu-toggler > span:after {
+    color: #FFF;
+  }
+  /* line 1056, ../common-scss/w8-skins.scss */
+  .skin-3 .nav-list > li.active > a:after {
+    display: none;
+  }
+  /* line 1060, ../common-scss/w8-skins.scss */
+  .skin-3 .nav-list > li.active.open > .submenu > li.active > a:after, .skin-3 .nav-list > li.active.open > .submenu > li.active > a:before {
+    display: none;
+  }
+  /* line 1064, ../common-scss/w8-skins.scss */
+  .skin-3 .nav-list > li.active > a:before {
+    display: none;
+  }
+}

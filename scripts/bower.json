@@ -14,8 +14,6 @@
     "openlayers"                 : "release-2.13-rc7",
     "blueimp-canvas-to-blob"     : "~2.0.6",
     "cryptojs"                   : "latest",
-    "uuid-js"		             : "~0.7.5",
-    "ext-all"		             : "~0.0.0",
-    "ext-base"		             : "~0.0.0"
+    "uuid-js"		                 : "~0.7.5"
   }
 }
