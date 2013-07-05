@@ -30,15 +30,16 @@ require.config({
     'fileupload-video'                 : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-video',
     'fileupload-validate'              : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-validate',
     'fileupload-angular'               : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-angular',
-     //'gis-layout'                      : 'gis-viewer/Layout',
-     //'gis-options'                     : 'gis-viewer/Options',
-     //'gis-init'                        : 'gis-viewer/Init',
-     //'gis-start'                       : 'gis-viewer/Start',
-     //'gis-ext-all'                     : 'libs-js-thirdparty/geoext/ext-all',
-     //'gis-ext-base'                    : 'libs-js-thirdparty/geoext/ext-base',
-     //'gis-heron'                       : 'libs-js-thirdparty/heron-mc/heron',
-     //'gis-geoext'                      : 'libs-js-thirdparty/geoext/geoExt',
-     //'gis-openlayers'                  : 'libs-js-thirdparty/openlayers/lib/OpenLayers',
+    
+     'gis-layout'                      : 'tools-gis-viewer/Layout',
+     'gis-options'                     : 'tools-gis-viewer/Options',
+     'gis-init'                        : 'tools-gis-viewer/Init',
+     'gis-start'                       : 'tools-gis-viewer/Start',
+     'gis-ext-all'                     : 'libs-js-thirdparty/compiled-gis/ext-all',
+     'gis-ext-base'                    : 'libs-js-thirdparty/compiled-gis/ext-base',
+     'gis-heron'                       : 'libs-js-thirdparty/heron-mc/heron',
+     'gis-geoext'                      : 'libs-js-thirdparty/compiled-gis/GeoExt',
+     'gis-openlayers'                  : 'libs-js-thirdparty/compiled-gis/OpenLayers'
      //'w8-elements.min'                 : 'application/w8-elements.min',
      //'w8.min'                          : 'application/w8.min'
   },
@@ -63,11 +64,11 @@ require.config({
     'tools-filesuploader-ctrl'       : {deps      : ['angular', 'jquery', 'fileupload']},
     'dform'                          : {deps      : ['jquery']},
 
-    //'gis-ext-all'                    : {deps      : ['gis-ext-base']},
-    //'gis-geoext'                     : {deps      : ['gis-ext-all','gis-openlayers']},
-    //'gis-init'                       : {deps      : ['gis-geoext','gis-ext-all']},
-    //'gis-heron'                      : {deps      : ['gis-init']},
-    //'gis-start'                      : {deps      : ['gis-heron']},
+    'gis-ext-all'                    : {deps      : ['gis-ext-base']},
+    'gis-geoext'                     : {deps      : ['gis-ext-all','gis-openlayers']},
+    'gis-init'                       : {deps      : ['gis-geoext','gis-ext-all']},
+    'gis-heron'                      : {deps      : ['gis-init']},
+    'gis-start'                      : {deps      : ['gis-heron']},
 
     'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
   },
@@ -81,6 +82,7 @@ require([
   'angular',
   'application-app',
   'application-routes',
+  //'gis-start'
   //'w8-elements.min',
   //'w8.min'
 ], function(jQuery, angular, app, routes) {

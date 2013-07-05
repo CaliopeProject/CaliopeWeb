@@ -3,10 +3,9 @@ define(['gis-ext-base','gis-heron'], function() {
 
 Ext.namespace("Heron")
 
-
 Heron.layout = {
         xtype: 'hr_mappanel',
-//         renderTo: 'mapdiv',
+        renderTo: 'mapdiv',
         height: 400,
         width: 600,
 // 
@@ -19,8 +18,6 @@ Heron.layout = {
                                    {layers: "bluemarble"})]
          }
 };
-
-
 
 Heron.App.create();
 Heron.App.show();
