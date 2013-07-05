@@ -9,7 +9,7 @@ define([
     'proyectosmtv-service',
     'login-services',
     'login-controllers',
-//     'tools-filesuploader-ctrl',
+    'tools-filesuploader-ctrl',
     'gis-view-ctrl'
 	], function (
 	  angular,
@@ -27,8 +27,8 @@ define([
 		                                 'ProyectoServices',
 		                                 'LoginServices',
 		                                 'LoginControllers',
-                                                 'GisViewerController'
-//                                                  'FileUploaderController'
+                                                 'GisViewerController',
+                                                 'FilesUploadController'
 		                                ]);
 		
 		return moduleApp;

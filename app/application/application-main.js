@@ -39,6 +39,7 @@ require.config({
     'load-image'                       : 'libs-js-thirdparty/blueimp-load-image/js/load-image',
     'load-image-ios'                   : 'libs-js-thirdparty/blueimp-load-image/js/load-image-ios',
     'jquery.fileupload-process'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-process',
+    'jquery.fileupload-angular'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-angular',
     
     'gis-layout'                       : 'tools-gis-viewer/Layout',
     'gis-options'                      : 'tools-gis-viewer/Options',
@@ -61,6 +62,7 @@ require.config({
     'application-routes'             : {'exports' : 'routes'},
     'application-controller'         : {'exports' : 'appcontroller'},
     'jquery.fileupload'              : {'exports' : 'fileupload'},
+    'tools-filesuploader-ctrl'       : {'exports' : 'tools-filesuploader-ctrl'},
     //'w8-elements.min'                : {deps      : ['jquery']},
     //'w8.min'                         : {deps      : ['jquery']},
     'CryptoSHA256'                   : {deps      : ['Crypto']},
@@ -70,7 +72,10 @@ require.config({
                                                        'tmpl'
                                                     ]},
 
-    'tools-filesuploader-ctrl'       : {deps      : ['angular', 'jquery', 'jquery.fileupload']},
+    'tools-filesuploader-ctrl'       : {deps      : ['angular', 
+                                                     'jquery', 
+                                                     'jquery.fileupload', 
+                                                     'jquery.fileupload-angular']},
     'dform'                          : {deps      : ['jquery']},
 
     'gis-ext-all'                    : {deps      : ['gis-ext-base']},

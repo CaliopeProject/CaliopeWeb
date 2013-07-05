@@ -3,12 +3,10 @@ define(['angular', 'tools-filesuploader-ctrl'], function(angular) {
 
     var url = 'upload/';
 
-    angular.module('FilesUploadController', [
-        'blueimp.fileupload'
-    ])
+    angular.module('FilesUploadController', [])
         .config([
-            '$httpProvider', 'fileUploadProvider',
-            function ($httpProvider, fileUploadProvider) {
+            '$httpProvider',
+            function ($httpProvider) {
                 /*
                 if (isOnGitHub) {
                     // Demo settings:
