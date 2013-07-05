@@ -8,10 +8,7 @@ define([
     'proyectosmtv-controller',
     'proyectosmtv-service',
     'login-services',
-    'login-controllers',
-    'gis-start'
-//     'tools-filesuploader-ctrl',
-
+    'login-controllers'
 	], function (
 	  angular,
 	  webSocket,
