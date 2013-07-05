@@ -9,7 +9,7 @@ define([
     'proyectosmtv-service',
     'login-services',
     'login-controllers',
-//    'gis-start'
+    'gis-start'
 //     'tools-filesuploader-ctrl',
 
 	], function (

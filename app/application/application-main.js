@@ -30,7 +30,6 @@ require.config({
     'fileupload-video'                 : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-video',
     'fileupload-validate'              : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-validate',
     'fileupload-angular'               : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-angular',
-
      'gis-layout'                      : 'gis-viewer/Layout',
      'gis-options'                     : 'gis-viewer/Options',
      'gis-init'                        : 'gis-viewer/Init',
