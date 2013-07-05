@@ -41,6 +41,8 @@ require.config({
      'gis-ext-base'                    : 'libs-js-thirdparty/compiled-gis/ext-base',
      'gis-heron'                       : 'libs-js-thirdparty/heron-mc/heron',
      'gis-geoext'                      : 'libs-js-thirdparty/compiled-gis/GeoExt',
+     
+//     'gis-openlayers'                  : 'libs-js-thirdparty/openlayers/lib/OpenLayers'
      'gis-openlayers'                  : 'libs-js-thirdparty/compiled-gis/OpenLayers'
      //'w8-elements.min'                 : 'application/w8-elements.min',
      //'w8.min'                          : 'application/w8.min'
