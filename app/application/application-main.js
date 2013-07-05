@@ -29,15 +29,15 @@ require.config({
     'fileupload-validate'              : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-validate',
     'fileupload-angular'               : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-angular',
     
-     'gis-layout'                      : 'gis-viewer/Layout',
-     'gis-options'                     : 'gis-viewer/Options',
-     'gis-init'                        : 'gis-viewer/Init',
-     'gis-start'                       : 'gis-viewer/Start',
-     'gis-ext-all'                     : 'libs-js-thirdparty/geoext/ext-all',
-     'gis-ext-base'                    : 'libs-js-thirdparty/geoext/ext-base',
+     'gis-layout'                      : 'tools-gis-viewer/Layout',
+     'gis-options'                     : 'tools-gis-viewer/Options',
+     'gis-init'                        : 'tools-gis-viewer/Init',
+     'gis-start'                       : 'tools-gis-viewer/Start',
      'gis-heron'                       : 'libs-js-thirdparty/heron-mc/heron',
-     'gis-geoext'                      : 'libs-js-thirdparty/geoext/GeoExt',
-     'gis-openlayers'                  : 'libs-js-thirdparty/openlayers/OpenLayers'
+     'gis-ext-all'                     : 'libs-js-thirdparty/compiled-gis/ext-all',
+     'gis-ext-base'                    : 'libs-js-thirdparty/compiled-gis/ext-base',
+     'gis-geoext'                      : 'libs-js-thirdparty/compiled-gis/GeoExt',
+     'gis-openlayers'                  : 'libs-js-thirdparty/compiled-gis/OpenLayers'
   },
   baseUrl: '/',
   shim: {

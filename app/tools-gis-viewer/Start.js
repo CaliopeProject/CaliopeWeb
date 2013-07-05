@@ -6,7 +6,7 @@ Ext.namespace("Heron")
 
 Heron.layout = {
         xtype: 'hr_mappanel',
-        renderTo: 'mapdiv',
+//         renderTo: 'mapdiv',
         height: 400,
         width: 600,
 // 
