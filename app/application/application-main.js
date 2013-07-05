@@ -34,7 +34,9 @@ require.config({
      'gis-layout'                      : 'tools-gis-viewer/Layout',
      'gis-options'                     : 'tools-gis-viewer/Options',
      'gis-init'                        : 'tools-gis-viewer/Init',
-     'gis-start'                       : 'tools-gis-viewer/Start',
+//      'gis-start'                       : 'tools-gis-viewer/Start',
+     'gis-view-ctrl'                       : 'tools-gis-viewer/gis-viewer-controller',
+     
      'gis-ext-all'                     : 'libs-js-thirdparty/compiled-gis/ext-all',
      'gis-ext-base'                    : 'libs-js-thirdparty/compiled-gis/ext-base',
      'gis-heron'                       : 'libs-js-thirdparty/heron-mc/heron',
@@ -68,7 +70,7 @@ require.config({
     'gis-geoext'                     : {deps      : ['gis-ext-all','gis-openlayers']},
     'gis-init'                       : {deps      : ['gis-geoext','gis-ext-all']},
     'gis-heron'                      : {deps      : ['gis-init']},
-    'gis-start'                      : {deps      : ['gis-heron']},
+    'gis-view-ctrl'                      : {deps      : ['gis-heron']},
 
     'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
   },
@@ -82,7 +84,7 @@ require([
   'angular',
   'application-app',
   'application-routes',
-  //'gis-start'
+  'gis-view-ctrl'
   //'w8-elements.min',
   //'w8.min'
 ], function(jQuery, angular, app, routes) {

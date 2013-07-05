@@ -8,7 +8,8 @@ define([
     'proyectosmtv-controller',
     'proyectosmtv-service',
     'login-services',
-    'login-controllers'
+    'login-controllers',
+    'gis-view-ctrl'
 	], function (
 	  angular,
 	  webSocket,
@@ -24,7 +25,8 @@ define([
 		                                 'ProyectoControllers',		                                 
 		                                 'ProyectoServices',
 		                                 'LoginServices',
-		                                 'LoginControllers'
+		                                 'LoginControllers',
+                                                 'GisViewerController'
 //                                                  'FileUploaderController'
 		                                ]);
 		
