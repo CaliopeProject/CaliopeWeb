@@ -8,7 +8,9 @@ define([
     'proyectosmtv-controller',
     'proyectosmtv-service',
     'security-services',
-    'login-controllers'
+    'login-controllers',
+    'tools-filesuploader-ctrl',
+    'gis-view-ctrl'
 	], function (
 	  angular,
 	  webSocket,
@@ -21,11 +23,13 @@ define([
 		                                 'CaliopeWebTemplatesServices', 
 		                                 'CaliopeWebTemplateControllers',
 		                                 'CaliopeWebFormDirectives',
-		                                 'ProyectoControllers',		                                 
+		                                 'ProyectoControllers',
 		                                 'ProyectoServices',
 		                                 'SecurityServices',
-		                                 'LoginControllers'
-//                                                  'FileUploaderController'
+		                                 'LoginControllers',
+                                                 'GisViewerController',
+                                                 'FilesUploadController'
+
 		                                ]);
 		
 		return moduleApp;
