@@ -7,7 +7,7 @@ define([
     'caliopeweb-formDirectives',	
     'proyectosmtv-controller',
     'proyectosmtv-service',
-    'login-services',
+    'security-services',
     'login-controllers'
 	], function (
 	  angular,
@@ -23,7 +23,7 @@ define([
 		                                 'CaliopeWebFormDirectives',
 		                                 'ProyectoControllers',		                                 
 		                                 'ProyectoServices',
-		                                 'LoginServices',
+		                                 'SecurityServices',
 		                                 'LoginControllers'
 //                                                  'FileUploaderController'
 		                                ]);

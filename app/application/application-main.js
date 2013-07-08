@@ -18,7 +18,7 @@ require.config({
     'caliopeweb-formDirectives'        : 'caliopeweb-forms/caliopeweb-form-directives',
     'proyectosmtv-controller'          : 'proyectosmtv/proyectomtv-controller',
     'proyectosmtv-service'             : 'proyectosmtv/proyectomtv-service',
-    'login-services'                   : 'login/login-services',
+    'security-services'                   : 'login/security-services',
     'login-controllers'                : 'login/login-controllers',
     'application-routes'               : 'application/application-routes',
 
