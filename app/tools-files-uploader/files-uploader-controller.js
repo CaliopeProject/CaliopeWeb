@@ -28,8 +28,7 @@ define(['angular', 'tools-filesuploader-ctrl'], function(angular) {
         .controller('DemoFileUploadController', [
             '$scope', '$http', '$filter', '$window',
             function ($scope, $http, $filter, $window) {
-                /*
-                if (!isOnGitHub) {
+                
                     $scope.loadingFiles = true;
                     $scope.options = {
                         url: url
@@ -61,8 +60,6 @@ define(['angular', 'tools-filesuploader-ctrl'], function(angular) {
                                 $scope.loadingFiles = false;
                             }
                         );
-                }
-                */
             }
         ])
 
