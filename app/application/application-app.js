@@ -7,8 +7,9 @@ define([
     'caliopeweb-formDirectives',	
     'proyectosmtv-controller',
     'proyectosmtv-service',
-    'login-services',
+    'security-services',
     'login-controllers',
+    'tools-filesuploader-ctrl',
     'gis-view-ctrl'
 	], function (
 	  angular,
@@ -22,12 +23,13 @@ define([
 		                                 'CaliopeWebTemplatesServices', 
 		                                 'CaliopeWebTemplateControllers',
 		                                 'CaliopeWebFormDirectives',
-		                                 'ProyectoControllers',		                                 
+		                                 'ProyectoControllers',
 		                                 'ProyectoServices',
-		                                 'LoginServices',
+		                                 'SecurityServices',
 		                                 'LoginControllers',
-                                                 'GisViewerController'
-//                                                  'FileUploaderController'
+                                                 'GisViewerController',
+                                                 'FilesUploadController'
+
 		                                ]);
 		
 		return moduleApp;
