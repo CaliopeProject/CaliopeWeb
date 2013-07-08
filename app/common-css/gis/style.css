@@ -124,7 +124,7 @@ div.olControlMousePosition {
 /* line 109, ../../common-scss/gis/style.scss */
 .olControlOverviewMapExtentRectangle {
   overflow: hidden;
-  background-image: url("img/blank.gif");
+  background-image: url("/tools-gis-viewer/images/openlayers/blank.gif");
   cursor: move;
   border: 2px dotted red;
 }
@@ -133,7 +133,7 @@ div.olControlMousePosition {
 .olControlOverviewMapRectReplacement {
   overflow: hidden;
   cursor: move;
-  background-image: url("img/overview_replacement.gif");
+  background-image: url("/tools-gis-viewer/images/openlayers/overview_replacement.gif");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -169,7 +169,7 @@ div.olControlMousePosition {
 
 /* line 149, ../../common-scss/gis/style.scss */
 .olControlNavigationHistory {
-  background-image: url("img/navigation_history.png");
+  background-image: url("/tools-gis-viewer/images/openlayers/navigation_history.png");
   background-repeat: no-repeat;
   width: 24px;
   height: 24px;
@@ -310,7 +310,7 @@ div.olControlSaveFeaturesItemInactive {
 
 /* line 272, ../../common-scss/gis/style.scss */
 .olPopupCloseBox {
-  background: url("img/close.gif") no-repeat;
+  background: url("/tools-gis-viewer/images/openlayers/close.gif") no-repeat;
   cursor: pointer;
 }
 
@@ -445,7 +445,7 @@ span.olGoogleAttribution.hybrid a, span.olGoogleAttribution.satellite a {
 
 /* line 391, ../../common-scss/gis/style.scss */
 .olControlNavToolbar div {
-  background-image: url("img/editing_tool_bar.png");
+  background-image: url("/tools-gis-viewer/images/openlayers/editing_tool_bar.png");
   background-repeat: no-repeat;
   margin: 0 0 5px 5px;
   width: 24px;
@@ -460,7 +460,7 @@ span.olGoogleAttribution.hybrid a, span.olGoogleAttribution.satellite a {
 }
 /* line 401, ../../common-scss/gis/style.scss */
 .olControlEditingToolbar div {
-  background-image: url("img/editing_tool_bar.png");
+  background-image: url("/tools-gis-viewer/images/openlayers/editing_tool_bar.png");
   background-repeat: no-repeat;
   margin: 0 0 5px 5px;
   width: 24px;

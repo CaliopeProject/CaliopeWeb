@@ -108,7 +108,7 @@ div.olControlMousePosition {
 
 .olControlOverviewMapExtentRectangle {
   overflow: hidden;
-  background-image: url("img/blank.gif");
+  background-image: url("/tools-gis-viewer/images/openlayers/blank.gif");
   cursor: move;
   border: 2px dotted red;
 }
@@ -116,7 +116,7 @@ div.olControlMousePosition {
 .olControlOverviewMapRectReplacement {
   overflow: hidden;
   cursor: move;
-  background-image: url("img/overview_replacement.gif");
+  background-image: url("/tools-gis-viewer/images/openlayers/overview_replacement.gif");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -147,7 +147,7 @@ div.olControlMousePosition {
 }
 
 .olControlNavigationHistory {
-  background-image: url("img/navigation_history.png");
+  background-image: url("/tools-gis-viewer/images/openlayers/navigation_history.png");
   background-repeat: no-repeat;
   width: 24px;
   height: 24px;
@@ -270,7 +270,7 @@ div {
 }
 
 .olPopupCloseBox {
-  background: url("img/close.gif") no-repeat;
+  background: url("/tools-gis-viewer/images/openlayers/close.gif") no-repeat;
   cursor: pointer;
 }
 
@@ -389,7 +389,7 @@ span.olGoogleAttribution {
 }
 
 .olControlNavToolbar div {
-  background-image: url("img/editing_tool_bar.png");
+  background-image: url("/tools-gis-viewer/images/openlayers/editing_tool_bar.png");
   background-repeat: no-repeat;
   margin: 0 0 5px 5px;
   width: 24px;
@@ -399,7 +399,7 @@ span.olGoogleAttribution {
 
 .olControlEditingToolbar {
   div {
-    background-image: url("img/editing_tool_bar.png");
+    background-image: url("/tools-gis-viewer/images/openlayers/editing_tool_bar.png");
     background-repeat: no-repeat;
     margin: 0 0 5px 5px;
     width: 24px;
