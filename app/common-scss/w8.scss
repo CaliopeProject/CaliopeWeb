@@ -747,7 +747,6 @@ blockquote {
     padding-right: 0;
     min-height: 45px;
     position: relative;
-    background: #438eb9;
   }
   .navbar-text, .navbar-link {
     color: #fff;
@@ -767,6 +766,11 @@ blockquote {
       color: #fff;
     }
   }
+}
+.logo {
+  top    : 7px;
+  width  : 33px;
+  padding-left: 10px;
 }
 
 .ace-nav {
@@ -872,7 +876,14 @@ blockquote {
     text-align: center;
   }
 }
-
+.whitee{
+    line-height: 45px;
+    max-height: 45px;
+    border-right: 1px solid rgb(25, 240, 15);
+    padding: 0;
+    background-color: white;
+    width: 51px;
+  }
 #breadcrumbs {
   position: relative;
   z-index: 13;

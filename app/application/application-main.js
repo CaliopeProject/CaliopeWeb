@@ -2,7 +2,7 @@
 /*global windows, $*/
 
 require.config({
-//     waitSeconds: 60,
+  waitSeconds: 60,
   paths: {
     'jquery'                           : 'libs-js-thirdparty/jquery/jquery',
     'dform'                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',

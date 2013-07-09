@@ -10,13 +10,17 @@
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a href="#" class="brand">
-						<small>
-							<i class="icon-unlock-alt"></i>
-						  SIMM	
-						</small>
-					</a><!--/.brand-->
-
+				<div class="nav ace-nav pull-left">
+            <div class="whitee">
+              <img class="logo" src="common-img/logometro.png" alt="Metrovivienda" />
+            </div>
+          </div>
+          <a href="#" class="brand">
+            <small>
+              <i class="icon-unlock-alt"></i>
+              SIMM
+            </small>
+          </a><!--/.brand-->
 					<ul class="nav ace-nav pull-right">
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -315,13 +319,20 @@
 						</a>
 					</li>
 
-					<li>
-						<a href="typography.html">
-							<i class="icon-text-width"></i>
-							<span>Typography</span>
-						</a>
-					</li>
+                                        <li>
+                                                <a href="#/view1">
+                                                        <i class="icon-text-width"></i>
+                                                        <span>View 1</span>
+                                                </a>
+                                        </li>
 
+                                        <li>
+                                                <a href="#/view2">
+                                                        <i class="icon-text-width"></i>
+                                                        <span>View 2</span>
+                                                </a>
+                                        </li>
+                                        
 					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-desktop"></i>
@@ -355,57 +366,33 @@
 					</li>
 
 					<li>
-						<a href="#">
+						<a href="#/login/login/create">
 							<i class="icon-list"></i>
-							<span>Tables</span>
+							<span>Login</span>
 						</a>
-					</li>
-
-					<li>
-						<a href="#" class="dropdown-toggle">
-							<i class="icon-edit"></i>
-							<span>Forms</span>
-
-							<b class="arrow icon-angle-down"></b>
-						</a>
-
-						<ul class="submenu">
-							<li>
-								<a href="#">
-									<i class="icon-double-angle-right"></i>
-									Form Elements
-								</a>
-							</li>
-
-							<li>
-								<a href="#">
-									<i class="icon-double-angle-right"></i>
-									Wizard &amp; Validation
-								</a>
-							</li>
-
-							<li>
-								<a href="#">
-									<i class="icon-double-angle-right"></i>
-									Wysiwyg &amp; Markdown
-								</a>
-							</li>
-						</ul>
 					</li>
 
 					<li>
 						<a href="#/gis">
 							<i class="icon-list-alt"></i>
-							<span>Gis</span>
+							<span>GIS</span>
 						</a>
 					</li>
 
-					<li>
-						<a href="#">
-							<i class="icon-calendar"></i>
-							<span>Calendar</span>
-						</a>
-					</li>
+                                        <li>
+                                                <a href="#/tools/upload/files">
+                                                        <i class="icon-calendar"></i>
+                                                        <span>Upload files</span>
+                                                </a>
+                                        </li>
+                                        
+                                        
+                                        <li>
+                                                <a href="#/proyectomtv/proyectomtv/create">
+                                                        <i class="icon-calendar"></i>
+                                                        <span>Crear Proyecto</span>
+                                                </a>
+                                        </li>
 
 					<li>
 						<a href="#">
@@ -420,6 +407,39 @@
 							<span>Grid</span>
 						</a>
 					</li>
+
+
+                                        <li>
+                                                <a href="#" class="dropdown-toggle">
+                                                        <i class="icon-edit"></i>
+                                                        <span>Forms</span>
+
+                                                        <b class="arrow icon-angle-down"></b>
+                                                </a>
+
+                                                <ul class="submenu">
+                                                        <li>
+                                                                <a href="#">
+                                                                        <i class="icon-double-angle-right"></i>
+                                                                        Form Elements
+                                                                </a>
+                                                        </li>
+
+                                                        <li>
+                                                                <a href="#">
+                                                                        <i class="icon-double-angle-right"></i>
+                                                                        Wizard &amp; Validation
+                                                                </a>
+                                                        </li>
+
+                                                        <li>
+                                                                <a href="#">
+                                                                        <i class="icon-double-angle-right"></i>
+                                                                        Wysiwyg &amp; Markdown
+                                                                </a>
+                                                        </li>
+                                                </ul>
+                                        </li>
 
 					<li>
 						<a href="#" class="dropdown-toggle">
@@ -517,14 +537,7 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT BEGINS HERE-->
-            <ul class="menu" >
-              <li><a href="#/view1">View 1</a></li>
-              <li><a href="#/view2">View 2</a></li>
 
-              <li><a href="#/proyectomtv/proyectomtv/create">Crear Proyecto</a></li>
-              <li><a href="#/login/login/create">Login</a></li>
-              <li><a href="#/tools/upload/files">Upload files</a></li>
-            </ul>
             <ng-view/>
             <div id="mapdiv" style="margin: 30px"></div>
             <!--PAGE CONTENT ENDS HERE--> 				  

@@ -1,0 +1,913 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+/* ------------------------------------------------------------------- */
+/* --- Heron --------------------------------------------------------- */
+/* ------------------------------------------------------------------- */
+/* line 20, ../../common-scss/gis/default.scss */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* line 27, ../../common-scss/gis/default.scss */
+#hr-mainpanel {
+  /*	position: absolute;
+          top: 0px;
+          left: 0px;     debugging IE */
+  height: 100%;
+  width: 100%;
+}
+
+/* line 35, ../../common-scss/gis/default.scss */
+.hr-html-panel-body {
+  background-color: #ffffff;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  text-decoration: none;
+  color: #000000;
+  margin: 5px;
+}
+
+/* line 44, ../../common-scss/gis/default.scss */
+.hr-legend-panel-header {
+  background-color: #ffffff;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000000;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+/* line 55, ../../common-scss/gis/default.scss */
+#viewer_north_img {
+  position: absolute;
+  top: 4px;
+  left: 24px;
+  text-align: left;
+  float: left;
+}
+
+/* line 63, ../../common-scss/gis/default.scss */
+#viewer_north_text {
+  position: absolute;
+  top: 20px;
+  left: 180px;
+  font-size: 14px;
+  color: #007EA9;
+  display: inline-block;
+}
+
+/* line 72, ../../common-scss/gis/default.scss */
+img.kad_logo {
+  height: 41px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/** To make grid cell text by default selectable, see http://www.sencha.com/learn/grid-faq/
+See also override-ext.js for GridView cell Template adaptation.
+*/
+/* line 83, ../../common-scss/gis/default.scss */
+.x-selectable {
+  -moz-user-select: text !important;
+  -khtml-user-select: text !important;
+  -webkit-user-select: text !important;
+}
+/* line 87, ../../common-scss/gis/default.scss */
+.x-selectable * {
+  -moz-user-select: text !important;
+  -khtml-user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+/* From ExtJs - blue theme */
+/* Could be in the App-css */
+/* Somehow this needs to be in to get the right blue style...*/
+/* line 98, ../../common-scss/gis/default.scss */
+.x-panel-header {
+  color: #15428b;
+  font-weight: bold;
+  font-size: 11px;
+  font-family: tahoma,arial,verdana,sans-serif;
+  border-color: #99bbe8;
+  /** In order to align with map panel toolbar http://code.google.com/p/geoext-viewer/issues/detail?id=162 */
+  padding-top: 5px;
+  padding-bottom: 6px;
+  /* height: 19px; see issue #162 */
+  /* background-image: url(../images/default/panel/white-top-bottom.gif); */
+}
+
+/* don't wrap lines on any tooltips */
+/* line 113, ../../common-scss/gis/default.scss */
+.x-tip {
+  white-space: nowrap;
+}
+
+/* get images on buttons with text to line up with those with no text */
+/* line 119, ../../common-scss/gis/default.scss */
+.x-btn-text-icon .x-btn-center .x-btn-text {
+  background-position: 0 3px;
+}
+
+/* apply some margin when using the row expander */
+/* line 125, ../../common-scss/gis/default.scss */
+.x-grid3-row-body p {
+  margin: 5px !important;
+}
+
+/* workaround for semi-alpha pixels in IE7: background needs to be the same
+ * as the toolbar's background color */
+/* line 132, ../../common-scss/gis/default.scss */
+.ext-ie .x-item-disabled .x-btn-text {
+  background-color: #EAEAEA;
+}
+
+/* line 136, ../../common-scss/gis/default.scss */
+.x-tree-node img.gx-folder, .x-tree-node-collapsed img.gx-folder {
+  background: url("/tools-gis-viewer/images/heron/default/tree/folder.gif");
+}
+
+/* line 140, ../../common-scss/gis/default.scss */
+.x-tree-node-expanded img.gx-folder {
+  background: url("/tools-gis-viewer/images/heron/default/tree/folder-open.gif");
+}
+
+/* line 144, ../../common-scss/gis/default.scss */
+.x-menu-group-item .x-menu-item-icon {
+  background: transparent url("/tools-gis-viewer/images/heron/default/form/radio.gif") no-repeat 0 0;
+  height: 13px;
+  width: 13px;
+  margin: 2px;
+}
+
+/* line 151, ../../common-scss/gis/default.scss */
+.x-menu-item-checked .x-menu-group-item .x-menu-item-icon {
+  background: transparent url("/tools-gis-viewer/images/heron/default/form/radio.gif") no-repeat -13px -13px;
+  height: 13px;
+  width: 13px;
+  margin: 2px;
+}
+
+/* line 159, ../../common-scss/gis/default.scss */
+.x-btn .icon-about {
+  background-image: url("/tools-gis-viewer/images/heron/silk/help.png") !important;
+}
+/* line 162, ../../common-scss/gis/default.scss */
+.x-btn .icon-addlayers {
+  background-image: url("/tools-gis-viewer/images/heron/silk/add.png") !important;
+}
+/* line 165, ../../common-scss/gis/default.scss */
+.x-btn .icon-removelayers {
+  background-image: url("/tools-gis-viewer/images/heron/silk/delete.png") !important;
+}
+/* line 168, ../../common-scss/gis/default.scss */
+.x-btn .icon-addserver {
+  background-image: url("/tools-gis-viewer/images/heron/silk/server_add.png") !important;
+}
+/* line 171, ../../common-scss/gis/default.scss */
+.x-btn .icon-getfeatureinfo {
+  background-image: url("/tools-gis-viewer/images/heron/silk/information.png") !important;
+}
+
+/* line 176, ../../common-scss/gis/default.scss */
+.icon-getfeatureinfo {
+  background: url("/tools-gis-viewer/images/heron/silk/information.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 183, ../../common-scss/gis/default.scss */
+.x-btn .icon-featuretooltip {
+  background-image: url("/tools-gis-viewer/images/heron/silk/comment.png") !important;
+}
+
+/* line 187, ../../common-scss/gis/default.scss */
+.icon-featuretooltip {
+  background: url("/tools-gis-viewer/images/heron/silk/comment.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 194, ../../common-scss/gis/default.scss */
+.x-btn .icon-bookmark {
+  background-image: url("/tools-gis-viewer/images/heron/star.png") !important;
+}
+
+/* line 198, ../../common-scss/gis/default.scss */
+.icon-bookmark {
+  background: url("/tools-gis-viewer/images/heron/star.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 205, ../../common-scss/gis/default.scss */
+.x-btn .icon-export {
+  background-image: url("/tools-gis-viewer/images/heron/silk/map_go.png") !important;
+}
+
+/* line 209, ../../common-scss/gis/default.scss */
+.icon-export {
+  background: url("/tools-gis-viewer/images/heron/silk/map_go.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 216, ../../common-scss/gis/default.scss */
+.x-btn .icon-measure {
+  background-image: url("/tools-gis-viewer/images/heron/geosilk/ruler.png") !important;
+}
+
+/* line 220, ../../common-scss/gis/default.scss */
+.icon-measure {
+  background: url("/tools-gis-viewer/images/heron/geosilk/ruler.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 227, ../../common-scss/gis/default.scss */
+.x-btn .icon-measure-length {
+  background-image: url("/tools-gis-viewer/images/heron/geosilk/ruler.png") !important;
+}
+
+/* line 231, ../../common-scss/gis/default.scss */
+.icon-measure-length {
+  background: url("/tools-gis-viewer/images/heron/geosilk/ruler.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 238, ../../common-scss/gis/default.scss */
+.x-btn .icon-measure-area {
+  background-image: url("/tools-gis-viewer/images/heron/geosilk/ruler_square.png") !important;
+}
+
+/* line 242, ../../common-scss/gis/default.scss */
+.icon-measure-area {
+  background: url("/tools-gis-viewer/images/heron/geosilk/ruler_square.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 249, ../../common-scss/gis/default.scss */
+.x-btn .icon-layer-switcher {
+  background-image: url("/tools-gis-viewer/images/heron/silk/layers.png") !important;
+}
+
+/* line 253, ../../common-scss/gis/default.scss */
+.icon-layer-switcher {
+  background: url("/tools-gis-viewer/images/heron/silk/layers.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 260, ../../common-scss/gis/default.scss */
+.x-btn .icon-zoom-in {
+  background-image: url("/tools-gis-viewer/images/heron/silk/magnifier_zoom_in.png") !important;
+}
+
+/* line 264, ../../common-scss/gis/default.scss */
+.icon-zoom-in {
+  background: url("/tools-gis-viewer/images/heron/silk/magnifier_zoom_in.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 271, ../../common-scss/gis/default.scss */
+.x-btn .icon-zoom-out {
+  background-image: url("/tools-gis-viewer/images/heron/silk/magnifier_zoom_out.png") !important;
+}
+
+/* line 275, ../../common-scss/gis/default.scss */
+.icon-zoom-out {
+  background: url("/tools-gis-viewer/images/heron/silk/magnifier_zoom_out.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 282, ../../common-scss/gis/default.scss */
+.x-btn .icon-find {
+  background-image: url("/tools-gis-viewer/images/heron/silk/find.png") !important;
+}
+
+/* line 286, ../../common-scss/gis/default.scss */
+.icon-find {
+  background: url("/tools-gis-viewer/images/heron/silk/find.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 293, ../../common-scss/gis/default.scss */
+.x-btn .icon-zoom-previous {
+  background-image: url("/tools-gis-viewer/images/heron/silk/arrow_left.png") !important;
+}
+
+/* line 297, ../../common-scss/gis/default.scss */
+.icon-zoom-previous {
+  background: url("/tools-gis-viewer/images/heron/silk/arrow_left.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 304, ../../common-scss/gis/default.scss */
+.x-btn .icon-zoom-next {
+  background-image: url("/tools-gis-viewer/images/heron/silk/arrow_right.png") !important;
+}
+
+/* line 308, ../../common-scss/gis/default.scss */
+.icon-zoom-next {
+  background: url("/tools-gis-viewer/images/heron/silk/arrow_right.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 315, ../../common-scss/gis/default.scss */
+.x-btn .icon-zoom-visible {
+  background-image: url("/tools-gis-viewer/images/heron/silk/arrow_out.png") !important;
+}
+
+/* line 319, ../../common-scss/gis/default.scss */
+.icon-zoom-visible {
+  background: url("/tools-gis-viewer/images/heron/silk/arrow_out.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 326, ../../common-scss/gis/default.scss */
+.x-btn .icon-hand {
+  background-image: url("/tools-gis-viewer/images/heron/momentum/handtool3.png") !important;
+}
+
+/* line 330, ../../common-scss/gis/default.scss */
+.icon-hand {
+  background: url("../images/momentum/handtool3.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 337, ../../common-scss/gis/default.scss */
+.x-btn .icon-pan {
+  background-image: url("/tools-gis-viewer/images/heron/geosilk/pan.png") !important;
+}
+
+/* line 341, ../../common-scss/gis/default.scss */
+.icon-pan {
+  background: url("../images/geosilk/pan.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 348, ../../common-scss/gis/default.scss */
+.x-btn .icon-save-features {
+  background-image: url("/tools-gis-viewer/images/heron/silk/disk.png") !important;
+}
+
+/* line 352, ../../common-scss/gis/default.scss */
+.icon-save-features {
+  background: url("/tools-gis-viewer/images/heron/silk/disk.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 359, ../../common-scss/gis/default.scss */
+.x-btn .icon-download {
+  background-image: url("/tools-gis-viewer/images/heron/silk/basket_put.png") !important;
+}
+
+/* line 363, ../../common-scss/gis/default.scss */
+.icon-download {
+  background: url("/tools-gis-viewer/images/heron/silk/basket_put.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 370, ../../common-scss/gis/default.scss */
+.icon-mapedit {
+  background: url("/tools-gis-viewer/images/heron/silk/map_edit.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 377, ../../common-scss/gis/default.scss */
+.x-btn .icon-printer {
+  background-image: url("/tools-gis-viewer/images/heron/silk/printer.png") !important;
+}
+
+/* line 381, ../../common-scss/gis/default.scss */
+.icon-printer {
+  background: url("/tools-gis-viewer/images/heron/silk/printer.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 388, ../../common-scss/gis/default.scss */
+.x-btn .icon-print-direct {
+  background-image: url("/tools-gis-viewer/images/heron/print-direct.png") !important;
+}
+
+/* line 392, ../../common-scss/gis/default.scss */
+.icon-print-direct {
+  background: url("/tools-gis-viewer/images/heron/print-direct.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 400, ../../common-scss/gis/default.scss */
+.x-btn .icon-table {
+  background-image: url("/tools-gis-viewer/images/heron/silk/table.png") !important;
+}
+/* line 403, ../../common-scss/gis/default.scss */
+.x-btn .icon-table-save {
+  background-image: url("/tools-gis-viewer/images/heron/silk/table_save.png") !important;
+}
+/* line 406, ../../common-scss/gis/default.scss */
+.x-btn .icon-table-clear {
+  background-image: url("/tools-gis-viewer/images/heron/silk/delete.png") !important;
+}
+/* line 409, ../../common-scss/gis/default.scss */
+.x-btn .icon-table-export {
+  background-image: url("/tools-gis-viewer/images/heron/silk/table_go.png") !important;
+}
+
+/* line 414, ../../common-scss/gis/default.scss */
+.icon-table-export {
+  background: transparent url("/tools-gis-viewer/images/heron/silk/table_go.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 421, ../../common-scss/gis/default.scss */
+.x-btn .icon-map-pin {
+  background-image: url("/tools-gis-viewer/images/heron/map_pin.png") !important;
+}
+
+/* line 425, ../../common-scss/gis/default.scss */
+.icon-map-pin {
+  background: url("/tools-gis-viewer/images/heron/map_pin.png") no-repeat 0 0 !important;
+  margin: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 432, ../../common-scss/gis/default.scss */
+.legend-item {
+  margin: 0.5em 10px;
+}
+
+/* line 436, ../../common-scss/gis/default.scss */
+div.map-overlay {
+  z-index: 1000;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+/* line 441, ../../common-scss/gis/default.scss */
+div.map-overlay div.overlay-element {
+  display: inline;
+  float: left;
+  margin: 5px;
+}
+
+/* line 448, ../../common-scss/gis/default.scss */
+.overlay-scaleline {
+  bottom: 0px;
+  left: 0px;
+  margin-top: 0px;
+}
+
+/* ------------------------------------------------------------------- */
+/* --- OpenLayers ---------------------------------------------------- */
+/* ------------------------------------------------------------------- */
+/* line 458, ../../common-scss/gis/default.scss */
+.olHandlerBoxZoomBox {
+  border: 2px solid red;
+  position: absolute;
+  background-color: white;
+  opacity: 0.50;
+  font-size: 1px;
+  filter: alpha(opacity=50);
+}
+
+/* ------------------------------------------------------------------- */
+/* OL - Pan- and Zoombar Panel Styles                                  */
+/* ------------------------------------------------------------------- */
+/* line 472, ../../common-scss/gis/default.scss */
+.olControlPanPanel div {
+  /* ExtJS-3.4.0 - xtheme-blue */
+  background-image: url("/tools-gis-viewer/images/extjs/default/panel/tool-sprites.gif") !important;
+  /* ExtJS-3.4.0 - xtheme-gray  */
+  /* background-image: url('../images/default/panel/tool-sprites-gray.gif') !important; */
+  height: 15px !important;
+  width: 15px !important;
+  /* workaround for button height in IE */
+  font-size: 0 !important;
+}
+/* line 482, ../../common-scss/gis/default.scss */
+.olControlPanPanel .olControlPanNorthItemInactive {
+  background-position: 15px -60px !important;
+  left: 16px !important;
+}
+/* line 486, ../../common-scss/gis/default.scss */
+.olControlPanPanel .olControlPanEastItemInactive {
+  background-position: 15px -120px !important;
+  left: 30px !important;
+  top: 16px !important;
+}
+/* line 491, ../../common-scss/gis/default.scss */
+.olControlPanPanel .olControlPanSouthItemInactive {
+  background-position: 15px -75px !important;
+  left: 16px !important;
+  top: 32px !important;
+}
+/* line 496, ../../common-scss/gis/default.scss */
+.olControlPanPanel .olControlPanWestItemInactive {
+  background-position: 15px -105px !important;
+  left: 2px !important;
+  top: 16px !important;
+}
+
+/* line 503, ../../common-scss/gis/default.scss */
+.olControlZoomPanel {
+  left: 21px !important;
+}
+/* line 505, ../../common-scss/gis/default.scss */
+.olControlZoomPanel div {
+  /* ExtJS-3.4.0 - xtheme-blue */
+  background-image: url("/tools-gis-viewer/images/extjs/default/panel/tool-sprites.gif") !important;
+  /* ExtJS-3.4.0 - xtheme-gray  */
+  /* background-image: url('../images/default/panel/tool-sprites-gray.gif') !important; */
+  height: 15px !important;
+  width: 15px !important;
+  /* workaround for button height in IE */
+  font-size: 0 !important;
+}
+/* line 515, ../../common-scss/gis/default.scss */
+.olControlZoomPanel .olControlZoomInItemInactive {
+  background-position: 15px -240px !important;
+  top: -5px !important;
+}
+/* line 519, ../../common-scss/gis/default.scss */
+.olControlZoomPanel .olControlZoomToMaxExtentItemInactive {
+  display: none !important;
+}
+/* line 522, ../../common-scss/gis/default.scss */
+.olControlZoomPanel .olControlZoomOutItemInactive {
+  background-position: 15px -255px !important;
+  top: 168px !important;
+}
+
+/* line 528, ../../common-scss/gis/default.scss */
+div.olControlZoom {
+  position: absolute;
+  top: 63px !important;
+  left: 20px !important;
+  border-radius: 4px;
+  padding: 0px;
+}
+/* line 534, ../../common-scss/gis/default.scss */
+div.olControlZoom a {
+  /* ExtJS-3.4.0 - xtheme-gray  */
+  /* color: #15428b; */
+  /* ExtJS-3.4.0 - xtheme-blue */
+  /* color: #333; */
+  /* ExtJS-3.4.0 - xtheme-gray */
+  color: #15428b;
+  /* background-color: #D3E1F1; */
+  /* ExtJS-3.4.0 - xtheme-blue */
+  /* background-color: #E9E9E9; */
+  /* ExtJS-3.4.0 - xtheme-gray */
+  background-color: #D3E1F1;
+  border: solid 1px;
+  /* border-color: #849CBD; */
+  /* ExtJS-3.4.0 - xtheme-blue */
+  /* border-color: #aaaaaa; */
+  /* ExtJS-3.4.0 - xtheme-gray */
+  border-color: #849CBD;
+  display: block;
+  margin: 1px;
+  font-size: 11px;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  height: 15px;
+  width: 15px;
+  line-height: 15px;
+  filter: alpha(opacity=100);
+}
+/* line 563, ../../common-scss/gis/default.scss */
+div.olControlZoom a:hover {
+  /* background-color: #D3E1F1; */
+  /* ExtJS-3.4.0 - xtheme-blue */
+  /* background-color: #E9E9E9; */
+  /* ExtJS-3.4.0 - xtheme-gray */
+  background-color: #D3E1F1;
+  filter: alpha(opacity=80);
+}
+
+/* line 575, ../../common-scss/gis/default.scss */
+a.olControlZoomIn {
+  border-radius: 4px 4px 0 0;
+}
+/* line 578, ../../common-scss/gis/default.scss */
+a.olControlZoomOut {
+  border-radius: 0 0 4px 4px;
+}
+
+/* line 583, ../../common-scss/gis/default.scss */
+.olControlScaleLine {
+  font-family: tahoma, arial, helvetica, sans-serif;
+}
+
+/* line 587, ../../common-scss/gis/default.scss */
+.olControlLoadingPanel {
+  /* background-color: #D3E1F1; */
+  /* ExtJS-3.4.0 - xtheme-blue  */
+  /* background-color: #E9E9E9; */
+  /* ExtJS-3.4.0 - xtheme-gray  */
+  /* background-color: #D9ECFF; */
+  /* for tool-sprite.gif - blue */
+  background-color: #D3E1F1;
+  background-image: url("/tools-gis-viewer/images/heron/loading-transparent.gif") !important;
+  background-repeat: no-repeat;
+  background-position: 5px;
+  display: none;
+  color: #000000;
+  margin-left: 65px;
+  margin-top: 15px;
+  padding-left: 30px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font: normal 11px tahoma, arial, helvetica, sans-serif;
+  border: solid 1px;
+  /* for tool-sprite.gif - blue */
+  border-bottom-color: #849CBD;
+  border-right-color: #849CBD;
+  border-top-color: #849CBD;
+  border-left-color: #849CBD;
+  /* for tool-sprite-gray.gif - gray */
+    /*
+	border-bottom-color: #aaaaaa;
+	border-right-color: #aaaaaa;
+	border-top-color: #aaaaaa;
+	border-left-color: #aaaaaa;
+    */
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  box-shadow: 2px 2px 2px #000;
+  -moz-box-shadow: 2px 2px 2px #000;
+  -webkit-box-shadow: 2px 2px 2px #000;
+}
+
+/* line 628, ../../common-scss/gis/default.scss */
+.olControlAttribution {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  right: 3px;
+  bottom: 3.5em;
+  position: absolute;
+  display: block;
+}
+
+/* line 637, ../../common-scss/gis/default.scss */
+.olControlMeasureDistanceActive {
+  cursor: crosshair;
+}
+
+/* line 641, ../../common-scss/gis/default.scss */
+.olControlPanel .olControlMeasureDistanceItemInactive {
+  cursor: pointer;
+}
+
+/* line 645, ../../common-scss/gis/default.scss */
+.olControlMeasureAreaActive {
+  cursor: crosshair;
+}
+
+/* line 649, ../../common-scss/gis/default.scss */
+.olControlPanel .olControlMeasureAreaItemInactive {
+  cursor: pointer;
+}
+
+/* line 653, ../../common-scss/gis/default.scss */
+.olLayerGooglePoweredBy.olLayerGoogleV3.gmnoprint {
+  visibility: hidden;
+}
+
+/** EditingToolbar for SpatialSearchPanel settings, extra rectangle drawer. and position left. */
+/* layouts */
+/* line 662, ../../common-scss/gis/default.scss */
+.olControlEditingToolbar div {
+  background-image: url("/tools-gis-viewer/images/heron/openlayers/editing_tool_bar_circle.png");
+  float: left;
+}
+/* line 666, ../../common-scss/gis/default.scss */
+.olControlEditingToolbar .olControlDrawRectangleItemInactive {
+  background-position: -128px -1px;
+}
+/* line 669, ../../common-scss/gis/default.scss */
+.olControlEditingToolbar .olControlDrawRectangleItemActive {
+  background-position: -128px -24px;
+}
+/* line 672, ../../common-scss/gis/default.scss */
+.olControlEditingToolbar .olControlDrawCircleItemInactive {
+  background-position: -1px -1px;
+}
+/* line 675, ../../common-scss/gis/default.scss */
+.olControlEditingToolbar .olControlDrawCircleItemActive {
+  background-position: -1px -24px;
+}
+
+/* ------------------------------------------------------------------- */
+/* --- GeoExt -------------------------------------------------------- */
+/* ------------------------------------------------------------------- */
+/* position the zoom slider within the OL Zoombar panel */
+/* line 686, ../../common-scss/gis/default.scss */
+.gx-zoomslider {
+  top: 85px !important;
+  left: 18px !important;
+}
+
+/* line 691, ../../common-scss/gis/default.scss */
+.gx-layer-menu {
+  background: #F0F0F0;
+}
+
+/* line 695, ../../common-scss/gis/default.scss */
+.gx-field-label {
+  font-weight: bold;
+  margin: 4px;
+  vertical-align: baseline;
+}
+
+/* line 701, ../../common-scss/gis/default.scss */
+.gx-snippet-area textarea {
+  color: black;
+  opacity: 1;
+}
+
+/* line 706, ../../common-scss/gis/default.scss */
+.gx-info-panel {
+  margin: 1em;
+}
+/* line 708, ../../common-scss/gis/default.scss */
+.gx-info-panel h2 {
+  margin-top: 1em;
+}
+
+/* line 713, ../../common-scss/gis/default.scss */
+.gx-wizard-description p {
+  margin: 4px auto;
+  background: none;
+}
+
+/* line 718, ../../common-scss/gis/default.scss */
+.gx-wizard-pane {
+  padding: 4px;
+}
+
+/* line 722, ../../common-scss/gis/default.scss */
+.gx-grid-true {
+  background: red;
+}
+
+/* line 726, ../../common-scss/gis/default.scss */
+.gx-grid-false {
+  background: blue;
+}
+
+/* line 730, ../../common-scss/gis/default.scss */
+.gx-wizard-active button {
+  font-weight: bold;
+}
+
+/* line 735, ../../common-scss/gis/default.scss */
+.gx-wizard-pane .x-panel-body {
+  background: none;
+}
+/* line 738, ../../common-scss/gis/default.scss */
+.gx-wizard-pane .x-grid3-dirty-cell {
+  background-image: none;
+}
+
+/* line 743, ../../common-scss/gis/default.scss */
+.gx-layer-visibility {
+  background-image: url("/tools-gis-viewer/images/heron/silk/eye.png");
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+/* line 750, ../../common-scss/gis/default.scss */
+.gx-activelayer-drag-icon {
+  margin: 0 !important;
+  /* background-image: url("/tools-gis-viewer/images/heron/drag.png") !important; */
+  background-image: url("../images/drag_v.png") !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* line 758, ../../common-scss/gis/default.scss */
+.gx-tree-layer-actions {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  float: left !important;
+}
+
+/* line 764, ../../common-scss/gis/default.scss */
+.gx-tree-layer-action {
+  background-position: center center;
+  background-repeat: no-repeat;
+  border: 0 none;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  width: 16px;
+}
+
+/* line 776, ../../common-scss/gis/default.scss */
+.gx-tree-layer-actions .up {
+  background: transparent url("../images/silk/bullet_arrow_up.png") !important;
+}
+/* line 779, ../../common-scss/gis/default.scss */
+.gx-tree-layer-actions .down {
+  background: transparent url("../images/silk/bullet_arrow_down.png") !important;
+}
+/* line 782, ../../common-scss/gis/default.scss */
+.gx-tree-layer-actions .opacity {
+  background: transparent url("../images/silk/bullet_picture.png") !important;
+}
+/* line 785, ../../common-scss/gis/default.scss */
+.gx-tree-layer-actions .tools {
+  background: transparent url("../images/silk/bullet_wrench.png") !important;
+}
+/* line 788, ../../common-scss/gis/default.scss */
+.gx-tree-layer-actions .remove {
+  background: transparent url("../images/silk/bullet_delete.png") !important;
+}
+/* line 791, ../../common-scss/gis/default.scss */
+.gx-tree-layer-actions .disabled {
+  opacity: 0.6;
+}
+
+/*
+.x-tree-node-el {
+	border-bottom: 1px solid #ddd;
+}
+.x-tree-no-lines .x-tree-elbow,
+.x-tree-no-lines .x-tree-elbow-end,
+.x-tree-node-collapsed .x-tree-node-icon,
+.x-tree-node-expanded .x-tree-node-icon,
+.x-tree-node-leaf .gx-tree-layer-icon {
+	width: 0px; !important;
+}
+*/
+/* ------------------------ */
+/* GeoExt - ux.PrintPreview */
+/* ------------------------ */
+/* line 813, ../../common-scss/gis/default.scss */
+.gx-map-overlay .x-panel-body {
+  /* from ExtJS - xtheme-blue.css - .ext-el-mask-msg */
+  background-color: #c3daf9;
+}

@@ -8,8 +8,6 @@ define(['angular', 'tools-filesuploader-ctrl'], function(angular) {
             '$httpProvider',
             function ($httpProvider) {
                 /*
-                if (isOnGitHub) {
-                    // Demo settings:
                     delete $httpProvider.defaults.headers.common['X-Requested-With'];
                     angular.extend(fileUploadProvider.defaults, {
                         // Enable image resizing, except for Android and Opera,
@@ -20,16 +18,14 @@ define(['angular', 'tools-filesuploader-ctrl'], function(angular) {
                         maxFileSize: 5000000,
                         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                     });
-                }
-                */
+             */
             }
         ])
 
         .controller('DemoFileUploadController', [
             '$scope', '$http', '$filter', '$window',
             function ($scope, $http, $filter, $window) {
-                /*
-                if (!isOnGitHub) {
+                
                     $scope.loadingFiles = true;
                     $scope.options = {
                         url: url
@@ -61,8 +57,6 @@ define(['angular', 'tools-filesuploader-ctrl'], function(angular) {
                                 $scope.loadingFiles = false;
                             }
                         );
-                }
-                */
             }
         ])
 
