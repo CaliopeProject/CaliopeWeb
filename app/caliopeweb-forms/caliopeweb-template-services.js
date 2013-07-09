@@ -54,52 +54,92 @@ define(['angular'], function(angular) {
     }
     
     
-    Service.completeTemplateWithAngular = function(jsonTemplate) {
-
-      function completeRecursive(jsonTemplate, nameTemplate) {
-        
-        if( jsonTemplate.name != null ) {
-          nameTemplate = jsonTemplate.name;
-        }                
-        jsonTemplate['ng-controller'] = 'LoginCtrl';      
-        
+    Service.completeTemplateForAngular = function(jsonTemplateGen) {
+            
+      var typesInput = ["text", "password"];         
+                            
+      function completeModelRecursive(jsonTemplate) {                              
         if( jsonTemplate.html != null && jsonTemplate.html.length > 0 ) {          
-          completeRecursive(jsonTemplate.html, nameTemplate);
-        } else {
+          completeModelRecursive(jsonTemplate.html);
+        } else {                    
           var elements = jQuery.grep(jsonTemplate, function(obj) {
             return obj.type != null;
           });          
           for ( var i = 0; i < elements.length; i++) {
-            completeIndividual(elements[i], nameTemplate);
-          }                    
+            completeModelIndividual(elements[i]);
+          }                                    
         }
-        return "";
       }
       
-      function completeIndividual(element, nameTemplate) {        
-        var stElement = JSON.stringify(element);
-                
+      function completeModelIndividual(element) {        
+        var stElement = JSON.stringify(element);                
         var name = element.name;
         
         if( name == null ) {
           name = element.id;
         }        
-        
+                
+        var valueNgModel = "";
         if( name != null ) {
-          element['ng-model'] = nameTemplate + "." + name;          
+          valueNgModel = name; 
         } else {
-          element['ng-model'] = nameTemplate;          
-        }
-        element.value="";                      
-        console.log('element:', element);                        
+          //TODO: Definir que se hace cuando no viene el att name, 
+          // se debería generar una excepcion indicando el error y notificando
+          // al server sobre el error.          
+          //valueNgModel = stNameTemplate;
+          console.error('No se encontro valor para el atributo name en el template.');
+        }        
+        element['ng-model'] = valueNgModel;                                                         
       }
       
-      if( jsonTemplate != null ) {        
-        var typesInput = ["text", "password"];             
-        completeRecursive(jsonTemplate, jsonTemplate.name);        
+      function completeController(jsonTemplateForm) {
+        var valueNgCtrl = jsonTemplateForm.name;        
+        if( valueNgCtrl != null) {          
+          valueNgCtrl = valueNgCtrl.slice(0, 1).toUpperCase().concat(
+                valueNgCtrl.slice(1, valueNgCtrl.length)
+              ); 
+          valueNgCtrl = valueNgCtrl.concat("Ctrl");
+          jsonTemplateForm['ng-controller'] = valueNgCtrl;
+        }                
       }
       
-      return jsonTemplate; 
+      function completeActions(jsonTemplateForm, jsonTemplateActions, 
+          jsonTemplateTranslations) {        
+               
+        var nameForm = jsonTemplateForm.name;  
+        
+        if( jsonTemplateActions != null && jsonTemplateActions.length > 0 ) {
+          for ( var i = 0; i < jsonTemplateActions.length; i++) {
+            var action = {};
+            action.type = "button";
+            action['ng-click'] = jsonTemplateActions[i] + "(" + nameForm +")";
+            action.html = jsonTemplateTranslations[jsonTemplateActions[i]];
+            jsonTemplateForm.html.push(action);
+          }
+        }        
+      }
+            
+      /*
+       * If jsonTemplate not is null then runs the functionality that attach the  
+       * directives of angularJS to jsonTemplate. 
+       */
+     
+      if( jsonTemplateGen != null && jsonTemplateGen.form != null) {  
+        var jsonTemplateForm = jsonTemplateGen.form;
+        //var jsonTemplateData = jsonTemplateGen.data;
+        var jsonTemplateActions = jsonTemplateGen.actions;
+        var jsonTemplateTranslations = jsonTemplateGen.translations;
+                
+        completeController(jsonTemplateForm);
+        completeModelRecursive(jsonTemplateForm);
+        completeActions( jsonTemplateForm, jsonTemplateActions, 
+            jsonTemplateTranslations
+          );
+      } else {
+        console.error('No existe form para agregar');
+      }
+      
+      return jsonTemplateGen; 
            
     }
         

@@ -3,7 +3,7 @@ define(['angular'], function(angular) {
 
   var moduleControllers = angular.module('ProyectoControllers', []);
   
-  moduleControllers.controller('ProyectoCtrl', 
+  moduleControllers.controller('ProyectomtvCtrl', 
       ['proyectoSrv','$scope', '$routeParams', 
        function (service, $scope, $routeParams) {
        
