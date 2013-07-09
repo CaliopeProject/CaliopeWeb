@@ -46,7 +46,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                         ];
 		Heron.layout = {
 	xtype: 'hr_mappanel',
-	renderTo: 'mapdiv',
+	renderTo: 'siim_mapdiv',
 	height: 400,
 	width: '100%',
 	hropts: Heron.options.map
