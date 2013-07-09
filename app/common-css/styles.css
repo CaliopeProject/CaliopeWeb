@@ -32904,3 +32904,11 @@ a.olControlZoomOut {
   -o-transition: opacity 0.2s linear;
   transition: opacity 0.2s linear;
 }
+
+/* line 1, ../common-scss/gis/siim2.scss */
+#siim_mapdiv {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  display: block;
+}
