@@ -7,7 +7,7 @@ define([
     'caliopeweb-formDirectives',	
     'proyectosmtv-controller',
     'proyectosmtv-service',
-    'login-services',
+    'security-services',
     'login-controllers',
     'tools-filesuploader-ctrl',
     'gis-view-ctrl'
@@ -23,12 +23,13 @@ define([
 		                                 'CaliopeWebTemplatesServices', 
 		                                 'CaliopeWebTemplateControllers',
 		                                 'CaliopeWebFormDirectives',
-		                                 'ProyectoControllers',		                                 
+		                                 'ProyectoControllers',
 		                                 'ProyectoServices',
-		                                 'LoginServices',
+		                                 'SecurityServices',
 		                                 'LoginControllers',
                                                  'GisViewerController',
                                                  'FilesUploadController'
+
 		                                ]);
 		
 		return moduleApp;

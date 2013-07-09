@@ -2,7 +2,7 @@
 /*global windows, $*/
 
 require.config({
-//     waitSeconds: 60,
+  waitSeconds: 60,
   paths: {
     'jquery'                           : 'libs-js-thirdparty/jquery/jquery',
     'dform'                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
@@ -18,7 +18,7 @@ require.config({
     'caliopeweb-formDirectives'        : 'caliopeweb-forms/caliopeweb-form-directives',
     'proyectosmtv-controller'          : 'proyectosmtv/proyectomtv-controller',
     'proyectosmtv-service'             : 'proyectosmtv/proyectomtv-service',
-    'login-services'                   : 'login/login-services',
+    'security-services'                   : 'login/security-services',
     'login-controllers'                : 'login/login-controllers',
     'application-routes'               : 'application/application-routes',
 

@@ -6,7 +6,6 @@
     <link href="common-css/styles.css" rel="stylesheet" />
   </head>
   <body ng-controller="CaliopeController" ng-init="init()">
-
     <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -15,6 +14,12 @@
               <img class="logo" src="common-img/logometro.png" alt="Metrovivienda" />
             </div>
           </div>
+          <a href="#" class="brand">
+            <small>
+              <i class="icon-unlock-alt"></i>
+              SIMM
+            </small>
+          </a><!--/.brand-->
           <ul class="nav ace-nav pull-right">
             <li class="grey">
               <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -266,9 +271,6 @@
       </div><!--/.navbar-inner-->
     </div>
 
-
-
-
     <div class="container-fluid" id="main-container">
       <a id="menu-toggler" href="#">
         <span></span>
@@ -397,7 +399,12 @@
               <span>Gis</span>
             </a>
           </li>
-
+          <li>
+                  <a href="#/proyectomtv/proyectomtv/create">
+                          <i class="icon-calendar"></i>
+                          <span>Crear Proyecto</span>
+                  </a>
+          </li>
           <li>
             <a href="#">
               <i class="icon-calendar"></i>
@@ -525,8 +532,7 @@
             </ul>
             <ng-view/>
             <div id="mapdiv" style="margin: 30px"></div>
-            <!--PAGE CONTENT ENDS HERE-->           
-          </div><!--/#page-content-->
+            <!--PAGE CONTENT ENDS HERE-->           </div><!--/#page-content-->
 
         <div id="ace-settings-container">
           <div class="btn btn-app btn-mini btn-warning" id="ace-settings-btn">
@@ -559,9 +565,6 @@
         </div><!--/#ace-settings-container-->
       </div><!--/#main-content-->
     </div><!--/.fluid-container#main-container-->
-
-
-
   </body>
   <script data-main="application/application-main" src="libs-js-thirdparty/requirejs/require.js"></script>
 </html>
