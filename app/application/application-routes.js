@@ -14,6 +14,10 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl: '/login/login-partial.html'});
     $routeProvider.when('/tools/upload/files', {
       templateUrl: '/tools-files-uploader/files-uploader-partial.html'});
+    $routeProvider.when('/tools/wysihtml5-editor', {
+      templateUrl: 'tools-wysihtml5-editor/wysihtml5-editor-partial.html'});    
+    
+    
     //$routeProvider.otherwise({redirectTo: '/view1'});
   }]);
 
