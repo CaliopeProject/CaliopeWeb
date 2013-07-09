@@ -27,7 +27,7 @@ define(['angular'], function(angular) {
           $scope.jsonPlantillaWA = {};
           $scope.$watch('jsonPlantilla', function(value) {
             //console.log('Change jsonPlantilla',value);
-            $scope.jsonPlantillaAngular = service.completeTemplateWithAngular(value);
+            $scope.jsonPlantillaAngular = service.completeTemplateForAngular(value);
           });
           
           $scope.jsonPlantilla = service.loadTemplateData(caliopeForm);
