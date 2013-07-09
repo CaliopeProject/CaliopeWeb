@@ -2453,7 +2453,7 @@ table th[class*="span"],
   *margin-right: .3em;
   line-height: 14px;
   vertical-align: text-top;
-  background-image: url(/../app/common-img/glyphicons-halflings.png?1373073037);
+  background-image: url(/../app/common-img/glyphicons-halflings.png?1372344320);
   background-position: 14px 14px;
   background-repeat: no-repeat;
   margin-top: 1px;
@@ -2478,7 +2478,7 @@ table th[class*="span"],
 .dropdown-submenu:focus > a > [class^="icon-"],
 .dropdown-submenu:hover > a > [class*=" icon-"],
 .dropdown-submenu:focus > a > [class*=" icon-"] {
-  background-image: url(/../app/common-img/glyphicons-halflings-white.png?1373073037);
+  background-image: url(/../app/common-img/glyphicons-halflings-white.png?1372344320);
 }
 
 /* line 52, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-2.3.2.0/vendor/assets/stylesheets/bootstrap/_sprites.scss */
@@ -23849,7 +23849,7 @@ div.map-overlay div.overlay-element {
 /* line 472, ../common-scss/gis/default.scss */
 .olControlPanPanel div {
   /* ExtJS-3.4.0 - xtheme-blue */
-  background-image: url("../images/default/panel/tool-sprites.gif") !important;
+  background-image: url("/tools-gis-viewer/images/extjs/default/panel/tool-sprites.gif") !important;
   /* ExtJS-3.4.0 - xtheme-gray  */
   /* background-image: url('../images/default/panel/tool-sprites-gray.gif') !important; */
   height: 15px !important;
@@ -23888,7 +23888,7 @@ div.map-overlay div.overlay-element {
 /* line 505, ../common-scss/gis/default.scss */
 .olControlZoomPanel div {
   /* ExtJS-3.4.0 - xtheme-blue */
-  background-image: url("../images/default/panel/tool-sprites.gif") !important;
+  background-image: url("/tools-gis-viewer/images/extjs/default/panel/tool-sprites.gif") !important;
   /* ExtJS-3.4.0 - xtheme-gray  */
   /* background-image: url('../images/default/panel/tool-sprites-gray.gif') !important; */
   height: 15px !important;
@@ -23983,7 +23983,7 @@ a.olControlZoomOut {
   /* background-color: #D9ECFF; */
   /* for tool-sprite.gif - blue */
   background-color: #D3E1F1;
-  background-image: url("../images/loading-transparent.gif") !important;
+  background-image: url("/tools-gis-viewer/images/heron/loading-transparent.gif") !important;
   background-repeat: no-repeat;
   background-position: 5px;
   display: none;

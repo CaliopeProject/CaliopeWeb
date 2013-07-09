@@ -471,7 +471,7 @@ div.map-overlay {
 .olControlPanPanel {
   div {
     /* ExtJS-3.4.0 - xtheme-blue */
-    background-image: url('../images/default/panel/tool-sprites.gif') !important;
+    background-image: url('/tools-gis-viewer/images/extjs/default/panel/tool-sprites.gif') !important;
     /* ExtJS-3.4.0 - xtheme-gray  */
     /* background-image: url('../images/default/panel/tool-sprites-gray.gif') !important; */
     height: 15px !important;
@@ -504,7 +504,7 @@ div.map-overlay {
   left: 21px !important;
   div {
     /* ExtJS-3.4.0 - xtheme-blue */
-    background-image: url('../images/default/panel/tool-sprites.gif') !important;
+    background-image: url('/tools-gis-viewer/images/extjs/default/panel/tool-sprites.gif') !important;
     /* ExtJS-3.4.0 - xtheme-gray  */
     /* background-image: url('../images/default/panel/tool-sprites-gray.gif') !important; */
     height: 15px !important;
@@ -592,7 +592,7 @@ a {
   /* background-color: #D9ECFF; */
   /* for tool-sprite.gif - blue */
   background-color: #D3E1F1;
-  background-image: url('../images/loading-transparent.gif') !important;
+  background-image: url('/tools-gis-viewer/images/heron/loading-transparent.gif') !important;
   background-repeat: no-repeat;
   background-position: 5px;
   display: none;
