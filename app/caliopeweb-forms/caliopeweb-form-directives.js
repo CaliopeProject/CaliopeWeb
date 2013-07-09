@@ -44,6 +44,7 @@ define(['angular', 'dform'], function(angular) {
        */
         scope.$watch(attrs.cwDform, function(value) {
           if( value != null ) {
+            console.log('Change jsonTemplateAngular', value);
             renderDForm(value);
           }
         });
@@ -68,8 +69,7 @@ define(['angular', 'dform'], function(angular) {
           }
         }  
          
-        function applyLayout(templateLayout) {
-          console.log('$(element)', $(element));
+        function applyLayout(templateLayout) {          
           var selector = '[name*=":name"]';
           
           for ( var i in templateLayout) {
@@ -78,7 +78,7 @@ define(['angular', 'dform'], function(angular) {
             var selectorDef = selector.replace(':name', name);
             $(selectorDef).removeClass();
             $(selectorDef).addClass(classTags);
-          }          
+          }
         }
       }
     }

@@ -10,6 +10,7 @@ define(['angular'], function(angular) {
     //We return this object to anything injecting our service
     var Service = {};
 
+    
     /*
      * Service that load the json template that define the form with fields.
      */
@@ -52,7 +53,56 @@ define(['angular'], function(angular) {
       return promise;
     }
     
+    
+    Service.completeTemplateWithAngular = function(jsonTemplate) {
 
+      function completeRecursive(jsonTemplate, nameTemplate) {
+        
+        if( jsonTemplate.name != null ) {
+          nameTemplate = jsonTemplate.name;
+        }                
+        jsonTemplate['ng-controller'] = 'LoginCtrl';      
+        
+        if( jsonTemplate.html != null && jsonTemplate.html.length > 0 ) {          
+          completeRecursive(jsonTemplate.html, nameTemplate);
+        } else {
+          var elements = jQuery.grep(jsonTemplate, function(obj) {
+            return obj.type != null;
+          });          
+          for ( var i = 0; i < elements.length; i++) {
+            completeIndividual(elements[i], nameTemplate);
+          }                    
+        }
+        return "";
+      }
+      
+      function completeIndividual(element, nameTemplate) {        
+        var stElement = JSON.stringify(element);
+                
+        var name = element.name;
+        
+        if( name == null ) {
+          name = element.id;
+        }        
+        
+        if( name != null ) {
+          element['ng-model'] = nameTemplate + "." + name;          
+        } else {
+          element['ng-model'] = nameTemplate;          
+        }
+        element.value="";                      
+        console.log('element:', element);                        
+      }
+      
+      if( jsonTemplate != null ) {        
+        var typesInput = ["text", "password"];             
+        completeRecursive(jsonTemplate, jsonTemplate.name);        
+      }
+      
+      return jsonTemplate; 
+           
+    }
+        
     return Service;    
     
   }]);       
