@@ -7,6 +7,9 @@ define(['angular'], function(angular) {
       ['LoginSrv', 'SessionSrv', '$scope', '$routeParams', '$rootScope',
        function (loginSrv, sessionSrv, $scope, $routeParams, $rootScope) {
         
+        /*
+         *  
+         */
         $scope.$watch( 'login.responseAuthenticate', function(value) {
           if( value != null ) {
             var uuid = value.uuid;

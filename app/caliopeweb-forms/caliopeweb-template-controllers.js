@@ -23,7 +23,13 @@ define(['angular'], function(angular) {
         caliopeForm.mode = $routeParams.mode; 
         $scope.caliopeForm = caliopeForm;
                 
-        $scope.load = function () {                       
+        $scope.load = function () {
+          $scope.jsonPlantillaWA = {};
+          $scope.$watch('jsonPlantilla', function(value) {
+            //console.log('Change jsonPlantilla',value);
+            $scope.jsonPlantillaAngular = service.completeTemplateWithAngular(value);
+          });
+          
           $scope.jsonPlantilla = service.loadTemplateData(caliopeForm);
           //$scope.jsonPlantillaLayout = service.loadTemplateLayout(caliopeForm)
         };
