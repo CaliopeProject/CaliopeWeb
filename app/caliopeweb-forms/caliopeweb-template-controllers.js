@@ -28,14 +28,15 @@ define(['angular'], function(angular) {
           
           $scope.$watch('jsonPlantilla', function(value) {    
             if( value != null ) {
-              var jsonTemplateAngular = service.completeTemplateForAngular(
-                  value);            
-              $scope.jsonPlantillaAngular = jsonTemplateAngular.form; 
+              
+              var jsonTemplateAngular = service.completeTemplateForAngular.jsonTemplateGen(value);              
+              var inputs = service.completeTemplateForAngular.inputs();              
+              $scope.jsonPlantillaAngular = jsonTemplateAngular.form;
+              $scope.inputsFormTemplate = inputs;
             }
           });
           
           $scope.jsonPlantilla = service.loadTemplateData(caliopeForm);
-          //$scope.jsonPlantillaLayout = service.loadTemplateLayout(caliopeForm)
         };
         
         if( caliopeForm.mode == 'create' || caliopeForm.mode == 'edit') {
