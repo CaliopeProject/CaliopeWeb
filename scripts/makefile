@@ -1,12 +1,9 @@
 all : nodepackages.log bower.log application-main.js node_modules/bower/bin/bower node_modules/requirejs/bin/r.js
 
-node_modules/bower/bin/bower: package.json
-	npm install  | tee nodepackages.log
+application-main.js: require-min.js bower.log 
+	node_modules/requirejs/bin/r.js -o require-min.js
 
-application-main.js: require-min.js bower.log ./node_modules/requirejs/bin/r.js
-	./node_modules/requirejs/bin/r.js -o require-min.js
-
-bower.log: nodepackages.log bower.json node_modules/bower/bin/bower 
+bower.log: nodepackages.log bower.json 
 	node_modules/bower/bin/bower install | tee bower.log 
 
 nodepackages.log: package.json
