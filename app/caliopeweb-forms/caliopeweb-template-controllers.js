@@ -22,6 +22,14 @@ define(['angular'], function(angular) {
         caliopeForm.id = $routeParams.plantilla;
         caliopeForm.mode = $routeParams.mode; 
         $scope.caliopeForm = caliopeForm;
+        
+        function putDataScope(jsonTemplateData) {         
+          if( jsonTemplateData != null ) {
+            for ( var varname in jsonTemplateData) {
+              $scope[varname] = jsonTemplateData[varname].value;
+            }
+          }          
+        }
                 
         $scope.load = function () {
           $scope.jsonPlantillaWA = {};
@@ -33,17 +41,43 @@ define(['angular'], function(angular) {
               var inputs = service.completeTemplateForAngular.inputs();              
               $scope.jsonPlantillaAngular = jsonTemplateAngular.form;
               $scope.inputsFormTemplate = inputs;
+              putDataScope(value.data);
             }
           });
           
           $scope.jsonPlantilla = service.loadTemplateData(caliopeForm);
         };
         
-        if( caliopeForm.mode == 'create' || caliopeForm.mode == 'edit') {
+        $scope.loadEdit = function() {
+          
+        };
+        
+        if( caliopeForm.mode == 'create') {
+          $scope.load();
+        } 
+        if(caliopeForm.mode == 'edit') {
           $scope.load();
         }
 
       }
       ]);
+  
+  moduleControllers.controller('SIIMFormCtrl', 
+      ['caliopewebTemplateSrv', '$scope', '$routeParams', 
+      function (caliopewebTemplateSrv, $scope, $routeParams) {
+      
+        $scope.create = function () {
+          var formAng = $scope[$scope.caliopeForm.id];         
+          var inputs = $scope.inputsFormTemplate;          
+          var obj = {};
+          for( var i = 0; i < inputs.length; i++) {
+            obj[inputs[i]] = $scope[inputs[i]];
+          }                              
+          caliopewebTemplateSrv.sendDataForm(obj, $scope.caliopeForm.id);
+        };        
+      }]
+  );
+      
+  
   
 });

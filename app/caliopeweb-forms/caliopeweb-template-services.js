@@ -16,7 +16,6 @@ define(['angular'], function(angular) {
      */
     Service.loadTemplateData = function(caliopeForm) {
       var request = {};          
-      //request.header = {};
       request = {};
       
       request = { 
@@ -34,9 +33,12 @@ define(['angular'], function(angular) {
     }
       
     Service.completeTemplateForAngular = (function() {
-            
-      var typesInput = ["text", "password"];  
+                  
+      var formsWithOwnController = ['login'];
+      var ctrlSIIMName = 'SIIMFormCtrl';
+      var ctrlEndName = 'Ctrl';
       var inputsNames = [];
+
       
                                   
       function completeModelRecursive(jsonTemplate) {                              
@@ -75,12 +77,17 @@ define(['angular'], function(angular) {
       }
       
       function completeController(jsonTemplateForm) {
-        var valueNgCtrl = jsonTemplateForm.name;        
-        if( valueNgCtrl != null) {          
+        var valueNgCtrl = ctrlSIIMName;
+        
+        if( formsWithOwnController.indexOf(jsonTemplateForm.name) >= 0 ) {
+          valueNgCtrl = jsonTemplateForm.name;
           valueNgCtrl = valueNgCtrl.slice(0, 1).toUpperCase().concat(
-                valueNgCtrl.slice(1, valueNgCtrl.length)
-              ); 
-          valueNgCtrl = valueNgCtrl.concat("Ctrl");
+              valueNgCtrl.slice(1, valueNgCtrl.length)
+            );           
+          valueNgCtrl = valueNgCtrl.concat(ctrlEndName);
+        }
+        if( valueNgCtrl != null) {          
+          valueNgCtrl = valueNgCtrl;
           jsonTemplateForm['ng-controller'] = valueNgCtrl;
         }                
       }
@@ -100,12 +107,11 @@ define(['angular'], function(angular) {
           }
         }        
       }
-            
-
-            
+                              
       return {
         jsonTemplateGen: function (jsonTemplateGen) {
           var jsonTemplateGenTmp = jsonTemplateGen;
+          inputsNames = [];
           /*
            * If jsonTemplate not is null then runs the functionality that attach the  
            * directives of angularJS to jsonTemplate. 
@@ -113,7 +119,7 @@ define(['angular'], function(angular) {
          
           if( jsonTemplateGenTmp != null && jsonTemplateGenTmp.form != null) {  
             var jsonTemplateForm = jsonTemplateGenTmp.form;
-            //var jsonTemplateData = jsonTemplateGen.data;
+            var jsonTemplateData = jsonTemplateGen.data;
             var jsonTemplateActions = jsonTemplateGenTmp.actions;
             var jsonTemplateTranslations = jsonTemplateGenTmp.translations;
                     
@@ -130,7 +136,7 @@ define(['angular'], function(angular) {
         },
         inputs : function() {
           return inputsNames;
-        }
+        },        
       }
            
     })();
@@ -143,7 +149,8 @@ define(['angular'], function(angular) {
           "cmd" : "create",
           "formId" : formId
         };
-      jQuery.extend(request, object);
+      request.data = {}
+      jQuery.extend(request.data, object);
       var promise = {};
       
       var webSockets = webSocket.WebSockets();

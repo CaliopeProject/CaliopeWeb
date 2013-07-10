@@ -12,6 +12,8 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl: '/tools-gis-viewer/gis-partial.html'});
     $routeProvider.when('/login/:plantilla/:mode', {
       templateUrl: '/login/login-partial.html'});
+    $routeProvider.when('/caliopeweb-forms/:plantilla/:mode', {
+      templateUrl: '/caliopeweb-forms/caliopeweb-form-partial.html'});        
     $routeProvider.when('/tools/upload/files', {
       templateUrl: '/tools-files-uploader/files-uploader-partial.html'});
     $routeProvider.when('/tools/wysihtml5-editor', {
