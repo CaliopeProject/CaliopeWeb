@@ -4,14 +4,17 @@ define(['angular'], function(angular) {
   var moduleControllers = angular.module('ProyectoControllers', []);
   
   moduleControllers.controller('ProyectomtvCtrl', 
-      ['proyectoSrv','$scope', '$routeParams', 
-       function (service, $scope, $routeParams) {
+      ['caliopewebTemplateSrv','$scope', '$routeParams', 
+       function (caliopeWebTemplateSrv, $scope, $routeParams) {
        
         $scope.create = function () {
-          var id = $scope.proyecto.id;
-          var nombre = $scope.proyecto.nombre;  
-                    
-          service.create($scope.proyecto); 
+          var formAng = $scope[$scope.caliopeForm.id];         
+          var inputs = $scope.inputsFormTemplate;          
+          var obj = {};
+          for( var i = 0; i < inputs.length; i++) {
+            obj[inputs[i]] = $scope[inputs[i]];
+          }                              
+          caliopeWebTemplateSrv.sendDataForm(obj, $scope.caliopeForm.id);
         };         
       }]
   ); 

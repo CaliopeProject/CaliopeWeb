@@ -32,32 +32,13 @@ define(['angular'], function(angular) {
             
       return promise;
     }
-
-    /*
-     * Service that load the json template that define the layout for a 
-     * template
-     */    
-    Service.loadTemplateLayout = function(caliopeForm) {
-      var request = {};    
-      request.header = {};
-      request.body = {};
       
-      request.body = {        
-          "template" :  caliopeForm.id,
-        };
-      var promise = {};
+    Service.completeTemplateForAngular = (function() {
+            
+      var typesInput = ["text", "password"];  
+      var inputsNames = [];
       
-      var webSockets = webSocket.WebSockets();
-      promise = webSockets.templatesLayout.sendRequest(request);
-            
-      return promise;
-    }
-    
-    
-    Service.completeTemplateForAngular = function(jsonTemplateGen) {
-            
-      var typesInput = ["text", "password"];         
-                            
+                                  
       function completeModelRecursive(jsonTemplate) {                              
         if( jsonTemplate.html != null && jsonTemplate.html.length > 0 ) {          
           completeModelRecursive(jsonTemplate.html);
@@ -89,7 +70,8 @@ define(['angular'], function(angular) {
           //valueNgModel = stNameTemplate;
           console.error('No se encontro valor para el atributo name en el template.');
         }        
-        element['ng-model'] = valueNgModel;                                                         
+        element['ng-model'] = valueNgModel;  
+        inputsNames.push(valueNgModel);
       }
       
       function completeController(jsonTemplateForm) {
@@ -119,28 +101,55 @@ define(['angular'], function(angular) {
         }        
       }
             
-      /*
-       * If jsonTemplate not is null then runs the functionality that attach the  
-       * directives of angularJS to jsonTemplate. 
-       */
-     
-      if( jsonTemplateGen != null && jsonTemplateGen.form != null) {  
-        var jsonTemplateForm = jsonTemplateGen.form;
-        //var jsonTemplateData = jsonTemplateGen.data;
-        var jsonTemplateActions = jsonTemplateGen.actions;
-        var jsonTemplateTranslations = jsonTemplateGen.translations;
-                
-        completeController(jsonTemplateForm);
-        completeModelRecursive(jsonTemplateForm);
-        completeActions( jsonTemplateForm, jsonTemplateActions, 
-            jsonTemplateTranslations
-          );
-      } else {
-        console.error('No existe form para agregar');
+
+            
+      return {
+        jsonTemplateGen: function (jsonTemplateGen) {
+          var jsonTemplateGenTmp = jsonTemplateGen;
+          /*
+           * If jsonTemplate not is null then runs the functionality that attach the  
+           * directives of angularJS to jsonTemplate. 
+           */
+         
+          if( jsonTemplateGenTmp != null && jsonTemplateGenTmp.form != null) {  
+            var jsonTemplateForm = jsonTemplateGenTmp.form;
+            //var jsonTemplateData = jsonTemplateGen.data;
+            var jsonTemplateActions = jsonTemplateGenTmp.actions;
+            var jsonTemplateTranslations = jsonTemplateGenTmp.translations;
+                    
+            completeController(jsonTemplateForm);
+            completeModelRecursive(jsonTemplateForm);
+            completeActions( jsonTemplateForm, jsonTemplateActions, 
+                jsonTemplateTranslations
+              );
+          } else {
+            console.error('No existe form para agregar');
+          }
+          
+          return jsonTemplateGenTmp;
+        },
+        inputs : function() {
+          return inputsNames;
+        }
       }
-      
-      return jsonTemplateGen; 
            
+    })();
+    
+    Service.sendDataForm = function(object, formId) {
+      var request = {};          
+      request = {};
+      
+      request = { 
+          "cmd" : "create",
+          "formId" : formId
+        };
+      jQuery.extend(request, object);
+      var promise = {};
+      
+      var webSockets = webSocket.WebSockets();
+      promise = webSockets.templates.sendRequest(request);
+            
+      return promise;      
     }
         
     return Service;    
