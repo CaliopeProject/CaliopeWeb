@@ -36,6 +36,8 @@
     'load-image-ios'                   : 'libs-js-thirdparty/blueimp-load-image/js/load-image-ios',
     'jquery.fileupload-process'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-process',
     'jquery.fileupload-angular'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-angular',
+    'wysihtml5-parser-rules'           : 'libs-js-thirdparty/wysihtml5/parser_rules/advanced',
+    'wysihtml5'                        : 'libs-js-thirdparty/wysihtml5/dist/wysihtml5-0.3.0',
     'gis-layout'                       : 'tools-gis-viewer/Layout',
     'gis-options'                      : 'tools-gis-viewer/Options',
     'gis-init'                         : 'tools-gis-viewer/Init',
