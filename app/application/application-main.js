@@ -18,10 +18,9 @@ require.config({
     'caliopeweb-formDirectives'        : 'caliopeweb-forms/caliopeweb-form-directives',
     'proyectosmtv-controller'          : 'proyectosmtv/proyectomtv-controller',
     'proyectosmtv-service'             : 'proyectosmtv/proyectomtv-service',
-    'security-services'                   : 'login/security-services',
+    'security-services'                : 'login/security-services',
     'login-controllers'                : 'login/login-controllers',
     'application-routes'               : 'application/application-routes',
-
     'tools-filesuploader-ctrl'         : 'tools-files-uploader/files-uploader-controller',
     'jquery.fileupload'                : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload',
     'jquery.ui.widget'                 : 'libs-js-thirdparty/jquery-file-upload/js/vendor/jquery.ui.widget',
@@ -40,11 +39,8 @@ require.config({
     'load-image-ios'                   : 'libs-js-thirdparty/blueimp-load-image/js/load-image-ios',
     'jquery.fileupload-process'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-process',
     'jquery.fileupload-angular'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-angular',
-    
     'wysihtml5-parser-rules'           : 'libs-js-thirdparty/wysihtml5/parser_rules/advanced',
     'wysihtml5'                        : 'libs-js-thirdparty/wysihtml5/dist/wysihtml5-0.3.0',
-
-    
     'gis-layout'                       : 'tools-gis-viewer/Layout',
     'gis-options'                      : 'tools-gis-viewer/Options',
     'gis-init'                         : 'tools-gis-viewer/Init',
@@ -53,9 +49,9 @@ require.config({
     'gis-ext-base'                     : 'libs-js-thirdparty/compiled-gis/ext-base',
     'gis-heron'                        : 'libs-js-thirdparty/heron-mc/heron',
     'gis-geoext'                       : 'libs-js-thirdparty/compiled-gis/GeoExt',
-    'gis-openlayers'                   : 'libs-js-thirdparty/compiled-gis/OpenLayers'
-     //'w8-elements.min'                 : 'application/w8-elements.min',
-     //'w8.min'                          : 'application/w8.min'
+    'gis-openlayers'                   : 'libs-js-thirdparty/compiled-gis/OpenLayers',
+    'w8-elements.min'                  : 'application/w8-elements.min',
+    'w8.min'                           : 'application/w8.min'
   },
   baseUrl: '/',
   shim: {
@@ -67,20 +63,20 @@ require.config({
     'application-controller'         : {'exports' : 'appcontroller'},
     'jquery.fileupload'              : {'exports' : 'fileupload'},
     'tools-filesuploader-ctrl'       : {'exports' : 'tools-filesuploader-ctrl'},
-    //'w8-elements.min'                : {deps      : ['jquery']},
-    //'w8.min'                         : {deps      : ['jquery']},
+    'w8-elements.min'                : {deps      : ['jquery']},
+    'w8.min'                         : {deps      : ['jquery']},
     'CryptoSHA256'                   : {deps      : ['Crypto']},
-    
+
     'fileupload'                     : {deps      : [  'fileupload-ui',
-                                                       'jquery.ui.widget', 
+                                                       'jquery.ui.widget',
                                                        'tmpl'
                                                     ]},
-               
-    'wysihtml5'                      : {deps      : ['wysihtml5-parser-rules']}, 
 
-    'tools-filesuploader-ctrl'       : {deps      : ['angular', 
-                                                     'jquery', 
-                                                     'jquery.fileupload', 
+    'wysihtml5'                      : {deps      : ['wysihtml5-parser-rules']},
+
+    'tools-filesuploader-ctrl'       : {deps      : ['angular',
+                                                     'jquery',
+                                                     'jquery.fileupload',
                                                      'jquery.fileupload-angular']},
     'dform'                          : {deps      : ['jquery']},
 
@@ -105,8 +101,8 @@ require([
   'gis-view-ctrl',
   'tools-filesuploader-ctrl',
   'wysihtml5'
-  //'w8-elements.min',
-  //'w8.min'
+  //,'w8-elements.min'
+  //,'w8.min'
 ], function(jQuery, angular, app, routes) {
   'use strict';
   $(document).ready(function () {
