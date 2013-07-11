@@ -1,36 +1,38 @@
 define([
     'angular',
     'application-controller',
-    'application-servicesWebSocket',	
+    'application-servicesWebSocket',
     'caliopeweb-templateServices',
     'caliopeweb-templateControllers',
-    'caliopeweb-formDirectives',	
+    'caliopeweb-formDirectives',
     'proyectosmtv-controller',
     'proyectosmtv-service',
     'security-services',
     'login-controllers',
     'tools-filesuploader-ctrl',
+    'menu-top-controller',
     'gis-view-ctrl'
-	], function (
-	  angular,
-	  webSocket,
-	  appcontroller
-	  ){
-		'use strict';
-		var moduleApp = angular.module('caliope',['CaliopeController',
-		                                 'webSocket', 
-		                                 'CaliopeController',
-		                                 'CaliopeWebTemplatesServices', 
-		                                 'CaliopeWebTemplateControllers',
-		                                 'CaliopeWebFormDirectives',
-		                                 'ProyectoControllers',
-		                                 'ProyectoServices',
-		                                 'SecurityServices',
-		                                 'LoginControllers',
-                                                 'GisViewerController',
-                                                 'FilesUploadController'
+  ], function (
+    angular,
+    webSocket,
+    appcontroller
+    ){
+    'use strict';
+    var moduleApp = angular.module('caliope',['CaliopeController',
+                                     'webSocket',
+                                     'CaliopeController',
+                                     'CaliopeWebTemplatesServices',
+                                     'CaliopeWebTemplateControllers',
+                                     'CaliopeWebFormDirectives',
+                                     'ProyectoControllers',
+                                     'ProyectoServices',
+                                     'SecurityServices',
+                                     'LoginControllers',
+                                     'GisViewerController',
+                                     'FilesUploadController',
+                                     'MenuTopControllers'
 
-		                                ]);
-		
-		return moduleApp;
+                                    ]);
+
+    return moduleApp;
 });

@@ -1,12 +1,7 @@
-// Import all the variables into the main css file.
-@import "variables";
-
-// I gather this file is a starting point for the project.
-@import "bootstrap";
-
-// Include responsive Bootstrap styles
-@import "bootstrap-responsive";
-
+// Include bootstrap
+@import "bootstrap/bootstrap";
+// Include bootstrap-responsive
+@import "bootstrap/responsive";
 // Include font-awesome
 @import "font-awesome/scss/font-awesome";
 
