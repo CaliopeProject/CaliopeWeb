@@ -1,21 +1,14 @@
 /*jslint browser: true*/
-/*global WebSocket*/
+/*global UUIDjs, WebSocket, WebSocketCaliope*/
 
 define(['angular', 'uuid'], function(angular, uuid) {
   'use strict';
   angular.module('webSocket', []).factory('webSocket',
-      ['$q', '$rootScope', function($q, $rootScope, uuid) {
+    ['$q', '$rootScope', function($q, $rootScope, uuid) {
 
       var Service = {};
       var webSockets = {};
 
-      function initWebSockets() {
-        var wsTemplates = new WebSocketCaliope('ws://' + document.domain + ':' + location.port + '/api/ws'
-          );
-        webSockets.templates = wsTemplates;
-        //webSockets.login = wsLogin;
-        //webSockets.templatesLayout = wsTemplateLayout;
-      }
 
       function WebSocketCaliope(Url) {
 
@@ -24,24 +17,10 @@ define(['angular', 'uuid'], function(angular, uuid) {
         // Create a unique callback ID to map requests to responses
         var currentCallbackId = 0;
 
-        var ws = new WebSocket(Url);
+        var ws  = new WebSocket(Url);
         var url = "url";
-        this.sendRequest = sendRequest;
-        this.getStatus = getStatus;
-        this.getUrl = getUrl;
 
 
-        ws.onopen = function(){
-          console.log("Socket has been opened! ", ws.url);
-        };
-
-        ws.onmessage = function(message) {
-          listener(JSON.parse(message.data));
-        };
-
-        ws.onerror = function(errorEvent) {
-          console.log("Error en ws! ", errorEvent);
-        }
 
         function getStatus() {
           return ws.readyState;
@@ -68,27 +47,50 @@ define(['angular', 'uuid'], function(angular, uuid) {
           var messageObj = data;
           console.log("Received data from websocket: ", messageObj);
           // If an object exists with callback_id in our callbacks object, resolve it
-//          console.log("messageObj.callback_id:", messageObj.callback_id);
-//          console.log("messageObj.data:", messageObj.data);
+          //          console.log("messageObj.callback_id:", messageObj.callback_id);
+          //          console.log("messageObj.data:", messageObj.data);
           if(callbacks.hasOwnProperty(messageObj.callback_id)) {
             $rootScope.$apply(
-                callbacks[messageObj.callback_id].cb.resolve(messageObj.data)
-              );
+              callbacks[messageObj.callback_id].cb.resolve(messageObj)
+            );
             delete callbacks[messageObj.callbackID];
           }
-        }
+        };
 
+        this.sendRequest = sendRequest;
+        this.getStatus   = getStatus;
+        this.getUrl      = getUrl;
+
+        ws.onopen = function(){
+          console.log("Socket has been opened! ", ws.url);
+        };
+
+        ws.onmessage = function(message) {
+          listener(JSON.parse(message.data));
+        };
+
+        ws.onerror = function(errorEvent) {
+          console.log("Error en ws! ", errorEvent);
+        };
+      }
+
+      function initWebSockets() {
+        var wsTemplates = new WebSocketCaliope('ws://' + document.domain + ':' + location.port + '/api/ws'
+        );
+        webSockets.templates = wsTemplates;
+        //webSockets.login = wsLogin;
+        //webSockets.templatesLayout = wsTemplateLayout;
       }
 
       Service.WebSockets = function() {
         return webSockets;
-      }
+      };
 
       Service.initWebSockets = function() {
         initWebSockets();
-      }
+      };
 
       return Service;
 
-  }])
+    }]);
 });
