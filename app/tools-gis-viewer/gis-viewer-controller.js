@@ -2,7 +2,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
   'use strict';
 
   var moduleControllers = angular.module('GisViewerController',[]);
-
+  var layerTreeDialog;
   moduleControllers.controller('GisViewerController', 
       ['$scope', '$routeParams', 
       function ($scope, $routeParams) {
@@ -42,7 +42,27 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                         	{type: "zoomnext"},
                         	{type: "-"},
                         	{type: "measurelength", options: {geodesic: true}},
-                        	{type: "measurearea", options: {geodesic: true}}
+                        	{type: "measurearea", options: {geodesic: true}},
+                        	{type: "capas",
+					options: {
+
+						text: 'Capas',
+						iconCls: 'bmenu',
+						handler: function () {
+							    layerTreeDialog= new Ext.Window({
+							    layout: "fit",
+							    width: 350,
+							    autoHeight: true,
+							    items: [{								
+								 xtype: 'hr_layertreepanel'
+								}
+							    ]
+							});
+							layerTreeDialog.show();
+						 }
+					}
+				}
+				
                         ];
 		Heron.layout = {
 	xtype: 'hr_mappanel',
