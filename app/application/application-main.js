@@ -7,6 +7,7 @@ require.config({
     'jquery'                           : 'libs-js-thirdparty/jquery/jquery',
     'dform'                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
     'angular'                          : 'libs-js-thirdparty/angular-unstable/angular',
+    'angular-ui-bootstrap-bower'       : 'libs-js-thirdparty/angular-ui-bootstrap-bower/ui-bootstrap',
     'uuid'                             : 'libs-js-thirdparty/uuid-js/lib/uuid',
     'Crypto'                           : 'libs-js-thirdparty/cryptojs/lib/Crypto',
     'CryptoSHA256'                     : 'libs-js-thirdparty/cryptojs/lib/SHA256',
@@ -57,6 +58,7 @@ require.config({
   shim: {
     'jquery'                         : {'exports' : 'jquery'},
     'angular'                        : {'exports' : 'angular'},
+    'angular-ui-bootstrap-bower'     : {'exports' : 'ui-bootstrap'},
     'application-app'                : {'exports' : 'app'},
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
     'application-routes'             : {'exports' : 'routes'},
