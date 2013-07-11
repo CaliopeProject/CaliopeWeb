@@ -4,3 +4,4 @@ app/libs-js-thirdparty/*
 .sass-cache
 /.project
 scripts/typescript
+/.settings
