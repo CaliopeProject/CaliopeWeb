@@ -1,7 +1,8 @@
 /*jslint browser: true*/
 /*global define*/
+'use strict';
 
-define([
+var dependencies = [
     'angular',
     'application-controller',
     'application-servicesWebSocket',
@@ -16,27 +17,26 @@ define([
     'menu-top-controller',
     'gis-view-ctrl',
     'notificationsService'
-  ], function (
-    angular,
-    webSocket,
-    appcontroller
-    ) {
-    'use strict';
-    var moduleApp = angular.module('caliope', ['CaliopeController',
-                                     'webSocket',
-                                     'CaliopeController',
-                                     'CaliopeWebTemplatesServices',
-                                     'CaliopeWebTemplateControllers',
-                                     'CaliopeWebFormDirectives',
-                                     'ProyectoControllers',
-                                     'ProyectoServices',
-                                     'SecurityServices',
-                                     'LoginControllers',
-                                     'GisViewerController',
-                                     'FilesUploadController',
-                                     'MenuTopControllers',
-                                     'NotificationsServices'
-                                    ]);
+  ];
 
-    return moduleApp;
-  });
+var modulesAngular = [
+    'CaliopeController',
+    'webSocket',
+    'CaliopeController',
+    'CaliopeWebTemplatesServices',
+    'CaliopeWebTemplateControllers',
+    'CaliopeWebFormDirectives',
+    'ProyectoControllers',
+    'ProyectoServices',
+    'SecurityServices',
+    'LoginControllers',
+    'GisViewerController',
+    'FilesUploadController',
+    'MenuTopControllers',
+    'NotificationsServices'
+  ];
+
+define(dependencies, function ( angular, webSocket, appcontroller) {
+  var moduleApp = angular.module('caliope', modulesAngular);
+  return moduleApp;
+});
