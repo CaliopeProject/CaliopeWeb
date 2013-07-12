@@ -21,9 +21,8 @@ define(['angular'], function (angular) {
     };
 
     return {
-
-      process : function () {                      
-        console.log('Manejar Respuesta');
+      process : function (responseSrv) {                      
+        console.log('Manejar Respuesta', responseSrv);
         // body...
       },
       nomb1 : function (argument) {
