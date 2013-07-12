@@ -17,8 +17,8 @@ define(['angular'], function (angular) {
   * templates of caliope framework
   */
   moduleControllers.controller('CaliopeWebTemplateCtrl',
-    ['caliopewebTemplateSrv', '$scope', '$routeParams',
-      function (caliopewebTemplateSrv, $scope, $routeParams) {
+    ['caliopewebTemplateSrv', '$scope', '$routeParams', 'HandlerResponseServerSrv',
+      function (caliopewebTemplateSrv, $scope, $routeParams, handlerResServerSrv) {
 
         var caliopeForm = {};
 
@@ -36,37 +36,39 @@ define(['angular'], function (angular) {
           }
         }
 
-        $scope.load = function () {
+        function load() {
+          var message;
           $scope.jsonPlantillaWA = {};
 
           $scope.$watch('jsonPlantilla', function (value) {
               if (value !== undefined) {
                 var content = value;
-                var jsonTemplateAngular = 
+                handlerResServerSrv.process(value);
+                message = handlerResServerSrv.message();                
+                $scope.$emit('ChangeTextAlertMessage', [message]);
+                
+                var jsonTemplateAngular =                 
                   caliopewebTemplateSrv.completeTemplateForAngular.jsonTemplateGen(
                       content
                   );
+                  
                 var inputs = caliopewebTemplateSrv.completeTemplateForAngular.inputs();
                 $scope.jsonPlantillaAngular = jsonTemplateAngular.form;
-                $scope.inputsFormTemplate = inputs;
+                $scope.inputsFormTemplate   = inputs;
                 putDataScope(content.data);
               }
             });
 
-          $scope.jsonPlantilla = 
+          $scope.jsonPlantilla =
             caliopewebTemplateSrv.loadTemplateData(caliopeForm);
-        };
-
-        $scope.loadEdit = function () {
-          console.log('Load Edit');
-        };
+        }
 
         if (caliopeForm.mode === 'create') {
-          $scope.load();
+          load();
         }
 
         if (caliopeForm.mode === 'edit') {
-          $scope.load();
+          load();
         }
 
       }
@@ -74,10 +76,11 @@ define(['angular'], function (angular) {
 
   moduleControllers.controller('SIIMFormCtrl',
     ['caliopewebTemplateSrv', 'HandlerResponseServerSrv', '$scope', '$routeParams',
-      function (caliopewebTemplateSrv, handlerResServerSrv,  
+      function (caliopewebTemplateSrv, handlerResServerSrv,
           $scope, $routeParams) {
       
-      
+        var message;
+
         function sendForm(caliopeForm) {
           var formAng = $scope[caliopeForm.id];
           var inputs = $scope.inputsFormTemplate;
@@ -95,14 +98,17 @@ define(['angular'], function (angular) {
           $scope.resposeCreateForm = caliopewebTemplateSrv.sendDataForm(
               obj, caliopeForm);
         }
-            
+
         $scope.$watch('resposeCreateForm', function (value) {
-          
-          if (value !== undefined) {            
-            var isOk = handlerResServerSrv.handle.process(value);
+
+          if (value !== undefined) {
+            handlerResServerSrv.process(value);
+            message = handlerResServerSrv.message();
+            console.log(message);
+            $scope.$emit('ChangeTextAlertMessage', [message]);
             var content = value.result;
-                        
-            if (content === 'ok') {
+            
+	          if (content === 'ok') {
               console.log('Proyecto Creado', value.data.uuid);
               var dataList = $scope.dataList;
               if (dataList === undefined) {              
@@ -117,7 +123,7 @@ define(['angular'], function (angular) {
               obj.uuid = value.data.uuid; 
               dataList.push(obj);
               $scope.$parent.dataList = dataList;              
-            }            
+            }
           }
           $scope.processingResponse  = false;
         });
@@ -128,7 +134,7 @@ define(['angular'], function (angular) {
         
         $scope.edit = function () {
           sendForm($scope.caliopeForm);
-        }
+        };
 
       }]
   );
