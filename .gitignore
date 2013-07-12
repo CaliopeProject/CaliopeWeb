@@ -5,3 +5,4 @@ app/libs-js-thirdparty/*
 /.project
 scripts/typescript
 /.settings
+.idea/
