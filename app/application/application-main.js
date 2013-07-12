@@ -1,5 +1,5 @@
 /*jslint browser: true*/
-/*global windows, $*/
+/*global require, $*/
 
 require.config({
   waitSeconds: 60,
@@ -7,22 +7,10 @@ require.config({
     'jquery'                           : 'libs-js-thirdparty/jquery/jquery',
     'dform'                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
     'angular'                          : 'libs-js-thirdparty/angular-unstable/angular',
+    'angular-ui-bootstrap-bower'       : 'libs-js-thirdparty/angular-ui-bootstrap-bower/ui-bootstrap',
     'uuid'                             : 'libs-js-thirdparty/uuid-js/lib/uuid',
     'Crypto'                           : 'libs-js-thirdparty/cryptojs/lib/Crypto',
     'CryptoSHA256'                     : 'libs-js-thirdparty/cryptojs/lib/SHA256',
-    'application-app'                  : 'application/application-app',
-    'application-servicesWebSocket'    : 'application/application-servicesWebSocket',
-    'application-controller'           : 'application/application-controller',
-    'caliopeweb-templateServices'      : 'caliopeweb-forms/caliopeweb-template-services',
-    'caliopeweb-templateControllers'   : 'caliopeweb-forms/caliopeweb-template-controllers',
-    'caliopeweb-formDirectives'        : 'caliopeweb-forms/caliopeweb-form-directives',
-    'proyectosmtv-controller'          : 'proyectosmtv/proyectomtv-controller',
-    'proyectosmtv-service'             : 'proyectosmtv/proyectomtv-service',
-    'security-services'                   : 'login/security-services',
-    'login-controllers'                : 'login/login-controllers',
-    'application-routes'               : 'application/application-routes',
-
-    'tools-filesuploader-ctrl'         : 'tools-files-uploader/files-uploader-controller',
     'jquery.fileupload'                : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload',
     'jquery.ui.widget'                 : 'libs-js-thirdparty/jquery-file-upload/js/vendor/jquery.ui.widget',
     'fileupload-ui'                    : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-ui',
@@ -40,11 +28,8 @@ require.config({
     'load-image-ios'                   : 'libs-js-thirdparty/blueimp-load-image/js/load-image-ios',
     'jquery.fileupload-process'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-process',
     'jquery.fileupload-angular'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-angular',
-    
     'wysihtml5-parser-rules'           : 'libs-js-thirdparty/wysihtml5/parser_rules/advanced',
     'wysihtml5'                        : 'libs-js-thirdparty/wysihtml5/dist/wysihtml5-0.3.0',
-
-    
     'gis-layout'                       : 'tools-gis-viewer/Layout',
     'gis-options'                      : 'tools-gis-viewer/Options',
     'gis-init'                         : 'tools-gis-viewer/Init',
@@ -53,44 +38,60 @@ require.config({
     'gis-ext-base'                     : 'libs-js-thirdparty/compiled-gis/ext-base',
     'gis-heron'                        : 'libs-js-thirdparty/heron-mc/heron',
     'gis-geoext'                       : 'libs-js-thirdparty/compiled-gis/GeoExt',
-    'gis-openlayers'                   : 'libs-js-thirdparty/compiled-gis/OpenLayers'
-     //'w8-elements.min'                 : 'application/w8-elements.min',
-     //'w8.min'                          : 'application/w8.min'
+    'gis-openlayers'                   : 'libs-js-thirdparty/compiled-gis/OpenLayers',
+    'w8-elements.min'                  : 'application/w8-elements.min',
+    'w8.min'                           : 'application/w8.min',
+
+    'application-app'                  : 'application/application-app',
+    'application-servicesWebSocket'    : 'application/application-servicesWebSocket',
+    'application-controller'           : 'application/application-controller',
+    'caliopeweb-templateServices'      : 'caliopeweb-forms/caliopeweb-template-services',
+    'caliopeweb-templateControllers'   : 'caliopeweb-forms/caliopeweb-template-controllers',
+    'caliopeweb-formDirectives'        : 'caliopeweb-forms/caliopeweb-form-directives',
+    'proyectosmtv-controller'          : 'proyectosmtv/proyectomtv-controller',
+    'proyectosmtv-service'             : 'proyectosmtv/proyectomtv-service',
+    'security-services'                : 'login/security-services',
+    'login-controllers'                : 'login/login-controllers',
+    'application-routes'               : 'application/application-routes',
+    'tools-filesuploader-ctrl'         : 'tools-files-uploader/files-uploader-controller',
+    'menu-top-controller'              : 'menu-top/menu-top-controllers',
+    'notificationsService'             : 'application/notificationsService'
   },
   baseUrl: '/',
   shim: {
     'jquery'                         : {'exports' : 'jquery'},
     'angular'                        : {'exports' : 'angular'},
+    'angular-ui-bootstrap-bower'     : {'exports' : 'ui-bootstrap'},
     'application-app'                : {'exports' : 'app'},
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
     'application-routes'             : {'exports' : 'routes'},
     'application-controller'         : {'exports' : 'appcontroller'},
     'jquery.fileupload'              : {'exports' : 'fileupload'},
-    'tools-filesuploader-ctrl'       : {'exports' : 'tools-filesuploader-ctrl'},
-    //'w8-elements.min'                : {deps      : ['jquery']},
-    //'w8.min'                         : {deps      : ['jquery']},
-    'CryptoSHA256'                   : {deps      : ['Crypto']},
-    
-    'fileupload'                     : {deps      : [  'fileupload-ui',
-                                                       'jquery.ui.widget', 
+    'w8-elements.min'                : {'deps'      : ['jquery']},
+    'w8.min'                         : {'deps'      : ['jquery']},
+    'CryptoSHA256'                   : {'deps'      : ['Crypto']},
+
+    'fileupload'                     : {'deps'      : [  'fileupload-ui',
+                                                       'jquery.ui.widget',
                                                        'tmpl'
                                                     ]},
-               
-    'wysihtml5'                      : {deps      : ['wysihtml5-parser-rules']}, 
 
-    'tools-filesuploader-ctrl'       : {deps      : ['angular', 
-                                                     'jquery', 
-                                                     'jquery.fileupload', 
+    'wysihtml5'                      : {'deps'      : ['wysihtml5-parser-rules']},
+
+    'tools-filesuploader-ctrl'       : {'exports' : 'tools-filesuploader-ctrl',
+                                        'deps'    : ['angular',
+                                                     'jquery',
+                                                     'jquery.fileupload',
                                                      'jquery.fileupload-angular']},
-    'dform'                          : {deps      : ['jquery']},
+    'dform'                          : {'deps'      : ['jquery']},
 
-    'gis-ext-all'                    : {deps      : ['gis-ext-base']},
-    'gis-geoext'                     : {deps      : ['gis-ext-all','gis-openlayers']},
-    'gis-init'                       : {deps      : ['gis-geoext','gis-ext-all']},
-    'gis-heron'                      : {deps      : ['gis-init']},
-    'gis-view-ctrl'                  : {deps      : ['gis-heron']},
+    'gis-ext-all'                    : {'deps'      : ['gis-ext-base']},
+    'gis-geoext'                     : {'deps'      : ['gis-ext-all','gis-openlayers']},
+    'gis-init'                       : {'deps'      : ['gis-geoext','gis-ext-all']},
+    'gis-heron'                      : {'deps'      : ['gis-init']},
+    'gis-view-ctrl'                  : {'deps'      : ['gis-heron']},
 
-    'angularMocks'                   : {deps      : ['angular'], 'exports' : 'angular.mock'}
+    'angularMocks'                   : {'deps'      : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
     "angular"
@@ -105,8 +106,8 @@ require([
   'gis-view-ctrl',
   'tools-filesuploader-ctrl',
   'wysihtml5'
-  //'w8-elements.min',
-  //'w8.min'
+  //,'w8-elements.min'
+  //,'w8.min'
 ], function(jQuery, angular, app, routes) {
   'use strict';
   $(document).ready(function () {

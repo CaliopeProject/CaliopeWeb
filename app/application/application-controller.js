@@ -7,9 +7,23 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
       ['webSocket', '$scope', 
       function(webSocket, $scope) {
         
-        $scope.init = function() {
+        $scope.init = function () {
           webSocket.initWebSockets();
-        }
+          $scope.alertMessage = "";
+          
+          /*
+          $scope.$watch('alertMessage', function(value){
+            console.log('Change alertMessage', value);
+          });
+          */
+          
+          
+          $scope.$on('ChangeTextAlertMessage', function (info) {
+            console.log('On ChangeTextAlertMessage', info);
+            $scope.alertMessage = info;
+          });
+                           
+        };
         
       }]
   );

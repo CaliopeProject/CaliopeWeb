@@ -4,7 +4,7 @@
    "dependencies": {
     "jquery"                     : "~2.0.2",
     "angular-unstable"           : "~1.1.0",
-    "angular-ui-bootstrap-bower" : "~0.3.0",
+    "angular-ui-bootstrap-bower" : "~0.4.0",
     "requirejs"                  : "~2.1.6",
     "jquery.dform"               : "~1.1.0",
     "jquery-file-upload"         : "~8.4.2",
@@ -14,7 +14,7 @@
     "cryptojs"                   : "latest",
     "openlayers"                 : "cc6dbd4b7ac5e6c3805894b4e730d098a80676b0",
     "geoext"                     : "~1.1.0",
-    "uuid-js"		         : "~0.7.5",
+    "uuid-js"		                 : "~0.7.5",
     "wysihtml5"                  : "~0.3.0"
   }
 }
