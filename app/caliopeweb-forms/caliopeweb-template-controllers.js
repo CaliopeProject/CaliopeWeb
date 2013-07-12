@@ -77,6 +77,7 @@ define(['angular'], function (angular) {
           $scope, $routeParams) {
             
         $scope.$watch('resposeCreateForm', function (value) {
+          
           console.log('Change resposeCreateForm', value);
           if (value !== undefined) {            
             var isOk = handlerResServerSrv.handle.process(value);
@@ -91,9 +92,7 @@ define(['angular'], function (angular) {
           var obj = {};
           var i;
 
-          //$scope.alertMessage = 'Procesando..emit';
-          $scope.$emit('ChangeTextAlertMessage', {"msg":"Procesando..emit"});
-          //$scope.$broadcast('ChangeTextAlertMessage', 'Procesando.... Broadcast');
+          $scope.$emit('ChangeTextAlertMessage', ["Procesando..emit"]);
           
           $scope.resposeCreateForm   = {};
           $scope.processingResponse  = true;

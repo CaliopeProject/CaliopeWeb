@@ -16,11 +16,10 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
             console.log('Change alertMessage', value);
           });
           */
-          
-          
-          $scope.$on('ChangeTextAlertMessage', function (info) {
-            console.log('On ChangeTextAlertMessage', info);
-            $scope.alertMessage = info;
+                    
+          $scope.$on('ChangeTextAlertMessage', function (event, data) {
+            console.log('On ChangeTextAlertMessage', data);
+            $scope.alertMessage = data[0];
           });
                            
         };
