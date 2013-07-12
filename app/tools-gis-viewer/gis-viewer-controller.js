@@ -18,6 +18,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
 			projection: 'EPSG:4686',
 			maxExtent: bounds,
 			maxResolution: 0.0010794266378287,//Resolucion escala 1:100.000 es 0.0003174784228908226,
+            minResolution: 0.00000421651030401836,
 			zoom: 0
 		};
 		Heron.options.map.layers = [
@@ -28,10 +29,55 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                       format: "image/png"
                   }
             ),
-            new OpenLayers.Layer.WMS("Area Territorial",
+            new OpenLayers.Layer.WMS("Area territorial",
                 "http://mapas.catastrobogota.gov.co/arcgiswsh/Mapa_Referencia/Mapa_referencia/MapServer/WMSServer?",
                 {
                     layers: "4",
+                    format: "image/png",
+                    transparent: true
+                },
+                {
+                    isBaseLayer:false
+                }
+            ),
+            new OpenLayers.Layer.WMS("Area Urbanistica",
+                "http://mapas.catastrobogota.gov.co/arcgiswsh/Mapa_Referencia/Mapa_referencia/MapServer/WMSServer?",
+                {
+                    layers: "9",
+                    format: "image/png",
+                    transparent: true
+                },
+                {
+                    isBaseLayer:false
+                }
+            ),
+            new OpenLayers.Layer.WMS("Localidad",
+                "http://mapas.catastrobogota.gov.co/arcgiswsh/Mapa_Referencia/Mapa_referencia/MapServer/WMSServer?",
+                {
+                    layers: "7",
+                    format: "image/png",
+                    transparent: true
+                },
+                {
+                    isBaseLayer:false
+                }
+            ),
+            new OpenLayers.Layer.WMS("Manzana",
+                "http://mapas.catastrobogota.gov.co/arcgiswsh/Mapa_Referencia/Mapa_referencia/MapServer/WMSServer?",
+                {
+                    layers: "12",
+                    format: "image/png",
+                    transparent: true
+                },
+                {
+                    isBaseLayer:false
+                }
+            )
+            ,
+            new OpenLayers.Layer.WMS("Construcciones",
+                "http://mapas.catastrobogota.gov.co/arcgiswsh/Mapa_Referencia/Mapa_referencia/MapServer/WMSServer?",
+                {
+                    layers: "13",
                     format: "image/png",
                     transparent: true
                 },
