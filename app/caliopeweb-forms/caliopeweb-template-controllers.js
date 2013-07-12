@@ -17,8 +17,8 @@ define(['angular'], function (angular) {
   * templates of caliope framework
   */
   moduleControllers.controller('CaliopeWebTemplateCtrl',
-    ['caliopewebTemplateSrv', '$scope', '$routeParams',
-      function (caliopewebTemplateSrv, $scope, $routeParams) {
+    ['caliopewebTemplateSrv', '$scope', '$routeParams','HandlerResponseServerSrv',
+      function (caliopewebTemplateSrv, $scope, $routeParams, handlerResServerSrv) {
 
         var caliopeForm = {};
 
@@ -35,37 +35,43 @@ define(['angular'], function (angular) {
           }
         }
 
-        $scope.load = function () {
+        function load () {
+          var message;
           $scope.jsonPlantillaWA = {};
 
           $scope.$watch('jsonPlantilla', function (value) {
               if (value !== undefined) {
                 var content = value.data;
-                var jsonTemplateAngular = 
+                handlerResServerSrv.process(value);
+                message = handlerResServerSrv.message();
+                $scope.$emit('ChangeTextAlertMessage', [message]);
+
+                var jsonTemplateAngular =
                   caliopewebTemplateSrv.completeTemplateForAngular.jsonTemplateGen(
                       content
                   );
+
                 var inputs = caliopewebTemplateSrv.completeTemplateForAngular.inputs();
                 $scope.jsonPlantillaAngular = jsonTemplateAngular.form;
-                $scope.inputsFormTemplate = inputs;
+                $scope.inputsFormTemplate   = inputs;
                 putDataScope(content.data);
               }
             });
 
-          $scope.jsonPlantilla = 
+          $scope.jsonPlantilla =
             caliopewebTemplateSrv.loadTemplateData(caliopeForm);
-        };
+        }
 
         $scope.loadEdit = function () {
 
         };
 
         if (caliopeForm.mode === 'create') {
-          $scope.load();
+          load();
         }
 
         if (caliopeForm.mode === 'edit') {
-          $scope.load();
+          load();
         }
 
       }
@@ -73,27 +79,31 @@ define(['angular'], function (angular) {
 
   moduleControllers.controller('SIIMFormCtrl',
     ['caliopewebTemplateSrv', 'HandlerResponseServerSrv', '$scope', '$routeParams',
-      function (caliopewebTemplateSrv, handlerResServerSrv,  
+      function (caliopewebTemplateSrv, handlerResServerSrv,
           $scope, $routeParams) {
-            
+
+        var message;
+
         $scope.$watch('resposeCreateForm', function (value) {
-          
-          console.log('Change resposeCreateForm', value);
-          if (value !== undefined) {            
-            var isOk = handlerResServerSrv.handle.process(value);
-            var content = value.result;            
+
+          if (value !== undefined) {
+            handlerResServerSrv.process(value);
+            message = handlerResServerSrv.message();
+            console.log(message);
+            $scope.$emit('ChangeTextAlertMessage', [message]);
+            var content = value.result;
           }
           $scope.processingResponse  = false;
         });
-        
+
         $scope.create = function () {
           var formAng = $scope[$scope.caliopeForm.id];
           var inputs = $scope.inputsFormTemplate;
           var obj = {};
           var i;
 
-          $scope.$emit('ChangeTextAlertMessage', ["Procesando..emit"]);
-          
+          $scope.$emit('ChangeTextAlertMessage', ["Enviando datos para crear"]);
+
           $scope.resposeCreateForm   = {};
           $scope.processingResponse  = true;
 

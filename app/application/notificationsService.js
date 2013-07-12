@@ -3,43 +3,44 @@
 
 define(['angular'], function (angular) {
   'use strict';
-  
-  var moduleservice = angular.module('NotificationsServices', []);
-  
 
-  var handlerResponseServer = (function () {
-    var var1local = 'xxx';
-    var var2local = 'xxx';
-    var var13ocal = 'xxx';
+  var  moduleservice = angular.module('NotificationsServices', []);
 
-    var varfunc1 = function (argument) {
-      //body...
-    };
-
-    var varfunc2 = function (argument) {
-      // body...
-    };
-
-    return {
-      process : function (responseSrv) {                      
-        console.log('Manejar Respuesta', responseSrv);
-        // body...
-      },
-      nomb1 : function (argument) {
-        // body...
-      }
-    };
-  }());
-  
-
-  moduleservice.factory('HandlerResponseServerSrv', 
+  return moduleservice.factory('HandlerResponseServerSrv',
       ['$rootScope', function ($rootScope) {
-        var Services = {};
-        Services.handle = handlerResponseServer;        
-        return Services;
-      }]);
 
-  
-  
-  
+        var dataToProcess, selector, mensOk, mensError;
+
+        mensError = function (data){
+          return data;
+        };
+
+        mensOk = function (data){
+          var d = new Date();
+          return d + 'Tx Exitosa';
+        };
+
+        selector = function (){
+          var result = dataToProcess.result;
+          if(result === 'error'){
+            return mensError(dataToProcess.msg);
+          }
+          return mensOk();
+        };
+
+        return {
+          process : function (responseSrv) {
+            dataToProcess = responseSrv;
+            console.log('Manejar Respuesta', dataToProcess);
+          },
+
+          message : function(){
+            if (dataToProcess !== undefined) {
+              return selector();
+            }
+            return '';
+          }
+        };
+
+      }]);
 });

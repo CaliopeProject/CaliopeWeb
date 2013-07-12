@@ -1,7 +1,7 @@
 /*jslint browser: true*/
 /*global $scope, angular */
 
-define(['angular','angular-ui-bootstrap-bower' ], function(angular) {
+define(['angular','angular-ui-bootstrap-bower'], function(angular) {
   'use strict';
   var moduleControllers = angular.module('MenuTopControllers', []);
 
@@ -10,11 +10,12 @@ define(['angular','angular-ui-bootstrap-bower' ], function(angular) {
     administrador: 'Por favor informe al administrador del sistema'
   });
 
-  moduleControllers.controller('alertCtrl',['$scope',
-    function($scope){
+  moduleControllers.controller('alertCtrl',['$scope','HandlerResponseServerSrv',
+    function($scope, handlerResServerSrv){
 
       $scope.$on('ChangeTextAlertMessage', function(text) {
-        console.log('On ChangeTextAlertMessage', text);
+        console.log('Onxx ChangeTextAlertMessage', text);
+        console.log('servcioNotifica',handlerResServerSrv);
         $scope.alertMessage = text;
       });
     
