@@ -1,3 +1,13 @@
 <div ng-controller="CaliopeWebTemplateCtrl">
-  <cw-dform cw-dform="jsonPlantillaAngular" layout="jsonPlantillaLayout"/>
+
+  <h1>Información enviada</h1>
+
+  <ul>
+    <li ng-repeat="data in dataList">
+     {{data.uuid}} - {{data.nombre}} - <a href="#/caliopeweb-forms/SIIMForm/edit/{{data.uuid}}">Editar</a>
+     - <a href="#/caliopeweb-forms/SIIMForm/delete/{{data.uuid}}">Eliminar</a>
+    </li>
+  </ul>    
+  <br/>
+  <cw-dform cw-dform="jsonPlantillaAngular" layout="jsonPlantillaLayout"/> 
 </div>
