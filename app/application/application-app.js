@@ -1,3 +1,6 @@
+/*jslint browser: true*/
+/*global define*/
+
 define([
     'angular',
     'application-controller',
@@ -11,14 +14,15 @@ define([
     'login-controllers',
     'tools-filesuploader-ctrl',
     'menu-top-controller',
-    'gis-view-ctrl'
+    'gis-view-ctrl',
+    'notificationsService'
   ], function (
     angular,
     webSocket,
     appcontroller
-    ){
+    ) {
     'use strict';
-    var moduleApp = angular.module('caliope',['CaliopeController',
+    var moduleApp = angular.module('caliope', ['CaliopeController',
                                      'webSocket',
                                      'CaliopeController',
                                      'CaliopeWebTemplatesServices',
@@ -30,9 +34,9 @@ define([
                                      'LoginControllers',
                                      'GisViewerController',
                                      'FilesUploadController',
-                                     'MenuTopControllers'
-
+                                     'MenuTopControllers',
+                                     'NotificationsServices'
                                     ]);
 
     return moduleApp;
-});
+  });

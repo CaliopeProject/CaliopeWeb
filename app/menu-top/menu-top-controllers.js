@@ -13,11 +13,17 @@ define(['angular','angular-ui-bootstrap-bower' ], function(angular) {
   moduleControllers.controller('alertCtrl',['$scope',
     function($scope){
 
+      $scope.$on('ChangeTextAlertMessage', function(text) {
+        console.log('On ChangeTextAlertMessage', text);
+        $scope.alertMessage = text;
+      });
+    
       $scope.$watch('processingResponse', function(value){
+        console.log('Change processingResponse', value);
         if(value === true){
           $scope.alertMessage = 'Procesando';
         }else{
-          $scope.alertMessage = '';
+          //$scope.alertMessage = '';
         }
       });
 

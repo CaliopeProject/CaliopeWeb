@@ -1,5 +1,5 @@
 /*jslint browser: true*/
-/*global windows, $*/
+/*global require, $*/
 
 require.config({
   waitSeconds: 60,
@@ -54,7 +54,8 @@ require.config({
     'login-controllers'                : 'login/login-controllers',
     'application-routes'               : 'application/application-routes',
     'tools-filesuploader-ctrl'         : 'tools-files-uploader/files-uploader-controller',
-    'menu-top-controller'              : 'menu-top/menu-top-controllers'
+    'menu-top-controller'              : 'menu-top/menu-top-controllers',
+    'notificationsService'             : 'application/notificationsService'
   },
   baseUrl: '/',
   shim: {

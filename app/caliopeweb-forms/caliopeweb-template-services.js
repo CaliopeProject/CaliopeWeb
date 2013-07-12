@@ -5,7 +5,7 @@ define(['angular'], function(angular) {
 
   moduleServices.factory('caliopewebTemplateSrv',
     ['$q', '$rootScope', '$http', 'webSocket',
-      function($q, $rootScope, $http, webSocket) {
+      function ($q, $rootScope, $http, webSocket) {
 
         //We return this object to anything injecting our service
         var Service = {};
@@ -14,7 +14,7 @@ define(['angular'], function(angular) {
         /*
         * Service that load the json template that define the form with fields.
         */
-        Service.loadTemplateData = function(caliopeForm) {
+        Service.loadTemplateData = function (caliopeForm) {
           var request = {};
           request = {};
 
@@ -22,7 +22,7 @@ define(['angular'], function(angular) {
             "cmd" : "getFormTemplate",
             "formId" : caliopeForm.id,
             "domain" : "",
-            "version" : "3",
+            "version" : "3"
           };
           var promise = {};
 
@@ -30,9 +30,9 @@ define(['angular'], function(angular) {
           promise = webSockets.templates.sendRequest(request);
 
           return promise;
-        }
+        };
 
-        Service.completeTemplateForAngular = (function() {
+        Service.completeTemplateForAngular = (function () {
 
           var formsWithOwnController = ['login'];
           var ctrlSIIMName           = 'SIIMFormCtrl';
@@ -42,7 +42,8 @@ define(['angular'], function(angular) {
 
 
           function completeModelRecursive(jsonTemplate) {
-            if( jsonTemplate.html != null && jsonTemplate.html.length > 0 ) {
+            if (jsonTemplate.html !== undefined && 
+                jsonTemplate.html.length > 0) {
               completeModelRecursive(jsonTemplate.html);
             } else {
               var elements = jQuery.grep(jsonTemplate, function(obj) {
@@ -137,7 +138,7 @@ define(['angular'], function(angular) {
             inputs : function() {
               return inputsNames;
             },
-          }
+          };
 
         })();
 
@@ -149,7 +150,7 @@ define(['angular'], function(angular) {
             "cmd" : "create",
             "formId" : formId
           };
-          request.data = {}
+          request.data = {};
           jQuery.extend(request.data, object);
           var promise = {};
 
@@ -157,7 +158,7 @@ define(['angular'], function(angular) {
           promise = webSockets.templates.sendRequest(request);
 
           return promise;
-        }
+        };
 
         return Service;
 

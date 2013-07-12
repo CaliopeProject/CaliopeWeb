@@ -1,4 +1,7 @@
-define(['angular'], function(angular) {
+/*jslint browser: true*/
+/*global define*/
+
+define(['angular'], function (angular) {
   'use strict';
 
   var moduleControllers = angular.module('LoginControllers', []);
@@ -10,10 +13,10 @@ define(['angular'], function(angular) {
         /*
         *
         */
-        $scope.$watch( 'respLoginAuthenticate', function(value) {
-          if( value !== null ) {
+        $scope.$watch('respLoginAuthenticate', function (value) {
+          if (value !== undefined) {
             var uuid = value.uuid;
-            if( uuid !== null ) {
+            if (uuid !== undefined) {
               sessionSrv.createSession(uuid, $scope.username);
               var user = sessionSrv.getUserNameSession();
               //TODO: Realizar funcionalidades cuando se hace login correctamente

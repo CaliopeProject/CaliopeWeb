@@ -1,13 +1,16 @@
+/*jslint browser: true*/
+/*global define*/
+
 /**
 * Define the module angular in RequireJS
 */
-define(['angular'], function(angular) {
+define(['angular'], function (angular) {
   'use strict';
 
   /**
   * Define the module controllers for CaliopeWebTemplates
   */
-  var moduleControllers = angular.module('CaliopeWebTemplateControllers',[]);
+  var moduleControllers = angular.module('CaliopeWebTemplateControllers', []);
 
   /**
   * Define the controller for management the events from view related with
@@ -15,7 +18,7 @@ define(['angular'], function(angular) {
   */
   moduleControllers.controller('CaliopeWebTemplateCtrl',
     ['caliopewebTemplateSrv', '$scope', '$routeParams',
-      function (service, $scope, $routeParams) {
+      function (caliopewebTemplateSrv, $scope, $routeParams) {
 
         var caliopeForm = {};
 
@@ -25,8 +28,8 @@ define(['angular'], function(angular) {
 
         function putDataScope(jsonTemplateData) {
           var varname;
-          if( jsonTemplateData !== null ) {
-            for ( varname in jsonTemplateData) {
+          if (jsonTemplateData !== undefined) {
+            for (varname in jsonTemplateData) {
               $scope[varname] = jsonTemplateData[varname].value;
             }
           }
@@ -35,29 +38,33 @@ define(['angular'], function(angular) {
         $scope.load = function () {
           $scope.jsonPlantillaWA = {};
 
-          $scope.$watch('jsonPlantilla', function(value) {
-            if( value !== null ) {
-              var content = value.data;
-              var jsonTemplateAngular = service.completeTemplateForAngular.jsonTemplateGen(content);
-              var inputs = service.completeTemplateForAngular.inputs();
-              $scope.jsonPlantillaAngular = jsonTemplateAngular.form;
-              $scope.inputsFormTemplate = inputs;
-              putDataScope(content.data);
-            }
-          });
+          $scope.$watch('jsonPlantilla', function (value) {
+              if (value !== undefined) {
+                var content = value.data;
+                var jsonTemplateAngular = 
+                  caliopewebTemplateSrv.completeTemplateForAngular.jsonTemplateGen(
+                      content
+                  );
+                var inputs = caliopewebTemplateSrv.completeTemplateForAngular.inputs();
+                $scope.jsonPlantillaAngular = jsonTemplateAngular.form;
+                $scope.inputsFormTemplate = inputs;
+                putDataScope(content.data);
+              }
+            });
 
-          $scope.jsonPlantilla = service.loadTemplateData(caliopeForm);
+          $scope.jsonPlantilla = 
+            caliopewebTemplateSrv.loadTemplateData(caliopeForm);
         };
 
-        $scope.loadEdit = function() {
+        $scope.loadEdit = function () {
 
         };
 
-        if( caliopeForm.mode === 'create') {
+        if (caliopeForm.mode === 'create') {
           $scope.load();
         }
 
-        if(caliopeForm.mode === 'edit') {
+        if (caliopeForm.mode === 'edit') {
           $scope.load();
         }
 
@@ -65,30 +72,39 @@ define(['angular'], function(angular) {
   ]);
 
   moduleControllers.controller('SIIMFormCtrl',
-    ['caliopewebTemplateSrv', '$scope', '$routeParams',
-      function (caliopewebTemplateSrv, $scope, $routeParams) {
-        $scope.$watch('resposeCreateForm', function(value) {
-          var content = value.result;
-          if (content === 'ok') {
-             
-          };
+    ['caliopewebTemplateSrv', 'HandlerResponseServerSrv', '$scope', '$routeParams',
+      function (caliopewebTemplateSrv, handlerResServerSrv,  
+          $scope, $routeParams) {
+            
+        $scope.$watch('resposeCreateForm', function (value) {
+          console.log('Change resposeCreateForm', value);
+          if (value !== undefined) {            
+            var isOk = handlerResServerSrv.handle.process(value);
+            var content = value.result;            
+          }
           $scope.processingResponse  = false;
         });
-
+        
         $scope.create = function () {
           var formAng = $scope[$scope.caliopeForm.id];
           var inputs = $scope.inputsFormTemplate;
           var obj = {};
           var i;
 
+          //$scope.alertMessage = 'Procesando..emit';
+          $scope.$emit('ChangeTextAlertMessage', {"msg":"Procesando..emit"});
+          //$scope.$broadcast('ChangeTextAlertMessage', 'Procesando.... Broadcast');
+          
           $scope.resposeCreateForm   = {};
           $scope.processingResponse  = true;
 
-          for( i = 0; i < inputs.length; i++) {
+          for (i = 0; i < inputs.length; i++) {
             obj[inputs[i]] = $scope[inputs[i]];
           }
-          $scope.resposeCreateForm = caliopewebTemplateSrv.sendDataForm(obj, $scope.caliopeForm.id);
+          $scope.resposeCreateForm = caliopewebTemplateSrv.sendDataForm(
+              obj, $scope.caliopeForm.id);
         };
+
       }]
   );
 });
