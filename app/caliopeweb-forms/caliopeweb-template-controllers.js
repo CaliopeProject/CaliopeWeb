@@ -24,6 +24,7 @@ define(['angular'], function (angular) {
 
         caliopeForm.id = $routeParams.plantilla;
         caliopeForm.mode = $routeParams.mode;
+        caliopeForm.uuid = $routeParams.uuid;
         $scope.caliopeForm = caliopeForm;
 
         function putDataScope(jsonTemplateData) {
@@ -40,7 +41,7 @@ define(['angular'], function (angular) {
 
           $scope.$watch('jsonPlantilla', function (value) {
               if (value !== undefined) {
-                var content = value.data;
+                var content = value;
                 var jsonTemplateAngular = 
                   caliopewebTemplateSrv.completeTemplateForAngular.jsonTemplateGen(
                       content
@@ -57,7 +58,7 @@ define(['angular'], function (angular) {
         };
 
         $scope.loadEdit = function () {
-
+          console.log('Load Edit');
         };
 
         if (caliopeForm.mode === 'create') {
@@ -75,24 +76,15 @@ define(['angular'], function (angular) {
     ['caliopewebTemplateSrv', 'HandlerResponseServerSrv', '$scope', '$routeParams',
       function (caliopewebTemplateSrv, handlerResServerSrv,  
           $scope, $routeParams) {
-            
-        $scope.$watch('resposeCreateForm', function (value) {
-          
-          console.log('Change resposeCreateForm', value);
-          if (value !== undefined) {            
-            var isOk = handlerResServerSrv.handle.process(value);
-            var content = value.result;            
-          }
-          $scope.processingResponse  = false;
-        });
-        
-        $scope.create = function () {
-          var formAng = $scope[$scope.caliopeForm.id];
+      
+      
+        function sendForm(caliopeForm) {
+          var formAng = $scope[caliopeForm.id];
           var inputs = $scope.inputsFormTemplate;
           var obj = {};
           var i;
-
-          $scope.$emit('ChangeTextAlertMessage', ["Procesando..emit"]);
+          
+          $scope.$emit('ChangeTextAlertMessage', ["Procesando..emit"]);          
           
           $scope.resposeCreateForm   = {};
           $scope.processingResponse  = true;
@@ -101,8 +93,42 @@ define(['angular'], function (angular) {
             obj[inputs[i]] = $scope[inputs[i]];
           }
           $scope.resposeCreateForm = caliopewebTemplateSrv.sendDataForm(
-              obj, $scope.caliopeForm.id);
+              obj, caliopeForm);
+        }
+            
+        $scope.$watch('resposeCreateForm', function (value) {
+          
+          if (value !== undefined) {            
+            var isOk = handlerResServerSrv.handle.process(value);
+            var content = value.result;
+                        
+            if (content === 'ok') {
+              console.log('Proyecto Creado', value.data.uuid);
+              var dataList = $scope.dataList;
+              if (dataList === undefined) {              
+                dataList = [];
+              }
+              var inputs = $scope.inputsFormTemplate;
+              var obj = {};
+              var i;
+              for (i = 0; i < inputs.length; i++) {
+                obj[inputs[i]] = $scope[inputs[i]];
+              }            
+              obj.uuid = value.data.uuid; 
+              dataList.push(obj);
+              $scope.$parent.dataList = dataList;              
+            }            
+          }
+          $scope.processingResponse  = false;
+        });
+
+        $scope.create = function () {
+          sendForm($scope.caliopeForm);
         };
+        
+        $scope.edit = function () {
+          sendForm($scope.caliopeForm);
+        }
 
       }]
   );

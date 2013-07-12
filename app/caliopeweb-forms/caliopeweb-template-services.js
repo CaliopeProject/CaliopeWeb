@@ -15,15 +15,20 @@ define(['angular'], function(angular) {
         * Service that load the json template that define the form with fields.
         */
         Service.loadTemplateData = function (caliopeForm) {
-          var request = {};
+          var request = {};          
           request = {};
 
-          request = {
-            "cmd" : "getFormTemplate",
-            "formId" : caliopeForm.id,
-            "domain" : "",
-            "version" : "3"
-          };
+          request.formId = caliopeForm.id;
+          if (caliopeForm.mode === 'create') {
+            request.cmd = 'getFormTemplate';
+            request.domain = "";
+            request.version = "3";
+          }
+          if (caliopeForm.mode === 'edit') {
+            request.cmd = 'getFormData';
+            request.uuid = caliopeForm.uuid;
+          }
+         
           var promise = {};
 
           var webSockets = webSocket.WebSockets();
@@ -103,7 +108,13 @@ define(['angular'], function(angular) {
                 var action = {};
                 action.type = "button";
                 action['ng-click'] = jsonTemplateActions[i] + "(" + nameForm +")";
-                action.html = jsonTemplateTranslations[jsonTemplateActions[i]];
+                var actionSrv = jsonTemplateActions[i];
+                if (jsonTemplateTranslations !== undefined && 
+                    jsonTemplateTranslations[actionSrv] !== undefined) {
+                  action.html = jsonTemplateTranslations[actionSrv];
+                } else {
+                  action.html = actionSrv;
+                }
                 jsonTemplateForm.html.push(action);
               }
             }
@@ -142,12 +153,13 @@ define(['angular'], function(angular) {
 
         })();
 
-        Service.sendDataForm = function(object, formId) {
+        Service.sendDataForm = function(object, caliopeForm) {
           var request = {};
-          request = {};
-
+          var formId = caliopeForm.id;
+          var cmd = caliopeForm.mode;
+                  
           request = {
-            "cmd" : "create",
+            "cmd" : cmd,
             "formId" : formId
           };
           request.data = {};
