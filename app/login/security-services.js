@@ -48,16 +48,16 @@ define(['angular', 'CryptoSHA256'], function(angular) {
           _login.login = user;
           _login.password = pwdSHA256;
 
-          var request = {};
-          request = { 
-              "cmd" : "authentication",
+          var params = {};
+          var method = "authentication";
+          params = {
               "login" : _login.login,
               "password" : _login.password
             };
           var promise = {};
           
           var webSockets = webSocket.WebSockets();
-          promise = webSockets.templates.sendRequest(request);
+          promise = webSockets.serversimm.sendRequest(method, params);
           return promise;
         }
         

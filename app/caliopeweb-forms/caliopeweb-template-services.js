@@ -3,6 +3,10 @@ define(['angular'], function(angular) {
 
   var moduleServices = angular.module('CaliopeWebTemplatesServices', []);
 
+  moduleServices.constant('MethodsResquestConst', {
+    'getFormTemplate'  : 'getFormTemplate'
+  });
+
   moduleServices.factory('caliopewebTemplateSrv',
     ['$q', '$rootScope', '$http', 'webSocket',
       function ($q, $rootScope, $http, webSocket) {
@@ -10,29 +14,30 @@ define(['angular'], function(angular) {
         //We return this object to anything injecting our service
         var Service = {};
 
-
-        /*
-        * Service that load the json template that define the form with fields.
-        */
+        /**
+         * Load the json template that define the form with fields.
+         * @param caliopeForm Form to retrieve.
+         * @returns {{}} Promise created to the send the request to the server.
+         */
         Service.loadTemplateData = function (caliopeForm) {
-          var request = {};          
-          request = {};
+          var method = {};
+          var params = {};
 
-          request.formId = caliopeForm.id;
+          params.formId = caliopeForm.id;
           if (caliopeForm.mode === 'create') {
-            request.cmd = 'getFormTemplate';
-            request.domain = "";
-            request.version = "3";
+            method = 'getFormTemplate';
+            params.domain = "";
+            params.version = "3";
           }
           if (caliopeForm.mode === 'edit') {
-            request.cmd = 'getFormData';
-            request.uuid = caliopeForm.uuid;
+            method = 'getFormData';
+            params.uuid = caliopeForm.uuid;
           }
          
           var promise = {};
 
           var webSockets = webSocket.WebSockets();
-          promise = webSockets.templates.sendRequest(request);
+          promise = webSockets.serversimm.sendRequest(method, params);
 
           return promise;
         };
@@ -40,7 +45,7 @@ define(['angular'], function(angular) {
         Service.completeTemplateForAngular = (function () {
 
           var formsWithOwnController = ['login'];
-          var ctrlSIIMName           = 'SIIMFormCtrl';
+          var ctrlSIMMName           = 'SIMMFormCtrl';
           var ctrlEndName            = 'Ctrl';
           var inputsNames            = [];
 
@@ -83,7 +88,7 @@ define(['angular'], function(angular) {
           }
 
           function completeController(jsonTemplateForm) {
-            var valueNgCtrl = ctrlSIIMName;
+            var valueNgCtrl = ctrlSIMMName;
 
             if( formsWithOwnController.indexOf(jsonTemplateForm.name) >= 0 ) {
               valueNgCtrl = jsonTemplateForm.name;
@@ -148,26 +153,31 @@ define(['angular'], function(angular) {
             },
             inputs : function() {
               return inputsNames;
-            },
+            }
           };
 
         })();
 
+        /**
+         * Send the data register for the user in a form
+         * @param object Object that contains the data form.
+         * @param caliopeForm Form Template que
+         * @returns {{}}
+         */
         Service.sendDataForm = function(object, caliopeForm) {
-          var request = {};
+          var params = {};
           var formId = caliopeForm.id;
-          var cmd = caliopeForm.mode;
+          var method = caliopeForm.mode;
                   
-          request = {
-            "cmd" : cmd,
+          params = {
             "formId" : formId
           };
-          request.data = {};
-          jQuery.extend(request.data, object);
+          params.data = {};
+          jQuery.extend(params.data, object);
           var promise = {};
 
           var webSockets = webSocket.WebSockets();
-          promise = webSockets.templates.sendRequest(request);
+          promise = webSockets.serversimm.sendRequest(method, params);
 
           return promise;
         };

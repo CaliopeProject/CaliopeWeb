@@ -1,5 +1,5 @@
 /*jslint browser: true*/
-/*global define*/
+/*global define, console*/
 
 /**
 * Define the module angular in RequireJS
@@ -45,7 +45,7 @@ define(['angular'], function (angular) {
               if (content !== undefined) {
                 handlerResServerSrv.process(content);
                 message = handlerResServerSrv.message();
-                $scope.$emit('ChangeTextAlertMessage', [message]);
+                //$scope.$emit('ChangeTextAlertMessage', [message]);
 
                 var jsonTemplateAngular =
                   caliopewebTemplateSrv.completeTemplateForAngular.jsonTemplateGen(
@@ -74,14 +74,14 @@ define(['angular'], function (angular) {
       }
   ]);
 
-  moduleControllers.controller('SIIMFormCtrl',
+  moduleControllers.controller('SIMMFormCtrl',
     ['caliopewebTemplateSrv', 'HandlerResponseServerSrv', '$scope', '$routeParams',
       function (caliopewebTemplateSrv, handlerResServerSrv,
           $scope, $routeParams) {
 
         var message;
 
-        function sendForm(caliopeForm) {
+        function sendForm(caliopeForm, uuidData) {
           var formAng = $scope[caliopeForm.id];
           var inputs = $scope.inputsFormTemplate;
           var obj = {};
@@ -95,6 +95,9 @@ define(['angular'], function (angular) {
           for (i = 0; i < inputs.length; i++) {
             obj[inputs[i]] = $scope[inputs[i]];
           }
+          if(uuidData !== undefined) {
+            obj['uuid'] = uuidData;
+          }
           $scope.resposeCreateForm = caliopewebTemplateSrv.sendDataForm(
               obj, caliopeForm);
         }
@@ -106,10 +109,10 @@ define(['angular'], function (angular) {
             message = handlerResServerSrv.message();
             console.log(message);
             $scope.$emit('ChangeTextAlertMessage', [message]);
-            var content = value.result;
+            var content = 'ok';
 
 	          if (content === 'ok') {
-              console.log('Proyecto Creado', value.data.uuid);
+              console.log('Proyecto Creado', value.uuid);
               var dataList = $scope.dataList;
               if (dataList === undefined) {
                 dataList = [];
@@ -120,7 +123,7 @@ define(['angular'], function (angular) {
               for (i = 0; i < inputs.length; i++) {
                 obj[inputs[i]] = $scope[inputs[i]];
               }
-              obj.uuid = value.data.uuid;
+              obj.uuid = value.uuid;
               dataList.push(obj);
               $scope.$parent.dataList = dataList;
             }
@@ -133,8 +136,13 @@ define(['angular'], function (angular) {
         };
 
         $scope.edit = function () {
-          sendForm($scope.caliopeForm);
+          var uuidData = $scope.caliopeForm.uuid;
+          sendForm($scope.caliopeForm, uuidData);
         };
+
+        $scope.delete = function() {
+
+        }
 
       }]
   );
