@@ -21,9 +21,10 @@ define(['angular'], function (angular) {
         };
 
         selector = function (){
-          var result = dataToProcess.result;
-          if(result === 'error'){
-            return mensError(dataToProcess.msg);
+          var resultError = dataToProcess['error-response-server'];
+          if(resultError !== undefined){
+            var error = dataToProcess['error-response-server'];
+            return mensError(error['message'] + '-' + error['code']);
           }
           return mensOk();
         };
@@ -36,6 +37,8 @@ define(['angular'], function (angular) {
 
           message : function(){
             if (dataToProcess !== undefined) {
+              var msgSelector = selector();
+              //$rootScope.$broadcast('ChangeTextAlertMessage', [msgSelector]);
               return selector();
             }
             return '';

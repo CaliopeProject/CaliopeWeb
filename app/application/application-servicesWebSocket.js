@@ -93,7 +93,11 @@ define(['angular', 'uuid'], function(angular) {
           };
           console.log('Sending request', request);
           ws.send(JSON.stringify(request));
-          return defer.promise;
+          var promise = defer.promise.then(function(result) {
+            console.log('Promise 2');
+            return result;
+          });
+          return promise;
         }
 
         /**
@@ -110,9 +114,12 @@ define(['angular', 'uuid'], function(angular) {
           if(callbacks.hasOwnProperty(messageObj[callbackAttName])) {
             var result =  messageObj[resultAttName];
             var error = messageObj[errorAttName];
-            var infoToProcess = result;
-            if( infoToProcess === undefined ) {
-              infoToProcess = error;
+            var infoToProcess = {};
+            if( result !== undefined ) {
+              infoToProcess = result;
+            }
+            if( error !== undefined ) {
+              infoToProcess['error-response-server'] = error;
             }
             $rootScope.$apply(
               callbacks[messageObj[callbackAttName]].cb.resolve(infoToProcess)
@@ -155,7 +162,8 @@ define(['angular', 'uuid'], function(angular) {
         */
       function initWebSockets() {
         var wsTemplates = new WebSocketCaliope(
-            'ws://' + document.domain + ':' + location.port + '/api/ws'
+            'ws://192.168.0.28:9000/api/ws'
+            //'ws://' + document.domain + ':' + location.port + '/api/ws'
           );
 
         webSockets.serversimm = wsTemplates;
