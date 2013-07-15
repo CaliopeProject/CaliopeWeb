@@ -4,8 +4,8 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
   var module = angular.module('CaliopeController', ['webSocket']);
 
   module.controller('CaliopeController',
-      ['webSocket', '$scope','HandlerResponseServerSrv',
-      function(webSocket, $scope, handlerResServerSrv) {
+      ['webSocket', '$scope',
+      function(webSocket, $scope) {
 
         $scope.init = function () {
           webSocket.initWebSockets();
