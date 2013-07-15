@@ -9,28 +9,21 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
 
         $scope.init = function () {
           webSocket.initWebSockets();
-          $scope.alertMessage = "";
 
-          /*
-          $scope.$watch('alertMessage', function(value){
-            console.log('Change alertMessage', value);
-          });
-          */
+          $scope.alerts = [
+            { type: 'success', msg: 'Bienvenidos al SIIM' }
+          ];
 
           $scope.$on('ChangeTextAlertMessage', function (event, data) {
-            console.log('On ChangeTextAlertMessage', data);
-            console.log('servcioNotifica',handlerResServerSrv.message());
-            $scope.alertMessage = data[0];
+            $scope.alerts.push({msg: data[0]});
           });
+
+          $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+          };
 
         };
 
       }]
   );
-
-  module.controller('firstForm', ['$scope','MyService', function($scope, MyService){
-    $scope.customers = MyService.getCustomers();
-    $scope.undato    = MyService.getUndato();
-  }]);
-
 });

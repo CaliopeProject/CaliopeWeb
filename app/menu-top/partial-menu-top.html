@@ -12,8 +12,8 @@
           SIMM
         </small>
       </a><!--/.brand-->
-      <div id="menu_top_message_alert">
-        <span style="color: white;">{{alertMessage}}</span>
+      <div class="menu_top_message_alert">
+        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
       </div>
       <ul class="nav ace-nav pull-right">
         <li class="grey">

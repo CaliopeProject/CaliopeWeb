@@ -41,17 +41,17 @@ define(['angular'], function (angular) {
           $scope.jsonPlantillaWA = {};
 
           $scope.$watch('jsonPlantilla', function (value) {
-              if (value !== undefined) {
-                var content = value;
-                handlerResServerSrv.process(value);
-                message = handlerResServerSrv.message();                
+              var content = value;
+              if (content !== undefined) {
+                handlerResServerSrv.process(content);
+                message = handlerResServerSrv.message();
                 $scope.$emit('ChangeTextAlertMessage', [message]);
-                
-                var jsonTemplateAngular =                 
+
+                var jsonTemplateAngular =
                   caliopewebTemplateSrv.completeTemplateForAngular.jsonTemplateGen(
                       content
                   );
-                  
+
                 var inputs = caliopewebTemplateSrv.completeTemplateForAngular.inputs();
                 $scope.jsonPlantillaAngular = jsonTemplateAngular.form;
                 $scope.inputsFormTemplate   = inputs;
@@ -78,7 +78,7 @@ define(['angular'], function (angular) {
     ['caliopewebTemplateSrv', 'HandlerResponseServerSrv', '$scope', '$routeParams',
       function (caliopewebTemplateSrv, handlerResServerSrv,
           $scope, $routeParams) {
-      
+
         var message;
 
         function sendForm(caliopeForm) {
@@ -86,9 +86,9 @@ define(['angular'], function (angular) {
           var inputs = $scope.inputsFormTemplate;
           var obj = {};
           var i;
-          
-          $scope.$emit('ChangeTextAlertMessage', ["Procesando..emit"]);          
-          
+
+          $scope.$emit('ChangeTextAlertMessage', ["Procesando..emit"]);
+
           $scope.resposeCreateForm   = {};
           $scope.processingResponse  = true;
 
@@ -107,11 +107,11 @@ define(['angular'], function (angular) {
             console.log(message);
             $scope.$emit('ChangeTextAlertMessage', [message]);
             var content = value.result;
-            
+
 	          if (content === 'ok') {
               console.log('Proyecto Creado', value.data.uuid);
               var dataList = $scope.dataList;
-              if (dataList === undefined) {              
+              if (dataList === undefined) {
                 dataList = [];
               }
               var inputs = $scope.inputsFormTemplate;
@@ -119,10 +119,10 @@ define(['angular'], function (angular) {
               var i;
               for (i = 0; i < inputs.length; i++) {
                 obj[inputs[i]] = $scope[inputs[i]];
-              }            
-              obj.uuid = value.data.uuid; 
+              }
+              obj.uuid = value.data.uuid;
               dataList.push(obj);
-              $scope.$parent.dataList = dataList;              
+              $scope.$parent.dataList = dataList;
             }
           }
           $scope.processingResponse  = false;
@@ -131,7 +131,7 @@ define(['angular'], function (angular) {
         $scope.create = function () {
           sendForm($scope.caliopeForm);
         };
-        
+
         $scope.edit = function () {
           sendForm($scope.caliopeForm);
         };

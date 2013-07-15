@@ -7,7 +7,7 @@ require.config({
     'jquery'                           : 'libs-js-thirdparty/jquery/jquery',
     'dform'                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
     'angular'                          : 'libs-js-thirdparty/angular-unstable/angular',
-    'angular-ui-bootstrap-bower'       : 'libs-js-thirdparty/angular-ui-bootstrap-bower/ui-bootstrap',
+    'angular-ui-bootstrap-bower'       : 'libs-js-thirdparty/angular-ui-bootstrap-bower/ui-bootstrap-tpls',
     'uuid'                             : 'libs-js-thirdparty/uuid-js/lib/uuid',
     'Crypto'                           : 'libs-js-thirdparty/cryptojs/lib/Crypto',
     'CryptoSHA256'                     : 'libs-js-thirdparty/cryptojs/lib/SHA256',
@@ -45,17 +45,24 @@ require.config({
     'application-app'                  : 'application/application-app',
     'application-servicesWebSocket'    : 'application/application-servicesWebSocket',
     'application-controller'           : 'application/application-controller',
+    'application-routes'               : 'application/application-routes',
+    'notificationsService'             : 'application/notificationsService',
+
     'caliopeweb-templateServices'      : 'caliopeweb-forms/caliopeweb-template-services',
     'caliopeweb-templateControllers'   : 'caliopeweb-forms/caliopeweb-template-controllers',
     'caliopeweb-formDirectives'        : 'caliopeweb-forms/caliopeweb-form-directives',
+
     'proyectosmtv-controller'          : 'proyectosmtv/proyectomtv-controller',
     'proyectosmtv-service'             : 'proyectosmtv/proyectomtv-service',
+
     'security-services'                : 'login/security-services',
+
     'login-controllers'                : 'login/login-controllers',
-    'application-routes'               : 'application/application-routes',
+
     'tools-filesuploader-ctrl'         : 'tools-files-uploader/files-uploader-controller',
-    'menu-top-controller'              : 'menu-top/menu-top-controllers',
-    'notificationsService'             : 'application/notificationsService'
+
+    'menu-top-controller'              : 'menu-top/menu-top-controllers'
+
   },
   baseUrl: '/',
   shim: {
