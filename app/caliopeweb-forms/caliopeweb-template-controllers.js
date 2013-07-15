@@ -1,5 +1,5 @@
 /*jslint browser: true*/
-/*global define*/
+/*global define, console*/
 
 /**
 * Define the module angular in RequireJS
