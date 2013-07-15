@@ -13,7 +13,7 @@ require.config({
     'CryptoSHA256'                     : 'libs-js-thirdparty/cryptojs/lib/SHA256',
     'jquery.fileupload'                : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload',
     'jquery.ui.widget'                 : 'libs-js-thirdparty/jquery-file-upload/js/vendor/jquery.ui.widget',
-    'fileupload-ui'                    : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-ui',
+    'jquery.fileupload-ui'             : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-ui',
     'tmpl'                             : 'libs-js-thirdparty/blueimp-tmpl/js/tmpl',
     'jquery.fileupload-image'          : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-image',
     'jquery.fileupload-audio'          : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-audio',
@@ -73,23 +73,41 @@ require.config({
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
     'application-routes'             : {'exports' : 'routes'},
     'application-controller'         : {'exports' : 'appcontroller'},
-    'jquery.fileupload'              : {'exports' : 'fileupload'},
+    'jquery.fileupload-angular'      : {'exports' : 'fileupload'},
+    
     'w8-elements.min'                : {'deps'      : ['jquery']},
     'w8.min'                         : {'deps'      : ['jquery']},
     'CryptoSHA256'                   : {'deps'      : ['Crypto']},
-
-    'fileupload'                     : {'deps'      : [  'fileupload-ui',
-                                                       'jquery.ui.widget',
-                                                       'tmpl'
-                                                    ]},
+    
+    'jquery.fileupload-angular'      : {'deps'      :
+                                        [
+                                            'jquery.fileupload-audio',
+                                            'jquery.fileupload-image',
+                                            'jquery.fileupload-validate',
+                                            'jquery.fileupload-ui',
+                                            'jquery.fileupload-video',
+                                            'jquery.ui.widget',
+                                         
+    /*
+                                            'jquery-fileupload',
+                                            'tmpl',
+                                            'jquery-fileupload-image',
+                                            'jquery-fileupload-audio',
+                                            'jquery-fileupload-validate',
+                                            'canvas-to-blob',
+                                            'load-image-exif-map',
+                                            'load-image-exif',
+                                            'load-image-meta',                  
+                                            'load-image.min',
+                                            'load-image',
+                                            'load-image-ios',
+                                            'jquery-fileupload-process'
+        
+   */ 
+                                        ]},
 
     'wysihtml5'                      : {'deps'      : ['wysihtml5-parser-rules']},
 
-    'tools-filesuploader-ctrl'       : {'exports' : 'tools-filesuploader-ctrl',
-                                        'deps'    : ['angular',
-                                                     'jquery',
-                                                     'jquery.fileupload',
-                                                     'jquery.fileupload-angular']},
     'dform'                          : {'deps'      : ['jquery']},
 
     'gis-ext-all'                    : {'deps'      : ['gis-ext-base']},
