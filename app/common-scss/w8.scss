@@ -234,17 +234,6 @@ blockquote {
   }
 }
 
-.alert {
-  font-size: 14px;
-  border-radius: 0;
-  .close {
-    font-size: 16px;
-  }
-}
-
-.alert-block p + p {
-  margin-top: 10px;
-}
 
 .pagination ul > li > a, .pager > li > a {
   border-width: 1px;
@@ -5725,9 +5714,6 @@ td.td-actions a.td-action {
   }
 }
 
-.widget-body .alert:last-child {
-  margin-bottom: 0;
-}
 
 .widget-main .tab-content {
   border: 0;
@@ -9369,3 +9355,5 @@ td.td-actions a.td-action {
     margin-bottom: 5px;
   }
 }
+
+
