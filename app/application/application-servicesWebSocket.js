@@ -4,7 +4,7 @@
 define(['angular', 'uuid'], function(angular) {
   'use strict';
 
-  var moduleWebSocket = angular.module('webSocket', []);
+  var moduleWebSocket = angular.module('webSocket', ['NotificationsServices']);
 
   moduleWebSocket.constant('JsonRpcConst', {
     'version-att-name'  : 'jsonrpc',
@@ -17,8 +17,8 @@ define(['angular', 'uuid'], function(angular) {
   });
 
   moduleWebSocket.factory('webSocket',
-    ['$q', '$rootScope', 'JsonRpcConst',
-     function($q, $rootScope, jsonRpcConst) {
+    ['$q', '$rootScope', 'JsonRpcConst', 'HandlerResponseServerSrv',
+     function($q, $rootScope, jsonRpcConst, handlerResponseSrv) {
 
       var Service = {};
       var webSockets = {};
@@ -93,10 +93,7 @@ define(['angular', 'uuid'], function(angular) {
           };
           console.log('Sending request', request);
           ws.send(JSON.stringify(request));
-          var promise = defer.promise.then(function(result) {
-            console.log('Promise 2');
-            return result;
-          });
+          var promise = handlerResponseSrv.addPromisesHandlerRespNotif(defer.promise);
           return promise;
         }
 

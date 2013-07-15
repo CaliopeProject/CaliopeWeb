@@ -9,7 +9,7 @@ define(['angular'], function (angular) {
   return moduleservice.factory('HandlerResponseServerSrv',
       ['$rootScope', function ($rootScope) {
 
-        var dataToProcess, selector, mensOk, mensError;
+        var dataToProcess, selector, mensOk, mensError, addPromises;
 
         mensError = function (data){
           return data;
@@ -29,6 +29,22 @@ define(['angular'], function (angular) {
           return mensOk();
         };
 
+        addPromises = function(promise) {
+          if( promise !== undefined ) {
+            var promiseNew = promise.then( function(result) {
+              console.log('Promise HandlerResponse:', result);
+              if(result !== undefined) {
+                dataToProcess = result;
+                var msgSelector = selector();
+                $rootScope.$broadcast('ChangeTextAlertMessage', [msgSelector]);
+              }
+              return result;
+            });
+            promise = promiseNew;
+          }
+          return promise;
+        };
+
         return {
           process : function (responseSrv) {
             dataToProcess = responseSrv;
@@ -38,10 +54,14 @@ define(['angular'], function (angular) {
           message : function(){
             if (dataToProcess !== undefined) {
               var msgSelector = selector();
-              //$rootScope.$broadcast('ChangeTextAlertMessage', [msgSelector]);
               return selector();
             }
             return '';
+          },
+
+          addPromisesHandlerRespNotif : function(promise) {
+            var promiseNew = addPromises(promise);
+            return promiseNew;
           }
         };
 
