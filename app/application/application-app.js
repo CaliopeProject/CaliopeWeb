@@ -16,7 +16,8 @@ var dependencies = [
     'tools-filesuploader-ctrl',
     'menu-top-controller',
     'gis-view-ctrl',
-    'notificationsService'
+    'notificationsService',
+    'angular-ui-ng-grid'
   ];
 
 var modulesAngular = [
@@ -33,7 +34,8 @@ var modulesAngular = [
     'GisViewerController',
     'FilesUploadController',
     'MenuTopControllers',
-    'NotificationsServices'
+    'NotificationsServices',
+    'ngGrid'
   ];
 
 define(dependencies, function ( angular, webSocket, appcontroller) {
