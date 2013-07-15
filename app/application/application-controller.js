@@ -6,6 +6,18 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
   module.controller('CaliopeController',
       ['webSocket', '$scope','HandlerResponseServerSrv',
       function(webSocket, $scope, handlerResServerSrv) {
+        var delMessage, timerMessage;
+
+        delMessage = function(){
+          var borrar = $scope.alerts.pop();
+          console.log('borre esto', borrar);
+        };
+
+        timerMessage = function(){
+          while ($scope.alerts.length > 0){
+            setTimeout(delMessage, 3000);
+          }
+        };
 
         $scope.init = function () {
           webSocket.initWebSockets();
@@ -16,6 +28,7 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
 
           $scope.$on('ChangeTextAlertMessage', function (event, data) {
             $scope.alerts.push({msg: data[0]});
+            timerMessage();
           });
 
           $scope.closeAlert = function(index) {
