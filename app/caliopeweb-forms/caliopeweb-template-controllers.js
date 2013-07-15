@@ -74,7 +74,7 @@ define(['angular'], function (angular) {
       }
   ]);
 
-  moduleControllers.controller('SIIMFormCtrl',
+  moduleControllers.controller('SIMMFormCtrl',
     ['caliopewebTemplateSrv', 'HandlerResponseServerSrv', '$scope', '$routeParams',
       function (caliopewebTemplateSrv, handlerResServerSrv,
           $scope, $routeParams) {
