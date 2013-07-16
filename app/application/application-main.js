@@ -48,6 +48,7 @@ require.config({
     'application-controller'           : 'application/application-controller',
     'application-routes'               : 'application/application-routes',
     'notificationsService'             : 'application/notificationsService',
+    'httpRequestTrackerService'        : 'application/httpRequestTrackerService', 
 
     'caliopeweb-templateServices'      : 'caliopeweb-forms/caliopeweb-template-services',
     'caliopeweb-templateControllers'   : 'caliopeweb-forms/caliopeweb-template-controllers',

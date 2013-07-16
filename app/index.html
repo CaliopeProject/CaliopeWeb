@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="libs-js-thirdparty/ng-grid/ng-grid.css" />
   </head>
   <body ng-controller="CaliopeController" ng-init="init()">
+    <div class='modal-backdrop'  ng-show="hasPendingRequests()">
+      <img class='displayed' src="common-img/spinner.gif" alt="loading">
+    </div>
     <div ng-include src="'menu-top/partial-menu-top.html'"></div>
     <div class="container-fluid" id="main-container">
       <div ng-include src="'menu-right/partial-menu-right.html'"></div>

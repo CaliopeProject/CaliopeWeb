@@ -17,6 +17,7 @@ var dependencies = [
     'menu-top-controller',
     'gis-view-ctrl',
     'notificationsService',
+    'httpRequestTrackerService',
     'angular-ui-ng-grid'
   ];
 
@@ -34,6 +35,7 @@ var modulesAngular = [
     'GisViewerController',
     'MenuTopControllers',
     'NotificationsServices',
+    'httpRequestTrackerService',
     'FilesUploadControllers',
     'ngGrid'
   ];
