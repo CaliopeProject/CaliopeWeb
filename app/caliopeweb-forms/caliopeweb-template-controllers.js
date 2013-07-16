@@ -162,13 +162,17 @@ define(['angular'], function (angular) {
                   $scope, $routeParams) {
 
 
-          console.log('En SIMMGridCtrl');
-
           var caliopeForm = {};
 
           caliopeForm.id = $routeParams.plantilla;
           $scope.caliopeForm = caliopeForm;
           $scope.responseLoadDataGrid = {};
+
+          $scope.data = [
+          ];
+          $scope.gridOptions = {
+            'data': 'data'
+          };
 
           function loadDataGrid() {
             var paramsSearch = {};
@@ -177,20 +181,29 @@ define(['angular'], function (angular) {
           };
 
           $scope.$watch('responseLoadDataGrid', function (value) {
-            if( value !== undefined ) {
-              console.log('responseLoadDataGrid',value);
+            if( value !== undefined && value['error'] === undefined) {
+              var err = value['error'];
+
+              if( err === undefined ) {
+                console.log('Ok load data grid');
+                $scope.data = [
+                  {'estado' : 'estado', 'proyecto' : 'proyecto'},
+                  {'estado' : 'estado1', 'proyecto' : 'proyecto1'}
+                ];
+                $scope.gridOptions = {
+                  'data': 'data'
+                };
+              }
             } else {
-              $scope.data = [{name: "Moroni", age: 50},
-                {name: "Tiancum", age: 43},
-                {name: "Jacob", age: 27},
-                {name: "Nephi", age: 29},
-                {name: "Enos", age: 34}];
 
-              var columnDefs = [{field:'name', displayName:'Name'}, {field:'age', displayName:'Age'}];
+              console.log('Load data grid default');
 
+              $scope.data = [
+                {'estado' : 'estado', 'proyecto' : 'proyecto plaza hoja'},
+                {'estado' : 'estado1', 'proyecto' : 'proyecto1'}
+              ];
               $scope.gridOptions = {
-                'data': 'data',
-                'columnDefs' : columnDefs
+                'data': 'data'
               };
             }
           });
