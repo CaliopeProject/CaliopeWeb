@@ -4,8 +4,8 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
   var module = angular.module('CaliopeController', ['webSocket']);
 
   module.controller('CaliopeController',
-      ['webSocket', '$scope','HandlerResponseServerSrv',
-      function(webSocket, $scope, handlerResServerSrv) {
+      ['webSocket', '$scope','HandlerResponseServerSrv', 'httpRequestTrackerService', 
+      function(webSocket, $scope, handlerResServerSrv, httpRequestTrackerService) {
         var delMessage, timerMessage;
 
         delMessage = function(){
@@ -37,6 +37,9 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
 
         };
 
+        $scope.hasPendingRequests = function () {
+          return httpRequestTrackerService.hasPendingRequests();
+        };
       }]
   );
 });
