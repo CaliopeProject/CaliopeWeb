@@ -6,88 +6,29 @@
     <link href="common-css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="libs-js-thirdparty/ng-grid/ng-grid.css" />
   </head>
+
   <body ng-controller="CaliopeController" ng-init="init()">
+    <!-- SPINNER INIT-->
     <div class='modal-backdrop'  ng-show="hasPendingRequests()">
       <img class='displayed' src="common-img/spinner.gif" alt="loading">
     </div>
-    <div ng-include src="'menu-top/partial-menu-top.html'"></div>
-    <div class="container-fluid" id="main-container">
-      <div ng-include src="'menu-right/partial-menu-right.html'"></div>
-      <div id="main-content" class="clearfix">
-        <div id="breadcrumbs">
-          <ul class="breadcrumb">
-            <li>
-            <i class="icon-home"></i>
-            <a href="#">Home</a>
+    <!-- SPINNER END-->
 
-            <span class="divider">
-              <i class="icon-angle-right"></i>
-            </span>
-            </li>
-            <li class="active">Dashboard</li>
-          </ul><!--.breadcrumb-->
+    <!-- MENU-TOP INIT-->
+    <div ng-include src="'menu-top/partial-menu-top.html'" class="navbar navbar-inverse"></div>
+    <!-- MENU-TOP END-->
 
-          <div id="nav-search">
-            <form class="form-search">
-              <span class="input-icon">
-                <input type="text" placeholder="Search ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
-                <i class="icon-search" id="nav-search-icon"></i>
-              </span>
-            </form>
-          </div><!--#nav-search-->
-        </div>
+    <!-- MENU-RIGHT INIT-->
+    <div ng-include src="'menu-right/partial-menu-right.html'"></div>
+    <!-- MENU-RIGHT END-->
 
-        <div id="page-content" class="clearfix">
-          <div class="page-header position-relative">
-            <h1>
-              Dashboard
-              <small>
-                <i class="icon-double-angle-right"></i>
-                overview &amp; stats
-              </small>
-            </h1>
-          </div><!--/.page-header-->
 
-          <div class="row-fluid">
-            <!--PAGE CONTENT BEGINS HERE-->
+    <!-- INIT: CONTAINER-->
+    <div ng-include src="'application/partial-content.html'" class="container-fluid" id="main-container"></div>
+    <!-- END:  CONTAINER-->
+  </body>
 
-            <ng-view/>
-            <div id="mapdiv" style="margin: 30px"></div>
-            <!--PAGE CONTENT ENDS HERE-->
-          </div><!--/#page-content-->
+  <script data-main="application/application-main" 
+    src="libs-js-thirdparty/requirejs/require.js"></script>
 
-          <div id="ace-settings-container">
-            <div class="btn btn-app btn-mini btn-warning" id="ace-settings-btn">
-              <i class="icon-cog"></i>
-            </div>
-
-            <div id="ace-settings-box">
-              <div>
-                <div class="pull-left">
-                  <select id="skin-colorpicker" class="hidden">
-                    <option data-class="default" value="#438EB9">#438EB9</option>
-                    <option data-class="skin-1" value="#222A2D">#222A2D</option>
-                    <option data-class="skin-2" value="#C6487E">#C6487E</option>
-                    <option data-class="skin-3" value="#D0D0D0">#D0D0D0</option>
-                  </select>
-                </div>
-                <span>&nbsp; Choose Skin</span>
-              </div>
-
-              <div>
-                <input type="checkbox" class="ace-checkbox-2" id="ace-settings-header" />
-                <label class="lbl" for="ace-settings-header"> Fixed Header</label>
-              </div>
-
-              <div>
-                <input type="checkbox" class="ace-checkbox-2" id="ace-settings-sidebar" />
-                <label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
-              </div>
-            </div>
-          </div><!--/#ace-settings-container-->
-        </div><!--/#main-content-->
-      </div><!--/.fluid-container#main-container-->
-
-    </body>
-    <script data-main="application/application-main" src="libs-js-thirdparty/requirejs/require.js"></script>
-  </html>
+</html>

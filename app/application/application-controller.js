@@ -1,7 +1,7 @@
 define(['angular', 'application-servicesWebSocket'], function(angular, webSocket) {
   'use strict';
 
-  var module = angular.module('CaliopeController', ['webSocket']);
+  var module = angular.module('CaliopeController', []);
 
   module.controller('CaliopeController',
       ['webSocket', '$scope', '$timeout','HandlerResponseServerSrv', 'httpRequestTrackerService',

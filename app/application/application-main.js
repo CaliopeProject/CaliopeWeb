@@ -45,15 +45,14 @@ require.config({
     'gis-heron'                        : 'libs-js-thirdparty/heron-mc/heron',
     'gis-geoext'                       : 'libs-js-thirdparty/compiled-gis/GeoExt',
     'gis-openlayers'                   : 'libs-js-thirdparty/compiled-gis/OpenLayers',
-    'w8-elements.min'                  : 'application/w8-elements.min',
-    'w8.min'                           : 'application/w8.min',
 
     'application-app'                  : 'application/application-app',
     'application-servicesWebSocket'    : 'application/application-servicesWebSocket',
     'application-controller'           : 'application/application-controller',
     'application-routes'               : 'application/application-routes',
     'notificationsService'             : 'application/notificationsService',
-    'httpRequestTrackerService'        : 'application/httpRequestTrackerService', 
+    'httpRequestTrackerService'        : 'application/httpRequestTrackerService',
+    'application-event'                : 'application/application-event',
 
     'caliopeweb-templateServices'      : 'caliopeweb-forms/caliopeweb-template-services',
     'caliopeweb-templateControllers'   : 'caliopeweb-forms/caliopeweb-template-controllers',
@@ -68,7 +67,10 @@ require.config({
 
     'tools-filesuploader-ctrl'         : 'tools-files-uploader/files-uploader-controller',
 
-    'menu-top-controller'              : 'menu-top/menu-top-controllers'
+    'menu-top-controller'              : 'menu-top/menu-top-controllers',
+
+    'menu-right-sidebar-directives'    : 'menu-right/menu-right-sidebar-directives',
+    'menu-right-controller'            : 'menu-right/menu-right-controller'
 
   },
   baseUrl: '/',
@@ -81,11 +83,10 @@ require.config({
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
     'application-routes'             : {'exports' : 'routes'},
     'application-controller'         : {'exports' : 'appcontroller'},
-    
-    'w8-elements.min'                : {'deps'      : ['jquery']},
-    'w8.min'                         : {'deps'      : ['jquery']},
+    'application-event'              : {'deps'      : ['jquery']},
+
     'CryptoSHA256'                   : {'deps'      : ['Crypto']},
-                 
+
     'jquery.fileupload-angular'      : {'deps'      :
                                         [
                                         'jquery',
