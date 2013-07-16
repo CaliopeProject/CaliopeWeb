@@ -3,7 +3,7 @@ define(['angular','jquery.fileupload-angular'], function(angular) {
 
     var url = 'upload/';
 
-    angular.module('FilesUploadController', [])
+    angular.module('FilesUploadControllers', [])
         .config([
             '$httpProvider',
             function ($httpProvider) {
@@ -27,7 +27,7 @@ define(['angular','jquery.fileupload-angular'], function(angular) {
         .controller('DemoFileUploadController', [
             '$scope', '$http', '$filter', '$window',
             function ($scope, $http, $filter, $window) {
-                
+                    
                     $scope.loadingFiles = true;
                     $scope.options = {
                         url: url

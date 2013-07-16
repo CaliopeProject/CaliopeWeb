@@ -31,9 +31,9 @@ var modulesAngular = [
     'SecurityServices',
     'LoginControllers',
     'GisViewerController',
-    'FilesUploadController',
     'MenuTopControllers',
-    'NotificationsServices'
+    'NotificationsServices',
+    'FilesUploadControllers'
   ];
 
 define(dependencies, function ( angular, webSocket, appcontroller) {
