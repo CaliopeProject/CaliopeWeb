@@ -13,7 +13,6 @@ var dependencies = [
     'proyectosmtv-service',
     'security-services',
     'login-controllers',
-    'tools-filesuploader-ctrl',
     'menu-top-controller',
     'gis-view-ctrl',
     'notificationsService',
@@ -36,7 +35,6 @@ var modulesAngular = [
     'MenuTopControllers',
     'NotificationsServices',
     'httpRequestTrackerService',
-    'FilesUploadControllers',
     'ngGrid'
   ];
 
