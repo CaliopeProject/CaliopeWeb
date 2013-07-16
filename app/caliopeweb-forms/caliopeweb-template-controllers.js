@@ -161,16 +161,41 @@ define(['angular'], function (angular) {
         function (caliopewebTemplateSrv,
                   $scope, $routeParams) {
 
-          var a = "";
+
           console.log('En SIMMGridCtrl');
 
-          $scope.data = [{name: "Moroni", age: 50},
-            {name: "Tiancum", age: 43},
-            {name: "Jacob", age: 27},
-            {name: "Nephi", age: 29},
-            {name: "Enos", age: 34}];
+          var caliopeForm = {};
 
-          $scope.gridOptions = { data: 'data' };
+          caliopeForm.id = $routeParams.plantilla;
+          $scope.caliopeForm = caliopeForm;
+          $scope.responseLoadDataGrid = {};
+
+          function loadDataGrid() {
+            var paramsSearch = {};
+            $scope.responseLoadDataGrid = caliopewebTemplateSrv.loadDataGrid(
+                caliopeForm.id, paramsSearch);
+          };
+
+          $scope.$watch('responseLoadDataGrid', function (value) {
+            if( value !== undefined ) {
+              console.log('responseLoadDataGrid',value);
+            } else {
+              $scope.data = [{name: "Moroni", age: 50},
+                {name: "Tiancum", age: 43},
+                {name: "Jacob", age: 27},
+                {name: "Nephi", age: 29},
+                {name: "Enos", age: 34}];
+
+              var columnDefs = [{field:'name', displayName:'Name'}, {field:'age', displayName:'Age'}];
+
+              $scope.gridOptions = {
+                'data': 'data',
+                'columnDefs' : columnDefs
+              };
+            }
+          });
+
+          loadDataGrid($scope.caliopeForm);
 
       }]
   );
