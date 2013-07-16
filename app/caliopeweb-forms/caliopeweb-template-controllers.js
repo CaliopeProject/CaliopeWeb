@@ -68,10 +68,6 @@ define(['angular'], function (angular) {
           load();
         }
 
-        if(caliopeForm.mode === 'delete' ) {
-
-        }
-
       }
   ]);
 
@@ -156,6 +152,25 @@ define(['angular'], function (angular) {
           var uuidData = $scope.caliopeForm.uuid;
           deleteData($scope.caliopeForm, uuidData)
         }
+
+      }]
+  );
+
+  moduleControllers.controller('SIMMGridCtrl',
+      ['caliopewebTemplateSrv', '$scope', '$routeParams',
+        function (caliopewebTemplateSrv,
+                  $scope, $routeParams) {
+
+          var a = "";
+          console.log('En SIMMGridCtrl');
+
+          $scope.data = [{name: "Moroni", age: 50},
+            {name: "Tiancum", age: 43},
+            {name: "Jacob", age: 27},
+            {name: "Nephi", age: 29},
+            {name: "Enos", age: 34}];
+
+          $scope.gridOptions = { data: 'data' };
 
       }]
   );
