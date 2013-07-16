@@ -129,7 +129,6 @@ require([
   'application-app',
   'application-routes',
   'gis-view-ctrl',
-  'tools-filesuploader-ctrl',
   'wysihtml5'
 ], function(jQuery, angular, app, routes) {
   'use strict';
