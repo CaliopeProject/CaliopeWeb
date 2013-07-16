@@ -1,4 +1,4 @@
-define(['angular',/*'jquery.fileupload-angular'*/], function(angular) {
+define(['angular','jquery.fileupload-angular'], function(angular) {
     'use strict';
 
     var url = 'upload/';

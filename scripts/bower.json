@@ -9,6 +9,8 @@
     "jquery.dform"               : "~1.1.0",
     "jquery-file-upload"         : "~8.4.2",
     "blueimp-load-image"         : "~1.7.3",
+    "blueimp-load-image"         : "~1.7.3",
+    "blueimp-gallery"            : "~2.5.0",
     "heron-mc"                   : "~0.7.3",
     "blueimp-canvas-to-blob"     : "~2.0.6",
     "cryptojs"                   : "latest",
