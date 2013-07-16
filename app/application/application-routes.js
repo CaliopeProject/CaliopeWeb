@@ -13,11 +13,13 @@ define(['angular', 'application-app'], function(angular, app) {
     $routeProvider.when('/login/:plantilla/:mode', {
       templateUrl: '/login/login-partial.html'});
     $routeProvider.when('/caliopeweb-forms/:plantilla/:mode', {
-      templateUrl: '/caliopeweb-forms/caliopeweb-form-partial.html'});        
+      templateUrl: '/caliopeweb-forms/caliopeweb-form-partial.html'});
     $routeProvider.when('/caliopeweb-forms/:plantilla/:mode/:uuid', {
-      templateUrl: '/caliopeweb-forms/caliopeweb-form-partial.html'});     
+      templateUrl: '/caliopeweb-forms/caliopeweb-form-partial.html'});
     $routeProvider.when('/tools/upload/files', {
       templateUrl: '/tools-files-uploader/files-uploader-partial.html'});
+    $routeProvider.when('/caliopeweb-grids/:plantilla', {
+      templateUrl: '/caliopeweb-forms/caliopeweb-grid-partial.html'});
     $routeProvider.when('/tools/wysihtml5-editor', {
       templateUrl: 'tools-wysihtml5-editor/wysihtml5-editor-partial.html'});    
     

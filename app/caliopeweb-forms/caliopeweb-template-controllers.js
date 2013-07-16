@@ -17,8 +17,8 @@ define(['angular'], function (angular) {
   * templates of caliope framework
   */
   moduleControllers.controller('CaliopeWebTemplateCtrl',
-    ['caliopewebTemplateSrv', '$scope', '$routeParams', 'HandlerResponseServerSrv',
-      function (caliopewebTemplateSrv, $scope, $routeParams, handlerResServerSrv) {
+    ['caliopewebTemplateSrv', '$scope', '$routeParams',
+      function (caliopewebTemplateSrv, $scope, $routeParams) {
 
         var caliopeForm = {};
 
@@ -43,9 +43,6 @@ define(['angular'], function (angular) {
           $scope.$watch('jsonPlantilla', function (value) {
               var content = value;
               if (content !== undefined) {
-                handlerResServerSrv.process(content);
-                message = handlerResServerSrv.message();
-                //$scope.$emit('ChangeTextAlertMessage', [message]);
 
                 var jsonTemplateAngular =
                   caliopewebTemplateSrv.completeTemplateForAngular.jsonTemplateGen(
@@ -75,22 +72,19 @@ define(['angular'], function (angular) {
   ]);
 
   moduleControllers.controller('SIMMFormCtrl',
-    ['caliopewebTemplateSrv', 'HandlerResponseServerSrv', '$scope', '$routeParams',
-      function (caliopewebTemplateSrv, handlerResServerSrv,
+    ['caliopewebTemplateSrv', '$scope', '$routeParams',
+      function (caliopewebTemplateSrv,
           $scope, $routeParams) {
 
         var message;
 
-        function sendForm(caliopeForm, uuidData) {
+        function saveData(caliopeForm, uuidData) {
           var formAng = $scope[caliopeForm.id];
           var inputs = $scope.inputsFormTemplate;
           var obj = {};
           var i;
 
-          $scope.$emit('ChangeTextAlertMessage', ["Procesando..emit"]);
-
-          $scope.resposeCreateForm   = {};
-          $scope.processingResponse  = true;
+          $scope.responseSaveData   = {};
 
           for (i = 0; i < inputs.length; i++) {
             obj[inputs[i]] = $scope[inputs[i]];
@@ -98,17 +92,26 @@ define(['angular'], function (angular) {
           if(uuidData !== undefined) {
             obj['uuid'] = uuidData;
           }
-          $scope.resposeCreateForm = caliopewebTemplateSrv.sendDataForm(
+          $scope.responseSaveData = caliopewebTemplateSrv.sendDataForm(
               obj, caliopeForm);
         }
 
-        $scope.$watch('resposeCreateForm', function (value) {
+        function deleteData(caliopeForm, uuidData) {
+          caliopeForm.mode = 'delete';
+
+          var obj = {};
+          $scope.responseDeleteData   = {};
+
+          if(uuidData !== undefined) {
+            obj['uuid'] = uuidData;
+          }
+          $scope.responseDeleteData = caliopewebTemplateSrv.sendDataForm(
+              obj, caliopeForm);
+        }
+
+        $scope.$watch('responseSaveData', function (value) {
 
           if (value !== undefined) {
-            handlerResServerSrv.process(value);
-            message = handlerResServerSrv.message();
-            console.log(message);
-            $scope.$emit('ChangeTextAlertMessage', [message]);
             var content = 'ok';
 
 	          if (content === 'ok') {
@@ -128,21 +131,46 @@ define(['angular'], function (angular) {
               $scope.$parent.dataList = dataList;
             }
           }
-          $scope.processingResponse  = false;
+        });
+
+        $scope.$watch('responseDeleteData', function (value) {
+          if( value !== undefined ) {
+            //TODO: Definir que se debe hacer cuando se eliminan datos.
+          }
         });
 
         $scope.create = function () {
-          sendForm($scope.caliopeForm);
+          saveData($scope.caliopeForm);
         };
 
         $scope.edit = function () {
           var uuidData = $scope.caliopeForm.uuid;
-          sendForm($scope.caliopeForm, uuidData);
+          saveData($scope.caliopeForm, uuidData);
         };
 
         $scope.delete = function() {
-
+          var uuidData = $scope.caliopeForm.uuid;
+          deleteData($scope.caliopeForm, uuidData)
         }
+
+      }]
+  );
+
+  moduleControllers.controller('SIMMGridCtrl',
+      ['caliopewebTemplateSrv', '$scope', '$routeParams',
+        function (caliopewebTemplateSrv,
+                  $scope, $routeParams) {
+
+          var a = "";
+          console.log('En SIMMGridCtrl');
+
+          $scope.data = [{name: "Moroni", age: 50},
+            {name: "Tiancum", age: 43},
+            {name: "Jacob", age: 27},
+            {name: "Nephi", age: 29},
+            {name: "Enos", age: 34}];
+
+          $scope.gridOptions = { data: 'data' };
 
       }]
   );

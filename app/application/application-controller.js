@@ -4,7 +4,7 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
   var module = angular.module('CaliopeController', ['webSocket']);
 
   module.controller('CaliopeController',
-      ['webSocket', '$scope','HandlerResponseServerSrv', 'httpRequestTrackerService', 
+      ['webSocket', '$scope','HandlerResponseServerSrv', 'httpRequestTrackerService',
       function(webSocket, $scope, handlerResServerSrv, httpRequestTrackerService) {
         var delMessage, timerMessage;
 

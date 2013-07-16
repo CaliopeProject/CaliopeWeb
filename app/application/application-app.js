@@ -17,7 +17,8 @@ var dependencies = [
     'menu-top-controller',
     'gis-view-ctrl',
     'notificationsService',
-    'httpRequestTrackerService'
+    'httpRequestTrackerService',
+    'angular-ui-ng-grid'
   ];
 
 var modulesAngular = [
@@ -32,10 +33,11 @@ var modulesAngular = [
     'SecurityServices',
     'LoginControllers',
     'GisViewerController',
-    'FilesUploadController',
     'MenuTopControllers',
     'NotificationsServices',
-    'httpRequestTrackerService'
+    'httpRequestTrackerService',
+    'FilesUploadControllers',
+    'ngGrid'
   ];
 
 define(dependencies, function ( angular, webSocket, appcontroller) {

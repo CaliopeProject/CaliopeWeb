@@ -1,14 +1,15 @@
-define(['angular', 'tools-filesuploader-ctrl'], function(angular) {
+define(['angular','jquery.fileupload-angular'], function(angular) {
     'use strict';
 
     var url = 'upload/';
 
-    angular.module('FilesUploadController', [])
+    angular.module('FilesUploadControllers', [])
         .config([
             '$httpProvider',
             function ($httpProvider) {
-                /*
-                    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+                
+/*                    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+                   
                     angular.extend(fileUploadProvider.defaults, {
                         // Enable image resizing, except for Android and Opera,
                         // which actually support image resizing, but fail to
@@ -18,14 +19,15 @@ define(['angular', 'tools-filesuploader-ctrl'], function(angular) {
                         maxFileSize: 5000000,
                         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                     });
-             */
+  */
+                
             }
         ])
 
         .controller('DemoFileUploadController', [
             '$scope', '$http', '$filter', '$window',
             function ($scope, $http, $filter, $window) {
-                
+                    
                     $scope.loadingFiles = true;
                     $scope.options = {
                         url: url
