@@ -109,17 +109,8 @@ define(['angular', 'uuid'], function(angular) {
           //          console.log("messageObj.callback_id:", messageObj.callback_id);
           //          console.log("messageObj.data:", messageObj.data);
           if(callbacks.hasOwnProperty(messageObj[callbackAttName])) {
-            var result =  messageObj[resultAttName];
-            var error = messageObj[errorAttName];
-            var infoToProcess = {};
-            if( result !== undefined ) {
-              infoToProcess = result;
-            }
-            if( error !== undefined ) {
-              infoToProcess['error-response-server'] = error;
-            }
             $rootScope.$apply(
-              callbacks[messageObj[callbackAttName]].cb.resolve(infoToProcess)
+              callbacks[messageObj[callbackAttName]].cb.resolve(messageObj)
             );
             delete callbacks[messageObj[callbackAttName]];
           }

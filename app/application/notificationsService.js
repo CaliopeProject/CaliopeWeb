@@ -21,24 +21,37 @@ define(['angular'], function (angular) {
         };
 
         selector = function (){
-          var resultError = dataToProcess['error-response-server'];
+          var resultError = dataToProcess['error'];
           if(resultError !== undefined){
-            var error = dataToProcess['error-response-server'];
-            return mensError(error['message'] + '-' + error['code']);
+            return mensError(resultError['message'] + '-' + resultError['code']);
           }
           return mensOk();
         };
 
         addPromises = function(promise) {
           if( promise !== undefined ) {
-            var promiseNew = promise.then( function(result) {
-              console.log('Promise HandlerResponse:', result);
-              if(result !== undefined) {
-                dataToProcess = result;
+            var promiseNew = promise.then( function(dataResponse) {
+
+              var dataResponseDef = {};
+
+              console.log('Promise HandlerResponse:', dataResponse);
+              if(dataResponse !== undefined) {
+
+                dataToProcess =  dataResponse;
                 var msgSelector = selector();
                 $rootScope.$broadcast('ChangeTextAlertMessage', [msgSelector]);
+
+                var result =  dataResponse['result'];
+                var error = dataResponse['error'];
+                if( result !== undefined ) {
+                  dataResponseDef = result;
+                }
+                if( error !== undefined ) {
+                  dataResponseDef['error'] = error;
+                }
               }
-              return result;
+
+              return dataResponseDef;
             });
             promise = promiseNew;
           }
