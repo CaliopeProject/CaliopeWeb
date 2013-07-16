@@ -9,12 +9,12 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
         var delMessage, timerMessage;
 
         delMessage = function(){
-          var borrar = $scope.alerts.pop();
-          console.log('borre esto', borrar);
+          $scope.alerts.pop();
         };
 
         timerMessage = function(){
-          while ($scope.alerts.length > 0){
+          console.log('salida de alerts ',$scope.alerts.length);
+          if ($scope.alerts.length > 0){
             setTimeout(delMessage, 3000);
           }
         };
@@ -25,6 +25,8 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
           $scope.alerts = [
             { type: 'success', msg: 'Bienvenidos al SIIM' }
           ];
+
+          timerMessage();
 
           $scope.$on('ChangeTextAlertMessage', function (event, data) {
             $scope.alerts.push({msg: data[0]});
