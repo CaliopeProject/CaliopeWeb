@@ -182,6 +182,21 @@ define(['angular'], function(angular) {
           return promise;
         };
 
+        Service.loadDataGrid = function(formId, paramsSearch) {
+          var method = "loadDataGrid";
+          var params = {
+            formId : formId
+          };
+          var promise = {};
+          if( params !== undefined ) {
+            jQuery.extend(params, paramsSearch);
+          }
+
+          var webSockets = webSocket.WebSockets();
+          promise = webSockets.serversimm.sendRequest(method, params);
+          return promise;
+        };
+
         return Service;
 
       }]);
