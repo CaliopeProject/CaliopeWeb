@@ -1,15 +1,13 @@
 <div ng-controller="fileuploaderCtrl">
-
     <form novalidate action="/upload/">
 
-        <my-directive ng-model="myModel.file1"></my-directive>
-        <my-directive ng-model="myModel.file2"></my-directive>
-        <my-directive ng-model="myModel.file3"></my-directive>
+        <ng-fileuploader ng-model="myModel.file1"></ng-fileuploader>
+        <ng-fileuploader ng-model="myModel.file2"></ng-fileuploader>
+        <ng-fileuploader ng-model="myModel.file3"></ng-fileuploader>
             
         <br />
             
     </form>
     
     Form : {{myModel}}
-    
 </div>

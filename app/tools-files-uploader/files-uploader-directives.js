@@ -6,7 +6,7 @@ define(['angular','jquery.fileupload'], function (angular) {
   
 var dirmodule = angular.module('fileuploaderDirectives', []);
 
-dirmodule.directive('myDirective', function() {
+dirmodule.directive('ngFileuploader', function() {
     return {
         templateUrl: 'tools-files-uploader/files-uploader-directives.html',
         replace: true,
