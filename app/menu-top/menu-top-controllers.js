@@ -7,7 +7,6 @@ define(['angular','angular-ui-bootstrap-bower'], function(angular) {
 
   moduleControllers.controller('alertCtrl',['$scope',
     function($scope){
-
       //insert text body
     }
   ]);
