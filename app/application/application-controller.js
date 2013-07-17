@@ -1,36 +1,31 @@
 define(['angular', 'application-servicesWebSocket'], function(angular, webSocket) {
   'use strict';
 
-  var module = angular.module('CaliopeController', ['webSocket']);
+  var module = angular.module('CaliopeController', []);
 
   module.controller('CaliopeController',
-      ['webSocket', '$scope','HandlerResponseServerSrv', 'httpRequestTrackerService',
-      function(webSocket, $scope, handlerResServerSrv, httpRequestTrackerService) {
-        var delMessage, timerMessage;
+      ['webSocket', '$scope', '$timeout','HandlerResponseServerSrv', 'httpRequestTrackerService',
+      function(webSocket, $scope, $timeout,handlerResServerSrv, httpRequestTrackerService) {
+        var timerMessage;
+        var initMessage = {type: 'success', msg: 'Bienvenidos al SIIM' };
+        $scope.alerts = [];
 
-        delMessage = function(){
-          $scope.alerts.pop();
-        };
-
-        timerMessage = function(){
-          console.log('salida de alerts ',$scope.alerts.length);
+        timerMessage = function(data){
+          $scope.alerts.push(data);
           if ($scope.alerts.length > 0){
-            setTimeout(delMessage, 3000);
+            $timeout(function(){
+              $scope.alerts.pop();
+            }, 5000);
           }
         };
 
         $scope.init = function () {
           webSocket.initWebSockets();
 
-          $scope.alerts = [
-            { type: 'success', msg: 'Bienvenidos al SIIM' }
-          ];
-
-          timerMessage();
+          timerMessage(initMessage);
 
           $scope.$on('ChangeTextAlertMessage', function (event, data) {
-            $scope.alerts.push({msg: data[0]});
-            timerMessage();
+            timerMessage({msg: data[0]});
           });
 
           $scope.closeAlert = function(index) {

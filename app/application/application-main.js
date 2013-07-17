@@ -2,7 +2,6 @@
 /*global require, $*/
 
 require.config({
-  waitSeconds: 60,
   paths: {
     'jquery'                           : 'libs-js-thirdparty/jquery/jquery',
     'dform'                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
@@ -20,15 +19,23 @@ require.config({
     'jquery.fileupload-audio'          : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-audio',
     'jquery.fileupload-video'          : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-video',
     'jquery.fileupload-validate'       : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-validate',
-    'canvas-to-blob'                   : 'libs-js-thirdparty/blueimp-canvas-to-blob/js/canvas-to-blob',
+    'canvas-to-blob.min'               : 'libs-js-thirdparty/blueimp-canvas-to-blob/js/canvas-to-blob.min',
+
     'load-image-exif-map'              : 'libs-js-thirdparty/blueimp-load-image/js/load-image-exif-map',
     'load-image-exif'                  : 'libs-js-thirdparty/blueimp-load-image/js/load-image-exif',
     'load-image-meta'                  : 'libs-js-thirdparty/blueimp-load-image/js/load-image-meta',
     'load-image.min'                   : 'libs-js-thirdparty/blueimp-load-image/js/load-image.min',
     'load-image'                       : 'libs-js-thirdparty/blueimp-load-image/js/load-image',
     'load-image-ios'                   : 'libs-js-thirdparty/blueimp-load-image/js/load-image-ios',
+    'jquery.blueimp-gallery'           : 'libs-js-thirdparty/blueimp-gallery/js/jquery.blueimp-gallery.min',
+    'blueimp-gallery'                  : 'libs-js-thirdparty/blueimp-gallery/js/blueimp-gallery.min',
+    'blueimp-helper'                   : 'libs-js-thirdparty/blueimp-gallery/js/blueimp-helper',
+    'jquery.iframe-transport'          : 'libs-js-thirdparty/jquery-file-upload/js/jquery.iframe-transport',
     'jquery.fileupload-process'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-process',
     'jquery.fileupload-angular'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-angular',
+    'files-uploader-controller'        : 'tools-files-uploader/files-uploader-controller',
+    'files-uploader-directives'        : 'tools-files-uploader/files-uploader-directives',
+    
     'wysihtml5-parser-rules'           : 'libs-js-thirdparty/wysihtml5/parser_rules/advanced',
     'wysihtml5'                        : 'libs-js-thirdparty/wysihtml5/dist/wysihtml5-0.3.0',
     'gis-layout'                       : 'tools-gis-viewer/Layout',
@@ -40,8 +47,6 @@ require.config({
     'gis-heron'                        : 'libs-js-thirdparty/heron-mc/heron',
     'gis-geoext'                       : 'libs-js-thirdparty/compiled-gis/GeoExt',
     'gis-openlayers'                   : 'libs-js-thirdparty/compiled-gis/OpenLayers',
-    'w8-elements.min'                  : 'application/w8-elements.min',
-    'w8.min'                           : 'application/w8.min',
 
     'application-app'                  : 'application/application-app',
     'application-servicesWebSocket'    : 'application/application-servicesWebSocket',
@@ -49,7 +54,7 @@ require.config({
     'application-routes'               : 'application/application-routes',
     'notificationsService'             : 'application/notificationsService',
     'httpRequestTrackerService'        : 'application/httpRequestTrackerService',
-
+    'application-event'                : 'application/application-event',
     'caliopeWebForms'                  : 'caliopeweb-forms/CaliopeWebForms',
     'caliopeweb-templateServices'      : 'caliopeweb-forms/caliopeweb-template-services',
     'caliopeweb-templateControllers'   : 'caliopeweb-forms/caliopeweb-template-controllers',
@@ -62,9 +67,10 @@ require.config({
 
     'login-controllers'                : 'login/login-controllers',
 
-    'tools-filesuploader-ctrl'         : 'tools-files-uploader/files-uploader-controller',
+    'menu-top-controller'              : 'menu-top/menu-top-controllers',
 
-    'menu-top-controller'              : 'menu-top/menu-top-controllers'
+    'menu-right-controller'            : 'menu-right/menu-right-controller',
+    'menu-right-directives'            : 'menu-right/menu-right-directives'
 
   },
   baseUrl: '/',
@@ -77,38 +83,29 @@ require.config({
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
     'application-routes'             : {'exports' : 'routes'},
     'application-controller'         : {'exports' : 'appcontroller'},
-    'jquery.fileupload-angular'      : {'exports' : 'fileupload'},
-    
-    'w8-elements.min'                : {'deps'      : ['jquery']},
-    'w8.min'                         : {'deps'      : ['jquery']},
+    'application-event'              : {'deps'      : ['jquery']},
+
     'CryptoSHA256'                   : {'deps'      : ['Crypto']},
-    
+
     'jquery.fileupload-angular'      : {'deps'      :
                                         [
-                                            'jquery.fileupload-audio',
-                                            'jquery.fileupload-image',
-                                            'jquery.fileupload-validate',
-                                            'jquery.fileupload-ui',
-                                            'jquery.fileupload-video',
-                                            'jquery.ui.widget',
-                                         
-    /*
-                                            'jquery-fileupload',
-                                            'tmpl',
-                                            'jquery-fileupload-image',
-                                            'jquery-fileupload-audio',
-                                            'jquery-fileupload-validate',
-                                            'canvas-to-blob',
-                                            'load-image-exif-map',
-                                            'load-image-exif',
-                                            'load-image-meta',                  
-                                            'load-image.min',
-                                            'load-image',
-                                            'load-image-ios',
-                                            'jquery-fileupload-process'
-        
-   */ 
+                                        'jquery',
+                                        'angular',
+                                        'jquery.ui.widget',
+                                        'load-image.min',
+                                        'canvas-to-blob.min',
+                                        //'bootstrap.min',
+                                        'blueimp-gallery',
+                                        'jquery.blueimp-gallery',
+                                        'jquery.iframe-transport',
+                                        'jquery.fileupload',
+                                        'jquery.fileupload-process',
+                                        'jquery.fileupload-image',
+                                        'jquery.fileupload-audio',
+                                        'jquery.fileupload-video',
+                                        'jquery.fileupload-validate'
                                         ]},
+
 
     'wysihtml5'                      : {'deps'      : ['wysihtml5-parser-rules']},
 
@@ -133,10 +130,7 @@ require([
   'application-app',
   'application-routes',
   'gis-view-ctrl',
-  'tools-filesuploader-ctrl',
   'wysihtml5'
-  //,'w8-elements.min'
-  //,'w8.min'
 ], function(jQuery, angular, app, routes) {
   'use strict';
   $(document).ready(function () {

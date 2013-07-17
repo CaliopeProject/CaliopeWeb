@@ -13,12 +13,15 @@ var dependencies = [
     'proyectosmtv-service',
     'security-services',
     'login-controllers',
-    'tools-filesuploader-ctrl',
     'menu-top-controller',
     'gis-view-ctrl',
     'notificationsService',
     'httpRequestTrackerService',
-    'angular-ui-ng-grid'
+    'angular-ui-ng-grid',
+    'menu-right-controller',
+    'menu-right-directives',
+    'files-uploader-controller',
+    'files-uploader-directives'
   ];
 
 var modulesAngular = [
@@ -36,8 +39,11 @@ var modulesAngular = [
     'MenuTopControllers',
     'NotificationsServices',
     'httpRequestTrackerService',
-    'FilesUploadControllers',
-    'ngGrid'
+    'ngGrid',
+    'menu-right-controller',
+    'menu-right-directives',
+    'fileuploaderCtrl',
+    'fileuploaderDirectives'
   ];
 
 define(dependencies, function ( angular, webSocket, appcontroller) {
