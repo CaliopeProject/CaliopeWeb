@@ -24,7 +24,11 @@ dirmodule.directive('ngFileuploader', function() {
                 progressall: function(e, data) {
                     var progress = parseInt(data.loaded / data.total * 100, 10);
                     scope.$apply(function() {
-                        scope.progress = progress;
+                        //scope.progress = progress;
+                        $('#progress .bar').css(
+                                'width',
+                                progress + '%'
+                        );
                     });
 
                 },

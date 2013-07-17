@@ -800,7 +800,7 @@ blockquote.pull-right {
   margin-bottom: 16px;
   margin-top: 18px;
   padding-bottom: 4px;
-  border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid #cccccc;
 }
 /* line 673, ../common-scss/w8.scss */
 .header.blue {
@@ -924,7 +924,7 @@ blockquote.pull-right {
   line-height: 45px;
   max-height: 45px;
   background: #2e6589;
-  border-left: 1px solid #DDD;
+  border-left: 1px solid #dddddd;
   padding: 0;
   position: relative;
 }
@@ -1033,7 +1033,7 @@ blockquote.pull-right {
 .ace-nav .nav-user-photo {
   margin: -4px 8px 0 0;
   border-radius: 24px;
-  border: 2px solid #FFF;
+  border: 2px solid white;
   max-width: 36px !important;
 }
 /* line 862, ../common-scss/w8.scss */
@@ -1141,10 +1141,10 @@ blockquote.pull-right {
   font-size: 13px;
   color: #666666 !important;
   z-index: 11;
-  -webkit-transition: all ease .15s;
-  -moz-transition: all ease .15s;
-  -o-transition: all ease .15s;
-  transition: all ease .15s;
+  -webkit-transition: all ease 0.15s;
+  -moz-transition: all ease 0.15s;
+  -o-transition: all ease 0.15s;
+  transition: all ease 0.15s;
 }
 /* line 958, ../common-scss/w8.scss */
 #nav-search-input + .dropdown-menu {
@@ -1178,14 +1178,14 @@ blockquote.pull-right {
   position: absolute;
   margin-left: 0;
   margin-top: 0;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #cccccc;
   background-color: #FFF;
 }
 /* line 982, ../common-scss/w8.scss */
 #sidebar > #nav-search {
   position: static;
   background-color: #fafafa;
-  border-bottom: 1px solid #DDD;
+  border-bottom: 1px solid #dddddd;
   text-align: center;
   height: 35px;
   padding-top: 5px;
@@ -1263,7 +1263,7 @@ blockquote.pull-right {
   top: 0;
   z-index: -1;
   background-color: #f2f2f2;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #cccccc;
 }
 /* line 1062, ../common-scss/w8.scss */
 #sidebar.fixed {
@@ -1563,7 +1563,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   cursor: pointer;
   font-size: 14px;
   color: #aaa;
-  border: 1px solid #bbb;
+  border: 1px solid #bbbbbb;
   padding: 0 5px;
   line-height: 18px;
   border-radius: 16px;
@@ -1585,7 +1585,7 @@ li [class^="icon-"], li [class*=" icon-"] {
 /* line 1341, ../common-scss/w8.scss */
 #sidebar-shortcuts {
   background-color: #fafafa;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
   text-align: center;
   line-height: 37px;
   max-height: 40px;
@@ -1655,7 +1655,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   background-color: #f5f5f5;
   z-index: 121;
   box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   padding-left: 12px;
 }
 /* line 1407, ../common-scss/w8.scss */
@@ -1665,7 +1665,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   top: -1px;
   left: 42px;
   width: 163px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
 }
 /* line 1415, ../common-scss/w8.scss */
 .menu-min .nav-list > li > a .arrow {
@@ -1721,7 +1721,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   left: 41px;
   top: -2px;
   width: 175px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
   padding-top: 40px;
   padding-bottom: 2px;
@@ -1771,7 +1771,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   z-index: 20;
   background-color: #fff;
   box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   padding: 0 2px 3px;
 }
 /* line 1511, ../common-scss/w8.scss */
@@ -1806,10 +1806,10 @@ li [class^="icon-"], li [class*=" icon-"] {
   border: 5px solid;
   border-radius: 0;
   box-shadow: none !important;
-  -webkit-transition: all .1s ease-in-out;
-  -moz-transition: all .1s ease-in-out;
-  -o-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
   cursor: pointer;
   vertical-align: middle;
   margin: 0;
@@ -2687,7 +2687,7 @@ button.btn:active {
 .btn-app.btn-light {
   color: #5a5a5a !important;
   text-shadow: 0 1px 1px #eeeeee !important;
-  border: 2px solid #DDD;
+  border: 2px solid #dddddd;
   background: #ededed !important;
   background-color: #eeeeee !important;
   background-image: -moz-linear-gradient(top, #f4f4f4, #e6e6e6) !important;
@@ -3705,10 +3705,10 @@ button.btn:active {
   padding: 0;
   border-radius: 0;
   position: relative;
-  -webkit-transition: all ease .1s;
-  -moz-transition: all ease .1s;
-  -o-transition: all ease .1s;
-  transition: all ease .1s;
+  -webkit-transition: all ease 0.1s;
+  -moz-transition: all ease 0.1s;
+  -o-transition: all ease 0.1s;
+  transition: all ease 0.1s;
 }
 /* line 3242, ../common-scss/w8.scss */
 .dropdown-colorpicker > .dropdown-menu > li > .colorpick-btn:hover {
@@ -3807,7 +3807,7 @@ button.btn:active {
 }
 /* line 3328, ../common-scss/w8.scss */
 .dropdown-navbar > li:last-child > a {
-  border-bottom: 0 solid #DDD;
+  border-bottom: 0 solid #dddddd;
   border-top: 1px dotted transparent;
   color: #4f99c6;
   text-align: center;
@@ -3978,7 +3978,7 @@ button.btn:active {
 .form-line {
   margin-bottom: 24px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid #eeeeee;
 }
 
 /* line 3479, ../common-scss/w8.scss */
@@ -4004,7 +4004,7 @@ button.btn:active {
   -moz-border-radius: 16px;
   border-radius: 16px;
   border-color: #FFF;
-  border: 2px solid #FFF;
+  border: 2px solid white;
   -webkit-box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.2);
@@ -4077,7 +4077,7 @@ textarea.autosize-transition {
 
 /* line 3566, ../common-scss/w8.scss */
 .limiterBox {
-  border: 1px solid #222;
+  border: 1px solid #222222;
   border-top: 0;
   background-color: #333;
   padding: 3px 6px;
@@ -4350,7 +4350,7 @@ input[type=checkbox] + .lbl::before, input[type=radio] + .lbl::before {
   color: #32a3ce;
   content: "\a0";
   background-color: #fafafa;
-  border: 1px solid #CCC;
+  border: 1px solid #cccccc;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   border-radius: 0;
   display: inline-block;
@@ -4435,7 +4435,7 @@ input[type=checkbox].ace-switch + .lbl::before {
   border-radius: 12px;
   background-color: #f5f5f5;
   box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-  border: 1px solid #CCC;
+  border: 1px solid #cccccc;
   text-align: left;
   float: left;
   padding: 0;
@@ -4443,10 +4443,10 @@ input[type=checkbox].ace-switch + .lbl::before {
   text-indent: -19px;
   text-indent: -21px\9;
   margin-right: 0;
-  -webkit-transition: text-indent .4s ease;
-  -moz-transition: text-indent .4s ease;
-  -o-transition: text-indent .4s ease;
-  transition: text-indent .4s ease;
+  -webkit-transition: text-indent 0.4s ease;
+  -moz-transition: text-indent 0.4s ease;
+  -o-transition: text-indent 0.4s ease;
+  transition: text-indent 0.4s ease;
 }
 /* line 3897, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch + .lbl::after {
@@ -4468,10 +4468,10 @@ input[type=checkbox].ace-switch + .lbl::after {
   padding: 0;
   box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.3);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3) inset;
-  -webkit-transition: left .4s ease;
-  -moz-transition: left .4s ease;
-  -o-transition: left .4s ease;
-  transition: left .4s ease;
+  -webkit-transition: left 0.4s ease;
+  -moz-transition: left 0.4s ease;
+  -o-transition: left 0.4s ease;
+  transition: left 0.4s ease;
 }
 /* line 3923, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch:checked + .lbl::before {
@@ -4523,10 +4523,10 @@ input[type=checkbox].ace-switch.ace-switch-4 + .lbl::before, input[type=checkbox
   position: relative;
   margin-right: 8px;
   box-shadow: none;
-  -webkit-transition: all .4s ease;
-  -moz-transition: all .4s ease;
-  -o-transition: all .4s ease;
-  transition: all .4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
 }
 /* line 3975, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-4 + .lbl::after, input[type=checkbox].ace-switch.ace-switch-5 + .lbl::after {
@@ -4546,10 +4546,10 @@ input[type=checkbox].ace-switch.ace-switch-4 + .lbl::after, input[type=checkbox]
   height: 18px;
   line-height: 16px;
   background-color: #FFF;
-  -webkit-transition: all .4s ease;
-  -moz-transition: all .4s ease;
-  -o-transition: all .4s ease;
-  transition: all .4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
 }
 /* line 3997, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-4:checked + .lbl::before, input[type=checkbox].ace-switch.ace-switch-5:checked + .lbl::before {
@@ -4596,10 +4596,10 @@ input[type=checkbox].ace-switch.ace-switch-6 + .lbl::before {
   height: 22px;
   line-height: 20px;
   text-indent: 32px;
-  -webkit-transition: background .1s ease;
-  -moz-transition: background .1s ease;
-  -o-transition: background .1s ease;
-  transition: background .1s ease;
+  -webkit-transition: background 0.1s ease;
+  -moz-transition: background 0.1s ease;
+  -o-transition: background 0.1s ease;
+  transition: background 0.1s ease;
 }
 /* line 4044, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-6 + .lbl::after {
@@ -4615,10 +4615,10 @@ input[type=checkbox].ace-switch.ace-switch-6 + .lbl::after {
   text-align: center;
   background-color: #f2f2f2;
   border: 4px solid #f2f2f2;
-  -webkit-transition: left .2s ease;
-  -moz-transition: left .2s ease;
-  -o-transition: left .2s ease;
-  transition: left .2s ease;
+  -webkit-transition: left 0.2s ease;
+  -moz-transition: left 0.2s ease;
+  -o-transition: left 0.2s ease;
+  transition: left 0.2s ease;
 }
 /* line 4064, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-6:checked + .lbl::before {
@@ -4632,7 +4632,7 @@ input[type=checkbox].ace-switch.ace-switch-6:checked + .lbl::before {
 input[type=checkbox].ace-switch.ace-switch-6:checked + .lbl::after {
   left: 32px;
   background-color: #FFF;
-  border: 4px solid #FFF;
+  border: 4px solid white;
   text-shadow: 0 -1px 0 rgba(0, 200, 0, 0.25);
 }
 /* line 4079, ../common-scss/w8.scss */
@@ -4650,7 +4650,7 @@ input[type=checkbox].ace-switch.ace-switch-7 + .lbl::before {
   font-size: 14px;
   line-height: 20px;
   background-color: #FFF;
-  border: 2px solid #AAA;
+  border: 2px solid #aaaaaa;
   border-radius: 0;
   box-shadow: none;
   color: #aaa;
@@ -4662,10 +4662,10 @@ input[type=checkbox].ace-switch.ace-switch-7 + .lbl::before {
   display: inline-block;
   position: relative;
   margin-right: 8px;
-  -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  transition: all .2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 /* line 4106, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-7 + .lbl::after {
@@ -4683,10 +4683,10 @@ input[type=checkbox].ace-switch.ace-switch-7 + .lbl::after {
   color: #FFF;
   border-radius: 0;
   box-shadow: none;
-  -webkit-transition: all .2s ease-in-out;
-  -moz-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 /* line 4128, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::before {
@@ -4788,10 +4788,10 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   -webkit-box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
   -moz-box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
   box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
-  -webkit-transition: all .15s;
-  -moz-transition: all .15s;
-  -o-transition: all .15s;
-  transition: all .15s;
+  -webkit-transition: all 0.15s;
+  -moz-transition: all 0.15s;
+  -o-transition: all 0.15s;
+  transition: all 0.15s;
 }
 /* line 4229, ../common-scss/w8.scss */
 .ace-file-input label:hover {
@@ -4815,12 +4815,12 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   color: #FFF;
   font-size: 11px;
   font-weight: bold;
-  border: 2px solid #FFF;
+  border: 2px solid white;
   border-left-width: 4px;
-  -webkit-transition: all .3s;
-  -moz-transition: all .3s;
-  -o-transition: all .3s;
-  transition: all .3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
 }
 /* line 4256, ../common-scss/w8.scss */
 .ace-file-input label span {
@@ -4860,12 +4860,12 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   font-size: 13px;
   line-height: 22px;
   width: 22px;
-  border: 2px solid #FFF;
+  border: 2px solid white;
   color: #FFF;
-  -webkit-transition: all .1s;
-  -moz-transition: all .1s;
-  -o-transition: all .1s;
-  transition: all .1s;
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+  -o-transition: all 0.1s;
+  transition: all 0.1s;
   background-color: #d1d1d1;
 }
 /* line 4298, ../common-scss/w8.scss */
@@ -4925,7 +4925,7 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
 .ace-file-multiple label {
   position: relative;
   height: auto;
-  border: 1px dashed #aaa;
+  border: 1px dashed #aaaaaa;
   border-radius: 4px;
 }
 /* line 4348, ../common-scss/w8.scss */
@@ -4955,12 +4955,12 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   font-size: 13px;
   line-height: 22px;
   width: 22px;
-  border: 2px solid #FFF;
+  border: 2px solid white;
   color: #FFF;
-  -webkit-transition: all .1s;
-  -moz-transition: all .1s;
-  -o-transition: all .1s;
-  transition: all .1s;
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+  -o-transition: all 0.1s;
+  transition: all 0.1s;
 }
 /* line 4380, ../common-scss/w8.scss */
 .ace-file-multiple label span {
@@ -4971,7 +4971,7 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   width: auto;
   max-width: 100%;
   margin: 0 4px;
-  border-bottom: 1px solid #DDD;
+  border-bottom: 1px solid #dddddd;
 }
 /* line 4389, ../common-scss/w8.scss */
 .ace-file-multiple label span:first-child {
@@ -5009,7 +5009,7 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
 .ace-file-multiple .remove {
   right: -11px;
   top: -11px;
-  border: 3px solid #BBB;
+  border: 3px solid #bbbbbb;
   border-radius: 32px;
   background-color: #FFF;
   color: red;
@@ -5045,7 +5045,7 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
 /* line 4452, ../common-scss/w8.scss */
 .ace-file-multiple label span.large {
   text-align: center;
-  border-bottom: 2px solid #222;
+  border-bottom: 2px solid #222222;
   margin: 2px;
   margin: 0 1px 3px;
 }
@@ -5604,7 +5604,7 @@ th, td, .table-bordered {
 }
 /* line 4960, ../common-scss/w8.scss */
 .table thead:first-child tr th {
-  border: 1px solid #DDD;
+  border: 1px solid #dddddd;
   border-width: 0 1px;
   font-weight: bold;
 }
@@ -5680,10 +5680,10 @@ td.td-actions a.td-action {
   margin: 0;
   padding: 0;
   width: 24px;
-  -webkit-transition: all .1s;
-  -moz-transition: all .1s;
-  -o-transition: all .1s;
-  transition: all .1s;
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+  -o-transition: all 0.1s;
+  transition: all 0.1s;
   background: -moz-linear-gradient(center top, white, #f7f7f4) repeat scroll 0 0 transparent !important;
   border: 1px solid #c1d6e1;
   border-radius: 6px 6px 6px 6px;
@@ -5692,7 +5692,7 @@ td.td-actions a.td-action {
   margin: 0;
   padding: 0;
   text-align: center;
-  transition: all .1s ease 0s;
+  transition: all 0.1s ease 0s;
   width: 24px;
 }
 /* line 5032, ../common-scss/w8.scss */
@@ -5760,15 +5760,15 @@ td.td-actions a.td-action:hover {
 }
 /* line 5096, ../common-scss/w8.scss */
 .dataTables_wrapper .row-fluid:first-child + .dataTable {
-  border-top: 1px solid #DDD;
-  border-bottom: 1px solid #DDD;
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
 }
 /* line 5101, ../common-scss/w8.scss */
 .dataTables_wrapper .row-fluid:last-child {
-  border-top: 1px solid #DDD;
+  border-top: 1px solid #dddddd;
   padding: 12px 0 6px;
   background-color: #eff3f8;
-  border-bottom: 1px solid #DDD;
+  border-bottom: 1px solid #dddddd;
 }
 
 /* line 5110, ../common-scss/w8.scss */
@@ -5821,7 +5821,7 @@ td.td-actions a.td-action:hover {
   -moz-box-shadow: none;
   box-shadow: none;
   margin: 3px 0;
-  border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid #cccccc;
 }
 
 /* line 5156, ../common-scss/w8.scss */
@@ -5838,8 +5838,8 @@ td.td-actions a.td-action:hover {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffeeeeee',GradientType=0);
   color: #669fc7;
-  border: 1px solid #CCC;
-  border-bottom: 1px solid #DDD;
+  border: 1px solid #cccccc;
+  border-bottom: 1px solid #dddddd;
   padding-left: 12px;
   text-align: right;
 }
@@ -6127,7 +6127,7 @@ td.td-actions a.td-action:hover {
 
 /* line 5412, ../common-scss/w8.scss */
 .widget-body {
-  border: 1px solid #CCC;
+  border: 1px solid #cccccc;
   border-top: 0;
   background-color: #FFF;
 }
@@ -6235,7 +6235,7 @@ td.td-actions a.td-action:hover {
 
 /* line 5505, ../common-scss/w8.scss */
 .widget-toolbar > .dropdown > .dropdown-menu:after, .dropdown-menu.dropdown-caret:after {
-  border-bottom: 6px solid #fff;
+  border-bottom: 6px solid white;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   content: "";
@@ -6594,18 +6594,18 @@ td.td-actions a.td-action:hover {
 /* line 5812, ../common-scss/w8.scss */
 .widget-toolbox:first-child {
   padding: 2px;
-  border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid #cccccc;
 }
 /* line 5816, ../common-scss/w8.scss */
 .widget-toolbox:last-child {
   padding: 2px;
-  border-top: 1px solid #CCC;
+  border-top: 1px solid #cccccc;
 }
 
 /* line 5822, ../common-scss/w8.scss */
 .transparent .widget-toolbox:last-child {
   border: 0;
-  border-top: 1px solid #CCC;
+  border-top: 1px solid #cccccc;
 }
 
 /* line 5828, ../common-scss/w8.scss */
@@ -7845,10 +7845,10 @@ td.td-actions a.td-action:hover {
   -o-transform: scale(1, 1) translate(0);
   -ms-transform: scale(1, 1) translate(0);
   transform: scale(1, 1) translate(0);
-  -webkit-transition: all .3s ease;
-  -moz-transition: all .3s ease;
-  -o-transition: all .3s ease;
-  transition: all .3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
   -o-transition: none;
   -webkit-transition: none;
 }
@@ -7971,7 +7971,7 @@ td.td-actions a.td-action:hover {
   position: relative;
   overflow: hidden;
   margin: 2px;
-  border: 2px solid #333;
+  border: 2px solid #333333;
 }
 /* line 7000, ../common-scss/w8.scss */
 .ace-thumbnails > li > :first-child {
@@ -8007,10 +8007,10 @@ td.td-actions a.td-action:hover {
   background-color: rgba(0, 0, 0, 0.55);
   text-align: center;
   vertical-align: middle;
-  -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  transition: all .2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 /* line 7034, ../common-scss/w8.scss */
 .ace-thumbnails > li > .tools.tools-right {
@@ -8083,10 +8083,10 @@ td.td-actions a.td-action:hover {
   background-color: rgba(0, 0, 0, 0.55);
   opacity: 0;
   filter: alpha(opacity=0);
-  -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  transition: all .2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 /* line 7103, ../common-scss/w8.scss */
 .ace-thumbnails > li > :first-child > .text:before {
@@ -8337,7 +8337,7 @@ td.td-actions a.td-action:hover {
 }
 /* line 7326, ../common-scss/w8.scss */
 .item-list > li {
-  border: 1px solid #DDD;
+  border: 1px solid #dddddd;
   border-left-width: 3px;
   padding: 9px;
   background-color: #FFF;
@@ -8598,7 +8598,7 @@ td.td-actions a.td-action:hover {
   line-height: 30px;
   margin-right: 5px;
   font-size: 15px;
-  border-right: 1px solid #FFF;
+  border-right: 1px solid white;
 }
 
 /* line 7550, ../common-scss/w8.scss */
@@ -8861,7 +8861,7 @@ td.td-actions a.td-action:hover {
 
 /* line 7779, ../common-scss/w8.scss */
 #cboxContent {
-  border: 12px solid #000;
+  border: 12px solid black;
   background-color: #FFF;
   padding: 7px;
 }
@@ -8892,7 +8892,7 @@ td.td-actions a.td-action:hover {
   line-height: 14px;
   padding: 0 4px;
   text-align: center;
-  border: 2px solid #999;
+  border: 2px solid #999999;
   border-radius: 16px;
   color: #666;
   font-size: 12px;
@@ -8915,7 +8915,7 @@ td.td-actions a.td-action:hover {
 #cboxClose {
   background-color: #000;
   color: #fff;
-  border: 2px solid #fff;
+  border: 2px solid white;
   border-radius: 32px;
   font-size: 20px;
   height: 24px;
@@ -9176,7 +9176,7 @@ td.td-actions a.td-action:hover {
   top: 15px;
   bottom: 0;
   left: -15px;
-  border-left: 1px solid #FFF;
+  border-left: 1px solid white;
 }
 /* line 8061, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-content {
@@ -9240,11 +9240,11 @@ td.td-actions a.td-action:hover {
 }
 /* line 8112, ../common-scss/w8.scss */
 .tree .tree-item {
-  border: 1px solid #FFF;
+  border: 1px solid white;
 }
 /* line 8115, ../common-scss/w8.scss */
 .tree .tree-folder {
-  border: 1px solid #FFF;
+  border: 1px solid white;
 }
 /* line 8117, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-header {
@@ -9266,7 +9266,7 @@ td.td-actions a.td-action:hover {
   text-align: center;
   border-radius: 3px;
   background-color: #fafafa;
-  border: 1px solid #CCC;
+  border: 1px solid #cccccc;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 /* line 8138, ../common-scss/w8.scss */
@@ -9277,7 +9277,7 @@ td.td-actions a.td-action:hover {
 }
 /* line 8143, ../common-scss/w8.scss */
 .tree .icon-plus[class*="icon-"]:first-child, .tree .icon-minus[class*="icon-"]:first-child {
-  border: 1px solid #DDD;
+  border: 1px solid #dddddd;
   vertical-align: middle;
   height: 11px;
   width: 11px;
@@ -9363,7 +9363,7 @@ td.td-actions a.td-action:hover {
 /* line 8216, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light {
   background: rgba(245, 245, 245, 0.95);
-  border: 1px solid #BBB;
+  border: 1px solid #bbbbbb;
 }
 /* line 8219, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light.gritter-info {
@@ -9890,11 +9890,11 @@ td.td-actions a.td-action:hover {
 /* line 8681, ../common-scss/w8.scss */
 .icon-animated-bell {
   display: inline-block;
-  -moz-animation: ringing 2.0s 5 ease 1.0s;
-  -webkit-animation: ringing 2.0s 5 ease 1.0s;
-  -o-animation: ringing 2.0s 5 ease 1.0s;
-  -ms-animation: ringing 2.0s 5 ease 1.0s;
-  animation: ringing 2.0s 5 ease 1.0s;
+  -moz-animation: ringing 2s 5 ease 1s;
+  -webkit-animation: ringing 2s 5 ease 1s;
+  -o-animation: ringing 2s 5 ease 1s;
+  -ms-animation: ringing 2s 5 ease 1s;
+  animation: ringing 2s 5 ease 1s;
   -moz-transform-origin: 50% 0;
   -webkit-transform-origin: 50% 0;
   -o-transform-origin: 50% 0;
@@ -10133,11 +10133,11 @@ td.td-actions a.td-action:hover {
 /* line 8843, ../common-scss/w8.scss */
 .icon-animated-vertical {
   display: inline-block;
-  -moz-animation: vertical 2.0s 5 ease 2.0s;
-  -webkit-animation: vertical 2.0s 5 ease 2.0s;
-  -o-animation: vertical 2.0s 5 ease 2.0s;
-  -ms-animation: vertical 2.0s 5 ease 2.0s;
-  animation: vertical 2.0s 5 ease 2.0s;
+  -moz-animation: vertical 2s 5 ease 2s;
+  -webkit-animation: vertical 2s 5 ease 2s;
+  -o-animation: vertical 2s 5 ease 2s;
+  -ms-animation: vertical 2s 5 ease 2s;
+  animation: vertical 2s 5 ease 2s;
 }
 
 @-moz-keyframes vertical {

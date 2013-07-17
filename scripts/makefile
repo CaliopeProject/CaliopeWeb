@@ -1,4 +1,4 @@
-all : nodepackages.log bower.log application-main.js node_modules/bower/bin/bower node_modules/requirejs/bin/r.js
+all : nodepackages.log bower.log
 
 application-main.js: require-min.js bower.log 
 	node_modules/requirejs/bin/r.js -o require-min.js
