@@ -1,5 +1,10 @@
-<div id="sidebar" >
+<a id="menu-toggler" href="#"><span></span></a>
+<div id="sidebar" ng-controller='menuRightController'>
+
+  <!--MENU SHORTCUTS INIT-->
   <div id="sidebar-shortcuts">
+
+    <!--MENU ICON SHORTCUTS-LARGE INIT-->
     <div id="sidebar-shortcuts-large">
       <button class="btn btn-small btn-success">
         <i class="icon-signal"></i>
@@ -17,7 +22,9 @@
         <i class="icon-cogs"></i>
       </button>
     </div>
+    <!--MENU ICON SHORTCUTS-LARGE END-->
 
+    <!--MENU ICON SHORTCUTS-MINI INIT-->
     <div id="sidebar-shortcuts-mini">
       <span class="btn btn-success"></span>
 
@@ -27,8 +34,12 @@
 
       <span class="btn btn-danger"></span>
     </div>
-  </div>
+    <!--MENU ICON SHORTCUTS-MINI END-->
 
+  </div>
+  <!--MENU SHORTCUTS END-->
+
+  <!--MENU INIT-->
   <ul class="nav nav-list">
     <li class="active">
     <a href="index.html">
@@ -104,13 +115,13 @@
     </a>
     </li>
 
-
     <li>
     <a href="#/proyectomtv/proyectomtv/create">
       <i class="icon-calendar"></i>
       <span>Crear Proyecto</span>
     </a>
     </li>
+
     <li>
     <a href="#/caliopeweb-forms/SIIMForm/create">
       <i class="icon-calendar"></i>
@@ -217,9 +228,13 @@
       </li>
     </ul>
     </li>
-  </ul><!--/.nav-list-->
+  </ul>
+  <!--MENU INIT-->
 
+  <!--ACTION COLLAPSE INIT -->
   <div id="sidebar-collapse">
     <i class="icon-double-angle-left"></i>
   </div>
+  <!--ACTION COLLAPSE END -->
+
 </div>
