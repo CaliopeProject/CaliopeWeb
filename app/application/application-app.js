@@ -17,7 +17,9 @@ var dependencies = [
     'gis-view-ctrl',
     'notificationsService',
     'httpRequestTrackerService',
-    'angular-ui-ng-grid'
+    'angular-ui-ng-grid',
+    'menu-right-controller',
+    'menu-right-directives'
   ];
 
 var modulesAngular = [
@@ -35,7 +37,9 @@ var modulesAngular = [
     'MenuTopControllers',
     'NotificationsServices',
     'httpRequestTrackerService',
-    'ngGrid'
+    'ngGrid',
+    'menu-right-controller',
+    'menu-right-directives'
   ];
 
 define(dependencies, function ( angular, webSocket, appcontroller) {

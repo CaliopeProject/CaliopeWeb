@@ -1,3 +1,9 @@
+<!-- MENU-RIGHT INIT-->
+<div ng-include src="'menu-right/partial-menu-right.html'"></div>
+<!-- MENU-RIGHT END-->
+
+
+<!-- MAIN-CONTENT INIT-->
 <div id="main-content" class="clearfix">
   <div id="breadcrumbs">
     <ul class="breadcrumb">
@@ -23,9 +29,10 @@
   </div>
 
   <div class="row-fluid">
-    <!--PAGE CONTENT BEGINS HERE-->
+    <!--PAGE CONTENT INIT-->
     <ng-view/>
-    <!--PAGE CONTENT ENDS HERE-->
+    <!--PAGE CONTENT END-->
   </div>
 
 </div>
+<!-- MAIN-CONTENT END-->

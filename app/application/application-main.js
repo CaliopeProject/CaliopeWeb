@@ -2,7 +2,6 @@
 /*global require, $*/
 
 require.config({
-  waitSeconds: 60,
   paths: {
     'jquery'                           : 'libs-js-thirdparty/jquery/jquery',
     'dform'                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
@@ -69,8 +68,8 @@ require.config({
 
     'menu-top-controller'              : 'menu-top/menu-top-controllers',
 
-    'menu-right-sidebar-directives'    : 'menu-right/menu-right-sidebar-directives',
-    'menu-right-controller'            : 'menu-right/menu-right-controller'
+    'menu-right-controller'            : 'menu-right/menu-right-controller',
+    'menu-right-directives'            : 'menu-right/menu-right-directives'
 
   },
   baseUrl: '/',
