@@ -33,6 +33,9 @@ require.config({
     'jquery.iframe-transport'          : 'libs-js-thirdparty/jquery-file-upload/js/jquery.iframe-transport',
     'jquery.fileupload-process'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-process',
     'jquery.fileupload-angular'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-angular',
+    'files-uploader-controller'        : 'tools-files-uploader/files-uploader-controller',
+    'files-uploader-directives'        : 'tools-files-uploader/files-uploader-directives',
+    
     'wysihtml5-parser-rules'           : 'libs-js-thirdparty/wysihtml5/parser_rules/advanced',
     'wysihtml5'                        : 'libs-js-thirdparty/wysihtml5/dist/wysihtml5-0.3.0',
     'gis-layout'                       : 'tools-gis-viewer/Layout',
@@ -63,8 +66,6 @@ require.config({
     'security-services'                : 'login/security-services',
 
     'login-controllers'                : 'login/login-controllers',
-
-    'tools-filesuploader-ctrl'         : 'tools-files-uploader/files-uploader-controller',
 
     'menu-top-controller'              : 'menu-top/menu-top-controllers',
 

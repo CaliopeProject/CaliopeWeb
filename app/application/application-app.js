@@ -19,7 +19,9 @@ var dependencies = [
     'httpRequestTrackerService',
     'angular-ui-ng-grid',
     'menu-right-controller',
-    'menu-right-directives'
+    'menu-right-directives',
+    'files-uploader-controller',
+    'files-uploader-directives'
   ];
 
 var modulesAngular = [
@@ -39,7 +41,9 @@ var modulesAngular = [
     'httpRequestTrackerService',
     'ngGrid',
     'menu-right-controller',
-    'menu-right-directives'
+    'menu-right-directives',
+    'fileuploaderCtrl',
+    'fileuploaderDirectives'
   ];
 
 define(dependencies, function ( angular, webSocket, appcontroller) {
