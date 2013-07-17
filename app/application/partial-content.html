@@ -28,10 +28,18 @@
     </div><!--#nav-search-->
   </div>
 
-  <div class="row-fluid">
-    <!--PAGE CONTENT INIT-->
-    <ng-view/>
-    <!--PAGE CONTENT END-->
+  <div id="page-content" class="clearfix">
+    <div class="page-header position-relative">
+      <h1>
+        Titulo de la tematica.  
+      </h1>
+    </div>
+
+    <div class="row-fluid">
+      <!--PAGE CONTENT INIT-->
+      <ng-view/>
+      <!--PAGE CONTENT END-->
+    </div>
   </div>
 
 </div>
