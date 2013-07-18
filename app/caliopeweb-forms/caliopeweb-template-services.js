@@ -67,7 +67,7 @@ define(['angular'], function(angular) {
         };
 
         Service.loadDataGrid = function(formId, paramsSearch) {
-          var method = "loadDataGrid";
+          var method = "getFormDataList";
           var params = {
             formId : formId
           };

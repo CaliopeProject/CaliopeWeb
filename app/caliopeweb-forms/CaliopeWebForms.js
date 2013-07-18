@@ -23,9 +23,9 @@ var CaliopeWebForm = (function() {
       var elements = [];
       var elementsName = [];
       if (structureForm.html !== undefined && structureForm.html.length > 0) {
-        var resultElements = searchElementsRecursive(structureForm.html);
-        jQuery.merge(elements,resultElements.elements);
-        jQuery.merge(elementsName,resultElements.elementsName);
+        var resultElementsRec = searchElementsRecursive(structureForm.html);
+        jQuery.merge(elements,resultElementsRec.elements);
+        jQuery.merge(elementsName,resultElementsRec.elementsName);
       } else {
         var resultElements = searchElementsIndividual(structureForm);
         jQuery.merge(elements, resultElements.elements);
@@ -73,10 +73,6 @@ var CaliopeWebForm = (function() {
     var render = function() {
 
     };
-
-    var createStructure = function() {
-      return structure;
-    } ;
 
     var validate = function() {
 
@@ -206,9 +202,6 @@ var CaliopeWebFormSpecificDecorator = ( function() {
   var formsWithOwnController = ['login'];
   var ctrlSIMMName           = 'SIMMFormCtrl';
   var ctrlEndName            = 'Ctrl';
-  var inputsNames            = [];
-  var inputs                 = [];
-
 
   function completeController(structureInit, formName) {
     var valueNgCtrl = ctrlSIMMName;
