@@ -20,7 +20,8 @@ define(['angular', 'dform'], function (angular) {
     return directiveDefinitionObject;
     
   });
-  
+
+
   /**
    * Define the directive for <cw-dform>. This print a html form using the 
    * Dform library based in JQuery.  This directive should be used as an 
@@ -38,9 +39,7 @@ define(['angular', 'dform'], function (angular) {
      * Define the function for link the directive to AngularJS Context.
      */
     var directiveDefinitionObject = {
-        replace : false,
-        restrict : 'A',
-        link: function (scope, element, attrs) {       
+        link: function (scope, element, attrs) {
     
           /*
            * Function that print the form with dForm  

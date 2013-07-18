@@ -55,7 +55,7 @@ require.config({
     'notificationsService'             : 'application/notificationsService',
     'httpRequestTrackerService'        : 'application/httpRequestTrackerService',
     'application-event'                : 'application/application-event',
-
+    'caliopeWebForms'                  : 'caliopeweb-forms/CaliopeWebForms',
     'caliopeweb-templateServices'      : 'caliopeweb-forms/caliopeweb-template-services',
     'caliopeweb-templateControllers'   : 'caliopeweb-forms/caliopeweb-template-controllers',
     'caliopeweb-formDirectives'        : 'caliopeweb-forms/caliopeweb-form-directives',
