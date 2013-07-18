@@ -20,7 +20,9 @@ dirmodule.directive('ngFileuploader', function() {
             $(elm).fileupload({
                 dataType: 'json',
                 paramName: 'files[]',
-
+                sequentialUploads: true,
+                formData : {id:'12212'},
+                    
                 progressall: function(e, data) {
                     var progress = parseInt(data.loaded / data.total * 100, 10);
                     scope.$apply(function() {
@@ -34,13 +36,15 @@ dirmodule.directive('ngFileuploader', function() {
                 },
 
                 done: function(e, data) {
+                    var filelist = scope.filelist;
+                    if (filelist === undefined) 
+                        filelist = [];
 
-                    $.each(data.result, function(index, file) {
-                        scope.$apply(function() {
-                            scope.filename = file.name;
-                        });
-                    })
+                    for (var i = 0; i < data.result.length; i++) {
+                        filelist.push(data.result[i]);
+                    }
 
+                    scope.filelist = filelist;
                 }
             });
         }
