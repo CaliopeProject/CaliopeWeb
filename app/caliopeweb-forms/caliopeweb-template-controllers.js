@@ -4,7 +4,7 @@
 /**
 * Define the module angular in RequireJS
 */
-define(['angular'], function (angular) {
+define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   'use strict';
 
   /**
@@ -27,14 +27,6 @@ define(['angular'], function (angular) {
         caliopeForm.uuid = $routeParams.uuid;
         $scope.caliopeForm = caliopeForm;
 
-        function putDataScope(jsonTemplateData) {
-          var varname;
-          if (jsonTemplateData !== undefined) {
-            for (varname in jsonTemplateData) {
-              $scope[varname] = jsonTemplateData[varname].value;
-            }
-          }
-        }
 
         function load() {
           var message;
@@ -44,15 +36,21 @@ define(['angular'], function (angular) {
               var content = value;
               if (content !== undefined) {
 
-                var jsonTemplateAngular =
-                  caliopewebTemplateSrv.completeTemplateForAngular.jsonTemplateGen(
-                      content
-                  );
+                var caliopeWebForm = new CaliopeWebForm();
+                caliopeWebForm.addStructure(content.form, content.form.name);
+                caliopeWebForm.addActions(content.actions);
+                caliopeWebForm.addData(content.data);
+                caliopeWebForm.addTranslations(content.translations);
+                var formName = caliopeWebForm.getFormName();
 
-                var inputs = caliopewebTemplateSrv.completeTemplateForAngular.inputs();
-                $scope.jsonPlantillaAngular = jsonTemplateAngular.form;
+                CaliopeWebFormSpecificDecorator.createStructureToRender(caliopeWebForm);
+                CaliopeWebFormActionsDecorator.createStructureToRender(caliopeWebForm);
+                var jsonTemplateToRender = caliopeWebForm.createStructureToRender();
+                var inputs = caliopeWebForm.getElementsName();
+
+                $scope.jsonPlantillaAngular = jsonTemplateToRender;
                 $scope.inputsFormTemplate   = inputs;
-                putDataScope(content.data);
+                caliopeWebForm.putDataToContext($scope);
               }
             });
 
@@ -185,22 +183,21 @@ define(['angular'], function (angular) {
               var err = value['error'];
 
               if( err === undefined ) {
-                console.log('Ok load data grid');
-                $scope.data = [
-                  {'estado' : 'estado', 'proyecto' : 'proyecto'},
-                  {'estado' : 'estado1', 'proyecto' : 'proyecto1'}
-                ];
+
+                var caliopeWebGrid = new CaliopeWebGrid();
+                caliopeWebGrid.addGridName($scope.caliopeForm.id);
+                caliopeWebGrid.addData(value.data);
+                CaliopeWebGridDataDecorator.createStructureToRender(caliopeWebGrid);
+                var structureToRender = caliopeWebGrid.createStructureToRender();
+                console.log('Structure To Render', structureToRender);
+
+                $scope.data = structureToRender.data;
                 $scope.gridOptions = {
-                  'data': 'data'
+                  'data'  : 'data'
                 };
               }
             } else {
-
-              console.log('Load data grid default');
-
               $scope.data = [
-                {'estado' : 'estado', 'proyecto' : 'proyecto plaza hoja'},
-                {'estado' : 'estado1', 'proyecto' : 'proyecto1'}
               ];
               $scope.gridOptions = {
                 'data': 'data'
