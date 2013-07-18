@@ -21,7 +21,7 @@ dirmodule.directive('ngFileuploader', function() {
                 dataType: 'json',
                 paramName: 'files[]',
                 sequentialUploads: true,
-                formData : {name:'key',value:'test'},
+                formData : {id:'12212'},
                     
                 progressall: function(e, data) {
                     var progress = parseInt(data.loaded / data.total * 100, 10);
@@ -41,10 +41,7 @@ dirmodule.directive('ngFileuploader', function() {
                         filelist = [];
 
                     for (var i = 0; i < data.result.length; i++) {
-                        //console.log(data.result[i]);
-                        var obj = {};
-                        obj.name = data.result[i].name;
-                        filelist.push(obj);
+                        filelist.push(data.result[i]);
                     }
 
                     scope.filelist = filelist;

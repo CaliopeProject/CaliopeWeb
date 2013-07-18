@@ -9,11 +9,10 @@
     <div id="progress" class="progress progress-success progress-striped">
         <div class="bar"></div>
     </div>
-    <!-- The container for the uploaded files -->
-    <div id="files" class="files"></div>
+    <br>
     <ul>
         <li ng-repeat="data in filelist">
-            {{data.name}} 
+            {{data.ok}} - {{data.name}} - {{data.size}} - {{data.id}}
         </li>
     </ul>  
   
