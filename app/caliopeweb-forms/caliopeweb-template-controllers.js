@@ -4,7 +4,7 @@
 /**
 * Define the module angular in RequireJS
 */
-define(['angular', 'caliopeWebForms'], function (angular) {
+define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   'use strict';
 
   /**
@@ -183,22 +183,21 @@ define(['angular', 'caliopeWebForms'], function (angular) {
               var err = value['error'];
 
               if( err === undefined ) {
-                console.log('Ok load data grid');
-                $scope.data = [
-                  {'estado' : 'estado', 'proyecto' : 'proyecto'},
-                  {'estado' : 'estado1', 'proyecto' : 'proyecto1'}
-                ];
+
+                var caliopeWebGrid = new CaliopeWebGrid();
+                caliopeWebGrid.addGridName($scope.caliopeForm.id);
+                caliopeWebGrid.addData(value.data);
+                CaliopeWebGridDataDecorator.createStructureToRender(caliopeWebGrid);
+                var structureToRender = caliopeWebGrid.createStructureToRender();
+                console.log('Structure To Render', structureToRender);
+
+                $scope.data = structureToRender.data;
                 $scope.gridOptions = {
-                  'data': 'data'
+                  'data'  : 'data'
                 };
               }
             } else {
-
-              console.log('Load data grid default');
-
               $scope.data = [
-                {'estado' : 'estado', 'proyecto' : 'proyecto plaza hoja'},
-                {'estado' : 'estado1', 'proyecto' : 'proyecto1'}
               ];
               $scope.gridOptions = {
                 'data': 'data'
