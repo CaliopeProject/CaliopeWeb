@@ -1,38 +1,19 @@
 <a id="menu-toggler" href="#"><span></span></a>
-<div id="sidebar" ng-controller='menuRightController'>
+<div id="sidebar" ng-controller='menuRightController' ng-init='toogle=true'  ng-class="{true:'menu-min', false:''}[toggle]">
 
   <!--MENU SHORTCUTS INIT-->
   <div id="sidebar-shortcuts">
 
     <!--MENU ICON SHORTCUTS-LARGE INIT-->
-    <div id="sidebar-shortcuts-large">
-      <button class="btn btn-small btn-success">
-        <i class="icon-signal"></i>
-      </button>
+    <div id="sidebar-shortcuts-large" ng-show="!toggle">
+      <div ng-repeat="short in shortcuts" btn="short.btn" icon='short.icon' sidebar></div>
 
-      <button class="btn btn-small btn-info">
-        <i class="icon-pencil"></i>
-      </button>
-
-      <button class="btn btn-small btn-warning">
-        <i class="icon-group"></i>
-      </button>
-
-      <button class="btn btn-small btn-danger">
-        <i class="icon-cogs"></i>
-      </button>
     </div>
     <!--MENU ICON SHORTCUTS-LARGE END-->
 
     <!--MENU ICON SHORTCUTS-MINI INIT-->
-    <div id="sidebar-shortcuts-mini">
-      <span class="btn btn-success"></span>
-
-      <span class="btn btn-info"></span>
-
-      <span class="btn btn-warning"></span>
-
-      <span class="btn btn-danger"></span>
+    <div id="sidebar-shortcuts-mini" ng-show="toggle">
+      <div ng-repeat="short in shortcuts" btn="short.btn" shortcuts></div>
     </div>
     <!--MENU ICON SHORTCUTS-MINI END-->
 
@@ -232,7 +213,7 @@
   <!--MENU INIT-->
 
   <!--ACTION COLLAPSE INIT -->
-  <div id="sidebar-collapse">
+  <div id="sidebar-collapse" ng-click='toggle = !toggle' ng-model="toggle">
     <i class="icon-double-angle-left"></i>
   </div>
   <!--ACTION COLLAPSE END -->
