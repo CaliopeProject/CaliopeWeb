@@ -6,8 +6,15 @@ define(['angular'], function(angular) {
 
   moduleControllers.controller('menuRightController',['$scope',
     function($scope){
-      $scope.message = 'Un texto';
-      //insert text body
+      $scope.shortcuts = [
+        { btn  : 'success', icon  : 'signal'},
+        { btn  : 'info',    icon  : 'pencil'},
+        { btn  : 'warning', icon  : 'globe' },
+        { btn  : 'error', icon  : 'globe' },
+        { btn  : 'inverse', icon  : 'globe' },
+        { btn  : 'danger', icon  : 'globe' },
+        { icon : 'tint'}
+      ];
     }
   ]);
 });

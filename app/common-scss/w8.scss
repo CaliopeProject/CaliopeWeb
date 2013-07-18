@@ -1342,9 +1342,7 @@ li {
   background-color: #fafafa;
   border-bottom: 1px solid #ddd;
   text-align: center;
-  line-height: 37px;
-  max-height: 40px;
-  margin-bottom: 0;
+  margin: 0px;
 }
 
 #sidebar-shortcuts-large {
@@ -1352,12 +1350,13 @@ li {
   > .btn > [class*="icon-"] {
     font-size: 110%;
   }
+  > .btn {
+    margin: 2px
+  }
 }
 
 #sidebar-shortcuts-mini {
-  display: none;
   font-size: 0;
-  width: 42px;
   line-height: 18px;
   padding-top: 2px;
   padding-bottom: 2px;
@@ -1536,7 +1535,6 @@ li {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
   background-image: none !important;
   border: 5px solid;
-  border-radius: 0;
   box-shadow: none !important;
   -webkit-transition: all .1s ease-in-out;
   -moz-transition: all .1s ease-in-out;
