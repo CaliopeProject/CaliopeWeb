@@ -54,6 +54,7 @@ require.config({
     'application-routes'               : 'application/application-routes',
     'notificationsService'             : 'application/notificationsService',
     'httpRequestTrackerService'        : 'application/httpRequestTrackerService',
+    'breadcrumbsService'               : 'application/breadcrumbsService',
     'application-event'                : 'application/application-event',
     'caliopeWebForms'                  : 'caliopeweb-forms/CaliopeWebForms',
     'caliopeWebGrids'                  : 'caliopeweb-forms/CaliopeWebGrids',

@@ -1,221 +1,210 @@
-<a id="menu-toggler" href="#"><span></span></a>
-<div id="sidebar" ng-controller='menuRightController' ng-init='toogle=true'  ng-class="{true:'menu-min', false:''}[toggle]">
+<!--MENU SHORTCUTS INIT-->
+<div id="sidebar-shortcuts">
 
-  <!--MENU SHORTCUTS INIT-->
-  <div id="sidebar-shortcuts">
-
-    <!--MENU ICON SHORTCUTS-LARGE INIT-->
-    <div id="sidebar-shortcuts-large" ng-show="!toggle">
-      <div ng-repeat="short in shortcuts" btn="short.btn" icon='short.icon' sidebar></div>
-
-    </div>
-    <!--MENU ICON SHORTCUTS-LARGE END-->
-
-    <!--MENU ICON SHORTCUTS-MINI INIT-->
-    <div id="sidebar-shortcuts-mini" ng-show="toggle">
-      <div ng-repeat="short in shortcuts" btn="short.btn" shortcuts></div>
-    </div>
-    <!--MENU ICON SHORTCUTS-MINI END-->
+  <!--MENU ICON SHORTCUTS-LARGE INIT-->
+  <div id="sidebar-shortcuts-large" ng-show="!toggle">
+    <div ng-repeat="short in shortcuts" btn="short.btn" icon='short.icon' sidebar></div>
 
   </div>
-  <!--MENU SHORTCUTS END-->
+  <!--MENU ICON SHORTCUTS-LARGE END-->
 
-  <!--MENU INIT-->
-  <ul class="nav nav-list">
-    <li class="active">
-    <a href="index.html">
-      <i class="icon-dashboard"></i>
-      <span>Acciones</span>
-    </a>
-    </li>
+  <!--MENU ICON SHORTCUTS-MINI INIT-->
+  <div id="sidebar-shortcuts-mini" ng-show="toggle">
+    <div ng-repeat="short in shortcuts" btn="short.btn" shortcuts></div>
+  </div>
+  <!--MENU ICON SHORTCUTS-MINI END-->
 
+</div>
+<!--MENU SHORTCUTS END-->
+
+<!--MENU INIT-->
+<ul class="nav nav-list">
+  <li class="active">
+  <a href="index.html">
+    <i class="icon-dashboard"></i>
+    <span>Acciones</span>
+  </a>
+  </li>
+
+  <li>
+  <a href="#/view1">
+    <i class="icon-text-width"></i>
+    <span>View 1</span>
+  </a>
+  </li>
+
+  <li>
+  <a href="#/tools/wysihtml5-editor">
+    <i class="icon-text-width"></i>
+    <span>Editor</span>
+  </a>
+  </li>
+
+  <li>
+  <a href="#" class="dropdown-toggle">
+    <i class="icon-desktop"></i>
+    <span>UI Elements</span>
+
+    <b class="arrow icon-angle-down"></b>
+  </a>
+
+  <ul class="submenu">
     <li>
-    <a href="#/view1">
-      <i class="icon-text-width"></i>
-      <span>View 1</span>
-    </a>
-    </li>
-
-    <li>
-    <a href="#/tools/wysihtml5-editor">
-      <i class="icon-text-width"></i>
-      <span>Editor</span>
-    </a>
-    </li>
-
-    <li>
-    <a href="#" class="dropdown-toggle">
-      <i class="icon-desktop"></i>
-      <span>UI Elements</span>
-
-      <b class="arrow icon-angle-down"></b>
-    </a>
-
-    <ul class="submenu">
-      <li>
-      <a href="#">
-        <i class="icon-double-angle-right"></i>
-        Elements
-      </a>
-      </li>
-
-      <li>
-      <a href="#">
-        <i class="icon-double-angle-right"></i>
-        Buttons &amp; Icons
-      </a>
-      </li>
-
-      <li>
-      <a href="#">
-        <i class="icon-double-angle-right"></i>
-        Treeview
-      </a>
-      </li>
-    </ul>
-    </li>
-
-    <li>
-    <a href="#/login/login/create">
-      <i class="icon-list"></i>
-      <span>Login</span>
-    </a>
-    </li>
-
-    <li>
-    <a href="#/gis">
-      <i class="icon-list-alt"></i>
-      <span>GIS</span>
-    </a>
-    </li>
-
-    <li>
-    <a href="#/tools/upload/files">
-      <i class="icon-calendar"></i>
-      <span>Upload files</span>
-    </a>
-    </li>
-
-    <li>
-    <a href="#/proyectomtv/proyectomtv/create">
-      <i class="icon-calendar"></i>
-      <span>Crear Proyecto</span>
-    </a>
-    </li>
-
-    <li>
-    <a href="#/caliopeweb-forms/SIIMForm/create">
-      <i class="icon-calendar"></i>
-      <span>SIIM Form</span>
+    <a href="#">
+      <i class="icon-double-angle-right"></i>
+      Elements
     </a>
     </li>
 
     <li>
     <a href="#">
-      <i class="icon-picture"></i>
-      <span>Gallery</span>
+      <i class="icon-double-angle-right"></i>
+      Buttons &amp; Icons
     </a>
     </li>
 
     <li>
-    <a href="#/caliopeweb-grids/SIIMForm">
-      <i class="icon-th"></i>
-      <span>Grid</span>
+    <a href="#">
+      <i class="icon-double-angle-right"></i>
+      Treeview
     </a>
-    </li>
-
-
-    <li>
-    <a href="#" class="dropdown-toggle">
-      <i class="icon-edit"></i>
-      <span>Forms</span>
-
-      <b class="arrow icon-angle-down"></b>
-    </a>
-
-    <ul class="submenu">
-      <li>
-      <a href="#">
-        <i class="icon-double-angle-right"></i>
-        Form Elements
-      </a>
-      </li>
-
-      <li>
-      <a href="#">
-        <i class="icon-double-angle-right"></i>
-        Wizard &amp; Validation
-      </a>
-      </li>
-
-      <li>
-      <a href="#">
-        <i class="icon-double-angle-right"></i>
-        Wysiwyg &amp; Markdown
-      </a>
-      </li>
-    </ul>
-    </li>
-
-    <li>
-    <a href="#" class="dropdown-toggle">
-      <i class="icon-file"></i>
-      <span>Other Pages</span>
-
-      <b class="arrow icon-angle-down"></b>
-    </a>
-
-    <ul class="submenu">
-      <li>
-      <a href="#">
-        <i class="icon-double-angle-right"></i>
-        Pricing Tables
-      </a>
-      </li>
-
-      <li>
-      <a href="#">
-        <i class="icon-double-angle-right"></i>
-        Invoice
-      </a>
-      </li>
-
-      <li>
-      <a href="#">
-        <i class="icon-double-angle-right"></i>
-        Login &amp; Register
-      </a>
-      </li>
-
-      <li>
-      <a href="#">
-        <i class="icon-double-angle-right"></i>
-        Error 404
-      </a>
-      </li>
-
-      <li>
-      <a href="#">
-        <i class="icon-double-angle-right"></i>
-        Error 500
-      </a>
-      </li>
-
-      <li>
-      <a href="#">
-        <i class="icon-double-angle-right"></i>
-        Blank Page
-      </a>
-      </li>
-    </ul>
     </li>
   </ul>
-  <!--MENU INIT-->
+  </li>
 
-  <!--ACTION COLLAPSE INIT -->
-  <div id="sidebar-collapse" ng-click='toggle = !toggle' ng-model="toggle">
-    <i class="icon-double-angle-left"></i>
-  </div>
-  <!--ACTION COLLAPSE END -->
+  <li>
+  <a href="#/login/login/create">
+    <i class="icon-list"></i>
+    <span>Login</span>
+  </a>
+  </li>
 
-</div>
+  <li>
+  <a href="#/gis">
+    <i class="icon-list-alt"></i>
+    <span>GIS</span>
+  </a>
+  </li>
+
+  <li>
+  <a href="#/tools/upload/files">
+    <i class="icon-calendar"></i>
+    <span>Upload files</span>
+  </a>
+  </li>
+
+  <li>
+  <a href="#/proyectomtv/proyectomtv/create">
+    <i class="icon-calendar"></i>
+    <span>Crear Proyecto</span>
+  </a>
+  </li>
+
+  <li>
+  <a href="#/caliopeweb-forms/SIIMForm/create">
+    <i class="icon-calendar"></i>
+    <span>SIIM Form</span>
+  </a>
+  </li>
+
+  <li>
+  <a href="#">
+    <i class="icon-picture"></i>
+    <span>Gallery</span>
+  </a>
+  </li>
+
+  <li>
+  <a href="#/caliopeweb-grids/SIIMForm">
+    <i class="icon-th"></i>
+    <span>Grid</span>
+  </a>
+  </li>
+
+
+  <li>
+  <a href="#" class="dropdown-toggle">
+    <i class="icon-edit"></i>
+    <span>Forms</span>
+
+    <b class="arrow icon-angle-down"></b>
+  </a>
+
+  <ul class="submenu">
+    <li>
+    <a href="#">
+      <i class="icon-double-angle-right"></i>
+      Form Elements
+    </a>
+    </li>
+
+    <li>
+    <a href="#">
+      <i class="icon-double-angle-right"></i>
+      Wizard &amp; Validation
+    </a>
+    </li>
+
+    <li>
+    <a href="#">
+      <i class="icon-double-angle-right"></i>
+      Wysiwyg &amp; Markdown
+    </a>
+    </li>
+  </ul>
+  </li>
+
+  <li>
+  <a href="#" class="dropdown-toggle">
+    <i class="icon-file"></i>
+    <span>Other Pages</span>
+
+    <b class="arrow icon-angle-down"></b>
+  </a>
+
+  <ul class="submenu">
+    <li>
+    <a href="#">
+      <i class="icon-double-angle-right"></i>
+      Pricing Tables
+    </a>
+    </li>
+
+    <li>
+    <a href="#">
+      <i class="icon-double-angle-right"></i>
+      Invoice
+    </a>
+    </li>
+
+    <li>
+    <a href="#">
+      <i class="icon-double-angle-right"></i>
+      Login &amp; Register
+    </a>
+    </li>
+
+    <li>
+    <a href="#">
+      <i class="icon-double-angle-right"></i>
+      Error 404
+    </a>
+    </li>
+
+    <li>
+    <a href="#">
+      <i class="icon-double-angle-right"></i>
+      Error 500
+    </a>
+    </li>
+
+    <li>
+    <a href="#">
+      <i class="icon-double-angle-right"></i>
+      Blank Page
+    </a>
+    </li>
+  </ul>
+  </li>
+</ul>
+<!--MENU INIT-->
