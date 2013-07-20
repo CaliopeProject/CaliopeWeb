@@ -1,15 +1,8 @@
-<div class="navbar-inner">
+<div class="navbar-inner" >
   <div class="container-fluid">
-
-    <div class="nav ace-nav pull-left">
-      <div class="whitee">
-        <img class="logo" src="common-img/logometro.png" alt="Metrovivienda" />
-      </div>
-    </div>
 
     <a href="#" class="brand">
       <small>
-        <i class="icon-unlock-alt"></i>
         SIMM
       </small>
     </a><!--/.brand-->
@@ -227,42 +220,13 @@
       </ul>
       </li>
 
-      <li class="light-blue user-profile">
-      <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-        <img class="nav-user-photo" src="common-img/user.png" alt="Jason's Photo" />
-        <span id="user_info">
-          <small>Welcome,</small>
-          Jason
-        </span>
-
-        <i class="icon-caret-down"></i>
-      </a>
-
-      <ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-        <li>
-        <a href="#">
-          <i class="icon-cog"></i>
-          Settings
+      <li class="orange" ng-controller='LoginCtrl'>
+        <a data-toggle="dropdown" class="dropdown-toggle" ng-click="openDialog()" href="#">
+            <i class="icon-user"></i>
+            <span class="badge-transparent">Ingresar</span>
         </a>
-        </li>
-
-        <li>
-        <a href="#">
-          <i class="icon-user"></i>
-          Profile
-        </a>
-        </li>
-
-        <li class="divider"></li>
-
-        <li>
-        <a href="#">
-          <i class="icon-off"></i>
-          Logout
-        </a>
-        </li>
-      </ul>
       </li>
+
     </ul><!--/.w8-nav-->
   </div><!--/.container-fluid-->
 </div><!--/.navbar-inner-->
