@@ -65,7 +65,7 @@ require.config({
     'proyectosmtv-controller'          : 'proyectosmtv/proyectomtv-controller',
     'proyectosmtv-service'             : 'proyectosmtv/proyectomtv-service',
 
-    'security-services'                : 'login/security-services',
+    'login-security-services'          : 'login/login-security-services',
 
     'login-controllers'                : 'login/login-controllers',
     'login-controllers-form'           : 'login/login-controllers-form',

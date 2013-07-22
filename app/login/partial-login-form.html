@@ -1,6 +1,6 @@
 <form name="form" novalidate class="login-form">
     <div class="modal-header">
-        <h4>Sign in</h4>
+        <h4>Acceder</h4>
     </div>
     <div class="modal-body">
         <div class="alert alert-warning" ng-show="authReason">
@@ -9,10 +9,10 @@
         <div class="alert alert-error" ng-show="authError">
             {{authError}}
         </div>
-        <div class="alert alert-info">Please enter your login details</div>
-        <label>E-mail</label>
+        <div class="alert alert-info">Ingresa los datos de usuario</div>
+        <label>Usuario</label>
         <input name="login" type="email" ng-model="user.email" required autofocus>
-        <label>Password</label>
+        <label>Clave</label>
         <input name="pass" type="password" ng-model="user.password" required>
     </div>
     <div class="modal-footer">

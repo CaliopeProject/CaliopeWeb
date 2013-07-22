@@ -17,7 +17,7 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
           if ($scope.alerts.length > 0){
             $timeout(function(){
               $scope.alerts.pop();
-            }, 5000);
+            }, 3000);
           }
         };
 
