@@ -45,16 +45,18 @@ define(['angular'], function(angular) {
         /**
          * Send the data register for the user in a form
          * @param object Object that contains the data form.
+         * @param formUUID UUID of the form
          * @param caliopeForm Form Template que
          * @returns {{}}
          */
-        Service.sendDataForm = function(object, caliopeForm) {
+        Service.sendDataForm = function(object, formUUID, caliopeForm) {
           var params = {};
           var formId = caliopeForm.id;
           var method = caliopeForm.mode;
                   
           params = {
-            "formId" : formId
+            "formId" : formId,
+            "formUUID" : formUUID
           };
           params.data = {};
           jQuery.extend(params.data, object);

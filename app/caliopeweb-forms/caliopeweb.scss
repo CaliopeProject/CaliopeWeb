@@ -1,0 +1,38 @@
+.cw-valid-msg {
+
+}
+
+span.cw-valid-msg-ok, span.cw-valid-msg-ko {
+  display:none;
+  float: right;
+  font-size:36px;
+  margin-top: -12px;
+}
+
+//Class when the user has not yet modified the form.
+.ng-pristine {
+  border:1px solid Gold;
+}
+// ng-dirty: When the user has already modified the form.
+// ng-valid: When the form passes the validation.
+.ng-dirty.ng-valid {
+  border:1px solid Green;
+}
+// When the form has the two class.
+//ng-dirty: When the user has already modified the form.
+// ng-valid: When the form doesn't pass the validation.
+.ng-dirty.ng-invalid {
+  border:1px solid Red;
+}
+
+// When the form has the two class over span that containts the msg ok
+.ng-dirty.ng-valid ~ span.cw-valid-msg-ok {
+  color:green;
+  display:inline;
+}
+
+// When the form has the two class over span that containts the msg error
+.ng-dirty.ng-invalid ~ span.cw-valid-msg-ko {
+  color:red;
+  display:inline;
+}
