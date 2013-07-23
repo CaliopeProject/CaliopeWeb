@@ -45,7 +45,8 @@ define(['angular', 'CryptoSHA256'], function(angular) {
 
         Services.authenticate = function(login) {
           var user = login.username;
-          var pwdSHA256 = Crypto.SHA256(login.password);
+          //var pwdSHA256 = Crypto.SHA256(login.password);
+          var pwdSHA256 = login.password;
           var _login = {};
           _login.login = user;
           _login.password = pwdSHA256;
@@ -69,7 +70,7 @@ define(['angular', 'CryptoSHA256'], function(angular) {
   );
 
 
-  moduleServices.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$dialog', function($http, $q, $location, queue, $dialog) {
+  moduleServices.factory('security', ['$http', '$q', '$location', 'loginRetryQueue', '$dialog', function($http, $q, $location, queue, $dialog) {
 
     $scope.opts = {
       backdrop: true,
@@ -82,6 +83,12 @@ define(['angular', 'CryptoSHA256'], function(angular) {
     // Login form dialog stuff
     var loginDialog = null;
 
+    // Redirect to the given url (defaults to '/')
+    function redirect(url) {
+      url = url || '/';
+      $location.path(url);
+    }
+
     function onLoginDialogClose(success) {
       loginDialog = null;
       if ( success ) {
@@ -92,11 +99,6 @@ define(['angular', 'CryptoSHA256'], function(angular) {
       }
     }
 
-    // Redirect to the given url (defaults to '/')
-    function redirect(url) {
-      url = url || '/';
-      $location.path(url);
-    }
 
     function openLoginDialog() {
       if ( loginDialog ) {
@@ -121,7 +123,8 @@ define(['angular', 'CryptoSHA256'], function(angular) {
 
 
     // The public API of the service
-    return {
+
+    var service =  {
 
       // Get the first reason for needing a login
       getLoginReason: function() {
@@ -183,5 +186,8 @@ define(['angular', 'CryptoSHA256'], function(angular) {
         return !!(service.currentUser && service.currentUser.admin);
       }
     };
-  };
+
+    return service;
+
+  }]);
 });

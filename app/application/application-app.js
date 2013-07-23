@@ -11,9 +11,12 @@ var dependencies = [
     'caliopeweb-formDirectives',
     'proyectosmtv-controller',
     'proyectosmtv-service',
+
     'login-security-services',
     'login-controllers',
     'login-controllers-form',
+    'login-retryQueue',
+
     'menu-top-controller',
     'gis-view-ctrl',
     'notificationsService',
@@ -35,9 +38,12 @@ var modulesAngular = [
     'CaliopeWebFormDirectives',
     'ProyectoControllers',
     'ProyectoServices',
+
     'login-security-services',
     'LoginControllers',
     'login-controllers-form',
+    'login-retryQueue',
+
     'GisViewerController',
     'MenuTopControllers',
     'NotificationsServices',

@@ -3,7 +3,7 @@
 
 define(['angular','angular-ui-bootstrap-bower'], function(angular) {
   'use strict';
-  var moduleControllers = angular.module('MenuTopControllers', ['ui.bootstrap']);
+  var moduleControllers = angular.module('MenuTopControllers', []);
 
   moduleControllers.controller('alertCtrl',['$scope',
     function($scope){
