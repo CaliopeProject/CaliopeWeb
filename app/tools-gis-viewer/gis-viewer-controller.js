@@ -75,7 +75,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
             )
             ,
             new OpenLayers.Layer.WMS("Lotes",
-                "http://localhost:9000/catastrobogota/WMSServer",
+                "http://localhost:9000/gis_proxy/wms",
                 {
                     layers: "14",
                     format: "image/png",
@@ -95,7 +95,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
           });
           //OpenLayers.ProxyHost = "http://192.168.0.28/cgi-bin/proxy.cgi?url=";
           var featureInfoControl = new OpenLayers.Control.WMSGetFeatureInfo({
-              url: 'http://localhost:9000/catastrobogota/WMSServer',
+              url: 'http://localhost:9000/gis_proxy/wms',
               title: 'Identificar elementos',
               layers: [Heron.options.map.layers[5]],
               queryVisible: true,
