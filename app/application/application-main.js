@@ -36,8 +36,6 @@ require.config({
     'files-uploader-controller'        : 'tools-files-uploader/files-uploader-controller',
     'files-uploader-directives'        : 'tools-files-uploader/files-uploader-directives',
 
-    'wysihtml5-parser-rules'           : 'libs-js-thirdparty/wysihtml5/parser_rules/advanced',
-    'wysihtml5'                        : 'libs-js-thirdparty/wysihtml5/dist/wysihtml5-0.3.0',
     'gis-layout'                       : 'tools-gis-viewer/Layout',
     'gis-options'                      : 'tools-gis-viewer/Options',
     'gis-init'                         : 'tools-gis-viewer/Init',
@@ -73,8 +71,11 @@ require.config({
     'menu-top-controller'              : 'menu-top/menu-top-controllers',
 
     'menu-right-controller'            : 'menu-right/menu-right-controller',
-    'menu-right-directives'            : 'menu-right/menu-right-directives'
-
+    'menu-right-directives'            : 'menu-right/menu-right-directives',
+    
+    'ckeditor'                         : 'libs-js-thirdparty/ckeditor/ckeditor',
+    'wysiwyg-editor-directive'         : 'tools-wysiwyg-editor/wysiwyg-editor-directive',
+    'wysiwyg-editor-controller'        : 'tools-wysiwyg-editor/wysiwyg-editor-controller'
   },
   baseUrl: '/',
   shim: {
@@ -90,6 +91,7 @@ require.config({
 
     'CryptoSHA256'                   : {'deps'      : ['Crypto']},
 
+    'wysiwyg-editor-directive'       : {'deps'      : ['jquery','angular','ckeditor']},
     'jquery.fileupload-angular'      : {'deps'      :
                                         [
                                         'jquery',
@@ -109,9 +111,6 @@ require.config({
                                         'jquery.fileupload-validate'
                                         ]},
 
-
-    'wysihtml5'                      : {'deps'      : ['wysihtml5-parser-rules']},
-
     'dform'                          : {'deps'      : ['jquery']},
 
     'gis-ext-all'                    : {'deps'      : ['gis-ext-base']},
@@ -120,6 +119,7 @@ require.config({
     'gis-heron'                      : {'deps'      : ['gis-init']},
     'gis-view-ctrl'                  : {'deps'      : ['gis-heron']},
 
+    
     'angularMocks'                   : {'deps'      : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
@@ -132,8 +132,7 @@ require([
   'angular',
   'application-app',
   'application-routes',
-  'gis-view-ctrl',
-  'wysihtml5'
+  'gis-view-ctrl'
 ], function(jQuery, angular, app, routes) {
   'use strict';
   $(document).ready(function () {
