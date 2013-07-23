@@ -35,7 +35,7 @@ require.config({
     'jquery.fileupload-angular'        : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-angular',
     'files-uploader-controller'        : 'tools-files-uploader/files-uploader-controller',
     'files-uploader-directives'        : 'tools-files-uploader/files-uploader-directives',
-    
+
     'wysihtml5-parser-rules'           : 'libs-js-thirdparty/wysihtml5/parser_rules/advanced',
     'wysihtml5'                        : 'libs-js-thirdparty/wysihtml5/dist/wysihtml5-0.3.0',
     'gis-layout'                       : 'tools-gis-viewer/Layout',
@@ -54,6 +54,7 @@ require.config({
     'application-routes'               : 'application/application-routes',
     'notificationsService'             : 'application/notificationsService',
     'httpRequestTrackerService'        : 'application/httpRequestTrackerService',
+    'breadcrumbsService'               : 'application/breadcrumbsService',
     'application-event'                : 'application/application-event',
     'caliopeWebForms'                  : 'caliopeweb-forms/CaliopeWebForms',
     'caliopeWebGrids'                  : 'caliopeweb-forms/CaliopeWebGrids',
@@ -64,10 +65,11 @@ require.config({
     'proyectosmtv-controller'          : 'proyectosmtv/proyectomtv-controller',
     'proyectosmtv-service'             : 'proyectosmtv/proyectomtv-service',
 
-    'security-services'                : 'login/security-services',
+    'login-security-services'          : 'login/login-security-services',
+    'login-retryQueue'                 : 'login/login-retryQueue',
 
     'login-controllers'                : 'login/login-controllers',
-
+    'login-controllers-form'           : 'login/login-controllers-form',
     'menu-top-controller'              : 'menu-top/menu-top-controllers',
 
     'menu-right-controller'            : 'menu-right/menu-right-controller',

@@ -26,10 +26,17 @@ dirmodule.directive('ngFileuploader', function() {
                   id: attrs['formuuid'],
                   field: attrs['fieldattch']
                 },
+                //TODO: to check
+                //          https://github.com/blueimp/jQuery-File-Upload/wiki/Options
+                add: function (e, data) {
+                  //TODO: show preview
+                  //console.log(data);
+                  data.submit();
+                },
                 progressall: function(e, data) {
                     var progress = parseInt(data.loaded / data.total * 100, 10);
+                    //console.log(data.bitrate/1024+"k/s");
                     scope.$apply(function() {
-                        //scope.progress = progress;
                         $('#progress .bar').css(
                                 'width',
                                 progress + '%'

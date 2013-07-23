@@ -4,18 +4,20 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
   var module = angular.module('CaliopeController', []);
 
   module.controller('CaliopeController',
-      ['webSocket', '$scope', '$timeout','HandlerResponseServerSrv', 'httpRequestTrackerService',
-      function(webSocket, $scope, $timeout,handlerResServerSrv, httpRequestTrackerService) {
+      ['webSocket', '$scope', '$timeout','HandlerResponseServerSrv', 'httpRequestTrackerService','breadcrumbs',
+      function(webSocket, $scope, $timeout,handlerResServerSrv, httpRequestTrackerService, breadcrumbs) {
         var timerMessage;
         var initMessage = {type: 'success', msg: 'Bienvenidos al SIIM' };
-        $scope.alerts = [];
+
+        $scope.alerts      = [];
+        $scope.breadcrumbs = breadcrumbs;
 
         timerMessage = function(data){
           $scope.alerts.push(data);
           if ($scope.alerts.length > 0){
             $timeout(function(){
               $scope.alerts.pop();
-            }, 5000);
+            }, 3000);
           }
         };
 
@@ -37,6 +39,9 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
         $scope.hasPendingRequests = function () {
           return httpRequestTrackerService.hasPendingRequests();
         };
+
+
+
       }]
   );
 });
