@@ -16,6 +16,7 @@ var dependencies = [
     'login-controllers',
     'login-controllers-form',
     'login-retryQueue',
+    'login-directives',
 
     'menu-top-controller',
     'gis-view-ctrl',
@@ -43,6 +44,7 @@ var modulesAngular = [
     'LoginControllers',
     'login-controllers-form',
     'login-retryQueue',
+    'login-directives',
 
     'GisViewerController',
     'MenuTopControllers',
@@ -56,14 +58,12 @@ var modulesAngular = [
     'fileuploaderDirectives'
   ];
 
-define(dependencies, function ( angular, webSocket, appcontroller) {
-  var moduleApp = angular.module('caliope', modulesAngular);
+  define(dependencies, function ( angular, webSocket, appcontroller) {
+    var moduleApp = angular.module('caliope', modulesAngular);
 
-  moduleApp.run(['webSocket', function(webSocket) {
-    //Get the current user when the application starts
-    // (in case they are still logged in from a previous session)
-    webSocket.initWebSockets();
-  }]);
+    moduleApp.run(function(webSocket) {
+      webSocket.initWebSockets();
+    });
 
-  return moduleApp;
-});
+    return moduleApp;
+  });

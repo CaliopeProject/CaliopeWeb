@@ -11,7 +11,8 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
       'HandlerResponseServerSrv',
       'httpRequestTrackerService',
       'breadcrumbs',
-      function(security,
+
+   function(security,
       sessionUuid,
       $scope,
       $timeout,
@@ -38,15 +39,9 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         $scope.init = function () {
 
           $scope.$on('openWebSocket', function(event, data) {
-
-            //TODO: Funcionalidades a hacer cuando se notifica que el websocket está abierto.
-
+            var uuid = sessionUuid.getIdSession();
+            security.requestCurrentUser(uuid);
           });
-
-          var login = {};
-          login.username = $scope.username;
-          login.password = $scope.password;
-          $scope.respLoginAuthenticate = loginSrv.authenticate(login);
 
           timerMessage(initMessage);
 
@@ -57,20 +52,12 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
           $scope.closeAlert = function(index) {
             $scope.alerts.splice(index, 1);
           };
-
         };
 
         $scope.hasPendingRequests = function () {
           return httpRequestTrackerService.hasPendingRequests();
         };
 
-        $scope.$watch('hasPendingRequests', function(value){
-          console.log('ingresoahaspendint', value);
-          if (value !== undefined && value === false) {
-            var uuid = sessionUuid.getIdSession();
-            security.requestCurrentUser(uuid);
-          }
-        });
       }]
   );
 });

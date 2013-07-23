@@ -82,7 +82,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
     ]
   );
 
-  moduleServices.factory('loginSecurity', ['$http', '$q', '$location', 'loginRetryQueue', '$dialog', 'LoginSrv', function($http, $q, $location, queue, $dialog, LoginSrv) {
+  moduleServices.factory('loginSecurity', ['$http', '$q', '$location', 'loginRetryQueue', '$dialog', 'LoginSrv','webSocket', function($http, $q, $location, queue, $dialog, LoginSrv, webSocket) {
 
     var opts = {
       backdrop: true,
@@ -140,10 +140,32 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
       },
 
       // Attempt to authenticate a user by the given email and password
-      login: function(email, password) {
-        var request = $http.post('/login', {email: email, password: password});
-        return request.then(function(response) {
-          service.currentUser = response.data.user;
+      login: function(username, password) {
+
+        var pwdSHA256 = Crypto.SHA256(password);
+        var _login = {};
+
+        _login.login = username;
+        _login.password = pwdSHA256;
+
+        var params = {};
+        var method = "authentication";
+        params = {
+          "login" : _login.login,
+          "password" : _login.password
+        };
+
+        var webSockets = webSocket.WebSockets();
+        var request = webSockets.serversimm.sendRequest(method, params);
+
+        return request.then(function(data) {
+
+          if(data.response !== undefined  && data.response.user !== undefined){
+            service.currentUser = data.response.user;
+          }else{
+            service.currentUser = null;
+          }
+
           if ( service.isAuthenticated() ) {
             closeLoginDialog(true);
           }
@@ -169,8 +191,12 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         if ( service.isAuthenticated() ) {
           return $q.when(service.currentUser);
         }
-        return LoginSrv.currentAuthenticate(uuidLocalStorage).then(function(response) {
-          service.currentUser = response.data.user;
+        return LoginSrv.currentAuthenticate(uuidLocalStorage).then(function(data) {
+          if(data.response !== undefined  && data.response.user !== undefined){
+            service.currentUser = data.response.user;
+          }else{
+            service.currentUser = null;
+          }
           return service.currentUser;
         });
       },

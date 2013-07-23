@@ -67,9 +67,10 @@ require.config({
 
     'login-security-services'          : 'login/login-security-services',
     'login-retryQueue'                 : 'login/login-retryQueue',
-
     'login-controllers'                : 'login/login-controllers',
     'login-controllers-form'           : 'login/login-controllers-form',
+    'login-directives'                 : 'login/login-directives',
+
     'menu-top-controller'              : 'menu-top/menu-top-controllers',
 
     'menu-right-controller'            : 'menu-right/menu-right-controller',

@@ -5,7 +5,6 @@ define(['angular', 'application-servicesWebSocket'], function (angular, webSocke
     var httpRequestTracker = {};
 
     httpRequestTracker.hasPendingRequests = function() {
-      console.log('webHttprequestracker', webSocket.serversimm);
       return $http.pendingRequests.length > 0;
     };
 
