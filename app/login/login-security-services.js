@@ -159,9 +159,9 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         var request = webSockets.serversimm.sendRequest(method, params);
 
         return request.then(function(data) {
-
-          if(data.response !== undefined  && data.response.user !== undefined){
-            service.currentUser = data.response.user;
+        console.log(data);
+          if(data.result !== undefined  && data.result.user !== undefined){
+            service.currentUser = data.result.user;
           }else{
             service.currentUser = null;
           }
