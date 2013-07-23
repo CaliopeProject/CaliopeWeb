@@ -21,10 +21,7 @@ define(['angular', 'application-app'], function(angular, app) {
     $routeProvider.when('/caliopeweb-grids/:plantilla', {
       templateUrl: '/caliopeweb-forms/caliopeweb-grid-partial.html'});
     $routeProvider.when('/tools/wysihtml5-editor', {
-      templateUrl: 'tools-wysihtml5-editor/wysihtml5-editor-partial.html'});    
-    
-    
-    //$routeProvider.otherwise({redirectTo: '/view1'});
+      templateUrl: 'tools-wysiwyg-editor/wysiwyg-editor-partial.html'});    
   }]);
 
 });
