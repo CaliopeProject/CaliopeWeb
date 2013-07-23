@@ -160,8 +160,8 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
 
         return request.then(function(data) {
         console.log(data);
-          if(data.result !== undefined  && data.result.user !== undefined){
-            service.currentUser = data.result.user;
+          if(data.user !== undefined){
+            service.currentUser = data.user;
           }else{
             service.currentUser = null;
           }
