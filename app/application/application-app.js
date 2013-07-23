@@ -58,5 +58,12 @@ var modulesAngular = [
 
 define(dependencies, function ( angular, webSocket, appcontroller) {
   var moduleApp = angular.module('caliope', modulesAngular);
+
+  moduleApp.run(['webSocket', function(webSocket) {
+    //Get the current user when the application starts
+    // (in case they are still logged in from a previous session)
+    webSocket.initWebSockets();
+  }]);
+
   return moduleApp;
 });
