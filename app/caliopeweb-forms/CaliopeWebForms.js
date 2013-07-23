@@ -400,8 +400,9 @@ var CaliopeWebFormValidDecorator = ( function() {
     var  elementMsg = {
       "type"  : "cw-validation-mess",
       "name"  : nameDirective,
-      "show"  : stShowDirty.concat(" && ").concat(stShowError).
-          concat(".").concat(varNameRequired)
+      "ng-show"  : stShowDirty.concat(" && ").concat(stShowError).
+          concat(".").concat(validationType),
+      "validation-type"  : validationType
     };
     return elementMsg;
   }
@@ -417,14 +418,20 @@ var CaliopeWebFormValidDecorator = ( function() {
       for( i=0; i < elementsInputs.length; i++) {
         var validations = elementsInputs[i][validationsAttName];
         if( validations !== undefined ) {
-          if( validations[requiredAttName] != undefined && validations[requiredAttName] === true ) {
+          var validationType = "";
+          if( validations[requiredAttName] !== undefined && validations[requiredAttName] === true ) {
             elementsInputs[i].required = 'required';
+            validationType = 'required';
+          }
+          if( validations['maxlength'] !== undefined && validations['maxlength'] > 0 ) {
+            elementsInputs[i].maxlength = validations['maxlength'];
+            validationType = 'maxlength';
           }
           var index = htmlElements.indexOf(elementsInputs[i]);
           if( index >= 0 ) {
             var htmlElementsIni = htmlElements.slice(0, index + 1);
             var htmlElementsFin = htmlElements.slice(index+1);
-            var elementMsgVal = getElementMsgVal('required', elementsInputs[i], formName);
+            var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName);
             htmlElements = htmlElementsIni.concat(elementMsgVal).concat(htmlElementsFin);
           }
         }

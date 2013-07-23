@@ -1,8 +1,4 @@
 <div >
-
-    <span class="cw-valid-msg-ok">☑</span>
-    <span class="cw-valid-msg-ko">☒</span>
-
-    <span ng-show="{{ngShowMsg}}">Invalid: Required.</span>
-
+    <span data-ng-show="{{validationType==='required'}}">Campo requerido</span>
+    <span data-ng-show="{{validationType==='maxlength'}}">Campo requerido</span>
 </div>

@@ -40,7 +40,7 @@ define(['angular', 'dform'], function (angular) {
      */
     var directiveDefinitionObject = {
         link: function (scope, element, attrs) {
-    
+
           /*
            * Function that print the form with dForm  
            */
@@ -81,7 +81,7 @@ define(['angular', 'dform'], function (angular) {
             }
           });
           
-          scope.$watch(attrs.layout, function (value) {          
+          scope.$watch(attrs.layout, function (value) {
             if (value !== undefined) {
               applyLayout(value);
             }
@@ -103,9 +103,13 @@ define(['angular', 'dform'], function (angular) {
     var directiveDefinitionObject = {
       restrict : 'E',
       replace : true,
+      scope: true,
       templateUrl : 'caliopeweb-forms/caliopeweb-valmess-partial.html',
       link: function (scope, element, attrs) {
-        scope.ngShowMsg = attrs['show'];
+        console.log('attrs[validationType]', attrs['validationType']);
+        //element.append('span', elSpan);
+        //scope['ngShowMsg'] = attrs['show'];
+        scope['validationType'] = attrs['validationType'];
         $compile(element.contents())(scope);
       }
     };
