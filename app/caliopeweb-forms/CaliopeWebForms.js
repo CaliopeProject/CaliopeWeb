@@ -4,6 +4,7 @@
 var CaliopeWebForm = (function() {
 
     var formName;
+    var formUUID;
     var structure;
     var data;
     var actions;
@@ -102,6 +103,7 @@ var CaliopeWebForm = (function() {
       addStructure: function (_structure, _formName) {
         var result = searchElements(_structure);
         formName = _formName;
+        formUUID = UUIDjs.create().hex;
         elementsForm = result.elements;
         elementsFormName = result.elementsName;
         structure = _structure;
@@ -166,6 +168,9 @@ var CaliopeWebForm = (function() {
       getFormName : function() {
         return formName;
       },
+      getFormUUID : function() {
+        return formUUID;
+      },
     /**
      * Put the data represented for data structure in a specific context.
      * @param context
@@ -194,7 +199,7 @@ var CaliopeWebForm = (function() {
 }());
 
 /**
- * Module of decorator for CaliopeWebForm. This decorate the structure with the specific syntax
+ * Module decorator for CaliopeWebForm. This decorate the structure with the specific syntax
  * for Angular.
  */
 var CaliopeWebFormSpecificDecorator = ( function() {
@@ -260,7 +265,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 }());
 
 /**
- * Module of decorator for CaliopeWebForm. This decorate the actions with the specific syntax
+ * Module decorator for CaliopeWebForm. This decorate the actions with the specific syntax
  * for Angular and actions specific in actions structure.
  */
 var CaliopeWebFormActionsDecorator = ( function() {
@@ -272,6 +277,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
         var action = {};
         action.type = "button";
         action['ng-click'] = structureActions[i] + "(" + formName +")";
+        action['ng-disabled'] = formName.concat('.$invalid');
         var actionSrv = structureActions[i];
         action.html = actionSrv;
         structureInit.html.push(action);
@@ -294,7 +300,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
 }());
 
 /**
- * Module of decorator for CaliopeWebForm. This decorate the data in the form.
+ * Module decorator for CaliopeWebForm. This decorate the data in the form.
  */
 var CaliopeWebFormDataDecorator = ( function() {
   return {
@@ -309,7 +315,7 @@ var CaliopeWebFormDataDecorator = ( function() {
 }());
 
 /**
- * Module of decorator for CaliopeWebForm. This decorate the translations in the labels or captions
+ * Module decorator for CaliopeWebForm. This decorate the translations in the labels or captions
  * of the elements in the form.
  */
 var CaliopeWebFormLocaleDecorator = ( function() {
@@ -322,4 +328,145 @@ var CaliopeWebFormLocaleDecorator = ( function() {
       };
     }
   }
+}());
+
+/**
+ * Module decorator for CaliopeWebForm. This decorate the inputs of type attachment with
+ * the ng-file-uploader directive.
+ */
+var CaliopeWebFormAttachmentsDecorator = ( function() {
+
+  function replaceAttachemnt(elementsInit, formUUID) {
+
+    var varNameType = 'type';
+    var nameTypeAtt = 'attachment';
+    var nameAttachDirective = 'ng-fileuploader';
+    var varNameFormUUID = 'formuuid';
+    var varNameFieldAtt = 'fieldattch';
+
+    if( elementsInit !== null ) {
+      var i;
+      for( i=0; i<elementsInit.length; i++ ) {
+        if( elementsInit[i].hasOwnProperty(varNameType) &&
+            elementsInit[i][varNameType] === nameTypeAtt ) {
+          elementsInit[i][varNameType] = nameAttachDirective;
+          elementsInit[i][varNameFormUUID] = formUUID;
+          elementsInit[i][varNameFieldAtt] = elementsInit[i].name;
+        }
+      }
+    }
+
+  }
+
+  return {
+    createStructureToRender : function(caliopeWebForm) {
+      var structureInit = caliopeWebForm.createStructureToRender();
+      var elementsInit = caliopeWebForm.getElements();
+      var formUUID = caliopeWebForm.getFormUUID();
+      caliopeWebForm.createStructureToRender = function() {
+
+        replaceAttachemnt(elementsInit, formUUID);
+
+        return structureInit;
+      };
+    }
+  }
+}());
+
+
+/**
+ * Module decorator for CaliopeWebForm. This decorate with validations configured in json
+ * template.
+ */
+var CaliopeWebFormValidDecorator = ( function() {
+
+
+  function getElementMsgVal(validationType, element, formName) {
+    var varNameRequired = 'required';
+    var varNameDirty = '$dirty';
+    var varNameError = '$error';
+
+    var nameDirective = "msg-";
+    var elementName = "";
+    if( element.hasOwnProperty('name') ) {
+      elementName = element.name
+      nameDirective = nameDirective.concat(elementName);
+    }
+    var stElement = formName.concat('.').concat(elementName);
+    var stShowDirty = stElement.concat('.').concat(varNameDirty);
+    var stShowError = stElement.concat('.').concat(varNameError);
+
+
+    var  elementMsg = {
+      "type"  : "cw-validation-mess",
+      "name"  : nameDirective,
+      "ng-show"  : stShowDirty.concat(" && ").concat(stShowError).
+          concat(".").concat(validationType),
+      "validation-type"  : validationType
+    };
+    return elementMsg;
+  }
+
+  function completeValidation(elementsInputs, structureInit, formName) {
+
+    var validationsAttName = 'validations';
+    var requiredAttName = 'required';
+    var maxlengthAttName = 'maxlength';
+    var minLengthAttName = 'minlength';
+    var htmlElements = structureInit.html;
+
+    if( elementsInputs !== undefined ) {
+      var i;
+      for( i=0; i < elementsInputs.length; i++) {
+        var validations = elementsInputs[i][validationsAttName];
+        if( validations !== undefined ) {
+          var j;
+          for(j = 0; j < validations.length; j++) {
+            var validationType = "";
+            /*
+              Logic for validation required
+            */
+            if( validationType === requiredAttName ) {
+              elementsInputs[j].required = validations[requiredAttName];
+              validationType = requiredAttName;
+            }
+            if( validationType === maxlengthAttName  ) {
+              elementsInputs[j].maxlength = validations[maxlengthAttName];
+              validationType = minLengthAttName;
+            }
+            if( validationType === minLengthAttName  ) {
+              elementsInputs[j].minlength = validations[minLengthAttName];
+              validationType = minLengthAttName;
+            }
+
+            var index = htmlElements.indexOf(elementsInputs[i]);
+            if( index >= 0 ) {
+              var htmlElementsIni = htmlElements.slice(0, index + 1);
+              var htmlElementsFin = htmlElements.slice(index+1);
+
+              var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName);
+              console.log('elementMsgVal', elementMsgVal);
+              htmlElements = htmlElementsIni.concat(elementMsgVal).concat(htmlElementsFin);
+            }
+          }
+        }
+      }
+    }
+    structureInit.html = htmlElements;
+  }
+
+  return {
+    createStructureToRender : function(caliopeWebForm) {
+      var structureInit = caliopeWebForm.createStructureToRender();
+      var formName = caliopeWebForm.getFormName();
+      caliopeWebForm.createStructureToRender = function() {
+
+        completeValidation(caliopeWebForm.getElements(), structureInit, formName);
+
+        return structureInit;
+      };
+    }
+  }
+
+
 }());

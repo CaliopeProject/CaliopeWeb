@@ -37,6 +37,17 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
 
         $scope.init = function () {
 
+          $scope.$on('openWebSocket', function(event, data) {
+
+            //TODO: Funcionalidades a hacer cuando se notifica que el websocket está abierto.
+
+          });
+
+          var login = {};
+          login.username = $scope.username;
+          login.password = $scope.password;
+          $scope.respLoginAuthenticate = loginSrv.authenticate(login);
+
           timerMessage(initMessage);
 
           $scope.$on('ChangeTextAlertMessage', function (event, data) {

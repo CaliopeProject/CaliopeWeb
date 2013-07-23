@@ -123,8 +123,9 @@ define(['angular', 'uuid'], function(angular) {
         /**
          * Override the method of WebSocket object when the connection is established
          */
-        ws.onopen = function(){
+        ws.onopen = function() {
           console.log("Socket has been opened! ", ws.url);
+          $rootScope.$broadcast('openWebSocket', []);
         };
 
         /**
