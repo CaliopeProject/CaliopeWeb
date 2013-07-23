@@ -17,7 +17,6 @@ dirmodule.directive('ngFileuploader', function() {
 
         link: function(scope, elm, attrs) {
 
-            console.log('attrs[fieldAttch]', attrs['fieldattch']);
             $(elm).fileupload({
                 url     : '/upload/',
                 dataType: 'json',
