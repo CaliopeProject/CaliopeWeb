@@ -411,6 +411,8 @@ var CaliopeWebFormValidDecorator = ( function() {
 
     var validationsAttName = 'validations';
     var requiredAttName = 'required';
+    var maxlengthAttName = 'maxlength';
+    var minLengthAttName = 'minlength';
     var htmlElements = structureInit.html;
 
     if( elementsInputs !== undefined ) {
@@ -418,21 +420,34 @@ var CaliopeWebFormValidDecorator = ( function() {
       for( i=0; i < elementsInputs.length; i++) {
         var validations = elementsInputs[i][validationsAttName];
         if( validations !== undefined ) {
-          var validationType = "";
-          if( validations[requiredAttName] !== undefined && validations[requiredAttName] === true ) {
-            elementsInputs[i].required = 'required';
-            validationType = 'required';
-          }
-          if( validations['maxlength'] !== undefined && validations['maxlength'] > 0 ) {
-            elementsInputs[i].maxlength = validations['maxlength'];
-            validationType = 'maxlength';
-          }
-          var index = htmlElements.indexOf(elementsInputs[i]);
-          if( index >= 0 ) {
-            var htmlElementsIni = htmlElements.slice(0, index + 1);
-            var htmlElementsFin = htmlElements.slice(index+1);
-            var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName);
-            htmlElements = htmlElementsIni.concat(elementMsgVal).concat(htmlElementsFin);
+          var j;
+          for(j = 0; j < validations.length; j++) {
+            var validationType = "";
+            /*
+              Logic for validation required
+            */
+            if( validationType === requiredAttName ) {
+              elementsInputs[j].required = validations[requiredAttName];
+              validationType = requiredAttName;
+            }
+            if( validationType === maxlengthAttName  ) {
+              elementsInputs[j].maxlength = validations[maxlengthAttName];
+              validationType = minLengthAttName;
+            }
+            if( validationType === minLengthAttName  ) {
+              elementsInputs[j].minlength = validations[minLengthAttName];
+              validationType = minLengthAttName;
+            }
+
+            var index = htmlElements.indexOf(elementsInputs[i]);
+            if( index >= 0 ) {
+              var htmlElementsIni = htmlElements.slice(0, index + 1);
+              var htmlElementsFin = htmlElements.slice(index+1);
+
+              var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName);
+              console.log('elementMsgVal', elementMsgVal);
+              htmlElements = htmlElementsIni.concat(elementMsgVal).concat(htmlElementsFin);
+            }
           }
         }
       }
