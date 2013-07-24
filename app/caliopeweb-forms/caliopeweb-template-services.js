@@ -83,6 +83,21 @@ define(['angular'], function(angular) {
           return promise;
         };
 
+        Service.loadDataOptions = function(entity, paramsSearch) {
+          var method = "getDataOptions";
+          var params = {
+            entity : entity
+          };
+          var promise = {};
+          if( params !== undefined ) {
+            jQuery.extend(params, paramsSearch);
+          }
+
+          var webSockets = webSocket.WebSockets();
+          promise = webSockets.serversimm.sendRequest(method, params);
+          return promise;
+        };
+
         return Service;
 
       }]);

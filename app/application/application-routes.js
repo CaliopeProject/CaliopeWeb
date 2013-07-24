@@ -6,8 +6,8 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl: '/application/view-partial1.html'    });
     $routeProvider.when('/view2', {
       templateUrl: '/application/view-partial2.html'    });
-    $routeProvider.when('/proyectomtv/:plantilla/:mode', {
-      templateUrl: '/proyectosmtv/proyecto-form.html'});
+    $routeProvider.when('/crear-proyectomtv/:plantilla/:mode', {
+      templateUrl: '/proyectosmtv/crear-proyectomtv-partial.html'});
     $routeProvider.when('/gis', {
       templateUrl: '/tools-gis-viewer/gis-partial.html'});
     $routeProvider.when('/login/:plantilla/:mode', {

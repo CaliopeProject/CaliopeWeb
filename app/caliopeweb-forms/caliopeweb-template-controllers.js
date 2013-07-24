@@ -34,7 +34,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
           $scope.$watch('jsonPlantilla', function (value) {
               var content = value;
-              if (content !== undefined) {
+              if (content !== undefined && content.error === undefined) {
 
                 var caliopeWebForm = new CaliopeWebForm();
                 caliopeWebForm.addStructure(content.form, content.form.name);
@@ -48,6 +48,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
                 CaliopeWebFormValidDecorator.createStructureToRender(caliopeWebForm);
                 CaliopeWebFormAttachmentsDecorator.createStructureToRender(caliopeWebForm);
 
+
                 $scope.jsonPlantillaAngular = caliopeWebForm.createStructureToRender();
                 $scope.inputsFormTemplate   = caliopeWebForm.getElementsName();
                 $scope.formUUID = caliopeWebForm.getFormUUID();
@@ -59,6 +60,12 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           $scope.jsonPlantilla =
             caliopewebTemplateSrv.loadTemplateData(caliopeForm);
         }
+
+        $scope.init = function(template, mode) {
+          caliopeForm.id = template;
+          caliopeForm.mode = mode;
+          load();
+        };
 
         if (caliopeForm.mode === 'create') {
           load();

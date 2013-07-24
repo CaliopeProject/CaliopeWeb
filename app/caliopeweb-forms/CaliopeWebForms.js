@@ -71,13 +71,6 @@ var CaliopeWebForm = (function() {
       };
     }
 
-    var render = function() {
-
-    };
-
-    var validate = function() {
-
-    };
 
   /**
    * Constructor of CaliopeWebForm module
