@@ -73,10 +73,14 @@ require.config({
 
     'menu-right-controller'            : 'menu-right/menu-right-controller',
     'menu-right-directives'            : 'menu-right/menu-right-directives',
-    
+
     'ckeditor'                         : 'libs-js-thirdparty/ckeditor/ckeditor',
     'wysiwyg-editor-directive'         : 'tools-wysiwyg-editor/wysiwyg-editor-directive',
-    'wysiwyg-editor-controller'        : 'tools-wysiwyg-editor/wysiwyg-editor-controller'
+    'wysiwyg-editor-controller'        : 'tools-wysiwyg-editor/wysiwyg-editor-controller',
+
+    'task-controllers-init'            : 'task/task-controllers-init',
+    'task-directives'                  : 'task/task-directives'
+
   },
   baseUrl: '/',
   shim: {
@@ -120,7 +124,7 @@ require.config({
     'gis-heron'                      : {'deps'      : ['gis-init']},
     'gis-view-ctrl'                  : {'deps'      : ['gis-heron']},
 
-    
+
     'angularMocks'                   : {'deps'      : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
