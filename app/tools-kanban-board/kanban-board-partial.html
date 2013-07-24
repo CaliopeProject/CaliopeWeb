@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/kanban.css">
+    <script src="../angular-1.0.2/angular.min.js"></script>
+    <script src="../js/kanban.js"></script>
+    <title>Kanban Pessoal</title>
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="#">Kanban Pessoal {{'yet'}}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+
+    <table class="table table-bordered" ng-controller="BoardCtrl">
+      <thead>
+        <tr>
+          <th width="{{(100/columns.length)}}%" ng-repeat="column in columns">{{column.name}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td ng-repeat="column in columns">
+            <div class="sticky-note" ng-repeat="note in column.notes">{{note.description}}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
