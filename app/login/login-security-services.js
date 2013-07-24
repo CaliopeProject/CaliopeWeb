@@ -51,12 +51,14 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
           _login.login = user;
           _login.password = pwdSHA256;
 
+          
           var params = {};
-          var method = "authentication";
+          var method = "login.authenticate";
           params = {
-            "login" : _login.login,
+            "username" : _login.login,
             "password" : _login.password
           };
+          
           var promise = {};
 
           var webSockets = webSocket.WebSockets();
@@ -67,7 +69,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         Services.currentAuthenticate = function(uuidLocalStorage) {
           var promise = {};
           if (uuidLocalStorage !== undefined){
-            var method = "authentication_with_uuid";
+            var method = "login.authenticate_with_uuid";
             var params = {
               "uuid" : uuidLocalStorage
             };
@@ -149,9 +151,9 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         _login.password = pwdSHA256;
 
         var params = {};
-        var method = "authentication";
+        var method = "login.authenticate";
         params = {
-          "login" : _login.login,
+          "username" : _login.login,
           "password" : _login.password
         };
 
@@ -182,11 +184,10 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
       logout: function(redirectTo) {
         var uuid = SessionSrv.getIdSession();
         var params = {};
-        var method = "logout";
+        var method = "login.logout";
 
         params = {
-          "uuid"     : uuid,
-          "password" : method
+          "uuid"     : uuid
         };
 
         SessionSrv.removeSession();
