@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../css/kanban.css">
-    <script src="../angular-1.0.2/angular.min.js"></script>
-    <script src="../js/kanban.js"></script>
-    <title>Kanban Pessoal</title>
-</head>
-
-<body>
+<div>
   <div class="navbar">
     <div class="navbar-inner">
       <div class="container">
@@ -18,7 +9,7 @@
 
   <div class="container-fluid">
 
-    <table class="table table-bordered" ng-controller="BoardCtrl">
+    <table class="table table-bordered" ng-controller="kanbanBoardCtrl">
       <thead>
         <tr>
           <th width="{{(100/columns.length)}}%" ng-repeat="column in columns">{{column.name}}</th>
@@ -34,3 +25,4 @@
     </table>
 
   </div>
+</div>

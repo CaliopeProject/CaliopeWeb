@@ -32,7 +32,8 @@ var dependencies = [
     'wysiwyg-editor-directive',
 
     'task-controllers-init',
-    'task-directives'
+    'task-directives',
+    'kanban-board-controller'
   ];
 
 var modulesAngular = [
@@ -63,6 +64,7 @@ var modulesAngular = [
     'fileuploaderDirectives',
     'wysiwygEditorCtrl',
     'wysiwygEditorDirective',
+    'kanbanBoardCtrl',
 
     'task-controllers-init',
     'task-directives'

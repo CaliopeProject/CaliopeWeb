@@ -78,6 +78,7 @@ require.config({
     'wysiwyg-editor-directive'         : 'tools-wysiwyg-editor/wysiwyg-editor-directive',
     'wysiwyg-editor-controller'        : 'tools-wysiwyg-editor/wysiwyg-editor-controller',
 
+    'kanban-board-controller'          : 'tools-kanban-board/kanban-board-controller',
     'task-controllers-init'            : 'task/task-controllers-init',
     'task-directives'                  : 'task/task-directives'
 
