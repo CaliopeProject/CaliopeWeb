@@ -59,7 +59,7 @@ define(['angular'], function(angular) {
           if( object === undefined ) {
             object = {};
           }
-          if(objID !== undefined) {
+          if(objID !== undefined && objID.length > 0) {
             object['uuid'] = objID;
           }
 
