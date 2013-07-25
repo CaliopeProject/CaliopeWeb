@@ -266,6 +266,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           element.entity = element.options.entity;
           element['cw-options'] = '';
           element.options = {};
+          element['ng-options'] = 'opt.desc for opt in options';
         }
       });
     }
@@ -292,17 +293,34 @@ var CaliopeWebFormSpecificDecorator = ( function() {
  */
 var CaliopeWebFormActionsDecorator = ( function() {
 
-  function completeActions(structureInit, structureActions,formName) {
-
+  function completeActions(structureInit, structureActions,formName, formUUID, objID) {
     if( structureActions != null && structureActions.length > 0 ) {
+
+      var VAR_NAME_NAME = "name";
+      var VAR_NAME_METHOD = "method";
+      var TYPE_ACTION = "button";
+      var DIRECTIVE_NG_CLICK = 'ng-click';
+      var DIRECTIVE_NG_DISABLED = 'ng-disabled';
+      var NAME_METHOD_CONTROLLER = 'sendAction';
+
       for ( var i = 0; i < structureActions.length; i++) {
         var action = {};
-        var actionSrv = structureActions[i];
-        action.type = "button";
-        action['ng-click'] = structureActions[i] + "(" + formName +")";
-        action['ng-disabled'] = formName.concat('.$invalid');
-        action.name = action.type.concat('-').concat(actionSrv) ;
-        action.html = actionSrv;
+        var actionName = structureActions[i][VAR_NAME_NAME];
+        var actionMethod = structureActions[i][VAR_NAME_METHOD];
+        action.type = TYPE_ACTION;
+        /*
+          create ng-click: sendAction(form, 'formName', 'method', 'formUUID', 'objID');
+         */
+        action[DIRECTIVE_NG_CLICK] = NAME_METHOD_CONTROLLER.concat("(").
+            concat(formName).concat(", ").
+            concat("'").concat(formName).concat("', ").
+            concat("'").concat(actionMethod).concat("', ").
+            concat("'").concat(formUUID).concat("', ").
+            concat("'").concat(objID).concat("'").
+            concat(")");
+        action[DIRECTIVE_NG_DISABLED] = formName.concat('.$invalid');
+        action.name = action.type.concat('-').concat(actionName) ;
+        action.html = actionName;
         structureInit.html.push(action);
       }
     }
@@ -313,9 +331,11 @@ var CaliopeWebFormActionsDecorator = ( function() {
       var structureInit = caliopeWebForm.createStructureToRender();
       var structureAction = caliopeWebForm.getActions();
       var formName = caliopeWebForm.getFormName();
+      var formUUID = caliopeWebForm.getFormUUID();
+      var objID = "";
 
       caliopeWebForm.createStructureToRender = function() {
-        completeActions(structureInit, structureAction, formName);
+        completeActions(structureInit, structureAction, formName, formUUID, objID);
         return structureInit;
       };
     }

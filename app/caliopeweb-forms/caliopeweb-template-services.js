@@ -33,7 +33,7 @@ define(['angular'], function(angular) {
             method = 'form.getData';
             params.uuid = caliopeForm.uuid;
           }
-         
+
           var promise = {};
 
           var webSockets = webSocket.WebSockets();
@@ -44,18 +44,27 @@ define(['angular'], function(angular) {
 
         /**
          * Send the data register for the user in a form
+         * @param formTemplate Name of the form template
+         * @param actionMethod Action invoked
          * @param object Object that contains the data form.
          * @param formUUID UUID of the form
-         * @param caliopeForm Form Template que
+         * @param objID Identified of the data
          * @returns {{}}
          */
-        Service.sendDataForm = function(object, formUUID, caliopeForm) {
+        Service.sendDataForm = function(formTemplateName, actionMethod, object, formUUID, objID ) {
+          var NAME_SPACED_METHOD = 'form';
           var params = {};
-          var formId = caliopeForm.id;
-          var method = caliopeForm.mode;
+          var method = NAME_SPACED_METHOD.concat('.').concat(actionMethod);
                   
+          if( object === undefined ) {
+            object = {};
+          }
+          if(objID !== undefined) {
+            object['uuid'] = objID;
+          }
+
           params = {
-            "formId" : formId,
+            "formId" : formTemplateName,
             "formUUID" : formUUID
           };
           params.data = {};
@@ -74,7 +83,7 @@ define(['angular'], function(angular) {
             formId : formId
           };
           var promise = {};
-          if( params !== undefined ) {
+          if( paramsSearch !== undefined ) {
             jQuery.extend(params, paramsSearch);
           }
 
@@ -89,7 +98,7 @@ define(['angular'], function(angular) {
             entity : entity
           };
           var promise = {};
-          if( params !== undefined ) {
+          if( paramsSearch !== undefined ) {
             jQuery.extend(params, paramsSearch);
           }
 

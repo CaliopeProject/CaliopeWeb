@@ -23,7 +23,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         var caliopeForm = {};
 
         function load() {
-          var message;
+
           $scope.jsonPlantillaWA = {};
 
           $scope.$watch('jsonPlantilla', function (value) {
@@ -36,7 +36,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
                 caliopeWebForm.addActions(content.actions);
                 caliopeWebForm.addData(content.data);
                 caliopeWebForm.addTranslations(content.translations);
-                var formName = caliopeWebForm.getFormName();
 
                 CaliopeWebFormSpecificDecorator.createStructureToRender(caliopeWebForm);
                 CaliopeWebFormActionsDecorator.createStructureToRender(caliopeWebForm);
@@ -59,6 +58,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         $scope.init = function(template, mode) {
           caliopeForm.id = template;
           caliopeForm.mode = mode;
+          $scope.caliopeForm = caliopeForm;
           load();
         };
 
@@ -68,7 +68,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           caliopeForm.uuid = $routeParams.uuid;
           $scope.caliopeForm = caliopeForm;
           load();
-        }
+        };
 
 
         if (caliopeForm.mode === 'edit') {
@@ -79,13 +79,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   ]);
 
   moduleControllers.controller('SIMMFormCtrl',
-    ['caliopewebTemplateSrv', '$scope', '$routeParams',
-      function (caliopewebTemplateSrv,
-          $scope, $routeParams) {
+    ['caliopewebTemplateSrv', '$scope',
+      function (caliopewebTemplateSrv, $scope) {
 
-        var message;
-
-        function saveData(caliopeForm, formUUID, uuidData) {
+        function saveData(formTemplateName, actionMethod, formUUID, objID) {
 
           var inputs = $scope.inputsFormTemplate;
           var obj = {};
@@ -96,13 +93,9 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           for (i = 0; i < inputs.length; i++) {
             obj[inputs[i]] = $scope[inputs[i]];
           }
-          if(uuidData !== undefined) {
-            obj['uuid'] = uuidData;
-          }
 
-
-          $scope.responseSaveData = caliopewebTemplateSrv.sendDataForm(
-              obj, formUUID, caliopeForm);
+          $scope.responseSaveData = caliopewebTemplateSrv.sendDataForm(formTemplateName,
+              actionMethod, obj, formUUID, objID);
         }
 
         function deleteData(caliopeForm, uuidData) {
@@ -123,7 +116,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           if (value !== undefined) {
             var content = 'ok';
 
-	          if (content === 'ok') {
+            if (content === 'ok') {
               console.log('Proyecto Creado', value.uuid);
               var dataList = $scope.dataList;
               if (dataList === undefined) {
@@ -148,19 +141,41 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           }
         });
 
-        $scope.create = function () {
+        $scope.sendAction = function(form, formName, method, formUUID, objID) {
+          var NAME_METHOD_CREATE = 'createFromForm';
+          var NAME_METHOD_EDIT = 'editFromForm';
+          var NAME_METHOD_DELETE = 'delete';
+
+          if( method == NAME_METHOD_CREATE ) {
+            saveData(formName, method, formUUID, objID);
+
+          } else if( method == NAME_METHOD_EDIT ) {
+            saveData(formName, method, formUUID, objID);
+
+          } else if( method == NAME_METHOD_DELETE ) {
+            var uuidData = $scope.caliopeForm.uuid;
+            deleteData($scope.caliopeForm, uuidData)
+
+          } else {
+            console.error('Method is not support method, method was ' + method);
+          }
+        };
+
+        /*
+        $scope['create'] = function () {
           saveData($scope.caliopeForm, $scope.formUUID);
         };
 
-        $scope.edit = function () {
+        $scope['edit'] = function () {
           var uuidData = $scope.caliopeForm.uuid;
           saveData($scope.caliopeForm, $scope.formUUID, uuidData);
         };
 
-        $scope.delete = function() {
+        $scope['delete'] = function() {
           var uuidData = $scope.caliopeForm.uuid;
           deleteData($scope.caliopeForm, uuidData)
         }
+        */
 
       }]
   );
@@ -187,7 +202,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
             var paramsSearch = {};
             $scope.responseLoadDataGrid = caliopewebTemplateSrv.loadDataGrid(
                 caliopeForm.id, paramsSearch);
-          };
+          }
 
           $scope.$watch('responseLoadDataGrid', function (value) {
 
@@ -213,7 +228,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
           });
 
-          loadDataGrid($scope.caliopeForm);
+          loadDataGrid();
 
       }]
   );
