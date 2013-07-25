@@ -463,34 +463,42 @@ var CaliopeWebFormValidDecorator = ( function() {
 
   function completeValidation(elementsInputs, structureInit, formName) {
 
-    var validationsAttName = 'validations';
-    var requiredAttName = 'required';
-    var maxlengthAttName = 'maxlength';
-    var minLengthAttName = 'minlength';
+    var VALIDATIONS_ATT_NAME = 'validations';
+    var REQUIRE_ATT_NAME = 'required';
+    var MAXLENGTH_ATT_NAME = 'maxlength';
+    var MINLENGTH_ATT_NAME = 'minlength';
     var htmlElements = structureInit.html;
 
     if( elementsInputs !== undefined ) {
       var i;
+      /**
+       * Recorrer los elementos y verificar si tiene el nombre de atributo definido en
+       * VALIDATIONS_ATT_NAME
+       */
       for( i=0; i < elementsInputs.length; i++) {
-        var validations = elementsInputs[i][validationsAttName];
+        var validations = elementsInputs[i][VALIDATIONS_ATT_NAME];
+        /*
+         * Si tiene validations entonces manejar la validacion para crear el tipo de
+         * validación y el mensaje a mostrar en caso de que no se cumpla la validación
+         */
         if( validations !== undefined ) {
-          var j;
-          for(j = 0; j < validations.length; j++) {
-            var validationType = "";
+          var varName;
+          for( varName in validations) {
+            var validationType = varName;
             /*
               Logic for validation required
             */
-            if( validationType === requiredAttName ) {
-              elementsInputs[j].required = validations[requiredAttName];
-              validationType = requiredAttName;
+            if( validationType === REQUIRE_ATT_NAME ) {
+              elementsInputs[i].required = validations[REQUIRE_ATT_NAME];
+              validationType = REQUIRE_ATT_NAME;
             }
-            if( validationType === maxlengthAttName  ) {
-              elementsInputs[j].maxlength = validations[maxlengthAttName];
-              validationType = minLengthAttName;
+            if( validationType === MAXLENGTH_ATT_NAME  ) {
+              elementsInputs[i].maxlength = validations[MAXLENGTH_ATT_NAME];
+              validationType = MINLENGTH_ATT_NAME;
             }
-            if( validationType === minLengthAttName  ) {
-              elementsInputs[j].minlength = validations[minLengthAttName];
-              validationType = minLengthAttName;
+            if( validationType === MINLENGTH_ATT_NAME  ) {
+              elementsInputs[i].minlength = validations[MINLENGTH_ATT_NAME];
+              validationType = MINLENGTH_ATT_NAME;
             }
 
             var index = htmlElements.indexOf(elementsInputs[i]);
