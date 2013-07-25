@@ -238,10 +238,38 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       // se debería generar una excepcion indicando el error y notificando
       // al server sobre el error.
       //valueNgModel = stNameTemplate;
-      console.error('No se encontro valor para el atributo name en el template.');
+      console.error('No se encontro valor para el atributo name en el template.', element);
     }
     element['ng-model'] = valueNgModel;
   }
+
+  function completeTypeSelect(elementsInputs) {
+    /*
+     * Verificar que existan elementos
+     */
+    if( elementsInputs !== undefined && elementsInputs.length > 0) {
+      var i;
+      /*
+      Seleccionar los elementos que sean de tipo select
+       */
+      var elementsSelect = jQuery.grep(elementsInputs, function(obj) {
+          return obj.type === 'select';
+      });
+      /*
+      Para cada elemento del tipo select verificar si tiene options y como atributo de
+      options entity, si cumple esta condición entonces asociar la directiva cw-options
+      para indicar que los options del select se deben recuperar desde el server.
+       */
+      jQuery.each(elementsSelect, function(index, element){
+        if( element.hasOwnProperty('options') && element.options.hasOwnProperty('entity')) {
+          element.fromserver = true;
+          element.entity = element.options.entity;
+          element['cw-options'] = '';
+          element.options = {};
+        }
+      });
+    }
+  };
 
   return {
     createStructureToRender : function(caliopeWebForm) {
@@ -251,6 +279,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       caliopeWebForm.createStructureToRender = function() {
         completeController(structureInit, caliopeWebForm.getFormName());
         completeModel(caliopeWebForm.getElements(), caliopeWebForm.getFormName());
+        completeTypeSelect(caliopeWebForm.getElements());
         return structureInit;
       };
     }
@@ -268,10 +297,11 @@ var CaliopeWebFormActionsDecorator = ( function() {
     if( structureActions != null && structureActions.length > 0 ) {
       for ( var i = 0; i < structureActions.length; i++) {
         var action = {};
+        var actionSrv = structureActions[i];
         action.type = "button";
         action['ng-click'] = structureActions[i] + "(" + formName +")";
         action['ng-disabled'] = formName.concat('.$invalid');
-        var actionSrv = structureActions[i];
+        action.name = action.type.concat('-').concat(actionSrv) ;
         action.html = actionSrv;
         structureInit.html.push(action);
       }

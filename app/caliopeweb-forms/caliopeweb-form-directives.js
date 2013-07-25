@@ -48,7 +48,7 @@ define(['angular', 'dform'], function (angular) {
             //var plantilla = JSON.parse(templateData);
             var plantilla = templateData;
             try {            
-              $(element).dform(plantilla);              
+              $(element).dform(plantilla);
             } catch (exDform) {
               console.log('Error generating the dynamic form with dForm', exDform);
             }
@@ -64,7 +64,7 @@ define(['angular', 'dform'], function (angular) {
            */
           scope.$watch(attrs.cwDform, function (value) {
             if (value !== undefined) {
-              //console.log("Json to render", value);
+              console.log("Json to render", value);
               renderDForm(value);
             }
           });
@@ -96,6 +96,58 @@ define(['angular', 'dform'], function (angular) {
 
     return directiveDefinitionObject;
   });
+
+  /**
+   * @ngdoc directive
+   * @name cw.directive:cwOptions
+   * @restrict A
+   * @replace false
+   *
+   * @description
+   * Add to HTML 'select' element the possibility of load the option from the server or
+   * from scope variable.
+   *
+   * Use the ng-options angular directive for create the HTML 'option' elements. The data
+   * recovered from the server is storage in scope variable named 'options'.
+   *
+   * Use the service  caliopewebTemplateSrv for invoke the functionality that load and
+   * communicates with the server across websocket
+   *
+   * @param remote: If value is true then the data is load from the server, for false then
+   * the data is load from scope variable.  When is true then entity attribute is required.
+   * When is false then scopevar attribute is required.
+   *
+   * @param entity: Name of the entity that contains the data.
+   *
+   */
+  moduleDirectives.directive('cwOptions', ['caliopewebTemplateSrv', "$compile", function (caliopewebTemplateSrv, $compile) {
+
+    var nameAttrFromServer = 'fromserver';
+    var nameAttrEntity = 'entity';
+    /**
+     * Define the function for link the directive to AngularJS Context.
+     */
+    var directiveDefinitionObject = {
+      restrict : 'A',
+      replace : false,
+      scope: true,
+      link: function (scope, element, attrs) {
+        if( attrs[nameAttrFromServer] !== undefined && attrs[nameAttrFromServer] == 'true') {
+          var promise = caliopewebTemplateSrv.loadDataOptions(attrs[nameAttrEntity]);
+          promise.then(function(dataResponse) {
+            scope.options = [
+              {value:'valor1', desc: 'desc1'},
+              {value:'valor2', desc: 'desc2'},
+              {value:'valor3', desc: 'desc3'}
+            ];
+          });
+        }
+        $compile(element.contents())(scope);
+      }
+    };
+
+    return directiveDefinitionObject;
+  }]);
 
   
 });
