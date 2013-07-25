@@ -80,6 +80,7 @@ require.config({
 
     'kanban-board-controller'          : 'tools-kanban-board/kanban-board-controller',
     'task-controllers-init'            : 'task/task-controllers-init',
+    'task-services'                    : 'task/task-services',
     'task-directives'                  : 'task/task-directives'
 
   },

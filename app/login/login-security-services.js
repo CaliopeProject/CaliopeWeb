@@ -51,14 +51,14 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
           _login.login = user;
           _login.password = pwdSHA256;
 
-          
+
           var params = {};
           var method = "login.authenticate";
           params = {
             "username" : _login.login,
             "password" : _login.password
           };
-          
+
           var promise = {};
 
           var webSockets = webSocket.WebSockets();

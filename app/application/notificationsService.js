@@ -34,7 +34,6 @@ define(['angular'], function (angular) {
 
               var dataResponseDef = {};
 
-              console.log('Promise HandlerResponse:', dataResponse);
               if(dataResponse !== undefined) {
 
                 dataToProcess =  dataResponse;
