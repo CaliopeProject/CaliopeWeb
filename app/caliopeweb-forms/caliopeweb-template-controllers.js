@@ -117,7 +117,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
             var content = 'ok';
 
             if (content === 'ok') {
-              console.log('Proyecto Creado', value.uuid);
+              console.log('Entidad Creada', value.uuid);
               var dataList = $scope.dataList;
               if (dataList === undefined) {
                 dataList = [];
@@ -142,9 +142,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         });
 
         $scope.sendAction = function(form, formName, method, formUUID, objID) {
-          var NAME_METHOD_CREATE = 'createFromForm';
-          var NAME_METHOD_EDIT = 'editFromForm';
-          var NAME_METHOD_DELETE = 'delete';
+          //TODO: Mejorar para que se ejecute de forma dinámica el envio del form.
+          var NAME_METHOD_CREATE = 'form.createFromForm';
+          var NAME_METHOD_EDIT = 'form.editFromForm';
+          var NAME_METHOD_DELETE = 'form.delete';
 
           if( method == NAME_METHOD_CREATE ) {
             saveData(formName, method, formUUID, objID);
@@ -160,22 +161,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
             console.error('Method is not support method, method was ' + method);
           }
         };
-
-        /*
-        $scope['create'] = function () {
-          saveData($scope.caliopeForm, $scope.formUUID);
-        };
-
-        $scope['edit'] = function () {
-          var uuidData = $scope.caliopeForm.uuid;
-          saveData($scope.caliopeForm, $scope.formUUID, uuidData);
-        };
-
-        $scope['delete'] = function() {
-          var uuidData = $scope.caliopeForm.uuid;
-          deleteData($scope.caliopeForm, uuidData)
-        }
-        */
 
       }]
   );
