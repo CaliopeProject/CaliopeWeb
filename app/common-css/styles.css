@@ -44,7 +44,7 @@ html {
 
 /* line 50, ../common-scss/bootstrap/_reset.scss */
 a:focus {
-  outline: thin dotted #333;
+  outline: thin dotted #333333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -163,7 +163,7 @@ textarea {
   /* line 155, ../common-scss/bootstrap/_reset.scss */
   * {
     text-shadow: none !important;
-    color: #000 !important;
+    color: black !important;
     background: transparent !important;
     box-shadow: none !important;
   }
@@ -194,7 +194,7 @@ textarea {
   /* line 183, ../common-scss/bootstrap/_reset.scss */
   pre,
   blockquote {
-    border: 1px solid #999;
+    border: 1px solid #999999;
     page-break-inside: avoid;
   }
 
@@ -266,7 +266,7 @@ a:focus {
 .img-polaroid {
   padding: 4px;
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -1084,7 +1084,7 @@ pre {
   white-space: pre;
   white-space: pre-wrap;
   background-color: #f5f5f5;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -1311,7 +1311,7 @@ select:focus,
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted #333;
+  outline: thin dotted #333333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -1869,7 +1869,7 @@ select:focus:invalid:focus {
   text-align: center;
   text-shadow: 0 1px 0 white;
   background-color: #eeeeee;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
 }
 /* line 468, ../common-scss/bootstrap/_forms.scss */
 .input-append .add-on,
@@ -2483,27 +2483,27 @@ table th[class*="span"],
 
 /* line 52, ../common-scss/bootstrap/_sprites.scss */
 .icon-glass {
-  background-position: 0      0;
+  background-position: 0 0;
 }
 
 /* line 53, ../common-scss/bootstrap/_sprites.scss */
 .icon-music {
-  background-position: -24px  0;
+  background-position: -24px 0;
 }
 
 /* line 54, ../common-scss/bootstrap/_sprites.scss */
 .icon-search {
-  background-position: -48px  0;
+  background-position: -48px 0;
 }
 
 /* line 55, ../common-scss/bootstrap/_sprites.scss */
 .icon-envelope {
-  background-position: -72px  0;
+  background-position: -72px 0;
 }
 
 /* line 56, ../common-scss/bootstrap/_sprites.scss */
 .icon-heart {
-  background-position: -96px  0;
+  background-position: -96px 0;
 }
 
 /* line 57, ../common-scss/bootstrap/_sprites.scss */
@@ -2583,27 +2583,27 @@ table th[class*="span"],
 
 /* line 73, ../common-scss/bootstrap/_sprites.scss */
 .icon-home {
-  background-position: 0      -24px;
+  background-position: 0 -24px;
 }
 
 /* line 74, ../common-scss/bootstrap/_sprites.scss */
 .icon-file {
-  background-position: -24px  -24px;
+  background-position: -24px -24px;
 }
 
 /* line 75, ../common-scss/bootstrap/_sprites.scss */
 .icon-time {
-  background-position: -48px  -24px;
+  background-position: -48px -24px;
 }
 
 /* line 76, ../common-scss/bootstrap/_sprites.scss */
 .icon-road {
-  background-position: -72px  -24px;
+  background-position: -72px -24px;
 }
 
 /* line 77, ../common-scss/bootstrap/_sprites.scss */
 .icon-download-alt {
-  background-position: -96px  -24px;
+  background-position: -96px -24px;
 }
 
 /* line 78, ../common-scss/bootstrap/_sprites.scss */
@@ -2683,27 +2683,27 @@ table th[class*="span"],
 
 /* line 94, ../common-scss/bootstrap/_sprites.scss */
 .icon-tag {
-  background-position: 0      -48px;
+  background-position: 0 -48px;
 }
 
 /* line 95, ../common-scss/bootstrap/_sprites.scss */
 .icon-tags {
-  background-position: -25px  -48px;
+  background-position: -25px -48px;
 }
 
 /* line 96, ../common-scss/bootstrap/_sprites.scss */
 .icon-book {
-  background-position: -48px  -48px;
+  background-position: -48px -48px;
 }
 
 /* line 97, ../common-scss/bootstrap/_sprites.scss */
 .icon-bookmark {
-  background-position: -72px  -48px;
+  background-position: -72px -48px;
 }
 
 /* line 98, ../common-scss/bootstrap/_sprites.scss */
 .icon-print {
-  background-position: -96px  -48px;
+  background-position: -96px -48px;
 }
 
 /* line 99, ../common-scss/bootstrap/_sprites.scss */
@@ -2783,27 +2783,27 @@ table th[class*="span"],
 
 /* line 115, ../common-scss/bootstrap/_sprites.scss */
 .icon-pencil {
-  background-position: 0      -72px;
+  background-position: 0 -72px;
 }
 
 /* line 116, ../common-scss/bootstrap/_sprites.scss */
 .icon-map-marker {
-  background-position: -24px  -72px;
+  background-position: -24px -72px;
 }
 
 /* line 117, ../common-scss/bootstrap/_sprites.scss */
 .icon-adjust {
-  background-position: -48px  -72px;
+  background-position: -48px -72px;
 }
 
 /* line 118, ../common-scss/bootstrap/_sprites.scss */
 .icon-tint {
-  background-position: -72px  -72px;
+  background-position: -72px -72px;
 }
 
 /* line 119, ../common-scss/bootstrap/_sprites.scss */
 .icon-edit {
-  background-position: -96px  -72px;
+  background-position: -96px -72px;
 }
 
 /* line 120, ../common-scss/bootstrap/_sprites.scss */
@@ -2883,27 +2883,27 @@ table th[class*="span"],
 
 /* line 136, ../common-scss/bootstrap/_sprites.scss */
 .icon-plus-sign {
-  background-position: 0      -96px;
+  background-position: 0 -96px;
 }
 
 /* line 137, ../common-scss/bootstrap/_sprites.scss */
 .icon-minus-sign {
-  background-position: -24px  -96px;
+  background-position: -24px -96px;
 }
 
 /* line 138, ../common-scss/bootstrap/_sprites.scss */
 .icon-remove-sign {
-  background-position: -48px  -96px;
+  background-position: -48px -96px;
 }
 
 /* line 139, ../common-scss/bootstrap/_sprites.scss */
 .icon-ok-sign {
-  background-position: -72px  -96px;
+  background-position: -72px -96px;
 }
 
 /* line 140, ../common-scss/bootstrap/_sprites.scss */
 .icon-question-sign {
-  background-position: -96px  -96px;
+  background-position: -96px -96px;
 }
 
 /* line 141, ../common-scss/bootstrap/_sprites.scss */
@@ -2983,27 +2983,27 @@ table th[class*="span"],
 
 /* line 157, ../common-scss/bootstrap/_sprites.scss */
 .icon-exclamation-sign {
-  background-position: 0      -120px;
+  background-position: 0 -120px;
 }
 
 /* line 158, ../common-scss/bootstrap/_sprites.scss */
 .icon-gift {
-  background-position: -24px  -120px;
+  background-position: -24px -120px;
 }
 
 /* line 159, ../common-scss/bootstrap/_sprites.scss */
 .icon-leaf {
-  background-position: -48px  -120px;
+  background-position: -48px -120px;
 }
 
 /* line 160, ../common-scss/bootstrap/_sprites.scss */
 .icon-fire {
-  background-position: -72px  -120px;
+  background-position: -72px -120px;
 }
 
 /* line 161, ../common-scss/bootstrap/_sprites.scss */
 .icon-eye-open {
-  background-position: -96px  -120px;
+  background-position: -96px -120px;
 }
 
 /* line 162, ../common-scss/bootstrap/_sprites.scss */
@@ -3086,27 +3086,27 @@ table th[class*="span"],
 
 /* line 178, ../common-scss/bootstrap/_sprites.scss */
 .icon-hdd {
-  background-position: 0      -144px;
+  background-position: 0 -144px;
 }
 
 /* line 179, ../common-scss/bootstrap/_sprites.scss */
 .icon-bullhorn {
-  background-position: -24px  -144px;
+  background-position: -24px -144px;
 }
 
 /* line 180, ../common-scss/bootstrap/_sprites.scss */
 .icon-bell {
-  background-position: -48px  -144px;
+  background-position: -48px -144px;
 }
 
 /* line 181, ../common-scss/bootstrap/_sprites.scss */
 .icon-certificate {
-  background-position: -72px  -144px;
+  background-position: -72px -144px;
 }
 
 /* line 182, ../common-scss/bootstrap/_sprites.scss */
 .icon-thumbs-up {
-  background-position: -96px  -144px;
+  background-position: -96px -144px;
 }
 
 /* line 183, ../common-scss/bootstrap/_sprites.scss */
@@ -3232,7 +3232,7 @@ table th[class*="span"],
   margin: 2px 0 0;
   list-style: none;
   background-color: white;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   *border-right-width: 2px;
   *border-bottom-width: 2px;
@@ -3601,7 +3601,7 @@ button.close {
 }
 /* line 41, ../common-scss/bootstrap/_buttons.scss */
 .btn:focus {
-  outline: thin dotted #333;
+  outline: thin dotted #333333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -4446,7 +4446,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 113, ../common-scss/bootstrap/_navs.scss */
 .nav-tabs {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
 }
 
 /* line 117, ../common-scss/bootstrap/_navs.scss */
@@ -4475,7 +4475,7 @@ input[type="submit"].btn.btn-mini {
 .nav-tabs > .active > a:focus {
   color: #555555;
   background-color: white;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -4516,7 +4516,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 181, ../common-scss/bootstrap/_navs.scss */
 .nav-tabs.nav-stacked > li > a {
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -4679,7 +4679,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 316, ../common-scss/bootstrap/_navs.scss */
 .tabs-below > .nav-tabs {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
 }
 
 /* line 319, ../common-scss/bootstrap/_navs.scss */
@@ -4704,7 +4704,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-below > .nav-tabs > .active > a,
 .tabs-below > .nav-tabs > .active > a:hover,
 .tabs-below > .nav-tabs > .active > a:focus {
-  border-color: transparent #ddd #ddd #ddd;
+  border-color: transparent #dddddd #dddddd #dddddd;
 }
 
 /* line 342, ../common-scss/bootstrap/_navs.scss */
@@ -4725,7 +4725,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-left > .nav-tabs {
   float: left;
   margin-right: 19px;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid #dddddd;
 }
 
 /* line 358, ../common-scss/bootstrap/_navs.scss */
@@ -4746,7 +4746,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-left > .nav-tabs .active > a,
 .tabs-left > .nav-tabs .active > a:hover,
 .tabs-left > .nav-tabs .active > a:focus {
-  border-color: #ddd transparent #ddd #ddd;
+  border-color: #dddddd transparent #dddddd #dddddd;
   *border-right-color: white;
 }
 
@@ -4754,7 +4754,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-right > .nav-tabs {
   float: right;
   margin-left: 19px;
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #dddddd;
 }
 
 /* line 379, ../common-scss/bootstrap/_navs.scss */
@@ -4775,7 +4775,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-right > .nav-tabs .active > a,
 .tabs-right > .nav-tabs .active > a:hover,
 .tabs-right > .nav-tabs .active > a:focus {
-  border-color: #ddd #ddd #ddd transparent;
+  border-color: #dddddd #dddddd #dddddd transparent;
   *border-left-color: white;
 }
 
@@ -5156,7 +5156,7 @@ input[type="submit"].btn.btn-mini {
   display: inline-block;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid #ccc;
+  border-bottom: 7px solid #cccccc;
   border-bottom-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   top: -7px;
@@ -5176,7 +5176,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 326, ../common-scss/bootstrap/_navbar.scss */
 .navbar-fixed-bottom .nav > li > .dropdown-menu:before {
-  border-top: 7px solid #ccc;
+  border-top: 7px solid #cccccc;
   border-top-color: rgba(0, 0, 0, 0.2);
   border-bottom: 0;
   bottom: -7px;
@@ -5617,7 +5617,7 @@ input[type="submit"].btn.btn-mini {
   display: inline-block;
   padding: 5px 14px;
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
@@ -5683,9 +5683,9 @@ input[type="submit"].btn.btn-mini {
   width: 560px;
   margin-left: -280px;
   background-color: white;
-  border: 1px solid #999;
+  border: 1px solid #999999;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  *border: 1px solid #999;
+  *border: 1px solid #999999;
   /* IE6-7 */
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -5714,7 +5714,7 @@ input[type="submit"].btn.btn-mini {
 /* line 47, ../common-scss/bootstrap/_modals.scss */
 .modal-header {
   padding: 9px 15px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eeeeee;
 }
 /* line 51, ../common-scss/bootstrap/_modals.scss */
 .modal-header .close {
@@ -5745,7 +5745,7 @@ input[type="submit"].btn.btn-mini {
   margin-bottom: 0;
   text-align: right;
   background-color: #f5f5f5;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
@@ -5884,7 +5884,7 @@ input[type="submit"].btn.btn-mini {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -6055,7 +6055,7 @@ input[type="submit"].btn.btn-mini {
   display: block;
   padding: 4px;
   line-height: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -8021,7 +8021,7 @@ a.label:hover, a.label:focus, a.badge:hover, a.badge:focus {
   /* line 136, ../common-scss/bootstrap/_responsive-767px-max.scss */
   input[type="checkbox"],
   input[type="radio"] {
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc;
   }
 
   /* line 142, ../common-scss/bootstrap/_responsive-767px-max.scss */
@@ -8422,7 +8422,7 @@ a [class*=" icon-"] {
 /* line 74, ../common-scss/font-awesome/scss/_core.scss */
 .icon-border {
   border: solid 1px #eeeeee;
-  padding: .2em .25em .15em;
+  padding: 0.2em 0.25em 0.15em;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -10852,9 +10852,9 @@ blockquote.pull-right {
   margin: -250px 0 0 -280px;
   overflow: auto;
   background-color: #ffffff;
-  border: 1px solid #999;
+  border: 1px solid #999999;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  *border: 1px solid #999;
+  *border: 1px solid #999999;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -10891,7 +10891,7 @@ blockquote.pull-right {
 /* line 253, ../common-scss/w8.scss */
 .modal-header {
   padding: 9px 15px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eeeeee;
 }
 
 /* line 258, ../common-scss/w8.scss */
@@ -10924,15 +10924,15 @@ blockquote.pull-right {
   margin-bottom: 0;
   text-align: right;
   background-color: #eff3f8;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
   border-top-color: #e4e9ee;
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
   *zoom: 1;
-  -webkit-box-shadow: inset 0 1px 0 #ffffff;
-  -moz-box-shadow: inset 0 1px 0 #ffffff;
-  box-shadow: inset 0 1px 0 #ffffff;
+  -webkit-box-shadow: inset 0 1px 0 white;
+  -moz-box-shadow: inset 0 1px 0 white;
+  box-shadow: inset 0 1px 0 white;
 }
 
 /* line 295, ../common-scss/w8.scss */
@@ -11490,7 +11490,7 @@ blockquote.pull-right {
   margin-bottom: 16px;
   margin-top: 18px;
   padding-bottom: 4px;
-  border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid #cccccc;
 }
 /* line 760, ../common-scss/w8.scss */
 .header.blue {
@@ -11614,7 +11614,7 @@ blockquote.pull-right {
   line-height: 45px;
   max-height: 45px;
   background: #2e6589;
-  border-left: 1px solid #DDD;
+  border-left: 1px solid #dddddd;
   padding: 0;
   position: relative;
 }
@@ -11723,7 +11723,7 @@ blockquote.pull-right {
 .ace-nav .nav-user-photo {
   margin: -4px 8px 0 0;
   border-radius: 24px;
-  border: 2px solid #FFF;
+  border: 2px solid white;
   max-width: 36px !important;
 }
 /* line 949, ../common-scss/w8.scss */
@@ -11831,10 +11831,10 @@ blockquote.pull-right {
   font-size: 13px;
   color: #666666 !important;
   z-index: 11;
-  -webkit-transition: all ease .15s;
-  -moz-transition: all ease .15s;
-  -o-transition: all ease .15s;
-  transition: all ease .15s;
+  -webkit-transition: all ease 0.15s;
+  -moz-transition: all ease 0.15s;
+  -o-transition: all ease 0.15s;
+  transition: all ease 0.15s;
 }
 /* line 1045, ../common-scss/w8.scss */
 #nav-search-input + .dropdown-menu {
@@ -11868,14 +11868,14 @@ blockquote.pull-right {
   position: absolute;
   margin-left: 0;
   margin-top: 0;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #cccccc;
   background-color: #FFF;
 }
 /* line 1069, ../common-scss/w8.scss */
 #sidebar > #nav-search {
   position: static;
   background-color: #fafafa;
-  border-bottom: 1px solid #DDD;
+  border-bottom: 1px solid #dddddd;
   text-align: center;
   height: 35px;
   padding-top: 5px;
@@ -11953,7 +11953,7 @@ blockquote.pull-right {
   top: 0;
   z-index: -1;
   background-color: #f2f2f2;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #cccccc;
 }
 /* line 1149, ../common-scss/w8.scss */
 #sidebar.fixed {
@@ -12253,7 +12253,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   cursor: pointer;
   font-size: 14px;
   color: #aaa;
-  border: 1px solid #bbb;
+  border: 1px solid #bbbbbb;
   padding: 0 5px;
   line-height: 18px;
   border-radius: 16px;
@@ -12275,7 +12275,7 @@ li [class^="icon-"], li [class*=" icon-"] {
 /* line 1428, ../common-scss/w8.scss */
 #sidebar-shortcuts {
   background-color: #fafafa;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
   text-align: center;
   margin-top: 3px;
 }
@@ -12345,7 +12345,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   background-color: #f5f5f5;
   z-index: 121;
   box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   padding-left: 12px;
 }
 /* line 1493, ../common-scss/w8.scss */
@@ -12355,7 +12355,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   top: -1px;
   left: 42px;
   width: 163px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
 }
 /* line 1501, ../common-scss/w8.scss */
 .menu-min .nav-list > li > a .arrow {
@@ -12411,7 +12411,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   left: 41px;
   top: -2px;
   width: 175px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
   padding-top: 40px;
   padding-bottom: 2px;
@@ -12461,7 +12461,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   z-index: 20;
   background-color: #fff;
   box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   padding: 0 2px 3px;
 }
 /* line 1597, ../common-scss/w8.scss */
@@ -12495,10 +12495,10 @@ li [class^="icon-"], li [class*=" icon-"] {
   background-image: none !important;
   border: 5px solid;
   box-shadow: none !important;
-  -webkit-transition: all .1s ease-in-out;
-  -moz-transition: all .1s ease-in-out;
-  -o-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
   cursor: pointer;
   vertical-align: middle;
   margin: 0;
@@ -13376,7 +13376,7 @@ button.btn:active {
 .btn-app.btn-light {
   color: #5a5a5a !important;
   text-shadow: 0 1px 1px #eeeeee !important;
-  border: 2px solid #DDD;
+  border: 2px solid #dddddd;
   background: #ededed !important;
   background-color: #eeeeee !important;
   background-image: -moz-linear-gradient(top, #f4f4f4, #e6e6e6) !important;
@@ -14394,10 +14394,10 @@ button.btn:active {
   padding: 0;
   border-radius: 0;
   position: relative;
-  -webkit-transition: all ease .1s;
-  -moz-transition: all ease .1s;
-  -o-transition: all ease .1s;
-  transition: all ease .1s;
+  -webkit-transition: all ease 0.1s;
+  -moz-transition: all ease 0.1s;
+  -o-transition: all ease 0.1s;
+  transition: all ease 0.1s;
 }
 /* line 3327, ../common-scss/w8.scss */
 .dropdown-colorpicker > .dropdown-menu > li > .colorpick-btn:hover {
@@ -14496,7 +14496,7 @@ button.btn:active {
 }
 /* line 3413, ../common-scss/w8.scss */
 .dropdown-navbar > li:last-child > a {
-  border-bottom: 0 solid #DDD;
+  border-bottom: 0 solid #dddddd;
   border-top: 1px dotted transparent;
   color: #4f99c6;
   text-align: center;
@@ -14667,7 +14667,7 @@ button.btn:active {
 .form-line {
   margin-bottom: 24px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid #eeeeee;
 }
 
 /* line 3564, ../common-scss/w8.scss */
@@ -14693,7 +14693,7 @@ button.btn:active {
   -moz-border-radius: 16px;
   border-radius: 16px;
   border-color: #FFF;
-  border: 2px solid #FFF;
+  border: 2px solid white;
   -webkit-box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.2);
@@ -14766,7 +14766,7 @@ textarea.autosize-transition {
 
 /* line 3651, ../common-scss/w8.scss */
 .limiterBox {
-  border: 1px solid #222;
+  border: 1px solid #222222;
   border-top: 0;
   background-color: #333;
   padding: 3px 6px;
@@ -15039,7 +15039,7 @@ input[type=checkbox] + .lbl::before, input[type=radio] + .lbl::before {
   color: #32a3ce;
   content: "\a0";
   background-color: #fafafa;
-  border: 1px solid #CCC;
+  border: 1px solid #cccccc;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   border-radius: 0;
   display: inline-block;
@@ -15124,7 +15124,7 @@ input[type=checkbox].ace-switch + .lbl::before {
   border-radius: 12px;
   background-color: #f5f5f5;
   box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-  border: 1px solid #CCC;
+  border: 1px solid #cccccc;
   text-align: left;
   float: left;
   padding: 0;
@@ -15132,10 +15132,10 @@ input[type=checkbox].ace-switch + .lbl::before {
   text-indent: -19px;
   text-indent: -21px\9;
   margin-right: 0;
-  -webkit-transition: text-indent .4s ease;
-  -moz-transition: text-indent .4s ease;
-  -o-transition: text-indent .4s ease;
-  transition: text-indent .4s ease;
+  -webkit-transition: text-indent 0.4s ease;
+  -moz-transition: text-indent 0.4s ease;
+  -o-transition: text-indent 0.4s ease;
+  transition: text-indent 0.4s ease;
 }
 /* line 3982, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch + .lbl::after {
@@ -15157,10 +15157,10 @@ input[type=checkbox].ace-switch + .lbl::after {
   padding: 0;
   box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.3);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3) inset;
-  -webkit-transition: left .4s ease;
-  -moz-transition: left .4s ease;
-  -o-transition: left .4s ease;
-  transition: left .4s ease;
+  -webkit-transition: left 0.4s ease;
+  -moz-transition: left 0.4s ease;
+  -o-transition: left 0.4s ease;
+  transition: left 0.4s ease;
 }
 /* line 4008, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch:checked + .lbl::before {
@@ -15212,10 +15212,10 @@ input[type=checkbox].ace-switch.ace-switch-4 + .lbl::before, input[type=checkbox
   position: relative;
   margin-right: 8px;
   box-shadow: none;
-  -webkit-transition: all .4s ease;
-  -moz-transition: all .4s ease;
-  -o-transition: all .4s ease;
-  transition: all .4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
 }
 /* line 4060, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-4 + .lbl::after, input[type=checkbox].ace-switch.ace-switch-5 + .lbl::after {
@@ -15235,10 +15235,10 @@ input[type=checkbox].ace-switch.ace-switch-4 + .lbl::after, input[type=checkbox]
   height: 18px;
   line-height: 16px;
   background-color: #FFF;
-  -webkit-transition: all .4s ease;
-  -moz-transition: all .4s ease;
-  -o-transition: all .4s ease;
-  transition: all .4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
 }
 /* line 4082, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-4:checked + .lbl::before, input[type=checkbox].ace-switch.ace-switch-5:checked + .lbl::before {
@@ -15285,10 +15285,10 @@ input[type=checkbox].ace-switch.ace-switch-6 + .lbl::before {
   height: 22px;
   line-height: 20px;
   text-indent: 32px;
-  -webkit-transition: background .1s ease;
-  -moz-transition: background .1s ease;
-  -o-transition: background .1s ease;
-  transition: background .1s ease;
+  -webkit-transition: background 0.1s ease;
+  -moz-transition: background 0.1s ease;
+  -o-transition: background 0.1s ease;
+  transition: background 0.1s ease;
 }
 /* line 4129, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-6 + .lbl::after {
@@ -15304,10 +15304,10 @@ input[type=checkbox].ace-switch.ace-switch-6 + .lbl::after {
   text-align: center;
   background-color: #f2f2f2;
   border: 4px solid #f2f2f2;
-  -webkit-transition: left .2s ease;
-  -moz-transition: left .2s ease;
-  -o-transition: left .2s ease;
-  transition: left .2s ease;
+  -webkit-transition: left 0.2s ease;
+  -moz-transition: left 0.2s ease;
+  -o-transition: left 0.2s ease;
+  transition: left 0.2s ease;
 }
 /* line 4149, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-6:checked + .lbl::before {
@@ -15321,7 +15321,7 @@ input[type=checkbox].ace-switch.ace-switch-6:checked + .lbl::before {
 input[type=checkbox].ace-switch.ace-switch-6:checked + .lbl::after {
   left: 32px;
   background-color: #FFF;
-  border: 4px solid #FFF;
+  border: 4px solid white;
   text-shadow: 0 -1px 0 rgba(0, 200, 0, 0.25);
 }
 /* line 4164, ../common-scss/w8.scss */
@@ -15339,7 +15339,7 @@ input[type=checkbox].ace-switch.ace-switch-7 + .lbl::before {
   font-size: 14px;
   line-height: 20px;
   background-color: #FFF;
-  border: 2px solid #AAA;
+  border: 2px solid #aaaaaa;
   border-radius: 0;
   box-shadow: none;
   color: #aaa;
@@ -15351,10 +15351,10 @@ input[type=checkbox].ace-switch.ace-switch-7 + .lbl::before {
   display: inline-block;
   position: relative;
   margin-right: 8px;
-  -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  transition: all .2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 /* line 4191, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-7 + .lbl::after {
@@ -15372,10 +15372,10 @@ input[type=checkbox].ace-switch.ace-switch-7 + .lbl::after {
   color: #FFF;
   border-radius: 0;
   box-shadow: none;
-  -webkit-transition: all .2s ease-in-out;
-  -moz-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 /* line 4213, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::before {
@@ -15477,10 +15477,10 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   -webkit-box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
   -moz-box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
   box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
-  -webkit-transition: all .15s;
-  -moz-transition: all .15s;
-  -o-transition: all .15s;
-  transition: all .15s;
+  -webkit-transition: all 0.15s;
+  -moz-transition: all 0.15s;
+  -o-transition: all 0.15s;
+  transition: all 0.15s;
 }
 /* line 4314, ../common-scss/w8.scss */
 .ace-file-input label:hover {
@@ -15504,12 +15504,12 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   color: #FFF;
   font-size: 11px;
   font-weight: bold;
-  border: 2px solid #FFF;
+  border: 2px solid white;
   border-left-width: 4px;
-  -webkit-transition: all .3s;
-  -moz-transition: all .3s;
-  -o-transition: all .3s;
-  transition: all .3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
 }
 /* line 4341, ../common-scss/w8.scss */
 .ace-file-input label span {
@@ -15549,12 +15549,12 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   font-size: 13px;
   line-height: 22px;
   width: 22px;
-  border: 2px solid #FFF;
+  border: 2px solid white;
   color: #FFF;
-  -webkit-transition: all .1s;
-  -moz-transition: all .1s;
-  -o-transition: all .1s;
-  transition: all .1s;
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+  -o-transition: all 0.1s;
+  transition: all 0.1s;
   background-color: #d1d1d1;
 }
 /* line 4383, ../common-scss/w8.scss */
@@ -15614,7 +15614,7 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
 .ace-file-multiple label {
   position: relative;
   height: auto;
-  border: 1px dashed #aaa;
+  border: 1px dashed #aaaaaa;
   border-radius: 4px;
 }
 /* line 4433, ../common-scss/w8.scss */
@@ -15644,12 +15644,12 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   font-size: 13px;
   line-height: 22px;
   width: 22px;
-  border: 2px solid #FFF;
+  border: 2px solid white;
   color: #FFF;
-  -webkit-transition: all .1s;
-  -moz-transition: all .1s;
-  -o-transition: all .1s;
-  transition: all .1s;
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+  -o-transition: all 0.1s;
+  transition: all 0.1s;
 }
 /* line 4465, ../common-scss/w8.scss */
 .ace-file-multiple label span {
@@ -15660,7 +15660,7 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   width: auto;
   max-width: 100%;
   margin: 0 4px;
-  border-bottom: 1px solid #DDD;
+  border-bottom: 1px solid #dddddd;
 }
 /* line 4474, ../common-scss/w8.scss */
 .ace-file-multiple label span:first-child {
@@ -15698,7 +15698,7 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
 .ace-file-multiple .remove {
   right: -11px;
   top: -11px;
-  border: 3px solid #BBB;
+  border: 3px solid #bbbbbb;
   border-radius: 32px;
   background-color: #FFF;
   color: red;
@@ -15734,7 +15734,7 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
 /* line 4537, ../common-scss/w8.scss */
 .ace-file-multiple label span.large {
   text-align: center;
-  border-bottom: 2px solid #222;
+  border-bottom: 2px solid #222222;
   margin: 2px;
   margin: 0 1px 3px;
 }
@@ -16293,7 +16293,7 @@ th, td, .table-bordered {
 }
 /* line 5045, ../common-scss/w8.scss */
 .table thead:first-child tr th {
-  border: 1px solid #DDD;
+  border: 1px solid #dddddd;
   border-width: 0 1px;
   font-weight: bold;
 }
@@ -16369,10 +16369,10 @@ td.td-actions a.td-action {
   margin: 0;
   padding: 0;
   width: 24px;
-  -webkit-transition: all .1s;
-  -moz-transition: all .1s;
-  -o-transition: all .1s;
-  transition: all .1s;
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+  -o-transition: all 0.1s;
+  transition: all 0.1s;
   background: -moz-linear-gradient(center top, white, #f7f7f4) repeat scroll 0 0 transparent !important;
   border: 1px solid #c1d6e1;
   border-radius: 6px 6px 6px 6px;
@@ -16381,7 +16381,7 @@ td.td-actions a.td-action {
   margin: 0;
   padding: 0;
   text-align: center;
-  transition: all .1s ease 0s;
+  transition: all 0.1s ease 0s;
   width: 24px;
 }
 /* line 5117, ../common-scss/w8.scss */
@@ -16449,15 +16449,15 @@ td.td-actions a.td-action:hover {
 }
 /* line 5181, ../common-scss/w8.scss */
 .dataTables_wrapper .row-fluid:first-child + .dataTable {
-  border-top: 1px solid #DDD;
-  border-bottom: 1px solid #DDD;
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
 }
 /* line 5186, ../common-scss/w8.scss */
 .dataTables_wrapper .row-fluid:last-child {
-  border-top: 1px solid #DDD;
+  border-top: 1px solid #dddddd;
   padding: 12px 0 6px;
   background-color: #eff3f8;
-  border-bottom: 1px solid #DDD;
+  border-bottom: 1px solid #dddddd;
 }
 
 /* line 5195, ../common-scss/w8.scss */
@@ -16510,7 +16510,7 @@ td.td-actions a.td-action:hover {
   -moz-box-shadow: none;
   box-shadow: none;
   margin: 3px 0;
-  border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid #cccccc;
 }
 
 /* line 5241, ../common-scss/w8.scss */
@@ -16527,8 +16527,8 @@ td.td-actions a.td-action:hover {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffeeeeee',GradientType=0);
   color: #669fc7;
-  border: 1px solid #CCC;
-  border-bottom: 1px solid #DDD;
+  border: 1px solid #cccccc;
+  border-bottom: 1px solid #dddddd;
   padding-left: 12px;
   text-align: right;
 }
@@ -16816,7 +16816,7 @@ td.td-actions a.td-action:hover {
 
 /* line 5497, ../common-scss/w8.scss */
 .widget-body {
-  border: 1px solid #CCC;
+  border: 1px solid #cccccc;
   border-top: 0;
   background-color: #FFF;
 }
@@ -16924,7 +16924,7 @@ td.td-actions a.td-action:hover {
 
 /* line 5590, ../common-scss/w8.scss */
 .widget-toolbar > .dropdown > .dropdown-menu:after, .dropdown-menu.dropdown-caret:after {
-  border-bottom: 6px solid #fff;
+  border-bottom: 6px solid white;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   content: "";
@@ -17283,18 +17283,18 @@ td.td-actions a.td-action:hover {
 /* line 5897, ../common-scss/w8.scss */
 .widget-toolbox:first-child {
   padding: 2px;
-  border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid #cccccc;
 }
 /* line 5901, ../common-scss/w8.scss */
 .widget-toolbox:last-child {
   padding: 2px;
-  border-top: 1px solid #CCC;
+  border-top: 1px solid #cccccc;
 }
 
 /* line 5907, ../common-scss/w8.scss */
 .transparent .widget-toolbox:last-child {
   border: 0;
-  border-top: 1px solid #CCC;
+  border-top: 1px solid #cccccc;
 }
 
 /* line 5913, ../common-scss/w8.scss */
@@ -18534,10 +18534,10 @@ td.td-actions a.td-action:hover {
   -o-transform: scale(1, 1) translate(0);
   -ms-transform: scale(1, 1) translate(0);
   transform: scale(1, 1) translate(0);
-  -webkit-transition: all .3s ease;
-  -moz-transition: all .3s ease;
-  -o-transition: all .3s ease;
-  transition: all .3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
   -o-transition: none;
   -webkit-transition: none;
 }
@@ -18660,7 +18660,7 @@ td.td-actions a.td-action:hover {
   position: relative;
   overflow: hidden;
   margin: 2px;
-  border: 2px solid #333;
+  border: 2px solid #333333;
 }
 /* line 7085, ../common-scss/w8.scss */
 .ace-thumbnails > li > :first-child {
@@ -18696,10 +18696,10 @@ td.td-actions a.td-action:hover {
   background-color: rgba(0, 0, 0, 0.55);
   text-align: center;
   vertical-align: middle;
-  -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  transition: all .2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 /* line 7119, ../common-scss/w8.scss */
 .ace-thumbnails > li > .tools.tools-right {
@@ -18772,10 +18772,10 @@ td.td-actions a.td-action:hover {
   background-color: rgba(0, 0, 0, 0.55);
   opacity: 0;
   filter: alpha(opacity=0);
-  -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  transition: all .2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 /* line 7188, ../common-scss/w8.scss */
 .ace-thumbnails > li > :first-child > .text:before {
@@ -19026,7 +19026,7 @@ td.td-actions a.td-action:hover {
 }
 /* line 7411, ../common-scss/w8.scss */
 .item-list > li {
-  border: 1px solid #DDD;
+  border: 1px solid #dddddd;
   border-left-width: 3px;
   padding: 9px;
   background-color: #FFF;
@@ -19287,7 +19287,7 @@ td.td-actions a.td-action:hover {
   line-height: 30px;
   margin-right: 5px;
   font-size: 15px;
-  border-right: 1px solid #FFF;
+  border-right: 1px solid white;
 }
 
 /* line 7635, ../common-scss/w8.scss */
@@ -19550,7 +19550,7 @@ td.td-actions a.td-action:hover {
 
 /* line 7864, ../common-scss/w8.scss */
 #cboxContent {
-  border: 12px solid #000;
+  border: 12px solid black;
   background-color: #FFF;
   padding: 7px;
 }
@@ -19581,7 +19581,7 @@ td.td-actions a.td-action:hover {
   line-height: 14px;
   padding: 0 4px;
   text-align: center;
-  border: 2px solid #999;
+  border: 2px solid #999999;
   border-radius: 16px;
   color: #666;
   font-size: 12px;
@@ -19604,7 +19604,7 @@ td.td-actions a.td-action:hover {
 #cboxClose {
   background-color: #000;
   color: #fff;
-  border: 2px solid #fff;
+  border: 2px solid white;
   border-radius: 32px;
   font-size: 20px;
   height: 24px;
@@ -19865,7 +19865,7 @@ td.td-actions a.td-action:hover {
   top: 15px;
   bottom: 0;
   left: -15px;
-  border-left: 1px solid #FFF;
+  border-left: 1px solid white;
 }
 /* line 8146, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-content {
@@ -19929,11 +19929,11 @@ td.td-actions a.td-action:hover {
 }
 /* line 8197, ../common-scss/w8.scss */
 .tree .tree-item {
-  border: 1px solid #FFF;
+  border: 1px solid white;
 }
 /* line 8200, ../common-scss/w8.scss */
 .tree .tree-folder {
-  border: 1px solid #FFF;
+  border: 1px solid white;
 }
 /* line 8202, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-header {
@@ -19955,7 +19955,7 @@ td.td-actions a.td-action:hover {
   text-align: center;
   border-radius: 3px;
   background-color: #fafafa;
-  border: 1px solid #CCC;
+  border: 1px solid #cccccc;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 /* line 8223, ../common-scss/w8.scss */
@@ -19966,7 +19966,7 @@ td.td-actions a.td-action:hover {
 }
 /* line 8228, ../common-scss/w8.scss */
 .tree .icon-plus[class*="icon-"]:first-child, .tree .icon-minus[class*="icon-"]:first-child {
-  border: 1px solid #DDD;
+  border: 1px solid #dddddd;
   vertical-align: middle;
   height: 11px;
   width: 11px;
@@ -20052,7 +20052,7 @@ td.td-actions a.td-action:hover {
 /* line 8301, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light {
   background: rgba(245, 245, 245, 0.95);
-  border: 1px solid #BBB;
+  border: 1px solid #bbbbbb;
 }
 /* line 8304, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light.gritter-info {
@@ -20579,11 +20579,11 @@ td.td-actions a.td-action:hover {
 /* line 8766, ../common-scss/w8.scss */
 .icon-animated-bell {
   display: inline-block;
-  -moz-animation: ringing 2.0s 5 ease 1.0s;
-  -webkit-animation: ringing 2.0s 5 ease 1.0s;
-  -o-animation: ringing 2.0s 5 ease 1.0s;
-  -ms-animation: ringing 2.0s 5 ease 1.0s;
-  animation: ringing 2.0s 5 ease 1.0s;
+  -moz-animation: ringing 2s 5 ease 1s;
+  -webkit-animation: ringing 2s 5 ease 1s;
+  -o-animation: ringing 2s 5 ease 1s;
+  -ms-animation: ringing 2s 5 ease 1s;
+  animation: ringing 2s 5 ease 1s;
   -moz-transform-origin: 50% 0;
   -webkit-transform-origin: 50% 0;
   -o-transform-origin: 50% 0;
@@ -20822,11 +20822,11 @@ td.td-actions a.td-action:hover {
 /* line 8928, ../common-scss/w8.scss */
 .icon-animated-vertical {
   display: inline-block;
-  -moz-animation: vertical 2.0s 5 ease 2.0s;
-  -webkit-animation: vertical 2.0s 5 ease 2.0s;
-  -o-animation: vertical 2.0s 5 ease 2.0s;
-  -ms-animation: vertical 2.0s 5 ease 2.0s;
-  animation: vertical 2.0s 5 ease 2.0s;
+  -moz-animation: vertical 2s 5 ease 2s;
+  -webkit-animation: vertical 2s 5 ease 2s;
+  -o-animation: vertical 2s 5 ease 2s;
+  -ms-animation: vertical 2s 5 ease 2s;
+  animation: vertical 2s 5 ease 2s;
 }
 
 @-moz-keyframes vertical {
@@ -22263,9 +22263,9 @@ a.olControlZoomOut {
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
-  box-shadow: 2px 2px 2px #000;
-  -moz-box-shadow: 2px 2px 2px #000;
-  -webkit-box-shadow: 2px 2px 2px #000;
+  box-shadow: 2px 2px 2px black;
+  -moz-box-shadow: 2px 2px 2px black;
+  -webkit-box-shadow: 2px 2px 2px black;
 }
 
 /* line 628, ../common-scss/gis/default.scss */
@@ -26155,7 +26155,7 @@ table.x-date-inner {
 /* line 3288, ../common-scss/gis/ext-all.scss */
 .x-date-mp td {
   padding: 2px;
-  font: normal 11px arial, helvetica,tahoma,sans-serif;
+  font: normal 11px arial, helvetica, tahoma, sans-serif;
 }
 
 /* line 3295, ../common-scss/gis/ext-all.scss */
@@ -27064,7 +27064,7 @@ Creates rounded, raised boxes like on the Ext website - the markup isn't pretty:
 
 /* line 4100, ../common-scss/gis/ext-all.scss */
 .x-tool-close {
-  background-position: 0 -0;
+  background-position: 0 0;
 }
 
 /* line 4104, ../common-scss/gis/ext-all.scss */
@@ -28199,7 +28199,7 @@ body.ext-ie6.x-body-masked .x-window select {
 /* IE6 strict won't drag w/out a color */
 /* line 5058, ../common-scss/gis/ext-all.scss */
 .ext-strict .ext-ie6 .x-layout-split {
-  background-color: #fff !important;
+  background-color: white !important;
   filter: alpha(opacity=1);
 }
 
@@ -28760,7 +28760,7 @@ ul.x-tab-strip-bottom {
 
 /* line 5554, ../common-scss/gis/ext-all.scss */
 .x-tab-strip span.x-tab-strip-text {
-  font: normal 11px tahoma,arial,helvetica;
+  font: normal 11px tahoma, arial, helvetica;
   color: #416aa3;
 }
 
@@ -28996,7 +28996,7 @@ ul.x-tab-strip-bottom {
 }
 /* line 5756, ../common-scss/gis/ext-all.scss */
 .x-btn button {
-  font: normal 11px arial,tahoma,verdana,helvetica;
+  font: normal 11px arial, tahoma, verdana, helvetica;
   color: #333;
 }
 /* line 5760, ../common-scss/gis/ext-all.scss */
@@ -29091,7 +29091,7 @@ ul.x-tab-strip-bottom {
 }
 /* line 5836, ../common-scss/gis/ext-all.scss */
 .x-toolbar td, .x-toolbar span, .x-toolbar input, .x-toolbar div, .x-toolbar select, .x-toolbar label {
-  font: normal 11px arial,tahoma, helvetica, sans-serif;
+  font: normal 11px arial, tahoma, helvetica, sans-serif;
 }
 /* line 5839, ../common-scss/gis/ext-all.scss */
 .x-toolbar .x-item-disabled {
@@ -29358,7 +29358,7 @@ td.grid-hd-group-cell {
 }
 /* line 6054, ../common-scss/gis/ext-all.scss */
 .x-grid3-cell-selected span {
-  color: #000 !important;
+  color: black !important;
 }
 /* line 6057, ../common-scss/gis/ext-all.scss */
 .x-grid3-cell-selected .x-grid3-cell-text {
@@ -29400,11 +29400,11 @@ td.grid-hd-group-cell {
 /* line 6091, ../common-scss/gis/ext-all.scss */
 .x-props-grid .x-grid3-td-name .x-grid3-cell-inner {
   background-image: url(/tools-gis-viewer/images/extjs/default/grid/grid3-special-col-bg.gif) !important;
-  color: #000 !important;
+  color: black !important;
 }
 /* line 6095, ../common-scss/gis/ext-all.scss */
 .x-props-grid .x-grid3-body .x-grid3-td-name {
-  background-color: #fff !important;
+  background-color: white !important;
   border-right-color: #eee;
 }
 
@@ -29561,7 +29561,7 @@ td.grid-hd-group-cell {
 .x-dd-drag-ghost {
   color: #000;
   font: normal 11px arial, helvetica, sans-serif;
-  border-color: #ddd #bbb #bbb #ddd;
+  border-color: #dddddd #bbbbbb #bbbbbb #dddddd;
   background-color: #fff;
 }
 
@@ -29776,7 +29776,7 @@ td.grid-hd-group-cell {
   background-color: #dfecfb;
   background-image: url(/tools-gis-viewer/images/extjs/default/shared/glass-bg.gif);
   border-bottom-color: #a3bad9;
-  font: normal 10px arial, helvetica,tahoma,sans-serif;
+  font: normal 10px arial, helvetica, tahoma, sans-serif;
   color: #233d6d;
 }
 /* line 6424, ../common-scss/gis/ext-all.scss */
@@ -29785,7 +29785,7 @@ td.grid-hd-group-cell {
 }
 /* line 6427, ../common-scss/gis/ext-all.scss */
 .x-date-inner a {
-  font: normal 11px arial, helvetica,tahoma,sans-serif;
+  font: normal 11px arial, helvetica, tahoma, sans-serif;
   color: #000;
 }
 /* line 6431, ../common-scss/gis/ext-all.scss */
@@ -29836,7 +29836,7 @@ td.grid-hd-group-cell {
 
 /* line 6471, ../common-scss/gis/ext-all.scss */
 .x-date-mmenu {
-  background-color: #eee !important;
+  background-color: #eeeeee !important;
 }
 /* line 6473, ../common-scss/gis/ext-all.scss */
 .x-date-mmenu .x-menu-item {
@@ -29850,7 +29850,7 @@ td.grid-hd-group-cell {
 }
 /* line 6481, ../common-scss/gis/ext-all.scss */
 .x-date-mp td {
-  font: normal 11px arial, helvetica,tahoma,sans-serif;
+  font: normal 11px arial, helvetica, tahoma, sans-serif;
 }
 
 /* line 6486, ../common-scss/gis/ext-all.scss */
@@ -29863,7 +29863,7 @@ td.grid-hd-group-cell {
   background-color: #083772;
   color: #fff;
   border-color: #3366cc #000055 #000055 #3366cc;
-  font: normal 11px arial, helvetica,tahoma,sans-serif;
+  font: normal 11px arial, helvetica, tahoma, sans-serif;
 }
 /* line 6495, ../common-scss/gis/ext-all.scss */
 .x-date-mp-btns td {
@@ -29906,7 +29906,7 @@ td.x-date-mp-sep {
 }
 /* line 6530, ../common-scss/gis/ext-all.scss */
 .x-tip .x-tip-mc {
-  font: normal 11px tahoma,arial,helvetica,sans-serif;
+  font: normal 11px tahoma, arial, helvetica, sans-serif;
 }
 /* line 6533, ../common-scss/gis/ext-all.scss */
 .x-tip .x-tip-ml {
@@ -29914,12 +29914,12 @@ td.x-date-mp-sep {
 }
 /* line 6536, ../common-scss/gis/ext-all.scss */
 .x-tip .x-tip-header-text {
-  font: bold 11px tahoma,arial,helvetica,sans-serif;
+  font: bold 11px tahoma, arial, helvetica, sans-serif;
   color: #444;
 }
 /* line 6540, ../common-scss/gis/ext-all.scss */
 .x-tip .x-tip-body {
-  font: normal 11px tahoma,arial,helvetica,sans-serif;
+  font: normal 11px tahoma, arial, helvetica, sans-serif;
   color: #444;
 }
 
@@ -29955,7 +29955,7 @@ td.x-date-mp-sep {
 
 /* line 6572, ../common-scss/gis/ext-all.scss */
 .x-menu-list-item {
-  font: normal 11px arial,tahoma,sans-serif;
+  font: normal 11px arial, tahoma, sans-serif;
 }
 
 /* line 6576, ../common-scss/gis/ext-all.scss */
@@ -30012,7 +30012,7 @@ a.x-menu-item {
 
 /* line 6620, ../common-scss/gis/ext-all.scss */
 .x-date-menu, .x-color-menu {
-  background-color: #fff !important;
+  background-color: white !important;
 }
 
 /* line 6624, ../common-scss/gis/ext-all.scss */
@@ -30194,7 +30194,7 @@ a.x-menu-item {
 /* line 6771, ../common-scss/gis/ext-all.scss */
 .x-panel-tl .x-panel-header {
   color: #15428b;
-  font: bold 11px tahoma,arial,verdana,sans-serif;
+  font: bold 11px tahoma, arial, verdana, sans-serif;
 }
 
 /* line 6776, ../common-scss/gis/ext-all.scss */
@@ -30215,7 +30215,7 @@ a.x-menu-item {
 
 /* line 6789, ../common-scss/gis/ext-all.scss */
 .x-panel-mc {
-  font: normal 11px tahoma,arial,helvetica,sans-serif;
+  font: normal 11px tahoma, arial, helvetica, sans-serif;
   background-color: #dfe8f6;
 }
 
@@ -30251,7 +30251,7 @@ a.x-menu-item {
 
 /* line 6819, ../common-scss/gis/ext-all.scss */
 .x-panel-fbar td, .x-panel-fbar span, .x-panel-fbar input, .x-panel-fbar div, .x-panel-fbar select, .x-panel-fbar label {
-  font: normal 11px arial,tahoma, helvetica, sans-serif;
+  font: normal 11px arial, tahoma, helvetica, sans-serif;
 }
 
 /* line 6824, ../common-scss/gis/ext-all.scss */
@@ -30263,7 +30263,7 @@ a.x-menu-item {
 /* line 6829, ../common-scss/gis/ext-all.scss */
 .x-window-tl .x-window-header {
   color: #15428b;
-  font: bold 11px tahoma,arial,verdana,sans-serif;
+  font: bold 11px tahoma, arial, verdana, sans-serif;
 }
 
 /* line 6834, ../common-scss/gis/ext-all.scss */
@@ -30299,7 +30299,7 @@ a.x-menu-item {
 /* line 6858, ../common-scss/gis/ext-all.scss */
 .x-window-mc {
   border-color: #99bbe8;
-  font: normal 11px tahoma,arial,helvetica,sans-serif;
+  font: normal 11px tahoma, arial, helvetica, sans-serif;
   background-color: #dfe8f6;
 }
 
@@ -30544,7 +30544,7 @@ body.x-body-masked .x-window-plain .x-window-mc {
 }
 /* line 7064, ../common-scss/gis/ext-all.scss */
 .x-window-dlg .ext-mb-textarea {
-  font: normal 12px tahoma,arial,helvetica,sans-serif;
+  font: normal 12px tahoma, arial, helvetica, sans-serif;
 }
 /* line 7067, ../common-scss/gis/ext-all.scss */
 .x-window-dlg .x-msg-box-wait {
@@ -31111,7 +31111,7 @@ div.olControlZoom a {
   padding: 0;
   color: white;
   font-size: 18px;
-  font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+  font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
   font-weight: bold;
   text-decoration: none;
   text-align: center;
@@ -31263,4 +31263,48 @@ a.olControlZoomOut {
   .files audio, .files video {
     max-width: 80px;
   }
+}
+/* line 1, ../tools-kanban-board/kanban-board.scss */
+.sticky-note {
+  border: 1px solid #ffb366;
+  background: #FFFFCC;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  font-size: 12px;
+}
+
+/* line 5, ../caliopeweb-forms/caliopeweb.scss */
+span.cw-valid-msg-ok, span.cw-valid-msg-ko {
+  display: none;
+  float: right;
+  font-size: 36px;
+  margin-top: -12px;
+}
+
+/* line 13, ../caliopeweb-forms/caliopeweb.scss */
+.ng-pristine {
+  border: 1px solid gold;
+}
+
+/* line 18, ../caliopeweb-forms/caliopeweb.scss */
+.ng-dirty.ng-valid {
+  border: 1px solid green;
+}
+
+/* line 24, ../caliopeweb-forms/caliopeweb.scss */
+.ng-dirty.ng-invalid {
+  border: 1px solid red;
+}
+
+/* line 29, ../caliopeweb-forms/caliopeweb.scss */
+.ng-dirty.ng-valid ~ span.cw-valid-msg-ok {
+  color: green;
+  display: inline;
+}
+
+/* line 35, ../caliopeweb-forms/caliopeweb.scss */
+.ng-dirty.ng-invalid ~ span.cw-valid-msg-ko {
+  color: red;
+  display: inline;
 }

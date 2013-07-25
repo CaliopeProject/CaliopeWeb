@@ -51,12 +51,14 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
           _login.login = user;
           _login.password = pwdSHA256;
 
+          
           var params = {};
-          var method = "authentication";
+          var method = "login.authenticate";
           params = {
-            "login" : _login.login,
+            "username" : _login.login,
             "password" : _login.password
           };
+          
           var promise = {};
 
           var webSockets = webSocket.WebSockets();
@@ -67,7 +69,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         Services.currentAuthenticate = function(uuidLocalStorage) {
           var promise = {};
           if (uuidLocalStorage !== undefined){
-            var method = "authentication_with_uuid";
+            var method = "login.authenticate_with_uuid";
             var params = {
               "uuid" : uuidLocalStorage
             };
@@ -82,7 +84,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
     ]
   );
 
-  moduleServices.factory('loginSecurity', ['$http', '$q', '$location', 'loginRetryQueue', '$dialog', 'LoginSrv','webSocket', function($http, $q, $location, queue, $dialog, LoginSrv, webSocket) {
+  moduleServices.factory('loginSecurity', ['$http', '$q', '$location', 'loginRetryQueue', '$dialog', 'LoginSrv','SessionSrv','webSocket', function($http, $q, $location, queue, $dialog, LoginSrv, SessionSrv, webSocket) {
 
     var opts = {
       backdrop: true,
@@ -149,9 +151,9 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         _login.password = pwdSHA256;
 
         var params = {};
-        var method = "authentication";
+        var method = "login.authenticate";
         params = {
-          "login" : _login.login,
+          "username" : _login.login,
           "password" : _login.password
         };
 
@@ -159,9 +161,9 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         var request = webSockets.serversimm.sendRequest(method, params);
 
         return request.then(function(data) {
-        console.log(data);
           if(data.user !== undefined){
             service.currentUser = data.user;
+            SessionSrv.createSession(data.uuid,data.user);
           }else{
             service.currentUser = null;
           }
@@ -180,10 +182,20 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
 
       // Logout the current user and redirect
       logout: function(redirectTo) {
-        $http.post('/logout').then(function() {
-          service.currentUser = null;
-          redirect(redirectTo);
-        });
+        var uuid = SessionSrv.getIdSession();
+        var params = {};
+        var method = "login.logout";
+
+        params = {
+          "uuid"     : uuid
+        };
+
+        SessionSrv.removeSession();
+        service.currentUser = null;
+        redirect(redirectTo);
+
+        var webSockets = webSocket.WebSockets();
+        var request = webSockets.serversimm.sendRequest(method, params);
       },
 
       // Ask the backend to see if a user is already authenticated - this may be from a previous session.
@@ -192,8 +204,8 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
           return $q.when(service.currentUser);
         }
         return LoginSrv.currentAuthenticate(uuidLocalStorage).then(function(data) {
-          if(data.response !== undefined  && data.response.user !== undefined){
-            service.currentUser = data.response.user;
+          if(data.user !== undefined){
+            service.currentUser = data.user;
           }else{
             service.currentUser = null;
           }

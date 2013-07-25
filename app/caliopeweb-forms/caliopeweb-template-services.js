@@ -25,12 +25,12 @@ define(['angular'], function(angular) {
           params.formId = caliopeForm.id;
 
           if (caliopeForm.mode === 'create') {
-            method = 'getFormTemplate';
+            method = 'form.getTemplate';
             params.domain = "";
             params.version = "3";
           }
           if (caliopeForm.mode === 'edit') {
-            method = 'getFormData';
+            method = 'form.getData';
             params.uuid = caliopeForm.uuid;
           }
          
@@ -69,7 +69,7 @@ define(['angular'], function(angular) {
         };
 
         Service.loadDataGrid = function(formId, paramsSearch) {
-          var method = "getFormDataList";
+          var method = "form.getDataList";
           var params = {
             formId : formId
           };

@@ -29,7 +29,11 @@ var dependencies = [
     'files-uploader-controller',
     'files-uploader-directives',
     'wysiwyg-editor-controller',
-    'wysiwyg-editor-directive'
+    'wysiwyg-editor-directive',
+
+    'task-controllers-init',
+    'task-directives',
+    'kanban-board-controller'
   ];
 
 var modulesAngular = [
@@ -60,6 +64,10 @@ var modulesAngular = [
     'fileuploaderDirectives',
     'wysiwygEditorCtrl',
     'wysiwygEditorDirective',
+    'kanbanBoardCtrl',
+
+    'task-controllers-init',
+    'task-directives'
   ];
 
   define(dependencies, function ( angular, webSocket, appcontroller) {
