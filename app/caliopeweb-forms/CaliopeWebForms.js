@@ -302,6 +302,14 @@ var CaliopeWebFormActionsDecorator = ( function() {
       var DIRECTIVE_NG_CLICK = 'ng-click';
       var DIRECTIVE_NG_DISABLED = 'ng-disabled';
       var NAME_METHOD_CONTROLLER = 'sendAction';
+      var NAME_CLASS_ACTIONS = 'modal-footer';
+      var NAME_CLASS_BUTTON_DEFAULT = "btn";
+
+      var buttonContainer = {
+        type : "div",
+        class : NAME_CLASS_ACTIONS,
+        html  : []
+      }
 
       for ( var i = 0; i < structureActions.length; i++) {
         var action = {};
@@ -320,9 +328,12 @@ var CaliopeWebFormActionsDecorator = ( function() {
             concat(")");
         action[DIRECTIVE_NG_DISABLED] = formName.concat('.$invalid');
         action.name = action.type.concat('-').concat(actionName) ;
+        action.class = NAME_CLASS_BUTTON_DEFAULT;
         action.html = actionName;
-        structureInit.html.push(action);
+        buttonContainer.html.push(action);
       }
+
+      structureInit.html.push(buttonContainer);
     }
   }
 

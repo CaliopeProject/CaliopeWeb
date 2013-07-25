@@ -52,9 +52,9 @@ define(['angular'], function(angular) {
          * @returns {{}}
          */
         Service.sendDataForm = function(formTemplateName, actionMethod, object, formUUID, objID ) {
-          var NAME_SPACED_METHOD = 'form';
+
           var params = {};
-          var method = NAME_SPACED_METHOD.concat('.').concat(actionMethod);
+          var method = actionMethod;
                   
           if( object === undefined ) {
             object = {};
