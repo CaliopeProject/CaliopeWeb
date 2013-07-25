@@ -33,6 +33,9 @@ var dependencies = [
 
     'task-controllers-init',
     'task-directives',
+    'task-services',
+    'task-services',
+
     'kanban-board-controller'
   ];
 
@@ -67,7 +70,8 @@ var modulesAngular = [
     'kanbanBoardCtrl',
 
     'task-controllers-init',
-    'task-directives'
+    'task-directives',
+    'task-services'
   ];
 
   define(dependencies, function ( angular, webSocket, appcontroller) {
