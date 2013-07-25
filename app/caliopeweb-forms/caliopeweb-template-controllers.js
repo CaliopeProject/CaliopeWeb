@@ -22,19 +22,14 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
         var caliopeForm = {};
 
-        caliopeForm.id = $routeParams.plantilla;
-        caliopeForm.mode = $routeParams.mode;
-        caliopeForm.uuid = $routeParams.uuid;
-        $scope.caliopeForm = caliopeForm;
-
-
         function load() {
           var message;
           $scope.jsonPlantillaWA = {};
 
           $scope.$watch('jsonPlantilla', function (value) {
               var content = value;
-              if (content !== undefined && content.error === undefined) {
+              if (content !== undefined && content.error === undefined &&
+                  content.form !== undefined) {
 
                 var caliopeWebForm = new CaliopeWebForm();
                 caliopeWebForm.addStructure(content.form, content.form.name);
@@ -67,9 +62,14 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           load();
         };
 
-        if (caliopeForm.mode === 'create') {
+        $scope.initWithRouteParams = function() {
+          caliopeForm.id = $routeParams.plantilla;
+          caliopeForm.mode = $routeParams.mode;
+          caliopeForm.uuid = $routeParams.uuid;
+          $scope.caliopeForm = caliopeForm;
           load();
         }
+
 
         if (caliopeForm.mode === 'edit') {
           load();
