@@ -4,6 +4,7 @@
 var CaliopeWebForm = (function() {
 
     var formName;
+    var formUUID;
     var structure;
     var data;
     var actions;
@@ -70,13 +71,6 @@ var CaliopeWebForm = (function() {
       };
     }
 
-    var render = function() {
-
-    };
-
-    var validate = function() {
-
-    };
 
   /**
    * Constructor of CaliopeWebForm module
@@ -102,6 +96,7 @@ var CaliopeWebForm = (function() {
       addStructure: function (_structure, _formName) {
         var result = searchElements(_structure);
         formName = _formName;
+        formUUID = UUIDjs.create().hex;
         elementsForm = result.elements;
         elementsFormName = result.elementsName;
         structure = _structure;
@@ -166,6 +161,9 @@ var CaliopeWebForm = (function() {
       getFormName : function() {
         return formName;
       },
+      getFormUUID : function() {
+        return formUUID;
+      },
     /**
      * Put the data represented for data structure in a specific context.
      * @param context
@@ -194,7 +192,7 @@ var CaliopeWebForm = (function() {
 }());
 
 /**
- * Module of decorator for CaliopeWebForm. This decorate the structure with the specific syntax
+ * Module decorator for CaliopeWebForm. This decorate the structure with the specific syntax
  * for Angular.
  */
 var CaliopeWebFormSpecificDecorator = ( function() {
@@ -240,10 +238,39 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       // se debería generar una excepcion indicando el error y notificando
       // al server sobre el error.
       //valueNgModel = stNameTemplate;
-      console.error('No se encontro valor para el atributo name en el template.');
+      console.error('No se encontro valor para el atributo name en el template.', element);
     }
     element['ng-model'] = valueNgModel;
   }
+
+  function completeTypeSelect(elementsInputs) {
+    /*
+     * Verificar que existan elementos
+     */
+    if( elementsInputs !== undefined && elementsInputs.length > 0) {
+      var i;
+      /*
+      Seleccionar los elementos que sean de tipo select
+       */
+      var elementsSelect = jQuery.grep(elementsInputs, function(obj) {
+          return obj.type === 'select';
+      });
+      /*
+      Para cada elemento del tipo select verificar si tiene options y como atributo de
+      options entity, si cumple esta condición entonces asociar la directiva cw-options
+      para indicar que los options del select se deben recuperar desde el server.
+       */
+      jQuery.each(elementsSelect, function(index, element){
+        if( element.hasOwnProperty('options') && element.options.hasOwnProperty('entity')) {
+          element.fromserver = true;
+          element.entity = element.options.entity;
+          element['cw-options'] = '';
+          element.options = {};
+          element['ng-options'] = 'opt.desc for opt in options';
+        }
+      });
+    }
+  };
 
   return {
     createStructureToRender : function(caliopeWebForm) {
@@ -253,6 +280,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       caliopeWebForm.createStructureToRender = function() {
         completeController(structureInit, caliopeWebForm.getFormName());
         completeModel(caliopeWebForm.getElements(), caliopeWebForm.getFormName());
+        completeTypeSelect(caliopeWebForm.getElements());
         return structureInit;
       };
     }
@@ -260,22 +288,52 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 }());
 
 /**
- * Module of decorator for CaliopeWebForm. This decorate the actions with the specific syntax
+ * Module decorator for CaliopeWebForm. This decorate the actions with the specific syntax
  * for Angular and actions specific in actions structure.
  */
 var CaliopeWebFormActionsDecorator = ( function() {
 
-  function completeActions(structureInit, structureActions,formName) {
-
+  function completeActions(structureInit, structureActions,formName, formUUID, objID) {
     if( structureActions != null && structureActions.length > 0 ) {
+
+      var VAR_NAME_NAME = "name";
+      var VAR_NAME_METHOD = "method";
+      var TYPE_ACTION = "button";
+      var DIRECTIVE_NG_CLICK = 'ng-click';
+      var DIRECTIVE_NG_DISABLED = 'ng-disabled';
+      var NAME_METHOD_CONTROLLER = 'sendAction';
+      var NAME_CLASS_ACTIONS = 'modal-footer';
+      var NAME_CLASS_BUTTON_DEFAULT = "btn";
+
+      var buttonContainer = {
+        type : "div",
+        class : NAME_CLASS_ACTIONS,
+        html  : []
+      }
+
       for ( var i = 0; i < structureActions.length; i++) {
         var action = {};
-        action.type = "button";
-        action['ng-click'] = structureActions[i] + "(" + formName +")";
-        var actionSrv = structureActions[i];
-        action.html = actionSrv;
-        structureInit.html.push(action);
+        var actionName = structureActions[i][VAR_NAME_NAME];
+        var actionMethod = structureActions[i][VAR_NAME_METHOD];
+        action.type = TYPE_ACTION;
+        /*
+          create ng-click: sendAction(form, 'formName', 'method', 'formUUID', 'objID');
+         */
+        action[DIRECTIVE_NG_CLICK] = NAME_METHOD_CONTROLLER.concat("(").
+            concat(formName).concat(", ").
+            concat("'").concat(formName).concat("', ").
+            concat("'").concat(actionMethod).concat("', ").
+            concat("'").concat(formUUID).concat("', ").
+            concat("'").concat(objID).concat("'").
+            concat(")");
+        action[DIRECTIVE_NG_DISABLED] = formName.concat('.$invalid');
+        action.name = action.type.concat('-').concat(actionName) ;
+        action.class = NAME_CLASS_BUTTON_DEFAULT;
+        action.html = actionName;
+        buttonContainer.html.push(action);
       }
+
+      structureInit.html.push(buttonContainer);
     }
   }
 
@@ -284,9 +342,11 @@ var CaliopeWebFormActionsDecorator = ( function() {
       var structureInit = caliopeWebForm.createStructureToRender();
       var structureAction = caliopeWebForm.getActions();
       var formName = caliopeWebForm.getFormName();
+      var formUUID = caliopeWebForm.getFormUUID();
+      var objID = "";
 
       caliopeWebForm.createStructureToRender = function() {
-        completeActions(structureInit, structureAction, formName);
+        completeActions(structureInit, structureAction, formName, formUUID, objID);
         return structureInit;
       };
     }
@@ -294,7 +354,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
 }());
 
 /**
- * Module of decorator for CaliopeWebForm. This decorate the data in the form.
+ * Module decorator for CaliopeWebForm. This decorate the data in the form.
  */
 var CaliopeWebFormDataDecorator = ( function() {
   return {
@@ -309,7 +369,7 @@ var CaliopeWebFormDataDecorator = ( function() {
 }());
 
 /**
- * Module of decorator for CaliopeWebForm. This decorate the translations in the labels or captions
+ * Module decorator for CaliopeWebForm. This decorate the translations in the labels or captions
  * of the elements in the form.
  */
 var CaliopeWebFormLocaleDecorator = ( function() {
@@ -322,4 +382,153 @@ var CaliopeWebFormLocaleDecorator = ( function() {
       };
     }
   }
+}());
+
+/**
+ * Module decorator for CaliopeWebForm. This decorate the inputs of type attachment with
+ * the ng-file-uploader directive.
+ */
+var CaliopeWebFormAttachmentsDecorator = ( function() {
+
+  function replaceAttachemnt(elementsInit, formUUID) {
+
+    var varNameType = 'type';
+    var nameTypeAtt = 'attachment';
+    var nameAttachDirective = 'ng-fileuploader';
+    var varNameFormUUID = 'formuuid';
+    var varNameFieldAtt = 'fieldattch';
+
+    if( elementsInit !== null ) {
+      var i;
+      for( i=0; i<elementsInit.length; i++ ) {
+        if( elementsInit[i].hasOwnProperty(varNameType) &&
+            elementsInit[i][varNameType] === nameTypeAtt ) {
+          elementsInit[i][varNameType] = nameAttachDirective;
+          elementsInit[i][varNameFormUUID] = formUUID;
+          elementsInit[i][varNameFieldAtt] = elementsInit[i].name;
+        }
+      }
+    }
+
+  }
+
+  return {
+    createStructureToRender : function(caliopeWebForm) {
+      var structureInit = caliopeWebForm.createStructureToRender();
+      var elementsInit = caliopeWebForm.getElements();
+      var formUUID = caliopeWebForm.getFormUUID();
+      caliopeWebForm.createStructureToRender = function() {
+
+        replaceAttachemnt(elementsInit, formUUID);
+
+        return structureInit;
+      };
+    }
+  }
+}());
+
+
+/**
+ * Module decorator for CaliopeWebForm. This decorate with validations configured in json
+ * template.
+ */
+var CaliopeWebFormValidDecorator = ( function() {
+
+
+  function getElementMsgVal(validationType, element, formName) {
+    var varNameRequired = 'required';
+    var varNameDirty = '$dirty';
+    var varNameError = '$error';
+
+    var nameDirective = "msg-";
+    var elementName = "";
+    if( element.hasOwnProperty('name') ) {
+      elementName = element.name
+      nameDirective = nameDirective.concat(elementName);
+    }
+    var stElement = formName.concat('.').concat(elementName);
+    var stShowDirty = stElement.concat('.').concat(varNameDirty);
+    var stShowError = stElement.concat('.').concat(varNameError);
+
+
+    var  elementMsg = {
+      "type"  : "cw-validation-mess",
+      "name"  : nameDirective,
+      "ng-show"  : stShowDirty.concat(" && ").concat(stShowError).
+          concat(".").concat(validationType),
+      "validation-type"  : validationType
+    };
+    return elementMsg;
+  }
+
+  function completeValidation(elementsInputs, structureInit, formName) {
+
+    var VALIDATIONS_ATT_NAME = 'validations';
+    var REQUIRE_ATT_NAME = 'required';
+    var MAXLENGTH_ATT_NAME = 'maxlength';
+    var MINLENGTH_ATT_NAME = 'minlength';
+    var htmlElements = structureInit.html;
+
+    if( elementsInputs !== undefined ) {
+      var i;
+      /**
+       * Recorrer los elementos y verificar si tiene el nombre de atributo definido en
+       * VALIDATIONS_ATT_NAME
+       */
+      for( i=0; i < elementsInputs.length; i++) {
+        var validations = elementsInputs[i][VALIDATIONS_ATT_NAME];
+        /*
+         * Si tiene validations entonces manejar la validacion para crear el tipo de
+         * validación y el mensaje a mostrar en caso de que no se cumpla la validación
+         */
+        if( validations !== undefined ) {
+          var varName;
+          for( varName in validations) {
+            var validationType = varName;
+            /*
+              Logic for validation required
+            */
+            if( validationType === REQUIRE_ATT_NAME ) {
+              elementsInputs[i].required = validations[REQUIRE_ATT_NAME];
+              validationType = REQUIRE_ATT_NAME;
+            }
+            if( validationType === MAXLENGTH_ATT_NAME  ) {
+              elementsInputs[i].maxlength = validations[MAXLENGTH_ATT_NAME];
+              validationType = MINLENGTH_ATT_NAME;
+            }
+            if( validationType === MINLENGTH_ATT_NAME  ) {
+              elementsInputs[i].minlength = validations[MINLENGTH_ATT_NAME];
+              validationType = MINLENGTH_ATT_NAME;
+            }
+
+            var index = htmlElements.indexOf(elementsInputs[i]);
+            if( index >= 0 ) {
+              var htmlElementsIni = htmlElements.slice(0, index + 1);
+              var htmlElementsFin = htmlElements.slice(index+1);
+
+              var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName);
+              console.log('elementMsgVal', elementMsgVal);
+              htmlElements = htmlElementsIni.concat(elementMsgVal).concat(htmlElementsFin);
+            }
+          }
+        }
+      }
+    }
+    structureInit.html = htmlElements;
+  }
+
+  return {
+    createStructureToRender : function(caliopeWebForm) {
+      var structureInit = caliopeWebForm.createStructureToRender();
+      var formName = caliopeWebForm.getFormName();
+      caliopeWebForm.createStructureToRender = function() {
+
+        completeValidation(caliopeWebForm.getElements(), structureInit, formName);
+
+        return structureInit;
+      };
+    }
+  }
+
+
 }());

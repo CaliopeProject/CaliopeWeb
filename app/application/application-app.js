@@ -16,6 +16,7 @@ var dependencies = [
     'login-controllers',
     'login-controllers-form',
     'login-retryQueue',
+    'login-directives',
 
     'menu-top-controller',
     'gis-view-ctrl',
@@ -26,7 +27,16 @@ var dependencies = [
     'menu-right-controller',
     'menu-right-directives',
     'files-uploader-controller',
-    'files-uploader-directives'
+    'files-uploader-directives',
+    'wysiwyg-editor-controller',
+    'wysiwyg-editor-directive',
+
+    'task-controllers-init',
+    'task-directives',
+    'task-services',
+    'task-services',
+
+    'kanban-board-controller'
   ];
 
 var modulesAngular = [
@@ -43,6 +53,7 @@ var modulesAngular = [
     'LoginControllers',
     'login-controllers-form',
     'login-retryQueue',
+    'login-directives',
 
     'GisViewerController',
     'MenuTopControllers',
@@ -53,10 +64,22 @@ var modulesAngular = [
     'menu-right-controller',
     'menu-right-directives',
     'fileuploaderCtrl',
-    'fileuploaderDirectives'
+    'fileuploaderDirectives',
+    'wysiwygEditorCtrl',
+    'wysiwygEditorDirective',
+    'kanbanBoardCtrl',
+
+    'task-controllers-init',
+    'task-directives',
+    'task-services'
   ];
 
-define(dependencies, function ( angular, webSocket, appcontroller) {
-  var moduleApp = angular.module('caliope', modulesAngular);
-  return moduleApp;
-});
+  define(dependencies, function ( angular, webSocket, appcontroller) {
+    var moduleApp = angular.module('caliope', modulesAngular);
+
+    moduleApp.run(function(webSocket) {
+      webSocket.initWebSockets();
+    });
+
+    return moduleApp;
+  });

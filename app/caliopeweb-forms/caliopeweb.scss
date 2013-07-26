@@ -1,0 +1,59 @@
+input.ng-invalid.ng-dirty {
+  background-color: #FA787E;
+}
+input.ng-valid.ng-dirty {
+  background-color: #78FA89;
+}
+
+/*.cw-valid-msg {*/
+
+/*}*/
+
+/*span.cw-valid-msg-ok, span.cw-valid-msg-ko {*/
+  /*display:none;*/
+  /*float: right;*/
+  /*font-size:36px;*/
+  /*margin-top: -12px;*/
+/*}*/
+
+/*// ng-dirty: When the user has already modified the form.*/
+/*// ng-valid: When the form passes the validation.*/
+/*.ng-dirty.ng-valid {*/
+  /*border:1px solid Green;*/
+/*}*/
+/*// When the form has the two class.*/
+/*//ng-dirty: When the user has already modified the form.*/
+/*// ng-valid: When the form doesn't pass the validation.*/
+/*.ng-dirty.ng-invalid {*/
+  /*border:1px solid Red;*/
+/*}*/
+
+// When the form has the two class over span that containts the msg ok
+.ng-dirty.ng-valid ~ span.cw-valid-msg-ok {
+  color:green;
+  display:inline;
+}
+
+/*// When the form has the two class over span that containts the msg error*/
+.ng-dirty.ng-invalid ~ span.cw-valid-msg-ko {
+  color:red;
+  display:inline;
+}
+
+#container-form {
+    max-width: 350px;
+    padding: 19px 29px 29px;
+    width: 560px;
+    overflow: auto;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+}

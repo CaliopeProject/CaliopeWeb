@@ -1,11 +1,26 @@
-define(['angular', 'application-servicesWebSocket'], function(angular, webSocket) {
+define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'], function(angular, webSocket) {
   'use strict';
 
-  var module = angular.module('CaliopeController', []);
+  var module = angular.module('CaliopeController', ['ui.bootstrap','login-security-services']);
 
   module.controller('CaliopeController',
-      ['webSocket', '$scope', '$timeout','HandlerResponseServerSrv', 'httpRequestTrackerService','breadcrumbs',
-      function(webSocket, $scope, $timeout,handlerResServerSrv, httpRequestTrackerService, breadcrumbs) {
+      ['loginSecurity',
+      'SessionSrv',
+      '$scope',
+      '$timeout',
+      'HandlerResponseServerSrv',
+      'httpRequestTrackerService',
+      'breadcrumbs',
+
+   function(security,
+      sessionUuid,
+      $scope,
+      $timeout,
+      handlerResServerSrv,
+      httpRequestTrackerService,
+      breadcrumbs,
+      loginSecurity
+    ){
         var timerMessage;
         var initMessage = {type: 'success', msg: 'Bienvenidos al SIIM' };
 
@@ -22,7 +37,11 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
         };
 
         $scope.init = function () {
-          webSocket.initWebSockets();
+
+          $scope.$on('openWebSocket', function(event, data) {
+            var uuid = sessionUuid.getIdSession();
+            security.requestCurrentUser(uuid);
+          });
 
           timerMessage(initMessage);
 
@@ -33,14 +52,11 @@ define(['angular', 'application-servicesWebSocket'], function(angular, webSocket
           $scope.closeAlert = function(index) {
             $scope.alerts.splice(index, 1);
           };
-
         };
 
         $scope.hasPendingRequests = function () {
           return httpRequestTrackerService.hasPendingRequests();
         };
-
-
 
       }]
   );

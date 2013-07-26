@@ -1,9 +1,9 @@
 /*jslint browser: true*/
 /*global localStorage, Crypto, $scope*/
-define(['angular', 'CryptoSHA256'], function(angular) {
+define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angular) {
   'use strict';
 
-  var moduleServices = angular.module('login-security-services', []);
+  var moduleServices = angular.module('login-security-services', ['ui.bootstrap.dialog']);
 
   moduleServices.factory('SessionSrv',
     ['$q', '$rootScope', '$http', 'webSocket',
@@ -45,18 +45,20 @@ define(['angular', 'CryptoSHA256'], function(angular) {
 
         Services.authenticate = function(login) {
           var user = login.username;
-          //var pwdSHA256 = Crypto.SHA256(login.password);
-          var pwdSHA256 = login.password;
+          var pwdSHA256 = Crypto.SHA256(login.password);
+          //var pwdSHA256 = login.password;
           var _login = {};
           _login.login = user;
           _login.password = pwdSHA256;
 
+
           var params = {};
-          var method = "authentication";
+          var method = "login.authenticate";
           params = {
-            "login" : _login.login,
+            "username" : _login.login,
             "password" : _login.password
           };
+
           var promise = {};
 
           var webSockets = webSocket.WebSockets();
@@ -64,15 +66,27 @@ define(['angular', 'CryptoSHA256'], function(angular) {
           return promise;
         };
 
+        Services.currentAuthenticate = function(uuidLocalStorage) {
+          var promise = {};
+          if (uuidLocalStorage !== undefined){
+            var method = "login.authenticate_with_uuid";
+            var params = {
+              "uuid" : uuidLocalStorage
+            };
+            var webSockets = webSocket.WebSockets();
+            promise = webSockets.serversimm.sendRequest(method, params);
+         }
+         return  promise;
+        };
+
         return Services;
       }
     ]
   );
 
+  moduleServices.factory('loginSecurity', ['$http', '$q', '$location', 'loginRetryQueue', '$dialog', 'LoginSrv','SessionSrv','webSocket', function($http, $q, $location, queue, $dialog, LoginSrv, SessionSrv, webSocket) {
 
-  moduleServices.factory('security', ['$http', '$q', '$location', 'loginRetryQueue', '$dialog', function($http, $q, $location, queue, $dialog) {
-
-    $scope.opts = {
+    var opts = {
       backdrop: true,
       keyboard: true,
       backdropClick: false,
@@ -104,7 +118,7 @@ define(['angular', 'CryptoSHA256'], function(angular) {
       if ( loginDialog ) {
         throw new Error('Ya esta abierta!');
       }
-      loginDialog = $dialog.dialog($scope.opts);
+      loginDialog = $dialog.dialog(opts);
       loginDialog.open().then(onLoginDialogClose);
     }
 
@@ -114,16 +128,7 @@ define(['angular', 'CryptoSHA256'], function(angular) {
       }
     }
 
-    // Register a handler for when an item is added to the retry queue
-    queue.onItemAddedCallbacks.push(function(retryItem) {
-      if ( queue.hasMore() ) {
-        service.showLogin();
-      }
-    });
-
-
     // The public API of the service
-
     var service =  {
 
       // Get the first reason for needing a login
@@ -137,10 +142,32 @@ define(['angular', 'CryptoSHA256'], function(angular) {
       },
 
       // Attempt to authenticate a user by the given email and password
-      login: function(email, password) {
-        var request = $http.post('/login', {email: email, password: password});
-        return request.then(function(response) {
-          service.currentUser = response.data.user;
+      login: function(username, password) {
+
+        var pwdSHA256 = Crypto.SHA256(password);
+        var _login = {};
+
+        _login.login = username;
+        _login.password = pwdSHA256;
+
+        var params = {};
+        var method = "login.authenticate";
+        params = {
+          "username" : _login.login,
+          "password" : _login.password
+        };
+
+        var webSockets = webSocket.WebSockets();
+        var request = webSockets.serversimm.sendRequest(method, params);
+
+        return request.then(function(data) {
+          if(data.user !== undefined){
+            service.currentUser = data.user;
+            SessionSrv.createSession(data.uuid,data.user);
+          }else{
+            service.currentUser = null;
+          }
+
           if ( service.isAuthenticated() ) {
             closeLoginDialog(true);
           }
@@ -155,22 +182,35 @@ define(['angular', 'CryptoSHA256'], function(angular) {
 
       // Logout the current user and redirect
       logout: function(redirectTo) {
-        $http.post('/logout').then(function() {
-          service.currentUser = null;
-          redirect(redirectTo);
-        });
+        var uuid = SessionSrv.getIdSession();
+        var params = {};
+        var method = "login.logout";
+
+        params = {
+          "uuid"     : uuid
+        };
+
+        SessionSrv.removeSession();
+        service.currentUser = null;
+        redirect(redirectTo);
+
+        var webSockets = webSocket.WebSockets();
+        var request = webSockets.serversimm.sendRequest(method, params);
       },
 
       // Ask the backend to see if a user is already authenticated - this may be from a previous session.
-      requestCurrentUser: function() {
+      requestCurrentUser: function(uuidLocalStorage) {
         if ( service.isAuthenticated() ) {
           return $q.when(service.currentUser);
-        } else {
-          return $http.get('/current-user').then(function(response) {
-            service.currentUser = response.data.user;
-            return service.currentUser;
-          });
         }
+        return LoginSrv.currentAuthenticate(uuidLocalStorage).then(function(data) {
+          if(data.user !== undefined){
+            service.currentUser = data.user;
+          }else{
+            service.currentUser = null;
+          }
+          return service.currentUser;
+        });
       },
 
       // Information about the current user
@@ -186,6 +226,13 @@ define(['angular', 'CryptoSHA256'], function(angular) {
         return !!(service.currentUser && service.currentUser.admin);
       }
     };
+
+    // Register a handler for when an item is added to the retry queue
+    queue.onItemAddedCallbacks.push(function(retryItem) {
+      if ( queue.hasMore() ) {
+        service.showLogin();
+      }
+    });
 
     return service;
 

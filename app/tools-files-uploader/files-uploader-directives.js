@@ -18,19 +18,21 @@ dirmodule.directive('ngFileuploader', function() {
         link: function(scope, elm, attrs) {
 
             $(elm).fileupload({
+                url     : '/upload/',
                 dataType: 'json',
                 paramName: 'files[]',
                 sequentialUploads: true,
-                formData : {id:'12212'},
-
-                //TODO: to check
-                //          https://github.com/blueimp/jQuery-File-Upload/wiki/Options    
-                add: function (e, data) {
-                    //TODO: show preview 
-                    //console.log(data);
-                    data.submit();
+                formData : {
+                  id: attrs['formuuid'],
+                  field: attrs['fieldattch']
                 },
-                
+                //TODO: to check
+                //          https://github.com/blueimp/jQuery-File-Upload/wiki/Options
+                add: function (e, data) {
+                  //TODO: show preview
+                  //console.log(data);
+                  data.submit();
+                },
                 progressall: function(e, data) {
                     var progress = parseInt(data.loaded / data.total * 100, 10);
                     //console.log(data.bitrate/1024+"k/s");
@@ -40,10 +42,10 @@ dirmodule.directive('ngFileuploader', function() {
                                 progress + '%'
                         );
                     });
-
                 },
 
                 done: function(e, data) {
+
                     var filelist = scope.filelist;
                     if (filelist === undefined) 
                         filelist = [];
@@ -53,6 +55,7 @@ dirmodule.directive('ngFileuploader', function() {
                     }
 
                     scope.filelist = filelist;
+                    scope.$apply();
                 }
             });
         }

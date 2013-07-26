@@ -25,15 +25,15 @@ define(['angular'], function(angular) {
           params.formId = caliopeForm.id;
 
           if (caliopeForm.mode === 'create') {
-            method = 'getFormTemplate';
+            method = 'form.getTemplate';
             params.domain = "";
             params.version = "3";
           }
           if (caliopeForm.mode === 'edit') {
-            method = 'getFormData';
+            method = 'form.getData';
             params.uuid = caliopeForm.uuid;
           }
-         
+
           var promise = {};
 
           var webSockets = webSocket.WebSockets();
@@ -44,17 +44,28 @@ define(['angular'], function(angular) {
 
         /**
          * Send the data register for the user in a form
+         * @param formTemplate Name of the form template
+         * @param actionMethod Action invoked
          * @param object Object that contains the data form.
-         * @param caliopeForm Form Template que
+         * @param formUUID UUID of the form
+         * @param objID Identified of the data
          * @returns {{}}
          */
-        Service.sendDataForm = function(object, caliopeForm) {
+        Service.sendDataForm = function(formTemplateName, actionMethod, object, formUUID, objID ) {
+
           var params = {};
-          var formId = caliopeForm.id;
-          var method = caliopeForm.mode;
+          var method = actionMethod;
                   
+          if( object === undefined ) {
+            object = {};
+          }
+          if(objID !== undefined && objID.length > 0) {
+            object['uuid'] = objID;
+          }
+
           params = {
-            "formId" : formId
+            "formId" : formTemplateName,
+            "formUUID" : formUUID
           };
           params.data = {};
           jQuery.extend(params.data, object);
@@ -67,12 +78,27 @@ define(['angular'], function(angular) {
         };
 
         Service.loadDataGrid = function(formId, paramsSearch) {
-          var method = "getFormDataList";
+          var method = "form.getDataList";
           var params = {
             formId : formId
           };
           var promise = {};
-          if( params !== undefined ) {
+          if( paramsSearch !== undefined ) {
+            jQuery.extend(params, paramsSearch);
+          }
+
+          var webSockets = webSocket.WebSockets();
+          promise = webSockets.serversimm.sendRequest(method, params);
+          return promise;
+        };
+
+        Service.loadDataOptions = function(entity, paramsSearch) {
+          var method = "getDataOptions";
+          var params = {
+            entity : entity
+          };
+          var promise = {};
+          if( paramsSearch !== undefined ) {
             jQuery.extend(params, paramsSearch);
           }
 
