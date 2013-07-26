@@ -141,8 +141,33 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           }
         });
 
-        $scope.sendAction = function(form, formName, method, formUUID, objID) {
+        $scope.sendAction = function(form, formTemplateName, actionMethod, formUUID, objID, paramsToSend) {
           //TODO: Mejorar para que se ejecute de forma dinámica el envio del form.
+
+
+          var inputs = $scope.inputsFormTemplate;
+          var obj = {};
+          var i;
+
+          $scope.responseSaveData   = {};
+
+          if( paramsToSend === undefined || paramsToSend === '' ) {
+            paramsToSend = [];
+          } else {
+            paramsToSend = paramsToSend.split(',');
+          }
+          console.log('Params to send', paramsToSend);
+          for (i = 0; i < inputs.length; i++) {
+            if( paramsToSend.length === 0 || paramsToSend.indexOf(inputs[i]) >= 0 ) {
+              obj[inputs[i]] = $scope[inputs[i]];
+            }
+          }
+          console.log('Obj to send', obj);
+          $scope.responseSaveData = caliopewebTemplateSrv.sendDataForm(formTemplateName,
+              actionMethod, obj, formUUID, objID);
+
+
+          /*
           var NAME_METHOD_CREATE = 'form.createFromForm';
           var NAME_METHOD_EDIT = 'form.editFromForm';
           var NAME_METHOD_DELETE = 'form.delete';
@@ -160,6 +185,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           } else {
             console.error('Method is not support method, method was ' + method);
           }
+          */
         };
 
       }]
