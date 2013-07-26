@@ -4,16 +4,106 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
   var moduleControllers = angular.module('GisViewerController',[]);
 
   moduleControllers.controller('GisViewerController',
-      ['$scope', '$routeParams',
-      function ($scope, $routeParams) {
+      ['$scope', '$routeParams','caliopewebTemplateSrv',
+      function ($scope, $routeParams, caliopewebTemplateSrv) {
+
           Ext.namespace('Heron.options.map');
           Ext.namespace('Heron.App.mapPanel');
+
+          $scope.data = [
+          ];
+          $scope.gridOptions = {
+              'data': 'data'
+          };
+          var barmanpre;
+
           var bounds = new OpenLayers.Bounds(
               -74.221, 4.471,
               -74.008, 4.849
           );
 
-        var capaConsulta;
+          var resultReader = new Ext.data.JsonReader({
+              // metadata configuration options:
+              idProperty: 'uuid',
+              root: 'data',
+              fields: [
+                  {name: 'estado'},
+                  {name: 'ficha'},
+                  {name: 'forma_intervencion'},
+                  {name: 'localidad'},
+                  {name: 'nombre'},
+                  {name: 'timestamp'},
+                  {name: 'uuid'}
+              ]
+      });
+
+          var store = new Ext.data.ArrayStore({
+              reader: resultReader
+          });
+
+          var grid = new Ext.grid.GridPanel({
+              store: store,
+              columns: [
+                  {
+                      id       :'estado',
+                      header   : 'Estado',
+                      width    : 160,
+                      sortable : true,
+                      dataIndex: 'estado'
+                  },
+                  {
+                      id       :'ficha',
+                      header   : 'Ficha',
+                      width    : 160,
+                      sortable : true,
+                      dataIndex: 'ficha'
+                  },
+                  {
+                      id       :'forma_intervencion',
+                      header   : 'Forma de Intervención',
+                      width    : 160,
+                      sortable : true,
+                      dataIndex: 'forma_intervencion'
+                  },
+                  {
+                      id       :'localidad',
+                      header   : 'Localidad',
+                      width    : 160,
+                      sortable : true,
+                      dataIndex: 'localidad'
+                  },
+                  {
+                      id       :'nombre',
+                      header   : 'Nombre',
+                      width    : 160,
+                      sortable : true,
+                      dataIndex: 'nombre'
+                  },
+                  {
+                      id       :'timestamp',
+                      header   : 'timestamp',
+                      width    : 160,
+                      sortable : true,
+                      dataIndex: 'timestamp'
+                  },
+                  {
+                      id       :'uuid',
+                      header   : 'uuid',
+                      width    : 160,
+                      sortable : true,
+                      dataIndex: 'uuid'
+                  }
+              ],
+              stripeRows: true,
+              autoExpandColumn: 'estado',
+              height: 350,
+              width: 600,
+              title: 'Lote',
+              stateful: true,
+              stateId: 'grid'
+          });
+
+
 		Heron.options.map.settings = {
 			projection: 'EPSG:4686',
 			maxExtent: bounds,
@@ -93,7 +183,16 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
               renderTo: "siim_mapdiv",
               constrain: true
           });
-          //OpenLayers.ProxyHost = "http://192.168.0.28/cgi-bin/proxy.cgi?url=";
+
+          var gridDialog = new Ext.Window({
+              layout: "fit",
+              width: 350,
+              height: 150,
+              renderTo: "siim_mapdiv",
+              constrain: true,
+              items:[grid]
+          });
+
           var featureInfoControl = new OpenLayers.Control.WMSGetFeatureInfo({
               url: 'http://localhost:9000/catastrobogota/WMSServer',
               title: 'Identificar elementos',
@@ -104,7 +203,11 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   getfeatureinfo: function(event) {
                       var resultado = event.text.split(';');
                       if(resultado[11]!=null){
-                          alert(resultado[11]);
+                          $scope.responseLoadDataGrid = {};
+                          barmanpre = resultado[11];
+                          loadDataGrid(barmanpre);
+                          //store.loadData([[resultado[11]]]);
+                          //gridDialog.show();
                       }
                   }
               }
@@ -157,6 +260,39 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
               width: '100%',
               hropts: Heron.options.map
           };
+
+          function loadDataGrid(barmanpreParam) {
+              var paramsSearch = {};
+              $scope.responseLoadDataGrid = caliopewebTemplateSrv.loadDataGrid(
+                  'SIIMForm', paramsSearch);
+          };
+
+
+          $scope.$watch('responseLoadDataGrid', function (value) {
+              if( value !== undefined && value['error'] === undefined) {
+                  var err = value['error'];
+                  var append = false;
+                  if( err === undefined ) {
+                      var caliopeWebGrid = new CaliopeWebGrid();
+                      caliopeWebGrid.addGridName('SIIMForm');
+                      caliopeWebGrid.addData(value.data);
+                      CaliopeWebGridDataDecorator.createStructureToRender(caliopeWebGrid);
+                      var structureToRender = caliopeWebGrid.createStructureToRender();
+                      console.log('Structure To Render', structureToRender);
+                      $scope.data = structureToRender.data;
+                      $scope.gridOptions = {
+                          'data'  : 'data'
+                      };
+                  }
+              } else {
+                  $scope.data = [
+                  ];
+                  $scope.gridOptions = {
+                      'data': 'data'
+                  };
+              }
+          });
+
           Heron.App.create();
           Heron.App.map.addControl(featureInfoControl);
           Heron.App.show();
