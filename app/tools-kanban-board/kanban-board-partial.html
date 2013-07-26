@@ -1,28 +1,16 @@
-<div>
-  <div class="navbar">
-    <div class="navbar-inner">
-      <div class="container">
-        <a class="brand" href="#">Kanban Pessoal {{'yet'}}</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid">
-
-    <table class="table table-bordered" ng-controller="kanbanBoardCtrl">
-      <thead>
-        <tr>
-          <th width="{{(100/columns.length)}}%" ng-repeat="column in columns">{{column.name}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td ng-repeat="column in columns">
-            <div class="sticky-note" ng-repeat="note in column.notes">{{note.description}}</div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-  </div>
+<div class="container-fluid">
+  <table class="table table-bordered" ng-controller="kanbanBoardCtrl">
+    <thead>
+      <tr>
+        <th width="{{(100/columns.length)}}%" ng-repeat="column in columns">{{column.name}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td ng-repeat="column in columns">
+          <div class="sticky-note" ng-repeat="note in column.notes">{{note.description}}</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -50,23 +50,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       // Attempt to authenticate a user by the given email and password
       newTask: function(username, password) {
 
-        var params = {};
-        var method = "task.authenticate";
-        params = {
-          "username" : 'text',
-        };
-
-        var webSockets = webSocket.WebSockets();
-        var request = webSockets.serversimm.sendRequest(method, params);
-
-        return request.then(function(data) {
-          if(data.user !== undefined){
-            service.currentTask = data.task;
-          }else{
-            service.currentTask = null;
-          }
-
-        });
       },
 
       // Give up trying to task and clear the retry queue
@@ -77,21 +60,9 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
       // Logout the current user and redirect
       saveTask: function(redirectTo) {
-        var params = {};
-        var method = "task.authenticate";
-
-        params = {
-          "uuid"     : ''
-        };
-
-        redirect(redirectTo);
-
-        var webSockets = webSocket.WebSockets();
-        var request    = webSockets.serversimm.sendRequest(method, params);
       },
 
-      // Information about the current user
-      currentTask: null,
+      currentTask: null
 
     };
 

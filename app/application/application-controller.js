@@ -18,8 +18,7 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
       $timeout,
       handlerResServerSrv,
       httpRequestTrackerService,
-      breadcrumbs,
-      loginSecurity
+      breadcrumbs
     ){
         var timerMessage;
         var initMessage = {type: 'success', msg: 'Bienvenidos al SIIM' };
