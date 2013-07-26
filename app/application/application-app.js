@@ -20,6 +20,7 @@ var dependencies = [
 
     'menu-top-controller',
     'gis-view-ctrl',
+    'gis-directives',
     'notificationsService',
     'httpRequestTrackerService',
     'breadcrumbsService',
@@ -33,7 +34,6 @@ var dependencies = [
 
     'task-controllers-init',
     'task-directives',
-    'task-services',
     'task-services',
 
     'kanban-board-controller'
@@ -56,6 +56,7 @@ var modulesAngular = [
     'login-directives',
 
     'GisViewerController',
+    'gis-directives',
     'MenuTopControllers',
     'NotificationsServices',
     'httpRequestTrackerService',

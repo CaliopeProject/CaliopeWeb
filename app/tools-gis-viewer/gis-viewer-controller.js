@@ -181,7 +181,8 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
               width: 350,
               height: 150,
               renderTo: "siim_mapdiv",
-              constrain: true
+              constrain: true,
+              closeAction: 'hide'
           });
 
           var gridDialog = new Ext.Window({

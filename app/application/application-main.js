@@ -40,6 +40,7 @@ require.config({
     'gis-options'                      : 'tools-gis-viewer/Options',
     'gis-init'                         : 'tools-gis-viewer/Init',
     'gis-view-ctrl'                    : 'tools-gis-viewer/gis-viewer-controller',
+    'gis-directives'                    : 'tools-gis-viewer/gis-directives',
     'gis-ext-all'                      : 'libs-js-thirdparty/compiled-gis/ext-all',
     'gis-ext-base'                     : 'libs-js-thirdparty/compiled-gis/ext-base',
     'gis-heron'                        : 'libs-js-thirdparty/heron-mc/heron',
