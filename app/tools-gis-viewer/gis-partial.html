@@ -1,3 +1,12 @@
+<style>
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 800px;
+        height: 400px
+    }
+</style>
+
 <div class="container fill" ng-controller="GisViewerController">
-   <div id="siim_mapdiv"></div>
+   <div id="siim_mapdiv" style="width: 100%"></div>
+    <div id="siim_griddiv" ng-grid="gridOptions" class="gridStyle"></div>
 </div>
