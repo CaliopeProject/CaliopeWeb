@@ -11,7 +11,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       backdrop      : false,
       keyboard      : true,
       backdropClick : false,
-      templateUrl   : "./task/partial-task-dialog.html",
       controller    : 'CaliopeWebTemplateCtrl'
     };
 
@@ -25,10 +24,11 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
     }
 
 
-    function opentaskDialog() {
+    function opentaskDialog(url) {
       if ( taskDialog ) {
         throw new Error('Ya esta abierta!');
       }
+      opts.templateUrl = url;
       taskDialog = $dialog.dialog(opts);
       taskDialog.open();
     }
@@ -44,12 +44,15 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
       // Show the modal task dialog
       showTask: function() {
-        opentaskDialog();
+        var url = "./task/partial-task-dialog.html";
+        opentaskDialog(url);
       },
 
       // Attempt to authenticate a user by the given email and password
-      newTask: function(username, password) {
-
+      editTask: function(uuid) {
+        var url = "./task/partial-task-dialog.html";
+        $log.info('Ingreso a editar tarea ', uuid);
+        opentaskDialog(url);
       },
 
       // Give up trying to task and clear the retry queue

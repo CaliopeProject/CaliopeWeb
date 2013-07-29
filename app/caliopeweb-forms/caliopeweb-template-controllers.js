@@ -1,5 +1,11 @@
 /*jslint browser: true*/
-/*global define, console*/
+/*global define,CaliopeWebForm, 
+ CaliopeWebFormSpecificDecorator,
+ CaliopeWebFormActionsDecorator,
+ CaliopeWebFormValidDecorator,
+ CaliopeWebFormValidDecorator,
+ CaliopeWebFormAttachmentsDecorator,
+ console*/
 
 /**
 * Define the module angular in RequireJS
@@ -55,17 +61,18 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
             caliopewebTemplateSrv.loadTemplateData(caliopeForm);
         }
 
-        $scope.init = function(template, mode) {
-          caliopeForm.id = template;
-          caliopeForm.mode = mode;
+        $scope.init = function(template, mode, uuid) {
+          caliopeForm.id     = template;
+          caliopeForm.mode   = mode;
+          caliopeForm.uuid   = uuid;
           $scope.caliopeForm = caliopeForm;
           load();
         };
 
         $scope.initWithRouteParams = function() {
-          caliopeForm.id = $routeParams.plantilla;
-          caliopeForm.mode = $routeParams.mode;
-          caliopeForm.uuid = $routeParams.uuid;
+          caliopeForm.id     = $routeParams.plantilla;
+          caliopeForm.mode   = $routeParams.mode;
+          caliopeForm.uuid   = $routeParams.uuid;
           $scope.caliopeForm = caliopeForm;
           load();
         };
