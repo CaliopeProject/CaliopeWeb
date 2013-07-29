@@ -8420,7 +8420,7 @@ td.td-actions a.td-action:hover {
   border-left-width: 3px;
   padding: 9px;
   background-color: #FFF;
-  margin-top: -1px;
+  margin: 7px;
   position: relative;
 }
 /* line 7400, ../common-scss/w8.scss */

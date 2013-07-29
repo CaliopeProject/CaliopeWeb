@@ -1,16 +1,27 @@
-<div class="container-fluid">
-  <table class="table table-bordered" ng-controller="kanbanBoardCtrl">
-    <thead>
-      <tr>
-        <th width="{{(100/columns.length)}}%" ng-repeat="column in columns">{{column.name}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td ng-repeat="column in columns">
-          <div class="sticky-note" ng-repeat="note in column.notes">{{note.description}}</div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="row-fluid" ng-controller="kanbanBoardCtrl">
+  <div class="span4" ng-repeat="obj in data">
+    <div class="widget-box">
+      <div class="widget-header widget-header-flat">
+        <h4>{{obj.category}}</h4>
+      </div>
+
+      <div class="widget-body">
+        <div class="widget-main">
+          <div class="row-fluid">
+            <ul class="item-list ui-sortable">
+              <li ng-click="editTask(item.uuid)" class="item" ng-repeat="item in obj.tasks" ng-init="log = false" ng-mouseover="log = true" ng-mouseleave="log = false">
+              <span class="lbl" >
+                <button ng-show='log' type="button" class="close">
+                  <i class="icon-circle-arrow-down"></i>
+                </button>
+                {{item.description}}
+              </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>

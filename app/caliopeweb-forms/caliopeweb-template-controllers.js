@@ -17,8 +17,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   * templates of caliope framework
   */
   moduleControllers.controller('CaliopeWebTemplateCtrl',
-    ['caliopewebTemplateSrv', '$scope', '$routeParams',
-      function (caliopewebTemplateSrv, $scope, $routeParams) {
+    ['caliopewebTemplateSrv', '$scope', '$routeParams', 'dialog',
+      function (caliopewebTemplateSrv, $scope, $routeParams, dialog) {
 
         var caliopeForm = {};
 
@@ -79,6 +79,9 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           load();
         }
 
+        $scope.closeDialog = function(){
+          dialog.close('ok');
+        };
       }
   ]);
 
