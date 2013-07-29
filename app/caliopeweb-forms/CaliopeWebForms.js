@@ -140,6 +140,16 @@ var CaliopeWebForm = (function() {
       getActions : function() {
         return actions;
       },
+
+
+    /**
+     *  Get the form data
+     * @returns {*}
+     */
+      getData : function() {
+        return data;
+      },
+
     /**
      * Get the elements (input) of the form.
      * @returns {*}
@@ -312,6 +322,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
         html  : []
       }
 
+
       for ( var i = 0; i < structureActions.length; i++) {
         var action = {};
         var actionName = structureActions[i][VAR_NAME_NAME];
@@ -349,8 +360,13 @@ var CaliopeWebFormActionsDecorator = ( function() {
       var structureAction = caliopeWebForm.getActions();
       var formName = caliopeWebForm.getFormName();
       var formUUID = caliopeWebForm.getFormUUID();
-      var objID = "";
-
+      var objID;
+      if( caliopeWebForm.getData() !== undefined && caliopeWebForm.getData().uuid !== 'undefined') {
+        objID = caliopeWebForm.getData().uuid.value;
+      }
+      if( objID == undefined ) {
+        objID = '';
+      }
       caliopeWebForm.createStructureToRender = function() {
         completeActions(structureInit, structureAction, formName, formUUID, objID);
         return structureInit;

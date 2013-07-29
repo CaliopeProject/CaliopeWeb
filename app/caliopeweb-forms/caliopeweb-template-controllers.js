@@ -72,6 +72,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
 
         if (caliopeForm.mode === 'edit') {
+          caliopeForm.id = $routeParams.plantilla;
+          caliopeForm.mode = $routeParams.mode;
+          caliopeForm.uuid = $routeParams.uuid;
+          $scope.caliopeForm = caliopeForm;
           load();
         }
 
@@ -81,35 +85,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   moduleControllers.controller('SIMMFormCtrl',
     ['caliopewebTemplateSrv', '$scope',
       function (caliopewebTemplateSrv, $scope) {
-
-        function saveData(formTemplateName, actionMethod, formUUID, objID) {
-
-          var inputs = $scope.inputsFormTemplate;
-          var obj = {};
-          var i;
-
-          $scope.responseSaveData   = {};
-
-          for (i = 0; i < inputs.length; i++) {
-            obj[inputs[i]] = $scope[inputs[i]];
-          }
-
-          $scope.responseSaveData = caliopewebTemplateSrv.sendDataForm(formTemplateName,
-              actionMethod, obj, formUUID, objID);
-        }
-
-        function deleteData(caliopeForm, uuidData) {
-          caliopeForm.mode = 'delete';
-
-          var obj = {};
-          $scope.responseDeleteData   = {};
-
-          if(uuidData !== undefined) {
-            obj['uuid'] = uuidData;
-          }
-          $scope.responseDeleteData = caliopewebTemplateSrv.sendDataForm(
-              obj, caliopeForm);
-        }
 
         $scope.$watch('responseSaveData', function (value) {
 
