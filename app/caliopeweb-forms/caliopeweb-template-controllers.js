@@ -24,11 +24,11 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   */
   moduleControllers.controller('CaliopeWebTemplateCtrl',
     ['caliopewebTemplateSrv', '$scope', '$routeParams',
-      function (caliopewebTemplateSrv, $scope, $routeParams) {
+      function (calwebTemSrv, $scope, $routeParams) {
 
         $scope.$watch('jsonPlantilla', function (value) {
           if( value !== undefined ) {
-            var result = caliopewebTemplateSrv.load(value, $scope);
+            var result = calwebTemSrv.load(value, $scope);
             $scope.jsonPlantillaAngular = result.structureToRender;
             $scope.inputsFormTemplate   = result.elementsName;
             $scope.formUUID             = result.formUuid;
@@ -36,47 +36,58 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         });
 
         $scope.init = function(template, mode, uuid) {
-          var calwebtem = caliopewebTemplateSrv.caliopeForm;
+          var calwebtem = calwebTemSrv.caliopeForm;
           calwebtem.id     = template;
           calwebtem.mode   = mode;
           calwebtem.uuid   = uuid;
 
-          $scope.caliopeForm = caliopewebTemplateSrv.caliopeForm;
-          $scope.jsonPlantilla = caliopewebTemplateSrv.loadTemplateData();
+          $scope.caliopeForm   = calwebTemSrv.caliopeForm;
+          $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();
         };
-
 
         $scope.initWithRouteParams = function() {
+          var calwebtem = calwebTemSrv.caliopeForm;
+          calwebtem.id     = $routeParams.plantilla;
+          calwebtem.mode   = $routeParams.mode;
+          calwebtem.uuid   = $routeParams.uuid;
 
-          caliopewebTemplateSrv.caliopeForm.id     = $routeParams.plantilla;
-          caliopewebTemplateSrv.caliopeForm.mode   = $routeParams.mode;
-          caliopewebTemplateSrv.caliopeForm.uuid   = $routeParams.uuid;
-          $scope.caliopeForm = caliopewebTemplateSrv.caliopeForm;
-          $scope.jsonPlantilla = caliopewebTemplateSrv.loadTemplateData();
+          $scope.caliopeForm   = calwebTemSrv.caliopeForm;
+          $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();
         };
 
 
-        if (caliopewebTemplateSrv.caliopeForm.mode === 'edit') {
-          caliopewebTemplateSrv.caliopeForm.id     = $routeParams.plantilla;
-          caliopewebTemplateSrv.caliopeForm.mode   = $routeParams.mode;
-          caliopewebTemplateSrv.caliopeForm.uuid   = $routeParams.uuid;
-          $scope.caliopeForm = caliopewebTemplateSrv.caliopeForm;
-          caliopewebTemplateSrv.load();
+        if (calwebTemSrv.caliopeForm.mode === 'edit') {
+          calwebTemSrv.caliopeForm.id     = $routeParams.plantilla;
+          calwebTemSrv.caliopeForm.mode   = $routeParams.mode;
+          calwebTemSrv.caliopeForm.uuid   = $routeParams.uuid;
+          $scope.caliopeForm = calwebTemSrv.caliopeForm;
+          calwebTemSrv.load();
         }
       }
   ]);
 
   moduleControllers.controller('CaliopeWebTemplateCtrlDialog',
     ['caliopewebTemplateSrv', 'dialog', '$scope',
-      function (caliopewebTemplateSrv, dialog, $scope) {
-        $scope.init = function(template, mode, uuid) {
-          caliopewebTemplateSrv.caliopeForm.id     = template;
-          caliopewebTemplateSrv.caliopeForm.mode   = mode;
-          caliopewebTemplateSrv.caliopeForm.uuid   = uuid;
-          $scope.caliopeForm = caliopewebTemplateSrv.caliopeForm;
-          caliopewebTemplateSrv.load();
-        };
+      function (calwebTemSrv, dialog, $scope) {
 
+        $scope.$watch('jsonPlantilla', function (value) {
+          if( value !== undefined ) {
+            var result = calwebTemSrv.load(value, $scope);
+            $scope.jsonPlantillaAngular = result.structureToRender;
+            $scope.inputsFormTemplate   = result.elementsName;
+            $scope.formUUID             = result.formUuid;
+          }
+        });
+
+        $scope.init = function(template, mode, uuid) {
+          var calwebtem = calwebTemSrv.caliopeForm;
+          calwebtem.id     = template;
+          calwebtem.mode   = mode;
+          calwebtem.uuid   = uuid;
+
+          $scope.caliopeForm   = calwebTemSrv.caliopeForm;
+          $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();
+        };
 
         if( dialog !== undefined){
           $scope.closeDialog = function(){
