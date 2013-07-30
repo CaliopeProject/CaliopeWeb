@@ -40,13 +40,17 @@ var CaliopeWebForm = (function() {
 
     function searchElementsIndividual(elementsAll) {
       var elementsTypeName = [];
-      var elementsType = [];
 
-      elementsType = jQuery.grep(elementsAll, function(obj) {
+      var elementsType = jQuery.grep(elementsAll, function(obj) {
         /*TODO: Mejorar para que solo coincidan los elementos de cierto tipo. Por
          ejemplo aquellos que se renderizan como un input.
          */
-        return obj.type !== undefined;
+        var isElementTypeInput = false;
+        if( obj['type'] !== undefined ) {
+          isElementTypeInput = true;
+        }
+
+        return isElementTypeInput;
       });
 
       for ( var i = 0; i < elementsType.length; i++) {
@@ -96,7 +100,7 @@ var CaliopeWebForm = (function() {
       addStructure: function (_structure, _formName) {
         var result = searchElements(_structure);
         formName = _formName;
-        formUUID = UUIDjs.create().hex;
+        formUUID = UUIDjs.create({}, {}).hex;
         elementsForm = result.elements;
         elementsFormName = result.elementsName;
         structure = _structure;
@@ -179,10 +183,11 @@ var CaliopeWebForm = (function() {
      * @param context
      */
       putDataToContext : function(context) {
-        var varname = "";
         if (data !== undefined) {
-          for (varname in data) {
-            context[varname] = data[varname].value;
+          for (var varname in data) {
+            if(data.hasOwnProperty(varname)) {
+              context[varname] = data[varname].value;
+            }
           }
         }
       },
@@ -227,7 +232,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 
   }
 
-  function completeModel(elementsInputs, formName) {
+  function completeModel(elementsInputs) {
     var i;
     for( i = 0; i < elementsInputs.length; i++  ) {
       completeModelIndividual(elementsInputs[i]);
@@ -260,7 +265,6 @@ var CaliopeWebFormSpecificDecorator = ( function() {
      * Verificar que existan elementos
      */
     if( elementsInputs !== undefined && elementsInputs.length > 0) {
-      var i;
       /*
       Seleccionar los elementos que sean de tipo select
        */
@@ -295,7 +299,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         }
       });
     }
-  };
+  }
 
   return {
     createStructureToRender : function(caliopeWebForm) {
@@ -304,7 +308,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 
       caliopeWebForm.createStructureToRender = function() {
         completeController(structureInit, caliopeWebForm.getFormName());
-        completeModel(caliopeWebForm.getElements(), caliopeWebForm.getFormName());
+        completeModel(caliopeWebForm.getElements());
         completeTypeSelect(caliopeWebForm.getElements());
         return structureInit;
       };
@@ -336,7 +340,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
         name : "div-footer",
         class : NAME_CLASS_ACTIONS,
         html  : []
-      }
+      };
 
 
       for ( var i = 0; i < structureActions.length; i++) {
@@ -474,14 +478,13 @@ var CaliopeWebFormValidDecorator = ( function() {
 
 
   function getElementMsgVal(validationType, element, formName, params) {
-    var varNameRequired = 'required';
     var varNameDirty = '$dirty';
     var varNameError = '$error';
 
     var nameDirective = "msg-";
     var elementName = "";
     if( element.hasOwnProperty('name') ) {
-      elementName = element.name
+      elementName = element['name'];
       nameDirective = nameDirective.concat(elementName);
     }
     var stElement = formName.concat('.').concat(elementName);
@@ -495,7 +498,7 @@ var CaliopeWebFormValidDecorator = ( function() {
         stParameters = stParameters.concat('|').concat(params[i]);
       }
     }
-    var  elementMsg = {
+    return {
       "type"  : "cw-validation-mess",
       "name"  : nameDirective,
       "ng-show"  : stShowDirty.concat(" && ").concat(stShowError).
@@ -503,7 +506,6 @@ var CaliopeWebFormValidDecorator = ( function() {
       "validation-type"  : validationType,
       "params" : params
     };
-    return elementMsg;
   }
 
   function completeValidation(elementsInputs, structureInit, formName) {
