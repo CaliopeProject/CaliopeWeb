@@ -6,7 +6,7 @@
     <small>Bienvenido,</small>
     Un nombre Temporal :) {{currentUser.firstName}} {{currentUser.lastName}}
   </span>
-  <i class="icon-caret-down"></i>
+  <span ng-show="isAuthenticated()" ><i class="icon-caret-down" ></i></span>
 </a>
 
 <ul ng-show="isAuthenticated()" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">

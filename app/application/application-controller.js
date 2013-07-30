@@ -23,6 +23,8 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         var timerMessage;
         var initMessage = {type: 'success', msg: 'Bienvenidos al SIIM' };
 
+        $scope.isAuthenticated = security.isAuthenticated;
+
         $scope.alerts      = [];
         $scope.breadcrumbs = breadcrumbs;
 
