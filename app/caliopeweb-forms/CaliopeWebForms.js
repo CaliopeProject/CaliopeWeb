@@ -326,6 +326,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
 
       var buttonContainer = {
         type : "div",
+        name : "div-footer",
         class : NAME_CLASS_ACTIONS,
         html  : []
       }

@@ -27,10 +27,12 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
       function (caliopewebTemplateSrv, $scope, $routeParams) {
 
         $scope.$watch('jsonPlantilla', function (value) {
-          var result = caliopewebTemplateSrv.load(value, $scope);
-          $scope.jsonPlantillaAngular = result.structureToRender;
-          $scope.inputsFormTemplate   = result.elementsName;
-          $scope.formUUID             = result.formUuid;
+          if( value !== undefined ) {
+            var result = caliopewebTemplateSrv.load(value, $scope);
+            $scope.jsonPlantillaAngular = result.structureToRender;
+            $scope.inputsFormTemplate   = result.elementsName;
+            $scope.formUUID             = result.formUuid;
+          }
         });
 
         $scope.init = function(template, mode, uuid) {
