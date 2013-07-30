@@ -100,7 +100,7 @@ var CaliopeWebForm = (function() {
       addStructure: function (_structure, _formName) {
         var result = searchElements(_structure);
         formName = _formName;
-        formUUID = UUIDjs.create({}, {}).hex;
+        formUUID = UUIDjs.create().hex;
         elementsForm = result.elements;
         elementsFormName = result.elementsName;
         structure = _structure;
