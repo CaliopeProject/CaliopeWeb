@@ -1,5 +1,5 @@
 /*jslint browser: true*/
-/*global define,CaliopeWebForm, 
+/*global define,CaliopeWebForm,
  CaliopeWebFormSpecificDecorator,
  CaliopeWebFormActionsDecorator,
  CaliopeWebFormValidDecorator,
@@ -26,70 +26,61 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
     ['caliopewebTemplateSrv', '$scope', '$routeParams',
       function (caliopewebTemplateSrv, $scope, $routeParams) {
 
-        var caliopeForm = {};
-
-        function load() {
-
-          $scope.jsonPlantillaWA = {};
-
-          $scope.$watch('jsonPlantilla', function (value) {
-              var content = value;
-              if (content !== undefined && content.error === undefined &&
-                  content.form !== undefined) {
-
-                var caliopeWebForm = new CaliopeWebForm();
-                caliopeWebForm.addStructure(content.form, content.form.name);
-                caliopeWebForm.addActions(content.actions);
-                caliopeWebForm.addData(content.data);
-                caliopeWebForm.addTranslations(content.translations);
-
-                CaliopeWebFormSpecificDecorator.createStructureToRender(caliopeWebForm);
-                CaliopeWebFormActionsDecorator.createStructureToRender(caliopeWebForm);
-                CaliopeWebFormValidDecorator.createStructureToRender(caliopeWebForm);
-                CaliopeWebFormAttachmentsDecorator.createStructureToRender(caliopeWebForm);
-
-
-                $scope.jsonPlantillaAngular = caliopeWebForm.createStructureToRender();
-                $scope.inputsFormTemplate   = caliopeWebForm.getElementsName();
-                $scope.formUUID = caliopeWebForm.getFormUUID();
-
-                caliopeWebForm.putDataToContext($scope);
-              }
-            });
-
-          $scope.jsonPlantilla =
-            caliopewebTemplateSrv.loadTemplateData(caliopeForm);
-        }
+        $scope.$watch('jsonPlantilla', function (value) {
+          var result = caliopewebTemplateSrv.load(value, $scope);
+          $scope.jsonPlantillaAngular = result.structureToRender;
+          $scope.inputsFormTemplate   = result.elementsName;
+          $scope.formUUID             = result.formUuid;
+        });
 
         $scope.init = function(template, mode, uuid) {
-          caliopeForm.id     = template;
-          caliopeForm.mode   = mode;
-          caliopeForm.uuid   = uuid;
-          $scope.caliopeForm = caliopeForm;
-          load();
+          var calwebtem = caliopewebTemplateSrv.caliopeForm;
+          calwebtem.id     = template;
+          calwebtem.mode   = mode;
+          calwebtem.uuid   = uuid;
+
+          $scope.caliopeForm = caliopewebTemplateSrv.caliopeForm;
+          $scope.jsonPlantilla = caliopewebTemplateSrv.loadTemplateData();
         };
+
 
         $scope.initWithRouteParams = function() {
-          caliopeForm.id     = $routeParams.plantilla;
-          caliopeForm.mode   = $routeParams.mode;
-          caliopeForm.uuid   = $routeParams.uuid;
-          $scope.caliopeForm = caliopeForm;
-          load();
+
+          caliopewebTemplateSrv.caliopeForm.id     = $routeParams.plantilla;
+          caliopewebTemplateSrv.caliopeForm.mode   = $routeParams.mode;
+          caliopewebTemplateSrv.caliopeForm.uuid   = $routeParams.uuid;
+          $scope.caliopeForm = caliopewebTemplateSrv.caliopeForm;
+          $scope.jsonPlantilla = caliopewebTemplateSrv.loadTemplateData();
         };
 
 
-        if (caliopeForm.mode === 'edit') {
-          caliopeForm.id = $routeParams.plantilla;
-          caliopeForm.mode = $routeParams.mode;
-          caliopeForm.uuid = $routeParams.uuid;
-          $scope.caliopeForm = caliopeForm;
-          load();
+        if (caliopewebTemplateSrv.caliopeForm.mode === 'edit') {
+          caliopewebTemplateSrv.caliopeForm.id     = $routeParams.plantilla;
+          caliopewebTemplateSrv.caliopeForm.mode   = $routeParams.mode;
+          caliopewebTemplateSrv.caliopeForm.uuid   = $routeParams.uuid;
+          $scope.caliopeForm = caliopewebTemplateSrv.caliopeForm;
+          caliopewebTemplateSrv.load();
         }
-        /*
-        $scope.closeDialog = function(){
-          dialog.close('ok');
+      }
+  ]);
+
+  moduleControllers.controller('CaliopeWebTemplateCtrlDialog',
+    ['caliopewebTemplateSrv', 'dialog', '$scope',
+      function (caliopewebTemplateSrv, dialog, $scope) {
+        $scope.init = function(template, mode, uuid) {
+          caliopewebTemplateSrv.caliopeForm.id     = template;
+          caliopewebTemplateSrv.caliopeForm.mode   = mode;
+          caliopewebTemplateSrv.caliopeForm.uuid   = uuid;
+          $scope.caliopeForm = caliopewebTemplateSrv.caliopeForm;
+          caliopewebTemplateSrv.load();
         };
-        */
+
+
+        if( dialog !== undefined){
+          $scope.closeDialog = function(){
+            dialog.close('ok');
+          };
+        }
       }
   ]);
 

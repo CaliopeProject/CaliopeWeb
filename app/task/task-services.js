@@ -11,7 +11,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       backdrop      : false,
       keyboard      : true,
       backdropClick : false,
-      controller    : 'CaliopeWebTemplateCtrl'
+      controller    : 'CaliopeWebTemplateCtrlDialog'
     };
 
     // task form dialog stuff

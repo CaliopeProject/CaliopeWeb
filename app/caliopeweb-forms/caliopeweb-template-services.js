@@ -12,26 +12,26 @@ define(['angular'], function(angular) {
       function ($q, $rootScope, $http, webSocket) {
 
         //We return this object to anything injecting our service
-        var Service = {};
-
+        var Service     = {};
+        Service.caliopeForm = {};
         /**
-         * Load the json template that define the form with fields.
-         * @param caliopeForm Form to retrieve.
-         * @returns {{}} Promise created to the send the request to the server.
-         */
-        Service.loadTemplateData = function (caliopeForm) {
+        * Load the json template that define the form with fields.
+        * @param caliopeForm Form to retrieve.
+        * @returns {{}} Promise created to the send the request to the server.
+        */
+        Service.loadTemplateData = function () {
           var method = {};
           var params = {};
-          params.formId = caliopeForm.id;
+          params.formId = Service.caliopeForm.id;
 
-          if (caliopeForm.mode === 'create') {
+          if (Service.caliopeForm.mode === 'create') {
             method = 'form.getTemplate';
             params.domain = "";
             params.version = "3";
           }
-          if (caliopeForm.mode === 'edit') {
+          if (Service.caliopeForm.mode === 'edit') {
             method = 'form.getData';
-            params.uuid = caliopeForm.uuid;
+            params.uuid = Service.caliopeForm.uuid;
           }
 
           var promise = {};
@@ -43,19 +43,19 @@ define(['angular'], function(angular) {
         };
 
         /**
-         * Send the data register for the user in a form
-         * @param formTemplate Name of the form template
-         * @param actionMethod Action invoked
-         * @param object Object that contains the data form.
-         * @param formUUID UUID of the form
-         * @param objID Identified of the data
-         * @returns {{}}
-         */
+        * Send the data register for the user in a form
+        * @param formTemplate Name of the form template
+        * @param actionMethod Action invoked
+        * @param object Object that contains the data form.
+        * @param formUUID UUID of the form
+        * @param objID Identified of the data
+        * @returns {{}}
+        */
         Service.sendDataForm = function(formTemplateName, actionMethod, object, formUUID, objID ) {
 
           var params = {};
           var method = actionMethod;
-                  
+
           if( object === undefined ) {
             object = {};
           }
@@ -107,8 +107,35 @@ define(['angular'], function(angular) {
           return promise;
         };
 
+        Service.load = function ( value , data) {
+
+            var content = value;
+            var result = {};
+
+            if (content !== undefined && content.error === undefined &&
+            content.form !== undefined) {
+
+              var caliopeWebForm = new CaliopeWebForm();
+              caliopeWebForm.addStructure(content.form, content.form.name);
+              caliopeWebForm.addActions(content.actions);
+              caliopeWebForm.addData(content.data);
+              caliopeWebForm.addTranslations(content.translations);
+
+              CaliopeWebFormSpecificDecorator.createStructureToRender(caliopeWebForm);
+              CaliopeWebFormActionsDecorator.createStructureToRender(caliopeWebForm);
+              CaliopeWebFormValidDecorator.createStructureToRender(caliopeWebForm);
+              CaliopeWebFormAttachmentsDecorator.createStructureToRender(caliopeWebForm);
+
+              result.structureToRender = caliopeWebForm.createStructureToRender();
+              result.elementsName      = caliopeWebForm.getElementsName();
+              result.formUuid          = caliopeWebForm.getFormUUID();
+
+              caliopeWebForm.putDataToContext(data);
+              return result;
+            }
+        };
+
         return Service;
 
-      }]);
-
-});
+        }]);
+      });
