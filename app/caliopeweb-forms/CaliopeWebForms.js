@@ -481,13 +481,20 @@ var CaliopeWebFormValidDecorator = ( function() {
     var stShowDirty = stElement.concat('.').concat(varNameDirty);
     var stShowError = stElement.concat('.').concat(varNameError);
 
-
+    var stParameters = "";
+    if( params !== undefined ) {
+      var i;
+      for(i=0; i<params.length; i++) {
+        stParameters = stParameters.concat('|').concat(params[i]);
+      }
+    }
     var  elementMsg = {
       "type"  : "cw-validation-mess",
       "name"  : nameDirective,
       "ng-show"  : stShowDirty.concat(" && ").concat(stShowError).
           concat(".").concat(validationType),
-      "validation-type"  : validationType
+      "validation-type"  : validationType,
+      "params" : params
     };
     return elementMsg;
   }
