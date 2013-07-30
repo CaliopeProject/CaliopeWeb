@@ -1,16 +1,36 @@
-<ul class="nav pull-right">
-  <li class="divider-vertical"></li>
-  <li ng-show="isAuthenticated()">
-  <a href="#">{{currentUser.firstName}} {{currentUser.lastName}}</a>
+<li class="orange user-profile">
+<a data-toggle="dropdown" class="dropdown-toggle" ng-click="openDialog()" href="#">
+  <i class="icon-user"></i>
+  <span ng-hide="isAuthenticated()" class="badge-transparent" ng-click="login()">Ingresar</span>
+  <span id="user_info" ng-show="isAuthenticated()">
+    <small>Bienvenido,</small>
+    Un nombre Temporal :) {{currentUser.firstName}} {{currentUser.lastName}}
+  </span>
+  <i class="icon-caret-down"></i>
+</a>
+
+<ul ng-show="isAuthenticated()" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
+  <li>
+  <a href="#">
+    <i class="icon-cog"></i>
+    Settings
+  </a>
   </li>
-  <li ng-show="isAuthenticated()" class="logout">
-  <form class="navbar-form">
-    <button class="btn logout" ng-click="logout()">Log out</button>
-  </form>
+
+  <li>
+  <a href="#">
+    <i class="icon-user"></i>
+    Perfil
+  </a>
   </li>
-  <li ng-hide="isAuthenticated()" class="login">
-  <form class="navbar-form">
-    <button class="btn login" type="button" ng-click="login()">Log in</button>
-  </form>
+
+  <li class="divider"></li>
+
+  <li>
+  <a ng-click="logout()"href="#">
+    <i class="icon-off"></i>
+    Salir
+  </a>
   </li>
 </ul>
+</li>

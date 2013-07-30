@@ -54,7 +54,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
         opentaskDialog();
       },
 
-      // Attempt to authenticate a user by the given email and password
       editTask: function(numuuid) {
         var data = {template: 'asignaciones',
                     mode    : 'edit',
@@ -63,7 +62,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
         opentaskDialog();
       },
 
-      // Give up trying to task and clear the retry queue
       cancelTask: function() {
         closetaskDialog(false);
       }
