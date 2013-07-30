@@ -229,31 +229,41 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
             {type: "-"},
             {type: "measurelength", options: {geodesic: true}},
             {type: "measurearea", options: {geodesic: true}},
-            {type: "capas",
-					options: {
-						text: 'Capas',
-						iconCls: 'bmenu',
-						handler: function () {
-                            layerTreeDialog.add({
-                                xtype: 'hr_layertreepanel'
-                            });
-							layerTreeDialog.show();
-
-						 }
-					}
-				},
-            {type: "Info", options: {
-                text: 'Info Lotes',
-                handler:function(){
-                    if(featureInfoControl.active){
-                        featureInfoControl.deactivate();
-                    }else{
-                        featureInfoControl.activate();
-                    }
+            {type: "-"},
+            {
+                create: function(mapPanel, options){
+                    options.handler = function () {
+                        layerTreeDialog.add({
+                            xtype: 'hr_layertreepanel'
+                        });
+                        layerTreeDialog.show();
+                    };
+                    return new Ext.Action(options);
+                },
+                options: {
+                    text : 'Capas',
+                    enableToggle : true,
+                    toggleGroup : "toolGroup"
                 }
-            }}
-
-                        ];
+            },
+            {
+                create: function(mapPanel, options){
+                    options.handler = function(){
+                        if(featureInfoControl.active){
+                            featureInfoControl.deactivate();
+                        }else{
+                            featureInfoControl.activate();
+                        }
+                    };
+                    return new Ext.Action(options);
+                },
+                options: {
+                    text : 'Info Lotes',
+                    enableToggle : true,
+                    toggleGroup : "toolGroup"
+                }
+            }
+        ];
           Heron.layout = {
               xtype: 'hr_mappanel',
               renderTo: 'siim_mapdiv',

@@ -9,7 +9,7 @@ define(['angular', 'dform'], function (angular) {
     moduleDirectives.directive('cwForm', function () {
       var directiveDefinitionObject = {
         restrict : 'E',
-        replace : true,
+        replace : false,
         templateUrl : 'caliopeweb-forms/caliopeweb-form-partial.html',
         scope: {
           id   : '=id',

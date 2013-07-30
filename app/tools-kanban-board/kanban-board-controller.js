@@ -3,54 +3,32 @@
 
 define(['angular'], function (angular) {
   'use strict';
-
-  var dirmodule = angular.module('kanbanBoardCtrl', ['login-security-services']);
-
-  dirmodule.controller("kanbanBoardCtrl",["SessionSrv", "$scope","webSocket", "$log", function(security, $scope, webSocket, $log) {
-    var uuid;
+var dirmodule = angular.module('kanbanBoardCtrl', ['login-security-services']);
+dirmodule.controller("kanbanBoardCtrl",
+  ["SessionSrv", "$scope","webSocket", "$log", 'taskService',
+  function(security, $scope, webSocket, $log, taskService) {
+    var uuid, tasks;
 
     $scope.$on('openWebSocket', function(event, data) {
       uuid = security.getIdSession();
+      $scope.uuid    = uuid;
     });
 
     var params = {};
-    var method = "task.getAll";
+    var method = "tasks.getAll";
 
     params = {
       "uuid" : uuid
     };
 
     var webSockets = webSocket.WebSockets();
-    var request = webSockets.serversimm.sendRequest(method, params);
+    webSockets.serversimm.sendRequest(method, params).then(function(data){
+      $scope.data = data;
+    });
 
-    $log.info(request);
-
-    $scope.columns = [
-      {
-        name: 'To Do',
-        notes: [
-          {description: 'Buscar que hacer'},
-          {description: 'El ser o el ente?'},
-          {description: 'Salvar al mundo (con la panza llena)'},
-          {description: 'Adoptar una directiva sin controlador'}
-        ]
-      },
-      {
-        name: 'Doing',
-        notes: [
-          {description: 'plantilla de tareas'}
-        ]
-      },
-      {
-        name: 'Done',
-        notes: [
-          {description: 'Perder muchoooo tiempo contando llaves, corchetes y paréntesis'},
-          {description: 'hablar mal de JS'},
-          {description: 'desterrar a Java'}
-        ]
-      }
-    ];
+    $scope.editTask = function ( uuid ){
+      taskService.editTask(uuid);
+    };
 
   }]);
-
 });
