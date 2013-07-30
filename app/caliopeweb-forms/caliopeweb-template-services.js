@@ -107,19 +107,19 @@ define(['angular'], function(angular) {
           return promise;
         };
 
-        Service.load = function ( value , data) {
+        Service.load = function ( value , context) {
 
-            var content = value;
+            var templateFromServer = value;
             var result = {};
 
-            if (content !== undefined && content.error === undefined &&
-            content.form !== undefined) {
+            if (templateFromServer !== undefined && templateFromServer.error === undefined &&
+            templateFromServer.form !== undefined) {
 
               var caliopeWebForm = new CaliopeWebForm();
-              caliopeWebForm.addStructure(content.form, content.form.name);
-              caliopeWebForm.addActions(content.actions);
-              caliopeWebForm.addData(content.data);
-              caliopeWebForm.addTranslations(content.translations);
+              caliopeWebForm.addStructure(templateFromServer.form, templateFromServer.form.name);
+              caliopeWebForm.addActions(templateFromServer.actions);
+              caliopeWebForm.addData(templateFromServer.data);
+              caliopeWebForm.addTranslations(templateFromServer.translations);
 
               CaliopeWebFormSpecificDecorator.createStructureToRender(caliopeWebForm);
               CaliopeWebFormActionsDecorator.createStructureToRender(caliopeWebForm);
@@ -129,8 +129,9 @@ define(['angular'], function(angular) {
               result.structureToRender = caliopeWebForm.createStructureToRender();
               result.elementsName      = caliopeWebForm.getElementsName();
               result.formUuid          = caliopeWebForm.getFormUUID();
+              result.data              = caliopeWebForm.getData();
 
-              caliopeWebForm.putDataToContext(data);
+              caliopeWebForm.putDataToContext(context);
               return result;
             }
         };
