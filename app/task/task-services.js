@@ -15,6 +15,9 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       controller    : 'CaliopeWebTemplateCtrlDialog'
     };
 
+    // Login form dialog stuff
+    var loginDialog = null;
+
     // task form dialog stuff
     var taskDialog = null;
 
@@ -35,6 +38,12 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
     function closetaskDialog(success) {
       if (taskDialog) {
         taskDialog.close(success);
+      }
+    }
+
+    function closeLoginDialog(success) {
+      if (loginDialog) {
+        loginDialog.close(success);
       }
     }
 
