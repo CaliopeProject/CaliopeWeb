@@ -273,18 +273,25 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       para indicar que los options del select se deben recuperar desde el server.
        */
       jQuery.each(elementsSelect, function(index, element){
-        var NAMEVAR_LOAD_OPT_SRV = 'options-load-server';
-        var NAMEVAR_ENTITY = 'entity';
-
-        if( element.hasOwnProperty(NAMEVAR_LOAD_OPT_SRV) ) {
-          var NAMEVAR_DIRECTIVE_CWOPT = 'cw-options';
+        if( element.hasOwnProperty(VARNAME_LOAD_OPT_SRV) ) {
+          var VARNAME_LOAD_OPT_SRV = 'options-load-server';
+          var VARNAME_METHOD = 'method';
+          var VARNAME_FIELDVAL = 'field-value';
+          var VARNAME_FIELDDESC = 'field-desc';
+          var VARNAME_DIRECTIVE_CWOPT = 'cw-options';
           var VARNAME_DIRECTIVE_OPT = 'ng-options';
 
           element.fromserver = true;
-          element.entity = element[NAMEVAR_LOAD_OPT_SRV][NAMEVAR_ENTITY];
-          element[ NAMEVAR_DIRECTIVE_CWOPT] = '';
-          element.options = {};
+          element.method = element[VARNAME_LOAD_OPT_SRV][VARNAME_METHOD];
+          if( element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDVAL] !== undefined) {
+            element.fieldvalue = element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDVAL];
+          }
+          if( element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDDESC] !== undefined) {
+            element.fielddesc = element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDDESC];
+          }
+          element[VARNAME_DIRECTIVE_CWOPT] = '';
           element[ VARNAME_DIRECTIVE_OPT] = 'opt.desc for opt in options';
+          //element.options = {};
         }
       });
     }
