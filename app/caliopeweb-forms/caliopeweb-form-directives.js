@@ -91,6 +91,14 @@ define(['angular', 'dform'], function (angular) {
       link: function (scope, element, attrs) {
         scope['validationType'] = attrs['validationType'];
         $compile(element.contents())(scope);
+        var stParams = attrs['params'];
+        if( stParams !== undefined ) {
+          var params = stParams.split("|");
+          var i;
+          for( i=0; i<params.length; i++) {
+            scope['param'.concat(i)] = params[i];
+          }
+        }
       }
     };
 

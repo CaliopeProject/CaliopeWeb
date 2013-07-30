@@ -254,6 +254,8 @@ var CaliopeWebFormSpecificDecorator = ( function() {
   }
 
   function completeTypeSelect(elementsInputs) {
+
+
     /*
      * Verificar que existan elementos
      */
@@ -271,12 +273,18 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       para indicar que los options del select se deben recuperar desde el server.
        */
       jQuery.each(elementsSelect, function(index, element){
-        if( element.hasOwnProperty('options') && element.options.hasOwnProperty('entity')) {
+        var NAMEVAR_LOAD_OPT_SRV = 'options-load-server';
+        var NAMEVAR_ENTITY = 'entity';
+
+        if( element.hasOwnProperty(NAMEVAR_LOAD_OPT_SRV) ) {
+          var NAMEVAR_DIRECTIVE_CWOPT = 'cw-options';
+          var VARNAME_DIRECTIVE_OPT = 'ng-options';
+
           element.fromserver = true;
-          element.entity = element.options.entity;
-          element['cw-options'] = '';
+          element.entity = element[NAMEVAR_LOAD_OPT_SRV][NAMEVAR_ENTITY];
+          element[ NAMEVAR_DIRECTIVE_CWOPT] = '';
           element.options = {};
-          element['ng-options'] = 'opt.desc for opt in options';
+          element[ VARNAME_DIRECTIVE_OPT] = 'opt.desc for opt in options';
         }
       });
     }
@@ -457,7 +465,7 @@ var CaliopeWebFormAttachmentsDecorator = ( function() {
 var CaliopeWebFormValidDecorator = ( function() {
 
 
-  function getElementMsgVal(validationType, element, formName) {
+  function getElementMsgVal(validationType, element, formName, params) {
     var varNameRequired = 'required';
     var varNameDirty = '$dirty';
     var varNameError = '$error';
@@ -489,6 +497,8 @@ var CaliopeWebFormValidDecorator = ( function() {
     var REQUIRE_ATT_NAME = 'required';
     var MAXLENGTH_ATT_NAME = 'maxlength';
     var MINLENGTH_ATT_NAME = 'minlength';
+    var MIN_NUMBER_ATT_NAME = "min";
+    var MAX_NUMBER_ATT_NAME = "max";
     var htmlElements = structureInit.html;
 
     if( elementsInputs !== undefined ) {
@@ -507,20 +517,32 @@ var CaliopeWebFormValidDecorator = ( function() {
           var varName;
           for( varName in validations) {
             var validationType = varName;
+            var params=[];
             /*
               Logic for validation required
             */
             if( validationType === REQUIRE_ATT_NAME ) {
               elementsInputs[i].required = validations[REQUIRE_ATT_NAME];
-              validationType = REQUIRE_ATT_NAME;
-            }
-            if( validationType === MAXLENGTH_ATT_NAME  ) {
-              elementsInputs[i].maxlength = validations[MAXLENGTH_ATT_NAME];
-              validationType = MINLENGTH_ATT_NAME;
+              validationType = 'required';
             }
             if( validationType === MINLENGTH_ATT_NAME  ) {
-              elementsInputs[i].minlength = validations[MINLENGTH_ATT_NAME];
-              validationType = MINLENGTH_ATT_NAME;
+              elementsInputs[i]['ng-minlength'] = validations[MINLENGTH_ATT_NAME];
+              validationType = 'minlength';
+              params[0] = validations[MINLENGTH_ATT_NAME];
+            }
+            if( validationType === MAXLENGTH_ATT_NAME  ) {
+              elementsInputs[i]['ng-maxlength'] = validations[MAXLENGTH_ATT_NAME];
+              validationType = 'maxlength';
+              params[0] = validations[MAXLENGTH_ATT_NAME];
+            }
+            if( validationType === MIN_NUMBER_ATT_NAME  ) {
+              elementsInputs[i].min = validations[MIN_NUMBER_ATT_NAME];
+              validationType = 'min';
+              params[0] = validations[MIN_NUMBER_ATT_NAME];
+            }
+            if( validationType === MAX_NUMBER_ATT_NAME  ) {
+              elementsInputs[i].max = validations[MAX_NUMBER_ATT_NAME];
+              params[0] = 'max';
             }
 
             var index = htmlElements.indexOf(elementsInputs[i]);
@@ -528,8 +550,7 @@ var CaliopeWebFormValidDecorator = ( function() {
               var htmlElementsIni = htmlElements.slice(0, index + 1);
               var htmlElementsFin = htmlElements.slice(index+1);
 
-              var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName);
-              console.log('elementMsgVal', elementMsgVal);
+              var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName, params);
               htmlElements = htmlElementsIni.concat(elementMsgVal).concat(htmlElementsFin);
             }
           }

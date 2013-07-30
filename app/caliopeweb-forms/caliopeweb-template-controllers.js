@@ -117,8 +117,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         });
 
         $scope.sendAction = function(form, formTemplateName, actionMethod, formUUID, objID, paramsToSend) {
-          //TODO: Mejorar para que se ejecute de forma dinámica el envio del form.
-
 
           var inputs = $scope.inputsFormTemplate;
           var obj = {};
@@ -131,36 +129,16 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           } else {
             paramsToSend = paramsToSend.split(',');
           }
-          console.log('Params to send', paramsToSend);
+
           for (i = 0; i < inputs.length; i++) {
             if( paramsToSend.length === 0 || paramsToSend.indexOf(inputs[i]) >= 0 ) {
               obj[inputs[i]] = $scope[inputs[i]];
             }
           }
-          console.log('Obj to send', obj);
+
           $scope.responseSaveData = caliopewebTemplateSrv.sendDataForm(formTemplateName,
               actionMethod, obj, formUUID, objID);
 
-
-          /*
-          var NAME_METHOD_CREATE = 'form.createFromForm';
-          var NAME_METHOD_EDIT = 'form.editFromForm';
-          var NAME_METHOD_DELETE = 'form.delete';
-
-          if( method == NAME_METHOD_CREATE ) {
-            saveData(formName, method, formUUID, objID);
-
-          } else if( method == NAME_METHOD_EDIT ) {
-            saveData(formName, method, formUUID, objID);
-
-          } else if( method == NAME_METHOD_DELETE ) {
-            var uuidData = $scope.caliopeForm.uuid;
-            deleteData($scope.caliopeForm, uuidData)
-
-          } else {
-            console.error('Method is not support method, method was ' + method);
-          }
-          */
         };
 
       }]
@@ -198,7 +176,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
               caliopeWebGrid.addData(value.data);
               CaliopeWebGridDataDecorator.createStructureToRender(caliopeWebGrid);
               var structureToRender = caliopeWebGrid.createStructureToRender();
-              console.log('Structure To Render', structureToRender);
 
               $scope.data = structureToRender.data;
               $scope.gridOptions = {
