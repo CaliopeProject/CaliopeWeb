@@ -2,7 +2,7 @@
 /*global define, console, $*/
 
 define(['angular', 'dform'], function (angular) {
-  'use strict';  
+  'use strict';
 
   var moduleDirectives = angular.module('CaliopeWebFormDirectives', []);
   
@@ -130,24 +130,69 @@ define(['angular', 'dform'], function (angular) {
    */
   moduleDirectives.directive('cwOptions', ['caliopewebTemplateSrv', "$compile", function (caliopewebTemplateSrv, $compile) {
 
-    var nameAttrFromServer = 'fromserver';
-    var nameAttrEntity = 'entity';
+    /**
+     * Get the final value of a attribute in a object, where attribute is represented by a string notation that indicate the
+     * path to final attribute..
+     *
+     * Example.
+     * obj = { "user" : {
+     *            "username" : {value : "username"},
+     *            "name"  : {value : "NAME USER"}
+     *          }
+     *       }
+     * strAttrValue = user.name.value
+     * charSplit = '.'
+     *
+     * Return "NAME USER"
+     *
+     * @param obj Object with the data
+     * @param strAttrValue String that represent the attribute final to return value.
+     * @param charSplit A character that indicate the separation of attributes in strAttrValue
+     * @returns {*} The value of attribute
+     */
+    function getFinalValueFromString(obj, strAttrValue, charSplit) {
+      var fieldsValue = strAttrValue.split(charSplit);
+      var j;
+      var objValue = obj;
+      for(j=0;j<fieldsValue.length;j++) {
+        objValue = objValue[fieldsValue[j]];
+      }
+      return objValue;
+    }
+
+    var ATTNAME_LOADREMOTE = 'fromserver';
+    var ATTNAME_METHOD = 'method';
+    var ATTNAME_FIELDVALUE = 'fieldvalue';
+    var ATTNAME_FIELDDESC = 'fielddesc';
+
     /**
      * Define the function for link the directive to AngularJS Context.
      */
     var directiveDefinitionObject = {
+
       restrict : 'A',
       replace : false,
       scope: true,
       link: function (scope, element, attrs) {
-        if( attrs[nameAttrFromServer] !== undefined && attrs[nameAttrFromServer] == 'true') {
-          var promise = caliopewebTemplateSrv.loadDataOptions(attrs[nameAttrEntity]);
+        if( attrs[ATTNAME_LOADREMOTE] !== undefined && attrs[ATTNAME_LOADREMOTE] == 'true') {
+
+          var promise = caliopewebTemplateSrv.loadDataOptions(attrs[ATTNAME_METHOD], undefined);
+
           promise.then(function(dataResponse) {
-            scope.options = [
-              {value:'valor1', desc: 'desc1'},
-              {value:'valor2', desc: 'desc2'},
-              {value:'valor3', desc: 'desc3'}
-            ];
+            console.log('dataResponse', dataResponse)
+            scope.options = [];
+            if( dataResponse != undefined ) {
+              var i;
+              var attrFieldValue = attrs[ATTNAME_FIELDVALUE];
+              var attrFieldDesc = attrs[ATTNAME_FIELDDESC];
+              for(i=0; i<dataResponse.length; i++) {
+                var option = {
+                  value : getFinalValueFromString(dataResponse[i], attrFieldValue, '.'),
+                  desc  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
+                }
+                scope.options.push(option)
+              }
+            }
           });
         }
         $compile(element.contents())(scope);

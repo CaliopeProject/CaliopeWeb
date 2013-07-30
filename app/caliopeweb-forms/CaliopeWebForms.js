@@ -273,8 +273,8 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       para indicar que los options del select se deben recuperar desde el server.
        */
       jQuery.each(elementsSelect, function(index, element){
+        var VARNAME_LOAD_OPT_SRV = 'options-load-server';
         if( element.hasOwnProperty(VARNAME_LOAD_OPT_SRV) ) {
-          var VARNAME_LOAD_OPT_SRV = 'options-load-server';
           var VARNAME_METHOD = 'method';
           var VARNAME_FIELDVAL = 'field-value';
           var VARNAME_FIELDDESC = 'field-desc';
@@ -291,7 +291,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           }
           element[VARNAME_DIRECTIVE_CWOPT] = '';
           element[ VARNAME_DIRECTIVE_OPT] = 'opt.desc for opt in options';
-          //element.options = {};
+          element.options = {};
         }
       });
     }

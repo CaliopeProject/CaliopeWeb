@@ -92,18 +92,15 @@ define(['angular'], function(angular) {
           return promise;
         };
 
-        Service.loadDataOptions = function(entity, paramsSearch) {
-          var method = "getDataOptions";
-          var params = {
-            entity : entity
-          };
-          var promise = {};
+        Service.loadDataOptions = function(method, paramsSearch) {
+          var method = method;
+          var params = {};
+
           if( paramsSearch !== undefined ) {
             jQuery.extend(params, paramsSearch);
           }
-
           var webSockets = webSocket.WebSockets();
-          promise = webSockets.serversimm.sendRequest(method, params);
+          var promise = webSockets.serversimm.sendRequest(method, params);
           return promise;
         };
 

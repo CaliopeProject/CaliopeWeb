@@ -35,7 +35,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
             if( result.elementsName !== undefined ) {
               $scope.inputsFormTemplate   = result.elementsName;
             }
-            $scope.formUUID             = result.formUuid;
+            $scope.formUUID               = result.formUuid;
           }
         });
 
