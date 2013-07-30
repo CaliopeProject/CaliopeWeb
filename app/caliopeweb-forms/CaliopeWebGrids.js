@@ -104,7 +104,9 @@ var CaliopeWebGridDataDecorator = ( function() {
         if( reg !== undefined ) {
           var varname;
           for( varname in reg ) {
-            obj[varname] = reg[varname].value;
+            if( reg.hasOwnProperty(varname) ) {
+              obj[varname] = reg[varname].value;
+            }
           }
         }
         dataT.push(obj);
