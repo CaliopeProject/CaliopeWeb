@@ -15,9 +15,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       controller    : 'CaliopeWebTemplateCtrlDialog'
     };
 
-    // Login form dialog stuff
-    var loginDialog = null;
-
     // task form dialog stuff
     var taskDialog = null;
 
@@ -27,23 +24,22 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       $location.path(url);
     }
 
+    function onTaskDialogClose(success) {
+      taskDialog = null;
+    }
+
     function opentaskDialog() {
       if ( taskDialog ) {
         throw new Error('Ya esta abierta!');
       }
       taskDialog = $dialog.dialog(opts);
-      taskDialog.open();
+      taskDialog.open().then(onTaskDialogClose);
     }
+
 
     function closetaskDialog(success) {
       if (taskDialog) {
         taskDialog.close(success);
-      }
-    }
-
-    function closeLoginDialog(success) {
-      if (loginDialog) {
-        loginDialog.close(success);
       }
     }
 
@@ -58,7 +54,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
         opentaskDialog();
       },
 
-      // Attempt to authenticate a user by the given email and password
       editTask: function(numuuid) {
         var data = {template: 'asignaciones',
                     mode    : 'edit',
@@ -67,13 +62,9 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
         opentaskDialog();
       },
 
-      // Give up trying to task and clear the retry queue
       cancelTask: function() {
         closetaskDialog(false);
-        redirect();
-      },
-
-      currentTask: null
+      }
 
     };
 
