@@ -14,7 +14,7 @@ define(['angular'], function(angular) {
       replace: true,
       scope: true,
       link: function($scope, $element, $attrs, $controller) {
-        $scope.task = taskService.showTask;
+        $scope.task = taskService.createTask;
       }
     };
 
