@@ -67,9 +67,9 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   ]);
 
   moduleControllers.controller('CaliopeWebTemplateCtrlDialog',
-    ['caliopewebTemplateSrv', 'dialog', '$scope',
-      function (calwebTemSrv, dialog, $scope) {
-
+    ['caliopewebTemplateSrv', 'dialog', '$scope', 'action',
+      function (calwebTemSrv, dialog, $scope, action) {
+console.log('action in controller template caliop', action);
         $scope.$watch('jsonPlantilla', function (value) {
           if( value !== undefined ) {
             var result = calwebTemSrv.load(value, $scope);
@@ -79,11 +79,11 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           }
         });
 
-        $scope.init = function(template, mode, uuid) {
+        $scope.init = function() {
           var calwebtem = calwebTemSrv.caliopeForm;
-          calwebtem.id     = template;
-          calwebtem.mode   = mode;
-          calwebtem.uuid   = uuid;
+          calwebtem.id     = action.template;
+          calwebtem.mode   = action.mode;
+          calwebtem.uuid   = action.uuid;
 
           $scope.caliopeForm   = calwebTemSrv.caliopeForm;
           $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();
