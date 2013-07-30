@@ -67,9 +67,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   ]);
 
   moduleControllers.controller('CaliopeWebTemplateCtrlDialog',
-    ['caliopewebTemplateSrv', 'dialog', '$scope', 'action',
-      function (calwebTemSrv, dialog, $scope, action) {
-console.log('action in controller template caliop', action);
+    ['caliopewebTemplateSrv', 'dialog', '$scope', 'action', 'taskService',
+      function (calwebTemSrv, dialog, $scope, action, taskService) {
         $scope.$watch('jsonPlantilla', function (value) {
           if( value !== undefined ) {
             var result = calwebTemSrv.load(value, $scope);
@@ -91,7 +90,7 @@ console.log('action in controller template caliop', action);
 
         if( dialog !== undefined){
           $scope.closeDialog = function(){
-            dialog.close('ok');
+            taskService.cancelTask();
           };
         }
       }
@@ -171,8 +170,8 @@ console.log('action in controller template caliop', action);
           $scope.caliopeForm = caliopeForm;
           $scope.responseLoadDataGrid = {};
 
-          $scope.data = [
-          ];
+          $scope.data = [];
+
           $scope.gridOptions = {
             'data': 'data'
           };
