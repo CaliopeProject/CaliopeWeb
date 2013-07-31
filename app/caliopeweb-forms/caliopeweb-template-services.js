@@ -92,9 +92,11 @@ define(['angular'], function(angular) {
           return promise;
         };
 
-        Service.loadDataOptions = function(method, paramsSearch) {
+        Service.loadDataOptions = function(method, formId, paramsSearch) {
           var method = method;
-          var params = {};
+          var params = {
+            'formId' : formId
+          };
 
           if( paramsSearch !== undefined ) {
             jQuery.extend(params, paramsSearch);

@@ -155,7 +155,11 @@ define(['angular', 'dform'], function (angular) {
       var j;
       var objValue = obj;
       for(j=0;j<fieldsValue.length;j++) {
-        objValue = objValue[fieldsValue[j]];
+        try {
+          objValue = objValue[fieldsValue[j]];
+        } catch (ex) {
+          console.error('Error creando opción en html select. No se encontró el atributo ' + strAttrValue + ' en ', obj );
+        }
       }
       return objValue;
     }
@@ -164,6 +168,9 @@ define(['angular', 'dform'], function (angular) {
     var ATTNAME_METHOD = 'method';
     var ATTNAME_FIELDVALUE = 'fieldvalue';
     var ATTNAME_FIELDDESC = 'fielddesc';
+    var ATTNAME_FIELDID = 'formid';
+    var ATTNAME_FIELD_DATALIST = 'fieldDatalist';
+    var ATTNAME_OPTIONSNAME = 'optionsName';
 
     /**
      * Define the function for link the directive to AngularJS Context.
@@ -172,30 +179,37 @@ define(['angular', 'dform'], function (angular) {
 
       restrict : 'A',
       replace : false,
-      scope: true,
+      scope: false,
       link: function (scope, element, attrs) {
         if( attrs[ATTNAME_LOADREMOTE] !== undefined && attrs[ATTNAME_LOADREMOTE] == 'true') {
 
-          var promise = caliopewebTemplateSrv.loadDataOptions(attrs[ATTNAME_METHOD], undefined);
+          var fieldId = attrs[ATTNAME_FIELDID];
+          var promise =
+              caliopewebTemplateSrv.loadDataOptions(attrs[ATTNAME_METHOD], fieldId, undefined);
 
           promise.then(function(dataResponse) {
-            console.log('dataResponse', dataResponse)
-            scope.options = [];
+            var scopeOptionsName = attrs[ATTNAME_OPTIONSNAME];
+            scope[scopeOptionsName] = [];
             if( dataResponse != undefined ) {
               var i;
               var attrFieldValue = attrs[ATTNAME_FIELDVALUE];
               var attrFieldDesc = attrs[ATTNAME_FIELDDESC];
+              if(attrs[ATTNAME_FIELD_DATALIST] !== undefined) {
+                dataResponse =
+                    getFinalValueFromString(dataResponse, attrs[ATTNAME_FIELD_DATALIST], '.');
+              }
               for(i=0; i<dataResponse.length; i++) {
                 var option = {
                   value : getFinalValueFromString(dataResponse[i], attrFieldValue, '.'),
                   desc  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
                 }
-                scope.options.push(option)
+                scope[scopeOptionsName].push(option)
               }
             }
           });
+
         }
-        $compile(element.contents())(scope);
+        //$compile(element.contents())(scope);
       }
     };
 
