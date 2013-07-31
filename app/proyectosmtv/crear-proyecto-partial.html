@@ -3,7 +3,7 @@
     <cw-dform cw-dform="jsonPlantillaAngular"/>
 </div>
 
-<!--
+
 <div id="container-form">
     <form name="testValidations">
         <label>Requerido</label>
@@ -25,6 +25,12 @@
         <label>Number-max</label>
         <input type="number" max="10" name="max_" ng-model="max_">
         <cw-validation-mess validation-type='max' params='10' ng-show="testValidations.max_.$error.max"></cw-validation-mess>
+
+        <select name="ente_asignado" ng-model="ente_asignado"
+               cw-options method="users.getAll" fromserver="true"
+               fieldvalue="username.value" fielddesc="username.value"
+               ng-options="opt.desc for opt in options">
+        </select>
     </form>
 </div>
--->
+

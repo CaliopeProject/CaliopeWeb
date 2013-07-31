@@ -284,17 +284,28 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           var VARNAME_FIELDDESC = 'field-desc';
           var VARNAME_DIRECTIVE_CWOPT = 'cw-options';
           var VARNAME_DIRECTIVE_OPT = 'ng-options';
+          var VARNAME_FORMID = 'formid';
+          var VARNAME_DATALIST = 'field-data-list';
+          var VARNAME_OPTIONSNAME = 'options-name'
 
           element.fromserver = true;
           element.method = element[VARNAME_LOAD_OPT_SRV][VARNAME_METHOD];
           if( element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDVAL] !== undefined) {
             element.fieldvalue = element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDVAL];
           }
-          if( element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDDESC] !== undefined) {
+          if(element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDDESC] !== undefined) {
             element.fielddesc = element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDDESC];
           }
+          if(element[VARNAME_LOAD_OPT_SRV][VARNAME_FORMID] !== undefined) {
+            element.formid = element[VARNAME_LOAD_OPT_SRV][VARNAME_FORMID];
+          }
+          if(element[VARNAME_LOAD_OPT_SRV][VARNAME_DATALIST] !== undefined) {
+            element['field-datalist'] = element[VARNAME_LOAD_OPT_SRV][VARNAME_DATALIST];
+          }
           element[VARNAME_DIRECTIVE_CWOPT] = '';
-          element[ VARNAME_DIRECTIVE_OPT] = 'opt.desc for opt in options';
+          element[VARNAME_OPTIONSNAME] = 'options_' + element.name;
+          element[VARNAME_DIRECTIVE_OPT] =
+              'opt.desc for opt in ' + element[VARNAME_OPTIONSNAME];
           element.options = {};
         }
       });

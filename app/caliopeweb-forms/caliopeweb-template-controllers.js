@@ -150,7 +150,12 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
           for (i = 0; i < inputs.length; i++) {
             if( paramsToSend.length === 0 || paramsToSend.indexOf(inputs[i]) >= 0 ) {
-              obj[inputs[i]] = $scope[inputs[i]];
+              var value = $scope[inputs[i]];
+              if( value !== undefined && value instanceof Object) {
+                obj[inputs[i]] = value.value;
+              } else {
+                obj[inputs[i]] = value;
+              }
             }
           }
 
