@@ -950,8 +950,8 @@ blockquote {
 
 #breadcrumbs {
   position: relative;
-  border-right: 1px solid #e5e5e5;
-  border-left: 1px solid #e5e5e5;
+  border-right: 1px solid #4B4B4B;
+  border-left: 1px solid #4B4B4B;
   z-index: 13;
   min-height: 45px;
   line-height: 45px;
@@ -988,6 +988,11 @@ blockquote {
       }
     }
   }
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
   .icon-home {
     margin-left: 4px;
     margin-right: 2px;
