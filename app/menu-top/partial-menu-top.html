@@ -1,15 +1,58 @@
-<div class="navbar-inner" >
-  <div class="container-fluid">
+  <!-- ALERT INIT-->
+  <div class="menu_top_message_alert">
+    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+  </div>
+  <!-- ALERT END-->
 
+<div class="navbar-inner">
+
+<div class="row-fluid" >
+
+  <!-- BRAND INIT-->
+  <div class="span1">
     <a href="#" class="brand">
       <small>
         SIMM
       </small>
-    </a><!--/.brand-->
+    </a>
+  </div>
+  <!-- BRAND END-->
 
-    <div class="menu_top_message_alert">
-      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+  <div class="span8">
+    <div id="breadcrumbs">
+      <!-- BREADCRUMBS INIT-->
+      <ul class="breadcrumb">
+        <li>
+        <i class="icon-home"></i>
+        <a href="#">Incio</a>
+        <span class="divider">
+          <i class="icon-angle-right"></i>
+        </span>
+        </li>
+        <li ng-repeat="breadcrumb in breadcrumbs.getAll()">
+        <span class="divider">/</span>
+        <ng-switch on="$last">
+        <span class="active" ng-switch-when="true">{{breadcrumb.name}}</span>
+        <span ng-switch-default><a href="{{breadcrumb.path}}">{{breadcrumb.name}}</a></span>
+        </ng-switch>
+        </li>
+      </ul>
+      <!-- BREADCRUMBS END-->
+
+      <!-- NAV-SEARCH INIT-->
+      <div id="nav-search">
+        <form class="form-search">
+          <span class="input-icon">
+            <input type="text" placeholder="Search ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
+            <i class="icon-search" id="nav-search-icon"></i>
+          </span>
+        </form>
+      </div>
+      <!-- NAV-SEARCH END-->
     </div>
+  </div>
+
+  <div class="span3">
     <ul class="nav ace-nav pull-right">
       <li class="grey">
       <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -22,7 +65,6 @@
         <i class="icon-ok"></i>
         4 Tasks to complete
         </li>
-
         <li>
         <a href="#">
           <div class="clearfix">
@@ -224,4 +266,5 @@
 
     </ul><!--/.w8-nav-->
   </div><!--/.container-fluid-->
+  </div>
 </div><!--/.navbar-inner-->
