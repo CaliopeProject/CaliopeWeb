@@ -603,3 +603,80 @@ var CaliopeWebFormValidDecorator = ( function() {
 
 
 }());
+
+
+/**
+ * Module decorator for CaliopeWebForm. This decorate the layout for the form
+ */
+var CaliopeWebFormLayoutDecorator = ( function() {
+
+
+  function replaceWithElements() {
+
+  }
+
+  function getColumnContainer(columnContainer, containerIndex, columnIndex) {
+    var containerColumns = {
+      type : "div",
+      name : "div-cont-".concat(containerIndex).concat(columnIndex),
+      class : columnContainer.class,
+      html  : replaceWithElements()
+    }
+
+    return containerColumns;
+  }
+
+  function getContainer(container) {
+    var container = {
+      type : "div",
+      name : "div-cont-#cont",
+      class : "",
+      html  : []
+    }
+    var j;
+    for(j=0;container.length;j++) {
+      var columnContainer = getColumnContainer();
+      container.html.push(columnContainer);
+    }
+    return container;
+  }
+
+  function applyLayaout(layaout, elementsInputs, structureInit) {
+
+    var htmlElements = structureInit.html;
+
+    if( layaout !== undefined ) {
+      var i;
+
+
+      for( i=0; i < layaout.length; i++) {
+         var container = getContainer(layaout[i]);
+
+
+        /*
+        var index = htmlElements.indexOf(elementsInputs[i]);
+        if( index >= 0 ) {
+          var htmlElementsIni = htmlElements.slice(0, index + 1);
+          var htmlElementsFin = htmlElements.slice(index+1);
+          htmlElements = htmlElementsIni.concat(elementMsgVal).concat(htmlElementsFin);
+        }
+        */
+      }
+    }
+
+    structureInit.html = htmlElements;
+
+  }
+
+  return {
+    createStructureToRender : function(caliopeWebForm) {
+      var structureInit = caliopeWebForm.createStructureToRender();
+      caliopeWebForm.createStructureToRender = function() {
+
+
+
+        return structureInit;
+      };
+    }
+  }
+}());
