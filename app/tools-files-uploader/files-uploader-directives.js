@@ -63,6 +63,5 @@ dirmodule.directive('ngFileuploader', function() {
     }
 });
 
-  
 });
 

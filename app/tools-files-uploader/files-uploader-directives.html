@@ -1,5 +1,5 @@
 <div class="row-fluid container">
-  <div class="span3" well>
+  <div class="span12" well>
     <div class="row-fluid">
       <div class="span6">
         <span class="fileinput-button">
@@ -14,11 +14,12 @@
       </div>
     </div>
 
-    <ul class="item-list ui-sortable">
+    <ul class="item-list">
       <li ng-repeat="data in filelist">
-      {{data.ok}} - {{data.name}} - {{data.size}} - {{data.id}}
+        <i class="icon-arrow-right"></i>{{data.name}} - {{data.size}}
       </li>
     </ul>
 
   </div>
 </div>
+
