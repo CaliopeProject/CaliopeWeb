@@ -324,8 +324,8 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           element[VARNAME_DIRECTIVE_CWOPT] = '';
           element[VARNAME_OPTIONSNAME] = 'options_' + element.name;
           element[VARNAME_DIRECTIVE_OPT] =
-              'opt.desc for opt in ' + element[VARNAME_OPTIONSNAME];
-          element.options = {};
+              'opt.label as opt.label for opt in ' + element[VARNAME_OPTIONSNAME];
+          //element.options = {};
         }
       });
     }
