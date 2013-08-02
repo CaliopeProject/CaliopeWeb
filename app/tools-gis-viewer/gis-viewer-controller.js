@@ -165,7 +165,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
             )
             ,
             new OpenLayers.Layer.WMS("Lotes",
-                "http://localhost:9000/gis_proxy/WMSServer",
+                "http://" + document.domain + ":" + location.port + "/gis_proxy/WMSServer",
                 {
                     layers: "14",
                     format: "image/png",
@@ -207,6 +207,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                           $scope.responseLoadDataGrid = {};
                           barmanpre = resultado[11];
                           loadDataGrid(barmanpre);
+                          featureInfoControl.deactivate();
                           //store.loadData([[resultado[11]]]);
                           //gridDialog.show();
                       }
@@ -241,9 +242,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                     return new Ext.Action(options);
                 },
                 options: {
-                    text : 'Capas',
-                    enableToggle : true,
-                    toggleGroup : "toolGroup"
+                    text : 'Capas'
                 }
             },
             {
@@ -258,7 +257,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                     return new Ext.Action(options);
                 },
                 options: {
-                    text : 'Info Lotes',
+                    iconCls: "icon-getfeatureinfo",
                     enableToggle : true,
                     toggleGroup : "toolGroup"
                 }
