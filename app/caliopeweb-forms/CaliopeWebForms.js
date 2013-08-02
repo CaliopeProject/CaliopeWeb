@@ -647,7 +647,6 @@ var CaliopeWebFormLayoutDecorator = ( function() {
 
     var containerColumns = {
       type : "div",
-      name : "div-cont-".concat(columnIndex),
       class : columnContainer.class,
       html  :  []
     };
@@ -664,7 +663,6 @@ var CaliopeWebFormLayoutDecorator = ( function() {
   function getContainer(cont, elementsInputs) {
     var container = {
       type : "div",
-      name : "div-cont-#cont",
       class : 'row-fluid',
       html  : []
     };
