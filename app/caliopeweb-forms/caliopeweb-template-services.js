@@ -1,3 +1,12 @@
+/*jslint browser: true*/
+/*global jQuery,
+ CaliopeWebFormSpecificDecorator,
+ CaliopeWebFormAttachmentsDecorator,
+ CaliopeWebFormActionsDecorator,
+ CaliopeWebFormValidDecorator,
+ CaliopeWebFormLayoutDecorator,
+ CaliopeWebForm,define
+ */
 define(['angular'], function(angular) {
   'use strict';
 
@@ -60,7 +69,7 @@ define(['angular'], function(angular) {
             object = {};
           }
           if(objID !== undefined && objID.length > 0) {
-            object['uuid'] = objID;
+            object.uuid = objID;
           }
 
           params = {
@@ -92,8 +101,8 @@ define(['angular'], function(angular) {
           return promise;
         };
 
-        Service.loadDataOptions = function(method, formId, paramsSearch) {
-          var method = method;
+        Service.loadDataOptions = function(met, formId, paramsSearch) {
+          var method = met;
           var params = {
             'formId' : formId
           };
@@ -119,8 +128,10 @@ define(['angular'], function(angular) {
               caliopeWebForm.addActions(templateFromServer.actions);
               caliopeWebForm.addData(templateFromServer.data);
               caliopeWebForm.addTranslations(templateFromServer.translations);
+              caliopeWebForm.addlayout(templateFromServer.layout);
 
               CaliopeWebFormSpecificDecorator.createStructureToRender(caliopeWebForm);
+              CaliopeWebFormLayoutDecorator.createStructureToRender(caliopeWebForm);
               CaliopeWebFormActionsDecorator.createStructureToRender(caliopeWebForm);
               CaliopeWebFormValidDecorator.createStructureToRender(caliopeWebForm);
               CaliopeWebFormAttachmentsDecorator.createStructureToRender(caliopeWebForm);
