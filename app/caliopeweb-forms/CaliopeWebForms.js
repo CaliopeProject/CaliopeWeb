@@ -621,7 +621,7 @@ var CaliopeWebFormValidDecorator = ( function() {
         return structureInit;
       };
     }
-  }
+  };
 
 
 }());
@@ -634,18 +634,30 @@ var CaliopeWebFormLayoutDecorator = ( function() {
 
 
   function replaceWithElements(name, elements) {
-
+    var m;
+    for(m=0;m < elements.length ;m++){
+      if(name === elements[m].name){
+       return elements[m];
+      }
+    }
+    console.log('Error calipeWebForms no se encontro parametro ' +  name);
   }
 
   function getColumnContainer(columnContainer, elementsInputs, columnIndex) {
+
     var containerColumns = {
       type : "div",
-      name : "div-cont-".concat(containerIndex).concat(columnIndex),
+      name : "div-cont-".concat(columnIndex),
       class : columnContainer.class,
       html  :  []
+    };
+
+    var  r;
+    for(r=0; r < columnContainer.elements.length ;r++) {
+      var objNew = replaceWithElements(columnContainer.elements[r], elementsInputs);
+      containerColumns.html.push(objNew);
     }
 
-    replaceWithElements()
     return containerColumns;
   }
 
@@ -653,29 +665,28 @@ var CaliopeWebFormLayoutDecorator = ( function() {
     var container = {
       type : "div",
       name : "div-cont-#cont",
-      class : "",
+      class : 'row-fluid',
       html  : []
-    }
+    };
 
     var j;
 
-    for(j=0;cont.length;j++) {
-      var columnContainer = getColumnContainer(cont[j], elementsInputs, columnIndex);
+    for(j=0; j < cont.columns.length;j++) {
+      var columnContainer = getColumnContainer(cont.columns[j], elementsInputs, j);
       container.html.push(columnContainer);
     }
 
     return container;
-
   }
 
   function applyLayaout(layout, elementsInputs, structureInit) {
 
-    var htmlElements = structureInit.html;
+    var htmlElements = [];
 
     if( layout !== undefined ) {
       var i;
       for( i=0; i < layout.length; i++) {
-         var container = getContainer(layout[i], elementsInputs, i);
+         htmlElements.push(getContainer(layout[i], elementsInputs));
       }
     }
 
@@ -694,5 +705,5 @@ var CaliopeWebFormLayoutDecorator = ( function() {
         return structureInit;
       };
     }
-  }
+  };
 }());
