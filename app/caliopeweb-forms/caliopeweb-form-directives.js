@@ -201,28 +201,10 @@ define(['angular', 'dform'], function (angular) {
               for(i=0; i<dataResponse.length; i++) {
                 var option = {
                   value : getFinalValueFromString(dataResponse[i], attrFieldValue, '.'),
-                  desc  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
+                  label  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
                 }
                 scope[scopeOptionsName].push(option)
               }
-              var valSelected = scope[attrs['name']];
-              if( valSelected !== undefined ) {
-                var optionSelect = jQuery.grep(scope[scopeOptionsName], function(obj) {
-                  if( obj !== undefined && obj.hasOwnProperty('value') &&
-                      obj.value === valSelected) {
-                    return true;
-                  } else {
-                    return false;
-                  }
-                });
-                if( optionSelect !== undefined && optionSelect.length > 0 ) {
-                  scope[attrs['name']] = optionSelect[0].value;
-                }
-                scope.$eval("ente_asignado=ndochoa");
-                //scope.$apply();
-                //$compile(element.contents())(scope);
-              }
-
             }
           });
 
