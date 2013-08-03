@@ -6,3 +6,11 @@
     top: 40%;
     left: 48%;
 }
+
+.alert {
+  margin-bottom: 1px;
+  >.close {
+    top: 6px;
+  }
+}
+

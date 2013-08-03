@@ -21,9 +21,14 @@
     <!-- CONTAINER INIT-->
     <div ng-show="isAuthenticated()" ng-include src="'application/partial-content.html'" class="container-fluid" id="main-container"></div>
     <!-- CONTAINER END-->
+
+    <!-- RSS INIT-->
+    <div ng-hiden="isAuthenticated()" ng-include src="'read-rss/read-rss-partial.html'" class="container-fluid" id="main-container"></div>
+    <!-- RSS END-->
+
   </body>
 
-  <script data-main="application/application-main" 
+  <script data-main="application/application-main"
     src="libs-js-thirdparty/requirejs/require.js"></script>
 
 </html>

@@ -21559,6 +21559,15 @@ td.td-actions a.td-action:hover {
   left: 48%;
 }
 
+/* line 10, ../application/application-main.scss */
+.alert {
+  margin-bottom: 1px;
+}
+/* line 12, ../application/application-main.scss */
+.alert > .close {
+  top: 6px;
+}
+
 /*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
