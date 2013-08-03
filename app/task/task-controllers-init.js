@@ -7,7 +7,7 @@ define(['angular'], function (angular) {
   var module = angular.module('task-controllers-init', []);
 
   module.controller("taskControllersInit", function($scope) {
-    $scope.myModel = {};
+    $scope.task = {parent : '', title : 'Tareas'};
   });
 
 });
