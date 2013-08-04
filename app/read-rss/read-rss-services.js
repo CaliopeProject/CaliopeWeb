@@ -8,7 +8,7 @@ define(['angular'], function (angular) {
   App.factory('reedService',['$http',function($http){
     return {
       parseFeed : function(url){
-        return $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=6&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
+        return $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=5&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
       }
     };
   }]);

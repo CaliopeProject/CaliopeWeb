@@ -31302,7 +31302,7 @@ input.ng-valid.ng-dirty {
 
 /* line 1, ../read-rss/read-rss.scss */
 footer {
-  background: #ccc;
+  background: #000;
   padding-top: 50px;
   color: white;
   font-size: 12px;
@@ -31310,6 +31310,5 @@ footer {
   width: 100%;
   height: auto;
   margin: 0;
-  font-family: 'Conv_ProximaNova-Regular';
   padding-bottom: 30px;
 }
