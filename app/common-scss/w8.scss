@@ -804,7 +804,7 @@ blockquote {
     margin: 0;
     padding-left: 0;
     padding-right: 0;
-    min-height: 45px;
+    min-height: 30px;
     position: relative;
   }
   .navbar-text, .navbar-link {
@@ -813,12 +813,12 @@ blockquote {
 
   .brand {
     color: #fff;
-    font-size: 24px;
+    font-size: 18px;
     text-shadow: none;
-    line-height : 45px;
-    max-height  : 45px;
-    padding     : 0px;
-    margin-left : 20px;
+    line-height: 30px;
+    max-height: 30px;
+    padding: 0px;
+    margin-left: 20px;
   }
   .nav > li > a {
     font-size: 13px;
@@ -840,8 +840,8 @@ blockquote {
 .ace-nav {
   height: 100%;
   > li {
-    line-height: 45px;
-    max-height: 45px;
+    line-height: 30px;
+    max-height: 30px;
     background: #2e6589;
     border-left: 1px solid #DDD;
     padding: 0;
@@ -854,11 +854,11 @@ blockquote {
       color: #EEE;
       display: block;
       height: 100%;
-      padding: 0 8px !important;
+      padding: 0 9px !important;
       background-color: transparent;
       > {
         [class*="icon-"] {
-          font-size: 16px;
+          font-size: 13px;
           color: #EEE;
           display: inline-block;
           width: 20px;
@@ -866,7 +866,7 @@ blockquote {
         }
         .badge {
           position: relative;
-          top: -4px;
+          top: -2px;
           left: 2px;
           padding-right: 5px;
           padding-left: 5px;
@@ -951,11 +951,9 @@ blockquote {
 
 #breadcrumbs {
   position: relative;
-  border-right: 1px solid #4B4B4B;
-  border-left: 1px solid #4B4B4B;
   z-index: 13;
-  min-height: 45px;
-  line-height: 45px;
+  min-height: 30px;
+  line-height: 30px;
   display: block;
   &.fixed {
     position: fixed;
@@ -1014,7 +1012,7 @@ blockquote {
 
 #nav-search {
   position: absolute;
-  top: 5px;
+  top: 1px;
   right: 22px;
   line-height: 24px;
   .form-search {
@@ -1026,7 +1024,7 @@ blockquote {
   border-color: white;
   border-width: 1px;
   width: 320px;
-  height: 18px !important;
+  height: 16px !important;
   border-radius: 4px !important;
   font-size: 13px;
   color: #666666 !important;
@@ -3276,7 +3274,6 @@ button.btn:active {
     }
   }
   &.dropdown-closer {
-    top: 80%;
     left: -10px;
     &.pull-right {
       right: -10px;
