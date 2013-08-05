@@ -3,9 +3,87 @@
     <cw-dform cw-dform="jsonPlantillaAngular"/>
 </div>
 
-<!--
-<div id="container-form">
+
+<script type="text/javascript">
+    var DatepickerDemoCtrl = function ($scope, $timeout) {
+        $scope.today = function() {
+            $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.showWeeks = true;
+        $scope.toggleWeeks = function () {
+            $scope.showWeeks = ! $scope.showWeeks;
+        };
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+
+        // Disable weekend selection
+        $scope.disabled = function(date, mode) {
+            return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+        };
+
+        $scope.toggleMin = function() {
+            $scope.minDate = ( $scope.minDate ) ? null : new Date();
+        };
+        $scope.toggleMin();
+
+        $scope.open = function() {
+            console.log('open');
+            $scope.opened = true
+            $timeout(function() {
+                $scope.opened = true;
+            });
+        };
+
+        $scope.dateOptions = {
+            'year-format': "'yy'",
+            'starting-day': 1
+        };
+    };
+</script>
+
+<div ng-controller="DatepickerDemoCtrl">
+    <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+
+    <div class="well well-small pull-left" ng-model="dt">
+        <datepicker min="minDate" show-weeks="showWeeks"></datepciker>
+    </div>
+
+    <div class="form-horizontal">
+        <input type="text" datepicker-popup="dd-MM-yyyy" ng-model="fecha1" open="openedFecha1"/>
+    </div>
+
+    <div class="form-horizontal">
+        <input type="text" datepicker-popup="dd-MM-yyyy" ng-model="fecha2" open="openedFecha2"/>
+    </div>
+
+    <hr />
+    <button class="btn btn-small btn-inverse" ng-click="today()">Today</button>
+    <button class="btn btn-small btn-inverse" ng-click="dt = '2009-08-24'">2009-08-24</button>
+    <button class="btn btn-small btn-success" ng-click="toggleWeeks()" tooltip="For inline datepicker">Toggle Weeks</button>
+    <button class="btn btn-small btn-danger" ng-click="clear()">Clear</button>
+    <button class="btn btn-small" ng-click="toggleMin()" tooltip="After today restriction">Min date</button>
+</div>
+
+
+<!--<div id="container-form">
     <form name="testValidations">
+
+
+        <label>DataPicker Fecha</label>
+        <input type="text" class="input-small" ng-model="fecha" name="fecha" />
+        <cw-datapicker var-ng-model="fecha" modal-name="dpFecha"></cw-datapicker>
+
+        <label>DataPicker Fecha1</label>
+        <input type="text" class="input-small" ng-model="fecha1" name="fecha1" />
+        <cw-datapicker var-ng-model="fecha1" modal-name="dpFecha1"></cw-datapicker>
+
+
+
+
         <label>Requerido</label>
         <input type="text" required="required" name="requerido_" ng-model="requerido_">
         <cw-validation-mess validation-type='required' params='10|20' ng-show="testValidations.requerido_.$error.required"></cw-validation-mess>
