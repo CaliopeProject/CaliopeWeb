@@ -176,6 +176,8 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                 }
             )
         ];
+          var layerTreeAction;
+
           var layerTreeDialog = new Ext.Window({
               layout: "fit",
               width: 350,
@@ -193,6 +195,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
               constrain: true,
               items:[grid]
           });
+          var featureInfoAction;
 
           var featureInfoControl = new OpenLayers.Control.WMSGetFeatureInfo({
               url: 'http://localhost:9000/gis_proxy/WMSServer',
@@ -202,15 +205,16 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
               infoFormat: 'text/plain',
               eventListeners: {
                   getfeatureinfo: function(event) {
+                      featureInfoControl.activate();
                       var resultado = event.text.split(';');
                       if(resultado[11]!=null){
                           $scope.responseLoadDataGrid = {};
                           barmanpre = resultado[11];
                           loadDataGrid(barmanpre);
-                          featureInfoControl.deactivate();
-                          //store.loadData([[resultado[11]]]);
-                          //gridDialog.show();
                       }
+                  },
+                  beforegetfeatureinfo : function(event) {
+                      featureInfoControl.deactivate();
                   }
               }
           });
@@ -239,7 +243,8 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                         });
                         layerTreeDialog.show();
                     };
-                    return new Ext.Action(options);
+                    layerTreeAction = new Ext.Action(options);
+                    return layerTreeAction;
                 },
                 options: {
                     text : 'Capas'
@@ -247,18 +252,17 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
             },
             {
                 create: function(mapPanel, options){
+
                     options.handler = function(){
-                        if(featureInfoControl.active){
-                            featureInfoControl.deactivate();
-                        }else{
-                            featureInfoControl.activate();
-                        }
+                        featureInfoControl.activate();
                     };
-                    return new Ext.Action(options);
+                    featureInfoAction = new Ext.Action(options);
+                    return featureInfoAction;
                 },
                 options: {
                     iconCls: "icon-getfeatureinfo",
                     enableToggle : true,
+                    allowDepress: false,
                     toggleGroup : "toolGroup"
                 }
             }
