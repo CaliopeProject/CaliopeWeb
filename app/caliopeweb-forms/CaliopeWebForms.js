@@ -258,8 +258,12 @@ var CaliopeWebFormSpecificDecorator = ( function() {
     element['ng-model'] = valueNgModel;
   }
 
+  /**
+   * This function transform the element of type select for add the behavior of load the
+   * options from server. Add the directive cw-option for this purpose.
+   * @param elementsInputs Elements Field config in the template.
+   */
   function completeTypeSelect(elementsInputs) {
-
 
     /*
      * Verificar que existan elementos
@@ -312,15 +316,21 @@ var CaliopeWebFormSpecificDecorator = ( function() {
     }
   }
 
+  function completeTypeDatePicker(elementsInputs) {
+
+  }
+
   return {
     createStructureToRender : function(caliopeWebForm) {
 
       var structureInit = caliopeWebForm.createStructureToRender();
-
+      var elementsTemplate = caliopeWebForm.getElements();
       caliopeWebForm.createStructureToRender = function() {
         completeController(structureInit, caliopeWebForm.getFormName());
-        completeModel(caliopeWebForm.getElements());
-        completeTypeSelect(caliopeWebForm.getElements());
+        completeModel(elementsTemplate);
+        completeTypeSelect(elementsTemplate);
+        completeTypeDatePicker(elementsTemplate);
+
         return structureInit;
       };
     }
