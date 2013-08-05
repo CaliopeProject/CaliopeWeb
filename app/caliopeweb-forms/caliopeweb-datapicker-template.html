@@ -1,0 +1,15 @@
+<div>
+    {{modalName}}
+    <button type="button" class="btn" ng-click="open()">
+        <i class="icon-calendar"></i>
+    </button>
+    <div modal='mSelFecha' options="opts">
+        <div class="modal-body"  ng-model="fecha">
+            <datepicker show-weeks="false" starting-day="1"></datepicker>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-small cancel" ng-click="clear()">Clear</button>
+            <button class="btn btn-small cancel" ng-click="close()">Close</button>
+        </div>
+    </div>
+</div>
