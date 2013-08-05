@@ -31308,8 +31308,9 @@ footer {
   position: relative;
   display: block;
   z-index: 1;
+  box-shadow: 0px -5px 6px #7E5534;
 }
-/* line 14, ../read-rss/read-rss.scss */
+/* line 15, ../read-rss/read-rss.scss */
 footer:before {
   z-index: -1;
   position: absolute;
@@ -31327,7 +31328,7 @@ footer:before {
   background-image: linear-gradient(top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.94) 27%, rgba(28, 28, 28, 0.92) 70%, rgba(19, 19, 19, 0.9) 100%);
 }
 
-/* line 27, ../read-rss/read-rss.scss */
+/* line 28, ../read-rss/read-rss.scss */
 #footmarg {
   margin-top: 100px;
   margin-bottom: 100px;
