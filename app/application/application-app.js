@@ -36,7 +36,10 @@ var dependencies = [
     'task-directives',
     'task-services',
 
-    'kanban-board-controller'
+    'kanban-board-controller',
+
+    'read-rss-services',
+    'read-rss-controllers'
   ];
 
 var modulesAngular = [
@@ -72,7 +75,10 @@ var modulesAngular = [
 
     'task-controllers-init',
     'task-directives',
-    'task-services'
+    'task-services',
+
+    'read-rss-services',
+    'read-rss-controllers'
   ];
 
   define(dependencies, function ( angular, webSocket, appcontroller) {

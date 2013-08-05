@@ -12,9 +12,14 @@ define(['angular'], function(angular) {
       templateUrl: 'task/partial-task-widget-task.html',
       restrict: 'E',
       replace: true,
-      scope: true,
+      scope: {
+        title : '=',
+        parent: '='
+      },
       link: function($scope, $element, $attrs, $controller) {
-        $scope.task = taskService.createTask;
+        $scope.createTask  = function (){
+          taskService.createTask($scope.parent);
+        };
       }
     };
 

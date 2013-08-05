@@ -1,0 +1,146 @@
+<div id="page-content" class="clearfix">
+  <div ng-controller="reedControllers" class="row-fluid">
+    <div class="span12">
+
+      <div class="span4">
+        <h2>TechCrunch</h2>
+        <hr>
+        <ul class="unstyled">
+          <li ng-repeat="feed1 in feeds1 | filter:filterText">
+          <h5><a href="{{feed1.link}}">{{feed1.title}}</a></h5>
+          <p class="text-left">{{feed1.contentSnippet}}</p>
+          <span class="small">{{feed1.publishedDate}}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="span4">
+        <h2>Correlibre</h2>
+        <hr>
+        <ul class="unstyled">
+          <li ng-repeat="feed2 in feeds2 | filter:filterText">
+          <h5><a href="{{feed2.link}}">{{feed2.title}}</a></h5>
+          <p class="text-left">{{feed2.contentSnippet}}</p>
+          <span class="small">{{feed2.publishedDate}}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="span4">
+        <div class="widget-box">
+          <div class="widget-header widget-header-flat">
+            <h4>SIIM</h4>
+          </div>
+
+          <div class="widget-body">
+            <div class="widget-main">
+
+              <div class="row-fluid">
+                <div class="span12">
+                  <p> SIIM2 ha sido licenciado según la Licencia GNU AFFERO GENERAL PUBLIC LICENSE V3.</p>
+                  <p>GNU AFFERO GENERAL PUBLIC LICENSE</p>
+                  <p> Version 3, 19 November 2007</p>
+                  <p>Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
+                  Everyone is permitted to copy and distribute verbatim copies
+                  of this license document, but changing it is not allowed.</p>
+                  <hr>
+                  <blockquote>
+                    <ul class="unstyled spaced">
+                      <li>
+                      <i class="icon-ok green"></i>
+                      La “libertad” para ejecutar el programa con cualquier propósito.
+                      </li>
+                      <li>
+                      <i class="icon-ok green"></i>
+                      La “libertad” para estudiar y modificar el programa.
+                      </li>
+                      <li>
+                      <i class="icon-ok green"></i>
+                      La “libertad” de copiar el programa y ayudar con él a tu vecino.
+                      </li>
+                      <li>
+                      <i class="icon-ok green"></i>
+                      La “libertad” de mejorar el programa, y hacer públicas tus mejoras, de forma que se beneficie toda la comunidad.
+                      </li>
+                    </ul>
+
+                    <small>
+                      Richard Stallman
+                      <cite title="Source Title">libertades</cite>
+                    </small>
+                  </blockquote>
+
+                  <div class="row-fluid">
+                    <blockquote class="pull-right">
+                      <h6>
+                        La elección fácil era unirme al mundo del software propietario, firmar los
+                        acuerdos de no revelar, y prometer que no iría en ayuda de mi amigo hacker.
+                        Podría haber hecho dinero de esta manera, y tal vez me hubiera divertido
+                        escribiendo codigo. Pero sabía que al final de mi carrera, al mirar atrás
+                        los años la pase construyendo paredes para dividir a la gente, sentiría
+                        que usé mi vida para empeorar el mundo…
+                      </h6>
+
+                      <small>
+                        Richard Stallman
+                        <cite title="Source Title">- Mejorar el mundo</cite>
+                      </small>
+                    </blockquote>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+<div class="container">
+  <div class="row-fluid ng-scope">
+    <div class="span4">
+      <div id="newsletter">
+        <h3>Notificaciones</h3>
+        <p>Suscribete para recibir el resumen de los avances de Nuestro espectacular Software.
+        </p>
+        Super-powered by correlibre.org ©2010-2012 ( v0.1.0 )
+        Code licensed under the The AGPLv3 License. Documentation licensed under CC BY 3.0.
+      </div>
+    </div>
+    <div class="span4">
+      <h3>Enlaces</h3>
+      <ul class="unstyled spaced2">
+        <li>
+        <i class="icon-circle green"></i>
+        wiki-siim2.infometrika.net
+        </li>
+        <li>
+        <i class="icon-circle green"></i>
+        http://www.correlibre.org/co/
+        </li>
+      </ul>
+    </div>
+    <div class="span4">
+      <h3>Siguenos en</h3>
+      <ul class="unstyled spaced2">
+        <li>
+        <a href="https://plus.google.com/communities/110285680469702923738" target="_blank">
+          <i class="icon-google-plus"></i>
+          plus.google.com/s/correlibre
+        </a>
+        </li>
+        <li>
+        <a href="https://twitter.com/CorrelibreFund" target="_blank">
+          <i class="icon-twitter"></i>
+          twitter.com/CorrelibreFund
+        </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</footer>

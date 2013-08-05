@@ -10,6 +10,7 @@ var CaliopeWebForm = (function() {
     var actions;
     var translations;
     var structureToRender;
+    var layout;
     /**
      * Contains the elements (inputs) of form
      */
@@ -35,27 +36,27 @@ var CaliopeWebForm = (function() {
       return {
         'elements' : elements,
         'elementsName' : elementsName
-      }
+      };
     }
 
     function searchElementsIndividual(elementsAll) {
-      var elementsTypeName = [];
+      var elementsTypeName = [], i;
 
       var elementsType = jQuery.grep(elementsAll, function(obj) {
         /*TODO: Mejorar para que solo coincidan los elementos de cierto tipo. Por
          ejemplo aquellos que se renderizan como un input.
          */
         var isElementTypeInput = false;
-        if( obj['type'] !== undefined ) {
+        if( obj.type !== undefined ) {
           isElementTypeInput = true;
         }
 
         return isElementTypeInput;
       });
 
-      for ( var i = 0; i < elementsType.length; i++) {
+      for ( i = 0; i < elementsType.length; i++) {
         var name = elementsType[i].name;
-        if( name == null ) {
+        if( name === null ) {
           name = elementsType[i].id;
         }
         elementsTypeName.push(name);
@@ -64,7 +65,7 @@ var CaliopeWebForm = (function() {
       return {
         'elements' : elementsType,
         'elementsName' : elementsTypeName
-      }
+      };
     }
 
     function searchElements(_structure) {
@@ -128,6 +129,15 @@ var CaliopeWebForm = (function() {
       },
 
     /**
+     *
+     * @param _layout
+     */
+      addlayout: function(_layout) {
+         layout = _layout;
+         console.log('layout', _layout);
+      },
+
+    /**
      * Create the structure for the render the form. Use decorates for add new structure
      * to original structure.
      * @returns {*}
@@ -161,6 +171,14 @@ var CaliopeWebForm = (function() {
       getElements : function() {
         return elementsForm;
       },
+
+    /**
+     * Get the layout of the template.
+     * @param {*}
+     */
+      getlayout : function() {
+         return layout;
+      },
     /**
      * Get the names of the elements (inputs).
      * @returns {*}
@@ -183,8 +201,9 @@ var CaliopeWebForm = (function() {
      * @param context
      */
       putDataToContext : function(context) {
+        var varname;
         if (data !== undefined) {
-          for (var varname in data) {
+          for (varname in data) {
             if(data.hasOwnProperty(varname)) {
               context[varname] = data[varname].value;
             }
@@ -226,7 +245,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       );
       valueNgCtrl = valueNgCtrl.concat(ctrlEndName);
     }
-    if( valueNgCtrl != null) {
+    if( valueNgCtrl !== null) {
       structureInit['ng-controller'] = valueNgCtrl;
     }
 
@@ -241,12 +260,12 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 
   function completeModelIndividual(element) {
     var name = element.name;
-    if( name == null ) {
+    if( name === null ) {
       name = element.id;
     }
     var valueNgModel = "";
 
-    if( name != null ) {
+    if( name !== null ) {
       valueNgModel = name;
     } else {
       //TODO: Definir que se hace cuando no viene el att name,
@@ -290,7 +309,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           var VARNAME_DIRECTIVE_OPT = 'ng-options';
           var VARNAME_FORMID = 'formid';
           var VARNAME_DATALIST = 'field-data-list';
-          var VARNAME_OPTIONSNAME = 'options-name'
+          var VARNAME_OPTIONSNAME = 'options-name';
 
           element.fromserver = true;
           element.method = element[VARNAME_LOAD_OPT_SRV][VARNAME_METHOD];
@@ -344,7 +363,10 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 var CaliopeWebFormActionsDecorator = ( function() {
 
   function completeActions(structureInit, structureActions,formName, formUUID, objID) {
-    if( structureActions != null && structureActions.length > 0 ) {
+
+    var i;
+
+    if( structureActions !== null && structureActions.length > 0 ) {
 
       var VAR_NAME_NAME = "name";
       var VAR_NAME_METHOD = "method";
@@ -364,7 +386,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
       };
 
 
-      for ( var i = 0; i < structureActions.length; i++) {
+      for ( i = 0; i < structureActions.length; i++) {
         var action = {};
         var actionName = structureActions[i][VAR_NAME_NAME];
         var actionMethod = structureActions[i][VAR_NAME_METHOD];
@@ -405,7 +427,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
       if( caliopeWebForm.getData() !== undefined && caliopeWebForm.getData().uuid !== 'undefined') {
         objID = caliopeWebForm.getData().uuid.value;
       }
-      if( objID == undefined ) {
+      if( objID === undefined ) {
         objID = '';
       }
       caliopeWebForm.createStructureToRender = function() {
@@ -413,7 +435,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
         return structureInit;
       };
     }
-  }
+  };
 }());
 
 /**
@@ -428,7 +450,7 @@ var CaliopeWebFormDataDecorator = ( function() {
         return structureInit;
       };
     }
-  }
+  };
 }());
 
 /**
@@ -444,7 +466,7 @@ var CaliopeWebFormLocaleDecorator = ( function() {
         return structureInit;
       };
     }
-  }
+  };
 }());
 
 /**
@@ -487,7 +509,7 @@ var CaliopeWebFormAttachmentsDecorator = ( function() {
         return structureInit;
       };
     }
-  }
+  };
 }());
 
 
@@ -505,7 +527,7 @@ var CaliopeWebFormValidDecorator = ( function() {
     var nameDirective = "msg-";
     var elementName = "";
     if( element.hasOwnProperty('name') ) {
-      elementName = element['name'];
+      elementName = element.name;
       nameDirective = nameDirective.concat(elementName);
     }
     var stElement = formName.concat('.').concat(elementName);
@@ -609,7 +631,7 @@ var CaliopeWebFormValidDecorator = ( function() {
         return structureInit;
       };
     }
-  }
+  };
 
 
 }());
@@ -621,56 +643,58 @@ var CaliopeWebFormValidDecorator = ( function() {
 var CaliopeWebFormLayoutDecorator = ( function() {
 
 
-  function replaceWithElements() {
-
+  function replaceWithElements(name, elements) {
+    var m;
+    for(m=0;m < elements.length ;m++){
+      if(name === elements[m].name){
+       return elements[m];
+      }
+    }
+    console.log('Error calipeWebForms no se encontro parametro ' +  name);
   }
 
-  function getColumnContainer(columnContainer, containerIndex, columnIndex) {
+  function getColumnContainer(columnContainer, elementsInputs, columnIndex) {
+
     var containerColumns = {
       type : "div",
-      name : "div-cont-".concat(containerIndex).concat(columnIndex),
       class : columnContainer.class,
-      html  : replaceWithElements()
+      html  :  []
+    };
+
+    var  r;
+    for(r=0; r < columnContainer.elements.length ;r++) {
+      var objNew = replaceWithElements(columnContainer.elements[r], elementsInputs);
+      containerColumns.html.push(objNew);
     }
 
     return containerColumns;
   }
 
-  function getContainer(container) {
+  function getContainer(cont, elementsInputs) {
     var container = {
       type : "div",
-      name : "div-cont-#cont",
-      class : "",
+      class : 'row-fluid',
       html  : []
-    }
+    };
+
     var j;
-    for(j=0;container.length;j++) {
-      var columnContainer = getColumnContainer();
+
+    for(j=0; j < cont.columns.length;j++) {
+      var columnContainer = getColumnContainer(cont.columns[j], elementsInputs, j);
       container.html.push(columnContainer);
     }
+
     return container;
   }
 
-  function applyLayaout(layaout, elementsInputs, structureInit) {
+  function applyLayaout(layout, elementsInputs, structureInit) {
 
-    var htmlElements = structureInit.html;
+    var htmlElements = [];
 
-    if( layaout !== undefined ) {
+    if( layout !== undefined ) {
       var i;
-
-
-      for( i=0; i < layaout.length; i++) {
-         var container = getContainer(layaout[i]);
-
-
-        /*
-        var index = htmlElements.indexOf(elementsInputs[i]);
-        if( index >= 0 ) {
-          var htmlElementsIni = htmlElements.slice(0, index + 1);
-          var htmlElementsFin = htmlElements.slice(index+1);
-          htmlElements = htmlElementsIni.concat(elementMsgVal).concat(htmlElementsFin);
-        }
-        */
+      for( i=0; i < layout.length; i++) {
+         htmlElements.push(getContainer(layout[i], elementsInputs));
       }
     }
 
@@ -680,13 +704,14 @@ var CaliopeWebFormLayoutDecorator = ( function() {
 
   return {
     createStructureToRender : function(caliopeWebForm) {
-      var structureInit = caliopeWebForm.createStructureToRender();
+      var structureInit  = caliopeWebForm.createStructureToRender();
+      var layout         = caliopeWebForm.getlayout();
+      var elementsInputs = caliopeWebForm.getElements();
+
       caliopeWebForm.createStructureToRender = function() {
-
-
-
+        applyLayaout(layout, elementsInputs, structureInit);
         return structureInit;
       };
     }
-  }
+  };
 }());
