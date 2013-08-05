@@ -3,69 +3,19 @@
     <cw-dform cw-dform="jsonPlantillaAngular"/>
 </div>
 
-
-<script type="text/javascript">
-    var DatepickerDemoCtrl = function ($scope, $timeout) {
-        $scope.today = function() {
-            $scope.dt = new Date();
-        };
-        $scope.today();
-
-        $scope.showWeeks = true;
-        $scope.toggleWeeks = function () {
-            $scope.showWeeks = ! $scope.showWeeks;
-        };
-
-        $scope.clear = function () {
-            $scope.dt = null;
-        };
-
-        // Disable weekend selection
-        $scope.disabled = function(date, mode) {
-            return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-        };
-
-        $scope.toggleMin = function() {
-            $scope.minDate = ( $scope.minDate ) ? null : new Date();
-        };
-        $scope.toggleMin();
-
-        $scope.open = function() {
-            console.log('open');
-            $scope.opened = true
-            $timeout(function() {
-                $scope.opened = true;
-            });
-        };
-
-        $scope.dateOptions = {
-            'year-format': "'yy'",
-            'starting-day': 1
-        };
-    };
-</script>
-
-<div ng-controller="DatepickerDemoCtrl">
+<div >
     <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
 
-    <div class="well well-small pull-left" ng-model="dt">
-        <datepicker min="minDate" show-weeks="showWeeks"></datepciker>
-    </div>
-
     <div class="form-horizontal">
-        <input type="text" datepicker-popup="dd-MM-yyyy" ng-model="fecha1" open="openedFecha1"/>
+        <input type="text" datepicker-popup="dd-MM-yyyy" ng-model="fecha1" date-disabled/>
     </div>
 
-    <div class="form-horizontal">
-        <input type="text" datepicker-popup="dd-MM-yyyy" ng-model="fecha2" open="openedFecha2"/>
+    <div>
+        <div class="well well-small pull-left">
+            <input type="text" datepicker-popup="dd-MM-yyyy" ng-model="fecha2" date-disabled/>
+        </div>
     </div>
 
-    <hr />
-    <button class="btn btn-small btn-inverse" ng-click="today()">Today</button>
-    <button class="btn btn-small btn-inverse" ng-click="dt = '2009-08-24'">2009-08-24</button>
-    <button class="btn btn-small btn-success" ng-click="toggleWeeks()" tooltip="For inline datepicker">Toggle Weeks</button>
-    <button class="btn btn-small btn-danger" ng-click="clear()">Clear</button>
-    <button class="btn btn-small" ng-click="toggleMin()" tooltip="After today restriction">Min date</button>
 </div>
 
 

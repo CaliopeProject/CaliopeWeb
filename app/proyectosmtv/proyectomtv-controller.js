@@ -9,7 +9,7 @@ define(['angular'], function(angular) {
 
         $scope.create = function () {
           var formAng = $scope[$scope.caliopeForm.id];
-          var inputs = $scope.inputsFormTemplate;
+          var inputs = $scope.elementsFormTemplate;
           var obj = {};
           for( var i = 0; i < inputs.length; i++) {
             obj[inputs[i]] = $scope[inputs[i]];

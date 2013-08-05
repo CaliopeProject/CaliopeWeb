@@ -137,7 +137,7 @@ define(['angular'], function(angular) {
               CaliopeWebFormAttachmentsDecorator.createStructureToRender(caliopeWebForm);
 
               result.structureToRender = caliopeWebForm.createStructureToRender();
-              result.elementsName      = caliopeWebForm.getElementsName();
+              result.elements          = caliopeWebForm.getElements();
               result.formUuid          = caliopeWebForm.getFormUUID();
               result.data              = caliopeWebForm.getData();
 
