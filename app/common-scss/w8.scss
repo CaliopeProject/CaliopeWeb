@@ -31,6 +31,7 @@ body {
 #main-container {
   padding: 0;
   position: relative;
+  margin-top: 5px;
 }
 
 #main-content {
@@ -791,6 +792,7 @@ blockquote {
   padding-right: 0;
   margin-left: 0;
   margin-right: 0;
+  box-shadow: 0px 2px 4px rgba(10,10,10,1);
   .navbar-inner {
     border: 0;
     -webkit-box-shadow: none;

@@ -8,9 +8,23 @@
   </head>
 
   <body ng-controller="CaliopeController" ng-init="init()">
-    <!-- SPINNER INIT-->
-    <div class='modal-backdrop'  ng-show="hasPendingRequests()">
-      <img class='displayed' src="common-img/spinner.gif" alt="loading">
+
+    <!-- SPINNER INIT -->
+    <div class='init-backdrop' ng-show="hasPendingRequests()">
+      <div class="container">
+        <div class="row-fluid" id='margloading'>
+          <div class="span12">
+            <section>
+                <ul class="bokeh">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+            </section>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- SPINNER END-->
 
