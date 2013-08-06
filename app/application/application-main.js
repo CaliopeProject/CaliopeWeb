@@ -2,6 +2,7 @@
 /*global require, $*/
 
 require.config({
+  waitSeconds: 0,
   paths: {
     'jquery'                           : 'libs-js-thirdparty/jquery/jquery',
     'dform'                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
