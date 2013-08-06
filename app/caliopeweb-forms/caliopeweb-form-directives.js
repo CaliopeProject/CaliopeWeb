@@ -216,52 +216,5 @@ define(['angular', 'dform'], function (angular) {
 
     return directiveDefinitionObject;
   }]);
-
-  /**
-   */
-  moduleDirectives.directive('cwDatapicker', function ($compile, $filter) {
-
-    /**
-     * Define the function for link the directive to AngularJS Context.
-     */
-    var directiveDefinitionObject = {
-      restrict : 'E',
-      replace : true,
-      scope: false,
-      templateUrl : 'caliopeweb-forms/caliopeweb-datapicker-template.html',
-      controller: function($scope, $dialog, $filter) {
-        console.log('Controller CWDataPicker');
-        $scope.opts = {
-          backdrop: false
-        };
-
-        $scope.open = function() {
-          $scope.mSelFecha = true;
-        };
-
-        $scope.close = function(result){
-          $scope.mSelFecha = false;
-        };
-
-        $scope.clear = function () {
-          $scope.fecha = null;
-        };
-        $scope['var'] = 'fecha';
-
-      },
-      link: function ($scope, element, attrs) {
-        console.log('Link CWDataPicker', attrs['modalName']);
-        console.log('varNgModel', attrs['varNgModel']);
-        $scope.modalName = attrs['modalName'];
-        $scope.$watch(attrs['modalName'], function(value) {;
-          $scope[attrs['varNgModel']] = $filter('date')(value,'dd/MM/yyyy');
-        });
-        $scope['var'] = 'fecha';
-
-      }
-    };
-
-    return directiveDefinitionObject;
-  });
 });
 

@@ -335,8 +335,21 @@ var CaliopeWebFormSpecificDecorator = ( function() {
     }
   }
 
-  function completeTypeDatePicker(elementsInputs) {
-
+  function completeTypeDatePicker(elementsTemplate) {
+    if( elementsTemplate !== undefined ) {
+      var i;
+      var TYPE_DATEPICKER = 'datepicker';
+      var DIRECTIVE_DATEPICKER = 'datepicker-popup';
+      var VARNAME_DATEFORMAT = 'format';
+      for(i=0; i < elementsTemplate.length; i++) {
+        if( elementsTemplate[i] !== undefined && elementsTemplate[i].type !== undefined &&
+            elementsTemplate[i].type === TYPE_DATEPICKER)  {
+            elementsTemplate[i].type = "text";
+            elementsTemplate[i].type1 = TYPE_DATEPICKER;
+            elementsTemplate[i][DIRECTIVE_DATEPICKER] = elementsTemplate[i][VARNAME_DATEFORMAT];
+        }
+      }
+    }
   }
 
   return {

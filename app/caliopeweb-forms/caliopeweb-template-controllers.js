@@ -33,7 +33,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
               $scope.jsonPlantillaAngular = result.structureToRender;
             }
             if( result.elementsName !== undefined ) {
-              $scope.inputsFormTemplate   = result.elementsName;
+              $scope.elementsFormTemplate   = result.elementsName;
             }
             $scope.formUUID               = result.formUuid;
           }
@@ -77,7 +77,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           if( value !== undefined ) {
             var result = calwebTemSrv.load(value, $scope);
             $scope.jsonPlantillaAngular = result.structureToRender;
-            $scope.inputsFormTemplate   = result.elementsName;
+            $scope.elementsFormTemplate   = result.elements;
             $scope.formUUID             = result.formUuid;
           }
         });
@@ -101,8 +101,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   ]);
 
   moduleControllers.controller('SIMMFormCtrl',
-    ['caliopewebTemplateSrv', '$scope',
-      function (caliopewebTemplateSrv, $scope) {
+    ['caliopewebTemplateSrv', '$scope', '$filter',
+      function (caliopewebTemplateSrv, $scope, $filter) {
 
         $scope.$watch('responseSaveData', function (value) {
 
@@ -115,7 +115,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
               if (dataList === undefined) {
                 dataList = [];
               }
-              var inputs = $scope.inputsFormTemplate;
+              var inputs = $scope.elementsFormTemplate;
               var obj = {};
               var i;
               for (i = 0; i < inputs.length; i++) {
@@ -136,7 +136,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
         $scope.sendAction = function(form, formTemplateName, actionMethod, formUUID, objID, paramsToSend) {
 
-          var inputs = $scope.inputsFormTemplate;
+          var inputs = $scope.elementsFormTemplate;
           var obj = {};
           var i;
 
@@ -150,11 +150,17 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
           for (i = 0; i < inputs.length; i++) {
             if( paramsToSend.length === 0 || paramsToSend.indexOf(inputs[i]) >= 0 ) {
-              var value = $scope[inputs[i]];
-              if( value !== undefined && value instanceof Object) {
-                obj[inputs[i]] = value.value;
-              } else {
-                obj[inputs[i]] = value;
+              var nameVarScope = inputs[i].name;
+              if( $scope[nameVarScope] !== undefined ) {
+                var value;
+                if(inputs[i].type === 'text' && inputs[i].type1 === 'datepicker') {
+                  value = $filter('date')($scope[nameVarScope], inputs[i].format );
+                } else if(inputs[i].type === 'select') {
+                  value = $scope[nameVarScope];
+                } else {
+                  value = $scope[nameVarScope];
+                }
+                obj[nameVarScope] = value;
               }
             }
           }
