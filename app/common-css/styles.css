@@ -31735,6 +31735,222 @@ input.ng-valid.ng-dirty {
   background-clip: padding-box;
 }
 
+/* //INIT ui-multicombo directive*/
+/* Based on Chosen */
+/* @group Base */
+/* line 64, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container {
+  font-size: 13px;
+  position: relative;
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+}
+
+/* line 71, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-active .mcombo-drop {
+  background: #fff;
+  border: 1px solid #aaa;
+  border-top: 0;
+  left: 0;
+  -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+  -o-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+  z-index: 1010;
+  width: 100%;
+}
+
+/* @end */
+/* @group Multi Chosen */
+/* line 86, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-multi .mcombo-selected-choices {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eeeeee), color-stop(15%, white));
+  background-image: -webkit-linear-gradient(top, #eeeeee 1%, white 15%);
+  background-image: -moz-linear-gradient(top, #eeeeee 1%, white 15%);
+  background-image: -o-linear-gradient(top, #eeeeee 1%, white 15%);
+  background-image: -ms-linear-gradient(top, #eeeeee 1%, white 15%);
+  background-image: linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+  border: 1px solid #aaa;
+  margin: 0;
+  padding: 0;
+  cursor: text;
+  overflow: hidden;
+  height: auto !important;
+  height: 1%;
+  position: relative;
+  width: 100%;
+}
+
+/* line 103, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-multi .mcombo-selected-choices li {
+  float: left;
+  list-style: none;
+}
+
+/* line 107, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-multi .mcombo-selected-choices .search-field {
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 112, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-multi .mcombo-selected-choices .search-field input {
+  color: #666;
+  background: transparent !important;
+  border: 0 !important;
+  font-family: sans-serif;
+  font-size: 100%;
+  height: 15px;
+  padding: 5px;
+  margin: 1px 0;
+  outline: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
+}
+
+/* line 127, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-multi .mcombo-selected-choices .search-field .default {
+  color: #999;
+}
+
+/* line 130, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-multi .mcombo-selected-choices .selected-choice {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+  color: #333;
+  border: 1px solid #aaaaaa;
+  line-height: 13px;
+  padding: 3px 20px 3px 5px;
+  margin: 3px 0 3px 5px;
+  position: relative;
+  cursor: default;
+}
+
+/* line 149, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-multi .mcombo-selected-choices .selected-choice .selected-choice-delete:hover {
+  background-position: right -11px;
+}
+
+/* @end */
+/* @group Results */
+/* line 156, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container .choices {
+  margin: 0 4px 4px 0;
+  max-height: 240px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* line 167, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-multi .choices {
+  margin: -1px 0 0;
+  padding: 10px 2px;
+}
+
+/* line 171, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container .choices li {
+  display: none;
+  line-height: 15px;
+  margin: 0;
+  list-style: none;
+}
+
+/* line 178, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-multi .mcombo-selected-choices .selected-choice .selected-choice-delete {
+  display: block;
+  position: absolute;
+  right: 3px;
+  top: 4px;
+  width: 12px;
+  height: 13px;
+  font-size: 12px;
+  color: #006f04;
+}
+
+/* line 190, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-active .choices li {
+  display: block;
+}
+
+/* line 194, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-active .choices hr {
+  border: 0;
+  border-top: 1px solid;
+  margin-bottom: 6px;
+  margin: 7px 0px 4px 0px;
+  border-color: #e0e0e0;
+}
+
+/* line 202, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-active .choices li .msg-photo {
+  margin-right: 6px;
+  max-width: 42px;
+}
+
+/* line 206, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container .choices li.item:hover {
+  background-color: #3875d7;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3875d7', endColorstr='#2a62bc', GradientType=0 );
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(20%, #3875d7), color-stop(90%, #2a62bc));
+  background-image: -webkit-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+  background-image: -moz-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+  background-image: -o-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+  background-image: -ms-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+  background-image: linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+  color: #fff;
+}
+
+/* line 217, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container .choices li em {
+  background: #feffde;
+  font-style: normal;
+}
+
+/* line 221, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container .choices .no-results {
+  background: #f4f4f4;
+  display: list-item;
+}
+
+/* line 225, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-active .mcombo-selected-choices {
+  border: 1px solid #5897fb;
+  postion: relative;
+}
+
+/* line 229, ../caliopeweb-forms/caliopeweb.scss */
+.mcombo-container-active .mcombo-selected-choices .search-field input {
+  color: #111 !important;
+}
+
+/* @end */
+/* @group Disabled Support */
+/*.chzn-disabled {
+    cursor: default;
+    opacity:0.5 !important;
+}
+.chzn-disabled .chzn-single {
+    cursor: default;
+}
+.chzn-disabled .mcombo-selected-choices .selected-choice .selected-choice-delete {
+    cursor: default;
+}*/
+/* //END  ui-multicombo directive*/
 /* line 3, ../read-rss/read-rss.scss */
 footer {
   background-image: url("../common-img/dark_wall.jpg");
