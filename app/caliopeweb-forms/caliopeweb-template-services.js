@@ -132,8 +132,8 @@ define(['angular'], function(angular) {
 
               CaliopeWebFormSpecificDecorator.createStructureToRender(caliopeWebForm);
               CaliopeWebFormLayoutDecorator.createStructureToRender(caliopeWebForm);
-              CaliopeWebFormActionsDecorator.createStructureToRender(caliopeWebForm);
               CaliopeWebFormValidDecorator.createStructureToRender(caliopeWebForm);
+              CaliopeWebFormActionsDecorator.createStructureToRender(caliopeWebForm);
               CaliopeWebFormAttachmentsDecorator.createStructureToRender(caliopeWebForm);
 
               result.structureToRender = caliopeWebForm.createStructureToRender();

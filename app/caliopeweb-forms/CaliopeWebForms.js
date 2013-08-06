@@ -537,7 +537,7 @@ var CaliopeWebFormValidDecorator = ( function() {
     var varNameDirty = '$dirty';
     var varNameError = '$error';
 
-    var nameDirective = "msg-";
+    var nameDirective = "msg-" + element.name;
     var elementName = "";
     if( element.hasOwnProperty('name') ) {
       elementName = element.name;
@@ -562,6 +562,10 @@ var CaliopeWebFormValidDecorator = ( function() {
       "validation-type"  : validationType,
       "params" : params
     };
+  }
+
+  function searchRecursive(elementsInputs) {
+
   }
 
   function completeValidation(elementsInputs, structureInit, formName) {
@@ -722,7 +726,9 @@ var CaliopeWebFormLayoutDecorator = ( function() {
       var elementsInputs = caliopeWebForm.getElements();
 
       caliopeWebForm.createStructureToRender = function() {
-        applyLayaout(layout, elementsInputs, structureInit);
+        if( layout !== undefined && layout.length > 0) {
+          applyLayaout(layout, elementsInputs, structureInit);
+        }
         return structureInit;
       };
     }
