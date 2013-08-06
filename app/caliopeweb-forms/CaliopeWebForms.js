@@ -134,7 +134,6 @@ var CaliopeWebForm = (function() {
      */
       addlayout: function(_layout) {
          layout = _layout;
-         console.log('layout', _layout);
       },
 
     /**
@@ -379,7 +378,8 @@ var CaliopeWebFormActionsDecorator = ( function() {
 
     var i;
 
-    if( structureActions !== null && structureActions.length > 0 ) {
+    if( structureActions !== null && structureActions.length > 0 &&
+        structureInit.html !== undefined && structureInit.html instanceof Array) {
 
       var VAR_NAME_NAME = "name";
       var VAR_NAME_METHOD = "method";
@@ -564,8 +564,66 @@ var CaliopeWebFormValidDecorator = ( function() {
     };
   }
 
-  function searchRecursive(elementsInputs) {
+  function searchContainer(htmlElements, elementSearch) {
 
+    var result;
+
+    if( htmlElements !== undefined ) {
+      var i;
+      if( htmlElements instanceof Array ) {
+        for(i=0; i<htmlElements.length; i++) {
+          if( htmlElements[i].html !== undefined ) {
+            result = searchContainer(htmlElements[i].html, elementSearch)
+            if( result !== undefined ) {
+              break;
+            }
+          } else {
+            if( elementSearch === htmlElements[i] ) {
+              result = htmlElements;
+              break;
+            }
+          }
+        }
+      } else {
+        if( htmlElements.html !== undefined ) {
+          searchContainer(htmlElements.html, elementSearch)
+        }
+      }
+    }
+    return result;
+
+  }
+
+
+  function replaceContainer(htmlElements, containerSearch, containerNew) {
+
+    if( htmlElements !== undefined ) {
+      var i;
+      if( htmlElements instanceof Array ) {
+        for(i=0; i<htmlElements.length; i++) {
+          if( htmlElements[i].html !== undefined ) {
+            var htmlElementsReplacedTmp = replaceContainer(htmlElements[i].html, containerSearch, containerNew)
+            if( htmlElementsReplacedTmp.hasOwnProperty('replace') ) {
+              htmlElements[i].html =  htmlElementsReplacedTmp.replace;
+              return htmlElements[i];
+            }
+          } else {
+            if( containerSearch === htmlElements[i] ) {
+              htmlElements = containerNew;
+              return {
+                replace: htmlElements
+              };
+            }
+          }
+        }
+      } else {
+        if( htmlElements.html !== undefined ) {
+          return replaceContainer(htmlElements.html, containerSearch, containerNew)
+        }
+      }
+    }
+
+    return htmlElements;
   }
 
   function completeValidation(elementsInputs, structureInit, formName) {
@@ -622,13 +680,18 @@ var CaliopeWebFormValidDecorator = ( function() {
               params[0] = 'max';
             }
 
-            var index = htmlElements.indexOf(elementsInputs[i]);
-            if( index >= 0 ) {
-              var htmlElementsIni = htmlElements.slice(0, index + 1);
-              var htmlElementsFin = htmlElements.slice(index+1);
+            var container = searchContainer(htmlElements,elementsInputs[i]);
+            if( container !== undefined && container) {
+              var index = container.indexOf(elementsInputs[i]);
+              if( index >= 0 ) {
+                var containerIni = container.slice(0, index + 1);
+                var containerFin = container.slice(index+1);
 
-              var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName, params);
-              htmlElements = htmlElementsIni.concat(elementMsgVal).concat(htmlElementsFin);
+                var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName, params);
+                var containerNew = containerIni.concat(elementMsgVal).concat(containerFin);
+                htmlElements = replaceContainer(htmlElements, elementsInputs[i], containerNew);
+
+              }
             }
           }
         }
