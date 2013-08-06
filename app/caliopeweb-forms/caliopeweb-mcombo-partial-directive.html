@@ -1,0 +1,25 @@
+<div class="mcombo-container mcombo-container-multi">
+  <ul class="mcombo-selected-choices">
+    <a ng-click="removeFromSelected(choice)">
+      <li class="selected-choice" ng-repeat="choice in _selectedChoices">
+      <span>{{choice.text}}</span>
+      <i class="selected-choice-delete icon-remove"></i>
+      </li>
+    </a>
+    <li class="search-field">
+    <input type="text" placeholder="Choose..." autocomplete="off" ng-model="_search">
+    </li>
+  </ul>
+  <div class="mcombo-drop">
+    <ul class="choices">
+      <li class="item" ng-repeat="choice in filteredChoices()" ng-click="moveToSelected(choice, $event)">
+      <img src="common-img/avatar1.png" class="msg-photo" alt="{{choice.text}}">
+      <span class="msg-body">
+        {{choice.text}}
+      </span>
+      <hr>
+      </li>
+      <li class="no-results" ng-show="_search && filteredChoices().length == 0">No results match "{{_search}}"</li>
+    </ul>
+  </div>
+</div>
