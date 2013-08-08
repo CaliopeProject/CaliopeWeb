@@ -48,7 +48,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
       // Show the modal task dialog
       createTask: function(parent, category) {
-        var data = {template: 'asignaciones',
+        var data = {
+                    template: 'asignaciones',
                     mode  : 'create',
                     uuidparent: parent,
                     categoria: category
@@ -64,6 +65,24 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
                     uuid    : numuuid};
         opts.resolve = {action : function(){ return angular.copy(data);}};
         opentaskDialog();
+      },
+
+      deleteTask: function(uuid) {
+        opts.template = './task/partial-task-dialog-delete.html'
+
+        var data = {
+          template      : 'asignaciones',
+          actionMethod  : 'task.delete',
+          uuid          : uuid
+        }
+
+        opts.resolve = {
+          action : function(){
+            return angular.copy(data);
+          }
+        };
+        opentaskDialog();
+
       },
 
       cancelTask: function() {
