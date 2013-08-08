@@ -73,12 +73,22 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   moduleControllers.controller('CaliopeWebTemplateCtrlDialog',
     ['caliopewebTemplateSrv', 'dialog', '$scope', 'action', 'taskService',
       function (calwebTemSrv, dialog, $scope, action, taskService) {
+
         $scope.$watch('jsonPlantilla', function (value) {
           if( value !== undefined ) {
             var result = calwebTemSrv.load(value, $scope);
             $scope.jsonPlantillaAngular = result.structureToRender;
             $scope.elementsFormTemplate   = result.elements;
             $scope.formUUID             = result.formUuid;
+
+            var inputs = $scope.elementsFormTemplate;
+            var i;
+            for (i = 0; i < inputs.length; i++) {
+              var nameVarScope = inputs[i].name;
+              if( action[nameVarScope] !== undefined) {
+                $scope[nameVarScope] = action[nameVarScope];
+              }
+            }
           }
         });
 
