@@ -107,6 +107,15 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
             taskService.cancelTask();
           };
         }
+
+        $scope.initDelete = function() {
+          console.log('Init delete', action)
+          $scope.formDelete = action.template
+          $scope.templateToDelete = action.template
+          $scope.actionMethodDelete = action.actionMethod
+          $scope.uuidToDelete = action.uuid
+        };
+
       }
   ]);
 

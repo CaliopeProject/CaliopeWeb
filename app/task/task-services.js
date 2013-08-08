@@ -52,7 +52,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
                     template: 'asignaciones',
                     mode  : 'create',
                     uuidparent: parent,
-                    category: category
+                    categoria: category
                    };
         opts.resolve = {action : function(){ return angular.copy(data);}};
         opentaskDialog();
@@ -65,6 +65,24 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
                     uuid    : numuuid};
         opts.resolve = {action : function(){ return angular.copy(data);}};
         opentaskDialog();
+      },
+
+      deleteTask: function(uuid) {
+        opts.template = './task/partial-task-dialog-delete.html'
+
+        var data = {
+          template      : 'asignaciones',
+          actionMethod  : 'task.delete',
+          uuid          : uuid
+        }
+
+        opts.resolve = {
+          action : function(){
+            return angular.copy(data);
+          }
+        };
+        opentaskDialog();
+
       },
 
       cancelTask: function() {
