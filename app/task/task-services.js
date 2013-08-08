@@ -55,6 +55,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       },
 
       editTask: function(numuuid) {
+        console.log(numuuid);
         var data = {template: 'asignaciones',
                     mode    : 'edit',
                     uuid    : numuuid};
