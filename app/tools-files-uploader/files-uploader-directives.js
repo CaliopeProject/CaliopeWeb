@@ -4,9 +4,9 @@
 define(['angular','jquery.fileupload'], function (angular) {
   'use strict';  
   
-var dirmodule = angular.module('fileuploaderDirectives', []);
+var dirmodule = angular.module('fileuploaderDirectives', ['login-security-services']);
 
-dirmodule.directive('ngFileuploader', function() {
+dirmodule.directive('ngFileuploader', ['SessionSrv',  function(security) {
     return {
         templateUrl: 'tools-files-uploader/files-uploader-directives.html',
         replace: true,
@@ -23,19 +23,27 @@ dirmodule.directive('ngFileuploader', function() {
                 paramName: 'files[]',
                 sequentialUploads: true,
                 formData : {
-                  id: attrs['formuuid'],
-                  field: attrs['fieldattch']
+                   id: 'parent',//attrs['formuuid'],
+                   session_uuid: security.getIdSession()
+//                  field: attrs['fieldattch']
                 },
                 //TODO: to check
                 //          https://github.com/blueimp/jQuery-File-Upload/wiki/Options
                 add: function (e, data) {
                   //TODO: show preview
                   //console.log(data);
+                  console.log("id: " +  attrs['formuuid']);
                   data.submit();
                 },
+                progress: function(e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    console.log("progress",data);
+                },    
                 progressall: function(e, data) {
                     var progress = parseInt(data.loaded / data.total * 100, 10);
-                    //console.log(data.bitrate/1024+"k/s");
+                    console.log(data);
+                    console.log(e);
+
                     scope.$apply(function() {
                         $('#progress .bar').css(
                                 'width',
@@ -43,7 +51,7 @@ dirmodule.directive('ngFileuploader', function() {
                         );
                     });
                 },
-
+                
                 done: function(e, data) {
 
                     var filelist = scope.filelist;
@@ -61,7 +69,6 @@ dirmodule.directive('ngFileuploader', function() {
         }
 
     }
-});
+}]);
 
 });
-
