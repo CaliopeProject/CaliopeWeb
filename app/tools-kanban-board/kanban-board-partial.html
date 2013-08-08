@@ -4,7 +4,7 @@
       <div class="widget-header widget-header-flat widget-header-small">
         <h5>{{obj.category}}</h5>
         <div class="widget-toolbar no-border">
-          <widget-task title="" parent=""></widget-task>
+          <widget-task title="" parent="" category="{{obj.category}}"></widget-task>
         </div>
       </div>
 
@@ -16,7 +16,7 @@
                 <div class="widget-header">
                   <h6>{{item.description}}</h6>
                   <div ng-show='log'  class="lbl widget-toolbar no-border" >
-                    <widget-task title="" parent="item.uuid"></widget-task>
+                    <widget-task title="" parent="item.uuid" category="{{obj.category}}"></widget-task>
                     <span class="text-info" ng-click="editTask(item.uuid)">
                       <i class="icon-circle-arrow-down"></i>
                     </span>
