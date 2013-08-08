@@ -15,7 +15,7 @@ require.config({
     'jquery.fileupload'                : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload',
     'jquery.ui.widget'                 : 'libs-js-thirdparty/jquery-file-upload/js/vendor/jquery.ui.widget',
     'jquery.fileupload-ui'             : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-ui',
-    'tmpl'                             : 'libs-js-thirdparty/blueimp-tmpl/js/tmpl',
+//    'tmpl'                             : 'libs-js-thirdparty/blueimp-tmpl/js/tmpl',
 //     'jquery.fileupload-image'          : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-image',
 //     'jquery.fileupload-audio'          : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-audio',
 //     'jquery.fileupload-video'          : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-video',
@@ -40,7 +40,7 @@ require.config({
     'gis-options'                      : 'tools-gis-viewer/Options',
     'gis-init'                         : 'tools-gis-viewer/Init',
     'gis-view-ctrl'                    : 'tools-gis-viewer/gis-viewer-controller',
-    'gis-directives'                    : 'tools-gis-viewer/gis-directives',
+    'gis-directives'                   : 'tools-gis-viewer/gis-directives',
     'gis-ext-all'                      : 'libs-js-thirdparty/compiled-gis/ext-all',
     'gis-ext-base'                     : 'libs-js-thirdparty/compiled-gis/ext-base',
     'gis-heron'                        : 'libs-js-thirdparty/heron-mc/heron',
@@ -85,7 +85,10 @@ require.config({
     'task-directives'                  : 'task/task-directives',
 
     'read-rss-services'                : 'read-rss/read-rss-services',
-    'read-rss-controllers'             : 'read-rss/read-rss-controllers'
+    'read-rss-controllers'             : 'read-rss/read-rss-controllers',
+
+    'jquery-ui'                        : 'libs-js-thirdparty/jquery-ui/ui/jquery-ui',
+    'angular-dragdrop'                 : 'libs-js-thirdparty/angular-dragdrop/src/angular-dragdrop'
 
   },
   baseUrl: '/',
@@ -93,12 +96,15 @@ require.config({
     'jquery'                         : {'exports' : 'jquery'},
     'angular'                        : {'exports' : 'angular'},
     'angular-ui-bootstrap-bower'     : {'exports' : 'ui-bootstrap'},
+    'application-event'              : {'deps'      : ['jquery']},
     'angular-ui-ng-grid'             : {'exports' : 'ui-ng-grid'},
     'application-app'                : {'exports' : 'app'},
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
     'application-routes'             : {'exports' : 'routes'},
     'application-controller'         : {'exports' : 'appcontroller'},
-    'application-event'              : {'deps'      : ['jquery']},
+
+    'jquery-ui'                      : {'deps'      : ['jquery']},
+    'angular-dragdrop'               : {'deps'      : ['jquery-ui']},
 
     'CryptoSHA256'                   : {'deps'      : ['Crypto']},
 

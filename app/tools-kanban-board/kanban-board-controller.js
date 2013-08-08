@@ -2,9 +2,9 @@
 /*global define, console, $*/
 
 
-define(['angular'], function (angular) {
+define(['angular','angular-dragdrop'], function (angular) {
   'use strict';
-var dirmodule = angular.module('kanbanBoardCtrl', ['login-security-services']);
+var dirmodule = angular.module('kanbanBoardCtrl', ['login-security-services','ngDragDrop']);
 dirmodule.controller("kanbanBoardCtrl",
   ["SessionSrv", "$scope","webSocket", "$log", 'taskService',
   function(security, $scope, webSocket, $log, taskService) {
