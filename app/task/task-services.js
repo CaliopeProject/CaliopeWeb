@@ -48,10 +48,11 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
       // Show the modal task dialog
       createTask: function(parent, category) {
-        var data = {template: 'asignaciones',
+        var data = {
+                    template: 'asignaciones',
                     mode  : 'create',
                     uuidparent: parent,
-                    categoria: category
+                    category: category
                    };
         opts.resolve = {action : function(){ return angular.copy(data);}};
         opentaskDialog();
