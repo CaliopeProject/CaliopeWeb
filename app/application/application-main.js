@@ -104,7 +104,7 @@ require.config({
     'application-controller'         : {'exports' : 'appcontroller'},
 
     'jquery-ui'                      : {'deps'      : ['jquery']},
-    'angular-dragdrop'               : {'deps'      : ['jquery-ui']},
+    'angular-dragdrop'               : {'deps'      : ['angular', 'jquery-ui']},
 
     'CryptoSHA256'                   : {'deps'      : ['Crypto']},
 

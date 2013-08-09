@@ -9,25 +9,23 @@
         </div>
       </div>
 
-      <div class="widget-body" ng-model="obj.task" data-drop="true" data-jqyoui-options="{accept:'.widget-header:not([ng-model=obj.task])'}"  jqyoui-droppable="{multiple:true}">
+      <div class="widget-body" >
         <div class="widget-main">
-          <div class="row-fluid">
-            <ul class="item-list ui-sortable">
-              <li class="item" ng-repeat="item in obj.tasks" ng-init="log = false" ng-mouseover="log = true" ng-mouseleave="log = false">
-                <div class="widget-header" data-drag="true" data-jqyoui-options="{revert: 'invalid'}"  ng-model="obj.task" jqyoui-draggable="{index: {{$index}},animate:true}">
-                  <h6>{{item.description}}</h6>
-                  <div ng-show='log'  class="lbl widget-toolbar no-border" >
-                    <widget-task title="" parent="item.uuid" category="{{obj.category}}"></widget-task>
-                    <span class="text-info" ng-click="editTask(item.uuid, obj.category)">
-                      <i class="icon-circle-arrow-down"></i>
-                    </span>
-                    <span class="text-error"  ng-click="deleteTask(item.uuid)">
-                      <i class="icon-remove-sign"></i> 
-                    </span>
-                  </div>
+          <div class="row-fluid" ng-model="obj.tasks" data-drop="true" data-jqyoui-options="{accept:'.widget-header'}" jqyoui-droppable="{multiple:true}">
+
+            <div class="widget-header" ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">
+
+                <h6>{{item.description}}</h6>
+                <div ng-show='log'  class="lbl widget-toolbar no-border" >
+                  <widget-task title="" parent="item.uuid" category="{{obj.category}}"></widget-task>
+                  <span class="text-info" ng-click="editTask(item.uuid, obj.category)">
+                    <i class="icon-circle-arrow-down"></i>
+                  </span>
+                  <span class="text-error"  ng-click="deleteTask(item.uuid)">
+                    <i class="icon-remove-sign"></i>
+                  </span>
                 </div>
-              </li>
-            </ul>
+              </div>
           </div>
         </div>
       </div>
