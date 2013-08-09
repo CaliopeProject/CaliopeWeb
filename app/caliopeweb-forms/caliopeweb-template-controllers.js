@@ -98,15 +98,12 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           calwebtem.mode   = action.mode;
           calwebtem.uuid   = action.uuid;
 
+          $scope.dialogName = action.dialogName
+          $scope.fromDialog = true
+
           $scope.caliopeForm   = calwebTemSrv.caliopeForm;
           $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();
         };
-
-        if( dialog !== undefined){
-          $scope.closeDialog = function(){
-            taskService.cancelTask();
-          };
-        }
 
         $scope.initDeleteFromDialog = function() {
           console.log('Init delete', action)
@@ -119,9 +116,13 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         };
 
         $scope.closeDialog = function (dialogName) {
+          console.log('Close Dialog', dialogName)
           if( dialogName !== undefined ) {
             if($scope[dialogName] !== undefined) {
               $scope[dialogName].close(false);
+              $scope[dialogName] = {};
+              $scope.dialogName = "";
+              $scope.fromDialog = false;
             }
           }
         }

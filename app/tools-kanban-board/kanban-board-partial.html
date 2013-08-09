@@ -17,7 +17,7 @@
                   <h6>{{item.description}}</h6>
                   <div ng-show='log'  class="lbl widget-toolbar no-border" >
                     <widget-task title="" parent="item.uuid" category="{{obj.category}}"></widget-task>
-                    <span class="text-info" ng-click="editTask(item.uuid)">
+                    <span class="text-info" ng-click="editTask(item.uuid, obj.category)">
                       <i class="icon-circle-arrow-down"></i>
                     </span>
                     <span class="text-error"  ng-click="deleteTask(item.uuid)">
