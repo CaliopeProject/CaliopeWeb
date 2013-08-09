@@ -106,7 +106,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         };
 
         $scope.initDeleteFromDialog = function() {
-          console.log('Init delete', action)
           $scope.formDelete = action.template
           $scope.templateToDelete = action.template
           $scope.actionMethodDelete = action.actionMethod
@@ -116,7 +115,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         };
 
         $scope.closeDialog = function (dialogName) {
-          console.log('Close Dialog', dialogName)
           if( dialogName !== undefined ) {
             if($scope[dialogName] !== undefined) {
               $scope[dialogName].close(false);
@@ -169,8 +167,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         });
 
         $scope.sendAction = function(form, formTemplateName, actionMethod, formUUID, objID, paramsToSend) {
-
-          console.log('Send Action', form, formTemplateName, actionMethod);
 
           var inputs = $scope.elementsFormTemplate;
           var obj = {};
