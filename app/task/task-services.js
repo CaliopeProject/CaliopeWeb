@@ -30,7 +30,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
     function onTaskDialogClose(result) {
       taskDialog = null;
-      console.log('Close Dialog', result);
       var success = false;
       if( result !== undefined ) {
         if(result[0] !== undefined ) {
@@ -42,7 +41,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
         }
       }
       if(success == true) {
-        console.log('Success', success);
         $rootScope.$broadcast('updateKanban', []);
       }
     }
