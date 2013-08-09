@@ -199,9 +199,10 @@ var CaliopeWebForm = (function() {
      * Put the data represented for data structure in a specific context.
      * @param context
      */
-      putDataToContext : function(context) {
-        var varname;
+      putDataToContext : function(context, elements) {
+
         if (data !== undefined) {
+          var varname;
           for (varname in data) {
             if(data.hasOwnProperty(varname)) {
               context[varname] = data[varname].value;

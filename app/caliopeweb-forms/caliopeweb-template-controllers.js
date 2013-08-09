@@ -115,11 +115,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         };
 
         $scope.closeDialog = function (dialogName) {
+
           if( dialogName !== undefined ) {
             if($scope[dialogName] !== undefined) {
-              $scope[dialogName].close(false);
-              $scope[dialogName] = {};
-              $scope.dialogName = "";
+              $scope[dialogName].close([false, dialogName]);
               $scope.fromDialog = false;
             }
           }
@@ -140,7 +139,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
               if($scope.fromDialog) {
                 if($scope[$scope.dialogName] !== undefined) {
-                  $scope[$scope.dialogName].close(false);
+                  $scope[$scope.dialogName].close([true, $scope.dialogName]);
                 }
               }
 
@@ -187,7 +186,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
                 if( $scope[nameVarScope] !== undefined ) {
                   var value;
                   if(inputs[i].type === 'text' && inputs[i].type1 === 'datepicker') {
-                    value = $filter('date')($scope[nameVarScope], inputs[i].format );
+                    value = $scope[nameVarScope].getTime(); // $filter('date')($scope[nameVarScope], inputs[i].format );
                   } else if(inputs[i].type === 'select') {
                     value = $scope[nameVarScope];
                   } else {

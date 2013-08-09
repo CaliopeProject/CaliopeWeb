@@ -2,7 +2,7 @@
 /*global define, console, $*/
 
 
-define(['angular','angular-dragdr'], function (angular) {
+define(['angular','angular-dragdrop'], function (angular) {
   'use strict';
 var dirmodule = angular.module('kanbanBoardCtrl', ['login-security-services','ngDragDrop']);
 dirmodule.controller("kanbanBoardCtrl",
@@ -12,28 +12,36 @@ dirmodule.controller("kanbanBoardCtrl",
 
     $scope.$on('openWebSocket', function(event, data) {
       uuid = security.getIdSession();
-      $scope.uuid    = uuid;
+      //$scope.uuid    = uuid;
     });
 
-    var params = {};
-    var method = "tasks.getAll";
+    function updateKanban(uuid) {
+      var params = {};
+      var method = "tasks.getAll";
 
-    params = {
-      "uuid" : uuid
-    };
+      params = {
+        "uuid" : uuid
+      };
 
-    var webSockets = webSocket.WebSockets();
-    webSockets.serversimm.sendRequest(method, params).then(function(data){
-      $scope.data = data;
+      var webSockets = webSocket.WebSockets();
+      webSockets.serversimm.sendRequest(method, params).then(function(data){
+        $scope.data = data;
+      });
+
+      $scope.editTask = function ( uuid, category ){
+        taskService.editTask(uuid, category);
+      };
+
+      $scope.deleteTask = function( uuid ) {
+        taskService.deleteTask(uuid);
+      };
+    }
+
+    $scope.$on('updateKanban', function(event, data) {
+      updateKanban(uuid);
     });
 
-    $scope.editTask = function ( uuid, category ){
-      taskService.editTask(uuid, category);
-    };
-
-    $scope.deleteTask = function( uuid ) {
-      taskService.deleteTask(uuid);
-    };
+    updateKanban(uuid);
 
   }]);
 });
