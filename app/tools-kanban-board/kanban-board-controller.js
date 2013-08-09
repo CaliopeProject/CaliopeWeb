@@ -27,10 +27,6 @@ dirmodule.controller("kanbanBoardCtrl",
       $scope.data = data;
     });
 
-    $scope.openConfirmation = function( dialogName, uuid ) {
-
-    };
-
     $scope.editTask = function ( uuid ){
       taskService.editTask(uuid);
     };

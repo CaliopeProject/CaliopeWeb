@@ -5,7 +5,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
   var moduleServices = angular.module('task-services', ['ui.bootstrap.dialog']);
 
-  moduleServices.factory('taskService', ['$log','$http', '$q', '$location', '$dialog', 'webSocket', function($log, $http, $q, $location, $dialog,  webSocket) {
+  moduleServices.factory('taskService', ['$log','$http', '$q', '$location', '$dialog', '$rootScope',
+    'webSocket', function($log, $http, $q, $location, $dialog, $rootScope,  webSocket) {
 
     var opts = {
       backdrop      : false,
@@ -14,6 +15,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       templateUrl   : './task/partial-task-dialog.html',
       controller    : 'CaliopeWebTemplateCtrlDialog'
     };
+
+    var DIALOG_NAME = 'confirmDeleteTask';
 
     // task form dialog stuff
     var taskDialog = null;
@@ -34,6 +37,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       }
       taskDialog = $dialog.dialog(opts);
       taskDialog.open().then(onTaskDialogClose);
+      $rootScope[DIALOG_NAME] = taskDialog;
     }
 
 
@@ -68,12 +72,13 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       },
 
       deleteTask: function(uuid) {
-        opts.template = './task/partial-task-dialog-delete.html'
+        opts.templateUrl = './task/partial-task-dialog-delete.html'
 
         var data = {
           template      : 'asignaciones',
           actionMethod  : 'task.delete',
-          uuid          : uuid
+          uuid          : uuid,
+          dialogName    : DIALOG_NAME
         }
 
         opts.resolve = {
