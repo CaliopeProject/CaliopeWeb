@@ -5,15 +5,19 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
   var moduleServices = angular.module('task-services', ['ui.bootstrap.dialog']);
 
-  moduleServices.factory('taskService', ['$log','$http', '$q', '$location', '$dialog', 'webSocket', function($log, $http, $q, $location, $dialog,  webSocket) {
+  moduleServices.factory('taskService', ['$log','$http', '$q', '$location', '$dialog', '$rootScope',
+    'webSocket', function($log, $http, $q, $location, $dialog, $rootScope,  webSocket) {
 
     var opts = {
       backdrop      : false,
       keyboard      : true,
       backdropClick : false,
-      templateUrl   : './task/partial-task-dialog.html',
       controller    : 'CaliopeWebTemplateCtrlDialog'
     };
+
+    var DIALOG_NAME_CONF_DELETE = 'dialogConfirmDeleteTask';
+    var DIALOG_NAME_FORM_TASK = 'dialogFormTask';
+
 
     // task form dialog stuff
     var taskDialog = null;
@@ -28,12 +32,13 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       taskDialog = null;
     }
 
-    function opentaskDialog() {
+    function opentaskDialog(dialogName) {
       if ( taskDialog ) {
         throw new Error('Ya esta abierta!');
       }
       taskDialog = $dialog.dialog(opts);
       taskDialog.open().then(onTaskDialogClose);
+      $rootScope[dialogName] = taskDialog;
     }
 
 
@@ -48,40 +53,56 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
       // Show the modal task dialog
       createTask: function(parent, category) {
+        opts.templateUrl = './task/partial-task-dialog.html';
         var data = {
                     template: 'asignaciones',
                     mode  : 'create',
                     uuidparent: parent,
-                    categoria: category
+                    categoria: category,
+                    dialogName : DIALOG_NAME_FORM_TASK
                    };
-        opts.resolve = {action : function(){ return angular.copy(data);}};
-        opentaskDialog();
+        opts.resolve = {
+          action : function(){
+              return angular.copy(data);
+            }
+        };
+        opentaskDialog(DIALOG_NAME_FORM_TASK);
       },
 
-      editTask: function(numuuid) {
+      editTask: function(numuuid, category) {
         console.log(numuuid);
-        var data = {template: 'asignaciones',
+        opts.templateUrl = './task/partial-task-dialog.html';
+        var data = {
+                    template: 'asignaciones',
                     mode    : 'edit',
-                    uuid    : numuuid};
-        opts.resolve = {action : function(){ return angular.copy(data);}};
-        opentaskDialog();
+                    uuid    : numuuid,
+                    categoria: category,
+                    dialogName : DIALOG_NAME_FORM_TASK
+                  };
+        opts.resolve = {
+          action : function(){
+            return angular.copy(data);
+          }
+        };
+        opentaskDialog(DIALOG_NAME_FORM_TASK);
       },
 
       deleteTask: function(uuid) {
-        opts.template = './task/partial-task-dialog-delete.html'
+        opts.templateUrl = './task/partial-task-dialog-delete.html'
 
         var data = {
-          template      : 'asignaciones',
-          actionMethod  : 'task.delete',
-          uuid          : uuid
-        }
+                    template      : 'asignaciones',
+                    actionMethod  : 'task.delete',
+                    uuid          : uuid,
+                    dialogName    : DIALOG_NAME_CONF_DELETE
+                   }
 
         opts.resolve = {
           action : function(){
             return angular.copy(data);
           }
         };
-        opentaskDialog();
+        opentaskDialog(DIALOG_NAME_CONF_DELETE);
 
       },
 
