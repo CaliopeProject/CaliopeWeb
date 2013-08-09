@@ -2,7 +2,7 @@
 /*global define, console, $*/
 
 
-define(['angular','angular-dragdrop'], function (angular) {
+define(['angular','angular-dragdr'], function (angular) {
   'use strict';
 var dirmodule = angular.module('kanbanBoardCtrl', ['login-security-services','ngDragDrop']);
 dirmodule.controller("kanbanBoardCtrl",
@@ -37,7 +37,7 @@ dirmodule.controller("kanbanBoardCtrl",
 
     $scope.deleteTask = function( uuid ) {
       taskService.deleteTask(uuid);
-    }
+    };
 
   }]);
 });

@@ -1,5 +1,6 @@
 <div class="row-fluid" ng-controller="kanbanBoardCtrl">
   <div class="span4" ng-repeat="obj in data">
+    {{obj}}
     <div class="widget-box">
       <div class="widget-header widget-header-flat widget-header-small">
         <h5>{{obj.category}}</h5>
@@ -8,15 +9,15 @@
         </div>
       </div>
 
-      <div class="widget-body">
+      <div class="widget-body" ng-model="obj.task" data-drop="true" data-jqyoui-options="{accept:'.widget-header:not([ng-model=obj.task])'}"  jqyoui-droppable="{multiple:true}">
         <div class="widget-main">
           <div class="row-fluid">
             <ul class="item-list ui-sortable">
               <li class="item" ng-repeat="item in obj.tasks" ng-init="log = false" ng-mouseover="log = true" ng-mouseleave="log = false">
-                <div class="widget-header">
+                <div class="widget-header" data-drag="true" data-jqyoui-options="{revert: 'invalid'}"  ng-model="obj.task" jqyoui-draggable="{index: {{$index}},animate:true}">
                   <h6>{{item.description}}</h6>
                   <div ng-show='log'  class="lbl widget-toolbar no-border" >
-                    <widget-task title="" parent="item.uuid" category="{{obj.category}}"></widget-task>
+                    <widget-task title="" parent="item.uuid" category="{{obj.task}}"></widget-task>
                     <span class="text-info" ng-click="editTask(item.uuid)">
                       <i class="icon-circle-arrow-down"></i>
                     </span>
