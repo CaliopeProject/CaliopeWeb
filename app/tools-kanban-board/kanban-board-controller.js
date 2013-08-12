@@ -26,6 +26,33 @@ dirmodule.controller("kanbanBoardCtrl",
       var webSockets = webSocket.WebSockets();
       webSockets.serversimm.sendRequest(method, params).then(function(data){
         $scope.data = data;
+
+        /*Tmp for test subtask in kanban*/
+        var task;
+        if(data !== undefined) {
+          console.log('data', data);
+          task = data[0].tasks[0];
+          var updateData = [
+            {
+              description : 'Subtarea 1' ,
+              tarea : "Tarea",
+              uuid  : task.uuid + "-1",
+              tasks : [{
+                description : 'Subtarea 1' ,
+                tarea : "Tarea",
+                uuid  : task.uuid + "-1" + "-1"
+              }]
+            },
+            {
+              description : 'Subtarea 2',
+              tarea : "Tarea",
+              uuid  : task.uuid + "-2",
+              tasks : []
+            }
+          ];
+          task.tasks = updateData;
+        }
+
       });
 
       $scope.editTask = function ( uuid, category ){
@@ -40,6 +67,19 @@ dirmodule.controller("kanbanBoardCtrl",
     $scope.$on('updateKanban', function(event, data) {
       updateKanban(uuid);
     });
+
+    $scope.getSubTasks = function(task){
+      var method = "tasks.getSubTasks";
+      var params = {
+        "sessionuuid" : uuid,
+        "taskuuid"    : task.uuid
+      };
+      var webSockets = webSocket.WebSockets();
+      webSockets.serversimm.sendRequest(method, params).then(function(data){
+        task.tasks = data;
+
+      });
+    };
 
     updateKanban(uuid);
 

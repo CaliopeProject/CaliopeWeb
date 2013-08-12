@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
  * Bootstrap v2.3.2
  *
@@ -31679,6 +31680,19 @@ a.olControlZoomOut {
   margin: 10px;
   padding: 10px;
   font-size: 12px;
+}
+
+/*
+Comentario
+*/
+/* line 13, ../tools-kanban-board/kanban-board.scss */
+.item-list input ~ div > ul {
+  display: none;
+}
+
+/* line 17, ../tools-kanban-board/kanban-board.scss */
+.item-list input:checked ~ div > ul {
+  display: block;
 }
 
 /* line 1, ../caliopeweb-forms/caliopeweb.scss */

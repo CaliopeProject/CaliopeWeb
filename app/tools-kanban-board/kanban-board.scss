@@ -6,3 +6,11 @@
   padding: 10px;
   font-size: 12px;
 }
+
+.item-list input ~ div > ul {
+  display: none;
+}
+
+.item-list input:checked ~ div > ul {
+  display: block;
+}
