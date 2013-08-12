@@ -28,8 +28,21 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       $location.path(url);
     }
 
-    function onTaskDialogClose(success) {
+    function onTaskDialogClose(result) {
       taskDialog = null;
+      var success = false;
+      if( result !== undefined ) {
+        if(result[0] !== undefined ) {
+          success = result[0]
+        }
+        if( result[1] !== undefined ) {
+          $rootScope[result[1]] = null;
+          $rootScope.dialogName = null;
+        }
+      }
+      if(success == true) {
+        $rootScope.$broadcast('updateKanban', []);
+      }
     }
 
     function opentaskDialog(dialogName) {
