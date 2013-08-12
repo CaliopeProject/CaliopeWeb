@@ -141,7 +141,7 @@ define(['angular'], function(angular) {
               result.formUuid          = caliopeWebForm.getFormUUID();
               result.data              = caliopeWebForm.getData();
 
-              caliopeWebForm.putDataToContext(context);
+              caliopeWebForm.putDataToContext(context, result.elements);
               return result;
             }
         };

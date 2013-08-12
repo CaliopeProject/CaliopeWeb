@@ -8,7 +8,7 @@ body {
   padding-bottom: 0;
   background-color: #e4e6e9;
   min-height: 100%;
-  font-family: 'verdana, Open Sans';
+  font-family: 'verdana';
   font-size: 13px;
   color: #393939;
   &:before {
@@ -31,7 +31,6 @@ body {
 #main-container {
   padding: 0;
   position: relative;
-  margin-top: 5px;
 }
 
 #main-content {
@@ -211,6 +210,7 @@ blockquote {
 }
 
 .modal {
+  position: absolute;
   h4 {
     font-size: 18px;
     line-height: 20px;
@@ -787,7 +787,7 @@ blockquote {
 }
 
 .navbar {
-  margin-bottom: 0;
+  margin-bottom: 5px;
   padding-left: 0;
   padding-right: 0;
   margin-left: 0;

@@ -1,6 +1,7 @@
 /*jslint browser: true*/
 /*global $scope, angular */
 
+
 define(['angular'], function(angular) {
   'use strict';
 
@@ -14,16 +15,16 @@ define(['angular'], function(angular) {
       replace: true,
       scope: {
         title : '=',
-        parent: '='
+        parent: '=',
+        category: '@category'
       },
       link: function($scope, $element, $attrs, $controller) {
-        $scope.createTask  = function (){
-          taskService.createTask($scope.parent);
+        $scope.createTask  = function (parent, category){
+          taskService.createTask($scope.parent, category);
         };
       }
     };
 
     return directive;
   }]);
-
 });

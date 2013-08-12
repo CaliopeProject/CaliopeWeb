@@ -10601,7 +10601,7 @@ body {
   padding-bottom: 0;
   background-color: #e4e6e9;
   min-height: 100%;
-  font-family: 'verdana, Open Sans';
+  font-family: 'verdana';
   font-size: 13px;
   color: #393939;
 }
@@ -10627,10 +10627,9 @@ body.navbar-fixed {
 #main-container {
   padding: 0;
   position: relative;
-  margin-top: 5px;
 }
 
-/* line 37, ../common-scss/w8.scss */
+/* line 36, ../common-scss/w8.scss */
 #main-content {
   margin-left: 190px;
   margin-right: 0;
@@ -10639,18 +10638,18 @@ body.navbar-fixed {
   padding: 0;
 }
 
-/* line 45, ../common-scss/w8.scss */
+/* line 44, ../common-scss/w8.scss */
 #page-content {
   background: #fff;
   margin: 0;
   padding: 8px 20px 24px;
 }
-/* line 49, ../common-scss/w8.scss */
+/* line 48, ../common-scss/w8.scss */
 #page-content .page-header:first-child {
   margin: 0 0 12px;
   border-bottom: 1px dotted #e2e2e2;
 }
-/* line 52, ../common-scss/w8.scss */
+/* line 51, ../common-scss/w8.scss */
 #page-content .page-header:first-child h1 {
   padding: 0;
   margin: 0 8px;
@@ -10658,7 +10657,7 @@ body.navbar-fixed {
   font-weight: lighter;
   color: #2679b5;
 }
-/* line 58, ../common-scss/w8.scss */
+/* line 57, ../common-scss/w8.scss */
 #page-content .page-header:first-child h1 small {
   margin: 0 6px;
   font-size: 14px;
@@ -10666,149 +10665,149 @@ body.navbar-fixed {
   color: #8089a0;
 }
 
-/* line 68, ../common-scss/w8.scss */
+/* line 67, ../common-scss/w8.scss */
 [class*=" icon-"], [class^="icon-"] {
   display: inline-block;
   text-align: center;
 }
 
-/* line 74, ../common-scss/w8.scss */
+/* line 73, ../common-scss/w8.scss */
 a:focus, a:active {
   text-decoration: none;
 }
 
-/* line 79, ../common-scss/w8.scss */
+/* line 78, ../common-scss/w8.scss */
 h1 {
   font-size: 32px;
   font-weight: normal;
 }
-/* line 82, ../common-scss/w8.scss */
+/* line 81, ../common-scss/w8.scss */
 h1.smaller {
   font-size: 31px;
 }
-/* line 85, ../common-scss/w8.scss */
+/* line 84, ../common-scss/w8.scss */
 h1.bigger {
   font-size: 33px;
 }
-/* line 88, ../common-scss/w8.scss */
+/* line 87, ../common-scss/w8.scss */
 h1.block {
   margin-bottom: 16px;
 }
 
-/* line 93, ../common-scss/w8.scss */
+/* line 92, ../common-scss/w8.scss */
 h2 {
   font-size: 26px;
   font-weight: normal;
 }
-/* line 96, ../common-scss/w8.scss */
+/* line 95, ../common-scss/w8.scss */
 h2.smaller {
   font-size: 25px;
 }
-/* line 99, ../common-scss/w8.scss */
+/* line 98, ../common-scss/w8.scss */
 h2.bigger {
   font-size: 27px;
 }
-/* line 102, ../common-scss/w8.scss */
+/* line 101, ../common-scss/w8.scss */
 h2.block {
   margin-bottom: 16px;
 }
 
-/* line 107, ../common-scss/w8.scss */
+/* line 106, ../common-scss/w8.scss */
 h3 {
   font-size: 22px;
   font-weight: normal;
 }
-/* line 110, ../common-scss/w8.scss */
+/* line 109, ../common-scss/w8.scss */
 h3.smaller {
   font-size: 21px;
 }
-/* line 113, ../common-scss/w8.scss */
+/* line 112, ../common-scss/w8.scss */
 h3.bigger {
   font-size: 23px;
 }
-/* line 116, ../common-scss/w8.scss */
+/* line 115, ../common-scss/w8.scss */
 h3.block {
   margin-bottom: 16px;
 }
 
-/* line 121, ../common-scss/w8.scss */
+/* line 120, ../common-scss/w8.scss */
 h4 {
   font-size: 18px;
   font-weight: normal;
 }
-/* line 124, ../common-scss/w8.scss */
+/* line 123, ../common-scss/w8.scss */
 h4.smaller {
   font-size: 17px;
 }
-/* line 127, ../common-scss/w8.scss */
+/* line 126, ../common-scss/w8.scss */
 h4.bigger {
   font-size: 19px;
 }
-/* line 130, ../common-scss/w8.scss */
+/* line 129, ../common-scss/w8.scss */
 h4.block {
   margin-bottom: 16px;
 }
 
-/* line 135, ../common-scss/w8.scss */
+/* line 134, ../common-scss/w8.scss */
 h5 {
   font-size: 15px;
   font-weight: normal;
 }
-/* line 138, ../common-scss/w8.scss */
+/* line 137, ../common-scss/w8.scss */
 h5.smaller {
   font-size: 14px;
 }
-/* line 141, ../common-scss/w8.scss */
+/* line 140, ../common-scss/w8.scss */
 h5.bigger {
   font-size: 16px;
 }
-/* line 144, ../common-scss/w8.scss */
+/* line 143, ../common-scss/w8.scss */
 h5.block {
   margin-bottom: 16px;
 }
 
-/* line 149, ../common-scss/w8.scss */
+/* line 148, ../common-scss/w8.scss */
 h6 {
   font-size: 13px;
   font-weight: normal;
 }
-/* line 152, ../common-scss/w8.scss */
+/* line 151, ../common-scss/w8.scss */
 h6.smaller {
   font-size: 12px;
 }
-/* line 155, ../common-scss/w8.scss */
+/* line 154, ../common-scss/w8.scss */
 h6.bigger {
   font-size: 14px;
 }
-/* line 158, ../common-scss/w8.scss */
+/* line 157, ../common-scss/w8.scss */
 h6.block {
   margin-bottom: 16px;
 }
 
-/* line 164, ../common-scss/w8.scss */
+/* line 163, ../common-scss/w8.scss */
 li > ul.margin, li > ol.margin {
   margin-left: 18px;
 }
 
-/* line 169, ../common-scss/w8.scss */
+/* line 168, ../common-scss/w8.scss */
 .unstyled > li > [class*="icon-"]:first-child, .inline > li > [class*="icon-"]:first-child {
   width: 20px;
   text-align: center;
 }
 
-/* line 174, ../common-scss/w8.scss */
+/* line 173, ../common-scss/w8.scss */
 .spaced > li {
   margin-top: 9px;
   margin-bottom: 9px;
 }
 
-/* line 179, ../common-scss/w8.scss */
+/* line 178, ../common-scss/w8.scss */
 .spaced2 > li {
   margin-top: 15px;
   margin-bottom: 15px;
 }
 
-/* line 184, ../common-scss/w8.scss */
+/* line 183, ../common-scss/w8.scss */
 li.divider {
   margin-top: 3px;
   margin-bottom: 3px;
@@ -10816,33 +10815,37 @@ li.divider {
   font-size: 0;
 }
 
-/* line 191, ../common-scss/w8.scss */
+/* line 190, ../common-scss/w8.scss */
 .spaced > li.divider {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-/* line 196, ../common-scss/w8.scss */
+/* line 195, ../common-scss/w8.scss */
 .spaced2 > li.divider {
   margin-top: 8px;
   margin-bottom: 8px;
 }
 
-/* line 201, ../common-scss/w8.scss */
+/* line 200, ../common-scss/w8.scss */
 li.divider:before {
   content: "";
   display: inline-block;
 }
 
-/* line 206, ../common-scss/w8.scss */
+/* line 205, ../common-scss/w8.scss */
 blockquote {
   border-color: #e5eaf1;
 }
-/* line 208, ../common-scss/w8.scss */
+/* line 207, ../common-scss/w8.scss */
 blockquote.pull-right {
   border-color: #e5eaf1;
 }
 
+/* line 212, ../common-scss/w8.scss */
+.modal {
+  position: absolute;
+}
 /* line 214, ../common-scss/w8.scss */
 .modal h4 {
   font-size: 18px;
@@ -11532,7 +11535,7 @@ blockquote.pull-right {
 
 /* line 789, ../common-scss/w8.scss */
 .navbar {
-  margin-bottom: 0;
+  margin-bottom: 5px;
   padding-left: 0;
   padding-right: 0;
   margin-left: 0;
@@ -21574,8 +21577,10 @@ td.td-actions a.td-action:hover {
   width: 100%;
   min-width: 100%;
   z-index: 1000;
+  top: -7px;
+  overflow: hidden;
 }
-/* line 31, ../application/application-main.scss */
+/* line 33, ../application/application-main.scss */
 .init-backdrop:before {
   z-index: -999;
   position: absolute;
@@ -21593,13 +21598,13 @@ td.td-actions a.td-action:hover {
   background-image: linear-gradient(top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.94) 27%, rgba(28, 28, 28, 0.92) 70%, rgba(19, 19, 19, 0.9) 100%);
 }
 
-/* line 44, ../application/application-main.scss */
+/* line 46, ../application/application-main.scss */
 #margloading {
   margin-top: 20%;
 }
 
 /* DEMO 3 */
-/* line 49, ../application/application-main.scss */
+/* line 51, ../application/application-main.scss */
 .bokeh {
   font-size: 100px;
   width: 1em;
@@ -21610,14 +21615,14 @@ td.td-actions a.td-action:hover {
   border: 0.01em solid rgba(150, 150, 150, 0.1);
   list-style: none;
 }
-/* line 59, ../application/application-main.scss */
+/* line 61, ../application/application-main.scss */
 .bokeh > li {
   position: absolute;
   width: .2em;
   height: .2em;
   border-radius: 50%;
 }
-/* line 65, ../application/application-main.scss */
+/* line 67, ../application/application-main.scss */
 .bokeh > li:nth-child(1) {
   left: 50%;
   top: 0;
@@ -21634,7 +21639,7 @@ td.td-actions a.td-action:hover {
   -o-animation: rota 1.13s linear infinite, opa 3.67s ease-in-out infinite alternate;
   animation: rota 1.13s linear infinite, opa 3.67s ease-in-out infinite alternate;
 }
-/* line 92, ../application/application-main.scss */
+/* line 94, ../application/application-main.scss */
 .bokeh > li:nth-child(2) {
   top: 50%;
   right: 0;
@@ -21651,7 +21656,7 @@ td.td-actions a.td-action:hover {
   -o-animation: rota 1.86s linear infinite, opa 4.29s ease-in-out infinite alternate;
   animation: rota 1.86s linear infinite, opa 4.29s ease-in-out infinite alternate;
 }
-/* line 119, ../application/application-main.scss */
+/* line 121, ../application/application-main.scss */
 .bokeh > li:nth-child(3) {
   left: 50%;
   bottom: 0;
@@ -21668,7 +21673,7 @@ td.td-actions a.td-action:hover {
   -o-animation: rota 1.45s linear infinite, opa 5.12s ease-in-out infinite alternate;
   animation: rota 1.45s linear infinite, opa 5.12s ease-in-out infinite alternate;
 }
-/* line 146, ../application/application-main.scss */
+/* line 148, ../application/application-main.scss */
 .bokeh > li:nth-child(4) {
   top: 50%;
   margin: -.1em 0 0 0;
@@ -21686,320 +21691,320 @@ td.td-actions a.td-action:hover {
 }
 
 @-webkit-keyframes rota {
-  /* line 176, ../application/application-main.scss */
+  /* line 178, ../application/application-main.scss */
   to {
     -webkit-transform: rotate(360deg);
   }
 }
 
 @-moz-keyframes rota {
-  /* line 180, ../application/application-main.scss */
+  /* line 182, ../application/application-main.scss */
   to {
     -moz-transform: rotate(360deg);
   }
 }
 
 @-ms-keyframes rota {
-  /* line 184, ../application/application-main.scss */
+  /* line 186, ../application/application-main.scss */
   to {
     -ms-transform: rotate(360deg);
   }
 }
 
 @-o-keyframes rota {
-  /* line 188, ../application/application-main.scss */
+  /* line 190, ../application/application-main.scss */
   to {
     -o-transform: rotate(360deg);
   }
 }
 
 @keyframes rota {
-  /* line 192, ../application/application-main.scss */
+  /* line 194, ../application/application-main.scss */
   to {
     transform: rotate(360deg);
   }
 }
 
 @-webkit-keyframes opa {
-  /* line 196, ../application/application-main.scss */
+  /* line 198, ../application/application-main.scss */
   12.0% {
     opacity: 0.80;
   }
 
-  /* line 197, ../application/application-main.scss */
+  /* line 199, ../application/application-main.scss */
   19.5% {
     opacity: 0.88;
   }
 
-  /* line 198, ../application/application-main.scss */
+  /* line 200, ../application/application-main.scss */
   37.2% {
     opacity: 0.64;
   }
 
-  /* line 199, ../application/application-main.scss */
+  /* line 201, ../application/application-main.scss */
   40.5% {
     opacity: 0.52;
   }
 
-  /* line 200, ../application/application-main.scss */
+  /* line 202, ../application/application-main.scss */
   52.7% {
     opacity: 0.69;
   }
 
-  /* line 201, ../application/application-main.scss */
+  /* line 203, ../application/application-main.scss */
   60.2% {
     opacity: 0.60;
   }
 
-  /* line 202, ../application/application-main.scss */
+  /* line 204, ../application/application-main.scss */
   66.6% {
     opacity: 0.52;
   }
 
-  /* line 203, ../application/application-main.scss */
+  /* line 205, ../application/application-main.scss */
   70.0% {
     opacity: 0.63;
   }
 
-  /* line 204, ../application/application-main.scss */
+  /* line 206, ../application/application-main.scss */
   79.9% {
     opacity: 0.60;
   }
 
-  /* line 205, ../application/application-main.scss */
+  /* line 207, ../application/application-main.scss */
   84.2% {
     opacity: 0.75;
   }
 
-  /* line 206, ../application/application-main.scss */
+  /* line 208, ../application/application-main.scss */
   91.0% {
     opacity: 0.87;
   }
 }
 
 @-moz-keyframes opa {
-  /* line 210, ../application/application-main.scss */
+  /* line 212, ../application/application-main.scss */
   12.0% {
     opacity: 0.80;
   }
 
-  /* line 211, ../application/application-main.scss */
+  /* line 213, ../application/application-main.scss */
   19.5% {
     opacity: 0.88;
   }
 
-  /* line 212, ../application/application-main.scss */
+  /* line 214, ../application/application-main.scss */
   37.2% {
     opacity: 0.64;
   }
 
-  /* line 213, ../application/application-main.scss */
+  /* line 215, ../application/application-main.scss */
   40.5% {
     opacity: 0.52;
   }
 
-  /* line 214, ../application/application-main.scss */
+  /* line 216, ../application/application-main.scss */
   52.7% {
     opacity: 0.69;
   }
 
-  /* line 215, ../application/application-main.scss */
+  /* line 217, ../application/application-main.scss */
   60.2% {
     opacity: 0.60;
   }
 
-  /* line 216, ../application/application-main.scss */
+  /* line 218, ../application/application-main.scss */
   66.6% {
     opacity: 0.52;
   }
 
-  /* line 217, ../application/application-main.scss */
+  /* line 219, ../application/application-main.scss */
   70.0% {
     opacity: 0.63;
   }
 
-  /* line 218, ../application/application-main.scss */
+  /* line 220, ../application/application-main.scss */
   79.9% {
     opacity: 0.60;
   }
 
-  /* line 219, ../application/application-main.scss */
+  /* line 221, ../application/application-main.scss */
   84.2% {
     opacity: 0.75;
   }
 
-  /* line 220, ../application/application-main.scss */
+  /* line 222, ../application/application-main.scss */
   91.0% {
     opacity: 0.87;
   }
 }
 
 @-ms-keyframes opa {
-  /* line 224, ../application/application-main.scss */
+  /* line 226, ../application/application-main.scss */
   12.0% {
     opacity: 0.80;
   }
 
-  /* line 225, ../application/application-main.scss */
+  /* line 227, ../application/application-main.scss */
   19.5% {
     opacity: 0.88;
   }
 
-  /* line 226, ../application/application-main.scss */
+  /* line 228, ../application/application-main.scss */
   37.2% {
     opacity: 0.64;
   }
 
-  /* line 227, ../application/application-main.scss */
+  /* line 229, ../application/application-main.scss */
   40.5% {
     opacity: 0.52;
   }
 
-  /* line 228, ../application/application-main.scss */
+  /* line 230, ../application/application-main.scss */
   52.7% {
     opacity: 0.69;
   }
 
-  /* line 229, ../application/application-main.scss */
+  /* line 231, ../application/application-main.scss */
   60.2% {
     opacity: 0.60;
   }
 
-  /* line 230, ../application/application-main.scss */
+  /* line 232, ../application/application-main.scss */
   66.6% {
     opacity: 0.52;
   }
 
-  /* line 231, ../application/application-main.scss */
+  /* line 233, ../application/application-main.scss */
   70.0% {
     opacity: 0.63;
   }
 
-  /* line 232, ../application/application-main.scss */
+  /* line 234, ../application/application-main.scss */
   79.9% {
     opacity: 0.60;
   }
 
-  /* line 233, ../application/application-main.scss */
+  /* line 235, ../application/application-main.scss */
   84.2% {
     opacity: 0.75;
   }
 
-  /* line 234, ../application/application-main.scss */
+  /* line 236, ../application/application-main.scss */
   91.0% {
     opacity: 0.87;
   }
 }
 
 @-o-keyframes opa {
-  /* line 238, ../application/application-main.scss */
+  /* line 240, ../application/application-main.scss */
   12.0% {
     opacity: 0.80;
   }
 
-  /* line 239, ../application/application-main.scss */
+  /* line 241, ../application/application-main.scss */
   19.5% {
     opacity: 0.88;
   }
 
-  /* line 240, ../application/application-main.scss */
+  /* line 242, ../application/application-main.scss */
   37.2% {
     opacity: 0.64;
   }
 
-  /* line 241, ../application/application-main.scss */
+  /* line 243, ../application/application-main.scss */
   40.5% {
     opacity: 0.52;
   }
 
-  /* line 242, ../application/application-main.scss */
+  /* line 244, ../application/application-main.scss */
   52.7% {
     opacity: 0.69;
   }
 
-  /* line 243, ../application/application-main.scss */
+  /* line 245, ../application/application-main.scss */
   60.2% {
     opacity: 0.60;
   }
 
-  /* line 244, ../application/application-main.scss */
+  /* line 246, ../application/application-main.scss */
   66.6% {
     opacity: 0.52;
   }
 
-  /* line 245, ../application/application-main.scss */
+  /* line 247, ../application/application-main.scss */
   70.0% {
     opacity: 0.63;
   }
 
-  /* line 246, ../application/application-main.scss */
+  /* line 248, ../application/application-main.scss */
   79.9% {
     opacity: 0.60;
   }
 
-  /* line 247, ../application/application-main.scss */
+  /* line 249, ../application/application-main.scss */
   84.2% {
     opacity: 0.75;
   }
 
-  /* line 248, ../application/application-main.scss */
+  /* line 250, ../application/application-main.scss */
   91.0% {
     opacity: 0.87;
   }
 }
 
 @keyframes opa {
-  /* line 252, ../application/application-main.scss */
+  /* line 254, ../application/application-main.scss */
   12.0% {
     opacity: 0.80;
   }
 
-  /* line 253, ../application/application-main.scss */
+  /* line 255, ../application/application-main.scss */
   19.5% {
     opacity: 0.88;
   }
 
-  /* line 254, ../application/application-main.scss */
+  /* line 256, ../application/application-main.scss */
   37.2% {
     opacity: 0.64;
   }
 
-  /* line 255, ../application/application-main.scss */
+  /* line 257, ../application/application-main.scss */
   40.5% {
     opacity: 0.52;
   }
 
-  /* line 256, ../application/application-main.scss */
+  /* line 258, ../application/application-main.scss */
   52.7% {
     opacity: 0.69;
   }
 
-  /* line 257, ../application/application-main.scss */
+  /* line 259, ../application/application-main.scss */
   60.2% {
     opacity: 0.60;
   }
 
-  /* line 258, ../application/application-main.scss */
+  /* line 260, ../application/application-main.scss */
   66.6% {
     opacity: 0.52;
   }
 
-  /* line 259, ../application/application-main.scss */
+  /* line 261, ../application/application-main.scss */
   70.0% {
     opacity: 0.63;
   }
 
-  /* line 260, ../application/application-main.scss */
+  /* line 262, ../application/application-main.scss */
   79.9% {
     opacity: 0.60;
   }
 
-  /* line 261, ../application/application-main.scss */
+  /* line 263, ../application/application-main.scss */
   84.2% {
     opacity: 0.75;
   }
 
-  /* line 262, ../application/application-main.scss */
+  /* line 264, ../application/application-main.scss */
   91.0% {
     opacity: 0.87;
   }
@@ -31992,4 +31997,690 @@ footer:before {
 #borderfoot {
   margin: 0;
   padding: 8px 20px 24px;
+}
+
+@media only screen and (max-width: 480px) {
+  /* line 2, ../common-scss/w8-responsive.scss */
+  .hidden-480 {
+    display: none !important;
+  }
+}
+@media only screen and (max-width: 320px) {
+  /* line 8, ../common-scss/w8-responsive.scss */
+  .hidden-320 {
+    display: none !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  /* line 14, ../common-scss/w8-responsive.scss */
+  .vspace, .vspace-18, .vspace-24, .vspace-36, .vspace-9, .vspace-6, .vspace-3 {
+    display: block;
+  }
+}
+@media only screen and (max-width: 320px) {
+  /* line 21, ../common-scss/w8-responsive.scss */
+  .ace-nav > li > a, .ace-nav > li > span {
+    padding: 0 6px !important;
+  }
+}
+@media only screen and (max-width: 250px) {
+  /* line 29, ../common-scss/w8-responsive.scss */
+  .ace-nav > li > a, .ace-nav > li > span {
+    padding: 0 4px !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  /* line 37, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right {
+    right: -80px;
+  }
+  /* line 39, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right:after {
+    right: 100px;
+  }
+  /* line 43, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right {
+    right: -40px;
+  }
+  /* line 45, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right:after {
+    right: 60px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* line 54, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right {
+    right: -120px;
+  }
+  /* line 56, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right:after {
+    right: 140px;
+  }
+  /* line 60, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right {
+    right: -80px;
+  }
+  /* line 62, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right:after {
+    right: 100px;
+  }
+  /* line 66, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(3) > .dropdown-menu.pull-right {
+    right: -50px;
+  }
+  /* line 68, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(3) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(3) > .dropdown-menu.pull-right:after {
+    right: 70px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  /* line 77, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right {
+    left: -5px;
+    right: auto;
+  }
+  /* line 80, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right:after {
+    right: auto;
+    left: 25px;
+  }
+  /* line 85, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right {
+    left: -60px;
+    right: auto;
+  }
+  /* line 88, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right:after {
+    left: 80px;
+    right: auto;
+  }
+  /* line 93, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(3) > .dropdown-menu.pull-right {
+    left: -110px;
+    right: auto;
+  }
+  /* line 96, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:nth-child(3) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(3) > .dropdown-menu.pull-right:after {
+    left: 130px;
+    right: auto;
+  }
+}
+@media only screen and (max-width: 422px) {
+  /* line 105, ../common-scss/w8-responsive.scss */
+  .navbar .brand {
+    display: block;
+    float: none;
+  }
+
+  /* line 109, ../common-scss/w8-responsive.scss */
+  .navbar-inverse .navbar-inner {
+    border-bottom-width: 0;
+  }
+
+  /* line 112, ../common-scss/w8-responsive.scss */
+  .ace-nav {
+    display: block;
+    float: none !important;
+    text-align: center;
+    font-size: 0;
+    background-color: #404040;
+    border: 1px solid #DDD;
+    border-width: 1px 0;
+    letter-spacing: -4px;
+    word-spacing: -4px;
+  }
+  /* line 122, ../common-scss/w8-responsive.scss */
+  .ace-nav > li {
+    display: inline-block;
+    float: none !important;
+    text-align: left;
+    letter-spacing: normal;
+    word-spacing: normal;
+  }
+  /* line 128, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:first-child {
+    border-left: 1px solid #DDD;
+  }
+  /* line 131, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:last-child {
+    border-right: 1px solid #DDD;
+  }
+}
+@media only screen and (max-width: 260px) {
+  /* line 140, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:first-child {
+    border-left: none;
+  }
+  /* line 143, ../common-scss/w8-responsive.scss */
+  .ace-nav > li:last-child {
+    border-right: 0;
+  }
+}
+@media (min-width: 422px) and (max-width: 480px), (max-width: 340px) {
+  /* line 150, ../common-scss/w8-responsive.scss */
+  #user_menu {
+    padding-top: 42px;
+  }
+
+  /* line 153, ../common-scss/w8-responsive.scss */
+  .ace-nav .nav-user-photo {
+    margin-right: 0;
+  }
+
+  /* line 156, ../common-scss/w8-responsive.scss */
+  #user_info {
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 1px;
+    right: 2px;
+    z-index: 1001;
+    color: #777;
+    font-size: 14px;
+    width: 142px;
+    max-width: 142px;
+    padding-left: 8px;
+    padding-right: 8px;
+    height: 32px;
+    line-height: 30px;
+    display: none;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    vertical-align: none;
+    line-height: normal;
+  }
+  /* line 175, ../common-scss/w8-responsive.scss */
+  #user_info > small {
+    display: inline;
+    opacity: 1;
+  }
+
+  /* line 180, ../common-scss/w8-responsive.scss */
+  li.open #user_info {
+    display: inline-block;
+  }
+}
+@media only screen and (max-width: 767px) {
+  /* line 186, ../common-scss/w8-responsive.scss */
+  #nav-search {
+    right: 5px;
+  }
+
+  /* line 189, ../common-scss/w8-responsive.scss */
+  #nav-search-input {
+    width: 80px;
+  }
+
+  /* line 192, ../common-scss/w8-responsive.scss */
+  #nav-search:hover #nav-search-input, #nav-search-btn:active + #nav-search-input {
+    width: 100px;
+  }
+
+  /* line 196, ../common-scss/w8-responsive.scss */
+  #nav-search-input:focus, #nav-search-input:hover, #nav-search-input:active {
+    width: 100px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* line 203, ../common-scss/w8-responsive.scss */
+  #nav-search-input {
+    width: 0;
+    opacity: 0;
+    max-width: 0;
+  }
+
+  /* line 208, ../common-scss/w8-responsive.scss */
+  #nav-search:hover #nav-search-input, #nav-search-btn:active + #nav-search-input {
+    opacity: 1;
+    width: 100px;
+    max-width: 100px;
+  }
+
+  /* line 214, ../common-scss/w8-responsive.scss */
+  #nav-search-input:focus, #nav-search-input:hover, #nav-search-input:active {
+    opacity: 1;
+    width: 100px;
+    max-width: 100px;
+  }
+
+  /* line 220, ../common-scss/w8-responsive.scss */
+  #nav-search-icon {
+    border: 1px solid;
+    border-radius: 32px;
+    background-color: #FFF;
+    padding: 0 5px;
+  }
+
+  /* line 226, ../common-scss/w8-responsive.scss */
+  #nav-search:hover #nav-search-icon {
+    border: 0;
+    border-radius: 0;
+    padding: 0 3px;
+  }
+
+  /* line 232, ../common-scss/w8-responsive.scss */
+  #nav-search-input:focus ~ #nav-search-icon, #nav-search-input:hover ~ #nav-search-icon, #nav-search-input:active ~ #nav-search-icon {
+    border: 0;
+    border-radius: 0;
+    padding: 0 3px;
+  }
+}
+@media only screen and (max-width: 979px) {
+  /* line 241, ../common-scss/w8-responsive.scss */
+  body {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  /* line 245, ../common-scss/w8-responsive.scss */
+  #page-content {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  /* line 249, ../common-scss/w8-responsive.scss */
+  #sidebar {
+    z-index: 14;
+    left: -200px;
+    margin-top: 40px;
+    position: fixed;
+    border: 1px solid #CCC;
+    box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: left .15s ease;
+    -moz-transition: left .15s ease;
+    -o-transition: left .15s ease;
+    -ms-transition: left .15s ease;
+    transition: left .15s ease;
+  }
+  /* line 250, ../common-scss/w8-responsive.scss */
+  #sidebar:before {
+    display: none;
+  }
+  /* line 264, ../common-scss/w8-responsive.scss */
+  #sidebar.display {
+    position: absolute;
+    left: 0;
+  }
+  /* line 268, ../common-scss/w8-responsive.scss */
+  #sidebar.menu-min {
+    left: -50px;
+  }
+  /* line 269, ../common-scss/w8-responsive.scss */
+  #sidebar.menu-min.display {
+    position: absolute;
+    left: 0;
+  }
+
+  /* line 276, ../common-scss/w8-responsive.scss */
+  #main-content {
+    margin-left: 0 !important;
+  }
+
+  /* line 279, ../common-scss/w8-responsive.scss */
+  #menu-toggler {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    z-index: 14;
+    width: 52px;
+    height: 32px;
+    margin-right: 2px;
+    line-height: normal;
+    padding-left: 33px;
+    padding-top: 7px;
+    padding-bottom: 1px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #444;
+    color: #f3f3f3;
+  }
+  /* line 296, ../common-scss/w8-responsive.scss */
+  #menu-toggler:hover {
+    text-decoration: none;
+  }
+  /* line 299, ../common-scss/w8-responsive.scss */
+  #menu-toggler:before {
+    border-top: 1px solid #87b87f;
+    border-bottom: 1px solid #6fb3e0;
+    height: 2px;
+    width: 24px;
+    content: "";
+    position: absolute;
+    z-index: 11;
+    top: 13px;
+    left: 4px;
+    -moz-transition: all .1s ease;
+    -webkit-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    transition: all .1s ease;
+  }
+  /* line 315, ../common-scss/w8-responsive.scss */
+  #menu-toggler:after {
+    border-top: 1px solid #ffa24d;
+    border-bottom: 1px solid #d15b47;
+    content: "";
+    height: 2px;
+    width: 24px;
+    position: absolute;
+    top: 19px;
+    left: 4px;
+    -moz-transition: all .1s ease;
+    -webkit-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    transition: all .1s ease;
+  }
+  /* line 331, ../common-scss/w8-responsive.scss */
+  #menu-toggler.display:before {
+    height: 4px;
+    top: 8px;
+    border-width: 2px;
+  }
+  /* line 336, ../common-scss/w8-responsive.scss */
+  #menu-toggler.display:after {
+    height: 4px;
+    top: 20px;
+    border-width: 2px;
+  }
+  /* line 342, ../common-scss/w8-responsive.scss */
+  #menu-toggler > span {
+    display: block;
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    border: 1px solid transparent;
+    border-width: 9px 42px;
+    border-top-color: #444;
+  }
+  /* line 350, ../common-scss/w8-responsive.scss */
+  #menu-toggler > span:after {
+    display: block;
+    content: "MENU";
+    color: #FFF;
+    position: absolute;
+    left: -8px;
+    top: -41px;
+  }
+
+  /* line 360, ../common-scss/w8-responsive.scss */
+  .breadcrumb {
+    margin-left: 90px;
+  }
+
+  /* line 363, ../common-scss/w8-responsive.scss */
+  #breadcrumbs.fixed {
+    position: relative;
+    left: auto;
+    right: auto;
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* line 371, ../common-scss/w8-responsive.scss */
+  .breadcrumb > li > a {
+    padding: 0;
+  }
+}
+@media only screen and (max-width: 320px) {
+  /* line 377, ../common-scss/w8-responsive.scss */
+  .breadcrumb {
+    margin-left: 36px;
+  }
+
+  /* line 380, ../common-scss/w8-responsive.scss */
+  #menu-toggler {
+    width: 0;
+  }
+  /* line 382, ../common-scss/w8-responsive.scss */
+  #menu-toggler > span {
+    border-width: 7px 16px;
+    bottom: -14px;
+  }
+  /* line 385, ../common-scss/w8-responsive.scss */
+  #menu-toggler > span:after {
+    font-size: 9px;
+    font-weight: normal;
+    color: #FFF;
+    position: absolute;
+    left: -13px;
+    top: -42px;
+  }
+  /* line 394, ../common-scss/w8-responsive.scss */
+  #menu-toggler:before, #menu-toggler:after {
+    margin-top: 8px;
+  }
+  /* line 398, ../common-scss/w8-responsive.scss */
+  #menu-toggler.display:before, #menu-toggler.display:after {
+    height: 2px;
+    border-width: 1px;
+  }
+  /* line 402, ../common-scss/w8-responsive.scss */
+  #menu-toggler.display:before {
+    top: 13px;
+  }
+  /* line 405, ../common-scss/w8-responsive.scss */
+  #menu-toggler.display:after {
+    top: 19px;
+  }
+}
+@media only screen and (max-width: 979px) {
+  /* line 413, ../common-scss/w8-responsive.scss */
+  #page-content {
+    padding-left: 11px;
+    padding-right: 11px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* line 420, ../common-scss/w8-responsive.scss */
+  #page-content {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  /* line 427, ../common-scss/w8-responsive.scss */
+  #page-content {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+@media only screen and (max-width: 460px) {
+  /* line 434, ../common-scss/w8-responsive.scss */
+  .infobox {
+    min-width: 95%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  /* line 442, ../common-scss/w8-responsive.scss */
+  .widget-box {
+    margin-top: 7px;
+    margin-bottom: 7px;
+  }
+}
+@media only screen and (max-width: 420px) {
+  /* line 449, ../common-scss/w8-responsive.scss */
+  .login-layout .widget-box .widget-main {
+    padding: 16px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  /* line 455, ../common-scss/w8-responsive.scss */
+  .login-layout .widget-box .widget-main {
+    padding: 16px 8px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* line 461, ../common-scss/w8-responsive.scss */
+  .login-container {
+    width: 98%;
+  }
+
+  /* line 464, ../common-scss/w8-responsive.scss */
+  .login-layout .widget-box {
+    padding: 0;
+  }
+
+  /* line 467, ../common-scss/w8-responsive.scss */
+  #login-box .toolbar > div {
+    width: auto;
+  }
+}
+@media only screen and (max-width: 767px) {
+  /* line 473, ../common-scss/w8-responsive.scss */
+  .login-layout .widget-box.visible {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    -ms-transition: none;
+    transition: none;
+  }
+}
+@media only screen and (max-width: 767px) {
+  /* line 483, ../common-scss/w8-responsive.scss */
+  .error-container {
+    margin: 12px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* line 489, ../common-scss/w8-responsive.scss */
+  .error-container {
+    margin: 6px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* line 495, ../common-scss/w8-responsive.scss */
+  .fc-header td {
+    display: block;
+    width: auto;
+    text-align: left;
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* line 503, ../common-scss/w8-responsive.scss */
+  .ace-thumbnails {
+    text-align: center;
+  }
+  /* line 505, ../common-scss/w8-responsive.scss */
+  .ace-thumbnails > li {
+    float: none;
+    display: inline-block;
+  }
+}
+@media only screen and (max-width: 360px) {
+  /* line 513, ../common-scss/w8-responsive.scss */
+  .grid3, .grid4 {
+    float: none;
+    display: block;
+    width: 96%;
+    border-right: 0;
+    position: relative;
+    margin-bottom: 11px;
+    border-bottom: 1px solid #e3e3e3;
+    padding-bottom: 4px;
+  }
+
+  /* line 523, ../common-scss/w8-responsive.scss */
+  .grid3 > [class*="pull-"], .grid4 > [class*="pull-"] {
+    float: none !important;
+    display: inline-block;
+    position: absolute;
+    right: 11px;
+    top: 0;
+    margin-top: 0;
+  }
+
+  /* line 531, ../common-scss/w8-responsive.scss */
+  .grid3:last-child, .grid4:last-child {
+    border-bottom: 0;
+  }
+}
+@media (max-width: 979px) {
+  /* line 537, ../common-scss/w8-responsive.scss */
+  body.navbar-fixed {
+    padding-top: 0;
+  }
+
+  /* line 540, ../common-scss/w8-responsive.scss */
+  .navbar-fixed-top {
+    margin-bottom: 0;
+  }
+  /* line 542, ../common-scss/w8-responsive.scss */
+  .navbar-fixed-top .navbar-inner {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* line 547, ../common-scss/w8-responsive.scss */
+  .navbar-fixed-bottom .navbar-inner {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* line 551, ../common-scss/w8-responsive.scss */
+  #sidebar.fixed {
+    position: absolute;
+  }
+}
+@media only screen and (max-width: 767px) {
+  /* line 557, ../common-scss/w8-responsive.scss */
+  .help-inline, .input-icon + .help-inline {
+    padding-left: 0;
+    display: block !important;
+  }
+}
+@media only screen and (max-width: 640px) {
+  /* line 565, ../common-scss/w8-responsive.scss */
+  .wizard-steps li .step {
+    padding: 2px 7px;
+    border-width: 3px;
+  }
+  /* line 569, ../common-scss/w8-responsive.scss */
+  .wizard-steps li:before, .wizard-steps li:after {
+    border-width: 3px;
+  }
+  /* line 572, ../common-scss/w8-responsive.scss */
+  .wizard-steps li.complete .step:before {
+    padding: 5px 4px;
+    font-size: 13px;
+  }
+  /* line 576, ../common-scss/w8-responsive.scss */
+  .wizard-steps li:after {
+    top: -12px;
+  }
+
+  /* line 580, ../common-scss/w8-responsive.scss */
+  .step-content .step-pane {
+    padding: 4px 4px 6px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  /* line 586, ../common-scss/w8-responsive.scss */
+  .itemdiv.memberdiv {
+    float: none;
+    width: auto;
+  }
+}
+@media only screen and (max-width: 979px) {
+  /* line 593, ../common-scss/w8-responsive.scss */
+  .ace-spinner .spinner-buttons > .btn {
+    height: 29px;
+    line-height: 20px;
+    width: 24px;
+    font-size: 18px;
+    display: inline-block;
+    vertical-align: sub;
+  }
+  /* line 600, ../common-scss/w8-responsive.scss */
+  .ace-spinner .spinner-buttons > .btn > [class*="icon-"] {
+    vertical-align: middle;
+    display: inline-block;
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* line 608, ../common-scss/w8-responsive.scss */
+  #ace-settings-container {
+    top: 65px;
+  }
 }

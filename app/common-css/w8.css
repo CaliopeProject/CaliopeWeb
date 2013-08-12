@@ -9,7 +9,7 @@ body {
   padding-bottom: 0;
   background-color: #e4e6e9;
   min-height: 100%;
-  font-family: 'verdana, Open Sans';
+  font-family: 'verdana';
   font-size: 13px;
   color: #393939;
 }
@@ -35,10 +35,9 @@ body.navbar-fixed {
 #main-container {
   padding: 0;
   position: relative;
-  margin-top: 5px;
 }
 
-/* line 37, ../common-scss/w8.scss */
+/* line 36, ../common-scss/w8.scss */
 #main-content {
   margin-left: 190px;
   margin-right: 0;
@@ -47,18 +46,18 @@ body.navbar-fixed {
   padding: 0;
 }
 
-/* line 45, ../common-scss/w8.scss */
+/* line 44, ../common-scss/w8.scss */
 #page-content {
   background: #fff;
   margin: 0;
   padding: 8px 20px 24px;
 }
-/* line 49, ../common-scss/w8.scss */
+/* line 48, ../common-scss/w8.scss */
 #page-content .page-header:first-child {
   margin: 0 0 12px;
   border-bottom: 1px dotted #e2e2e2;
 }
-/* line 52, ../common-scss/w8.scss */
+/* line 51, ../common-scss/w8.scss */
 #page-content .page-header:first-child h1 {
   padding: 0;
   margin: 0 8px;
@@ -66,7 +65,7 @@ body.navbar-fixed {
   font-weight: lighter;
   color: #2679b5;
 }
-/* line 58, ../common-scss/w8.scss */
+/* line 57, ../common-scss/w8.scss */
 #page-content .page-header:first-child h1 small {
   margin: 0 6px;
   font-size: 14px;
@@ -74,149 +73,149 @@ body.navbar-fixed {
   color: #8089a0;
 }
 
-/* line 68, ../common-scss/w8.scss */
+/* line 67, ../common-scss/w8.scss */
 [class*=" icon-"], [class^="icon-"] {
   display: inline-block;
   text-align: center;
 }
 
-/* line 74, ../common-scss/w8.scss */
+/* line 73, ../common-scss/w8.scss */
 a:focus, a:active {
   text-decoration: none;
 }
 
-/* line 79, ../common-scss/w8.scss */
+/* line 78, ../common-scss/w8.scss */
 h1 {
   font-size: 32px;
   font-weight: normal;
 }
-/* line 82, ../common-scss/w8.scss */
+/* line 81, ../common-scss/w8.scss */
 h1.smaller {
   font-size: 31px;
 }
-/* line 85, ../common-scss/w8.scss */
+/* line 84, ../common-scss/w8.scss */
 h1.bigger {
   font-size: 33px;
 }
-/* line 88, ../common-scss/w8.scss */
+/* line 87, ../common-scss/w8.scss */
 h1.block {
   margin-bottom: 16px;
 }
 
-/* line 93, ../common-scss/w8.scss */
+/* line 92, ../common-scss/w8.scss */
 h2 {
   font-size: 26px;
   font-weight: normal;
 }
-/* line 96, ../common-scss/w8.scss */
+/* line 95, ../common-scss/w8.scss */
 h2.smaller {
   font-size: 25px;
 }
-/* line 99, ../common-scss/w8.scss */
+/* line 98, ../common-scss/w8.scss */
 h2.bigger {
   font-size: 27px;
 }
-/* line 102, ../common-scss/w8.scss */
+/* line 101, ../common-scss/w8.scss */
 h2.block {
   margin-bottom: 16px;
 }
 
-/* line 107, ../common-scss/w8.scss */
+/* line 106, ../common-scss/w8.scss */
 h3 {
   font-size: 22px;
   font-weight: normal;
 }
-/* line 110, ../common-scss/w8.scss */
+/* line 109, ../common-scss/w8.scss */
 h3.smaller {
   font-size: 21px;
 }
-/* line 113, ../common-scss/w8.scss */
+/* line 112, ../common-scss/w8.scss */
 h3.bigger {
   font-size: 23px;
 }
-/* line 116, ../common-scss/w8.scss */
+/* line 115, ../common-scss/w8.scss */
 h3.block {
   margin-bottom: 16px;
 }
 
-/* line 121, ../common-scss/w8.scss */
+/* line 120, ../common-scss/w8.scss */
 h4 {
   font-size: 18px;
   font-weight: normal;
 }
-/* line 124, ../common-scss/w8.scss */
+/* line 123, ../common-scss/w8.scss */
 h4.smaller {
   font-size: 17px;
 }
-/* line 127, ../common-scss/w8.scss */
+/* line 126, ../common-scss/w8.scss */
 h4.bigger {
   font-size: 19px;
 }
-/* line 130, ../common-scss/w8.scss */
+/* line 129, ../common-scss/w8.scss */
 h4.block {
   margin-bottom: 16px;
 }
 
-/* line 135, ../common-scss/w8.scss */
+/* line 134, ../common-scss/w8.scss */
 h5 {
   font-size: 15px;
   font-weight: normal;
 }
-/* line 138, ../common-scss/w8.scss */
+/* line 137, ../common-scss/w8.scss */
 h5.smaller {
   font-size: 14px;
 }
-/* line 141, ../common-scss/w8.scss */
+/* line 140, ../common-scss/w8.scss */
 h5.bigger {
   font-size: 16px;
 }
-/* line 144, ../common-scss/w8.scss */
+/* line 143, ../common-scss/w8.scss */
 h5.block {
   margin-bottom: 16px;
 }
 
-/* line 149, ../common-scss/w8.scss */
+/* line 148, ../common-scss/w8.scss */
 h6 {
   font-size: 13px;
   font-weight: normal;
 }
-/* line 152, ../common-scss/w8.scss */
+/* line 151, ../common-scss/w8.scss */
 h6.smaller {
   font-size: 12px;
 }
-/* line 155, ../common-scss/w8.scss */
+/* line 154, ../common-scss/w8.scss */
 h6.bigger {
   font-size: 14px;
 }
-/* line 158, ../common-scss/w8.scss */
+/* line 157, ../common-scss/w8.scss */
 h6.block {
   margin-bottom: 16px;
 }
 
-/* line 164, ../common-scss/w8.scss */
+/* line 163, ../common-scss/w8.scss */
 li > ul.margin, li > ol.margin {
   margin-left: 18px;
 }
 
-/* line 169, ../common-scss/w8.scss */
+/* line 168, ../common-scss/w8.scss */
 .unstyled > li > [class*="icon-"]:first-child, .inline > li > [class*="icon-"]:first-child {
   width: 20px;
   text-align: center;
 }
 
-/* line 174, ../common-scss/w8.scss */
+/* line 173, ../common-scss/w8.scss */
 .spaced > li {
   margin-top: 9px;
   margin-bottom: 9px;
 }
 
-/* line 179, ../common-scss/w8.scss */
+/* line 178, ../common-scss/w8.scss */
 .spaced2 > li {
   margin-top: 15px;
   margin-bottom: 15px;
 }
 
-/* line 184, ../common-scss/w8.scss */
+/* line 183, ../common-scss/w8.scss */
 li.divider {
   margin-top: 3px;
   margin-bottom: 3px;
@@ -224,33 +223,37 @@ li.divider {
   font-size: 0;
 }
 
-/* line 191, ../common-scss/w8.scss */
+/* line 190, ../common-scss/w8.scss */
 .spaced > li.divider {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-/* line 196, ../common-scss/w8.scss */
+/* line 195, ../common-scss/w8.scss */
 .spaced2 > li.divider {
   margin-top: 8px;
   margin-bottom: 8px;
 }
 
-/* line 201, ../common-scss/w8.scss */
+/* line 200, ../common-scss/w8.scss */
 li.divider:before {
   content: "";
   display: inline-block;
 }
 
-/* line 206, ../common-scss/w8.scss */
+/* line 205, ../common-scss/w8.scss */
 blockquote {
   border-color: #e5eaf1;
 }
-/* line 208, ../common-scss/w8.scss */
+/* line 207, ../common-scss/w8.scss */
 blockquote.pull-right {
   border-color: #e5eaf1;
 }
 
+/* line 212, ../common-scss/w8.scss */
+.modal {
+  position: absolute;
+}
 /* line 214, ../common-scss/w8.scss */
 .modal h4 {
   font-size: 18px;
@@ -940,7 +943,7 @@ blockquote.pull-right {
 
 /* line 789, ../common-scss/w8.scss */
 .navbar {
-  margin-bottom: 0;
+  margin-bottom: 5px;
   padding-left: 0;
   padding-right: 0;
   margin-left: 0;

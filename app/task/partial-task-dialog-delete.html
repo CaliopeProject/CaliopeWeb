@@ -1,0 +1,11 @@
+<div id="container-form" ng-init="initDeleteFromDialog()">
+  <div class="modal-body">
+    ¿Está seguro que desea eliminar la información?
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-mini action" ng-controller="SIMMFormCtrl" ng-click="sendAction(formDelete, templateToDelete, actionMethodDelete, '', uuidToDelete, '')">Aceptar</button>
+    <button class="btn btn-warning btn-mini cancel" ng-click="closeDialog(dialogName)">Cancel</button>
+  </div>
+</div>
+
+

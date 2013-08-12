@@ -5,15 +5,19 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
   var moduleServices = angular.module('task-services', ['ui.bootstrap.dialog']);
 
-  moduleServices.factory('taskService', ['$log','$http', '$q', '$location', '$dialog', 'webSocket', function($log, $http, $q, $location, $dialog,  webSocket) {
+  moduleServices.factory('taskService', ['$log','$http', '$q', '$location', '$dialog', '$rootScope',
+    'webSocket', function($log, $http, $q, $location, $dialog, $rootScope,  webSocket) {
 
     var opts = {
       backdrop      : false,
       keyboard      : true,
       backdropClick : false,
-      templateUrl   : './task/partial-task-dialog.html',
       controller    : 'CaliopeWebTemplateCtrlDialog'
     };
+
+    var DIALOG_NAME_CONF_DELETE = 'dialogConfirmDeleteTask';
+    var DIALOG_NAME_FORM_TASK = 'dialogFormTask';
+
 
     // task form dialog stuff
     var taskDialog = null;
@@ -24,16 +28,30 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       $location.path(url);
     }
 
-    function onTaskDialogClose(success) {
+    function onTaskDialogClose(result) {
       taskDialog = null;
+      var success = false;
+      if( result !== undefined ) {
+        if(result[0] !== undefined ) {
+          success = result[0]
+        }
+        if( result[1] !== undefined ) {
+          $rootScope[result[1]] = null;
+          $rootScope.dialogName = null;
+        }
+      }
+      if(success == true) {
+        $rootScope.$broadcast('updateKanban', []);
+      }
     }
 
-    function opentaskDialog() {
+    function opentaskDialog(dialogName) {
       if ( taskDialog ) {
         throw new Error('Ya esta abierta!');
       }
       taskDialog = $dialog.dialog(opts);
       taskDialog.open().then(onTaskDialogClose);
+      $rootScope[dialogName] = taskDialog;
     }
 
 
@@ -47,19 +65,58 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
     var service =  {
 
       // Show the modal task dialog
-      createTask: function(parent) {
-        var data = {template: 'asignaciones',
-                      mode  : 'create'};
-        opts.resolve = {action : function(){ return angular.copy(data);}};
-        opentaskDialog();
+      createTask: function(parent, category) {
+        opts.templateUrl = './task/partial-task-dialog.html';
+        var data = {
+                    template: 'asignaciones',
+                    mode  : 'create',
+                    uuidparent: parent,
+                    categoria: category,
+                    dialogName : DIALOG_NAME_FORM_TASK
+                   };
+        opts.resolve = {
+          action : function(){
+              return angular.copy(data);
+            }
+        };
+        opentaskDialog(DIALOG_NAME_FORM_TASK);
       },
 
-      editTask: function(numuuid) {
-        var data = {template: 'asignaciones',
+      editTask: function(numuuid, category) {
+        console.log(numuuid);
+        opts.templateUrl = './task/partial-task-dialog.html';
+        var data = {
+                    template: 'asignaciones',
                     mode    : 'edit',
-                    uuid    : numuuid};
-        opts.resolve = {action : function(){ return angular.copy(data);}};
-        opentaskDialog();
+                    uuid    : numuuid,
+                    categoria: category,
+                    dialogName : DIALOG_NAME_FORM_TASK
+                  };
+        opts.resolve = {
+          action : function(){
+            return angular.copy(data);
+          }
+        };
+        opentaskDialog(DIALOG_NAME_FORM_TASK);
+      },
+
+      deleteTask: function(uuid) {
+        opts.templateUrl = './task/partial-task-dialog-delete.html'
+
+        var data = {
+                    template      : 'asignaciones',
+                    actionMethod  : 'task.delete',
+                    uuid          : uuid,
+                    dialogName    : DIALOG_NAME_CONF_DELETE
+                   }
+
+        opts.resolve = {
+          action : function(){
+            return angular.copy(data);
+          }
+        };
+        opentaskDialog(DIALOG_NAME_CONF_DELETE);
+
       },
 
       cancelTask: function() {

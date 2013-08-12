@@ -73,12 +73,22 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   moduleControllers.controller('CaliopeWebTemplateCtrlDialog',
     ['caliopewebTemplateSrv', 'dialog', '$scope', 'action', 'taskService',
       function (calwebTemSrv, dialog, $scope, action, taskService) {
+
         $scope.$watch('jsonPlantilla', function (value) {
           if( value !== undefined ) {
             var result = calwebTemSrv.load(value, $scope);
             $scope.jsonPlantillaAngular = result.structureToRender;
             $scope.elementsFormTemplate   = result.elements;
             $scope.formUUID             = result.formUuid;
+
+            var inputs = $scope.elementsFormTemplate;
+            var i;
+            for (i = 0; i < inputs.length; i++) {
+              var nameVarScope = inputs[i].name;
+              if( action[nameVarScope] !== undefined) {
+                $scope[nameVarScope] = action[nameVarScope];
+              }
+            }
           }
         });
 
@@ -88,15 +98,32 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           calwebtem.mode   = action.mode;
           calwebtem.uuid   = action.uuid;
 
+          $scope.dialogName = action.dialogName
+          $scope.fromDialog = true
+
           $scope.caliopeForm   = calwebTemSrv.caliopeForm;
           $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();
         };
 
-        if( dialog !== undefined){
-          $scope.closeDialog = function(){
-            taskService.cancelTask();
-          };
+        $scope.initDeleteFromDialog = function() {
+          $scope.formDelete = action.template
+          $scope.templateToDelete = action.template
+          $scope.actionMethodDelete = action.actionMethod
+          $scope.uuidToDelete = action.uuid
+          $scope.dialogName = action.dialogName
+          $scope.fromDialog = true
+        };
+
+        $scope.closeDialog = function (dialogName) {
+
+          if( dialogName !== undefined ) {
+            if($scope[dialogName] !== undefined) {
+              $scope[dialogName].close([false, dialogName]);
+              $scope.fromDialog = false;
+            }
+          }
         }
+
       }
   ]);
 
@@ -104,13 +131,19 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
     ['caliopewebTemplateSrv', '$scope', '$filter',
       function (caliopewebTemplateSrv, $scope, $filter) {
 
-        $scope.$watch('responseSaveData', function (value) {
+        $scope.$watch('responseSendAction', function (value) {
 
-          if (value !== undefined) {
-            var content = 'ok';
+          if (value !== undefined ) {
 
-            if (content === 'ok') {
-              console.log('Entidad Creada', value.uuid);
+            if(value.error === undefined) {
+
+              if($scope.fromDialog) {
+                if($scope[$scope.dialogName] !== undefined) {
+                  $scope[$scope.dialogName].close([true, $scope.dialogName]);
+                }
+              }
+
+              /*
               var dataList = $scope.dataList;
               if (dataList === undefined) {
                 dataList = [];
@@ -124,13 +157,11 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
               obj.uuid = value.uuid;
               dataList.push(obj);
               $scope.$parent.dataList = dataList;
-            }
-          }
-        });
 
-        $scope.$watch('responseDeleteData', function (value) {
-          if( value !== undefined ) {
-            //TODO: Definir que se debe hacer cuando se eliminan datos.
+              */
+            } else {
+              console.log('Server error response', value.error)
+            }
           }
         });
 
@@ -140,7 +171,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           var obj = {};
           var i;
 
-          $scope.responseSaveData   = {};
+          $scope.responseSendAction   = {};
 
           if( paramsToSend === undefined || paramsToSend === '' ) {
             paramsToSend = [];
@@ -148,24 +179,26 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
             paramsToSend = paramsToSend.split(',');
           }
 
-          for (i = 0; i < inputs.length; i++) {
-            if( paramsToSend.length === 0 || paramsToSend.indexOf(inputs[i]) >= 0 ) {
-              var nameVarScope = inputs[i].name;
-              if( $scope[nameVarScope] !== undefined ) {
-                var value;
-                if(inputs[i].type === 'text' && inputs[i].type1 === 'datepicker') {
-                  value = $filter('date')($scope[nameVarScope], inputs[i].format );
-                } else if(inputs[i].type === 'select') {
-                  value = $scope[nameVarScope];
-                } else {
-                  value = $scope[nameVarScope];
+          if( inputs !== undefined ) {
+            for (i = 0; i < inputs.length; i++) {
+              if( paramsToSend.length === 0 || paramsToSend.indexOf(inputs[i]) >= 0 ) {
+                var nameVarScope = inputs[i].name;
+                if( $scope[nameVarScope] !== undefined ) {
+                  var value;
+                  if(inputs[i].type === 'text' && inputs[i].type1 === 'datepicker') {
+                    value = $scope[nameVarScope].getTime(); // $filter('date')($scope[nameVarScope], inputs[i].format );
+                  } else if(inputs[i].type === 'select') {
+                    value = $scope[nameVarScope];
+                  } else {
+                    value = $scope[nameVarScope];
+                  }
+                  obj[nameVarScope] = value;
                 }
-                obj[nameVarScope] = value;
               }
             }
           }
 
-          $scope.responseSaveData = caliopewebTemplateSrv.sendDataForm(formTemplateName,
+          $scope.responseSendAction = caliopewebTemplateSrv.sendDataForm(formTemplateName,
               actionMethod, obj, formUUID, objID);
 
         };

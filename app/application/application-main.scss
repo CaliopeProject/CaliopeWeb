@@ -27,6 +27,8 @@
   width            : 100%;
   min-width        : 100%;
   z-index          : 1000;
+  top              : -7px;
+  overflow         : hidden;
 
   &:before {
     z-index:-999;

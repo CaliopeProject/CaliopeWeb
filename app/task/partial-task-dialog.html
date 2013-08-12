@@ -1,6 +1,7 @@
 <div id="container-form" ng-init="init()">
-  <button type='button' class='close' ng-click='closeDialog()'>
+  <button type='button' class='close' ng-click='closeDialog(dialogName)'>
     <i class="icon-remove-circle"></i>
   </button>
+  <label>Categoria: {{categoria}}</label>
   <cw-dform cw-dform="jsonPlantillaAngular"></cw-dform>
 </div>
