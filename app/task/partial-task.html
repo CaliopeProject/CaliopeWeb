@@ -16,9 +16,8 @@
 <div>
   <ul class="item-list ui-sortable">
     <li class="item" ng-repeat="item in item.tasks" ng-mouseover="log = true" ng-mouseleave="log = false"
-        ng-init="log = false; level=level+1; classTaskLevel='task_level' + '_' + level " >
-      <div ng-class="classTaskLevel"  ng-include="'task/partial-task.html'"></div>
-      <!--style="margin-left: {{level*10}}px;"-->
+        ng-init="log = false" >
+      <div ng-include="'task/partial-task.html'"></div>
     </li>
   </ul>
 </div>
