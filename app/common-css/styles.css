@@ -31708,6 +31708,17 @@ a.olControlZoomOut {
   font-size: 12px;
 }
 
+/* line 10, ../tools-kanban-board/kanban-board.scss */
+.boxDrop {
+  min-height: 30px;
+}
+
+/* line 14, ../tools-kanban-board/kanban-board.scss */
+.widget-header:hover {
+  cursor: move;
+  color: white;
+}
+
 /* line 1, ../caliopeweb-forms/caliopeweb.scss */
 input.ng-invalid.ng-dirty {
   background-color: #FA787E;
