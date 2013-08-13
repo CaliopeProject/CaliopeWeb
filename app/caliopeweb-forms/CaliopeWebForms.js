@@ -292,7 +292,8 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       Seleccionar los elementos que sean de tipo select
        */
       var elementsSelect = jQuery.grep(elementsInputs, function(obj) {
-          return obj.type === 'select';
+        var NAME_TYPE_SELECT = 'select';
+        return obj.type === NAME_TYPE_SELECT;
       });
       /*
       Para cada elemento del tipo select verificar si tiene options y como atributo de
@@ -344,11 +345,86 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       for(i=0; i < elementsTemplate.length; i++) {
         if( elementsTemplate[i] !== undefined && elementsTemplate[i].type !== undefined &&
             elementsTemplate[i].type === TYPE_DATEPICKER)  {
+
+            var elementDivCalendar = {
+              type :"div",
+              class : "calendar",
+              html  : [],
+              name :elementsTemplate[i].name
+            };
+
             elementsTemplate[i].type = "text";
             elementsTemplate[i].type1 = TYPE_DATEPICKER;
             elementsTemplate[i][DIRECTIVE_DATEPICKER] = elementsTemplate[i][VARNAME_DATEFORMAT];
+
+            elementDivCalendar.html.push(elementsTemplate[i]);
+            elementsTemplate[i] = elementDivCalendar;
         }
       }
+    }
+  }
+
+  /**
+   * This function transform the element of type select for add the behavior of load the
+   * options from server. Add the directive cw-option for this purpose.
+   * @param elementsInputs Elements Field config in the template.
+   */
+  function completeTypeMultiChoices(elementsInputs) {
+
+    /*
+     * Verificar que existan elementos
+     */
+    if( elementsInputs !== undefined && elementsInputs.length > 0) {
+      /*
+       Seleccionar los elementos que sean de tipo select
+       */
+      var elementsSelect = jQuery.grep(elementsInputs, function(obj) {
+        var NAME_TYPE_MULTICHOICES = 'multi-choices';
+        return obj.type === NAME_TYPE_MULTICHOICES;
+      });
+      /*
+       Para cada elemento del tipo select verificar si tiene options y como atributo de
+       options entity, si cumple esta condición entonces asociar la directiva cw-options
+       para indicar que los options del select se deben recuperar desde el server.
+       */
+      jQuery.each(elementsSelect, function(index, element){
+        var VARNAME_LOAD_OPT_SRV = 'options-load-server';
+        var NAME_DIRECTIVE_MCOMBO = 'ui-mcombo-choices';
+        var NAME_DIRECTIVE_MCOMBO_CHOICES = 'ui-mcombo-choices';
+        var NAME_DIRECTIVE_MCOMBO_SELECTED = 'ui-mcombo-selected';
+
+        element.type = NAME_DIRECTIVE_MCOMBO;
+        element[NAME_DIRECTIVE_MCOMBO_CHOICES] = 'mc-choices-'.concat(element.name) ;
+        element[NAME_DIRECTIVE_MCOMBO_SELECTED] = 'mc-selected-'.concat(element.name);
+
+        if( element.hasOwnProperty(VARNAME_LOAD_OPT_SRV) ) {
+          var VARNAME_METHOD = 'method';
+          var VARNAME_FIELDVAL = 'field-value';
+          var VARNAME_FIELDDESC = 'field-desc';
+          var VARNAME_FORMID = 'formid';
+          var VARNAME_DATALIST = 'field-data-list';
+          var VARNAME_LOADREMOTE = 'load-remote';
+
+
+          element.fromserver = true;
+          element.method = element[VARNAME_LOAD_OPT_SRV][VARNAME_METHOD];
+          if( element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDVAL] !== undefined) {
+            element.fieldvalue = element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDVAL];
+          }
+          if(element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDDESC] !== undefined) {
+            element.fielddesc = element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDDESC];
+          }
+          if(element[VARNAME_LOAD_OPT_SRV][VARNAME_FORMID] !== undefined) {
+            element.formid = element[VARNAME_LOAD_OPT_SRV][VARNAME_FORMID];
+          }
+          if(element[VARNAME_LOAD_OPT_SRV][VARNAME_DATALIST] !== undefined) {
+            element[VARNAME_DATALIST] = element[VARNAME_LOAD_OPT_SRV][VARNAME_DATALIST];
+          }
+          element[VARNAME_LOADREMOTE] = true;
+
+
+        }
+      });
     }
   }
 
@@ -362,6 +438,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeModel(elementsTemplate);
         completeTypeSelect(elementsTemplate);
         completeTypeDatePicker(elementsTemplate);
+        completeTypeMultiChoices(elementsTemplate)
 
         return structureInit;
       };

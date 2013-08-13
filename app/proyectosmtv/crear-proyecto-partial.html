@@ -3,6 +3,13 @@
     <cw-dform cw-dform="jsonPlantillaAngular"/>
 </div>
 
+<ui-mcombo-choices name='ente_asignado_multi' ui-mcombo-choices="mc-choices-ente_asignado_multi"
+  ui-mcombo-selected="mc-selected-ente_asignado_multi"
+  cw-options method="accounts.getAll" fromserver="true" fieldvalue="username.value"
+  fielddesc="username.value" >
+
+</ui-mcombo-choices>
+
 <!--<div id="container-form">
     <form name="testValidations">
 
