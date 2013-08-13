@@ -14,3 +14,9 @@
 .item-list input:checked ~ div > ul {
   display: block;
 }
+
+.boxDrop{
+  min-height: 30px;
+}
+
+.widget-header:hover { cursor: move; color: white}
