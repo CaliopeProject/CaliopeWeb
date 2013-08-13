@@ -30,7 +30,11 @@ dirmodule.directive('ngFileuploader', ['SessionSrv',  function(security) {
                 //TODO: to check
                 //          https://github.com/blueimp/jQuery-File-Upload/wiki/Options
                 add: function (e, data) {
-                  //TODO: show preview
+                    scope.$apply(function() {
+                        $('#progress .bar').css(
+                                'width','0%'
+                        );
+                    });
                   data.submit();
                 },
                 progress: function(e, data) {
@@ -55,7 +59,7 @@ dirmodule.directive('ngFileuploader', ['SessionSrv',  function(security) {
 
                     for (var i = 0; i < data.result.length; i++) {
                         filelist.push(data.result[i]);
-                        console.log(data.result[i]);
+//                         console.log(data.result[i]);
                     }
 
                     scope.filelist = filelist;
