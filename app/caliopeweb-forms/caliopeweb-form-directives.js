@@ -4,6 +4,42 @@
 define(['angular', 'dform'], function (angular) {
   'use strict';
 
+  /**
+   * Get the final value of a attribute in a object, where attribute is represented by a string notation that indicate the
+   * path to final attribute..
+   *
+   * Example.
+   * obj = { "user" : {
+    *            "username" : {value : "username"},
+    *            "name"  : {value : "NAME USER"}
+    *          }
+    *       }
+   * strAttrValue = user.name.value
+   * charSplit = '.'
+   *
+   * Return "NAME USER"
+   *
+   * @param obj Object with the data
+   * @param strAttrValue String that represent the attribute final to return value.
+   * @param charSplit A character that indicate the separation of attributes in strAttrValue
+   * @returns {*} The value of attribute
+   */
+  function getFinalValueFromString(obj, strAttrValue, charSplit) {
+    var fieldsValue = strAttrValue.split(charSplit);
+    var j;
+    var objValue = obj;
+    for(j=0;j<fieldsValue.length;j++) {
+      try {
+        objValue = objValue[fieldsValue[j]];
+      } catch (ex) {
+        console.error('Error creando opción en html select. No se encontró el atributo ' + strAttrValue + ' en ', obj );
+      }
+    }
+    return objValue;
+  }
+
+
+
   var moduleDirectives = angular.module('CaliopeWebFormDirectives', []);
 
   moduleDirectives.directive('cwForm', function () {
@@ -131,40 +167,6 @@ define(['angular', 'dform'], function (angular) {
   */
   moduleDirectives.directive('cwOptions', ['caliopewebTemplateSrv', "$compile", function (caliopewebTemplateSrv, $compile) {
 
-    /**
-    * Get the final value of a attribute in a object, where attribute is represented by a string notation that indicate the
-    * path to final attribute..
-    *
-    * Example.
-    * obj = { "user" : {
-    *            "username" : {value : "username"},
-    *            "name"  : {value : "NAME USER"}
-    *          }
-    *       }
-    * strAttrValue = user.name.value
-    * charSplit = '.'
-    *
-    * Return "NAME USER"
-    *
-    * @param obj Object with the data
-    * @param strAttrValue String that represent the attribute final to return value.
-    * @param charSplit A character that indicate the separation of attributes in strAttrValue
-    * @returns {*} The value of attribute
-    */
-    function getFinalValueFromString(obj, strAttrValue, charSplit) {
-      var fieldsValue = strAttrValue.split(charSplit);
-      var j;
-      var objValue = obj;
-      for(j=0;j<fieldsValue.length;j++) {
-        try {
-          objValue = objValue[fieldsValue[j]];
-        } catch (ex) {
-          console.error('Error creando opción en html select. No se encontró el atributo ' + strAttrValue + ' en ', obj );
-        }
-      }
-      return objValue;
-    }
-
     var ATTNAME_LOADREMOTE = 'fromserver';
     var ATTNAME_METHOD = 'method';
     var ATTNAME_FIELDVALUE = 'fieldvalue';
@@ -217,25 +219,6 @@ define(['angular', 'dform'], function (angular) {
                 }
               }
 
-              var scopeMultiComboChoices = attrs[ATTNAME_MCOMBO_CHOICES];
-              var scopeMultiComboSelected = attrs[ATTNAME_MCOMBO_SELECTED];
-              console.log('ATTNAME_MCOMBO_CHOICES', ATTNAME_MCOMBO_CHOICES);
-              console.log('scopeMultiComboChoices', scopeMultiComboChoices);
-              if( scopeMultiComboChoices !== undefined ) {
-                scope[scopeMultiComboChoices] = [];
-                scope.$parent[scopeMultiComboChoices] = [];
-                scope[scopeMultiComboSelected] = [];
-                scope.$parent[scopeMultiComboSelected] = [];
-                for(i=0; i<dataResponse.length; i++) {
-                  var option = {
-                    value : getFinalValueFromString(dataResponse[i], attrFieldValue, '.'),
-                    text  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
-                  };
-                  scope[scopeMultiComboChoices].push(option);
-                  scope.$parent[scopeMultiComboChoices].push(option);
-                }
-              }
-              console.log('scope[mc-choices-ente_asignado_multi]', scope['mc-choices-ente_asignado_multi']);
             }
           });
 
@@ -247,85 +230,187 @@ define(['angular', 'dform'], function (angular) {
     return directiveDefinitionObject;
   }]);
 
-  moduleDirectives.directive("uiMcomboChoices", function($document){
+  moduleDirectives.directive("uiMcomboChoices", ['caliopewebTemplateSrv', '$document',
+    function(caliopewebTemplateSrv, $document){
     // simultaneously should not be two open items
-    var openElement = null, close;
-    return {
-      restrict: 'A',
-      replace: true,
-      templateUrl: 'caliopeweb-forms/caliopeweb-mcombo-partial-directive.html',
-      scope: {
-        _choices         : '=uiMcomboChoices',
-        _selectedChoices : '=uiMcomboSelected'
-      },
-      controller: ['$scope', '$filter', function($scope, $filter) {
 
-        $scope._searchElem = null;
-        $scope.filteredChoices = function() {
-          var filtered = $filter('filter')($scope._choices, $scope._search);
-          return $filter('orderBy')(filtered, 'text');
-        };
+      var openElement = null, close;
+      var VAR_SCOPE_PUT_CHOICES_SELECTED = 'var_put_choices_selected';
 
-        $scope.moveToSelected = function(choice, $event) {
-          $scope._selectedChoices.push(choice);
-          $scope._choices.splice($scope._choices.indexOf(choice), 1);
-          $scope._search='';
+      return {
+        restrict: 'A',
+        replace: true,
+        templateUrl: 'caliopeweb-forms/caliopeweb-mcombo-partial-directive.html',
+        scope: true,
+        controller: ['$scope', '$filter', function($scope, $filter) {
 
-          $scope._searchElem.focus();
+          $scope._searchElem = null;
+          $scope.filteredChoices = function() {
+            var filtered = $filter('filter')($scope._choices, $scope._search);
+            return $filter('orderBy')(filtered, 'text');
+          };
 
-          // do not 'close' on choice click
-          $event.preventDefault();
-          $event.stopPropagation();
-        };
+          $scope.moveToSelected = function(choice, $event) {
+            $scope._selectedChoices.push(choice);
+            $scope._choices.splice($scope._choices.indexOf(choice), 1);
+            $scope._search='';
 
-        $scope.removeFromSelected = function(choice) {
-          $scope._choices.push(choice);
-          $scope._selectedChoices.splice($scope._selectedChoices.indexOf(choice), 1);
+            $scope._searchElem.focus();
 
-          $scope._searchElem.focus();
-        };
-      }
-      ],
-      link: function(scope, element, attrs) {
+            // do not 'close' on choice click
+            $event.preventDefault();
+            $event.stopPropagation();
+          };
 
-        var selUl = element.children().eq(0);
-        var selItems = selUl.children();
-        scope._searchElem = selItems.eq(selItems.length-1).children().eq(0)[0];
-        selUl.bind('click', function(event) {
-          // otherwise 'close' will be called immediately
-          event.preventDefault();
-          event.stopPropagation();
+          $scope.removeFromSelected = function(choice) {
+            $scope._choices.push(choice);
+            $scope._selectedChoices.splice($scope._selectedChoices.indexOf(choice), 1);
 
-          if (openElement) {
-            close();
-          }
+            $scope._searchElem.focus();
+          };
 
-          if (!element.hasClass('mcombo-container-active')) {
-            element.addClass('mcombo-container-active');
-            openElement = element;
+          /**
+           * THis watch is to update the scope and parent scope with choices selected.
+           */
+          $scope.$watch('_selectedChoices.length', function(value) {
+            if($scope[VAR_SCOPE_PUT_CHOICES_SELECTED] !== undefined && value !== undefined) {
+              $scope[$scope[VAR_SCOPE_PUT_CHOICES_SELECTED]] = $scope._selectedChoices;
+              $scope.$parent[$scope[VAR_SCOPE_PUT_CHOICES_SELECTED]] = $scope._selectedChoices;
+            }
+          });
 
-            close = function (event) {
 
-              if(event){
-                event.preventDefault();
+        }
+        ],
+        link: function(scope, element, attrs) {
+
+          var selUl = element.children().eq(0);
+          var selItems = selUl.children();
+
+          scope._searchElem = selItems.eq(selItems.length-1).children().eq(0)[0];
+
+          scope._choices=scope[attrs['uiMcomboChoices']];
+          scope._selectedChoices=scope[attrs['uiMcomboSelected']];
+
+          selUl.bind('click', function(event) {
+            // otherwise 'close' will be called immediately
+            event.preventDefault();
+            event.stopPropagation();
+
+
+            if (openElement) {
+              close(event);
+            }
+
+            if (!element.hasClass('mcombo-container-active')) {
+              element.addClass('mcombo-container-active');
+              openElement = element;
+
+              close = function (event) {
+
+                if(event){
+                  event.preventDefault();
+                }
+
+                if(event){
+                  event.stopPropagation();
+                }
+
+                $document.unbind('click', close);
+                element.removeClass('mcombo-container-active');
+                close = null;
+                openElement = null;
+              };
+              $document.bind('click', close);
+            }
+
+            scope._searchElem.focus();
+
+          });
+
+          /*
+           Code for load choices from server
+            */
+
+          var loadRemote = attrs['loadRemote'];
+
+          if( loadRemote !== undefined && loadRemote === 'true') {
+
+            var ATTNAME_METHOD = 'method';
+            var ATTNAME_FIELDVALUE = 'fieldvalue';
+            var ATTNAME_FIELDDESC = 'fielddesc';
+            var ATTNAME_FIELDID = 'formid';
+            var ATTNAME_FIELD_DATALIST = 'fieldDatalist';
+
+            var promise = caliopewebTemplateSrv.loadDataOptions(attrs[ATTNAME_METHOD],
+                    attrs[ATTNAME_FIELDID], undefined);
+
+            /*
+            This var is to storage the name of the var in the scope to storage the result
+            of items choices
+            */
+            scope[VAR_SCOPE_PUT_CHOICES_SELECTED] = attrs['name'];
+
+            promise.then(function(dataResponse) {
+
+              if( dataResponse !== undefined ) {
+
+                var i;
+                var attrFieldValue = attrs[ATTNAME_FIELDVALUE];
+                var attrFieldDesc = attrs[ATTNAME_FIELDDESC];
+                if(attrs[ATTNAME_FIELD_DATALIST] !== undefined) {
+                  dataResponse =
+                      getFinalValueFromString(dataResponse, attrs[ATTNAME_FIELD_DATALIST], '.');
+                }
+
+                var scopeMultiComboChoices = '_choices';
+                var scopeMultiComboSelected = '_selectedChoices';
+
+                scope[scopeMultiComboChoices] = [];
+                scope[scopeMultiComboSelected] = [];
+                for(i=0; i<dataResponse.length; i++) {
+                  var option = {
+                    value : getFinalValueFromString(dataResponse[i], attrFieldValue, '.'),
+                    text  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
+                  };
+                  scope[scopeMultiComboChoices].push(option);
+                }
               }
 
-              if(event){
-                event.stopPropagation();
+              /*
+              Code for load selected choices from server to componente ui-mcombo-choices and
+              remove selected choices.
+              */
+              var varSelected =scope[VAR_SCOPE_PUT_CHOICES_SELECTED];
+              console.log('varSelected', varSelected);
+              var selectedChoices  = attrs['selected-choices'].split(",");
+              if( selectedChoices !== undefined ) {
+                for(i=0; i < selectedChoices.length; i++ ) {
+                  var valueChoice = selectedChoices[i];
+                  if( valueChoice !== undefined ) {
+                    var j;
+                    var objChoice = null;
+                    for(j=0; j < scope[scopeMultiComboChoices].length; j++ ) {
+                      if( scope[scopeMultiComboChoices][j] !== undefined ) {
+
+                        if(scope[scopeMultiComboChoices][j].value === valueChoice) {
+                          objChoice = scope[scopeMultiComboChoices][j];
+                          break;
+                        }
+                      }
+                    }
+                    scope[scopeMultiComboSelected].push(objChoice);
+                  }
+
+                }
               }
 
-              $document.unbind('click', close);
-              element.removeClass('mcombo-container-active');
-              close = null;
-              openElement = null;
-            };
-            $document.bind('click', close);
+            });
+
           }
 
-          scope._searchElem.focus();
-        });
-      }
-    };
-  });
+        }
+      };
+  }]);
 });
 

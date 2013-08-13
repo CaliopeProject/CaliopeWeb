@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
  * Bootstrap v2.3.2
  *
@@ -31710,23 +31711,23 @@ a.olControlZoomOut {
 
 /* line 10, ../tools-kanban-board/kanban-board.scss */
 .item-list input ~ div > ul {
-    display: none;
+  display: none;
 }
 
 /* line 14, ../tools-kanban-board/kanban-board.scss */
 .item-list input:checked ~ div > ul {
-    display: block;
+  display: block;
 }
 
-/* line 10, ../tools-kanban-board/kanban-board.scss */
+/* line 18, ../tools-kanban-board/kanban-board.scss */
 .boxDrop {
-    min-height: 30px;
+  min-height: 30px;
 }
 
-/* line 14, ../tools-kanban-board/kanban-board.scss */
+/* line 22, ../tools-kanban-board/kanban-board.scss */
 .widget-header:hover {
-    cursor: move;
-    color: white;
+  cursor: move;
+  color: white;
 }
 
 /* line 1, ../caliopeweb-forms/caliopeweb.scss */
@@ -32004,6 +32005,24 @@ input.ng-valid.ng-dirty {
     cursor: default;
 }*/
 /* //END  ui-multicombo directive*/
+/* line 249, ../caliopeweb-forms/caliopeweb.scss */
+.calendar .btn {
+  padding: 0 5px;
+  line-height: 22px;
+  border-width: 2px;
+  font-size: 12px;
+}
+
+/* line 256, ../caliopeweb-forms/caliopeweb.scss */
+.calendar th {
+  font-size: 10px;
+}
+
+/* line 260, ../caliopeweb-forms/caliopeweb.scss */
+.calendar td > em {
+  font-size: 10px;
+}
+
 /* line 3, ../read-rss/read-rss.scss */
 footer {
   background-image: url("../common-img/dark_wall.jpg");

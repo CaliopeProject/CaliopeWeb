@@ -369,7 +369,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    * options from server. Add the directive cw-option for this purpose.
    * @param elementsInputs Elements Field config in the template.
    */
-  function completeTypeMultiChoices(elementsInputs) {
+  function completeTypeMultiChoices(elementsInputs, data) {
 
     /*
      * Verificar que existan elementos
@@ -390,12 +390,10 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       jQuery.each(elementsSelect, function(index, element){
         var VARNAME_LOAD_OPT_SRV = 'options-load-server';
         var NAME_DIRECTIVE_MCOMBO = 'ui-mcombo-choices';
-        var NAME_DIRECTIVE_MCOMBO_CHOICES = 'ui-mcombo-choices';
-        var NAME_DIRECTIVE_MCOMBO_SELECTED = 'ui-mcombo-selected';
 
+
+        element.type1 = element.type;
         element.type = NAME_DIRECTIVE_MCOMBO;
-        element[NAME_DIRECTIVE_MCOMBO_CHOICES] = 'mc-choices-'.concat(element.name) ;
-        element[NAME_DIRECTIVE_MCOMBO_SELECTED] = 'mc-selected-'.concat(element.name);
 
         if( element.hasOwnProperty(VARNAME_LOAD_OPT_SRV) ) {
           var VARNAME_METHOD = 'method';
@@ -404,6 +402,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           var VARNAME_FORMID = 'formid';
           var VARNAME_DATALIST = 'field-data-list';
           var VARNAME_LOADREMOTE = 'load-remote';
+          var VARNAME_SELECTEDCHOICES = 'selected-choices';
 
 
           element.fromserver = true;
@@ -421,7 +420,26 @@ var CaliopeWebFormSpecificDecorator = ( function() {
             element[VARNAME_DATALIST] = element[VARNAME_LOAD_OPT_SRV][VARNAME_DATALIST];
           }
           element[VARNAME_LOADREMOTE] = true;
-
+          element[NAME_DIRECTIVE_MCOMBO] = "mc-".concat(element.name);
+          element[VARNAME_SELECTEDCHOICES] = "";
+          /*
+          Get choices selected and put in attribute define in var VARNAME_SELECTEDCHOICES
+          */
+          console.log('data', data);
+          if( data !== undefined ) {
+            var selectedChoices = data[element.name];
+            if( selectedChoices !== undefined ) {
+              if( selectedChoices instanceof Array ) {
+                var i = 0;
+                for( i=0; i<selectedChoices.length; i++ ) {
+                  if(selectedChoices[i] !== undefined) {
+                    element[VARNAME_SELECTEDCHOICES] = element[VARNAME_SELECTEDCHOICES].
+                        concat("'").concat(selectedChoices[i]).concat("', ")
+                  }
+                }
+              }
+            }
+          }
 
         }
       });
@@ -433,12 +451,13 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 
       var structureInit = caliopeWebForm.createStructureToRender();
       var elementsTemplate = caliopeWebForm.getElements();
+      var data = caliopeWebForm.getData();
       caliopeWebForm.createStructureToRender = function() {
         completeController(structureInit, caliopeWebForm.getFormName());
         completeModel(elementsTemplate);
         completeTypeSelect(elementsTemplate);
         completeTypeDatePicker(elementsTemplate);
-        completeTypeMultiChoices(elementsTemplate)
+        completeTypeMultiChoices(elementsTemplate,data);
 
         return structureInit;
       };
