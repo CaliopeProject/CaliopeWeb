@@ -68,6 +68,7 @@ dirmodule.controller("kanbanBoardCtrl",
       updateKanban(uuid);
     });
 
+
     $scope.getSubTasks = function(task){
       var method = "tasks.getSubTasks";
       var params = {
@@ -82,6 +83,31 @@ dirmodule.controller("kanbanBoardCtrl",
     };
 
     updateKanban(uuid);
+
+    $scope.startCallback = function(event, ui) {
+      console.log('You started draggin');
+    };
+
+    $scope.stopCallback = function(event, ui) {
+      console.log('Why did you stop draggin me?');
+    };
+
+    $scope.dragCallback = function(event, ui) {
+      console.log('hey, look I`m flying');
+    };
+
+    $scope.dropCallback = function(event, ui) {
+      console.log('hey, you dumped me :-(');
+    };
+
+    $scope.overCallback = function(event, ui) {
+      console.log('Look, I`m over you');
+    };
+
+    $scope.outCallback = function(event, ui) {
+      console.log('I`m not, hehe');
+    };
+
 
   }]);
 });
