@@ -172,6 +172,8 @@ define(['angular', 'dform'], function (angular) {
     var ATTNAME_FIELDID = 'formid';
     var ATTNAME_FIELD_DATALIST = 'fieldDatalist';
     var ATTNAME_OPTIONSNAME = 'optionsName';
+    var ATTNAME_MCOMBO_CHOICES = 'uiMcomboChoices';
+    var ATTNAME_MCOMBO_SELECTED = 'uiMcomboSelected';
 
     /**
     * Define the function for link the directive to AngularJS Context.
@@ -182,6 +184,9 @@ define(['angular', 'dform'], function (angular) {
       replace : false,
       scope: false,
       link: function (scope, element, attrs) {
+
+        console.log('Attrs', attrs);
+
         if( attrs[ATTNAME_LOADREMOTE] !== undefined && attrs[ATTNAME_LOADREMOTE] === 'true') {
 
           var fieldId = attrs[ATTNAME_FIELDID];
@@ -189,8 +194,8 @@ define(['angular', 'dform'], function (angular) {
           caliopewebTemplateSrv.loadDataOptions(attrs[ATTNAME_METHOD], fieldId, undefined);
 
           promise.then(function(dataResponse) {
-            var scopeOptionsName = attrs[ATTNAME_OPTIONSNAME];
-            scope[scopeOptionsName] = [];
+
+
             if( dataResponse !== undefined ) {
               var i;
               var attrFieldValue = attrs[ATTNAME_FIELDVALUE];
@@ -199,18 +204,43 @@ define(['angular', 'dform'], function (angular) {
                 dataResponse =
                 getFinalValueFromString(dataResponse, attrs[ATTNAME_FIELD_DATALIST], '.');
               }
-              for(i=0; i<dataResponse.length; i++) {
-                var option = {
-                  value : getFinalValueFromString(dataResponse[i], attrFieldValue, '.'),
-                  label  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
-                };
-                scope[scopeOptionsName].push(option);
+
+              var scopeOptionsName = attrs[ATTNAME_OPTIONSNAME];
+              if( scopeOptionsName !== undefined ) {
+                scope[scopeOptionsName] = [];
+                for(i=0; i<dataResponse.length; i++) {
+                  var option = {
+                    value : getFinalValueFromString(dataResponse[i], attrFieldValue, '.'),
+                    label  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
+                  };
+                  scope[scopeOptionsName].push(option);
+                }
               }
+
+              var scopeMultiComboChoices = attrs[ATTNAME_MCOMBO_CHOICES];
+              var scopeMultiComboSelected = attrs[ATTNAME_MCOMBO_SELECTED];
+              console.log('ATTNAME_MCOMBO_CHOICES', ATTNAME_MCOMBO_CHOICES);
+              console.log('scopeMultiComboChoices', scopeMultiComboChoices);
+              if( scopeMultiComboChoices !== undefined ) {
+                scope[scopeMultiComboChoices] = [];
+                scope.$parent[scopeMultiComboChoices] = [];
+                scope[scopeMultiComboSelected] = [];
+                scope.$parent[scopeMultiComboSelected] = [];
+                for(i=0; i<dataResponse.length; i++) {
+                  var option = {
+                    value : getFinalValueFromString(dataResponse[i], attrFieldValue, '.'),
+                    text  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
+                  };
+                  scope[scopeMultiComboChoices].push(option);
+                  scope.$parent[scopeMultiComboChoices].push(option);
+                }
+              }
+              console.log('scope[mc-choices-ente_asignado_multi]', scope['mc-choices-ente_asignado_multi']);
             }
           });
 
         }
-        //$compile(element.contents())(scope);
+//        $compile(element.contents())(scope);
       }
     };
 
@@ -229,8 +259,8 @@ define(['angular', 'dform'], function (angular) {
         _selectedChoices : '=uiMcomboSelected'
       },
       controller: ['$scope', '$filter', function($scope, $filter) {
-        $scope._searchElem = null;
 
+        $scope._searchElem = null;
         $scope.filteredChoices = function() {
           var filtered = $filter('filter')($scope._choices, $scope._search);
           return $filter('orderBy')(filtered, 'text');
@@ -257,6 +287,7 @@ define(['angular', 'dform'], function (angular) {
       }
       ],
       link: function(scope, element, attrs) {
+
         var selUl = element.children().eq(0);
         var selItems = selUl.children();
         scope._searchElem = selItems.eq(selItems.length-1).children().eq(0)[0];
