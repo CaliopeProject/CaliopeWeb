@@ -381,15 +381,14 @@ define(['angular', 'dform'], function (angular) {
               Code for load selected choices from server to componente ui-mcombo-choices and
               remove selected choices.
               */
-              var varSelected =scope[VAR_SCOPE_PUT_CHOICES_SELECTED];
-              console.log('varSelected', varSelected);
-              var selectedChoices  = attrs['selected-choices'].split(",");
+              var selectedChoices  = attrs['selectedChoices'].split(",");
+              var scopeMultiComboChoicesTmp = scope[scopeMultiComboChoices];
               if( selectedChoices !== undefined ) {
                 for(i=0; i < selectedChoices.length; i++ ) {
                   var valueChoice = selectedChoices[i];
                   if( valueChoice !== undefined ) {
                     var j;
-                    var objChoice = null;
+                    var objChoice = undefined;
                     for(j=0; j < scope[scopeMultiComboChoices].length; j++ ) {
                       if( scope[scopeMultiComboChoices][j] !== undefined ) {
 
@@ -399,10 +398,14 @@ define(['angular', 'dform'], function (angular) {
                         }
                       }
                     }
-                    scope[scopeMultiComboSelected].push(objChoice);
+                    if( objChoice !== undefined ) {
+                      scope[scopeMultiComboSelected].push(objChoice);
+                      var indexOf = scopeMultiComboChoicesTmp.indexOf(objChoice);
+                      scopeMultiComboChoicesTmp.splice(indexOf, 1);
+                    }
                   }
-
                 }
+                scope[scopeMultiComboChoices] = scopeMultiComboChoicesTmp;
               }
 
             });

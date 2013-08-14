@@ -428,15 +428,18 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           console.log('data', data);
           if( data !== undefined ) {
             var selectedChoices = data[element.name];
+            if( selectedChoices.value !== undefined ) {
+              selectedChoices = selectedChoices.value;
+            }
             if( selectedChoices !== undefined ) {
               if( selectedChoices instanceof Array ) {
                 var i = 0;
-                for( i=0; i<selectedChoices.length; i++ ) {
-                  if(selectedChoices[i] !== undefined) {
-                    element[VARNAME_SELECTEDCHOICES] = element[VARNAME_SELECTEDCHOICES].
-                        concat("'").concat(selectedChoices[i]).concat("', ")
-                  }
+                for( i=0; i < selectedChoices.length; i++ ) {
+                  element[VARNAME_SELECTEDCHOICES] = element[VARNAME_SELECTEDCHOICES].
+                    concat(selectedChoices[i]).concat(",")
                 }
+              } else if( selectedChoices.value instanceof String ) {
+                element[VARNAME_SELECTEDCHOICES] = "'".concat(selectedChoices.value).concat("'")
               }
             }
           }
