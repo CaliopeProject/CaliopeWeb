@@ -71,7 +71,7 @@ $borKanba: 12px;
 
 .task-header-kanban {
   @include border-radius($borKanba / 2);
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   position: relative;
   min-height: 26px;
   border: 1px solid #CCC;
@@ -83,7 +83,7 @@ $borKanba: 12px;
     text-align: left;
   }
 
-  @include box-shadow(#CACAD3 1px 5px 6px);
+  @include box-shadow(rgba(202, 202, 211, 0.8) 1px 2px 1px);
   > :first-child {
     line-height: 33px;
     min-height: 36px;
