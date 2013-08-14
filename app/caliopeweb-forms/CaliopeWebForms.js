@@ -425,7 +425,6 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           /*
           Get choices selected and put in attribute define in var VARNAME_SELECTEDCHOICES
           */
-          console.log('data', data);
           if( data !== undefined ) {
             var selectedChoices = data[element.name];
             if( selectedChoices.value !== undefined ) {
