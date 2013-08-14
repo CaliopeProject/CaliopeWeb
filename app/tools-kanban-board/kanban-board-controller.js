@@ -137,4 +137,11 @@ define(['angular','angular-dragdrop'], function (angular) {
         };
 
       }]);
+
+      dirmodule.controller("kanbanItemCtrl", ['$scope', function($scope) {
+        $scope.startCallback = function(event, ui) {
+          console.log('You started draggin-kanbanItemCtrl-callback', $scope.showSubtasks);
+          $scope.showSubtasks = false;
+        };
+      }]);
 });
