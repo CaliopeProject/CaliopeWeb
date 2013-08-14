@@ -186,9 +186,20 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
                 if( $scope[nameVarScope] !== undefined ) {
                   var value;
                   if(inputs[i].type === 'text' && inputs[i].type1 === 'datepicker') {
-                    value = $scope[nameVarScope].getTime(); // $filter('date')($scope[nameVarScope], inputs[i].format );
+                    value = $scope[nameVarScope].getTime();
                   } else if(inputs[i].type === 'select') {
                     value = $scope[nameVarScope];
+                  } else if(inputs[i].type === 'ui-mcombo-choices' && inputs[i].type1 === 'multi-choices') {
+                    if($scope[nameVarScope] instanceof Array) {
+                      var j;
+                      value = [];
+                      for( j=0; j<$scope[nameVarScope].length; j++) {
+                        if( $scope[nameVarScope][j].value !== undefined) {
+                          //value = value.concat($scope[nameVarScope].value);
+                          value.push($scope[nameVarScope][j].value);
+                        }
+                      }
+                    }
                   } else {
                     value = $scope[nameVarScope];
                   }

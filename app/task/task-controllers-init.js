@@ -12,29 +12,8 @@ define(['angular'], function (angular) {
     $scope.choices1 = [
       {value: 1, text:'Este es un nombre decente'},
       {value: 2, text:'bbb'},
-      {value: 1, text:'aaa'},
-      {value: 2, text:'bbb'},
-      {value: 1, text:'aaa'},
-      {value: 2, text:'bbb'},
-      {value: 1, text:'aaa'},
-      {value: 2, text:'bbb'},
-      {value: 1, text:'aaa'},
-      {value: 2, text:'bbb'},
-      {value: 1, text:'aaa'},
-      {value: 2, text:'bbb'},
-      {value: 1, text:'aaa'},
-      {value: 2, text:'bbb'},
-      {value: 1, text:'aaa'},
-      {value: 2, text:'bbb'},
-      {value: 1, text:'aaa'},
-      {value: 2, text:'bbb'},
-      {value: 1, text:'aaa'},
-      {value: 2, text:'bbb'},
-      {value: 1, text:'aaa'},
-      {value: 2, text:'bbb'},
-      {value: 1, text:'aaa'},
-      {value: 2, text:'bbb'},
-      {value: 3, text:'ccc'}
+      {value: 3, text:'ccc'},
+      {value: 2, text:'bbb'}
     ];
 
     $scope.selectedChoices1 = [
