@@ -1,21 +1,26 @@
 <div class="row-fluid" ng-controller="kanbanBoardCtrl">
   <div class="span4" ng-repeat="obj in data">
-    <div class="widget-box">
-      <div class="widget-header widget-header-flat widget-header-small">
+    <div class="widget-box-kanban">
+      <div class="widget-header-kanban widget-header-small-kanban">
         <h5>{{obj.category}}</h5>
-        <div class="widget-toolbar no-border">
+        <div class="widget-toolbar-kanban no-border">
           <widget-task title="" parent="" category="{{obj.category}}"></widget-task>
         </div>
       </div>
-      <div class="widget-body" >
+      <div class="widget-body-kanban">
         <div class="widget-main">
-          <div class="boxDrop" ng-model="obj.tasks" data-drop="true" data-jqyoui-options="{accept:'.widget-header'}" jqyoui-droppable="{multiple:true, onDrop:'dropCallback'}">
+          <div class="boxDrop" ng-model="obj.tasks" data-drop="true" data-jqyoui-options="{accept:'.task-header-kanban'}" jqyoui-droppable="{multiple:true, onDrop:'dropCallback'}">
 
-            <div class="widget-header" uuid="{{item.uuid}}" ng-show='item.uuid'  ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">
+            <div class="task-header-kanban" uuid="{{item.uuid}}" ng-show='item.uuid'  ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStart:'startCallback'}">
 
-              <h6>{{item.description}}</h6>
-              <div ng-show='log'  class="lbl widget-toolbar no-border" >
+              <h5>{{item.description}}</h5>
+              <div ng-show='log' ng-init="showSubtasks=false" class="lbl widget-toolbar-kanban no-border" >
+              {{showSubtasks}}
                 <widget-task title="" parent="item.uuid" category="{{obj.category}}"></widget-task>
+                  <span class="text-info" ng-click="showSubtasks=!showSubtasks">
+                    <i class="icon-double-angle-down" ng-show="showSubtasks==false" ></i>
+                    <i class="icon-double-angle-up" ng-show="showSubtasks==true"></i>
+                  </span>
                   <span class="text-info" ng-click="editTask(item.uuid, obj.category)">
                     <i class="icon-circle-arrow-down"></i>
                   </span>
@@ -23,6 +28,104 @@
                     <i class="icon-remove-sign"></i>
                   </span>
               </div>
+              <div ng-init="log2=false" ng-show='showSubtasks' class="tab-content-kanban">
+                        <div id="task-tab" class="tab-pane active">
+                          <ul id="tasks" class="item-list ui-sortable">
+                            <li class="item-orange">
+                              <label class="inline">
+                                <input type="checkbox">
+                                <span class="lbl"> Answering customer questions</span>
+                              </label>
+
+                              <div class="pull-right easy-pie-chart percentage easyPieChart" data-size="30" data-color="#ECCB71" data-percent="42" style="width: 30px; height: 30px; line-height: 30px;">
+                                <span class="percent">42</span>%
+                              <canvas width="30" height="30"></canvas></div>
+                            </li>
+
+                            <li class="item-red">
+                              <label class="inline">
+                                <input type="checkbox">
+                                <span class="lbl"> Fixing bugs</span>
+                              </label>
+
+                              <div class="pull-right">
+                                <div class="btn-group">
+                                  <button class="btn btn-mini btn-info">
+                                    <i class="icon-edit bigger-125"></i>
+                                  </button>
+
+                                  <button class="btn btn-mini btn-danger ">
+                                    <i class="icon-trash bigger-125"></i>
+                                  </button>
+
+                                  <button class="btn btn-mini btn-yellow">
+                                    <i class="icon-flag bigger-125"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </li>
+
+                            <li class="item-default">
+                              <label class="inline">
+                                <input type="checkbox">
+                                <span class="lbl"> Adding new features</span>
+                              </label>
+
+                              <div class="inline pull-right position-relative">
+                                <button class="btn btn-minier bigger btn-yellow dropdown-toggle" data-toggle="dropdown">
+                                  <i class="icon-angle-down icon-only bigger-120"></i>
+                                </button>
+
+                                <ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-closer">
+                                  <li>
+                                    <a href="#" class="tooltip-success" data-rel="tooltip" title="" data-plw8ment="left" data-original-title="Mark&nbsp;as&nbsp;done">
+                                      <span class="green">
+                                        <i class="icon-ok"></i>
+                                      </span>
+                                    </a>
+                                  </li>
+
+                                  <li>
+                                    <a href="#" class="tooltip-error" data-rel="tooltip" title="" data-plw8ment="left" data-original-title="Delete">
+                                      <span class="red">
+                                        <i class="icon-trash"></i>
+                                      </span>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+
+                            <li class="item-blue">
+                              <label class="inline">
+                                <input type="checkbox">
+                                <span class="lbl"> Upgrading scripts used in template</span>
+                              </label>
+                            </li>
+
+                            <li class="item-grey">
+                              <label class="inline">
+                                <input type="checkbox">
+                                <span class="lbl"> Adding new skins</span>
+                              </label>
+                            </li>
+
+                            <li class="item-green">
+                              <label class="inline">
+                                <input type="checkbox">
+                                <span class="lbl"> Updating server software up</span>
+                              </label>
+                            </li>
+
+                            <li class="item-pink">
+                              <label class="inline">
+                                <input type="checkbox">
+                                <span class="lbl"> Cleaning up</span>
+                              </label>
+                            </li>
+                          </ul>
+                        </div>
+
 
             </div>
           </div>

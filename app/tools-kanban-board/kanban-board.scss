@@ -1,3 +1,5 @@
+@import "compass";
+
 .sticky-note {
   border: 1px solid #ffb366;
   background: #FFFFCC;
@@ -19,4 +21,97 @@
   min-height: 30px;
 }
 
-.widget-header:hover { cursor: move; color: white}
+[class*=" icon-"], [class^="icon-"] {
+  cursor: pointer;
+}
+
+$borKanba: 12px;
+
+.widget-box-kanban {
+  @include border-radius($borKanba);
+  @include background-image(linear-gradient(white, #e9e3a5));
+  margin: 3px 0;
+  border-bottom: 1px solid #CCC;
+}
+
+.widget-header-kanban {
+  @include border-top-left-radius($borKanba);
+  @include border-top-right-radius($borKanba);
+  position: relative;
+  min-height: 38px;
+  border: solid #CCC;
+  border-bottom: 0px;
+  border-width: 1px 1px 0 1px;
+  padding-left: 12px;
+  text-align: right;
+  > :first-child {
+    line-height: 36px;
+    padding: 0;
+    margin: 0;
+    float: left;
+    text-align: left;
+  }
+
+  h5{
+    font-weight: bold;
+  }
+}
+
+.widget-header-small-kanban {
+  min-height: 25px;
+  padding: 10px 23px 5px 23px;
+}
+
+.widget-body-kanban {
+  @include border-bottom-radius($borKanba);
+  border: 1px solid #CCC;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.task-header-kanban {
+  @include border-radius($borKanba / 2);
+  margin-bottom: 5px;
+  position: relative;
+  min-height: 26px;
+  border: 1px solid #CCC;
+  background-color: #ffffff;
+  padding: 0px 15px 7px 15px;
+  text-align: right;
+  > :hover { cursor: move; }
+  li {
+    text-align: left;
+  }
+
+  @include box-shadow(#CACAD3 1px 5px 6px);
+  > :first-child {
+    line-height: 33px;
+    min-height: 36px;
+    padding: 0;
+    margin: 0;
+    float: left;
+    text-align: left;
+  }
+}
+
+.widget-toolbar-kanban {
+  display: inline-block;
+  padding: 0 6px;
+  position: relative;
+  text-align: left;
+  margin-top: 6px;
+  font-size: 1.2em;
+
+  [class*=" icon-"], [class^="icon-"] {
+    padding-left: 6px;
+  }
+}
+
+.tab-content-kanban {
+  display: block;
+  margin-top: 5px;
+  clear: both;
+}
+
+/*2.4*/
+/*119879,99*/
