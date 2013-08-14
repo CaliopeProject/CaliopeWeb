@@ -10,11 +10,11 @@
       <div class="widget-body-kanban" >
         <div class="widget-main">
           <div class="boxDrop" >
-            <div class="task-header-kanban" uuid="{{item.uuid}}" ng-show='item.uuid'  ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStart:'startCallback'}">
+            <div class="task-header-kanban" ng-init="showSubtasks=false"  uuid="{{item.uuid}}" ng-show='item.uuid'  ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStart:'startCallback'}">
 
-              <h6>{{item.description}}</h6>
+              <h6>{{item.descripcion}}</h6>
 
-              <div ng-show='log' ng-init="showSubtasks=false" class="lbl widget-toolbar-kanban no-border" >
+              <div ng-show='log' class="lbl widget-toolbar-kanban no-border" >
 
                   <span class="text-info" ng-click="showSubtasks=!showSubtasks">
                     <i class="icon-double-angle-down" ng-show="showSubtasks==false" ></i>
@@ -96,6 +96,7 @@
                                     </a>
                                   </li>
                                 </ul>
+
                               </div>
                             </li>
 
