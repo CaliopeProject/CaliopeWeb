@@ -243,20 +243,19 @@ input.ng-valid.ng-dirty {
     cursor: default;
 }*/
 /* //END  ui-multicombo directive*/
-.calendar{
+  .calendar{
+    .btn {
+      padding: 0 5px;
+      line-height: 22px;
+      border-width: 2px;
+      font-size: 12px;
+    }
 
-}
-.calendar .btn {
-  padding: 0 5px;
-  line-height: 22px;
-  border-width: 2px;
-  font-size: 12px;
-}
+     th {
+      font-size: 10px;
+    }
 
-.calendar th {
-  font-size: 10px;
-}
-
-.calendar td > em {
-  font-size: 10px;
-}
+    td > em {
+      font-size: 10px;
+    }
+  }
