@@ -37,23 +37,15 @@ define(['angular','angular-dragdrop'], function (angular) {
               task = data[0].tasks[0];
               var updateData = [
                 {
-                  description : 'Subtarea 1' ,
-                  tarea : "Tarea",
-                  uuid  : task.uuid + "-1",
-                  tasks : [{
-                    description : 'Subtarea 1' ,
-                    tarea : "Tarea",
-                    uuid  : task.uuid + "-1" + "-1"
-                  }]
+                  description : 'Subtarea 1',
+                  complete: false
                 },
                 {
                   description : 'Subtarea 2',
-                  tarea : "Tarea",
-                  uuid  : task.uuid + "-2",
-                  tasks : []
+                  complete: true
                 }
               ];
-              task.tasks = updateData;
+              task.subtasks = updateData;
             }
           });
 
@@ -78,7 +70,7 @@ define(['angular','angular-dragdrop'], function (angular) {
           };
           var webSockets = webSocket.WebSockets();
           webSockets.serversimm.sendRequest(method, params).then(function(data){
-            task.tasks = data;
+            task.subtasks = data;
 
           });
         };
@@ -134,6 +126,18 @@ define(['angular','angular-dragdrop'], function (angular) {
         $scope.startCallback = function(event, ui) {
           console.log('You started draggin');
           $scope.showSubtask = false;
+        };
+
+        $scope.addSubtask = function(parentTask, description) {
+          var subTask = {
+            description : description,
+            complete : false
+          }
+          if( parentTask.subtasks === undefined) {
+            parentTask.subtasks = [];
+          }
+          parentTask.subtasks.push(subTask);
+          description = '';
         };
 
       }]);
