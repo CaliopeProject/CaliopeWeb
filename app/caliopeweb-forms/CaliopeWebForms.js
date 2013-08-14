@@ -4,7 +4,7 @@
 var CaliopeWebForm = (function() {
 
     var formName;
-    var formUUID;
+    var modelUUID;
     var structure;
     var data;
     var actions;
@@ -101,7 +101,6 @@ var CaliopeWebForm = (function() {
       addStructure: function (_structure, _formName) {
         var result = searchElements(_structure);
         formName = _formName;
-        formUUID = UUIDjs.create().hex;
         elementsForm = result.elements;
         elementsFormName = result.elementsName;
         structure = _structure;
@@ -112,6 +111,9 @@ var CaliopeWebForm = (function() {
      */
       addData: function(_data) {
         data = _data;
+        if(_data !== undefined) {
+          modelUUID = _data['uuid'].value;
+        }
       },
     /**
      * Add the actions structure to the form
@@ -192,8 +194,8 @@ var CaliopeWebForm = (function() {
       getFormName : function() {
         return formName;
       },
-      getFormUUID : function() {
-        return formUUID;
+      getModelUUID : function() {
+        return modelUUID;
       },
     /**
      * Put the data represented for data structure in a specific context.
@@ -427,7 +429,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           */
           if( data !== undefined ) {
             var selectedChoices = data[element.name];
-            if( selectedChoices.value !== undefined ) {
+            if( selectedChoices !== undefined && selectedChoices.value !== undefined ) {
               selectedChoices = selectedChoices.value;
             }
             if( selectedChoices !== undefined ) {
@@ -473,7 +475,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
  */
 var CaliopeWebFormActionsDecorator = ( function() {
 
-  function completeActions(structureInit, structureActions,formName, formUUID, objID) {
+  function completeActions(structureInit, structureActions,formName, modelUUID, objID) {
 
     var i;
 
@@ -508,13 +510,13 @@ var CaliopeWebFormActionsDecorator = ( function() {
         }
         action.type = TYPE_ACTION;
         /*
-          create ng-click: sendAction(form, 'formName', 'method', 'formUUID', 'objID', 'params_to_send_to_server');
+          create ng-click: sendAction(form, 'formName', 'method', 'modelUUID', 'objID', 'params_to_send_to_server');
          */
         action[DIRECTIVE_NG_CLICK] = NAME_METHOD_CONTROLLER.concat("(").
             concat(formName).concat(", ").
             concat("'").concat(formName).concat("', ").
             concat("'").concat(actionMethod).concat("', ").
-            concat("'").concat(formUUID).concat("', ").
+            concat("'").concat(modelUUID).concat("', ").
             concat("'").concat(objID).concat("', ").
             concat("'").concat(paramsToSend).concat("'").
             concat(")");
@@ -534,7 +536,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
       var structureInit = caliopeWebForm.createStructureToRender();
       var structureAction = caliopeWebForm.getActions();
       var formName = caliopeWebForm.getFormName();
-      var formUUID = caliopeWebForm.getFormUUID();
+      var modelUUID = caliopeWebForm.getModelUUID();
       var objID;
       if( caliopeWebForm.getData() !== undefined && caliopeWebForm.getData().uuid !== 'undefined') {
         objID = caliopeWebForm.getData().uuid.value;
@@ -543,7 +545,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
         objID = '';
       }
       caliopeWebForm.createStructureToRender = function() {
-        completeActions(structureInit, structureAction, formName, formUUID, objID);
+        completeActions(structureInit, structureAction, formName, modelUUID, objID);
         return structureInit;
       };
     }
@@ -587,12 +589,12 @@ var CaliopeWebFormLocaleDecorator = ( function() {
  */
 var CaliopeWebFormAttachmentsDecorator = ( function() {
 
-  function replaceAttachemnt(elementsInit, formUUID) {
+  function replaceAttachemnt(elementsInit, modelUUID) {
 
     var varNameType = 'type';
     var nameTypeAtt = 'attachment';
     var nameAttachDirective = 'ng-fileuploader';
-    var varNameFormUUID = 'formuuid';
+    var varNameModelUUID = 'modeluuid';
     var varNameFieldAtt = 'fieldattch';
 
     if( elementsInit !== null ) {
@@ -601,7 +603,7 @@ var CaliopeWebFormAttachmentsDecorator = ( function() {
         if( elementsInit[i].hasOwnProperty(varNameType) &&
             elementsInit[i][varNameType] === nameTypeAtt ) {
           elementsInit[i][varNameType] = nameAttachDirective;
-          elementsInit[i][varNameFormUUID] = formUUID;
+          elementsInit[i][varNameModelUUID] = modelUUID;
           elementsInit[i][varNameFieldAtt] = elementsInit[i].name;
         }
       }
@@ -613,10 +615,10 @@ var CaliopeWebFormAttachmentsDecorator = ( function() {
     createStructureToRender : function(caliopeWebForm) {
       var structureInit = caliopeWebForm.createStructureToRender();
       var elementsInit = caliopeWebForm.getElements();
-      var formUUID = caliopeWebForm.getFormUUID();
+      var modelUUID = caliopeWebForm.getModelUUID();
       caliopeWebForm.createStructureToRender = function() {
 
-        replaceAttachemnt(elementsInit, formUUID);
+        replaceAttachemnt(elementsInit, modelUUID);
 
         return structureInit;
       };

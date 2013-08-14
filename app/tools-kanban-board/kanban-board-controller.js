@@ -45,7 +45,9 @@ define(['angular','angular-dragdrop'], function (angular) {
                   complete: true
                 }
               ];
-              task.subtasks = updateData;
+              if( task != undefined) {
+                task.subtasks = updateData;
+              }
             }
           });
 

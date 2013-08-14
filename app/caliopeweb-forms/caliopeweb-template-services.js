@@ -31,15 +31,13 @@ define(['angular'], function(angular) {
         Service.loadTemplateData = function () {
           var method = {};
           var params = {};
-          params.formId = Service.caliopeForm.id;
 
+          var model = Service.caliopeForm.id;
           if (Service.caliopeForm.mode === 'create') {
-            method = 'form.getTemplate';
-            params.domain = "";
-            params.version = "3";
+            method = model.concat('.getModel');
           }
           if (Service.caliopeForm.mode === 'edit') {
-            method = 'form.getData';
+            method = model.concat('.getData');
             params.uuid = Service.caliopeForm.uuid;
           }
 
@@ -56,11 +54,11 @@ define(['angular'], function(angular) {
         * @param formTemplate Name of the form template
         * @param actionMethod Action invoked
         * @param object Object that contains the data form.
-        * @param formUUID UUID of the form
+        * @param modelUUID UUID of the form
         * @param objID Identified of the data
         * @returns {{}}
         */
-        Service.sendDataForm = function(formTemplateName, actionMethod, object, formUUID, objID ) {
+        Service.sendDataForm = function(formTemplateName, actionMethod, object, modelUUID, objID ) {
 
           var params = {};
           var method = actionMethod;
@@ -73,8 +71,8 @@ define(['angular'], function(angular) {
           }
 
           params = {
-            "formId" : formTemplateName,
-            "formUUID" : formUUID
+            "formId" : formTemplateName
+            //"modelUUID" : modelUUID
           };
           params.data = {};
           jQuery.extend(params.data, object);
@@ -138,7 +136,7 @@ define(['angular'], function(angular) {
 
               result.structureToRender = caliopeWebForm.createStructureToRender();
               result.elements          = caliopeWebForm.getElements();
-              result.formUuid          = caliopeWebForm.getFormUUID();
+              result.modelUUID          = caliopeWebForm.getModelUUID();
               result.data              = caliopeWebForm.getData();
 
               caliopeWebForm.putDataToContext(context, result.elements);

@@ -8,6 +8,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
   moduleServices.factory('taskService', ['$log','$http', '$q', '$location', '$dialog', '$rootScope',
     'webSocket', function($log, $http, $q, $location, $dialog, $rootScope,  webSocket) {
 
+    var NAME_MODEL_TASK = 'tasks';
+      
     var opts = {
       backdrop      : false,
       keyboard      : true,
@@ -66,12 +68,12 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
       // Show the modal task dialog
       createTask: function(parent, category) {
-        opts.templateUrl = './task/partial-task-dialog.html';
+        opts.templateUrl = './task/partial-task-dialog.html';        
         var data = {
-                    template: 'asignaciones',
+                    template: NAME_MODEL_TASK,
                     mode  : 'create',
                     uuidparent: parent,
-                    categoria: category,
+                    category: category,
                     dialogName : DIALOG_NAME_FORM_TASK
                    };
         opts.resolve = {
@@ -86,10 +88,10 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
         console.log(numuuid);
         opts.templateUrl = './task/partial-task-dialog.html';
         var data = {
-                    template: 'asignaciones',
+                    template: NAME_MODEL_TASK,
                     mode    : 'edit',
                     uuid    : numuuid,
-                    categoria: category,
+                    category: category,
                     dialogName : DIALOG_NAME_FORM_TASK
                   };
         opts.resolve = {
@@ -104,7 +106,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
         opts.templateUrl = './task/partial-task-dialog-delete.html'
 
         var data = {
-                    template      : 'asignaciones',
+                    template      : NAME_MODEL_TASK,
                     actionMethod  : 'task.delete',
                     uuid          : uuid,
                     dialogName    : DIALOG_NAME_CONF_DELETE

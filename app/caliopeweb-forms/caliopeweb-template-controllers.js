@@ -35,7 +35,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
             if( result.elementsName !== undefined ) {
               $scope.elementsFormTemplate   = result.elementsName;
             }
-            $scope.formUUID               = result.formUuid;
+            $scope.modelUUID               = result.modelUUID;
           }
         });
 
@@ -79,7 +79,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
             var result = calwebTemSrv.load(value, $scope);
             $scope.jsonPlantillaAngular = result.structureToRender;
             $scope.elementsFormTemplate   = result.elements;
-            $scope.formUUID             = result.formUuid;
+            $scope.modelUUID             = result.modelUUID;
 
             var inputs = $scope.elementsFormTemplate;
             var i;
@@ -165,7 +165,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           }
         });
 
-        $scope.sendAction = function(form, formTemplateName, actionMethod, formUUID, objID, paramsToSend) {
+        $scope.sendAction = function(form, formTemplateName, actionMethod, modelUUID, objID, paramsToSend) {
 
           var inputs = $scope.elementsFormTemplate;
           var obj = {};
@@ -210,7 +210,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           }
 
           $scope.responseSendAction = caliopewebTemplateSrv.sendDataForm(formTemplateName,
-              actionMethod, obj, formUUID, objID);
+              actionMethod, obj, modelUUID, objID);
 
         };
 
