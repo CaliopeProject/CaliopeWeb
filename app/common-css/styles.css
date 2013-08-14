@@ -31799,16 +31799,16 @@ a.olControlZoomOut {
   -ms-border-radius: 6px;
   -o-border-radius: 6px;
   border-radius: 6px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   position: relative;
   min-height: 26px;
   border: 1px solid #CCC;
   background-color: #ffffff;
   padding: 0px 15px 7px 15px;
   text-align: right;
-  -webkit-box-shadow: #cacad3 1px 5px 6px;
-  -moz-box-shadow: #cacad3 1px 5px 6px;
-  box-shadow: #cacad3 1px 5px 6px;
+  -webkit-box-shadow: rgba(202, 202, 211, 0.8) 1px 2px 1px;
+  -moz-box-shadow: rgba(202, 202, 211, 0.8) 1px 2px 1px;
+  box-shadow: rgba(202, 202, 211, 0.8) 1px 2px 1px;
 }
 /* line 81, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban > :hover {

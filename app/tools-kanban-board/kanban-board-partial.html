@@ -1,5 +1,5 @@
 <div class="row-fluid" ng-controller="kanbanBoardCtrl">
-  <div class="span4" ng-repeat="obj in data">
+  <div class="span4" ng-repeat="obj in data" ng-model="obj.tasks" data-drop="true" data-jqyoui-options="{accept:'.task-header-kanban'}" jqyoui-droppable="{multiple:true, onDrop:'dropCallback'}">
     <div class="widget-box-kanban">
       <div class="widget-header-kanban widget-header-small-kanban">
         <h5>{{obj.category}}</h5>
@@ -7,27 +7,30 @@
           <widget-task title="" parent="" category="{{obj.category}}"></widget-task>
         </div>
       </div>
-      <div class="widget-body-kanban">
+      <div class="widget-body-kanban" >
         <div class="widget-main">
-          <div class="boxDrop" ng-model="obj.tasks" data-drop="true" data-jqyoui-options="{accept:'.task-header-kanban'}" jqyoui-droppable="{multiple:true, onDrop:'dropCallback'}">
-
+          <div class="boxDrop" >
             <div class="task-header-kanban" uuid="{{item.uuid}}" ng-show='item.uuid'  ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStart:'startCallback'}">
 
-              <h5>{{item.description}}</h5>
+              <h6>{{item.description}}</h6>
+
               <div ng-show='log' ng-init="showSubtasks=false" class="lbl widget-toolbar-kanban no-border" >
-              {{showSubtasks}}
-                <widget-task title="" parent="item.uuid" category="{{obj.category}}"></widget-task>
+
                   <span class="text-info" ng-click="showSubtasks=!showSubtasks">
                     <i class="icon-double-angle-down" ng-show="showSubtasks==false" ></i>
                     <i class="icon-double-angle-up" ng-show="showSubtasks==true"></i>
                   </span>
+
                   <span class="text-info" ng-click="editTask(item.uuid, obj.category)">
-                    <i class="icon-circle-arrow-down"></i>
+                    <i class="icon-edit"></i>
                   </span>
+
                   <span class="text-error"  ng-click="deleteTask(item.uuid)">
-                    <i class="icon-remove-sign"></i>
+                    <i class="icon-trash"></i>
                   </span>
+
               </div>
+
               <div ng-init="log2=false" ng-show='showSubtasks' class="tab-content-kanban">
                         <div id="task-tab" class="tab-pane active">
                           <ul id="tasks" class="item-list ui-sortable">
