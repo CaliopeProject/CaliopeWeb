@@ -1,0 +1,38 @@
+@import "compass";
+
+.sticky-note {
+  border: 1px solid #ffb366;
+  background: #FFFFCC;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.item-list input ~ div > ul {
+  display: none;
+}
+
+.item-list input:checked ~ div > ul {
+  display: block;
+}
+
+.boxDrop{
+  min-height: 30px;
+}
+
+[class*=" icon-"], [class^="icon-"] {
+  cursor: pointer;
+}
+
+$borEditor: 6px;
+
+.widget-box-wysiwyg {
+  @include border-radius($borEditor);
+  position: relative;
+  min-height: 30px;
+  border: solid #CCC;
+  border-width: 1px;
+  padding-left: 12px;
+  text-align: left;
+}

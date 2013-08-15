@@ -44,7 +44,7 @@ html {
 
 /* line 50, ../../common-scss/bootstrap/_reset.scss */
 a:focus {
-  outline: thin dotted #333;
+  outline: thin dotted #333333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -163,7 +163,7 @@ textarea {
   /* line 155, ../../common-scss/bootstrap/_reset.scss */
   * {
     text-shadow: none !important;
-    color: #000 !important;
+    color: black !important;
     background: transparent !important;
     box-shadow: none !important;
   }
@@ -194,7 +194,7 @@ textarea {
   /* line 183, ../../common-scss/bootstrap/_reset.scss */
   pre,
   blockquote {
-    border: 1px solid #999;
+    border: 1px solid #999999;
     page-break-inside: avoid;
   }
 
@@ -266,7 +266,7 @@ a:focus {
 .img-polaroid {
   padding: 4px;
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -1084,7 +1084,7 @@ pre {
   white-space: pre;
   white-space: pre-wrap;
   background-color: #f5f5f5;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -1311,7 +1311,7 @@ select:focus,
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted #333;
+  outline: thin dotted #333333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -1869,7 +1869,7 @@ select:focus:invalid:focus {
   text-align: center;
   text-shadow: 0 1px 0 white;
   background-color: #eeeeee;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
 }
 /* line 468, ../../common-scss/bootstrap/_forms.scss */
 .input-append .add-on,
@@ -2483,27 +2483,27 @@ table th[class*="span"],
 
 /* line 52, ../../common-scss/bootstrap/_sprites.scss */
 .icon-glass {
-  background-position: 0      0;
+  background-position: 0 0;
 }
 
 /* line 53, ../../common-scss/bootstrap/_sprites.scss */
 .icon-music {
-  background-position: -24px  0;
+  background-position: -24px 0;
 }
 
 /* line 54, ../../common-scss/bootstrap/_sprites.scss */
 .icon-search {
-  background-position: -48px  0;
+  background-position: -48px 0;
 }
 
 /* line 55, ../../common-scss/bootstrap/_sprites.scss */
 .icon-envelope {
-  background-position: -72px  0;
+  background-position: -72px 0;
 }
 
 /* line 56, ../../common-scss/bootstrap/_sprites.scss */
 .icon-heart {
-  background-position: -96px  0;
+  background-position: -96px 0;
 }
 
 /* line 57, ../../common-scss/bootstrap/_sprites.scss */
@@ -2583,27 +2583,27 @@ table th[class*="span"],
 
 /* line 73, ../../common-scss/bootstrap/_sprites.scss */
 .icon-home {
-  background-position: 0      -24px;
+  background-position: 0 -24px;
 }
 
 /* line 74, ../../common-scss/bootstrap/_sprites.scss */
 .icon-file {
-  background-position: -24px  -24px;
+  background-position: -24px -24px;
 }
 
 /* line 75, ../../common-scss/bootstrap/_sprites.scss */
 .icon-time {
-  background-position: -48px  -24px;
+  background-position: -48px -24px;
 }
 
 /* line 76, ../../common-scss/bootstrap/_sprites.scss */
 .icon-road {
-  background-position: -72px  -24px;
+  background-position: -72px -24px;
 }
 
 /* line 77, ../../common-scss/bootstrap/_sprites.scss */
 .icon-download-alt {
-  background-position: -96px  -24px;
+  background-position: -96px -24px;
 }
 
 /* line 78, ../../common-scss/bootstrap/_sprites.scss */
@@ -2683,27 +2683,27 @@ table th[class*="span"],
 
 /* line 94, ../../common-scss/bootstrap/_sprites.scss */
 .icon-tag {
-  background-position: 0      -48px;
+  background-position: 0 -48px;
 }
 
 /* line 95, ../../common-scss/bootstrap/_sprites.scss */
 .icon-tags {
-  background-position: -25px  -48px;
+  background-position: -25px -48px;
 }
 
 /* line 96, ../../common-scss/bootstrap/_sprites.scss */
 .icon-book {
-  background-position: -48px  -48px;
+  background-position: -48px -48px;
 }
 
 /* line 97, ../../common-scss/bootstrap/_sprites.scss */
 .icon-bookmark {
-  background-position: -72px  -48px;
+  background-position: -72px -48px;
 }
 
 /* line 98, ../../common-scss/bootstrap/_sprites.scss */
 .icon-print {
-  background-position: -96px  -48px;
+  background-position: -96px -48px;
 }
 
 /* line 99, ../../common-scss/bootstrap/_sprites.scss */
@@ -2783,27 +2783,27 @@ table th[class*="span"],
 
 /* line 115, ../../common-scss/bootstrap/_sprites.scss */
 .icon-pencil {
-  background-position: 0      -72px;
+  background-position: 0 -72px;
 }
 
 /* line 116, ../../common-scss/bootstrap/_sprites.scss */
 .icon-map-marker {
-  background-position: -24px  -72px;
+  background-position: -24px -72px;
 }
 
 /* line 117, ../../common-scss/bootstrap/_sprites.scss */
 .icon-adjust {
-  background-position: -48px  -72px;
+  background-position: -48px -72px;
 }
 
 /* line 118, ../../common-scss/bootstrap/_sprites.scss */
 .icon-tint {
-  background-position: -72px  -72px;
+  background-position: -72px -72px;
 }
 
 /* line 119, ../../common-scss/bootstrap/_sprites.scss */
 .icon-edit {
-  background-position: -96px  -72px;
+  background-position: -96px -72px;
 }
 
 /* line 120, ../../common-scss/bootstrap/_sprites.scss */
@@ -2883,27 +2883,27 @@ table th[class*="span"],
 
 /* line 136, ../../common-scss/bootstrap/_sprites.scss */
 .icon-plus-sign {
-  background-position: 0      -96px;
+  background-position: 0 -96px;
 }
 
 /* line 137, ../../common-scss/bootstrap/_sprites.scss */
 .icon-minus-sign {
-  background-position: -24px  -96px;
+  background-position: -24px -96px;
 }
 
 /* line 138, ../../common-scss/bootstrap/_sprites.scss */
 .icon-remove-sign {
-  background-position: -48px  -96px;
+  background-position: -48px -96px;
 }
 
 /* line 139, ../../common-scss/bootstrap/_sprites.scss */
 .icon-ok-sign {
-  background-position: -72px  -96px;
+  background-position: -72px -96px;
 }
 
 /* line 140, ../../common-scss/bootstrap/_sprites.scss */
 .icon-question-sign {
-  background-position: -96px  -96px;
+  background-position: -96px -96px;
 }
 
 /* line 141, ../../common-scss/bootstrap/_sprites.scss */
@@ -2983,27 +2983,27 @@ table th[class*="span"],
 
 /* line 157, ../../common-scss/bootstrap/_sprites.scss */
 .icon-exclamation-sign {
-  background-position: 0      -120px;
+  background-position: 0 -120px;
 }
 
 /* line 158, ../../common-scss/bootstrap/_sprites.scss */
 .icon-gift {
-  background-position: -24px  -120px;
+  background-position: -24px -120px;
 }
 
 /* line 159, ../../common-scss/bootstrap/_sprites.scss */
 .icon-leaf {
-  background-position: -48px  -120px;
+  background-position: -48px -120px;
 }
 
 /* line 160, ../../common-scss/bootstrap/_sprites.scss */
 .icon-fire {
-  background-position: -72px  -120px;
+  background-position: -72px -120px;
 }
 
 /* line 161, ../../common-scss/bootstrap/_sprites.scss */
 .icon-eye-open {
-  background-position: -96px  -120px;
+  background-position: -96px -120px;
 }
 
 /* line 162, ../../common-scss/bootstrap/_sprites.scss */
@@ -3086,27 +3086,27 @@ table th[class*="span"],
 
 /* line 178, ../../common-scss/bootstrap/_sprites.scss */
 .icon-hdd {
-  background-position: 0      -144px;
+  background-position: 0 -144px;
 }
 
 /* line 179, ../../common-scss/bootstrap/_sprites.scss */
 .icon-bullhorn {
-  background-position: -24px  -144px;
+  background-position: -24px -144px;
 }
 
 /* line 180, ../../common-scss/bootstrap/_sprites.scss */
 .icon-bell {
-  background-position: -48px  -144px;
+  background-position: -48px -144px;
 }
 
 /* line 181, ../../common-scss/bootstrap/_sprites.scss */
 .icon-certificate {
-  background-position: -72px  -144px;
+  background-position: -72px -144px;
 }
 
 /* line 182, ../../common-scss/bootstrap/_sprites.scss */
 .icon-thumbs-up {
-  background-position: -96px  -144px;
+  background-position: -96px -144px;
 }
 
 /* line 183, ../../common-scss/bootstrap/_sprites.scss */
@@ -3232,7 +3232,7 @@ table th[class*="span"],
   margin: 2px 0 0;
   list-style: none;
   background-color: white;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   *border-right-width: 2px;
   *border-bottom-width: 2px;
@@ -3601,7 +3601,7 @@ button.close {
 }
 /* line 41, ../../common-scss/bootstrap/_buttons.scss */
 .btn:focus {
-  outline: thin dotted #333;
+  outline: thin dotted #333333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -4446,7 +4446,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 113, ../../common-scss/bootstrap/_navs.scss */
 .nav-tabs {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
 }
 
 /* line 117, ../../common-scss/bootstrap/_navs.scss */
@@ -4475,7 +4475,7 @@ input[type="submit"].btn.btn-mini {
 .nav-tabs > .active > a:focus {
   color: #555555;
   background-color: white;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -4516,7 +4516,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 181, ../../common-scss/bootstrap/_navs.scss */
 .nav-tabs.nav-stacked > li > a {
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -4679,7 +4679,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 316, ../../common-scss/bootstrap/_navs.scss */
 .tabs-below > .nav-tabs {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
 }
 
 /* line 319, ../../common-scss/bootstrap/_navs.scss */
@@ -4704,7 +4704,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-below > .nav-tabs > .active > a,
 .tabs-below > .nav-tabs > .active > a:hover,
 .tabs-below > .nav-tabs > .active > a:focus {
-  border-color: transparent #ddd #ddd #ddd;
+  border-color: transparent #dddddd #dddddd #dddddd;
 }
 
 /* line 342, ../../common-scss/bootstrap/_navs.scss */
@@ -4725,7 +4725,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-left > .nav-tabs {
   float: left;
   margin-right: 19px;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid #dddddd;
 }
 
 /* line 358, ../../common-scss/bootstrap/_navs.scss */
@@ -4746,7 +4746,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-left > .nav-tabs .active > a,
 .tabs-left > .nav-tabs .active > a:hover,
 .tabs-left > .nav-tabs .active > a:focus {
-  border-color: #ddd transparent #ddd #ddd;
+  border-color: #dddddd transparent #dddddd #dddddd;
   *border-right-color: white;
 }
 
@@ -4754,7 +4754,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-right > .nav-tabs {
   float: right;
   margin-left: 19px;
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #dddddd;
 }
 
 /* line 379, ../../common-scss/bootstrap/_navs.scss */
@@ -4775,7 +4775,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-right > .nav-tabs .active > a,
 .tabs-right > .nav-tabs .active > a:hover,
 .tabs-right > .nav-tabs .active > a:focus {
-  border-color: #ddd #ddd #ddd transparent;
+  border-color: #dddddd #dddddd #dddddd transparent;
   *border-left-color: white;
 }
 
@@ -5156,7 +5156,7 @@ input[type="submit"].btn.btn-mini {
   display: inline-block;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid #ccc;
+  border-bottom: 7px solid #cccccc;
   border-bottom-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   top: -7px;
@@ -5176,7 +5176,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 326, ../../common-scss/bootstrap/_navbar.scss */
 .navbar-fixed-bottom .nav > li > .dropdown-menu:before {
-  border-top: 7px solid #ccc;
+  border-top: 7px solid #cccccc;
   border-top-color: rgba(0, 0, 0, 0.2);
   border-bottom: 0;
   bottom: -7px;
@@ -5617,7 +5617,7 @@ input[type="submit"].btn.btn-mini {
   display: inline-block;
   padding: 5px 14px;
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
@@ -5683,9 +5683,9 @@ input[type="submit"].btn.btn-mini {
   width: 560px;
   margin-left: -280px;
   background-color: white;
-  border: 1px solid #999;
+  border: 1px solid #999999;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  *border: 1px solid #999;
+  *border: 1px solid #999999;
   /* IE6-7 */
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -5714,7 +5714,7 @@ input[type="submit"].btn.btn-mini {
 /* line 47, ../../common-scss/bootstrap/_modals.scss */
 .modal-header {
   padding: 9px 15px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eeeeee;
 }
 /* line 51, ../../common-scss/bootstrap/_modals.scss */
 .modal-header .close {
@@ -5745,7 +5745,7 @@ input[type="submit"].btn.btn-mini {
   margin-bottom: 0;
   text-align: right;
   background-color: #f5f5f5;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
@@ -5884,7 +5884,7 @@ input[type="submit"].btn.btn-mini {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -6055,7 +6055,7 @@ input[type="submit"].btn.btn-mini {
   display: block;
   padding: 4px;
   line-height: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
