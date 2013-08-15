@@ -21,9 +21,9 @@ define(['angular','angular-dragdrop'], function (angular) {
 
 
         /**
-         *
-         * @param uuid
-         */
+        *
+        * @param uuid
+        */
         function updateKanban(uuid) {
           var params = {};
           var method = "tasks.getAll";
@@ -75,10 +75,9 @@ define(['angular','angular-dragdrop'], function (angular) {
             "sessionuuid" : uuid,
             "taskuuid"    : task.uuid
           };
-          var webSockets = webSocket.WebSockets();
+
           webSockets.serversimm.sendRequest(method, params).then(function(data){
             task.subtasks = data;
-
           });
         };
 
@@ -86,10 +85,10 @@ define(['angular','angular-dragdrop'], function (angular) {
 
 
         /**
-         *
-         * @param event
-         * @param ui
-         */
+        *
+        * @param event
+        * @param ui
+        */
         $scope.dropCallback = function(event, ui) {
 
 
@@ -133,7 +132,7 @@ define(['angular','angular-dragdrop'], function (angular) {
             data = $scope.taskDrag;
             data.category = categ;
             delete data.subtasks;
-            tempServices.sendDataForm('asignaciones', 'tasks.edit', data, uuid.value, uuid.value );
+            tempServices.sendDataForm('tasks', 'tasks.edit', data, uuid.value, uuid.value );
           }
         };
 
@@ -145,29 +144,48 @@ define(['angular','angular-dragdrop'], function (angular) {
       }]);
 
 
-  dirmodule.controller("kanbanItemCtrl", ["SessionSrv", "$scope","webSocket", 'caliopewebTemplateSrv',
-    function(security, $scope, webSocket, tempServices) {
+      dirmodule.controller("kanbanItemCtrl", ["SessionSrv", "$scope", "webSocket", 'caliopewebTemplateSrv',
+        function(security, $scope, webSocket, tempServices) {
+          var webSockets = webSocket.WebSockets();
 
-        $scope.startCallback = function(event, ui) {
-          $scope.showSubtasks = false;
-          $scope.$emit('DragTask', [$scope.item]);
-        };
-
-        $scope.addSubtask = function(parentTask, description) {
-
-          var subTask = {
-            description : description,
-            complete : false
+          $scope.startCallback = function(event, ui) {
+            $scope.showSubtasks = false;
+            $scope.$emit('DragTask', [$scope.item]);
           };
 
-          if( parentTask.subtasks === undefined) {
-            parentTask.subtasks = [];
-          }
+          $scope.addSubtask = function(parentTask, description) {
 
-          parentTask.subtasks.push(subTask);
-          description = '';
+            var subTask = {
+              description : description,
+              complete : false
+            };
 
-        };
+            if( parentTask.subtasks === undefined) {
+              parentTask.subtasks = [];
+            }
 
-      }]);
+            parentTask.subtasks.push(subTask);
+
+            tempServices.sendDataForm('tasks', 'tasks.edit', parentTask, parentTask.uuid.value, parentTask.uuid.value).then(function(data){
+              subTask.uuid = data;
+            });
+
+            $scope.description = '';
+          };
+
+
+          $scope.checkSubtask = function(parentTask, subtask) {
+            $scope.remaining = subtask.length;
+
+            angular.forEach(subtask, function(task) {
+              if (task.complete) {
+                $scope.remaining--;
+              }
+            });
+
+            tempServices.sendDataForm('tasks', 'tasks.edit', parentTask, parentTask.uuid.value, parentTask.uuid.value);
+
+          };
+
+        }]);
 });

@@ -31860,6 +31860,18 @@ a.olControlZoomOut {
   clear: both;
 }
 
+/* line 116, ../tools-kanban-board/kanban-board.scss */
+.complete_false {
+  text-decoration: none;
+  color: red;
+}
+
+/* line 121, ../tools-kanban-board/kanban-board.scss */
+.complete_true {
+  text-decoration: line-through;
+  color: gray;
+}
+
 /*2.4*/
 /*119879,99*/
 /* line 1, ../caliopeweb-forms/caliopeweb.scss */

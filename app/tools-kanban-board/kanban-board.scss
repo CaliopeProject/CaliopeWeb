@@ -113,5 +113,15 @@ $borKanba: 12px;
   clear: both;
 }
 
+.complete_false {
+  text-decoration: none;
+  color: red;
+}
+
+.complete_true {
+  text-decoration: line-through;
+  color: gray;
+}
+
 /*2.4*/
 /*119879,99*/

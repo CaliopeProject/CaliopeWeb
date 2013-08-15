@@ -12,30 +12,37 @@
           <div class="boxDrop fillallheight" >
             <div ng-controller="kanbanItemCtrl" class="task-header-kanban" ng-init="showSubtasks=false"  uuid="{{item.uuid}}" ng-show='item.uuid'  ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStart:'startCallback'}">
 
-              <h6>{{item.descripcion.value}}</h6>
-
+              <h6> - {{item.descripcion.value}}</h6>
+              <div class="time">
+                <i class="icon-time"></i>
+                <span class="green">{{remaining}} sub-tareas </span>
+              </div>
               <div ng-show='log' class="lbl widget-toolbar-kanban no-border" >
 
-                  <span class="text-info" ng-click="showSubtasks=!showSubtasks">
-                    <i class="icon-double-angle-down" ng-show="showSubtasks==false" ></i>
-                    <i class="icon-double-angle-up" ng-show="showSubtasks==true"></i>
-                  </span>
+                <span class="text-info" ng-click="showSubtasks=!showSubtasks">
+                  <i class="icon-double-angle-down" ng-show="showSubtasks==false" ></i>
+                  <i class="icon-double-angle-up" ng-show="showSubtasks==true"></i>
+                </span>
 
-                  <span class="text-info" ng-click="editTask(item.uuid, obj.category)">
-                    <i class="icon-edit"></i>
-                  </span>
+                <span class="text-info" ng-click="editTask(item.uuid, obj.category)">
+                  <i class="icon-edit"></i>
+                </span>
 
-                  <span class="text-error"  ng-click="deleteTask(item.uuid)">
-                    <i class="icon-trash"></i>
-                  </span>
+                <span class="text-error"  ng-click="deleteTask(item.uuid)">
+                  <i class="icon-trash"></i>
+                </span>
 
               </div>
               <ng-include src="'task/partial-subtasks.html'"></ng-include>
 
+              <form class="item-list tab-content-kanban" ng-show="showSubtasks==true" ng-submit="addSubtask(item,description)">
+                  <input type="text" name="description" placeholder="Agregar subtarea..." class="input" ng-model="description"/>
+              </form>
+
+            </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </div>
-</div>
