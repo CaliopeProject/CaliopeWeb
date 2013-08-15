@@ -140,7 +140,7 @@ define(['angular','angular-dragdrop'], function (angular) {
 
           if(categ !== undefined){
             data  = {
-              "uuid"     : uuid,
+              "uuid"     : uuid.value,
               "category" : categ
             };
             tempServices.sendDataForm('asignaciones', 'tasks.edit', data, '', uuid );
