@@ -34,6 +34,11 @@ define(['angular','angular-dragdrop'], function (angular) {
 
           webSockets.serversimm.sendRequest(method, params).then(function(data){
             $scope.data = data;
+            /**
+             * Tranform data from server. Example:
+             *
+             * {}
+             */
             if(data !== undefined ) {
               var i;
               for(i=0; i < data.length; i++) {
