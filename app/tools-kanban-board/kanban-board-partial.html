@@ -1,15 +1,15 @@
-<div class="row-fluid" ng-controller="kanbanBoardCtrl">
-  <div class="span4" ng-repeat="obj in data" ng-model="obj.tasks" data-drop="true" data-jqyoui-options="{accept:'.task-header-kanban'}" jqyoui-droppable="{multiple:true, onDrop:'dropCallback'}">
-    <div class="widget-box-kanban">
+<div class="row-fluid fillallheight" ng-controller="kanbanBoardCtrl">
+  <div class="span4 fillallheight" ng-repeat="obj in data" ng-model="obj.tasks" data-drop="true" data-jqyoui-options="{accept:'.task-header-kanban'}" jqyoui-droppable="{multiple:true, onDrop:'dropCallback'}">
+    <div class="widget-box-kanban fillallheight">
       <div class="widget-header-kanban widget-header-small-kanban">
         <h5>{{obj.category}}</h5>
         <div class="widget-toolbar-kanban no-border">
           <widget-task title="" parent="" category="{{obj.category}}"></widget-task>
         </div>
       </div>
-      <div class="widget-body-kanban" >
-        <div class="widget-main">
-          <div class="boxDrop" >
+      <div class="widget-body-kanban fillallheight" >
+        <div class="widget-main fillallheight">
+          <div class="boxDrop fillallheight" >
             <div ng-controller="kanbanItemCtrl" class="task-header-kanban" ng-init="showSubtasks=false"  uuid="{{item.uuid}}" ng-show='item.uuid'  ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStart:'startCallback'}">
 
               <h6>{{item.descripcion.value}}</h6>

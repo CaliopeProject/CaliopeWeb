@@ -26,23 +26,33 @@ body {
   }
 }
 
+@mixin heightall {
+  height: 100%;
+}
+
+.fillallheight{
+  @include heightall;
+}
+
 #main-container {
   padding: 0;
   position: relative;
+  @include heightall;
 }
 
 #main-content {
   margin-left: 190px;
   margin-right: 0;
   margin-top: 0;
-  min-height: 100%;
   padding: 0;
+  @include heightall;
 }
 
 #page-content {
   background: #fff;
   margin: 0;
   padding: 8px 20px 24px;
+  @include heightall;
   .page-header:first-child {
     margin: 0 0 12px;
     border-bottom: 1px dotted #e2e2e2;
@@ -59,6 +69,9 @@ body {
         color: #8089a0;
       }
     }
+  }
+  .row-fluid {
+    @include heightall;
   }
 }
 
