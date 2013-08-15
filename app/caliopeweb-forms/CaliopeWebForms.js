@@ -352,15 +352,19 @@ var CaliopeWebFormSpecificDecorator = ( function() {
               type :"div",
               class : "calendar",
               html  : [],
-              name :elementsTemplate[i].name
+              name : elementsTemplate[i].name,
+              type1 : "datepicker"
             };
+
 
             elementsTemplate[i].type = "text";
             elementsTemplate[i].type1 = TYPE_DATEPICKER;
             elementsTemplate[i][DIRECTIVE_DATEPICKER] = elementsTemplate[i][VARNAME_DATEFORMAT];
+            //elementsTemplate[i].name =  elementsTemplate[i].name;
 
             elementDivCalendar.html.push(elementsTemplate[i]);
             elementsTemplate[i] = elementDivCalendar;
+
         }
       }
     }

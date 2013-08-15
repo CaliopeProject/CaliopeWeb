@@ -27,7 +27,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
       function (calwebTemSrv, $scope, $routeParams) {
 
         $scope.$watch('jsonPlantilla', function (value) {
-          if( value !== undefined ) {
+          if( value !== undefined && value.error === undefined) {
             var result = calwebTemSrv.load(value, $scope);
             if( result.structureToRender !== undefined ) {
               $scope.jsonPlantillaAngular = result.structureToRender;
@@ -75,7 +75,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
       function (calwebTemSrv, dialog, $scope, action, taskService) {
 
         $scope.$watch('jsonPlantilla', function (value) {
-          if( value !== undefined ) {
+          if( value !== undefined && value.error === undefined) {
             var result = calwebTemSrv.load(value, $scope);
             $scope.jsonPlantillaAngular = result.structureToRender;
             $scope.elementsFormTemplate   = result.elements;
@@ -185,7 +185,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
                 var nameVarScope = inputs[i].name;
                 if( $scope[nameVarScope] !== undefined ) {
                   var value;
-                  if(inputs[i].type === 'text' && inputs[i].type1 === 'datepicker') {
+                  console.log('datepicker', nameVarScope, inputs[i].type, inputs[i].type1);
+                  if(inputs[i].type === 'div' && inputs[i].type1 === 'datepicker') {
                     value = $scope[nameVarScope].getTime();
                   } else if(inputs[i].type === 'select') {
                     value = $scope[nameVarScope];

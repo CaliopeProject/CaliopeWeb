@@ -71,7 +71,7 @@ define(['angular'], function(angular) {
           }
 
           params = {
-            "formId" : formTemplateName
+            //"formId" : formTemplateName
             //"modelUUID" : modelUUID
           };
           params.data = {};
