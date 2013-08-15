@@ -50,7 +50,7 @@ define(['angular','angular-dragdrop'], function (angular) {
                   complete: true
                 }
               ];
-              if( task != undefined) {
+              if( task !== undefined) {
                 task.subtasks = updateData;
               }
             }
@@ -84,17 +84,6 @@ define(['angular','angular-dragdrop'], function (angular) {
 
         updateKanban(uuid);
 
-        $scope.addSubtask = function(parentTask, description) {
-          var subTask = {
-            description : description,
-            complete : false
-          }
-          if( parentTask.subtasks === undefined) {
-            parentTask.subtasks = [];
-          }
-          parentTask.subtasks.push(subTask);
-          description = '';
-        };
 
         /**
          *
@@ -162,6 +151,22 @@ define(['angular','angular-dragdrop'], function (angular) {
         $scope.startCallback = function(event, ui) {
           $scope.showSubtasks = false;
           $scope.$emit('DragTask', [$scope.item]);
+        };
+
+        $scope.addSubtask = function(parentTask, description) {
+
+          var subTask = {
+            description : description,
+            complete : false
+          };
+
+          if( parentTask.subtasks === undefined) {
+            parentTask.subtasks = [];
+          }
+
+          parentTask.subtasks.push(subTask);
+          description = '';
+
         };
 
       }]);
