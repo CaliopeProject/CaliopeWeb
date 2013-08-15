@@ -185,7 +185,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
                 var nameVarScope = inputs[i].name;
                 if( $scope[nameVarScope] !== undefined ) {
                   var value;
-                  if(inputs[i].type === 'text' && inputs[i].type1 === 'datepicker') {
+                  console.log('datepicker', nameVarScope, inputs[i].type, inputs[i].type1);
+                  if(inputs[i].type === 'div' && inputs[i].type1 === 'datepicker') {
                     value = $scope[nameVarScope].getTime();
                   } else if(inputs[i].type === 'select') {
                     value = $scope[nameVarScope];
