@@ -34,6 +34,23 @@ define(['angular','angular-dragdrop'], function (angular) {
 
           webSockets.serversimm.sendRequest(method, params).then(function(data){
             $scope.data = data;
+            if(data !== undefined ) {
+              var i;
+              for(i=0; i < data.length; i++) {
+                var j;
+                for(j=0; j < data.length; j++) {
+                  var obj = data[i].tasks[j];
+                  if( obj !== undefined ) {
+                    var varName;
+                    for( varName in obj ) {
+                      if( obj[varName].value !== undefined ) {
+                        obj[varName] = obj[varName].value;
+                      }
+                    }
+                  }
+                }
+              }
+            }
 
             /*Tmp for test subtask in kanban*/
             var task;
@@ -117,7 +134,7 @@ define(['angular','angular-dragdrop'], function (angular) {
           findCateg = function (array, value) {
             var i, items;
             for(i = 0; i<array.length; i++) {
-              if(array[i].uuid.value === value){
+              if(array[i].uuid === value){
                 return array[i].categ;
               }
             }
@@ -133,7 +150,7 @@ define(['angular','angular-dragdrop'], function (angular) {
           if(categ !== undefined){
             data = $scope.taskDrag;
             data.category = categ;
-            delete data.subtasks;
+            //delete data.subtasks;
             tempServices.sendDataForm('asignaciones', 'tasks.edit', data, uuid.value, uuid.value );
           }
         };
