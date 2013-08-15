@@ -128,13 +128,14 @@ define(['angular','angular-dragdrop'], function (angular) {
           findCateg = function (array, value) {
             var i, items;
             for(i = 0; i<array.length; i++) {
-              if(array[i].uuid.value === value.value){
+              if(array[i].uuid.value === value){
                 return array[i].categ;
               }
             }
           };
 
-          uuid         = JSON.parse(ui.draggable.attr("uuid"));
+          console.log(ui.draggable.attr("uuid"));
+          uuid         = ui.draggable.attr("uuid");
           categ        = findCateg(itemsbycateg, uuid);
 
           console.log('uuid',uuid);
