@@ -19,6 +19,11 @@ define(['angular','angular-dragdrop'], function (angular) {
           uuid = security.getIdSession();
         });
 
+
+        /**
+         *
+         * @param uuid
+         */
         function updateKanban(uuid) {
           var params = {};
           var method = "tasks.getAll";
@@ -79,12 +84,12 @@ define(['angular','angular-dragdrop'], function (angular) {
 
         updateKanban(uuid);
 
-        $scope.startCallback = function(event, ui) {
-          console.log('You started draggin');
-          $scope.showSubtask = false;
-        };
 
-
+        /**
+         *
+         * @param event
+         * @param ui
+         */
         $scope.dropCallback = function(event, ui) {
 
 
@@ -111,30 +116,31 @@ define(['angular','angular-dragdrop'], function (angular) {
 
           findCateg = function (array, value) {
             var i, items;
-            console.log('pase');
             for(i = 0; i<array.length; i++) {
               if(array[i].uuid.value === value.value){
-                console.log(array[i]);
                 return array[i].categ;
               }
             }
           };
 
           uuid         = JSON.parse(ui.draggable.attr("uuid"));
-          console.log('itemsbycateg', itemsbycateg);
           categ        = findCateg(itemsbycateg, uuid);
 
           console.log('uuid',uuid);
           console.log('cagt',categ);
 
           if(categ !== undefined){
-            data  = {
-              "uuid"     : uuid.value,
-              "category" : categ
-            };
-            tempServices.sendDataForm('asignaciones', 'tasks.edit', data, '', uuid );
+            data = $scope.taskDrag;
+            data.category = categ;
+            delete data.subtasks;
+            tempServices.sendDataForm('asignaciones', 'tasks.edit', data, uuid.value, uuid.value );
           }
         };
+
+        $scope.$on('DragTask', function(event, data) {
+          var task = data[0];
+          $scope.taskDrag = task;
+        });
 
       }]);
 
@@ -143,11 +149,12 @@ define(['angular','angular-dragdrop'], function (angular) {
     function(security, $scope, webSocket, tempServices) {
 
         $scope.startCallback = function(event, ui) {
-          console.log('You started draggin-kanbanItemCtrl-callback', $scope.showSubtasks);
           $scope.showSubtasks = false;
+          $scope.$emit('DragTask', [$scope.item]);
         };
 
         $scope.addSubtask = function(parentTask, description) {
+
           var subTask = {
             description : description,
             complete : false
