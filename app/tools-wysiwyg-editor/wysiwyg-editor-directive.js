@@ -12,11 +12,15 @@ dirmodule.directive('ckedit', function ($parse) {
     prefix = '__ckd_';
 
     return {
-        restrict: 'A',
+        templateUrl: 'tools-wysiwyg-editor/wysiwyg-editor-directive.html',
+        replace: true,
+        restrict: 'E',
+        
         link: function (scope, element, attrs, controller) {
             var getter = $parse(attrs.ckedit), 
                 setter = getter.assign;
       
+            console.log(element)
             attrs.$set('contenteditable', true); // inline ckeditor needs this
             if (!attrs.id) {
                 attrs.$set('id', prefix + (++counter));
