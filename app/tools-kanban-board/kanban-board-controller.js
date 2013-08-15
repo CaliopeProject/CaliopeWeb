@@ -45,7 +45,7 @@ define(['angular','angular-dragdrop'], function (angular) {
                   complete: true
                 }
               ];
-              if( task != undefined) {
+              if( task !== undefined) {
                 task.subtasks = updateData;
               }
             }
@@ -84,17 +84,6 @@ define(['angular','angular-dragdrop'], function (angular) {
           $scope.showSubtask = false;
         };
 
-        $scope.addSubtask = function(parentTask, description) {
-          var subTask = {
-            description : description,
-            complete : false
-          }
-          if( parentTask.subtasks === undefined) {
-            parentTask.subtasks = [];
-          }
-          parentTask.subtasks.push(subTask);
-          description = '';
-        };
 
         $scope.dropCallback = function(event, ui) {
 
@@ -158,7 +147,20 @@ define(['angular','angular-dragdrop'], function (angular) {
           $scope.showSubtasks = false;
         };
 
+        $scope.addSubtask = function(parentTask, description) {
+          var subTask = {
+            description : description,
+            complete : false
+          };
 
+          if( parentTask.subtasks === undefined) {
+            parentTask.subtasks = [];
+          }
+
+          parentTask.subtasks.push(subTask);
+          description = '';
+
+        };
 
       }]);
 });
