@@ -1,5 +1,13 @@
 @import "compass";
 
+.ng-hide {
+  display:block!important;
+  //this is just another form of hiding an element
+  position:absolute;
+  top:-9999px;
+  left:-9999px;
+}
+
 .sticky-note {
   border: 1px solid #ffb366;
   background: #FFFFCC;
@@ -71,6 +79,7 @@ $borKanba: 12px;
 
 .task-header-kanban {
   @include border-radius($borKanba / 2);
+  @include box-shadow(rgba(202, 202, 211, 0.8) 1px 2px 1px);
   margin-bottom: 10px;
   position: relative;
   min-height: 26px;
@@ -79,18 +88,41 @@ $borKanba: 12px;
   padding: 0px 15px 7px 15px;
   text-align: right;
   > :hover { cursor: move; }
+
   li {
     text-align: left;
   }
 
-  @include box-shadow(rgba(202, 202, 211, 0.8) 1px 2px 1px);
+  form{
+    padding-right: 7px;
+  }
+
   > :first-child {
+
     line-height: 33px;
-    min-height: 36px;
+    max-height: 36px;
     padding: 0;
     margin: 0;
     float: left;
     text-align: left;
+    overflow: hidden;
+  }
+}
+
+.blockInline-subtask {
+  display: inline;
+  span {
+    display: inline;
+    i {
+      display: inline;
+    }
+    h5{
+      display: inline;
+    }
+  }
+  h6{
+    margin-top: 6px;
+    display: inline;
   }
 }
 
@@ -104,6 +136,12 @@ $borKanba: 12px;
 
   [class*=" icon-"], [class^="icon-"] {
     padding-left: 6px;
+  }
+
+  .task-header-kanban & {
+    position: absolute;
+    right: 7px;
+    top: 1px;
   }
 }
 
