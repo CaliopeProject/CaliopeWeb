@@ -1,3 +1,8 @@
+<div class="page-header position-relative">
+  <h1>
+    Administrador de tareas 
+  </h1>
+</div>
 <div class="row-fluid fillallheight" ng-controller="kanbanBoardCtrl">
   <div class="span4 fillallheight" ng-repeat="obj in data" ng-model="obj.tasks" data-drop="true" data-jqyoui-options="{accept:'.task-header-kanban'}" jqyoui-droppable="{multiple:true, onDrop:'dropCallback'}">
     <div class="widget-box-kanban fillallheight">
@@ -12,13 +17,15 @@
           <div class="boxDrop fillallheight" >
             <div ng-controller="kanbanItemCtrl" class="task-header-kanban" ng-init="showSubtasks=false"  uuid="{{item.uuid}}" ng-show='item.uuid'  ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStart:'startCallback'}">
 
-              <h6> - {{item.descripcion.value}}</h6>
-              <div class="time">
-                <i class="icon-time"></i>
-                <span class="green">{{remaining}} sub-tareas </span>
+              <div class="blockInline-subtask">
+                <span class="green">
+                  <i class="icon-list-ul"></i>
+                  <h5>{{remaining}}</h5>
+                </span>
+                <h6> {{item.descripcion.value}} </h6>
               </div>
-              <div ng-show='log' class="lbl widget-toolbar-kanban no-border" >
 
+              <div ng-show='log' class="lbl widget-toolbar-kanban no-border" >
                 <span class="text-info" ng-click="showSubtasks=!showSubtasks">
                   <i class="icon-double-angle-down" ng-show="showSubtasks==false" ></i>
                   <i class="icon-double-angle-up" ng-show="showSubtasks==true"></i>
@@ -33,7 +40,21 @@
                 </span>
 
               </div>
-              <ng-include src="'task/partial-subtasks.html'"></ng-include>
+
+              <div ng-init="log2=false" ng-show='showSubtasks' class="tab-content-kanban">
+                <div id="task-tab" class="tab-pane active">
+                  <div ng-repeat="subtask in item.subtasks">
+                    <ul id="tasks" class="item-list ui-sortable">
+                      <li class="item-orange" ng:class="{selected: selected}">
+                      <label class="inline">
+                        <input type="checkbox" name="subtask.complete" ng-model='selected'  ng:click="checkSubtask(item, item.subtasks)">
+                        <span class="lbl"> {{subtask.description}}</span>
+                      </label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
 
               <form class="item-list tab-content-kanban" ng-show="showSubtasks==true" ng-submit="addSubtask(item,description)">
                   <input type="text" name="description" placeholder="Agregar subtarea..." class="input" ng-model="description"/>

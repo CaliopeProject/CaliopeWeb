@@ -148,6 +148,14 @@ define(['angular','angular-dragdrop'], function (angular) {
         function(security, $scope, webSocket, tempServices) {
           var webSockets = webSocket.WebSockets();
 
+          $scope.remaining = 30;
+
+          angular.forEach($scope.item.subtask, function(value, key){
+            if(value === false){
+              $scope.remaining++;
+            }
+          });
+
           $scope.startCallback = function(event, ui) {
             $scope.showSubtasks = false;
             $scope.$emit('DragTask', [$scope.item]);
@@ -177,8 +185,8 @@ define(['angular','angular-dragdrop'], function (angular) {
           $scope.checkSubtask = function(parentTask, subtask) {
             $scope.remaining = subtask.length;
 
-            angular.forEach(subtask, function(task) {
-              if (task.complete) {
+            angular.forEach(subtask, function(subtask) {
+              if (subtask.complete) {
                 $scope.remaining--;
               }
             });
