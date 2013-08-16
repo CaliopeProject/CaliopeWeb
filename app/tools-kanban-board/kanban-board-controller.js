@@ -183,7 +183,7 @@ define(['angular','angular-dragdrop'], function (angular) {
             $scope.$emit('DragTask', [$scope.item]);
           };
 
-          $scope.addSubtask = function(parentTask, description) {
+          $scope.addSubtask = function(parentTask, description, category) {
 
             var subTask = {
               description : description,
@@ -195,8 +195,9 @@ define(['angular','angular-dragdrop'], function (angular) {
             }
 
             parentTask.subtasks.push(subTask);
+            parentTask.category = category;
 
-            tempServices.sendDataForm('tasks', 'tasks.edit', parentTask, parentTask.uuid.value, parentTask.uuid.value).then(function(data){
+            tempServices.sendDataForm('tasks', 'tasks.edit', parentTask, parentTask.uuid, parentTask.uuid).then(function(data){
               subTask.uuid = data;
             });
 
