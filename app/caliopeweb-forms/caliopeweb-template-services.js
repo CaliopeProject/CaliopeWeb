@@ -31,20 +31,39 @@ define(['angular'], function(angular) {
         Service.loadTemplateData = function () {
           var method = {};
           var params = {};
+          var promise = {};
+          var webSockets = webSocket.WebSockets();
 
           var model = Service.caliopeForm.id;
           if (Service.caliopeForm.mode === 'create') {
             method = model.concat('.getModel');
+            promise = webSockets.serversimm.sendRequest(method, params);
           }
           if (Service.caliopeForm.mode === 'edit') {
-            method = model.concat('.getData');
+
+            method = model.concat('.getModelAndData');
             params.uuid = Service.caliopeForm.uuid;
+            promise = webSockets.serversimm.sendRequest(method, params);
+
+            /*
+            method = model.concat('.getModel');
+            var promiseGetModel = webSockets.serversimm.sendRequest(method, params);
+            promiseGetModel.then(function(resultModel) {
+              console.log('resultData', resultModel);
+              if( resultModel !== undefined ) {
+                method = model.concat('.getData');
+                params.uuid = Service.caliopeForm.uuid;
+                promise = webSockets.serversimm.sendRequest(method, params);
+                promise.then( function(resultData) {
+                  console.log('resultData', resultData);
+                  if(resultData !== undefined) {
+                    resultModel.data = resultData;
+                  }
+                });
+              }
+            });
+            */
           }
-
-          var promise = {};
-
-          var webSockets = webSocket.WebSockets();
-          promise = webSockets.serversimm.sendRequest(method, params);
 
           return promise;
         };

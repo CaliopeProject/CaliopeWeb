@@ -1,13 +1,13 @@
 @media only screen and (max-width: 480px) {
   /* line 2, ../common-scss/w8-responsive.scss */
   .hidden-480 {
-    display: none !important;
+    display: none!important;
   }
 }
 @media only screen and (max-width: 320px) {
   /* line 8, ../common-scss/w8-responsive.scss */
   .hidden-320 {
-    display: none !important;
+    display: none!important;
   }
 }
 @media only screen and (max-width: 767px) {
@@ -119,11 +119,11 @@
   /* line 112, ../common-scss/w8-responsive.scss */
   .ace-nav {
     display: block;
-    float: none !important;
+    float: none!important;
     text-align: center;
     font-size: 0;
     background-color: #404040;
-    border: 1px solid #DDD;
+    border: 1px solid #dddddd;
     border-width: 1px 0;
     letter-spacing: -4px;
     word-spacing: -4px;
@@ -131,18 +131,18 @@
   /* line 122, ../common-scss/w8-responsive.scss */
   .ace-nav > li {
     display: inline-block;
-    float: none !important;
+    float: none!important;
     text-align: left;
     letter-spacing: normal;
     word-spacing: normal;
   }
   /* line 128, ../common-scss/w8-responsive.scss */
   .ace-nav > li:first-child {
-    border-left: 1px solid #DDD;
+    border-left: 1px solid #dddddd;
   }
   /* line 131, ../common-scss/w8-responsive.scss */
   .ace-nav > li:last-child {
-    border-right: 1px solid #DDD;
+    border-right: 1px solid #dddddd;
   }
 }
 @media only screen and (max-width: 260px) {
@@ -282,13 +282,13 @@
     left: -200px;
     margin-top: 40px;
     position: fixed;
-    border: 1px solid #CCC;
+    border: 1px solid #cccccc;
     box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
-    -webkit-transition: left .15s ease;
-    -moz-transition: left .15s ease;
-    -o-transition: left .15s ease;
-    -ms-transition: left .15s ease;
-    transition: left .15s ease;
+    -webkit-transition: left 0.15s ease;
+    -moz-transition: left 0.15s ease;
+    -o-transition: left 0.15s ease;
+    -ms-transition: left 0.15s ease;
+    transition: left 0.15s ease;
   }
   /* line 250, ../common-scss/w8-responsive.scss */
   #sidebar:before {
@@ -311,7 +311,7 @@
 
   /* line 276, ../common-scss/w8-responsive.scss */
   #main-content {
-    margin-left: 0 !important;
+    margin-left: 0!important;
   }
 
   /* line 279, ../common-scss/w8-responsive.scss */
@@ -348,11 +348,11 @@
     z-index: 11;
     top: 13px;
     left: 4px;
-    -moz-transition: all .1s ease;
-    -webkit-transition: all .1s ease;
-    -o-transition: all .1s ease;
-    -ms-transition: all .1s ease;
-    transition: all .1s ease;
+    -moz-transition: all 0.1s ease;
+    -webkit-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    -ms-transition: all 0.1s ease;
+    transition: all 0.1s ease;
   }
   /* line 315, ../common-scss/w8-responsive.scss */
   #menu-toggler:after {
@@ -364,11 +364,11 @@
     position: absolute;
     top: 19px;
     left: 4px;
-    -moz-transition: all .1s ease;
-    -webkit-transition: all .1s ease;
-    -o-transition: all .1s ease;
-    -ms-transition: all .1s ease;
-    transition: all .1s ease;
+    -moz-transition: all 0.1s ease;
+    -webkit-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    -ms-transition: all 0.1s ease;
+    transition: all 0.1s ease;
   }
   /* line 331, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:before {
@@ -582,7 +582,7 @@
 
   /* line 523, ../common-scss/w8-responsive.scss */
   .grid3 > [class*="pull-"], .grid4 > [class*="pull-"] {
-    float: none !important;
+    float: none!important;
     display: inline-block;
     position: absolute;
     right: 11px;
@@ -626,7 +626,7 @@
   /* line 557, ../common-scss/w8-responsive.scss */
   .help-inline, .input-icon + .help-inline {
     padding-left: 0;
-    display: block !important;
+    display: block!important;
   }
 }
 @media only screen and (max-width: 640px) {

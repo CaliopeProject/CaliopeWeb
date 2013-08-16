@@ -34,6 +34,28 @@ define(['angular','angular-dragdrop'], function (angular) {
 
           webSockets.serversimm.sendRequest(method, params).then(function(data){
             $scope.data = data;
+            /**
+             * Tranform data from server. Example:
+             *
+             * {}
+             */
+            if(data !== undefined ) {
+              var i;
+              for(i=0; i < data.length; i++) {
+                var j;
+                for(j=0; j < data.length; j++) {
+                  var obj = data[i].tasks[j];
+                  if( obj !== undefined ) {
+                    var varName;
+                    for( varName in obj ) {
+                      if( obj[varName].value !== undefined ) {
+                        obj[varName] = obj[varName].value;
+                      }
+                    }
+                  }
+                }
+              }
+            }
 
             /*Tmp for test subtask in kanban*/
             var task;
@@ -116,13 +138,13 @@ define(['angular','angular-dragdrop'], function (angular) {
           findCateg = function (array, value) {
             var i, items;
             for(i = 0; i<array.length; i++) {
-              if(array[i].uuid.value === value.value){
+              if(array[i].uuid === value){
                 return array[i].categ;
               }
             }
           };
 
-          uuid         = JSON.parse(ui.draggable.attr("uuid"));
+          uuid         = ui.draggable.attr("uuid");
           categ        = findCateg(itemsbycateg, uuid);
 
           console.log('uuid',uuid);

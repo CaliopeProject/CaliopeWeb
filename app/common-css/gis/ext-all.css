@@ -3638,7 +3638,7 @@ table.x-date-inner {
 /* line 3258, ../../common-scss/gis/ext-all.scss */
 .x-date-mp td {
   padding: 2px;
-  font: normal 11px arial, helvetica,tahoma,sans-serif;
+  font: normal 11px arial, helvetica, tahoma, sans-serif;
 }
 
 /* line 3265, ../../common-scss/gis/ext-all.scss */
@@ -4547,7 +4547,7 @@ Creates rounded, raised boxes like on the Ext website - the markup isn't pretty:
 
 /* line 4070, ../../common-scss/gis/ext-all.scss */
 .x-tool-close {
-  background-position: 0 -0;
+  background-position: 0 0;
 }
 
 /* line 4074, ../../common-scss/gis/ext-all.scss */
@@ -5682,7 +5682,7 @@ body.ext-ie6.x-body-masked .x-window select {
 /* IE6 strict won't drag w/out a color */
 /* line 5028, ../../common-scss/gis/ext-all.scss */
 .ext-strict .ext-ie6 .x-layout-split {
-  background-color: #fff !important;
+  background-color: white !important;
   filter: alpha(opacity=1);
 }
 
@@ -6243,7 +6243,7 @@ ul.x-tab-strip-bottom {
 
 /* line 5524, ../../common-scss/gis/ext-all.scss */
 .x-tab-strip span.x-tab-strip-text {
-  font: normal 11px tahoma,arial,helvetica;
+  font: normal 11px tahoma, arial, helvetica;
   color: #416aa3;
 }
 
@@ -6479,7 +6479,7 @@ ul.x-tab-strip-bottom {
 }
 /* line 5726, ../../common-scss/gis/ext-all.scss */
 .x-btn button {
-  font: normal 11px arial,tahoma,verdana,helvetica;
+  font: normal 11px arial, tahoma, verdana, helvetica;
   color: #333;
 }
 /* line 5730, ../../common-scss/gis/ext-all.scss */
@@ -6574,7 +6574,7 @@ ul.x-tab-strip-bottom {
 }
 /* line 5806, ../../common-scss/gis/ext-all.scss */
 .x-toolbar td, .x-toolbar span, .x-toolbar input, .x-toolbar div, .x-toolbar select, .x-toolbar label {
-  font: normal 11px arial,tahoma, helvetica, sans-serif;
+  font: normal 11px arial, tahoma, helvetica, sans-serif;
 }
 /* line 5809, ../../common-scss/gis/ext-all.scss */
 .x-toolbar .x-item-disabled {
@@ -6841,7 +6841,7 @@ td.grid-hd-group-cell {
 }
 /* line 6024, ../../common-scss/gis/ext-all.scss */
 .x-grid3-cell-selected span {
-  color: #000 !important;
+  color: black !important;
 }
 /* line 6027, ../../common-scss/gis/ext-all.scss */
 .x-grid3-cell-selected .x-grid3-cell-text {
@@ -6883,11 +6883,11 @@ td.grid-hd-group-cell {
 /* line 6061, ../../common-scss/gis/ext-all.scss */
 .x-props-grid .x-grid3-td-name .x-grid3-cell-inner {
   background-image: url(/tools-gis-viewer/images/extjs/default/grid/grid3-special-col-bg.gif) !important;
-  color: #000 !important;
+  color: black !important;
 }
 /* line 6065, ../../common-scss/gis/ext-all.scss */
 .x-props-grid .x-grid3-body .x-grid3-td-name {
-  background-color: #fff !important;
+  background-color: white !important;
   border-right-color: #eee;
 }
 
@@ -7044,7 +7044,7 @@ td.grid-hd-group-cell {
 .x-dd-drag-ghost {
   color: #000;
   font: normal 11px arial, helvetica, sans-serif;
-  border-color: #ddd #bbb #bbb #ddd;
+  border-color: #dddddd #bbbbbb #bbbbbb #dddddd;
   background-color: #fff;
 }
 
@@ -7259,7 +7259,7 @@ td.grid-hd-group-cell {
   background-color: #dfecfb;
   background-image: url(/tools-gis-viewer/images/extjs/default/shared/glass-bg.gif);
   border-bottom-color: #a3bad9;
-  font: normal 10px arial, helvetica,tahoma,sans-serif;
+  font: normal 10px arial, helvetica, tahoma, sans-serif;
   color: #233d6d;
 }
 /* line 6394, ../../common-scss/gis/ext-all.scss */
@@ -7268,7 +7268,7 @@ td.grid-hd-group-cell {
 }
 /* line 6397, ../../common-scss/gis/ext-all.scss */
 .x-date-inner a {
-  font: normal 11px arial, helvetica,tahoma,sans-serif;
+  font: normal 11px arial, helvetica, tahoma, sans-serif;
   color: #000;
 }
 /* line 6401, ../../common-scss/gis/ext-all.scss */
@@ -7319,7 +7319,7 @@ td.grid-hd-group-cell {
 
 /* line 6441, ../../common-scss/gis/ext-all.scss */
 .x-date-mmenu {
-  background-color: #eee !important;
+  background-color: #eeeeee !important;
 }
 /* line 6443, ../../common-scss/gis/ext-all.scss */
 .x-date-mmenu .x-menu-item {
@@ -7333,7 +7333,7 @@ td.grid-hd-group-cell {
 }
 /* line 6451, ../../common-scss/gis/ext-all.scss */
 .x-date-mp td {
-  font: normal 11px arial, helvetica,tahoma,sans-serif;
+  font: normal 11px arial, helvetica, tahoma, sans-serif;
 }
 
 /* line 6456, ../../common-scss/gis/ext-all.scss */
@@ -7346,7 +7346,7 @@ td.grid-hd-group-cell {
   background-color: #083772;
   color: #fff;
   border-color: #3366cc #000055 #000055 #3366cc;
-  font: normal 11px arial, helvetica,tahoma,sans-serif;
+  font: normal 11px arial, helvetica, tahoma, sans-serif;
 }
 /* line 6465, ../../common-scss/gis/ext-all.scss */
 .x-date-mp-btns td {
@@ -7389,7 +7389,7 @@ td.x-date-mp-sep {
 }
 /* line 6500, ../../common-scss/gis/ext-all.scss */
 .x-tip .x-tip-mc {
-  font: normal 11px tahoma,arial,helvetica,sans-serif;
+  font: normal 11px tahoma, arial, helvetica, sans-serif;
 }
 /* line 6503, ../../common-scss/gis/ext-all.scss */
 .x-tip .x-tip-ml {
@@ -7397,12 +7397,12 @@ td.x-date-mp-sep {
 }
 /* line 6506, ../../common-scss/gis/ext-all.scss */
 .x-tip .x-tip-header-text {
-  font: bold 11px tahoma,arial,helvetica,sans-serif;
+  font: bold 11px tahoma, arial, helvetica, sans-serif;
   color: #444;
 }
 /* line 6510, ../../common-scss/gis/ext-all.scss */
 .x-tip .x-tip-body {
-  font: normal 11px tahoma,arial,helvetica,sans-serif;
+  font: normal 11px tahoma, arial, helvetica, sans-serif;
   color: #444;
 }
 
@@ -7438,7 +7438,7 @@ td.x-date-mp-sep {
 
 /* line 6542, ../../common-scss/gis/ext-all.scss */
 .x-menu-list-item {
-  font: normal 11px arial,tahoma,sans-serif;
+  font: normal 11px arial, tahoma, sans-serif;
 }
 
 /* line 6546, ../../common-scss/gis/ext-all.scss */
@@ -7495,7 +7495,7 @@ a.x-menu-item {
 
 /* line 6590, ../../common-scss/gis/ext-all.scss */
 .x-date-menu, .x-color-menu {
-  background-color: #fff !important;
+  background-color: white !important;
 }
 
 /* line 6594, ../../common-scss/gis/ext-all.scss */
@@ -7677,7 +7677,7 @@ a.x-menu-item {
 /* line 6741, ../../common-scss/gis/ext-all.scss */
 .x-panel-tl .x-panel-header {
   color: #15428b;
-  font: bold 11px tahoma,arial,verdana,sans-serif;
+  font: bold 11px tahoma, arial, verdana, sans-serif;
 }
 
 /* line 6746, ../../common-scss/gis/ext-all.scss */
@@ -7698,7 +7698,7 @@ a.x-menu-item {
 
 /* line 6759, ../../common-scss/gis/ext-all.scss */
 .x-panel-mc {
-  font: normal 11px tahoma,arial,helvetica,sans-serif;
+  font: normal 11px tahoma, arial, helvetica, sans-serif;
   background-color: #dfe8f6;
 }
 
@@ -7734,7 +7734,7 @@ a.x-menu-item {
 
 /* line 6789, ../../common-scss/gis/ext-all.scss */
 .x-panel-fbar td, .x-panel-fbar span, .x-panel-fbar input, .x-panel-fbar div, .x-panel-fbar select, .x-panel-fbar label {
-  font: normal 11px arial,tahoma, helvetica, sans-serif;
+  font: normal 11px arial, tahoma, helvetica, sans-serif;
 }
 
 /* line 6794, ../../common-scss/gis/ext-all.scss */
@@ -7746,7 +7746,7 @@ a.x-menu-item {
 /* line 6799, ../../common-scss/gis/ext-all.scss */
 .x-window-tl .x-window-header {
   color: #15428b;
-  font: bold 11px tahoma,arial,verdana,sans-serif;
+  font: bold 11px tahoma, arial, verdana, sans-serif;
 }
 
 /* line 6804, ../../common-scss/gis/ext-all.scss */
@@ -7782,7 +7782,7 @@ a.x-menu-item {
 /* line 6828, ../../common-scss/gis/ext-all.scss */
 .x-window-mc {
   border-color: #99bbe8;
-  font: normal 11px tahoma,arial,helvetica,sans-serif;
+  font: normal 11px tahoma, arial, helvetica, sans-serif;
   background-color: #dfe8f6;
 }
 
@@ -8027,7 +8027,7 @@ body.x-body-masked .x-window-plain .x-window-mc {
 }
 /* line 7034, ../../common-scss/gis/ext-all.scss */
 .x-window-dlg .ext-mb-textarea {
-  font: normal 12px tahoma,arial,helvetica,sans-serif;
+  font: normal 12px tahoma, arial, helvetica, sans-serif;
 }
 /* line 7037, ../../common-scss/gis/ext-all.scss */
 .x-window-dlg .x-msg-box-wait {
