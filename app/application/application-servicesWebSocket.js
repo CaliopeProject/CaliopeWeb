@@ -144,6 +144,13 @@ define(['angular', 'uuid'], function(angular) {
         ws.onerror = function(errorEvent) {
           console.log("Error en ws! ", errorEvent);
         };
+
+        ws.onclose = function(event) {
+          console.log("Socket has been closed! ");
+          $rootScope.$broadcast('closeWebSocket', []);
+          initWebSockets();
+        };
+
       }
 
        /**

@@ -240,6 +240,10 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
       // Is the current user an adminstrator?
       isAdmin: function() {
         return !!(service.currentUser && service.currentUser.admin);
+      },
+
+      resetAuthentication : function()  {
+        service.currentUser = null;
       }
     };
 

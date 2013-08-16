@@ -37,12 +37,16 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
           }
         };
 
-        $scope.init = function () {
+       $scope.$on('openWebSocket', function(event, data) {
+         var uuid = sessionUuid.getIdSession();
+         security.requestCurrentUser(uuid);
+       });
 
-          $scope.$on('openWebSocket', function(event, data) {
-            var uuid = sessionUuid.getIdSession();
-            security.requestCurrentUser(uuid);
-          });
+       $scope.$on('closeWebSocket', function(event, data) {
+         security.resetAuthentication();
+       });
+
+        $scope.init = function () {
 
           timerMessage(initMessage);
 
