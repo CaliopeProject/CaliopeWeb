@@ -84,7 +84,23 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
     ]
   );
 
-  moduleServices.factory('loginSecurity', ['$http', '$q', '$location', 'loginRetryQueue', '$dialog', 'LoginSrv','SessionSrv','webSocket', function($http, $q, $location, queue, $dialog, LoginSrv, SessionSrv, webSocket) {
+  moduleServices.factory('loginSecurity', [
+  '$http',
+  '$q',
+  '$location',
+  'loginRetryQueue',
+  '$dialog',
+  'LoginSrv',
+  'SessionSrv',
+  'webSocket',
+  function($http,
+  $q,
+  $location,
+  queue,
+  $dialog,
+  LoginSrv,
+  SessionSrv,
+  webSocket) {
 
     var opts = {
       backdrop: true,
@@ -158,11 +174,11 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         };
 
         var webSockets = webSocket.WebSockets();
-        var request = webSockets.serversimm.sendRequest(method, params);
+        var request    = webSockets.serversimm.sendRequest(method, params);
 
         return request.then(function(data) {
           if(data.user !== undefined){
-            service.currentUser = data.user;
+            service.currentUser = data;
             SessionSrv.createSession(data.uuid,data.user);
           }else{
             service.currentUser = null;
@@ -205,7 +221,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         }
         return LoginSrv.currentAuthenticate(uuidLocalStorage).then(function(data) {
           if(data.user !== undefined){
-            service.currentUser = data.user;
+            service.currentUser = data;
           }else{
             service.currentUser = null;
           }
