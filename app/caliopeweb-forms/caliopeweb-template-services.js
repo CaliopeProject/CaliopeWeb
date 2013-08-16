@@ -40,36 +40,29 @@ define(['angular'], function(angular) {
             promise = webSockets.serversimm.sendRequest(method, params);
           }
           if (Service.caliopeForm.mode === 'edit') {
-            /*
-            method = model.concat('.getModelAndData');
-            params.uuid = Service.caliopeForm.uuid;
-            promise = webSockets.serversimm.sendRequest(method, params);
-            */
 
-            method = model.concat('.getData');
-            params.uuid = Service.caliopeForm.uuid;
-            var data = undefined;
-            promise = webSockets.serversimm.sendRequest(method, params);
-            promise.then(function(resultData) {
-              if( resultData !== undefined ) {
-                data = resultData;
-              }
-            });
+            var deferred = $q.defer();
+            promise = deferred.promise;
 
-            delete params.uuid;
             method = model.concat('.getModel');
             var promiseGetModel = webSockets.serversimm.sendRequest(method, params);
 
-
             promiseGetModel.then(function(resultModel) {
-              if( resultModel !== undefined ) {
-                resultModel.data = data;
-              }
-              promise.resolve(resultModel);
+              method = model.concat('.getData');
+              params.uuid = Service.caliopeForm.uuid;
+              var promiseGetData = webSockets.serversimm.sendRequest(method, params);
+              promiseGetData.then(function(resultData) {
+                if( resultData !== undefined && resultModel !== undefined ) {
+                  resultModel.data = resultData;
+                }
+
+                deferred.resolve(resultModel);
+              });
+
             });
 
-
           }
+
 
           return promise;
         };
