@@ -60,7 +60,6 @@ define(['angular','angular-dragdrop'], function (angular) {
             /*Tmp for test subtask in kanban*/
             var task;
             if(data !== undefined) {
-              console.log('data', data);
               task = data[0].tasks[0];
               var updateData = [
                 {
@@ -147,22 +146,19 @@ define(['angular','angular-dragdrop'], function (angular) {
           uuid         = ui.draggable.attr("uuid");
           categ        = findCateg(itemsbycateg, uuid);
 
-          console.log('uuid',uuid);
-          console.log('cagt',categ);
-
           if(categ !== undefined){
             data = $scope.taskDrag;
             data.category = categ;
-            delete data.subtasks;
             tempServices.sendDataForm('tasks', 'tasks.edit', data, uuid.value, uuid.value );
           }
         };
 
         $scope.$on('DragTask', function(event, data) {
-          var task = data[0];
-          $scope.taskDrag = task;
+          angular.forEach(data, function(value, key){
+            $scope.taskDrag = value;
+            console.log('158 kanbanboarad controller', key);
+          });
         });
-
       }]);
 
 
@@ -170,7 +166,7 @@ define(['angular','angular-dragdrop'], function (angular) {
         function(security, $scope, webSocket, tempServices) {
           var webSockets = webSocket.WebSockets();
 
-          $scope.remaining = 30;
+          $scope.remaining = 0;
 
           angular.forEach($scope.item.subtask, function(value, key){
             if(value === false){
@@ -183,7 +179,7 @@ define(['angular','angular-dragdrop'], function (angular) {
             $scope.$emit('DragTask', [$scope.item]);
           };
 
-          $scope.addSubtask = function(parentTask, description) {
+          $scope.addSubtask = function(parentTask, description, category) {
 
             var subTask = {
               description : description,
@@ -195,8 +191,9 @@ define(['angular','angular-dragdrop'], function (angular) {
             }
 
             parentTask.subtasks.push(subTask);
+            parentTask.category = category;
 
-            tempServices.sendDataForm('tasks', 'tasks.edit', parentTask, parentTask.uuid.value, parentTask.uuid.value).then(function(data){
+            tempServices.sendDataForm('tasks', 'tasks.edit', parentTask, parentTask.uuid, parentTask.uuid).then(function(data){
               subTask.uuid = data;
             });
 

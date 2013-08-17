@@ -76,6 +76,7 @@ define(['angular', 'uuid'], function(angular) {
           return request;
         }
 
+
         /**
          * Send a message to the server.
          * @param method Method name to be invoked in the server.
@@ -85,14 +86,25 @@ define(['angular', 'uuid'], function(angular) {
         function sendRequest (method, params) {
 
           var defer = $q.defer();
+          var output;
           var callbackId = UUIDjs.create().hex;
           var request = createRequest(method, params, callbackId);
           callbacks[callbackId] = {
             time: new Date(),
             cb:defer
           };
-          console.log('Sending request', request);
-          ws.send(JSON.stringify(request));
+
+          //if(request.params.data.$$hashKey){
+            //delete request.params.data.$$hashKey;
+          //}
+
+
+          //fix remove $$hashKey
+          output = angular.toJson(request);
+          output = angular.fromJson(output);
+
+          console.log('Sending request file application-servicesWebsocket 106', (output));
+          ws.send(JSON.stringify(output));
           var promise = handlerResponseSrv.addPromisesHandlerRespNotif(defer.promise);
           return promise;
         }

@@ -25,13 +25,13 @@
                 <h6> {{item.descripcion.value}} </h6>
               </div>
 
-              <div ng-show='log' class="lbl widget-toolbar-kanban no-border" >
+              <div class="lbl widget-toolbar-kanban no-border" >
                 <span class="text-info" ng-click="showSubtasks=!showSubtasks">
                   <i class="icon-double-angle-down" ng-show="showSubtasks==false" ></i>
                   <i class="icon-double-angle-up" ng-show="showSubtasks==true"></i>
                 </span>
 
-                <span class="text-info" ng-click="editTask(item.uuid, obj.category)">
+                <span class="text-warning" ng-click="editTask(item.uuid, obj.category)">
                   <i class="icon-edit"></i>
                 </span>
 
@@ -45,9 +45,9 @@
                 <div id="task-tab" class="tab-pane active">
                   <div ng-repeat="subtask in item.subtasks">
                     <ul id="tasks" class="item-list ui-sortable">
-                      <li class="item-orange" ng:class="{selected: selected}">
+                      <li class="item-orange" ng-class="{'selected': subtask.complete}">
                       <label class="inline">
-                        <input type="checkbox" name="subtask.complete" ng-model='selected'  ng:click="checkSubtask(item, item.subtasks)">
+                        <input type="checkbox" name="subtask.complete" ng-model='subtask.complete'  ng:click="checkSubtask(item, item.subtasks)">
                         <span class="lbl"> {{subtask.description}}</span>
                       </label>
                       </li>
@@ -56,7 +56,7 @@
                 </div>
               </div>
 
-              <form class="item-list tab-content-kanban" ng-show="showSubtasks==true" ng-submit="addSubtask(item,description)">
+              <form class="item-list tab-content-kanban" ng-show="showSubtasks==true" ng-submit="addSubtask(item,description,obj.category)">
                   <input type="text" name="description" placeholder="Agregar subtarea..." class="input" ng-model="description"/>
               </form>
 
