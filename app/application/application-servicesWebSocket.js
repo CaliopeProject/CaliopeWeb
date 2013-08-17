@@ -98,12 +98,12 @@ define(['angular', 'uuid'], function(angular) {
             //delete request.params.data.$$hashKey;
           //}
 
-          console.log('Sending request', angular.toJson(request));
 
           //fix remove $$hashKey
           output = angular.toJson(request);
           output = angular.fromJson(output);
 
+          console.log('Sending request file application-servicesWebsocket 106', (output));
           ws.send(JSON.stringify(output));
           var promise = handlerResponseSrv.addPromisesHandlerRespNotif(defer.promise);
           return promise;
@@ -163,8 +163,8 @@ define(['angular', 'uuid'], function(angular) {
         */
       function initWebSockets() {
         var wsTemplates = new WebSocketCaliope(
-            //'ws://' + document.domain + ':' + location.port + '/api/ws'
-            'ws://' + '192.168.0.25' + ':' + location.port + '/api/ws'
+            'ws://' + document.domain + ':' + location.port + '/api/ws'
+            //'ws://' + '192.168.0.25' + ':' + location.port + '/api/ws'
           );
         webSockets.serversimm = wsTemplates;
       }
