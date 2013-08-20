@@ -1,7 +1,6 @@
 /*jslint browser: true*/
 /*global define, console, $*/
 
-
 define(['angular','angular-dragdrop'], function (angular) {
   'use strict';
   var dirmodule = angular.module('kanbanBoardCtrl', ['login-security-services','ngDragDrop']);
