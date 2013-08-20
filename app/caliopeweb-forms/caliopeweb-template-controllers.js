@@ -29,13 +29,15 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         $scope.$watch('jsonPlantilla', function (value) {
           if( value !== undefined && value.error === undefined) {
             var result = calwebTemSrv.load(value, $scope);
-            if( result.structureToRender !== undefined ) {
-              $scope.jsonPlantillaAngular = result.structureToRender;
+            if( result !== undefined ) {
+              if( result.structureToRender !== undefined ) {
+                $scope.jsonPlantillaAngular = result.structureToRender;
+              }
+              if( result.elementsName !== undefined ) {
+                $scope.elementsFormTemplate   = result.elementsName;
+              }
+              $scope.modelUUID               = result.modelUUID;
             }
-            if( result.elementsName !== undefined ) {
-              $scope.elementsFormTemplate   = result.elementsName;
-            }
-            $scope.modelUUID               = result.modelUUID;
           }
         });
 
@@ -77,16 +79,18 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         $scope.$watch('jsonPlantilla', function (value) {
           if( value !== undefined && value.error === undefined) {
             var result = calwebTemSrv.load(value, $scope);
-            $scope.jsonPlantillaAngular = result.structureToRender;
-            $scope.elementsFormTemplate   = result.elements;
-            $scope.modelUUID             = result.modelUUID;
+            if( result !== undefined ) {
+              $scope.jsonPlantillaAngular = result.structureToRender;
+              $scope.elementsFormTemplate   = result.elements;
+              $scope.modelUUID             = result.modelUUID;
 
-            var inputs = $scope.elementsFormTemplate;
-            var i;
-            for (i = 0; i < inputs.length; i++) {
-              var nameVarScope = inputs[i].name;
-              if( action[nameVarScope] !== undefined) {
-                $scope[nameVarScope] = action[nameVarScope];
+              var inputs = $scope.elementsFormTemplate;
+              var i;
+              for (i = 0; i < inputs.length; i++) {
+                var nameVarScope = inputs[i].name;
+                if( action[nameVarScope] !== undefined) {
+                  $scope[nameVarScope] = action[nameVarScope];
+                }
               }
             }
           }

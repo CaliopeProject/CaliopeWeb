@@ -872,7 +872,7 @@ var CaliopeWebFormLayoutDecorator = ( function() {
     return container;
   }
 
-  function applyLayaout(layout, elementsInputs, structureInit) {
+  function applyLayout(layout, elementsInputs, structureInit) {
 
     var htmlElements = [];
 
@@ -895,7 +895,7 @@ var CaliopeWebFormLayoutDecorator = ( function() {
 
       caliopeWebForm.createStructureToRender = function() {
         if( layout !== undefined && layout.length > 0) {
-          applyLayaout(layout, elementsInputs, structureInit);
+          applyLayout(layout, elementsInputs, structureInit);
         }
         return structureInit;
       };
