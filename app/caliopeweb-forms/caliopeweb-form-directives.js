@@ -113,8 +113,19 @@ define(['angular', 'dform'], function (angular) {
 
   });
 
+
   /**
-  */
+   * @ngdoc directive
+   * @name cw.directive:cwValidationMess
+   * @restrict E
+   * @replace true
+   *
+   * @description
+   * Define the directive for add validation message to forms. This use template define in
+   * 'caliopeweb-forms/caliopeweb-valmess-partial.html'
+   *
+   *
+   */
   moduleDirectives.directive('cwValidationMess', function ($compile) {
 
     /**

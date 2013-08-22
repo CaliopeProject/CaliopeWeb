@@ -1,26 +1,112 @@
 /**
- * Module of Caliope Web Form.
+ * Constructor not execute functionality associate to initialize variables, this is the constructor by default.
+ * @class CaliopeWebForm
+ * @classdesc  Module of Caliope Web Form.  This represent the form object in presentation layer. The
+ * representation of structure to render is specific to render the form with library
+ * Jquery Dform, additionally the structure to render is generated for support Angular JS.
+ * @author Daniel Ochoa <ndaniel8a@gmail.com>
+ * @author Cesar Gonzalez <aurigadl@gmail.com>
+ * @license  GNU AFFERO GENERAL PUBLIC LICENSE
+ * @copyright
+   SIIM2 Models are the data definition of SIIM2 Information System
+   Copyright (C) 2013 Infometrika Ltda.
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Affero General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Affero General Public License for more details.
+
+   You should have received a copy of the GNU Affero General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 var CaliopeWebForm = (function() {
 
+  /**
+   * Name of the form
+   * @member {string} formName
+   * @memberOf CaliopeWebForm
+   *
+   */
     var formName;
+  /**
+   * Identifier of data corresponding to the form
+   * @member {string} modelUUID
+   * @memberOf CaliopeWebForm
+   */
     var modelUUID;
+  /**
+   * Structure in JSON format with dform syntax. This store the original structure retrieved
+   * from the server.
+   * @member {object} structure
+   * @memberOf CaliopeWebForm
+   */
     var structure;
+  /**
+   * Data associated to the form, this is retrieved from the server.
+   * @member {object} data
+   * @memberOf CaliopeWebForm
+   *
+   */
     var data;
+  /**
+   * Potential actions of the form, this is retrieved from the server.
+   * @member {object} actions
+   * @memberOf CaliopeWebForm
+   *
+   */
     var actions;
+  /**
+   * Translations for the label inputs in the form.
+   * @member {object} translations
+   * @memberOf CaliopeWebForm
+   *
+   */
     var translations;
+  /**
+   * Store the structure to render with dform
+   * @member {object} structureToRender
+   * @memberOf CaliopeWebForm
+   *
+   */
     var structureToRender;
+  /**
+   * Store the layout retrieved to the server.
+   * @member {object} layout
+   * @memberOf CaliopeWebForm
+   *
+   */
     var layout;
     /**
      * Contains the elements (inputs) of form
+     * @member {object} elementsForm
+     * @memberOf CaliopeWebForm
+     *
      */
     var elementsForm;
     /**
-     * Contains the names of the elements(inputs).
+     * Contains the names of the elements (inputs).
+     * @member {object} elementsFormName
+     * @memberOf CaliopeWebForm
+     *
      */
     var elementsFormName;
 
-
+  /**
+   * This function search all the elements that are presents in the form structure. This function
+   * search in deep recursively. This is when in structure form a element contains a html
+   * property
+   * @function
+   * @memberOf CaliopeWebForm
+   * @param {object} structureForm Form structure in Json with syntax dform.
+   * @returns {{elements: Array, elementsName: Array}} Elements contains all object elements find
+   * in the structureForm and elementsName contains all names of the elements in the structureForm
+   */
     function searchElementsRecursive(structureForm) {
       var elements = [];
       var elementsName = [];
@@ -39,6 +125,14 @@ var CaliopeWebForm = (function() {
       };
     }
 
+  /**
+   * This function search all the elements (inputs) presents in the html property.
+   * @function
+   * @memberOf CaliopeWebForm
+   * @param {object} elementsAll All the Elements contents in the html property
+   * @returns {{elements: *, elementsName: Array}}  Elements contains all object elements find
+   * in the elementsAll and elementsName contains all names of the elements in the elementsAll
+   */
     function searchElementsIndividual(elementsAll) {
       var elementsTypeName = [], i;
 
@@ -68,6 +162,15 @@ var CaliopeWebForm = (function() {
       };
     }
 
+  /**
+   * This function search all the elements that are presents in the _structure. This function
+   * invoke the search elements recursive.
+   * @function
+   * @memberOf CaliopeWebForm
+   * @param {object} _structure Json structure for search the elements
+   * @returns {{elements: *, elementsName: *}}. Elements contains all object elements find
+   * in the _structure and elementsName contains all names of the elements in the _structure
+   */
     function searchElements(_structure) {
       var result = searchElementsRecursive(_structure);
       return {
@@ -80,13 +183,15 @@ var CaliopeWebForm = (function() {
   /**
    * Constructor of CaliopeWebForm module
    * @constructor
+   * @memberOf CaliopeWebForm
+   *
    */
     var CaliopeWebForm = function() {
     };
 
   /**
    * Prototype of CaliopeWebForms module
-   * @type {{}}
+   * @type CaliopeWebForm
    */
   CaliopeWebForm.prototype = {
     /**
@@ -94,9 +199,13 @@ var CaliopeWebForm = (function() {
      */
       constructor:  CaliopeWebForm,
     /**
-     * Add the initial structure to the form
-     * @param _structure Structure of the form
-     * @param _formName Name of the form
+     * Add the form structure retrieve from the server to the property structure. Also search
+     * the elements (inputs) and elements names that contains the structure.
+     * This structure is in JSON format and syntax jquery dform.
+     * @function
+     * @memberOf CaliopeWebForm
+     * @param {object} _structure Structure of the form
+     * @param {string} _formName Name of the form
      */
       addStructure: function (_structure, _formName) {
         var result = searchElements(_structure);
@@ -106,8 +215,11 @@ var CaliopeWebForm = (function() {
         structure = _structure;
       },
     /**
-     * Add the data structure to the form.
-     * @param _data
+     * Add the data to the data attribute and get the value of identifier of object data and
+     * add the value to modelUUID attribute.
+     * @function
+     * @memberOf CaliopeWebForm
+     * @param _data {object} Json Structure representing the data
      */
       addData: function(_data) {
         data = _data;
@@ -116,32 +228,41 @@ var CaliopeWebForm = (function() {
         }
       },
     /**
-     * Add the actions structure to the form
-     * @param _actions
+     * Add the actions structure to the actions attribute.
+     * @function
+     * @memberOf CaliopeWebForm
+     * @param _actions {_object} Json structure representing the actions
      */
       addActions: function(_actions) {
         actions = _actions;
       },
     /**
-     *
-     * @param _translations
+     * Add the translations retrieve from the server to the translations attribute
+     * @function
+     * @memberOf CaliopeWebForm
+     * @param _translations {object} Json structure representing the translations
      */
       addTranslations: function(_translations) {
         translations = _translations;
       },
 
     /**
-     *
-     * @param _layout
+     * Add the layout retrieve from the server to layout attribute
+     * @function
+     * @memberOf CaliopeWebForm
+     * @param _layout {_object}  Json structure representing the layout
      */
       addlayout: function(_layout) {
          layout = _layout;
       },
 
     /**
-     * Create the structure for the render the form. Use decorates for add new structure
-     * to original structure.
-     * @returns {*}
+     * Create the structure to render the form. When decorates are using, then the original
+     * structure change
+     *
+     * @function
+     * @memberOf CaliopeWebForm
+     * @returns {object} The structure to render.
      */
       createStructureToRender : function() {
         structureToRender = structure;
@@ -149,8 +270,11 @@ var CaliopeWebForm = (function() {
       },
 
     /**
-     * Get the actions structure
-     * @returns {*}
+     * Get the actions added
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {object}
      */
       getActions : function() {
         return actions;
@@ -158,48 +282,75 @@ var CaliopeWebForm = (function() {
 
 
     /**
-     *  Get the form data
-     * @returns {*}
+     *  Get the data added
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {object}
      */
       getData : function() {
         return data;
       },
 
     /**
-     * Get the elements (input) of the form.
-     * @returns {*}
+     * Get the elements (input) contains in the structure
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {object}
      */
       getElements : function() {
         return elementsForm;
       },
 
     /**
-     * Get the layout of the template.
-     * @param {*}
+     * Get the layout contains in the structure
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @param {object}
      */
       getlayout : function() {
          return layout;
       },
     /**
      * Get the names of the elements (inputs).
-     * @returns {*}
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {object} Names of the elements contains in the json structure
      */
       getElementsName : function() {
         return elementsFormName;
       },
     /**
      * Get the name of the form.
-     * @returns {*}
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {string}
      */
       getFormName : function() {
         return formName;
       },
+    /**
+     * Get the UUID or identifier of the data.
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {string}
+     */
       getModelUUID : function() {
         return modelUUID;
       },
     /**
-     * Put the data represented for data structure in a specific context.
-     * @param context
+     * Put the data represented for data structure in a specific context.  The allocation
+     * is made according to name of attributes presents in data attribute.
+     *
+     * @function
+     * @memberOf CaliopeWebForm
+     * @param context {object} Context to put the data
+     * @param elements {object} Elements (inputs) in the structure
      */
       putDataToContext : function(context, elements) {
 
@@ -229,17 +380,38 @@ var CaliopeWebForm = (function() {
 
 /**
  * Module decorator for CaliopeWebForm. This decorate the structure with the specific syntax
- * for Angular.
+ * for Angular and dform.
  */
 var CaliopeWebFormSpecificDecorator = ( function() {
 
-  var formsWithOwnController = ['login'];
+  /**
+   * Define the forms with own angular controller.
+   * @type {Array}
+   */
+  var formsWithOwnController = [''];
+  /**
+   * Define the name of general controller to the forms.
+   * @type {string}
+   */
   var ctrlSIMMName           = 'SIMMFormCtrl';
+  /**
+   * Define the standard end name to form with own controller.
+   * @type {string}
+   */
   var ctrlEndName            = 'Ctrl';
 
+  /**
+   * Add definition of angular controller to the form.
+   * @param structureInit form structure
+   * @param formName Form name, this is necesary for evaluate if is necessary own
+   * controller or general controller.
+   */
   function completeController(structureInit, formName) {
     var valueNgCtrl = ctrlSIMMName;
 
+    /*
+     * Search if form name has own controller
+     */
     if( formsWithOwnController.indexOf(formName) >= 0 ) {
       valueNgCtrl = formName;
       valueNgCtrl = valueNgCtrl.slice(0, 1).toUpperCase().concat(
@@ -247,12 +419,19 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       );
       valueNgCtrl = valueNgCtrl.concat(ctrlEndName);
     }
+    /*
+     * Add to structure the definition of angular controller to use.
+     */
     if( valueNgCtrl !== null) {
       structureInit['ng-controller'] = valueNgCtrl;
     }
 
   }
 
+  /**
+   * Complete the ng-model angular directive to all elements in elementsInputs parameter
+   * @param elementsInputs Elements inputs
+   */
   function completeModel(elementsInputs) {
     var i;
     for( i = 0; i < elementsInputs.length; i++  ) {
@@ -260,6 +439,10 @@ var CaliopeWebFormSpecificDecorator = ( function() {
     }
   }
 
+  /**
+   * Complete the ng-model angular for a element.
+   * @param element Element
+   */
   function completeModelIndividual(element) {
     var name = element.name;
     if( name === null ) {
@@ -280,8 +463,9 @@ var CaliopeWebFormSpecificDecorator = ( function() {
   }
 
   /**
-   * This function transform the element of type select for add the behavior of load the
-   * options from server. Add the directive cw-option for this purpose.
+   * This function transform the element of type select defined in the structure
+   * for add the behavior of load the options from server.
+   * Add the angular directive cw-option for this purpose.
    * @param elementsInputs Elements Field config in the template.
    */
   function completeTypeSelect(elementsInputs) {
@@ -338,6 +522,12 @@ var CaliopeWebFormSpecificDecorator = ( function() {
     }
   }
 
+  /**
+   * Add datepicker angular directive to the structure for each elements in the structure with
+   * the type datepicker defined in json structure form.
+   *
+   * @param elementsTemplate
+   */
   function completeTypeDatePicker(elementsTemplate) {
     if( elementsTemplate !== undefined ) {
       var i;
@@ -633,11 +823,19 @@ var CaliopeWebFormAttachmentsDecorator = ( function() {
 
 /**
  * Module decorator for CaliopeWebForm. This decorate with validations configured in json
+ * template. Add cw-validation-mess angular directive for each validation define in json form
  * template.
  */
 var CaliopeWebFormValidDecorator = ( function() {
 
-
+  /**
+   * Create the and return the
+   * @param validationType
+   * @param element
+   * @param formName
+   * @param params
+   * @returns {{type: string, name: string, ng-show: Array, validation-type: *, params: *}}
+   */
   function getElementMsgVal(validationType, element, formName, params) {
     var varNameDirty = '$dirty';
     var varNameError = '$error';
