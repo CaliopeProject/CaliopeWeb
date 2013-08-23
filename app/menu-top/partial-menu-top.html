@@ -60,13 +60,13 @@
       <li class="grey" ng-show="isAuthenticated()" >
       <a data-toggle="dropdown" class="dropdown-toggle" href="#">
         <i class="icon-tasks"></i>
-        <span class="badge badge-grey">4</span>
+        <span class="badge badge-grey">{{taskpend}}</span>
       </a>
 
       <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
         <li class="nav-header">
         <i class="icon-ok"></i>
-        4 Tasks to complete
+        {{taskpend}} tareas por completar
         </li>
         <li>
         <a href="#">

@@ -6,102 +6,74 @@ define(['angular','angular-dragdrop'], function (angular) {
   var dirmodule = angular.module('kanbanBoardCtrl', ['login-security-services','ngDragDrop']);
 
   dirmodule.controller("kanbanBoardCtrl",
-    ["SessionSrv", "$scope","webSocket", "$log", 'taskService', 'caliopewebTemplateSrv',
-      function(security, $scope, webSocket, $log, taskService, tempServices) {
+    ["$scope","webSocket", "$log", 'taskService', 'caliopewebTemplateSrv',
+      function($scope, webSocket, $log, taskService, tempServices) {
 
-        var uuid, tasks;
-        var webSockets = webSocket.WebSockets();
+        var tasks;
+        $scope.data = taskService.getTask();
+        console.log('datos de tareas',$scope.data);
 
         $scope.showSubtasks = false;
 
-        $scope.$on('openWebSocket', function(event, data) {
-          uuid = security.getIdSession();
-        });
+        function updateKanban() {
+          /**
+          * Tranform data from server. Example:
+          */
 
-
-        /**
-        *
-        * @param uuid
-        */
-        function updateKanban(uuid) {
-          var params = {};
-          var method = "tasks.getAll";
-
-          params = {
-            "uuid" : uuid
-          };
-
-          webSockets.serversimm.sendRequest(method, params).then(function(data){
-            $scope.data = data;
-            /**
-             * Tranform data from server. Example:
-             *
-             * {}
-             */
-            if(data !== undefined ) {
-              var i;
-              for(i=0; i < data.length; i++) {
-                var j;
-                for(j=0; j < data.length; j++) {
-                  var obj = data[i].tasks[j];
-                  if( obj !== undefined ) {
-                    var varName;
-                    for( varName in obj ) {
-                      if( obj[varName].value !== undefined ) {
-                        obj[varName] = obj[varName].value;
-                      }
+          if($scope.data !== undefined ) {
+            var i;
+            for(i=0; i < $scope.data.length; i++) {
+              var j;
+              for(j=0; j < $scope.data.length; j++) {
+                var obj = $scope.data[i].tasks[j];
+                if( obj !== undefined ) {
+                  var varName;
+                  for( varName in obj ) {
+                    if( obj[varName].value !== undefined ) {
+                      obj[varName] = obj[varName].value;
                     }
                   }
                 }
               }
             }
+          }
 
-            /*Tmp for test subtask in kanban*/
-            var task;
-            if(data !== undefined) {
-              task = data[0].tasks[0];
-              var updateData = [
-                {
-                  description : 'Subtarea 1',
-                  complete: false
-                },
-                {
-                  description : 'Subtarea 2',
-                  complete: true
-                }
-              ];
-              if( task !== undefined) {
-                task.subtasks = updateData;
+          /*Tmp for test subtask in kanban*/
+          if($scope.data !== undefined) {
+            var task = $scope.data[0].tasks[0];
+            var updateData = [
+              {
+                description : 'Subtarea 1',
+                complete: false
+              },
+              {
+                description : 'Subtarea 2',
+                complete: true
               }
+            ];
+            if( task !== undefined) {
+              task.subtasks = updateData;
             }
-          });
+          }
+        }
 
-          $scope.editTask = function ( uuid, category ){
-            taskService.editTask(uuid, category);
-          };
+        $scope.editTask = function ( uuid, category ){
+          taskService.editTask(uuid, category);
+        }
 
-          $scope.deleteTask = function( uuid ) {
-            taskService.deleteTask(uuid);
-          };
+        $scope.deleteTask = function( uuid ) {
+          taskService.deleteTask(uuid);
         }
 
         $scope.$on('updateKanban', function(event, data) {
-          updateKanban(uuid);
+          updateKanban();
         });
 
         $scope.getSubTasks = function(task){
-          var method = "tasks.getSubTasks";
-          var params = {
-            "sessionuuid" : uuid,
-            "taskuuid"    : task.uuid
-          };
-
-          webSockets.serversimm.sendRequest(method, params).then(function(data){
-            task.subtasks = data;
-          });
+          task.subtasks = taskService.getSubTasks(task);
         };
 
-        updateKanban(uuid);
+        updateKanban();
 
 
         /**
