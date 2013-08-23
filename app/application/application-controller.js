@@ -42,7 +42,11 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         $scope.$on('openWebSocket', function(event, data) {
           var uuid = sessionUuid.getIdSession();
           security.requestCurrentUser(uuid);
-          taskService.loadData();
+          try{
+            taskService.loadData();
+          }catch(err){
+              console.log("Usuario no registrado");
+          }
         });
 
         $scope.$on('closeWebSocket', function(event, data) {
@@ -58,7 +62,11 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
           });
 
           $scope.$on('taskServiceNewTask', function (event, data) {
-            $scope.taskpend = taskService.getTaskpend();
+            try{
+              $scope.taskpend = taskService.getTaskpend();
+            }catch(err){
+              console.log("Usuario no registrado");
+            }
           });
 
           $scope.closeAlert = function(index) {

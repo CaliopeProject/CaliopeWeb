@@ -11,9 +11,12 @@ define(['angular','angular-dragdrop'], function (angular) {
 
         var tasks;
         $scope.data = taskService.getTask();
-        console.log('datos de tareas',$scope.data);
 
         $scope.showSubtasks = false;
+
+        $scope.$on('taskServiceNewTask', function (event, data) {
+            $scope.data = taskService.getTask();
+        });
 
         function updateKanban() {
           /**
@@ -36,26 +39,8 @@ define(['angular','angular-dragdrop'], function (angular) {
                 }
               }
             }
-          }
-
-          /*Tmp for test subtask in kanban*/
-          if($scope.data !== undefined) {
-            var task = $scope.data[0].tasks[0];
-            var updateData = [
-              {
-                description : 'Subtarea 1',
-                complete: false
-              },
-              {
-                description : 'Subtarea 2',
-                complete: true
-              }
-            ];
-            if( task !== undefined) {
-              task.subtasks = updateData;
-            }
-          }
-        }
+        
+        }}
 
         $scope.editTask = function ( uuid, category ){
           taskService.editTask(uuid, category);

@@ -120,6 +120,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           }
         };
         opentaskDialog(DIALOG_NAME_FORM_TASK);
+        changTask();
       },
 
       deleteTask: function(uuid) {
@@ -138,7 +139,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           }
         };
         opentaskDialog(DIALOG_NAME_CONF_DELETE);
-
+        changTask();
       },
 
       cancelTask: function() {
@@ -150,14 +151,39 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       },
 
       getTaskpend: function(){
-        var pend = 0;
+        var taskNot = {};
+        var allSubtask = 0;
+        var alltask = 0;
+        var pend    = 0;
+        var subt    = 0;
+        var porc    = 0;
+
         angular.forEach(ALLTASK, function(key){
           if(key.category !== 'Done'){
-            console.log('salida de datos :) ',key.tasks.length);
             pend = pend + key.tasks.length;
           }
+
+          angular.forEach(key.tasks, function(valuetask){
+
+            angular.forEach(valuetask.subtasks, function(valuesubtask){
+              if(valuesubtask.complete.value){
+                subt++;
+              }
+            });
+
+            if(!angular.isUndefined(valuetask.subtasks)){
+              allSubtask = allSubtask + valuetask.subtasks.length;
+            }
+
+          });
+          alltask = alltask + key.tasks.length;
         });
-        return pend;
+
+        taskNot.porcTask    = 100 - ((pend * 100)/alltask);
+        taskNot.porcSubTask = 100 - ((subt * 100)/allSubtask);
+        taskNot.pend        = pend;
+        taskNot.subt        = subt;
+        return taskNot;
       }
     };
 

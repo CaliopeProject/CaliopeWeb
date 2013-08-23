@@ -170,8 +170,8 @@ define(['angular', 'uuid'], function(angular) {
         */
       function initWebSockets() {
         var wsTemplates = new WebSocketCaliope(
-            'ws://' + document.domain + ':' + location.port + '/api/ws'
-            //'ws://' + '192.168.0.25' + ':' + location.port + '/api/ws'
+            //'ws://' + document.domain + ':' + location.port + '/api/ws'
+            'ws://' + '192.168.2.57' + ':' + location.port + '/api/ws'
           );
         webSockets.serversimm = wsTemplates;
       }

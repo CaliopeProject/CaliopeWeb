@@ -3,7 +3,7 @@
   <i class="icon-user"></i>
   <span ng-hide="isAuthenticated()" class="badge-transparent" ng-click="login()">Ingresar</span>
   <span id="user_info" ng-show="isAuthenticated()">
-    {{currentUser.first_name}} {{currentUser.last_name}}
+    {{currentUser.name.value}} {{currentUser.last_name.value}}
  </span>
   <span ng-show="isAuthenticated()" ><i class="icon-caret-down" ></i></span>
 </a>

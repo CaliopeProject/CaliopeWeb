@@ -179,7 +179,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         return request.then(function(data) {
           if(data.user !== undefined){
             service.currentUser = data;
-            SessionSrv.createSession(data.uuid,data.user);
+            SessionSrv.createSession(data.uuid, data.user.value);
           }else{
             service.currentUser = null;
           }
