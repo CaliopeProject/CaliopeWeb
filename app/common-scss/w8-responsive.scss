@@ -110,15 +110,6 @@
     border-bottom-width: 0;
   }
   .ace-nav {
-    display: block;
-    float: none!important;
-    text-align: center;
-    font-size: 0;
-    background-color: #404040;
-    border: 1px solid #DDD;
-    border-width: 1px 0;
-    letter-spacing: -4px;
-    word-spacing: -4px;
     > li {
       display: inline-block;
       float: none!important;
@@ -183,6 +174,21 @@
 }
 
 @media only screen and (max-width: 767px) {
+  .fillallheight {
+    height:auto;
+  }
+
+  .ace-nav {
+    display: block;
+    float: none!important;
+    text-align: center;
+    font-size: 0;
+    background-color: #404040;
+    border: 1px solid #DDD;
+    border-width: 1px 0;
+    word-spacing: -4px;
+  }
+
   #nav-search {
     right: 5px;
   }
@@ -252,7 +258,7 @@
     }
     z-index: 14;
     left: -200px;
-    margin-top: 40px;
+    margin-top: -3/px;
     position: fixed;
     border: 1px solid #CCC;
     box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
@@ -262,27 +268,25 @@
     -ms-transition: left .15s ease;
     transition: left .15s ease;
     &.display {
-      position: absolute;
       left: 0;
     }
     &.menu-min {
       &.display {
-        position: absolute;
         left: 0;
       }
       left: -50px;
     }
   }
   #main-content {
-    margin-left: 0!important;
+    margin-left: 42px!important;
   }
   #menu-toggler {
     display: inline-block;
     position: absolute;
     left: 0;
     z-index: 14;
-    width: 52px;
-    height: 32px;
+    height: 20px;
+    top:-5px;
     margin-right: 2px;
     line-height: normal;
     padding-left: 33px;
@@ -291,7 +295,7 @@
     font-size: 13px;
     font-weight: bold;
     text-transform: uppercase;
-    background-color: #444;
+    background-color: #141313;
     color: #f3f3f3;
     &:hover {
       text-decoration: none;
@@ -337,23 +341,6 @@
         height: 4px;
         top: 20px;
         border-width: 2px;
-      }
-    }
-    > span {
-      display: block;
-      position: absolute;
-      bottom: -18px;
-      left: 0;
-      border: 1px solid transparent;
-      border-width: 9px 42px;
-      border-top-color: #444;
-      &:after {
-        display: block;
-        content: "MENU";
-        color: #FFF;
-        position: absolute;
-        left: -8px;
-        top: -41px;
       }
     }
   }

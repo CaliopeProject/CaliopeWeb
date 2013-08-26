@@ -44,7 +44,7 @@ html {
 
 /* line 50, ../common-scss/bootstrap/_reset.scss */
 a:focus {
-  outline: thin dotted #333333;
+  outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -163,7 +163,7 @@ textarea {
   /* line 155, ../common-scss/bootstrap/_reset.scss */
   * {
     text-shadow: none !important;
-    color: black !important;
+    color: #000 !important;
     background: transparent !important;
     box-shadow: none !important;
   }
@@ -194,7 +194,7 @@ textarea {
   /* line 183, ../common-scss/bootstrap/_reset.scss */
   pre,
   blockquote {
-    border: 1px solid #999999;
+    border: 1px solid #999;
     page-break-inside: avoid;
   }
 
@@ -266,7 +266,7 @@ a:focus {
 .img-polaroid {
   padding: 4px;
   background-color: #fff;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -1084,7 +1084,7 @@ pre {
   white-space: pre;
   white-space: pre-wrap;
   background-color: #f5f5f5;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -1311,7 +1311,7 @@ select:focus,
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted #333333;
+  outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -1869,7 +1869,7 @@ select:focus:invalid:focus {
   text-align: center;
   text-shadow: 0 1px 0 white;
   background-color: #eeeeee;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
 }
 /* line 468, ../common-scss/bootstrap/_forms.scss */
 .input-append .add-on,
@@ -2483,27 +2483,27 @@ table th[class*="span"],
 
 /* line 52, ../common-scss/bootstrap/_sprites.scss */
 .icon-glass {
-  background-position: 0 0;
+  background-position: 0      0;
 }
 
 /* line 53, ../common-scss/bootstrap/_sprites.scss */
 .icon-music {
-  background-position: -24px 0;
+  background-position: -24px  0;
 }
 
 /* line 54, ../common-scss/bootstrap/_sprites.scss */
 .icon-search {
-  background-position: -48px 0;
+  background-position: -48px  0;
 }
 
 /* line 55, ../common-scss/bootstrap/_sprites.scss */
 .icon-envelope {
-  background-position: -72px 0;
+  background-position: -72px  0;
 }
 
 /* line 56, ../common-scss/bootstrap/_sprites.scss */
 .icon-heart {
-  background-position: -96px 0;
+  background-position: -96px  0;
 }
 
 /* line 57, ../common-scss/bootstrap/_sprites.scss */
@@ -2583,27 +2583,27 @@ table th[class*="span"],
 
 /* line 73, ../common-scss/bootstrap/_sprites.scss */
 .icon-home {
-  background-position: 0 -24px;
+  background-position: 0      -24px;
 }
 
 /* line 74, ../common-scss/bootstrap/_sprites.scss */
 .icon-file {
-  background-position: -24px -24px;
+  background-position: -24px  -24px;
 }
 
 /* line 75, ../common-scss/bootstrap/_sprites.scss */
 .icon-time {
-  background-position: -48px -24px;
+  background-position: -48px  -24px;
 }
 
 /* line 76, ../common-scss/bootstrap/_sprites.scss */
 .icon-road {
-  background-position: -72px -24px;
+  background-position: -72px  -24px;
 }
 
 /* line 77, ../common-scss/bootstrap/_sprites.scss */
 .icon-download-alt {
-  background-position: -96px -24px;
+  background-position: -96px  -24px;
 }
 
 /* line 78, ../common-scss/bootstrap/_sprites.scss */
@@ -2683,27 +2683,27 @@ table th[class*="span"],
 
 /* line 94, ../common-scss/bootstrap/_sprites.scss */
 .icon-tag {
-  background-position: 0 -48px;
+  background-position: 0      -48px;
 }
 
 /* line 95, ../common-scss/bootstrap/_sprites.scss */
 .icon-tags {
-  background-position: -25px -48px;
+  background-position: -25px  -48px;
 }
 
 /* line 96, ../common-scss/bootstrap/_sprites.scss */
 .icon-book {
-  background-position: -48px -48px;
+  background-position: -48px  -48px;
 }
 
 /* line 97, ../common-scss/bootstrap/_sprites.scss */
 .icon-bookmark {
-  background-position: -72px -48px;
+  background-position: -72px  -48px;
 }
 
 /* line 98, ../common-scss/bootstrap/_sprites.scss */
 .icon-print {
-  background-position: -96px -48px;
+  background-position: -96px  -48px;
 }
 
 /* line 99, ../common-scss/bootstrap/_sprites.scss */
@@ -2783,27 +2783,27 @@ table th[class*="span"],
 
 /* line 115, ../common-scss/bootstrap/_sprites.scss */
 .icon-pencil {
-  background-position: 0 -72px;
+  background-position: 0      -72px;
 }
 
 /* line 116, ../common-scss/bootstrap/_sprites.scss */
 .icon-map-marker {
-  background-position: -24px -72px;
+  background-position: -24px  -72px;
 }
 
 /* line 117, ../common-scss/bootstrap/_sprites.scss */
 .icon-adjust {
-  background-position: -48px -72px;
+  background-position: -48px  -72px;
 }
 
 /* line 118, ../common-scss/bootstrap/_sprites.scss */
 .icon-tint {
-  background-position: -72px -72px;
+  background-position: -72px  -72px;
 }
 
 /* line 119, ../common-scss/bootstrap/_sprites.scss */
 .icon-edit {
-  background-position: -96px -72px;
+  background-position: -96px  -72px;
 }
 
 /* line 120, ../common-scss/bootstrap/_sprites.scss */
@@ -2883,27 +2883,27 @@ table th[class*="span"],
 
 /* line 136, ../common-scss/bootstrap/_sprites.scss */
 .icon-plus-sign {
-  background-position: 0 -96px;
+  background-position: 0      -96px;
 }
 
 /* line 137, ../common-scss/bootstrap/_sprites.scss */
 .icon-minus-sign {
-  background-position: -24px -96px;
+  background-position: -24px  -96px;
 }
 
 /* line 138, ../common-scss/bootstrap/_sprites.scss */
 .icon-remove-sign {
-  background-position: -48px -96px;
+  background-position: -48px  -96px;
 }
 
 /* line 139, ../common-scss/bootstrap/_sprites.scss */
 .icon-ok-sign {
-  background-position: -72px -96px;
+  background-position: -72px  -96px;
 }
 
 /* line 140, ../common-scss/bootstrap/_sprites.scss */
 .icon-question-sign {
-  background-position: -96px -96px;
+  background-position: -96px  -96px;
 }
 
 /* line 141, ../common-scss/bootstrap/_sprites.scss */
@@ -2983,27 +2983,27 @@ table th[class*="span"],
 
 /* line 157, ../common-scss/bootstrap/_sprites.scss */
 .icon-exclamation-sign {
-  background-position: 0 -120px;
+  background-position: 0      -120px;
 }
 
 /* line 158, ../common-scss/bootstrap/_sprites.scss */
 .icon-gift {
-  background-position: -24px -120px;
+  background-position: -24px  -120px;
 }
 
 /* line 159, ../common-scss/bootstrap/_sprites.scss */
 .icon-leaf {
-  background-position: -48px -120px;
+  background-position: -48px  -120px;
 }
 
 /* line 160, ../common-scss/bootstrap/_sprites.scss */
 .icon-fire {
-  background-position: -72px -120px;
+  background-position: -72px  -120px;
 }
 
 /* line 161, ../common-scss/bootstrap/_sprites.scss */
 .icon-eye-open {
-  background-position: -96px -120px;
+  background-position: -96px  -120px;
 }
 
 /* line 162, ../common-scss/bootstrap/_sprites.scss */
@@ -3086,27 +3086,27 @@ table th[class*="span"],
 
 /* line 178, ../common-scss/bootstrap/_sprites.scss */
 .icon-hdd {
-  background-position: 0 -144px;
+  background-position: 0      -144px;
 }
 
 /* line 179, ../common-scss/bootstrap/_sprites.scss */
 .icon-bullhorn {
-  background-position: -24px -144px;
+  background-position: -24px  -144px;
 }
 
 /* line 180, ../common-scss/bootstrap/_sprites.scss */
 .icon-bell {
-  background-position: -48px -144px;
+  background-position: -48px  -144px;
 }
 
 /* line 181, ../common-scss/bootstrap/_sprites.scss */
 .icon-certificate {
-  background-position: -72px -144px;
+  background-position: -72px  -144px;
 }
 
 /* line 182, ../common-scss/bootstrap/_sprites.scss */
 .icon-thumbs-up {
-  background-position: -96px -144px;
+  background-position: -96px  -144px;
 }
 
 /* line 183, ../common-scss/bootstrap/_sprites.scss */
@@ -3232,7 +3232,7 @@ table th[class*="span"],
   margin: 2px 0 0;
   list-style: none;
   background-color: white;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   *border-right-width: 2px;
   *border-bottom-width: 2px;
@@ -3601,7 +3601,7 @@ button.close {
 }
 /* line 41, ../common-scss/bootstrap/_buttons.scss */
 .btn:focus {
-  outline: thin dotted #333333;
+  outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -4446,7 +4446,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 113, ../common-scss/bootstrap/_navs.scss */
 .nav-tabs {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
 }
 
 /* line 117, ../common-scss/bootstrap/_navs.scss */
@@ -4475,7 +4475,7 @@ input[type="submit"].btn.btn-mini {
 .nav-tabs > .active > a:focus {
   color: #555555;
   background-color: white;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -4516,7 +4516,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 181, ../common-scss/bootstrap/_navs.scss */
 .nav-tabs.nav-stacked > li > a {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -4679,7 +4679,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 316, ../common-scss/bootstrap/_navs.scss */
 .tabs-below > .nav-tabs {
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
 }
 
 /* line 319, ../common-scss/bootstrap/_navs.scss */
@@ -4704,7 +4704,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-below > .nav-tabs > .active > a,
 .tabs-below > .nav-tabs > .active > a:hover,
 .tabs-below > .nav-tabs > .active > a:focus {
-  border-color: transparent #dddddd #dddddd #dddddd;
+  border-color: transparent #ddd #ddd #ddd;
 }
 
 /* line 342, ../common-scss/bootstrap/_navs.scss */
@@ -4725,7 +4725,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-left > .nav-tabs {
   float: left;
   margin-right: 19px;
-  border-right: 1px solid #dddddd;
+  border-right: 1px solid #ddd;
 }
 
 /* line 358, ../common-scss/bootstrap/_navs.scss */
@@ -4746,7 +4746,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-left > .nav-tabs .active > a,
 .tabs-left > .nav-tabs .active > a:hover,
 .tabs-left > .nav-tabs .active > a:focus {
-  border-color: #dddddd transparent #dddddd #dddddd;
+  border-color: #ddd transparent #ddd #ddd;
   *border-right-color: white;
 }
 
@@ -4754,7 +4754,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-right > .nav-tabs {
   float: right;
   margin-left: 19px;
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid #ddd;
 }
 
 /* line 379, ../common-scss/bootstrap/_navs.scss */
@@ -4775,7 +4775,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-right > .nav-tabs .active > a,
 .tabs-right > .nav-tabs .active > a:hover,
 .tabs-right > .nav-tabs .active > a:focus {
-  border-color: #dddddd #dddddd #dddddd transparent;
+  border-color: #ddd #ddd #ddd transparent;
   *border-left-color: white;
 }
 
@@ -5156,7 +5156,7 @@ input[type="submit"].btn.btn-mini {
   display: inline-block;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid #cccccc;
+  border-bottom: 7px solid #ccc;
   border-bottom-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   top: -7px;
@@ -5176,7 +5176,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 326, ../common-scss/bootstrap/_navbar.scss */
 .navbar-fixed-bottom .nav > li > .dropdown-menu:before {
-  border-top: 7px solid #cccccc;
+  border-top: 7px solid #ccc;
   border-top-color: rgba(0, 0, 0, 0.2);
   border-bottom: 0;
   bottom: -7px;
@@ -5617,7 +5617,7 @@ input[type="submit"].btn.btn-mini {
   display: inline-block;
   padding: 5px 14px;
   background-color: #fff;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
@@ -5683,9 +5683,9 @@ input[type="submit"].btn.btn-mini {
   width: 560px;
   margin-left: -280px;
   background-color: white;
-  border: 1px solid #999999;
+  border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  *border: 1px solid #999999;
+  *border: 1px solid #999;
   /* IE6-7 */
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -5714,7 +5714,7 @@ input[type="submit"].btn.btn-mini {
 /* line 47, ../common-scss/bootstrap/_modals.scss */
 .modal-header {
   padding: 9px 15px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eee;
 }
 /* line 51, ../common-scss/bootstrap/_modals.scss */
 .modal-header .close {
@@ -5745,7 +5745,7 @@ input[type="submit"].btn.btn-mini {
   margin-bottom: 0;
   text-align: right;
   background-color: #f5f5f5;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
@@ -5884,7 +5884,7 @@ input[type="submit"].btn.btn-mini {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -6055,7 +6055,7 @@ input[type="submit"].btn.btn-mini {
   display: block;
   padding: 4px;
   line-height: 20px;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -8021,7 +8021,7 @@ a.label:hover, a.label:focus, a.badge:hover, a.badge:focus {
   /* line 136, ../common-scss/bootstrap/_responsive-767px-max.scss */
   input[type="checkbox"],
   input[type="radio"] {
-    border: 1px solid #cccccc;
+    border: 1px solid #ccc;
   }
 
   /* line 142, ../common-scss/bootstrap/_responsive-767px-max.scss */
@@ -8422,7 +8422,7 @@ a [class*=" icon-"] {
 /* line 74, ../common-scss/font-awesome/scss/_core.scss */
 .icon-border {
   border: solid 1px #eeeeee;
-  padding: 0.2em 0.25em 0.15em;
+  padding: .2em .25em .15em;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -10882,7 +10882,7 @@ blockquote.pull-right {
 /* line 246, ../common-scss/w8.scss */
 .modal-header {
   padding: 9px 15px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eee;
 }
 
 /* line 251, ../common-scss/w8.scss */
@@ -10915,15 +10915,15 @@ blockquote.pull-right {
   margin-bottom: 0;
   text-align: right;
   background-color: #eff3f8;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
   border-top-color: #e4e9ee;
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
   *zoom: 1;
-  -webkit-box-shadow: inset 0 1px 0 white;
-  -moz-box-shadow: inset 0 1px 0 white;
-  box-shadow: inset 0 1px 0 white;
+  -webkit-box-shadow: inset 0 1px 0 #ffffff;
+  -moz-box-shadow: inset 0 1px 0 #ffffff;
+  box-shadow: inset 0 1px 0 #ffffff;
 }
 
 /* line 288, ../common-scss/w8.scss */
@@ -11481,7 +11481,7 @@ blockquote.pull-right {
   margin-bottom: 16px;
   margin-top: 18px;
   padding-bottom: 4px;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #CCC;
 }
 /* line 753, ../common-scss/w8.scss */
 .header.blue {
@@ -11610,7 +11610,7 @@ blockquote.pull-right {
   line-height: 30px;
   max-height: 30px;
   background: #2e6589;
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid #DDD;
   padding: 0;
   position: relative;
 }
@@ -11719,7 +11719,7 @@ blockquote.pull-right {
 .ace-nav .nav-user-photo {
   margin: -4px 8px 0 0;
   border-radius: 24px;
-  border: 2px solid white;
+  border: 2px solid #FFF;
   max-width: 36px !important;
 }
 /* line 948, ../common-scss/w8.scss */
@@ -11829,10 +11829,10 @@ blockquote.pull-right {
   font-size: 13px;
   color: #666666 !important;
   z-index: 11;
-  -webkit-transition: all ease 0.15s;
-  -moz-transition: all ease 0.15s;
-  -o-transition: all ease 0.15s;
-  transition: all ease 0.15s;
+  -webkit-transition: all ease .15s;
+  -moz-transition: all ease .15s;
+  -o-transition: all ease .15s;
+  transition: all ease .15s;
 }
 /* line 1047, ../common-scss/w8.scss */
 #nav-search-input + .dropdown-menu {
@@ -11866,14 +11866,14 @@ blockquote.pull-right {
   position: absolute;
   margin-left: 0;
   margin-top: 3px;
-  border-right: 1px solid #cccccc;
+  border-right: 1px solid #ccc;
   background-color: #FFF;
 }
 /* line 1071, ../common-scss/w8.scss */
 #sidebar > #nav-search {
   position: static;
   background-color: #fafafa;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #DDD;
   text-align: center;
   height: 35px;
   padding-top: 5px;
@@ -11951,7 +11951,7 @@ blockquote.pull-right {
   top: 0;
   z-index: -1;
   background-color: #f2f2f2;
-  border-right: 1px solid #cccccc;
+  border-right: 1px solid #ccc;
 }
 /* line 1151, ../common-scss/w8.scss */
 #sidebar.fixed {
@@ -12251,7 +12251,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   cursor: pointer;
   font-size: 14px;
   color: #aaa;
-  border: 1px solid #bbbbbb;
+  border: 1px solid #bbb;
   padding: 0 5px;
   line-height: 18px;
   border-radius: 16px;
@@ -12273,7 +12273,7 @@ li [class^="icon-"], li [class*=" icon-"] {
 /* line 1430, ../common-scss/w8.scss */
 #sidebar-shortcuts {
   background-color: #fafafa;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
   text-align: center;
   margin-top: 3px;
 }
@@ -12343,7 +12343,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   background-color: #f5f5f5;
   z-index: 121;
   box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   padding-left: 12px;
 }
 /* line 1495, ../common-scss/w8.scss */
@@ -12353,7 +12353,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   top: -1px;
   left: 42px;
   width: 163px;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
 }
 /* line 1503, ../common-scss/w8.scss */
 .menu-min .nav-list > li > a .arrow {
@@ -12409,7 +12409,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   left: 41px;
   top: -2px;
   width: 175px;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
   padding-top: 40px;
   padding-bottom: 2px;
@@ -12459,7 +12459,7 @@ li [class^="icon-"], li [class*=" icon-"] {
   z-index: 20;
   background-color: #fff;
   box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   padding: 0 2px 3px;
 }
 /* line 1599, ../common-scss/w8.scss */
@@ -12493,10 +12493,10 @@ li [class^="icon-"], li [class*=" icon-"] {
   background-image: none !important;
   border: 5px solid;
   box-shadow: none !important;
-  -webkit-transition: all 0.1s ease-in-out;
-  -moz-transition: all 0.1s ease-in-out;
-  -o-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
+  -webkit-transition: all .1s ease-in-out;
+  -moz-transition: all .1s ease-in-out;
+  -o-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
   cursor: pointer;
   vertical-align: middle;
   margin: 0;
@@ -13374,7 +13374,7 @@ button.btn:active {
 .btn-app.btn-light {
   color: #5a5a5a !important;
   text-shadow: 0 1px 1px #eeeeee !important;
-  border: 2px solid #dddddd;
+  border: 2px solid #DDD;
   background: #ededed !important;
   background-color: #eeeeee !important;
   background-image: -moz-linear-gradient(top, #f4f4f4, #e6e6e6) !important;
@@ -14391,10 +14391,10 @@ button.btn:active {
   padding: 0;
   border-radius: 0;
   position: relative;
-  -webkit-transition: all ease 0.1s;
-  -moz-transition: all ease 0.1s;
-  -o-transition: all ease 0.1s;
-  transition: all ease 0.1s;
+  -webkit-transition: all ease .1s;
+  -moz-transition: all ease .1s;
+  -o-transition: all ease .1s;
+  transition: all ease .1s;
 }
 /* line 3328, ../common-scss/w8.scss */
 .dropdown-colorpicker > .dropdown-menu > li > .colorpick-btn:hover {
@@ -14493,7 +14493,7 @@ button.btn:active {
 }
 /* line 3414, ../common-scss/w8.scss */
 .dropdown-navbar > li:last-child > a {
-  border-bottom: 0 solid #dddddd;
+  border-bottom: 0 solid #DDD;
   border-top: 1px dotted transparent;
   color: #4f99c6;
   text-align: center;
@@ -14664,7 +14664,7 @@ button.btn:active {
 .form-line {
   margin-bottom: 24px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #EEE;
 }
 
 /* line 3565, ../common-scss/w8.scss */
@@ -14690,7 +14690,7 @@ button.btn:active {
   -moz-border-radius: 16px;
   border-radius: 16px;
   border-color: #FFF;
-  border: 2px solid white;
+  border: 2px solid #FFF;
   -webkit-box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.2);
@@ -14765,7 +14765,7 @@ textarea.autosize-transition {
 
 /* line 3654, ../common-scss/w8.scss */
 .limiterBox {
-  border: 1px solid #222222;
+  border: 1px solid #222;
   border-top: 0;
   background-color: #333;
   padding: 3px 6px;
@@ -15038,7 +15038,7 @@ input[type=checkbox] + .lbl::before, input[type=radio] + .lbl::before {
   color: #32a3ce;
   content: "\a0";
   background-color: #fafafa;
-  border: 1px solid #cccccc;
+  border: 1px solid #CCC;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   border-radius: 0;
   display: inline-block;
@@ -15123,7 +15123,7 @@ input[type=checkbox].ace-switch + .lbl::before {
   border-radius: 12px;
   background-color: #f5f5f5;
   box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-  border: 1px solid #cccccc;
+  border: 1px solid #CCC;
   text-align: left;
   float: left;
   padding: 0;
@@ -15131,10 +15131,10 @@ input[type=checkbox].ace-switch + .lbl::before {
   text-indent: -19px;
   text-indent: -21px\9;
   margin-right: 0;
-  -webkit-transition: text-indent 0.4s ease;
-  -moz-transition: text-indent 0.4s ease;
-  -o-transition: text-indent 0.4s ease;
-  transition: text-indent 0.4s ease;
+  -webkit-transition: text-indent .4s ease;
+  -moz-transition: text-indent .4s ease;
+  -o-transition: text-indent .4s ease;
+  transition: text-indent .4s ease;
 }
 /* line 3985, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch + .lbl::after {
@@ -15156,10 +15156,10 @@ input[type=checkbox].ace-switch + .lbl::after {
   padding: 0;
   box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.3);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3) inset;
-  -webkit-transition: left 0.4s ease;
-  -moz-transition: left 0.4s ease;
-  -o-transition: left 0.4s ease;
-  transition: left 0.4s ease;
+  -webkit-transition: left .4s ease;
+  -moz-transition: left .4s ease;
+  -o-transition: left .4s ease;
+  transition: left .4s ease;
 }
 /* line 4011, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch:checked + .lbl::before {
@@ -15211,10 +15211,10 @@ input[type=checkbox].ace-switch.ace-switch-4 + .lbl::before, input[type=checkbox
   position: relative;
   margin-right: 8px;
   box-shadow: none;
-  -webkit-transition: all 0.4s ease;
-  -moz-transition: all 0.4s ease;
-  -o-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+  -webkit-transition: all .4s ease;
+  -moz-transition: all .4s ease;
+  -o-transition: all .4s ease;
+  transition: all .4s ease;
 }
 /* line 4063, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-4 + .lbl::after, input[type=checkbox].ace-switch.ace-switch-5 + .lbl::after {
@@ -15234,10 +15234,10 @@ input[type=checkbox].ace-switch.ace-switch-4 + .lbl::after, input[type=checkbox]
   height: 18px;
   line-height: 16px;
   background-color: #FFF;
-  -webkit-transition: all 0.4s ease;
-  -moz-transition: all 0.4s ease;
-  -o-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+  -webkit-transition: all .4s ease;
+  -moz-transition: all .4s ease;
+  -o-transition: all .4s ease;
+  transition: all .4s ease;
 }
 /* line 4085, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-4:checked + .lbl::before, input[type=checkbox].ace-switch.ace-switch-5:checked + .lbl::before {
@@ -15284,10 +15284,10 @@ input[type=checkbox].ace-switch.ace-switch-6 + .lbl::before {
   height: 22px;
   line-height: 20px;
   text-indent: 32px;
-  -webkit-transition: background 0.1s ease;
-  -moz-transition: background 0.1s ease;
-  -o-transition: background 0.1s ease;
-  transition: background 0.1s ease;
+  -webkit-transition: background .1s ease;
+  -moz-transition: background .1s ease;
+  -o-transition: background .1s ease;
+  transition: background .1s ease;
 }
 /* line 4132, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-6 + .lbl::after {
@@ -15303,10 +15303,10 @@ input[type=checkbox].ace-switch.ace-switch-6 + .lbl::after {
   text-align: center;
   background-color: #f2f2f2;
   border: 4px solid #f2f2f2;
-  -webkit-transition: left 0.2s ease;
-  -moz-transition: left 0.2s ease;
-  -o-transition: left 0.2s ease;
-  transition: left 0.2s ease;
+  -webkit-transition: left .2s ease;
+  -moz-transition: left .2s ease;
+  -o-transition: left .2s ease;
+  transition: left .2s ease;
 }
 /* line 4152, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-6:checked + .lbl::before {
@@ -15320,7 +15320,7 @@ input[type=checkbox].ace-switch.ace-switch-6:checked + .lbl::before {
 input[type=checkbox].ace-switch.ace-switch-6:checked + .lbl::after {
   left: 32px;
   background-color: #FFF;
-  border: 4px solid white;
+  border: 4px solid #FFF;
   text-shadow: 0 -1px 0 rgba(0, 200, 0, 0.25);
 }
 /* line 4167, ../common-scss/w8.scss */
@@ -15338,7 +15338,7 @@ input[type=checkbox].ace-switch.ace-switch-7 + .lbl::before {
   font-size: 14px;
   line-height: 20px;
   background-color: #FFF;
-  border: 2px solid #aaaaaa;
+  border: 2px solid #AAA;
   border-radius: 0;
   box-shadow: none;
   color: #aaa;
@@ -15350,10 +15350,10 @@ input[type=checkbox].ace-switch.ace-switch-7 + .lbl::before {
   display: inline-block;
   position: relative;
   margin-right: 8px;
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
 }
 /* line 4194, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-7 + .lbl::after {
@@ -15371,10 +15371,10 @@ input[type=checkbox].ace-switch.ace-switch-7 + .lbl::after {
   color: #FFF;
   border-radius: 0;
   box-shadow: none;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
 }
 /* line 4216, ../common-scss/w8.scss */
 input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::before {
@@ -15476,10 +15476,10 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   -webkit-box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
   -moz-box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
   box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
-  -webkit-transition: all 0.15s;
-  -moz-transition: all 0.15s;
-  -o-transition: all 0.15s;
-  transition: all 0.15s;
+  -webkit-transition: all .15s;
+  -moz-transition: all .15s;
+  -o-transition: all .15s;
+  transition: all .15s;
 }
 /* line 4317, ../common-scss/w8.scss */
 .ace-file-input label:hover {
@@ -15503,12 +15503,12 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   color: #FFF;
   font-size: 11px;
   font-weight: bold;
-  border: 2px solid white;
+  border: 2px solid #FFF;
   border-left-width: 4px;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
 }
 /* line 4344, ../common-scss/w8.scss */
 .ace-file-input label span {
@@ -15548,12 +15548,12 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   font-size: 13px;
   line-height: 22px;
   width: 22px;
-  border: 2px solid white;
+  border: 2px solid #FFF;
   color: #FFF;
-  -webkit-transition: all 0.1s;
-  -moz-transition: all 0.1s;
-  -o-transition: all 0.1s;
-  transition: all 0.1s;
+  -webkit-transition: all .1s;
+  -moz-transition: all .1s;
+  -o-transition: all .1s;
+  transition: all .1s;
   background-color: #d1d1d1;
 }
 /* line 4386, ../common-scss/w8.scss */
@@ -15613,7 +15613,7 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
 .ace-file-multiple label {
   position: relative;
   height: auto;
-  border: 1px dashed #aaaaaa;
+  border: 1px dashed #aaa;
   border-radius: 4px;
 }
 /* line 4436, ../common-scss/w8.scss */
@@ -15643,12 +15643,12 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   font-size: 13px;
   line-height: 22px;
   width: 22px;
-  border: 2px solid white;
+  border: 2px solid #FFF;
   color: #FFF;
-  -webkit-transition: all 0.1s;
-  -moz-transition: all 0.1s;
-  -o-transition: all 0.1s;
-  transition: all 0.1s;
+  -webkit-transition: all .1s;
+  -moz-transition: all .1s;
+  -o-transition: all .1s;
+  transition: all .1s;
 }
 /* line 4468, ../common-scss/w8.scss */
 .ace-file-multiple label span {
@@ -15659,7 +15659,7 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
   width: auto;
   max-width: 100%;
   margin: 0 4px;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #DDD;
 }
 /* line 4477, ../common-scss/w8.scss */
 .ace-file-multiple label span:first-child {
@@ -15697,7 +15697,7 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
 .ace-file-multiple .remove {
   right: -11px;
   top: -11px;
-  border: 3px solid #bbbbbb;
+  border: 3px solid #BBB;
   border-radius: 32px;
   background-color: #FFF;
   color: red;
@@ -15733,7 +15733,7 @@ input[type=checkbox].ace-switch.ace-switch-7:checked + .lbl::after {
 /* line 4540, ../common-scss/w8.scss */
 .ace-file-multiple label span.large {
   text-align: center;
-  border-bottom: 2px solid #222222;
+  border-bottom: 2px solid #222;
   margin: 2px;
   margin: 0 1px 3px;
 }
@@ -16292,7 +16292,7 @@ th, td, .table-bordered {
 }
 /* line 5048, ../common-scss/w8.scss */
 .table thead:first-child tr th {
-  border: 1px solid #dddddd;
+  border: 1px solid #DDD;
   border-width: 0 1px;
   font-weight: bold;
 }
@@ -16368,10 +16368,10 @@ td.td-actions a.td-action {
   margin: 0;
   padding: 0;
   width: 24px;
-  -webkit-transition: all 0.1s;
-  -moz-transition: all 0.1s;
-  -o-transition: all 0.1s;
-  transition: all 0.1s;
+  -webkit-transition: all .1s;
+  -moz-transition: all .1s;
+  -o-transition: all .1s;
+  transition: all .1s;
   background: -moz-linear-gradient(center top, white, #f7f7f4) repeat scroll 0 0 transparent !important;
   border: 1px solid #c1d6e1;
   border-radius: 6px 6px 6px 6px;
@@ -16380,7 +16380,7 @@ td.td-actions a.td-action {
   margin: 0;
   padding: 0;
   text-align: center;
-  transition: all 0.1s ease 0s;
+  transition: all .1s ease 0s;
   width: 24px;
 }
 /* line 5120, ../common-scss/w8.scss */
@@ -16448,15 +16448,15 @@ td.td-actions a.td-action:hover {
 }
 /* line 5184, ../common-scss/w8.scss */
 .dataTables_wrapper .row-fluid:first-child + .dataTable {
-  border-top: 1px solid #dddddd;
-  border-bottom: 1px solid #dddddd;
+  border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
 }
 /* line 5189, ../common-scss/w8.scss */
 .dataTables_wrapper .row-fluid:last-child {
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #DDD;
   padding: 12px 0 6px;
   background-color: #eff3f8;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #DDD;
 }
 
 /* line 5198, ../common-scss/w8.scss */
@@ -16509,7 +16509,7 @@ td.td-actions a.td-action:hover {
   -moz-box-shadow: none;
   box-shadow: none;
   margin: 3px 0;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #CCC;
 }
 
 /* line 5244, ../common-scss/w8.scss */
@@ -16526,8 +16526,8 @@ td.td-actions a.td-action:hover {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffeeeeee',GradientType=0);
   color: #669fc7;
-  border: 1px solid #cccccc;
-  border-bottom: 1px solid #dddddd;
+  border: 1px solid #CCC;
+  border-bottom: 1px solid #DDD;
   padding-left: 12px;
   text-align: right;
 }
@@ -16815,7 +16815,7 @@ td.td-actions a.td-action:hover {
 
 /* line 5500, ../common-scss/w8.scss */
 .widget-body {
-  border: 1px solid #cccccc;
+  border: 1px solid #CCC;
   border-top: 0;
   background-color: #FFF;
 }
@@ -16923,7 +16923,7 @@ td.td-actions a.td-action:hover {
 
 /* line 5593, ../common-scss/w8.scss */
 .widget-toolbar > .dropdown > .dropdown-menu:after, .dropdown-menu.dropdown-caret:after {
-  border-bottom: 6px solid white;
+  border-bottom: 6px solid #fff;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   content: "";
@@ -17282,18 +17282,18 @@ td.td-actions a.td-action:hover {
 /* line 5900, ../common-scss/w8.scss */
 .widget-toolbox:first-child {
   padding: 2px;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #CCC;
 }
 /* line 5904, ../common-scss/w8.scss */
 .widget-toolbox:last-child {
   padding: 2px;
-  border-top: 1px solid #cccccc;
+  border-top: 1px solid #CCC;
 }
 
 /* line 5910, ../common-scss/w8.scss */
 .transparent .widget-toolbox:last-child {
   border: 0;
-  border-top: 1px solid #cccccc;
+  border-top: 1px solid #CCC;
 }
 
 /* line 5916, ../common-scss/w8.scss */
@@ -18533,10 +18533,10 @@ td.td-actions a.td-action:hover {
   -o-transform: scale(1, 1) translate(0);
   -ms-transform: scale(1, 1) translate(0);
   transform: scale(1, 1) translate(0);
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
   -o-transition: none;
   -webkit-transition: none;
 }
@@ -18659,7 +18659,7 @@ td.td-actions a.td-action:hover {
   position: relative;
   overflow: hidden;
   margin: 2px;
-  border: 2px solid #333333;
+  border: 2px solid #333;
 }
 /* line 7088, ../common-scss/w8.scss */
 .ace-thumbnails > li > :first-child {
@@ -18695,10 +18695,10 @@ td.td-actions a.td-action:hover {
   background-color: rgba(0, 0, 0, 0.55);
   text-align: center;
   vertical-align: middle;
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
 }
 /* line 7122, ../common-scss/w8.scss */
 .ace-thumbnails > li > .tools.tools-right {
@@ -18771,10 +18771,10 @@ td.td-actions a.td-action:hover {
   background-color: rgba(0, 0, 0, 0.55);
   opacity: 0;
   filter: alpha(opacity=0);
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
 }
 /* line 7191, ../common-scss/w8.scss */
 .ace-thumbnails > li > :first-child > .text:before {
@@ -19025,7 +19025,7 @@ td.td-actions a.td-action:hover {
 }
 /* line 7414, ../common-scss/w8.scss */
 .item-list > li {
-  border: 1px solid #dddddd;
+  border: 1px solid #DDD;
   border-left-width: 3px;
   padding: 9px;
   background-color: #FFF;
@@ -19286,7 +19286,7 @@ td.td-actions a.td-action:hover {
   line-height: 30px;
   margin-right: 5px;
   font-size: 15px;
-  border-right: 1px solid white;
+  border-right: 1px solid #FFF;
 }
 
 /* line 7642, ../common-scss/w8.scss */
@@ -19549,7 +19549,7 @@ td.td-actions a.td-action:hover {
 
 /* line 7871, ../common-scss/w8.scss */
 #cboxContent {
-  border: 12px solid black;
+  border: 12px solid #000;
   background-color: #FFF;
   padding: 7px;
 }
@@ -19580,7 +19580,7 @@ td.td-actions a.td-action:hover {
   line-height: 14px;
   padding: 0 4px;
   text-align: center;
-  border: 2px solid #999999;
+  border: 2px solid #999;
   border-radius: 16px;
   color: #666;
   font-size: 12px;
@@ -19603,7 +19603,7 @@ td.td-actions a.td-action:hover {
 #cboxClose {
   background-color: #000;
   color: #fff;
-  border: 2px solid white;
+  border: 2px solid #fff;
   border-radius: 32px;
   font-size: 20px;
   height: 24px;
@@ -19864,7 +19864,7 @@ td.td-actions a.td-action:hover {
   top: 15px;
   bottom: 0;
   left: -15px;
-  border-left: 1px solid white;
+  border-left: 1px solid #FFF;
 }
 /* line 8153, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-content {
@@ -19928,11 +19928,11 @@ td.td-actions a.td-action:hover {
 }
 /* line 8204, ../common-scss/w8.scss */
 .tree .tree-item {
-  border: 1px solid white;
+  border: 1px solid #FFF;
 }
 /* line 8207, ../common-scss/w8.scss */
 .tree .tree-folder {
-  border: 1px solid white;
+  border: 1px solid #FFF;
 }
 /* line 8209, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-header {
@@ -19954,7 +19954,7 @@ td.td-actions a.td-action:hover {
   text-align: center;
   border-radius: 3px;
   background-color: #fafafa;
-  border: 1px solid #cccccc;
+  border: 1px solid #CCC;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 /* line 8230, ../common-scss/w8.scss */
@@ -19965,7 +19965,7 @@ td.td-actions a.td-action:hover {
 }
 /* line 8235, ../common-scss/w8.scss */
 .tree .icon-plus[class*="icon-"]:first-child, .tree .icon-minus[class*="icon-"]:first-child {
-  border: 1px solid #dddddd;
+  border: 1px solid #DDD;
   vertical-align: middle;
   height: 11px;
   width: 11px;
@@ -20051,7 +20051,7 @@ td.td-actions a.td-action:hover {
 /* line 8308, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light {
   background: rgba(245, 245, 245, 0.95);
-  border: 1px solid #bbbbbb;
+  border: 1px solid #BBB;
 }
 /* line 8311, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light.gritter-info {
@@ -20578,11 +20578,11 @@ td.td-actions a.td-action:hover {
 /* line 8773, ../common-scss/w8.scss */
 .icon-animated-bell {
   display: inline-block;
-  -moz-animation: ringing 2s 5 ease 1s;
-  -webkit-animation: ringing 2s 5 ease 1s;
-  -o-animation: ringing 2s 5 ease 1s;
-  -ms-animation: ringing 2s 5 ease 1s;
-  animation: ringing 2s 5 ease 1s;
+  -moz-animation: ringing 2.0s 5 ease 1.0s;
+  -webkit-animation: ringing 2.0s 5 ease 1.0s;
+  -o-animation: ringing 2.0s 5 ease 1.0s;
+  -ms-animation: ringing 2.0s 5 ease 1.0s;
+  animation: ringing 2.0s 5 ease 1.0s;
   -moz-transform-origin: 50% 0;
   -webkit-transform-origin: 50% 0;
   -o-transform-origin: 50% 0;
@@ -20821,11 +20821,11 @@ td.td-actions a.td-action:hover {
 /* line 8935, ../common-scss/w8.scss */
 .icon-animated-vertical {
   display: inline-block;
-  -moz-animation: vertical 2s 5 ease 2s;
-  -webkit-animation: vertical 2s 5 ease 2s;
-  -o-animation: vertical 2s 5 ease 2s;
-  -ms-animation: vertical 2s 5 ease 2s;
-  animation: vertical 2s 5 ease 2s;
+  -moz-animation: vertical 2.0s 5 ease 2.0s;
+  -webkit-animation: vertical 2.0s 5 ease 2.0s;
+  -o-animation: vertical 2.0s 5 ease 2.0s;
+  -ms-animation: vertical 2.0s 5 ease 2.0s;
+  animation: vertical 2.0s 5 ease 2.0s;
 }
 
 @-moz-keyframes vertical {
@@ -21636,7 +21636,7 @@ td.td-actions a.td-action:hover {
 .bokeh > li:nth-child(1) {
   left: 50%;
   top: 0;
-  margin: 0 0 0 -0.1em;
+  margin: 0 0 0 -.1em;
   background: #00C176;
   -webkit-transform-origin: 50% 250%;
   -moz-transform-origin: 50% 250%;
@@ -21653,7 +21653,7 @@ td.td-actions a.td-action:hover {
 .bokeh > li:nth-child(2) {
   top: 50%;
   right: 0;
-  margin: -0.1em 0 0 0;
+  margin: -.1em 0 0 0;
   background: #FF003C;
   -webkit-transform-origin: -150% 50%;
   -moz-transform-origin: -150% 50%;
@@ -21670,7 +21670,7 @@ td.td-actions a.td-action:hover {
 .bokeh > li:nth-child(3) {
   left: 50%;
   bottom: 0;
-  margin: 0 0 0 -0.1em;
+  margin: 0 0 0 -.1em;
   background: #FABE28;
   -webkit-transform-origin: 50% -150%;
   -moz-transform-origin: 50% -150%;
@@ -21686,7 +21686,7 @@ td.td-actions a.td-action:hover {
 /* line 148, ../application/application-main.scss */
 .bokeh > li:nth-child(4) {
   top: 50%;
-  margin: -0.1em 0 0 0;
+  margin: -.1em 0 0 0;
   background: #88C100;
   -webkit-transform-origin: 250% 50%;
   -moz-transform-origin: 250% 50%;
@@ -22744,9 +22744,9 @@ a.olControlZoomOut {
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
-  box-shadow: 2px 2px 2px black;
-  -moz-box-shadow: 2px 2px 2px black;
-  -webkit-box-shadow: 2px 2px 2px black;
+  box-shadow: 2px 2px 2px #000;
+  -moz-box-shadow: 2px 2px 2px #000;
+  -webkit-box-shadow: 2px 2px 2px #000;
 }
 
 /* line 628, ../common-scss/gis/default.scss */
@@ -26602,7 +26602,7 @@ table.x-date-inner {
 /* line 3258, ../common-scss/gis/ext-all.scss */
 .x-date-mp td {
   padding: 2px;
-  font: normal 11px arial, helvetica, tahoma, sans-serif;
+  font: normal 11px arial, helvetica,tahoma,sans-serif;
 }
 
 /* line 3265, ../common-scss/gis/ext-all.scss */
@@ -27511,7 +27511,7 @@ Creates rounded, raised boxes like on the Ext website - the markup isn't pretty:
 
 /* line 4070, ../common-scss/gis/ext-all.scss */
 .x-tool-close {
-  background-position: 0 0;
+  background-position: 0 -0;
 }
 
 /* line 4074, ../common-scss/gis/ext-all.scss */
@@ -28646,7 +28646,7 @@ body.ext-ie6.x-body-masked .x-window select {
 /* IE6 strict won't drag w/out a color */
 /* line 5028, ../common-scss/gis/ext-all.scss */
 .ext-strict .ext-ie6 .x-layout-split {
-  background-color: white !important;
+  background-color: #fff !important;
   filter: alpha(opacity=1);
 }
 
@@ -29207,7 +29207,7 @@ ul.x-tab-strip-bottom {
 
 /* line 5524, ../common-scss/gis/ext-all.scss */
 .x-tab-strip span.x-tab-strip-text {
-  font: normal 11px tahoma, arial, helvetica;
+  font: normal 11px tahoma,arial,helvetica;
   color: #416aa3;
 }
 
@@ -29443,7 +29443,7 @@ ul.x-tab-strip-bottom {
 }
 /* line 5726, ../common-scss/gis/ext-all.scss */
 .x-btn button {
-  font: normal 11px arial, tahoma, verdana, helvetica;
+  font: normal 11px arial,tahoma,verdana,helvetica;
   color: #333;
 }
 /* line 5730, ../common-scss/gis/ext-all.scss */
@@ -29538,7 +29538,7 @@ ul.x-tab-strip-bottom {
 }
 /* line 5806, ../common-scss/gis/ext-all.scss */
 .x-toolbar td, .x-toolbar span, .x-toolbar input, .x-toolbar div, .x-toolbar select, .x-toolbar label {
-  font: normal 11px arial, tahoma, helvetica, sans-serif;
+  font: normal 11px arial,tahoma, helvetica, sans-serif;
 }
 /* line 5809, ../common-scss/gis/ext-all.scss */
 .x-toolbar .x-item-disabled {
@@ -29805,7 +29805,7 @@ td.grid-hd-group-cell {
 }
 /* line 6024, ../common-scss/gis/ext-all.scss */
 .x-grid3-cell-selected span {
-  color: black !important;
+  color: #000 !important;
 }
 /* line 6027, ../common-scss/gis/ext-all.scss */
 .x-grid3-cell-selected .x-grid3-cell-text {
@@ -29847,11 +29847,11 @@ td.grid-hd-group-cell {
 /* line 6061, ../common-scss/gis/ext-all.scss */
 .x-props-grid .x-grid3-td-name .x-grid3-cell-inner {
   background-image: url(/tools-gis-viewer/images/extjs/default/grid/grid3-special-col-bg.gif) !important;
-  color: black !important;
+  color: #000 !important;
 }
 /* line 6065, ../common-scss/gis/ext-all.scss */
 .x-props-grid .x-grid3-body .x-grid3-td-name {
-  background-color: white !important;
+  background-color: #fff !important;
   border-right-color: #eee;
 }
 
@@ -30008,7 +30008,7 @@ td.grid-hd-group-cell {
 .x-dd-drag-ghost {
   color: #000;
   font: normal 11px arial, helvetica, sans-serif;
-  border-color: #dddddd #bbbbbb #bbbbbb #dddddd;
+  border-color: #ddd #bbb #bbb #ddd;
   background-color: #fff;
 }
 
@@ -30223,7 +30223,7 @@ td.grid-hd-group-cell {
   background-color: #dfecfb;
   background-image: url(/tools-gis-viewer/images/extjs/default/shared/glass-bg.gif);
   border-bottom-color: #a3bad9;
-  font: normal 10px arial, helvetica, tahoma, sans-serif;
+  font: normal 10px arial, helvetica,tahoma,sans-serif;
   color: #233d6d;
 }
 /* line 6394, ../common-scss/gis/ext-all.scss */
@@ -30232,7 +30232,7 @@ td.grid-hd-group-cell {
 }
 /* line 6397, ../common-scss/gis/ext-all.scss */
 .x-date-inner a {
-  font: normal 11px arial, helvetica, tahoma, sans-serif;
+  font: normal 11px arial, helvetica,tahoma,sans-serif;
   color: #000;
 }
 /* line 6401, ../common-scss/gis/ext-all.scss */
@@ -30283,7 +30283,7 @@ td.grid-hd-group-cell {
 
 /* line 6441, ../common-scss/gis/ext-all.scss */
 .x-date-mmenu {
-  background-color: #eeeeee !important;
+  background-color: #eee !important;
 }
 /* line 6443, ../common-scss/gis/ext-all.scss */
 .x-date-mmenu .x-menu-item {
@@ -30297,7 +30297,7 @@ td.grid-hd-group-cell {
 }
 /* line 6451, ../common-scss/gis/ext-all.scss */
 .x-date-mp td {
-  font: normal 11px arial, helvetica, tahoma, sans-serif;
+  font: normal 11px arial, helvetica,tahoma,sans-serif;
 }
 
 /* line 6456, ../common-scss/gis/ext-all.scss */
@@ -30310,7 +30310,7 @@ td.grid-hd-group-cell {
   background-color: #083772;
   color: #fff;
   border-color: #3366cc #000055 #000055 #3366cc;
-  font: normal 11px arial, helvetica, tahoma, sans-serif;
+  font: normal 11px arial, helvetica,tahoma,sans-serif;
 }
 /* line 6465, ../common-scss/gis/ext-all.scss */
 .x-date-mp-btns td {
@@ -30353,7 +30353,7 @@ td.x-date-mp-sep {
 }
 /* line 6500, ../common-scss/gis/ext-all.scss */
 .x-tip .x-tip-mc {
-  font: normal 11px tahoma, arial, helvetica, sans-serif;
+  font: normal 11px tahoma,arial,helvetica,sans-serif;
 }
 /* line 6503, ../common-scss/gis/ext-all.scss */
 .x-tip .x-tip-ml {
@@ -30361,12 +30361,12 @@ td.x-date-mp-sep {
 }
 /* line 6506, ../common-scss/gis/ext-all.scss */
 .x-tip .x-tip-header-text {
-  font: bold 11px tahoma, arial, helvetica, sans-serif;
+  font: bold 11px tahoma,arial,helvetica,sans-serif;
   color: #444;
 }
 /* line 6510, ../common-scss/gis/ext-all.scss */
 .x-tip .x-tip-body {
-  font: normal 11px tahoma, arial, helvetica, sans-serif;
+  font: normal 11px tahoma,arial,helvetica,sans-serif;
   color: #444;
 }
 
@@ -30402,7 +30402,7 @@ td.x-date-mp-sep {
 
 /* line 6542, ../common-scss/gis/ext-all.scss */
 .x-menu-list-item {
-  font: normal 11px arial, tahoma, sans-serif;
+  font: normal 11px arial,tahoma,sans-serif;
 }
 
 /* line 6546, ../common-scss/gis/ext-all.scss */
@@ -30459,7 +30459,7 @@ a.x-menu-item {
 
 /* line 6590, ../common-scss/gis/ext-all.scss */
 .x-date-menu, .x-color-menu {
-  background-color: white !important;
+  background-color: #fff !important;
 }
 
 /* line 6594, ../common-scss/gis/ext-all.scss */
@@ -30641,7 +30641,7 @@ a.x-menu-item {
 /* line 6741, ../common-scss/gis/ext-all.scss */
 .x-panel-tl .x-panel-header {
   color: #15428b;
-  font: bold 11px tahoma, arial, verdana, sans-serif;
+  font: bold 11px tahoma,arial,verdana,sans-serif;
 }
 
 /* line 6746, ../common-scss/gis/ext-all.scss */
@@ -30662,7 +30662,7 @@ a.x-menu-item {
 
 /* line 6759, ../common-scss/gis/ext-all.scss */
 .x-panel-mc {
-  font: normal 11px tahoma, arial, helvetica, sans-serif;
+  font: normal 11px tahoma,arial,helvetica,sans-serif;
   background-color: #dfe8f6;
 }
 
@@ -30698,7 +30698,7 @@ a.x-menu-item {
 
 /* line 6789, ../common-scss/gis/ext-all.scss */
 .x-panel-fbar td, .x-panel-fbar span, .x-panel-fbar input, .x-panel-fbar div, .x-panel-fbar select, .x-panel-fbar label {
-  font: normal 11px arial, tahoma, helvetica, sans-serif;
+  font: normal 11px arial,tahoma, helvetica, sans-serif;
 }
 
 /* line 6794, ../common-scss/gis/ext-all.scss */
@@ -30710,7 +30710,7 @@ a.x-menu-item {
 /* line 6799, ../common-scss/gis/ext-all.scss */
 .x-window-tl .x-window-header {
   color: #15428b;
-  font: bold 11px tahoma, arial, verdana, sans-serif;
+  font: bold 11px tahoma,arial,verdana,sans-serif;
 }
 
 /* line 6804, ../common-scss/gis/ext-all.scss */
@@ -30746,7 +30746,7 @@ a.x-menu-item {
 /* line 6828, ../common-scss/gis/ext-all.scss */
 .x-window-mc {
   border-color: #99bbe8;
-  font: normal 11px tahoma, arial, helvetica, sans-serif;
+  font: normal 11px tahoma,arial,helvetica,sans-serif;
   background-color: #dfe8f6;
 }
 
@@ -30991,7 +30991,7 @@ body.x-body-masked .x-window-plain .x-window-mc {
 }
 /* line 7034, ../common-scss/gis/ext-all.scss */
 .x-window-dlg .ext-mb-textarea {
-  font: normal 12px tahoma, arial, helvetica, sans-serif;
+  font: normal 12px tahoma,arial,helvetica,sans-serif;
 }
 /* line 7037, ../common-scss/gis/ext-all.scss */
 .x-window-dlg .x-msg-box-wait {
@@ -31558,7 +31558,7 @@ div.olControlZoom a {
   padding: 0;
   color: white;
   font-size: 18px;
-  font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+  font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
   font-weight: bold;
   text-decoration: none;
   text-align: center;
@@ -31748,7 +31748,7 @@ a.olControlZoomOut {
   border-radius: 6px;
   position: relative;
   min-height: 30px;
-  border: solid #cccccc;
+  border: solid #CCC;
   border-width: 1px;
   padding-left: 12px;
   text-align: left;
@@ -31805,7 +31805,7 @@ a.olControlZoomOut {
   background-image: -o-linear-gradient(#ffffff, #e9e3a5);
   background-image: linear-gradient(#ffffff, #e9e3a5);
   margin: 3px 0;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #CCC;
 }
 
 /* line 45, ../tools-kanban-board/kanban-board.scss */
@@ -31818,7 +31818,7 @@ a.olControlZoomOut {
   border-top-right-radius: 12px;
   position: relative;
   min-height: 38px;
-  border: solid #cccccc;
+  border: solid #CCC;
   border-bottom: 0px;
   border-width: 1px 1px 0 1px;
   padding-left: 12px;
@@ -31851,7 +31851,7 @@ a.olControlZoomOut {
   -moz-border-radius-bottomright: 12px;
   -webkit-border-bottom-right-radius: 12px;
   border-bottom-right-radius: 12px;
-  border: 1px solid #cccccc;
+  border: 1px solid #CCC;
   border-top: 0;
   border-bottom: 0;
 }
@@ -31869,7 +31869,7 @@ a.olControlZoomOut {
   margin-bottom: 10px;
   position: relative;
   min-height: 26px;
-  border: 1px solid #cccccc;
+  border: 1px solid #CCC;
   background-color: #ffffff;
   padding: 0px 15px 7px 15px;
   text-align: right;
@@ -31889,36 +31889,39 @@ a.olControlZoomOut {
 /* line 100, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban > :first-child {
   line-height: 33px;
-  min-height: 36px;
+  max-height: 36px;
+  height: 36px;
+  overflow: hidden;
   padding: 0;
   margin: 0;
   float: left;
   text-align: left;
+  overflow: hidden;
 }
 
-/* line 111, ../tools-kanban-board/kanban-board.scss */
+/* line 114, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask {
   display: inline;
 }
-/* line 113, ../tools-kanban-board/kanban-board.scss */
+/* line 116, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span {
   display: inline;
 }
-/* line 115, ../tools-kanban-board/kanban-board.scss */
+/* line 118, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span i {
   display: inline;
 }
-/* line 118, ../tools-kanban-board/kanban-board.scss */
+/* line 121, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span h5 {
   display: inline;
 }
-/* line 122, ../tools-kanban-board/kanban-board.scss */
+/* line 125, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask h6 {
   margin-top: 6px;
   display: inline;
 }
 
-/* line 128, ../tools-kanban-board/kanban-board.scss */
+/* line 131, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban {
   display: inline-block;
   padding: 0 6px;
@@ -31927,18 +31930,19 @@ a.olControlZoomOut {
   margin-top: 6px;
   font-size: 1.2em;
 }
-/* line 136, ../tools-kanban-board/kanban-board.scss */
+/* line 139, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban [class*=" icon-"], .widget-toolbar-kanban [class^="icon-"] {
   padding-left: 6px;
 }
-/* line 140, ../tools-kanban-board/kanban-board.scss */
+/* line 143, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .widget-toolbar-kanban {
   position: absolute;
   right: 7px;
   top: 1px;
+  background-color: white;
 }
 
-/* line 147, ../tools-kanban-board/kanban-board.scss */
+/* line 151, ../tools-kanban-board/kanban-board.scss */
 .tab-content-kanban {
   display: block;
   margin-top: 5px;
@@ -32021,7 +32025,7 @@ input.ng-valid.ng-dirty {
 /* line 71, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-active .mcombo-drop {
   background: #fff;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #aaa;
   border-top: 0;
   left: 0;
   -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
@@ -32043,7 +32047,7 @@ input.ng-valid.ng-dirty {
   background-image: -o-linear-gradient(top, #eeeeee 1%, white 15%);
   background-image: -ms-linear-gradient(top, #eeeeee 1%, white 15%);
   background-image: linear-gradient(top, #eeeeee 1%, #ffffff 15%);
-  border: 1px solid #aaaaaa;
+  border: 1px solid #aaa;
   margin: 0;
   padding: 0;
   cursor: text;
@@ -32207,7 +32211,7 @@ input.ng-valid.ng-dirty {
 
 /* line 230, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-active .mcombo-selected-choices .search-field input {
-  color: #111111 !important;
+  color: #111 !important;
 }
 
 /* @end */
@@ -32250,7 +32254,7 @@ footer {
   position: relative;
   display: block;
   z-index: 1;
-  box-shadow: 0px -5px 6px #7e5534;
+  box-shadow: 0px -5px 6px #7E5534;
 }
 /* line 15, ../read-rss/read-rss.scss */
 footer:before {
@@ -32285,13 +32289,13 @@ footer:before {
 @media only screen and (max-width: 480px) {
   /* line 2, ../common-scss/w8-responsive.scss */
   .hidden-480 {
-    display: none!important;
+    display: none !important;
   }
 }
 @media only screen and (max-width: 320px) {
   /* line 8, ../common-scss/w8-responsive.scss */
   .hidden-320 {
-    display: none!important;
+    display: none !important;
   }
 }
 @media only screen and (max-width: 767px) {
@@ -32400,57 +32404,45 @@ footer:before {
     border-bottom-width: 0;
   }
 
-  /* line 112, ../common-scss/w8-responsive.scss */
-  .ace-nav {
-    display: block;
-    float: none!important;
-    text-align: center;
-    font-size: 0;
-    background-color: #404040;
-    border: 1px solid #dddddd;
-    border-width: 1px 0;
-    letter-spacing: -4px;
-    word-spacing: -4px;
-  }
-  /* line 122, ../common-scss/w8-responsive.scss */
+  /* line 113, ../common-scss/w8-responsive.scss */
   .ace-nav > li {
     display: inline-block;
-    float: none!important;
+    float: none !important;
     text-align: left;
     letter-spacing: normal;
     word-spacing: normal;
   }
-  /* line 128, ../common-scss/w8-responsive.scss */
+  /* line 119, ../common-scss/w8-responsive.scss */
   .ace-nav > li:first-child {
-    border-left: 1px solid #dddddd;
+    border-left: 1px solid #DDD;
   }
-  /* line 131, ../common-scss/w8-responsive.scss */
+  /* line 122, ../common-scss/w8-responsive.scss */
   .ace-nav > li:last-child {
-    border-right: 1px solid #dddddd;
+    border-right: 1px solid #DDD;
   }
 }
 @media only screen and (max-width: 260px) {
-  /* line 140, ../common-scss/w8-responsive.scss */
+  /* line 131, ../common-scss/w8-responsive.scss */
   .ace-nav > li:first-child {
     border-left: none;
   }
-  /* line 143, ../common-scss/w8-responsive.scss */
+  /* line 134, ../common-scss/w8-responsive.scss */
   .ace-nav > li:last-child {
     border-right: 0;
   }
 }
 @media (min-width: 422px) and (max-width: 480px), (max-width: 340px) {
-  /* line 150, ../common-scss/w8-responsive.scss */
+  /* line 141, ../common-scss/w8-responsive.scss */
   #user_menu {
     padding-top: 42px;
   }
 
-  /* line 153, ../common-scss/w8-responsive.scss */
+  /* line 144, ../common-scss/w8-responsive.scss */
   .ace-nav .nav-user-photo {
     margin-right: 0;
   }
 
-  /* line 156, ../common-scss/w8-responsive.scss */
+  /* line 147, ../common-scss/w8-responsive.scss */
   #user_info {
     position: absolute;
     margin-top: 40px;
@@ -32471,61 +32463,78 @@ footer:before {
     vertical-align: none;
     line-height: normal;
   }
-  /* line 175, ../common-scss/w8-responsive.scss */
+  /* line 166, ../common-scss/w8-responsive.scss */
   #user_info > small {
     display: inline;
     opacity: 1;
   }
 
-  /* line 180, ../common-scss/w8-responsive.scss */
+  /* line 171, ../common-scss/w8-responsive.scss */
   li.open #user_info {
     display: inline-block;
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 186, ../common-scss/w8-responsive.scss */
+  /* line 177, ../common-scss/w8-responsive.scss */
+  .fillallheight {
+    height: auto;
+  }
+
+  /* line 181, ../common-scss/w8-responsive.scss */
+  .ace-nav {
+    display: block;
+    float: none !important;
+    text-align: center;
+    font-size: 0;
+    background-color: #404040;
+    border: 1px solid #DDD;
+    border-width: 1px 0;
+    word-spacing: -4px;
+  }
+
+  /* line 192, ../common-scss/w8-responsive.scss */
   #nav-search {
     right: 5px;
   }
 
-  /* line 189, ../common-scss/w8-responsive.scss */
+  /* line 195, ../common-scss/w8-responsive.scss */
   #nav-search-input {
     width: 80px;
   }
 
-  /* line 192, ../common-scss/w8-responsive.scss */
+  /* line 198, ../common-scss/w8-responsive.scss */
   #nav-search:hover #nav-search-input, #nav-search-btn:active + #nav-search-input {
     width: 100px;
   }
 
-  /* line 196, ../common-scss/w8-responsive.scss */
+  /* line 202, ../common-scss/w8-responsive.scss */
   #nav-search-input:focus, #nav-search-input:hover, #nav-search-input:active {
     width: 100px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 203, ../common-scss/w8-responsive.scss */
+  /* line 209, ../common-scss/w8-responsive.scss */
   #nav-search-input {
     width: 0;
     opacity: 0;
     max-width: 0;
   }
 
-  /* line 208, ../common-scss/w8-responsive.scss */
+  /* line 214, ../common-scss/w8-responsive.scss */
   #nav-search:hover #nav-search-input, #nav-search-btn:active + #nav-search-input {
     opacity: 1;
     width: 100px;
     max-width: 100px;
   }
 
-  /* line 214, ../common-scss/w8-responsive.scss */
+  /* line 220, ../common-scss/w8-responsive.scss */
   #nav-search-input:focus, #nav-search-input:hover, #nav-search-input:active {
     opacity: 1;
     width: 100px;
     max-width: 100px;
   }
 
-  /* line 220, ../common-scss/w8-responsive.scss */
+  /* line 226, ../common-scss/w8-responsive.scss */
   #nav-search-icon {
     border: 1px solid;
     border-radius: 32px;
@@ -32533,14 +32542,14 @@ footer:before {
     padding: 0 5px;
   }
 
-  /* line 226, ../common-scss/w8-responsive.scss */
+  /* line 232, ../common-scss/w8-responsive.scss */
   #nav-search:hover #nav-search-icon {
     border: 0;
     border-radius: 0;
     padding: 0 3px;
   }
 
-  /* line 232, ../common-scss/w8-responsive.scss */
+  /* line 238, ../common-scss/w8-responsive.scss */
   #nav-search-input:focus ~ #nav-search-icon, #nav-search-input:hover ~ #nav-search-icon, #nav-search-input:active ~ #nav-search-icon {
     border: 0;
     border-radius: 0;
@@ -32548,64 +32557,62 @@ footer:before {
   }
 }
 @media only screen and (max-width: 979px) {
-  /* line 241, ../common-scss/w8-responsive.scss */
+  /* line 247, ../common-scss/w8-responsive.scss */
   body {
     padding-right: 0;
     padding-left: 0;
   }
 
-  /* line 245, ../common-scss/w8-responsive.scss */
+  /* line 251, ../common-scss/w8-responsive.scss */
   #page-content {
     padding-left: 5px;
     padding-right: 5px;
   }
 
-  /* line 249, ../common-scss/w8-responsive.scss */
+  /* line 255, ../common-scss/w8-responsive.scss */
   #sidebar {
     z-index: 14;
     left: -200px;
-    margin-top: 40px;
+    margin-top: -3/px;
     position: fixed;
-    border: 1px solid #cccccc;
+    border: 1px solid #CCC;
     box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
-    -webkit-transition: left 0.15s ease;
-    -moz-transition: left 0.15s ease;
-    -o-transition: left 0.15s ease;
-    -ms-transition: left 0.15s ease;
-    transition: left 0.15s ease;
+    -webkit-transition: left .15s ease;
+    -moz-transition: left .15s ease;
+    -o-transition: left .15s ease;
+    -ms-transition: left .15s ease;
+    transition: left .15s ease;
   }
-  /* line 250, ../common-scss/w8-responsive.scss */
+  /* line 256, ../common-scss/w8-responsive.scss */
   #sidebar:before {
     display: none;
   }
-  /* line 264, ../common-scss/w8-responsive.scss */
+  /* line 270, ../common-scss/w8-responsive.scss */
   #sidebar.display {
-    position: absolute;
     left: 0;
   }
-  /* line 268, ../common-scss/w8-responsive.scss */
+  /* line 273, ../common-scss/w8-responsive.scss */
   #sidebar.menu-min {
     left: -50px;
   }
-  /* line 269, ../common-scss/w8-responsive.scss */
+  /* line 274, ../common-scss/w8-responsive.scss */
   #sidebar.menu-min.display {
-    position: absolute;
     left: 0;
   }
 
-  /* line 276, ../common-scss/w8-responsive.scss */
+  /* line 280, ../common-scss/w8-responsive.scss */
   #main-content {
-    margin-left: 0!important;
+    margin-left: 42px !important;
   }
 
-  /* line 279, ../common-scss/w8-responsive.scss */
+  /* line 283, ../common-scss/w8-responsive.scss */
   #menu-toggler {
     display: inline-block;
     position: absolute;
     left: 0;
     z-index: 14;
-    width: 52px;
-    height: 32px;
+    height: 20px;
+    top: -5px;
     margin-right: 2px;
     line-height: normal;
     padding-left: 33px;
@@ -32614,14 +32621,14 @@ footer:before {
     font-size: 13px;
     font-weight: bold;
     text-transform: uppercase;
-    background-color: #444;
+    background-color: #141313;
     color: #f3f3f3;
   }
-  /* line 296, ../common-scss/w8-responsive.scss */
+  /* line 300, ../common-scss/w8-responsive.scss */
   #menu-toggler:hover {
     text-decoration: none;
   }
-  /* line 299, ../common-scss/w8-responsive.scss */
+  /* line 303, ../common-scss/w8-responsive.scss */
   #menu-toggler:before {
     border-top: 1px solid #87b87f;
     border-bottom: 1px solid #6fb3e0;
@@ -32632,13 +32639,13 @@ footer:before {
     z-index: 11;
     top: 13px;
     left: 4px;
-    -moz-transition: all 0.1s ease;
-    -webkit-transition: all 0.1s ease;
-    -o-transition: all 0.1s ease;
-    -ms-transition: all 0.1s ease;
-    transition: all 0.1s ease;
+    -moz-transition: all .1s ease;
+    -webkit-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    transition: all .1s ease;
   }
-  /* line 315, ../common-scss/w8-responsive.scss */
+  /* line 319, ../common-scss/w8-responsive.scss */
   #menu-toggler:after {
     border-top: 1px solid #ffa24d;
     border-bottom: 1px solid #d15b47;
@@ -32648,50 +32655,31 @@ footer:before {
     position: absolute;
     top: 19px;
     left: 4px;
-    -moz-transition: all 0.1s ease;
-    -webkit-transition: all 0.1s ease;
-    -o-transition: all 0.1s ease;
-    -ms-transition: all 0.1s ease;
-    transition: all 0.1s ease;
+    -moz-transition: all .1s ease;
+    -webkit-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    transition: all .1s ease;
   }
-  /* line 331, ../common-scss/w8-responsive.scss */
+  /* line 335, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:before {
     height: 4px;
     top: 8px;
     border-width: 2px;
   }
-  /* line 336, ../common-scss/w8-responsive.scss */
+  /* line 340, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:after {
     height: 4px;
     top: 20px;
     border-width: 2px;
   }
-  /* line 342, ../common-scss/w8-responsive.scss */
-  #menu-toggler > span {
-    display: block;
-    position: absolute;
-    bottom: -18px;
-    left: 0;
-    border: 1px solid transparent;
-    border-width: 9px 42px;
-    border-top-color: #444;
-  }
-  /* line 350, ../common-scss/w8-responsive.scss */
-  #menu-toggler > span:after {
-    display: block;
-    content: "MENU";
-    color: #FFF;
-    position: absolute;
-    left: -8px;
-    top: -41px;
-  }
 
-  /* line 360, ../common-scss/w8-responsive.scss */
+  /* line 347, ../common-scss/w8-responsive.scss */
   .breadcrumb {
     margin-left: 90px;
   }
 
-  /* line 363, ../common-scss/w8-responsive.scss */
+  /* line 350, ../common-scss/w8-responsive.scss */
   #breadcrumbs.fixed {
     position: relative;
     left: auto;
@@ -32699,27 +32687,27 @@ footer:before {
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 371, ../common-scss/w8-responsive.scss */
+  /* line 358, ../common-scss/w8-responsive.scss */
   .breadcrumb > li > a {
     padding: 0;
   }
 }
 @media only screen and (max-width: 320px) {
-  /* line 377, ../common-scss/w8-responsive.scss */
+  /* line 364, ../common-scss/w8-responsive.scss */
   .breadcrumb {
     margin-left: 36px;
   }
 
-  /* line 380, ../common-scss/w8-responsive.scss */
+  /* line 367, ../common-scss/w8-responsive.scss */
   #menu-toggler {
     width: 0;
   }
-  /* line 382, ../common-scss/w8-responsive.scss */
+  /* line 369, ../common-scss/w8-responsive.scss */
   #menu-toggler > span {
     border-width: 7px 16px;
     bottom: -14px;
   }
-  /* line 385, ../common-scss/w8-responsive.scss */
+  /* line 372, ../common-scss/w8-responsive.scss */
   #menu-toggler > span:after {
     font-size: 9px;
     font-weight: normal;
@@ -32728,47 +32716,47 @@ footer:before {
     left: -13px;
     top: -42px;
   }
-  /* line 394, ../common-scss/w8-responsive.scss */
+  /* line 381, ../common-scss/w8-responsive.scss */
   #menu-toggler:before, #menu-toggler:after {
     margin-top: 8px;
   }
-  /* line 398, ../common-scss/w8-responsive.scss */
+  /* line 385, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:before, #menu-toggler.display:after {
     height: 2px;
     border-width: 1px;
   }
-  /* line 402, ../common-scss/w8-responsive.scss */
+  /* line 389, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:before {
     top: 13px;
   }
-  /* line 405, ../common-scss/w8-responsive.scss */
+  /* line 392, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:after {
     top: 19px;
   }
 }
 @media only screen and (max-width: 979px) {
-  /* line 413, ../common-scss/w8-responsive.scss */
+  /* line 400, ../common-scss/w8-responsive.scss */
   #page-content {
     padding-left: 11px;
     padding-right: 11px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 420, ../common-scss/w8-responsive.scss */
+  /* line 407, ../common-scss/w8-responsive.scss */
   #page-content {
     padding-left: 7px;
     padding-right: 7px;
   }
 }
 @media only screen and (max-width: 320px) {
-  /* line 427, ../common-scss/w8-responsive.scss */
+  /* line 414, ../common-scss/w8-responsive.scss */
   #page-content {
     padding-left: 5px;
     padding-right: 5px;
   }
 }
 @media only screen and (max-width: 460px) {
-  /* line 434, ../common-scss/w8-responsive.scss */
+  /* line 421, ../common-scss/w8-responsive.scss */
   .infobox {
     min-width: 95%;
     margin-top: 2px;
@@ -32776,42 +32764,42 @@ footer:before {
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 442, ../common-scss/w8-responsive.scss */
+  /* line 429, ../common-scss/w8-responsive.scss */
   .widget-box {
     margin-top: 7px;
     margin-bottom: 7px;
   }
 }
 @media only screen and (max-width: 420px) {
-  /* line 449, ../common-scss/w8-responsive.scss */
+  /* line 436, ../common-scss/w8-responsive.scss */
   .login-layout .widget-box .widget-main {
     padding: 16px;
   }
 }
 @media only screen and (max-width: 320px) {
-  /* line 455, ../common-scss/w8-responsive.scss */
+  /* line 442, ../common-scss/w8-responsive.scss */
   .login-layout .widget-box .widget-main {
     padding: 16px 8px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 461, ../common-scss/w8-responsive.scss */
+  /* line 448, ../common-scss/w8-responsive.scss */
   .login-container {
     width: 98%;
   }
 
-  /* line 464, ../common-scss/w8-responsive.scss */
+  /* line 451, ../common-scss/w8-responsive.scss */
   .login-layout .widget-box {
     padding: 0;
   }
 
-  /* line 467, ../common-scss/w8-responsive.scss */
+  /* line 454, ../common-scss/w8-responsive.scss */
   #login-box .toolbar > div {
     width: auto;
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 473, ../common-scss/w8-responsive.scss */
+  /* line 460, ../common-scss/w8-responsive.scss */
   .login-layout .widget-box.visible {
     -webkit-transition: none;
     -moz-transition: none;
@@ -32821,19 +32809,19 @@ footer:before {
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 483, ../common-scss/w8-responsive.scss */
+  /* line 470, ../common-scss/w8-responsive.scss */
   .error-container {
     margin: 12px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 489, ../common-scss/w8-responsive.scss */
+  /* line 476, ../common-scss/w8-responsive.scss */
   .error-container {
     margin: 6px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 495, ../common-scss/w8-responsive.scss */
+  /* line 482, ../common-scss/w8-responsive.scss */
   .fc-header td {
     display: block;
     width: auto;
@@ -32841,18 +32829,18 @@ footer:before {
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 503, ../common-scss/w8-responsive.scss */
+  /* line 490, ../common-scss/w8-responsive.scss */
   .ace-thumbnails {
     text-align: center;
   }
-  /* line 505, ../common-scss/w8-responsive.scss */
+  /* line 492, ../common-scss/w8-responsive.scss */
   .ace-thumbnails > li {
     float: none;
     display: inline-block;
   }
 }
 @media only screen and (max-width: 360px) {
-  /* line 513, ../common-scss/w8-responsive.scss */
+  /* line 500, ../common-scss/w8-responsive.scss */
   .grid3, .grid4 {
     float: none;
     display: block;
@@ -32864,9 +32852,9 @@ footer:before {
     padding-bottom: 4px;
   }
 
-  /* line 523, ../common-scss/w8-responsive.scss */
+  /* line 510, ../common-scss/w8-responsive.scss */
   .grid3 > [class*="pull-"], .grid4 > [class*="pull-"] {
-    float: none!important;
+    float: none !important;
     display: inline-block;
     position: absolute;
     right: 11px;
@@ -32874,79 +32862,79 @@ footer:before {
     margin-top: 0;
   }
 
-  /* line 531, ../common-scss/w8-responsive.scss */
+  /* line 518, ../common-scss/w8-responsive.scss */
   .grid3:last-child, .grid4:last-child {
     border-bottom: 0;
   }
 }
 @media (max-width: 979px) {
-  /* line 537, ../common-scss/w8-responsive.scss */
+  /* line 524, ../common-scss/w8-responsive.scss */
   body.navbar-fixed {
     padding-top: 0;
   }
 
-  /* line 540, ../common-scss/w8-responsive.scss */
+  /* line 527, ../common-scss/w8-responsive.scss */
   .navbar-fixed-top {
     margin-bottom: 0;
   }
-  /* line 542, ../common-scss/w8-responsive.scss */
+  /* line 529, ../common-scss/w8-responsive.scss */
   .navbar-fixed-top .navbar-inner {
     padding-top: 0;
     padding-bottom: 0;
   }
 
-  /* line 547, ../common-scss/w8-responsive.scss */
+  /* line 534, ../common-scss/w8-responsive.scss */
   .navbar-fixed-bottom .navbar-inner {
     padding-top: 0;
     padding-bottom: 0;
   }
 
-  /* line 551, ../common-scss/w8-responsive.scss */
+  /* line 538, ../common-scss/w8-responsive.scss */
   #sidebar.fixed {
     position: absolute;
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 557, ../common-scss/w8-responsive.scss */
+  /* line 544, ../common-scss/w8-responsive.scss */
   .help-inline, .input-icon + .help-inline {
     padding-left: 0;
-    display: block!important;
+    display: block !important;
   }
 }
 @media only screen and (max-width: 640px) {
-  /* line 565, ../common-scss/w8-responsive.scss */
+  /* line 552, ../common-scss/w8-responsive.scss */
   .wizard-steps li .step {
     padding: 2px 7px;
     border-width: 3px;
   }
-  /* line 569, ../common-scss/w8-responsive.scss */
+  /* line 556, ../common-scss/w8-responsive.scss */
   .wizard-steps li:before, .wizard-steps li:after {
     border-width: 3px;
   }
-  /* line 572, ../common-scss/w8-responsive.scss */
+  /* line 559, ../common-scss/w8-responsive.scss */
   .wizard-steps li.complete .step:before {
     padding: 5px 4px;
     font-size: 13px;
   }
-  /* line 576, ../common-scss/w8-responsive.scss */
+  /* line 563, ../common-scss/w8-responsive.scss */
   .wizard-steps li:after {
     top: -12px;
   }
 
-  /* line 580, ../common-scss/w8-responsive.scss */
+  /* line 567, ../common-scss/w8-responsive.scss */
   .step-content .step-pane {
     padding: 4px 4px 6px;
   }
 }
 @media only screen and (max-width: 400px) {
-  /* line 586, ../common-scss/w8-responsive.scss */
+  /* line 573, ../common-scss/w8-responsive.scss */
   .itemdiv.memberdiv {
     float: none;
     width: auto;
   }
 }
 @media only screen and (max-width: 979px) {
-  /* line 593, ../common-scss/w8-responsive.scss */
+  /* line 580, ../common-scss/w8-responsive.scss */
   .ace-spinner .spinner-buttons > .btn {
     height: 29px;
     line-height: 20px;
@@ -32955,14 +32943,14 @@ footer:before {
     display: inline-block;
     vertical-align: sub;
   }
-  /* line 600, ../common-scss/w8-responsive.scss */
+  /* line 587, ../common-scss/w8-responsive.scss */
   .ace-spinner .spinner-buttons > .btn > [class*="icon-"] {
     vertical-align: middle;
     display: inline-block;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 608, ../common-scss/w8-responsive.scss */
+  /* line 595, ../common-scss/w8-responsive.scss */
   #ace-settings-container {
     top: 65px;
   }

@@ -22,25 +22,7 @@ define(['angular','angular-dragdrop'], function (angular) {
           /**
           * Tranform data from server. Example:
           */
-
-          if($scope.data !== undefined ) {
-            var i;
-            for(i=0; i < $scope.data.length; i++) {
-              var j;
-              for(j=0; j < $scope.data.length; j++) {
-                var obj = $scope.data[i].tasks[j];
-                if( obj !== undefined ) {
-                  var varName;
-                  for( varName in obj ) {
-                    if( obj[varName].value !== undefined ) {
-                      obj[varName] = obj[varName].value;
-                    }
-                  }
-                }
-              }
-            }
-        
-        }}
+        }
 
         $scope.editTask = function ( uuid, category ){
           taskService.editTask(uuid, category);
