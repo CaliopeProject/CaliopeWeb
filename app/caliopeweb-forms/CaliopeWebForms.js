@@ -1129,7 +1129,7 @@ var CaliopeWebFormValidDecorator = ( function() {
     if( params !== undefined ) {
       var i;
       for(i=0; i<params.length; i++) {
-        stParameters = stParameters.concat('|').concat(params[i]);
+        stParameters = stParameters.concat(params[i]).concat('|');
       }
     }
     return {
