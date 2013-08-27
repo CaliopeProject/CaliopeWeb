@@ -47,8 +47,8 @@
                     <ul id="tasks" class="item-list ui-sortable">
                       <li class="item-orange" ng-class="{'selected': subtask.complete}">
                       <label class="inline">
-                        <input type="checkbox" name="subtask.complete" ng-model='subtask.complete'  ng:click="checkSubtask(item, item.subtasks)">
-                        <span class="lbl"> {{subtask.description}}</span>
+                        <input type="checkbox" name="subtask.complete.value" ng-model='subtask.complete.value'  ng:click="checkSubtask(item, item.subtasks)">
+                        <span class="lbl"> {{subtask.description.value}}</span>
                       </label>
                       </li>
                     </ul>

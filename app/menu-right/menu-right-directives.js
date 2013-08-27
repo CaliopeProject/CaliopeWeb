@@ -12,7 +12,9 @@ define(['angular'], function(angular) {
       restrict: "A",
       scope: {
         btn:  '=',
-        icon: '='
+        url:  '=',
+        icon: '=',
+        ttip: '='
       },
       link: function (scope, elem, attrs) {}
     };
@@ -25,7 +27,9 @@ define(['angular'], function(angular) {
       restrict: "A",
       scope: {
         btn:  '=',
-        icon: '='
+        url:  '=',
+        icon: '=',
+        tooltip: '='
       },
       link: function (scope, elem, attrs) {}
     };

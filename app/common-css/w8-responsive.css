@@ -1,13 +1,13 @@
 @media only screen and (max-width: 480px) {
   /* line 2, ../common-scss/w8-responsive.scss */
   .hidden-480 {
-    display: none!important;
+    display: none !important;
   }
 }
 @media only screen and (max-width: 320px) {
   /* line 8, ../common-scss/w8-responsive.scss */
   .hidden-320 {
-    display: none!important;
+    display: none !important;
   }
 }
 @media only screen and (max-width: 767px) {
@@ -116,57 +116,45 @@
     border-bottom-width: 0;
   }
 
-  /* line 112, ../common-scss/w8-responsive.scss */
-  .ace-nav {
-    display: block;
-    float: none!important;
-    text-align: center;
-    font-size: 0;
-    background-color: #404040;
-    border: 1px solid #dddddd;
-    border-width: 1px 0;
-    letter-spacing: -4px;
-    word-spacing: -4px;
-  }
-  /* line 122, ../common-scss/w8-responsive.scss */
+  /* line 113, ../common-scss/w8-responsive.scss */
   .ace-nav > li {
     display: inline-block;
-    float: none!important;
+    float: none !important;
     text-align: left;
     letter-spacing: normal;
     word-spacing: normal;
   }
-  /* line 128, ../common-scss/w8-responsive.scss */
+  /* line 119, ../common-scss/w8-responsive.scss */
   .ace-nav > li:first-child {
-    border-left: 1px solid #dddddd;
+    border-left: 1px solid #DDD;
   }
-  /* line 131, ../common-scss/w8-responsive.scss */
+  /* line 122, ../common-scss/w8-responsive.scss */
   .ace-nav > li:last-child {
-    border-right: 1px solid #dddddd;
+    border-right: 1px solid #DDD;
   }
 }
 @media only screen and (max-width: 260px) {
-  /* line 140, ../common-scss/w8-responsive.scss */
+  /* line 131, ../common-scss/w8-responsive.scss */
   .ace-nav > li:first-child {
     border-left: none;
   }
-  /* line 143, ../common-scss/w8-responsive.scss */
+  /* line 134, ../common-scss/w8-responsive.scss */
   .ace-nav > li:last-child {
     border-right: 0;
   }
 }
 @media (min-width: 422px) and (max-width: 480px), (max-width: 340px) {
-  /* line 150, ../common-scss/w8-responsive.scss */
+  /* line 141, ../common-scss/w8-responsive.scss */
   #user_menu {
     padding-top: 42px;
   }
 
-  /* line 153, ../common-scss/w8-responsive.scss */
+  /* line 144, ../common-scss/w8-responsive.scss */
   .ace-nav .nav-user-photo {
     margin-right: 0;
   }
 
-  /* line 156, ../common-scss/w8-responsive.scss */
+  /* line 147, ../common-scss/w8-responsive.scss */
   #user_info {
     position: absolute;
     margin-top: 40px;
@@ -187,61 +175,78 @@
     vertical-align: none;
     line-height: normal;
   }
-  /* line 175, ../common-scss/w8-responsive.scss */
+  /* line 166, ../common-scss/w8-responsive.scss */
   #user_info > small {
     display: inline;
     opacity: 1;
   }
 
-  /* line 180, ../common-scss/w8-responsive.scss */
+  /* line 171, ../common-scss/w8-responsive.scss */
   li.open #user_info {
     display: inline-block;
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 186, ../common-scss/w8-responsive.scss */
+  /* line 177, ../common-scss/w8-responsive.scss */
+  .fillallheight {
+    height: auto;
+  }
+
+  /* line 181, ../common-scss/w8-responsive.scss */
+  .ace-nav {
+    display: block;
+    float: none !important;
+    text-align: center;
+    font-size: 0;
+    background-color: #404040;
+    border: 1px solid #DDD;
+    border-width: 1px 0;
+    word-spacing: -4px;
+  }
+
+  /* line 192, ../common-scss/w8-responsive.scss */
   #nav-search {
     right: 5px;
   }
 
-  /* line 189, ../common-scss/w8-responsive.scss */
+  /* line 195, ../common-scss/w8-responsive.scss */
   #nav-search-input {
     width: 80px;
   }
 
-  /* line 192, ../common-scss/w8-responsive.scss */
+  /* line 198, ../common-scss/w8-responsive.scss */
   #nav-search:hover #nav-search-input, #nav-search-btn:active + #nav-search-input {
     width: 100px;
   }
 
-  /* line 196, ../common-scss/w8-responsive.scss */
+  /* line 202, ../common-scss/w8-responsive.scss */
   #nav-search-input:focus, #nav-search-input:hover, #nav-search-input:active {
     width: 100px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 203, ../common-scss/w8-responsive.scss */
+  /* line 209, ../common-scss/w8-responsive.scss */
   #nav-search-input {
     width: 0;
     opacity: 0;
     max-width: 0;
   }
 
-  /* line 208, ../common-scss/w8-responsive.scss */
+  /* line 214, ../common-scss/w8-responsive.scss */
   #nav-search:hover #nav-search-input, #nav-search-btn:active + #nav-search-input {
     opacity: 1;
     width: 100px;
     max-width: 100px;
   }
 
-  /* line 214, ../common-scss/w8-responsive.scss */
+  /* line 220, ../common-scss/w8-responsive.scss */
   #nav-search-input:focus, #nav-search-input:hover, #nav-search-input:active {
     opacity: 1;
     width: 100px;
     max-width: 100px;
   }
 
-  /* line 220, ../common-scss/w8-responsive.scss */
+  /* line 226, ../common-scss/w8-responsive.scss */
   #nav-search-icon {
     border: 1px solid;
     border-radius: 32px;
@@ -249,14 +254,14 @@
     padding: 0 5px;
   }
 
-  /* line 226, ../common-scss/w8-responsive.scss */
+  /* line 232, ../common-scss/w8-responsive.scss */
   #nav-search:hover #nav-search-icon {
     border: 0;
     border-radius: 0;
     padding: 0 3px;
   }
 
-  /* line 232, ../common-scss/w8-responsive.scss */
+  /* line 238, ../common-scss/w8-responsive.scss */
   #nav-search-input:focus ~ #nav-search-icon, #nav-search-input:hover ~ #nav-search-icon, #nav-search-input:active ~ #nav-search-icon {
     border: 0;
     border-radius: 0;
@@ -264,64 +269,62 @@
   }
 }
 @media only screen and (max-width: 979px) {
-  /* line 241, ../common-scss/w8-responsive.scss */
+  /* line 247, ../common-scss/w8-responsive.scss */
   body {
     padding-right: 0;
     padding-left: 0;
   }
 
-  /* line 245, ../common-scss/w8-responsive.scss */
+  /* line 251, ../common-scss/w8-responsive.scss */
   #page-content {
     padding-left: 5px;
     padding-right: 5px;
   }
 
-  /* line 249, ../common-scss/w8-responsive.scss */
+  /* line 255, ../common-scss/w8-responsive.scss */
   #sidebar {
     z-index: 14;
     left: -200px;
-    margin-top: 40px;
+    margin-top: -3/px;
     position: fixed;
-    border: 1px solid #cccccc;
+    border: 1px solid #CCC;
     box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
-    -webkit-transition: left 0.15s ease;
-    -moz-transition: left 0.15s ease;
-    -o-transition: left 0.15s ease;
-    -ms-transition: left 0.15s ease;
-    transition: left 0.15s ease;
+    -webkit-transition: left .15s ease;
+    -moz-transition: left .15s ease;
+    -o-transition: left .15s ease;
+    -ms-transition: left .15s ease;
+    transition: left .15s ease;
   }
-  /* line 250, ../common-scss/w8-responsive.scss */
+  /* line 256, ../common-scss/w8-responsive.scss */
   #sidebar:before {
     display: none;
   }
-  /* line 264, ../common-scss/w8-responsive.scss */
+  /* line 270, ../common-scss/w8-responsive.scss */
   #sidebar.display {
-    position: absolute;
     left: 0;
   }
-  /* line 268, ../common-scss/w8-responsive.scss */
+  /* line 273, ../common-scss/w8-responsive.scss */
   #sidebar.menu-min {
     left: -50px;
   }
-  /* line 269, ../common-scss/w8-responsive.scss */
+  /* line 274, ../common-scss/w8-responsive.scss */
   #sidebar.menu-min.display {
-    position: absolute;
     left: 0;
   }
 
-  /* line 276, ../common-scss/w8-responsive.scss */
+  /* line 280, ../common-scss/w8-responsive.scss */
   #main-content {
-    margin-left: 0!important;
+    margin-left: 42px !important;
   }
 
-  /* line 279, ../common-scss/w8-responsive.scss */
+  /* line 283, ../common-scss/w8-responsive.scss */
   #menu-toggler {
     display: inline-block;
     position: absolute;
     left: 0;
     z-index: 14;
-    width: 52px;
-    height: 32px;
+    height: 20px;
+    top: -5px;
     margin-right: 2px;
     line-height: normal;
     padding-left: 33px;
@@ -330,14 +333,14 @@
     font-size: 13px;
     font-weight: bold;
     text-transform: uppercase;
-    background-color: #444;
+    background-color: #141313;
     color: #f3f3f3;
   }
-  /* line 296, ../common-scss/w8-responsive.scss */
+  /* line 300, ../common-scss/w8-responsive.scss */
   #menu-toggler:hover {
     text-decoration: none;
   }
-  /* line 299, ../common-scss/w8-responsive.scss */
+  /* line 303, ../common-scss/w8-responsive.scss */
   #menu-toggler:before {
     border-top: 1px solid #87b87f;
     border-bottom: 1px solid #6fb3e0;
@@ -348,13 +351,13 @@
     z-index: 11;
     top: 13px;
     left: 4px;
-    -moz-transition: all 0.1s ease;
-    -webkit-transition: all 0.1s ease;
-    -o-transition: all 0.1s ease;
-    -ms-transition: all 0.1s ease;
-    transition: all 0.1s ease;
+    -moz-transition: all .1s ease;
+    -webkit-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    transition: all .1s ease;
   }
-  /* line 315, ../common-scss/w8-responsive.scss */
+  /* line 319, ../common-scss/w8-responsive.scss */
   #menu-toggler:after {
     border-top: 1px solid #ffa24d;
     border-bottom: 1px solid #d15b47;
@@ -364,50 +367,31 @@
     position: absolute;
     top: 19px;
     left: 4px;
-    -moz-transition: all 0.1s ease;
-    -webkit-transition: all 0.1s ease;
-    -o-transition: all 0.1s ease;
-    -ms-transition: all 0.1s ease;
-    transition: all 0.1s ease;
+    -moz-transition: all .1s ease;
+    -webkit-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    transition: all .1s ease;
   }
-  /* line 331, ../common-scss/w8-responsive.scss */
+  /* line 335, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:before {
     height: 4px;
     top: 8px;
     border-width: 2px;
   }
-  /* line 336, ../common-scss/w8-responsive.scss */
+  /* line 340, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:after {
     height: 4px;
     top: 20px;
     border-width: 2px;
   }
-  /* line 342, ../common-scss/w8-responsive.scss */
-  #menu-toggler > span {
-    display: block;
-    position: absolute;
-    bottom: -18px;
-    left: 0;
-    border: 1px solid transparent;
-    border-width: 9px 42px;
-    border-top-color: #444;
-  }
-  /* line 350, ../common-scss/w8-responsive.scss */
-  #menu-toggler > span:after {
-    display: block;
-    content: "MENU";
-    color: #FFF;
-    position: absolute;
-    left: -8px;
-    top: -41px;
-  }
 
-  /* line 360, ../common-scss/w8-responsive.scss */
+  /* line 347, ../common-scss/w8-responsive.scss */
   .breadcrumb {
     margin-left: 90px;
   }
 
-  /* line 363, ../common-scss/w8-responsive.scss */
+  /* line 350, ../common-scss/w8-responsive.scss */
   #breadcrumbs.fixed {
     position: relative;
     left: auto;
@@ -415,27 +399,27 @@
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 371, ../common-scss/w8-responsive.scss */
+  /* line 358, ../common-scss/w8-responsive.scss */
   .breadcrumb > li > a {
     padding: 0;
   }
 }
 @media only screen and (max-width: 320px) {
-  /* line 377, ../common-scss/w8-responsive.scss */
+  /* line 364, ../common-scss/w8-responsive.scss */
   .breadcrumb {
     margin-left: 36px;
   }
 
-  /* line 380, ../common-scss/w8-responsive.scss */
+  /* line 367, ../common-scss/w8-responsive.scss */
   #menu-toggler {
     width: 0;
   }
-  /* line 382, ../common-scss/w8-responsive.scss */
+  /* line 369, ../common-scss/w8-responsive.scss */
   #menu-toggler > span {
     border-width: 7px 16px;
     bottom: -14px;
   }
-  /* line 385, ../common-scss/w8-responsive.scss */
+  /* line 372, ../common-scss/w8-responsive.scss */
   #menu-toggler > span:after {
     font-size: 9px;
     font-weight: normal;
@@ -444,47 +428,47 @@
     left: -13px;
     top: -42px;
   }
-  /* line 394, ../common-scss/w8-responsive.scss */
+  /* line 381, ../common-scss/w8-responsive.scss */
   #menu-toggler:before, #menu-toggler:after {
     margin-top: 8px;
   }
-  /* line 398, ../common-scss/w8-responsive.scss */
+  /* line 385, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:before, #menu-toggler.display:after {
     height: 2px;
     border-width: 1px;
   }
-  /* line 402, ../common-scss/w8-responsive.scss */
+  /* line 389, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:before {
     top: 13px;
   }
-  /* line 405, ../common-scss/w8-responsive.scss */
+  /* line 392, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:after {
     top: 19px;
   }
 }
 @media only screen and (max-width: 979px) {
-  /* line 413, ../common-scss/w8-responsive.scss */
+  /* line 400, ../common-scss/w8-responsive.scss */
   #page-content {
     padding-left: 11px;
     padding-right: 11px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 420, ../common-scss/w8-responsive.scss */
+  /* line 407, ../common-scss/w8-responsive.scss */
   #page-content {
     padding-left: 7px;
     padding-right: 7px;
   }
 }
 @media only screen and (max-width: 320px) {
-  /* line 427, ../common-scss/w8-responsive.scss */
+  /* line 414, ../common-scss/w8-responsive.scss */
   #page-content {
     padding-left: 5px;
     padding-right: 5px;
   }
 }
 @media only screen and (max-width: 460px) {
-  /* line 434, ../common-scss/w8-responsive.scss */
+  /* line 421, ../common-scss/w8-responsive.scss */
   .infobox {
     min-width: 95%;
     margin-top: 2px;
@@ -492,42 +476,42 @@
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 442, ../common-scss/w8-responsive.scss */
+  /* line 429, ../common-scss/w8-responsive.scss */
   .widget-box {
     margin-top: 7px;
     margin-bottom: 7px;
   }
 }
 @media only screen and (max-width: 420px) {
-  /* line 449, ../common-scss/w8-responsive.scss */
+  /* line 436, ../common-scss/w8-responsive.scss */
   .login-layout .widget-box .widget-main {
     padding: 16px;
   }
 }
 @media only screen and (max-width: 320px) {
-  /* line 455, ../common-scss/w8-responsive.scss */
+  /* line 442, ../common-scss/w8-responsive.scss */
   .login-layout .widget-box .widget-main {
     padding: 16px 8px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 461, ../common-scss/w8-responsive.scss */
+  /* line 448, ../common-scss/w8-responsive.scss */
   .login-container {
     width: 98%;
   }
 
-  /* line 464, ../common-scss/w8-responsive.scss */
+  /* line 451, ../common-scss/w8-responsive.scss */
   .login-layout .widget-box {
     padding: 0;
   }
 
-  /* line 467, ../common-scss/w8-responsive.scss */
+  /* line 454, ../common-scss/w8-responsive.scss */
   #login-box .toolbar > div {
     width: auto;
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 473, ../common-scss/w8-responsive.scss */
+  /* line 460, ../common-scss/w8-responsive.scss */
   .login-layout .widget-box.visible {
     -webkit-transition: none;
     -moz-transition: none;
@@ -537,19 +521,19 @@
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 483, ../common-scss/w8-responsive.scss */
+  /* line 470, ../common-scss/w8-responsive.scss */
   .error-container {
     margin: 12px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 489, ../common-scss/w8-responsive.scss */
+  /* line 476, ../common-scss/w8-responsive.scss */
   .error-container {
     margin: 6px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 495, ../common-scss/w8-responsive.scss */
+  /* line 482, ../common-scss/w8-responsive.scss */
   .fc-header td {
     display: block;
     width: auto;
@@ -557,18 +541,18 @@
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 503, ../common-scss/w8-responsive.scss */
+  /* line 490, ../common-scss/w8-responsive.scss */
   .ace-thumbnails {
     text-align: center;
   }
-  /* line 505, ../common-scss/w8-responsive.scss */
+  /* line 492, ../common-scss/w8-responsive.scss */
   .ace-thumbnails > li {
     float: none;
     display: inline-block;
   }
 }
 @media only screen and (max-width: 360px) {
-  /* line 513, ../common-scss/w8-responsive.scss */
+  /* line 500, ../common-scss/w8-responsive.scss */
   .grid3, .grid4 {
     float: none;
     display: block;
@@ -580,9 +564,9 @@
     padding-bottom: 4px;
   }
 
-  /* line 523, ../common-scss/w8-responsive.scss */
+  /* line 510, ../common-scss/w8-responsive.scss */
   .grid3 > [class*="pull-"], .grid4 > [class*="pull-"] {
-    float: none!important;
+    float: none !important;
     display: inline-block;
     position: absolute;
     right: 11px;
@@ -590,79 +574,79 @@
     margin-top: 0;
   }
 
-  /* line 531, ../common-scss/w8-responsive.scss */
+  /* line 518, ../common-scss/w8-responsive.scss */
   .grid3:last-child, .grid4:last-child {
     border-bottom: 0;
   }
 }
 @media (max-width: 979px) {
-  /* line 537, ../common-scss/w8-responsive.scss */
+  /* line 524, ../common-scss/w8-responsive.scss */
   body.navbar-fixed {
     padding-top: 0;
   }
 
-  /* line 540, ../common-scss/w8-responsive.scss */
+  /* line 527, ../common-scss/w8-responsive.scss */
   .navbar-fixed-top {
     margin-bottom: 0;
   }
-  /* line 542, ../common-scss/w8-responsive.scss */
+  /* line 529, ../common-scss/w8-responsive.scss */
   .navbar-fixed-top .navbar-inner {
     padding-top: 0;
     padding-bottom: 0;
   }
 
-  /* line 547, ../common-scss/w8-responsive.scss */
+  /* line 534, ../common-scss/w8-responsive.scss */
   .navbar-fixed-bottom .navbar-inner {
     padding-top: 0;
     padding-bottom: 0;
   }
 
-  /* line 551, ../common-scss/w8-responsive.scss */
+  /* line 538, ../common-scss/w8-responsive.scss */
   #sidebar.fixed {
     position: absolute;
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 557, ../common-scss/w8-responsive.scss */
+  /* line 544, ../common-scss/w8-responsive.scss */
   .help-inline, .input-icon + .help-inline {
     padding-left: 0;
-    display: block!important;
+    display: block !important;
   }
 }
 @media only screen and (max-width: 640px) {
-  /* line 565, ../common-scss/w8-responsive.scss */
+  /* line 552, ../common-scss/w8-responsive.scss */
   .wizard-steps li .step {
     padding: 2px 7px;
     border-width: 3px;
   }
-  /* line 569, ../common-scss/w8-responsive.scss */
+  /* line 556, ../common-scss/w8-responsive.scss */
   .wizard-steps li:before, .wizard-steps li:after {
     border-width: 3px;
   }
-  /* line 572, ../common-scss/w8-responsive.scss */
+  /* line 559, ../common-scss/w8-responsive.scss */
   .wizard-steps li.complete .step:before {
     padding: 5px 4px;
     font-size: 13px;
   }
-  /* line 576, ../common-scss/w8-responsive.scss */
+  /* line 563, ../common-scss/w8-responsive.scss */
   .wizard-steps li:after {
     top: -12px;
   }
 
-  /* line 580, ../common-scss/w8-responsive.scss */
+  /* line 567, ../common-scss/w8-responsive.scss */
   .step-content .step-pane {
     padding: 4px 4px 6px;
   }
 }
 @media only screen and (max-width: 400px) {
-  /* line 586, ../common-scss/w8-responsive.scss */
+  /* line 573, ../common-scss/w8-responsive.scss */
   .itemdiv.memberdiv {
     float: none;
     width: auto;
   }
 }
 @media only screen and (max-width: 979px) {
-  /* line 593, ../common-scss/w8-responsive.scss */
+  /* line 580, ../common-scss/w8-responsive.scss */
   .ace-spinner .spinner-buttons > .btn {
     height: 29px;
     line-height: 20px;
@@ -671,14 +655,14 @@
     display: inline-block;
     vertical-align: sub;
   }
-  /* line 600, ../common-scss/w8-responsive.scss */
+  /* line 587, ../common-scss/w8-responsive.scss */
   .ace-spinner .spinner-buttons > .btn > [class*="icon-"] {
     vertical-align: middle;
     display: inline-block;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 608, ../common-scss/w8-responsive.scss */
+  /* line 595, ../common-scss/w8-responsive.scss */
   #ace-settings-container {
     top: 65px;
   }

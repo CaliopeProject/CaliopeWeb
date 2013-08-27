@@ -3,7 +3,8 @@
 
   <!--MENU ICON SHORTCUTS-LARGE INIT-->
   <div id="sidebar-shortcuts-large">
-    <div ng-repeat="short in shortcuts" btn="short.btn" icon='short.icon' sidebar></div>
+    <div ng-repeat="short in shortcuts" ttip='short.ttip' url='short.url' btn="short.btn" icon='short.icon' sidebar>
+    </div>
 
   </div>
   <!--MENU ICON SHORTCUTS-LARGE END-->
@@ -25,7 +26,6 @@
     <span>Acciones</span>
   </a>
   </li>
-
   <li>
   <a href="#/task">
     <i class="icon-text-width"></i>
@@ -127,6 +127,5 @@
     <span>Login</span>
   </a>
   </li>
-  
 </ul>
 <!--MENU INIT-->
