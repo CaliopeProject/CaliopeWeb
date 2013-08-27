@@ -12277,18 +12277,18 @@ li [class^="icon-"], li [class*=" icon-"] {
   text-align: center;
   margin-top: 3px;
 }
+/* line 1435, ../common-scss/w8.scss */
+#sidebar-shortcuts .btn {
+  margin: 6px;
+}
 
-/* line 1437, ../common-scss/w8.scss */
+/* line 1440, ../common-scss/w8.scss */
 #sidebar-shortcuts-large {
   padding-bottom: 4px;
 }
-/* line 1439, ../common-scss/w8.scss */
-#sidebar-shortcuts-large > .btn > [class*="icon-"] {
-  font-size: 110%;
-}
 /* line 1442, ../common-scss/w8.scss */
-#sidebar-shortcuts-large > .btn {
-  margin: 2px;
+#sidebar-shortcuts-large .btn [class*="icon-"] {
+  font-size: 110%;
 }
 
 /* line 1447, ../common-scss/w8.scss */

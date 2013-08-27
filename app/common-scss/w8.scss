@@ -1432,15 +1432,15 @@ li {
   border-bottom: 1px solid #ddd;
   text-align: center;
   margin-top: 3px;
+  .btn{
+    margin: 6px
+  }
 }
 
 #sidebar-shortcuts-large {
   padding-bottom: 4px;
-  > .btn > [class*="icon-"] {
+  .btn [class*="icon-"] {
     font-size: 110%;
-  }
-  > .btn {
-    margin: 2px
   }
 }
 
