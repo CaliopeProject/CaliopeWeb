@@ -1,3 +1,5 @@
+@import "compass";
+
 input.ng-invalid.ng-dirty {
   background-color: #FA787E;
 }
@@ -54,6 +56,20 @@ input.ng-valid.ng-dirty {
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
     background-clip: padding-box;
+
+    input[type=radio], input[type=checkbox]  {
+      opacity: 1;
+      margin-left: 5px;
+    }
+
+    input[type=radio] + label {
+      margin-left: 25px;
+      font-weight: normal;
+    }
+    input[type=checkbox] + label {
+      margin-left: 25px;
+      font-weight: normal;
+    }
 }
 
 
@@ -244,19 +260,20 @@ input.ng-valid.ng-dirty {
     cursor: default;
 }*/
 /* //END  ui-multicombo directive*/
-  .calendar{
-    .btn {
-      padding: 0 5px;
-      line-height: 22px;
-      border-width: 2px;
-      font-size: 12px;
-    }
-
-     th {
-      font-size: 10px;
-    }
-
-    td > em {
-      font-size: 10px;
-    }
+.calendar{
+  .btn {
+    padding: 0 5px;
+    line-height: 22px;
+    border-width: 2px;
+    font-size: 12px;
   }
+
+   th {
+    font-size: 10px;
+  }
+
+  td > em {
+    font-size: 10px;
+  }
+}
+
