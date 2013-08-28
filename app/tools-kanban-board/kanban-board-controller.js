@@ -40,8 +40,6 @@ define(['angular','angular-dragdrop'], function (angular) {
           task.subtasks = taskService.getSubTasks(task);
         };
 
-        updateKanban();
-
 
         /**
         *
