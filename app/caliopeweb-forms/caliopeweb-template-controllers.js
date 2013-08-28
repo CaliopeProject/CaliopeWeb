@@ -33,8 +33,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
               if( result.structureToRender !== undefined ) {
                 $scope.jsonPlantillaAngular = result.structureToRender;
               }
-              if( result.elementsName !== undefined ) {
-                $scope.elementsFormTemplate   = result.elementsName;
+              if( result.elements !== undefined ) {
+                $scope.elementsFormTemplate   = result.elements;
               }
               $scope.modelUUID               = result.modelUUID;
             }
@@ -137,7 +137,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
         $scope.$watch('responseSendAction', function (value) {
 
-          if (value !== undefined ) {
+          if (value !== undefined && value !== null) {
 
             if(value.error === undefined) {
 
