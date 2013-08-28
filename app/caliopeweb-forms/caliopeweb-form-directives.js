@@ -1,14 +1,50 @@
 /*jslint browser: true*/
 /*global define, console, $*/
 
+/**
+ *
+ * This module contains all angularjs directives creates in caliope web form API to render
+ * the dynamics forms.
+ *
+ * @module CaliopeWebFormDirectives
+ * @namespace  CaliopeWebFormDirectives
+ *
+ * @author Daniel Ochoa <ndaniel8a@gmail.com>
+ * @author Cesar Gonzalez <aurigadl@gmail.com>
+ * @license  GNU AFFERO GENERAL PUBLIC LICENSE
+ * @copyright
+   SIIM2 Models are the data definition of SIIM2 Information System
+   Copyright (C) 2013 Infometrika Ltda.
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Affero General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Affero General Public License for more details.
+
+   You should have received a copy of the GNU Affero General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 define(['angular', 'dform'], function (angular) {
   'use strict';
 
   /**
-   * Get the final value of a attribute in a object, where attribute is represented by a string notation that indicate the
-   * path to final attribute..
+   * Define a module for add the angularjs directives of CaliopeWebForm
+   * @memberOf CaliopeWebFormDirectives
+   * @type {module}
+   */
+  var moduleDirectives = angular.module('CaliopeWebFormDirectives', []);
+
+  /**
+   * Get the final value of a attribute in a object, where attribute is represented by a string
+   * notation that indicate the path to final attribute..
    *
-   * Example.
+   * @example
    * obj = { "user" : {
     *            "username" : {value : "username"},
     *            "name"  : {value : "NAME USER"}
@@ -19,10 +55,11 @@ define(['angular', 'dform'], function (angular) {
    *
    * Return "NAME USER"
    *
-   * @param obj Object with the data
-   * @param strAttrValue String that represent the attribute final to return value.
-   * @param charSplit A character that indicate the separation of attributes in strAttrValue
-   * @returns {*} The value of attribute
+   * @memberOf CaliopeWebFormDirectives
+   * @param {object} obj Object with the data
+   * @param {string} strAttrValue String that represent the attribute final to return value.
+   * @param {string} charSplit A character that indicate the separation of attributes in strAttrValue
+   * @return {object} The value of attribute
    */
   function getFinalValueFromString(obj, strAttrValue, charSplit) {
     var fieldsValue = strAttrValue.split(charSplit);
@@ -39,47 +76,53 @@ define(['angular', 'dform'], function (angular) {
   }
 
 
-
-  var moduleDirectives = angular.module('CaliopeWebFormDirectives', []);
-
-  moduleDirectives.directive('cwForm', function () {
-    var directiveDefinitionObject = {
-      restrict : 'E',
-      replace : false,
-      templateUrl : 'caliopeweb-forms/caliopeweb-form-partial.html',
-      scope: {
-        id   : '=id',
-        mode : '=mode'
-      }
-    };
-
-    return directiveDefinitionObject;
-
-  });
-
-
   /**
-  * Define the directive for <cw-dform>. This print a html form using the
-  * Dform library based in JQuery.  This directive should be used as an
-  * attribute, example: <form cw-dform="jsonPlantilla"></form>.
-  *
-  * This directive expect one attribute, it is the variable of scope that
-  * contains the representation of form according to the format specific for
-  * Dform Library. For more information please visit
-  * https://github.com/daffl/jquery.dform
-  *
+   * Define the directive for cw-dform. This print a html form using the
+   * Dform library based in JQuery.  This directive should be used as an
+   * attribute,
+   *
+   * This directive expect one attribute, it is the variable of scope that
+   * contains the representation of form according to the format specific for
+   * Dform Library. For more information please visit
+   * https://github.com/daffl/jquery.dform
+   *
+   * @callback CaliopeWebFormDirectives
+   * @namespace Directive:cwDform
+   *
   */
   moduleDirectives.directive('cwDform', function ($compile) {
 
     /**
-    * Define the function for link the directive to AngularJS Context.
+     * Define the properties of directive. This define:<br/>
+     * <ul>
+     *  <li>The scope not is override</li>
+     *  <li>Link function</li>
+     * </ul>
+     *
+     * @member  directiveDefinitionObject
+     * @memberOf Directive:cwDform
+     *
     */
     var directiveDefinitionObject = {
+      /**
+       * Link function of the directive. This get the directive element and call the
+       * Jquery Dform library to render the form.
+       * @function link
+       * @memberOf Directive:cwDform
+       * @param {object} scope AngularJS scope of the directive
+       * @param {object} element Element that contains the directive definition
+       * @param {object} attrs Attributes in tag that contains the directive.
+       */
       link: function (scope, element, attrs) {
 
-        /*
-        * Function that print the form with dForm
-        */
+        /**
+         * Function that render the form with Jquery dForm. Also compile the DOM generate by
+         * dForm in order to angularjs note the directives includes in the DOM
+         * @function
+         * @param {object} templateData Json Template to render. The Json must be in dForm syntax.
+         * @memberOf Directive:cwDform
+         * @inner
+         */
         function renderDForm(templateData) {
           //var plantilla = JSON.parse(templateData);
           var plantilla = templateData;
@@ -96,9 +139,15 @@ define(['angular', 'dform'], function (angular) {
           }
         }
 
-        /* Watch the change for attribute indicate in attribute cw-dform
-        * an update the form generated by Dform
+        /*
         */
+        /**
+         * Watch the change for attribute indicate in attribute cw-dform
+         * an update the form generated by Dform
+         *
+         * @callback Directive:cwDform
+         * @inner
+         */
         scope.$watch(attrs.cwDform, function (value) {
           if (value !== undefined) {
             console.log("Json to render", value);

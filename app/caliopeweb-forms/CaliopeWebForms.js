@@ -1,9 +1,4 @@
 /**
- * Contains all class for render forms with dform and support for angularjs.
- * @module  CaliopeWebForm_Module
- */
-
-/**
  * Constructor not execute functionality associate to initialize variables, this is the constructor by default.
  * @class CaliopeWebForm
  * @classdesc  This represent the form object in presentation layer. The
@@ -1134,7 +1129,7 @@ var CaliopeWebFormValidDecorator = ( function() {
     if( params !== undefined ) {
       var i;
       for(i=0; i<params.length; i++) {
-        stParameters = stParameters.concat('|').concat(params[i]);
+        stParameters = stParameters.concat(params[i]).concat('|');
       }
     }
     return {

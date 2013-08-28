@@ -31,11 +31,11 @@
                   <i class="icon-double-angle-up" ng-show="showSubtasks==true"></i>
                 </span>
 
-                <span class="text-warning" ng-click="editTask(item.uuid, obj.category)">
+                <span class="text-warning" ng-click="editTask(item.uuid.value, obj.category)">
                   <i class="icon-edit"></i>
                 </span>
 
-                <span class="text-error"  ng-click="deleteTask(item.uuid)">
+                <span class="text-error"  ng-click="deleteTask(item.uuid.value)">
                   <i class="icon-trash"></i>
                 </span>
 

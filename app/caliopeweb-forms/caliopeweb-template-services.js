@@ -102,11 +102,9 @@ define(['angular'], function(angular) {
           return promise;
         };
 
-        Service.loadDataGrid = function(formId, paramsSearch) {
-          var method = "form.getDataList";
-          var params = {
-            formId : formId
-          };
+        Service.loadDataGrid = function(method, paramsSearch) {
+          var method = method;
+          var params = {};
           var promise = {};
           if( paramsSearch !== undefined ) {
             jQuery.extend(params, paramsSearch);
