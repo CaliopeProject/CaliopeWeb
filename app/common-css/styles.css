@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*
  * Bootstrap v2.3.2
  *
@@ -31899,30 +31898,34 @@ a.olControlZoomOut {
   text-align: left;
   overflow: hidden;
 }
+/* line 113, ../tools-kanban-board/kanban-board.scss */
+.task-header-kanban input {
+  width: 80%;
+}
 
-/* line 114, ../tools-kanban-board/kanban-board.scss */
+/* line 118, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask {
   display: inline;
 }
-/* line 116, ../tools-kanban-board/kanban-board.scss */
+/* line 120, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span {
   display: inline;
 }
-/* line 118, ../tools-kanban-board/kanban-board.scss */
+/* line 122, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span i {
   display: inline;
 }
-/* line 121, ../tools-kanban-board/kanban-board.scss */
+/* line 125, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span h5 {
   display: inline;
 }
-/* line 125, ../tools-kanban-board/kanban-board.scss */
+/* line 129, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask h6 {
   margin-top: 6px;
   display: inline;
 }
 
-/* line 131, ../tools-kanban-board/kanban-board.scss */
+/* line 135, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban {
   display: inline-block;
   padding: 0 6px;
@@ -31931,11 +31934,11 @@ a.olControlZoomOut {
   margin-top: 6px;
   font-size: 1.2em;
 }
-/* line 139, ../tools-kanban-board/kanban-board.scss */
+/* line 143, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban [class*=" icon-"], .widget-toolbar-kanban [class^="icon-"] {
   padding-left: 6px;
 }
-/* line 143, ../tools-kanban-board/kanban-board.scss */
+/* line 147, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .widget-toolbar-kanban {
   position: absolute;
   right: 7px;
@@ -31943,7 +31946,7 @@ a.olControlZoomOut {
   background-color: white;
 }
 
-/* line 151, ../tools-kanban-board/kanban-board.scss */
+/* line 155, ../tools-kanban-board/kanban-board.scss */
 .tab-content-kanban {
   display: block;
   margin-top: 5px;

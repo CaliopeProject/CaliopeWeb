@@ -49,6 +49,7 @@ require.config({
 
     'application-app'                  : 'application/application-app',
     'application-servicesWebSocket'    : 'application/application-servicesWebSocket',
+    'application-commonservices'       : 'application/application-commonservices',
     'application-controller'           : 'application/application-controller',
     'application-routes'               : 'application/application-routes',
     'notificationsService'             : 'application/notificationsService',

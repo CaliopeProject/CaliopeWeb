@@ -116,7 +116,7 @@ define(['angular', 'uuid'], function(angular) {
          */
         var listener = function (data) {
           var messageObj = data;
-          console.log("Received data from websocket: ", messageObj);
+          console.log("Received data from websocket 109: ", messageObj);
           // If an object exists with callback_id in our callbacks object, resolve it
           //          console.log("messageObj.callback_id:", messageObj.callback_id);
           //          console.log("messageObj.data:", messageObj.data);
@@ -170,8 +170,8 @@ define(['angular', 'uuid'], function(angular) {
         */
       function initWebSockets() {
         var wsTemplates = new WebSocketCaliope(
-            'ws://' + document.domain + ':' + location.port + '/api/ws'
-            //'ws://' + '192.168.2.57' + ':' + location.port + '/api/ws'
+            //'ws://' + document.domain + ':' + location.port + '/api/ws'
+            'ws://' + '192.168.2.57' + ':' + location.port + '/api/ws'
           );
         webSockets.serversimm = wsTemplates;
       }
