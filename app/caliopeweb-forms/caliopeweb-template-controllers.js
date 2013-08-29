@@ -223,52 +223,57 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
   moduleControllers.controller('SIMMGridCtrl',
       ['caliopewebTemplateSrv', '$scope', '$routeParams',
-        function (caliopewebTemplateSrv,
-                  $scope, $routeParams) {
+        function (caliopewebTemplateSrv, $scope, $routeParams) {
 
 
-          var caliopeForm = {};
+        function loadDataGrid() {
+          var paramsSearch = {};
+          $scope.responseLoadDataGrid = caliopewebTemplateSrv.loadDataGrid(
+              $scope.methodLoadDataGrid, paramsSearch);
+        }
 
-          caliopeForm.id = $routeParams.plantilla;
-          $scope.caliopeForm = caliopeForm;
-          $scope.responseLoadDataGrid = {};
+        $scope.methodLoadDataGrid = "";
 
-          $scope.data = [];
+        $scope.init = function(_method, columnsToRender) {
+          $scope.methodLoadDataGrid = _method;
+        };
 
-          $scope.gridOptions = {
-            'data': 'data'
-          };
+        $scope.responseLoadDataGrid = {};
 
-          function loadDataGrid() {
-            var paramsSearch = {};
-            $scope.responseLoadDataGrid = caliopewebTemplateSrv.loadDataGrid(
-                caliopeForm.id, paramsSearch);
+        $scope.data = [];
+
+        $scope.gridOptions = {
+          'data': 'data'
+        };
+
+        $scope.loadDataGrid = function()  {
+          loadDataGrid();
+        };
+
+        $scope.$watch('responseLoadDataGrid', function (value) {
+
+          if( value !== undefined && value !== null && value['error'] === undefined) {
+            var caliopeWebGrid = new CaliopeWebGrid();
+            caliopeWebGrid.addGridName($scope.caliopeForm.id);
+            caliopeWebGrid.addData(value.data);
+            CaliopeWebGridDataDecorator.createStructureToRender(caliopeWebGrid);
+            var structureToRender = caliopeWebGrid.createStructureToRender();
+
+            $scope.data = structureToRender.data;
+            $scope.gridOptions = {
+              'data'  : 'data'
+            };
+          } else {
+            $scope.data = [
+            ];
+            $scope.gridOptions = {
+              'data': 'data'
+            };
           }
 
-          $scope.$watch('responseLoadDataGrid', function (value) {
+        });
 
-            if( value !== undefined && value['error'] === undefined) {
-              var caliopeWebGrid = new CaliopeWebGrid();
-              caliopeWebGrid.addGridName($scope.caliopeForm.id);
-              caliopeWebGrid.addData(value.data);
-              CaliopeWebGridDataDecorator.createStructureToRender(caliopeWebGrid);
-              var structureToRender = caliopeWebGrid.createStructureToRender();
-
-              $scope.data = structureToRender.data;
-              $scope.gridOptions = {
-                'data'  : 'data'
-              };
-            } else {
-              $scope.data = [
-              ];
-              $scope.gridOptions = {
-                'data': 'data'
-              };
-            }
-
-          });
-
-          loadDataGrid();
+        //loadDataGrid();
 
       }]
   );
