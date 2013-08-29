@@ -152,8 +152,9 @@ define(['angular'], function(angular) {
 
               result.structureToRender = caliopeWebForm.createStructureToRender();
               result.elements          = caliopeWebForm.getElements();
-              result.modelUUID          = caliopeWebForm.getModelUUID();
+              result.modelUUID         = caliopeWebForm.getModelUUID();
               result.data              = caliopeWebForm.getData();
+              result.elementsName      = caliopeWebForm.getElementsName();
 
               caliopeWebForm.putDataToContext(context, result.elements);
               return result;
