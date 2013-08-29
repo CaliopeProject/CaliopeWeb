@@ -6,6 +6,7 @@ var dependencies = [
     'angular',
     'application-controller',
     'application-servicesWebSocket',
+    'application-commonservices',
     'caliopeweb-templateServices',
     'caliopeweb-templateControllers',
     'caliopeweb-formDirectives',

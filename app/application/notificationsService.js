@@ -1,13 +1,13 @@
 /*jslint browser: true*/
 /*global $rootscope, define*/
 
-define(['angular'], function (angular) {
+define(['angular', 'application-commonservices'], function (angular) {
   'use strict';
 
-  var  moduleservice = angular.module('NotificationsServices', []);
+  var  moduleservice = angular.module('NotificationsServices', ['commonServices']);
 
   return moduleservice.factory('HandlerResponseServerSrv',
-      ['$rootScope', function ($rootScope) {
+      ['$rootScope', 'toolservices', function ($rootScope, toolservices) {
 
         var dataToProcess, selector, mensOk, mensError, addPromises;
 
@@ -21,9 +21,9 @@ define(['angular'], function (angular) {
         };
 
         selector = function (){
-          var resultError = dataToProcess['error'];
+          var resultError = dataToProcess.error;
           if(resultError !== undefined){
-            return mensError(resultError['message'] + '-' + resultError['code']);
+            return mensError(resultError.message + '-' + resultError.code);
           }
           return mensOk();
         };
@@ -40,16 +40,16 @@ define(['angular'], function (angular) {
                 var msgSelector = selector();
                 $rootScope.$broadcast('ChangeTextAlertMessage', [msgSelector]);
 
-                var result =  dataResponse['result'];
-                var error = dataResponse['error'];
+                var result =  dataResponse.result;
+                var error = dataResponse.error;
                 if( result !== undefined ) {
-                  dataResponseDef = result;
+                  //process json whit common service
+                  dataResponseDef = toolservices.rmValue(result);
                 }
                 if( error !== undefined ) {
-                  dataResponseDef['error'] = error;
+                  dataResponseDef.error = error;
                 }
               }
-
               return dataResponseDef;
             });
             promise = promiseNew;

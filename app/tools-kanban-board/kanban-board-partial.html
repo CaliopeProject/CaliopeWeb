@@ -22,7 +22,7 @@
                   <i class="icon-list-ul"></i>
                   <h5>{{remaining}}</h5>
                 </span>
-                <h6> {{item.descripcion.value}} </h6>
+                <h6> {{item.descripcion}} </h6>
               </div>
 
               <div class="lbl widget-toolbar-kanban no-border" >
@@ -31,11 +31,11 @@
                   <i class="icon-double-angle-up" ng-show="showSubtasks==true"></i>
                 </span>
 
-                <span class="text-warning" ng-click="editTask(item.uuid.value, obj.category)">
+                <span class="text-warning" ng-click="editTask(item.uuid, obj.category)">
                   <i class="icon-edit"></i>
                 </span>
 
-                <span class="text-error"  ng-click="deleteTask(item.uuid.value)">
+                <span class="text-error"  ng-click="deleteTask(item.uuid)">
                   <i class="icon-trash"></i>
                 </span>
 
@@ -47,8 +47,8 @@
                     <ul id="tasks" class="item-list ui-sortable">
                       <li class="item-orange" ng-class="{'selected': subtask.complete}">
                       <label class="inline">
-                        <input type="checkbox" name="subtask.complete.value" ng-model='subtask.complete.value'  ng:click="checkSubtask(item, item.subtasks)">
-                        <span class="lbl"> {{subtask.description.value}}</span>
+                        <input type="checkbox" name="subtask.complete" ng-model='subtask.complete'  ng:click="checkSubtask(item)">
+                        <span class="lbl"> {{subtask.description}}</span>
                       </label>
                       </li>
                     </ul>

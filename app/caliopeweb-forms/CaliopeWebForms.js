@@ -223,7 +223,7 @@ var CaliopeWebForm = (function() {
       addData: function(_data) {
         data = _data;
         if(_data !== undefined) {
-          modelUUID = _data['uuid'].value;
+          modelUUID = _data.uuid;
         }
       },
     /**
@@ -357,7 +357,7 @@ var CaliopeWebForm = (function() {
           var varname;
           for (varname in data) {
             if(data.hasOwnProperty(varname)) {
-              context[varname] = data[varname].value;
+              context[varname] = data[varname];
             }
           }
         }
@@ -687,18 +687,15 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           */
           if( data !== undefined ) {
             var selectedChoices = data[element.name];
-            if( selectedChoices !== undefined && selectedChoices.value !== undefined ) {
-              selectedChoices = selectedChoices.value;
-            }
             if( selectedChoices !== undefined ) {
               if( selectedChoices instanceof Array ) {
                 var i = 0;
                 for( i=0; i < selectedChoices.length; i++ ) {
                   element[VARNAME_SELECTEDCHOICES] = element[VARNAME_SELECTEDCHOICES].
-                    concat(selectedChoices[i]).concat(",")
+                    concat(selectedChoices[i]).concat(",");
                 }
-              } else if( selectedChoices.value instanceof String ) {
-                element[VARNAME_SELECTEDCHOICES] = "'".concat(selectedChoices.value).concat("'")
+              } else if( selectedChoices instanceof String ) {
+                element[VARNAME_SELECTEDCHOICES] = "'".concat(selectedChoices).concat("'");
               }
             }
           }
@@ -851,7 +848,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
       var modelUUID = caliopeWebForm.getModelUUID();
       var objID;
       if( caliopeWebForm.getData() !== undefined && caliopeWebForm.getData().uuid !== 'undefined') {
-        objID = caliopeWebForm.getData().uuid.value;
+        objID = caliopeWebForm.getData().uuid;
       }
       if( objID === undefined ) {
         objID = '';
@@ -1160,7 +1157,7 @@ var CaliopeWebFormValidDecorator = ( function() {
       if( htmlElements instanceof Array ) {
         for(i=0; i<htmlElements.length; i++) {
           if( htmlElements[i].html !== undefined ) {
-            result = searchContainer(htmlElements[i].html, elementSearch)
+            result = searchContainer(htmlElements[i].html, elementSearch);
             if( result !== undefined ) {
               break;
             }
@@ -1173,7 +1170,7 @@ var CaliopeWebFormValidDecorator = ( function() {
         }
       } else {
         if( htmlElements.html !== undefined ) {
-          searchContainer(htmlElements.html, elementSearch)
+          searchContainer(htmlElements.html, elementSearch);
         }
       }
     }
@@ -1199,7 +1196,7 @@ var CaliopeWebFormValidDecorator = ( function() {
       if( htmlElements instanceof Array ) {
         for(i=0; i<htmlElements.length; i++) {
           if( htmlElements[i].html !== undefined ) {
-            var htmlElementsReplacedTmp = replaceContainer(htmlElements[i].html, containerSearch, containerNew)
+            var htmlElementsReplacedTmp = replaceContainer(htmlElements[i].html, containerSearch, containerNew);
             if( htmlElementsReplacedTmp.hasOwnProperty('replace') ) {
               htmlElements[i].html =  htmlElementsReplacedTmp.replace;
               return htmlElements[i];
@@ -1215,7 +1212,7 @@ var CaliopeWebFormValidDecorator = ( function() {
         }
       } else {
         if( htmlElements.html !== undefined ) {
-          return replaceContainer(htmlElements.html, containerSearch, containerNew)
+          return replaceContainer(htmlElements.html, containerSearch, containerNew);
         }
       }
     }
