@@ -98,14 +98,14 @@ var CaliopeWebGridDataDecorator = ( function() {
     var dataT = [];
     if( dataInit !== undefined ) {
       var i;
-      for( i=0; i<dataInit.length; i++ ) {
+      for( i in dataInit) {
         var reg = dataInit[i];
         var obj = {};
         if( reg !== undefined ) {
           var varname;
           for( varname in reg ) {
             if( reg.hasOwnProperty(varname) ) {
-              obj[varname] = reg[varname].value;
+              obj[varname] = reg[varname];
             }
           }
         }
