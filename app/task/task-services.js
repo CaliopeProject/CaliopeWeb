@@ -54,7 +54,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             }
           }
           if(success === true) {
-            $rootScope.$broadcast('updateKanban', []);
+            loadTask();
           }
         }
 
@@ -103,7 +103,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
               }
             };
             opentaskDialog(DIALOG_NAME_FORM_TASK);
-            loadTask();
           },
 
           editTask: function(numuuid, category) {

@@ -10,10 +10,59 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
           Ext.namespace('Heron.options.map');
           Ext.namespace('Heron.App.mapPanel');
 
+          $scope.showGrillaPredios = false;
+          console.log("$scope.$id: ",$scope.$id);
           $scope.data = [
           ];
           $scope.gridOptions = {
-              'data': 'data'
+              'data': 'data',
+              columnDefs: [
+                  {
+                      field: 'area_construida',
+                      displayName: 'Área construida'
+                  },
+                  {
+                      field: 'area_terreno',
+                      displayName: 'Área terreno'
+                  },
+                  {
+                      field: 'cedula_catastral',
+                      displayName: 'Cédula Catastral    '
+                  },
+                  {
+                      field: 'chip',
+                      displayName: 'Chip'
+                  },
+                  {
+                      field: 'clase_predio',
+                      displayName: 'Clase predio'
+                  },
+                  {
+                      field: 'direccion_actual',
+                      displayName: 'Dirección actual'
+                  },
+                  {
+                      field: 'escritura',
+                      displayName: 'Escritura'
+                  },
+                  {
+                      field: 'matricula',
+                      displayName: 'Matrícula'
+                  },
+                  {
+                      field: 'notaria',
+                      displayName: 'Notaría'
+                  },
+                  {
+                      field: 'sector',
+                      displayName: 'Sector'
+                  },
+                  {
+                      field: 'Acciones',
+                      displayName: 'acciones'
+                  }
+              ]
+
           };
           var barmanpre;
 
@@ -37,74 +86,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
               ]
       });
 
-          var store = new Ext.data.ArrayStore({
-              reader: resultReader
-          });
-
-          var grid = new Ext.grid.GridPanel({
-              store: store,
-              columns: [
-                  {
-                      id       :'estado',
-                      header   : 'Estado',
-                      width    : 160,
-                      sortable : true,
-                      dataIndex: 'estado'
-                  },
-                  {
-                      id       :'ficha',
-                      header   : 'Ficha',
-                      width    : 160,
-                      sortable : true,
-                      dataIndex: 'ficha'
-                  },
-                  {
-                      id       :'forma_intervencion',
-                      header   : 'Forma de Intervención',
-                      width    : 160,
-                      sortable : true,
-                      dataIndex: 'forma_intervencion'
-                  },
-                  {
-                      id       :'localidad',
-                      header   : 'Localidad',
-                      width    : 160,
-                      sortable : true,
-                      dataIndex: 'localidad'
-                  },
-                  {
-                      id       :'nombre',
-                      header   : 'Nombre',
-                      width    : 160,
-                      sortable : true,
-                      dataIndex: 'nombre'
-                  },
-                  {
-                      id       :'timestamp',
-                      header   : 'timestamp',
-                      width    : 160,
-                      sortable : true,
-                      dataIndex: 'timestamp'
-                  },
-                  {
-                      id       :'uuid',
-                      header   : 'uuid',
-                      width    : 160,
-                      sortable : true,
-                      dataIndex: 'uuid'
-                  }
-              ],
-              stripeRows: true,
-              autoExpandColumn: 'estado',
-              height: 350,
-              width: 600,
-              title: 'Lote',
-              stateful: true,
-              stateId: 'grid'
-          });
-
-
-		Heron.options.map.settings = {
+          Heron.options.map.settings = {
 			projection: 'EPSG:4686',
 			maxExtent: bounds,
 			maxResolution: 0.0010794266378287,//Resolucion escala 1:100.000 es 0.0003174784228908226,
@@ -162,10 +144,22 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                 {
                     isBaseLayer:false
                 }
-            )
-            ,
+            ),
+            new OpenLayers.Layer.WMS("Proyectos",
+                "http://" + document.domain + ":" + location.port + "/gis_proxy/wms",
+                {
+                    id: 'capaProyectos',
+                    layers: "mtv_gis:proyectos",
+                    format: "image/png",
+                    transparent: true,
+                    visibility: false
+                },
+                {
+                    isBaseLayer:false
+                }
+            ),
             new OpenLayers.Layer.WMS("Lotes",
-                "http://" + document.domain + ":" + location.port + "/gis_proxy/WMSServer",
+                "http://" + document.domain + ":" + location.port + "/gis_proxy/catastro",
                 {
                     layers: "14",
                     format: "image/png",
@@ -176,6 +170,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                 }
             )
         ];
+
           var layerTreeAction;
 
           var layerTreeDialog = new Ext.Window({
@@ -187,20 +182,64 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
               closeAction: 'hide'
           });
 
-          var gridDialog = new Ext.Window({
+          var filt = new OpenLayers.Filter.Logical({
+              type: OpenLayers.Filter.Logical.OR,
+              filters: [
+                  new OpenLayers.Filter.Comparison({
+                      type: OpenLayers.Filter.Comparison.LIKE,
+                      property: "TYPE",
+                      value: "highway"
+                  })
+              ]
+          });
+
+          var proyectoSearchAction;
+
+          var proyectoSearchDialog = new Ext.Window({
               layout: "fit",
               width: 350,
               height: 150,
               renderTo: "siim_mapdiv",
               constrain: true,
-              items:[grid]
+              closeAction: 'hide'
           });
+
+          var formPanel = new GeoExt.form.FormPanel({
+              protocol: new OpenLayers.Protocol.WFS({
+                      url: 'http://' + document.domain + ':' + location.port + '/gis_proxy/wfs',
+                      srsName: "EPSG:4686",
+                      featureType: "proyectos",
+                      featureNS: "mtv_gis",
+                      geometryName: "the_geom"
+              }),
+              items: [{
+                  xtype: "textfield",
+                  name: "PROYECTO__like",
+                  value: "",
+                  fieldLabel: "  nombre"
+              }],
+              listeners: {
+                  actioncomplete: function(form, action) {
+                      var featureSearch = action.response.features[0];
+                      Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
+                  }
+              }
+          });
+
+          formPanel.addButton({
+              text: "search",
+              handler: function() {
+                  this.search();
+              },
+              scope: formPanel
+          });
+
           var featureInfoAction;
 
           var featureInfoControl = new OpenLayers.Control.WMSGetFeatureInfo({
-              url: 'http://localhost:9000/gis_proxy/WMSServer',
+              url: 'http://' + document.domain + ':' + location.port + '/gis_proxy/catastro',
               title: 'Identificar elementos',
-              layers: [Heron.options.map.layers[5]],
+              layers: [Heron.options.map.layers[6]],
               queryVisible: true,
               infoFormat: 'text/plain',
               eventListeners: {
@@ -210,6 +249,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                       if(resultado[11]!=null){
                           $scope.responseLoadDataGrid = {};
                           barmanpre = resultado[11];
+                          console.log("barmanpre: ",barmanpre);
                           loadDataGrid(barmanpre);
                       }
                   },
@@ -252,8 +292,22 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
             },
             {
                 create: function(mapPanel, options){
-
+                    options.handler = function () {
+                        proyectoSearchDialog.add(formPanel);
+                        proyectoSearchDialog.show();
+                    };
+                    proyectoSearchAction = new Ext.Action(options);
+                    return proyectoSearchAction;
+                },
+                options: {
+                    text : 'Busqueda de proyectos'
+                }
+            },
+            {
+                create: function(mapPanel, options){
                     options.handler = function(){
+                        $scope.showGrillaPredios = true;
+                        $scope.$apply();
                         featureInfoControl.activate();
                     };
                     featureInfoAction = new Ext.Action(options);
@@ -276,33 +330,81 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
           };
 
           function loadDataGrid(barmanpreParam) {
-              var paramsSearch = {};
+              var paramsSearch = {"sector": "008108150300122004"};
               $scope.responseLoadDataGrid = caliopewebTemplateSrv.loadDataGrid(
-                  'SIIMForm', paramsSearch);
+                  'catastro.getPredio', paramsSearch);
           };
 
 
           $scope.$watch('responseLoadDataGrid', function (value) {
+              console.log("value: ",value);
               if( value !== undefined && value['error'] === undefined) {
                   var err = value['error'];
                   var append = false;
                   if( err === undefined ) {
                       var caliopeWebGrid = new CaliopeWebGrid();
-                      caliopeWebGrid.addGridName('SIIMForm');
-                      caliopeWebGrid.addData(value.data);
+                      caliopeWebGrid.addGridName('catastro.getPredio');
+                      caliopeWebGrid.addData(value);
                       CaliopeWebGridDataDecorator.createStructureToRender(caliopeWebGrid);
                       var structureToRender = caliopeWebGrid.createStructureToRender();
                       console.log('Structure To Render', structureToRender);
                       $scope.data = structureToRender.data;
                       $scope.gridOptions = {
-                          'data'  : 'data'
+                          data  : 'data',
+                          columnDefs: $scope.columnsDefGisGrid
                       };
                   }
               } else {
                   $scope.data = [
                   ];
                   $scope.gridOptions = {
-                      'data': 'data'
+                      data: 'data',
+                      columnDefs: [
+                          {
+                              field: 'area_construida',
+                              displayName: 'Área construida'
+                          },
+                          {
+                              field: 'area_terreno',
+                              displayName: 'Área terreno'
+                          },
+                          {
+                              field: 'cedula_catastral',
+                              displayName: 'Cédula Catastral    '
+                          },
+                          {
+                              field: 'chip',
+                              displayName: 'Chip'
+                          },
+                          {
+                              field: 'clase_predio',
+                              displayName: 'Clase predio'
+                          },
+                          {
+                              field: 'direccion_actual',
+                              displayName: 'Dirección actual'
+                          },
+                          {
+                              field: 'escritura',
+                              displayName: 'Escritura'
+                          },
+                          {
+                              field: 'matricula',
+                              displayName: 'Matrícula'
+                          },
+                          {
+                              field: 'notaria',
+                              displayName: 'Notaría'
+                          },
+                          {
+                              field: 'sector',
+                              displayName: 'Sector'
+                          },
+                          {
+                              field: 'Acciones',
+                              displayName: 'acciones'
+                          }
+                      ]
                   };
               }
           });

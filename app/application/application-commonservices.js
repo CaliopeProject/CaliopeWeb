@@ -31,14 +31,21 @@ define(['angular'], function(angular) {
     }
 
     function removeValue(objvalue){
-      var temobj = {};
+      var temobj;
       if(angular.isObject(objvalue)){
+        temobj = {};
         angular.forEach(objvalue, function(value, key){
           temobj[key] = parseValue(value);
         });
-
-        return temobj;
       }
+
+      if(angular.isArray(objvalue)){
+        temobj = [];
+        angular.forEach(objvalue, function(value, key){
+          temobj.push(parseValue(value));
+        });
+      }
+      return temobj;
     }
 
     // The public API of the service
