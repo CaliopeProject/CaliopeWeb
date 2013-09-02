@@ -16,11 +16,10 @@
         <div class="widget-main fillallheight">
           <div class="boxDrop fillallheight" >
             <div ng-controller="kanbanItemCtrl" class="task-header-kanban" ng-init="showSubtasks=false"  uuid="{{item.uuid}}" ng-show='item.uuid'  ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStart:'startCallback'}">
-
               <div class="blockInline-subtask">
                 <span class="green">
                   <i class="icon-list-ul"></i>
-                  <h5>{{remaining}}</h5>
+                  <h5>{{item.subtasks.length || 0 }} - <span class="text-error"> {{countSubtask(item.subtasks)}}</span></h5>
                 </span>
                 <h6> {{item.descripcion}} </h6>
               </div>

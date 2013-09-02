@@ -191,6 +191,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
           checkSubtask : function(task){
             tempServices.sendDataForm('tasks', 'tasks.edit', task, task.uuid, task.uuid);
+            loadTask();
           },
 
           addSubtask : function(parentTask, description, category) {
@@ -208,6 +209,16 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             parentTask.category = category;
 
             tempServices.sendDataForm('tasks', 'tasks.edit', parentTask, parentTask.uuid, parentTask.uuid);
+          },
+
+          countSubtask : function(task) {
+            var remaining = 0;
+            angular.forEach(task, function(value, key){
+              if(value.complete === false){
+                remaining++;
+              }
+            });
+            return remaining;
           },
 
           changeCategory: function(uiElement, taskDrag){

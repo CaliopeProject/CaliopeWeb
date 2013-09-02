@@ -46,12 +46,10 @@ define(['angular','angular-dragdrop'], function (angular) {
         function(security, $scope, webSocket, taskService) {
           var webSockets = webSocket.WebSockets();
 
-          $scope.remaining = 0;
+
+          $scope.countSubtask = taskService.countSubtask ;
 
           angular.forEach($scope.item.subtask, function(value, key){
-            if(value === false){
-              $scope.remaining++;
-            }
           });
 
           $scope.startCallback = function(event, ui) {
