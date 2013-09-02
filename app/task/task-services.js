@@ -189,7 +189,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
           },
 
-          checkSubtask : function(task){
+          checkSubtask : function(task, category){
+            task.category = category;
             tempServices.sendDataForm('tasks', 'tasks.edit', task, task.uuid, task.uuid);
             loadTask();
           },

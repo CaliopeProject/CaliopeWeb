@@ -19,7 +19,7 @@
               <div class="blockInline-subtask">
                 <span class="green">
                   <i class="icon-list-ul"></i>
-                  <h5>{{item.subtasks.length || 0 }} - <span class="text-error"> {{countSubtask(item.subtasks)}}</span></h5>
+                  <h5>({{item.subtasks.length || 0 }} - <span class="text-error"> {{countSubtask(item.subtasks)}})</span></h5>
                 </span>
                 <h6> {{item.descripcion}} </h6>
               </div>
@@ -34,7 +34,7 @@
                   <i class="icon-edit"></i>
                 </span>
 
-                <span class="text-error"  ng-click="deleteTask(item.uuid)">
+                <span ng-click="deleteTask(item.uuid)">
                   <i class="icon-trash"></i>
                 </span>
 
@@ -46,7 +46,7 @@
                     <ul id="tasks" class="item-list ui-sortable">
                       <li class="item-orange" ng-class="{'selected': subtask.complete}">
                       <label class="inline">
-                        <input type="checkbox" name="subtask.complete" ng-model='subtask.complete'  ng:click="checkSubtask(item)">
+                        <input type="checkbox" name="subtask.complete" ng-model='subtask.complete'  ng:click="checkSubtask(item,obj.category)">
                         <span class="lbl"> {{subtask.description}}</span>
                       </label>
                       </li>
