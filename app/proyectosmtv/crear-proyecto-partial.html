@@ -1,8 +1,14 @@
-
+<!--
 <div id="container-form" ng-controller="CaliopeWebTemplateCtrl" ng-init="initWithRouteParams()">
     <cw-dform cw-dform="jsonPlantillaAngular"/>
 </div>
+-->
 
+
+
+<div ng-controller="SIMMGridCtrl" ng-init="init('projects.getAll', 'projects')">
+  <div class="grid" ng-grid="gridOptions" ng-init="loadDataGrid()"></div>
+</div>
 
 <!--<div id="container-form">
 

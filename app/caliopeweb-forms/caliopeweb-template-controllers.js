@@ -244,8 +244,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
         $scope.data = [];
 
+
         $scope.gridOptions = {
-          'data': 'data'
+          data: 'data',
+          columnDefs: 'columnDefs'
         };
 
         $scope.loadDataGrid = function()  {
@@ -257,19 +259,24 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           if( value !== undefined && value !== null && value['error'] === undefined) {
             var caliopeWebGrid = new CaliopeWebGrid();
             caliopeWebGrid.addGridName($scope.gridName);
-            caliopeWebGrid.addData(value.data);
+            caliopeWebGrid.addData(value);
             CaliopeWebGridDataDecorator.createStructureToRender(caliopeWebGrid);
             var structureToRender = caliopeWebGrid.createStructureToRender();
 
             $scope.data = structureToRender.data;
+            console.log('data', $scope.data);
+            $scope.columnDefs = [{field:'name', displayName:'Name'}, {field:'uuid', displayName:'Id'}];
             $scope.gridOptions = {
-              'data'  : 'data'
+              data  : 'data',
+              columnDefs: 'columnDefs'
             };
+
           } else {
             $scope.data = [
             ];
             $scope.gridOptions = {
-              'data': 'data'
+              data: 'data',
+              columnDefs: 'columnDefs'
             };
           }
 
