@@ -31904,28 +31904,6 @@ a.olControlZoomOut {
 }
 
 /* line 118, ../tools-kanban-board/kanban-board.scss */
-.blockInline-subtask {
-  display: inline;
-}
-/* line 120, ../tools-kanban-board/kanban-board.scss */
-.blockInline-subtask span {
-  display: inline;
-}
-/* line 122, ../tools-kanban-board/kanban-board.scss */
-.blockInline-subtask span i {
-  display: inline;
-}
-/* line 125, ../tools-kanban-board/kanban-board.scss */
-.blockInline-subtask span h5 {
-  display: inline;
-}
-/* line 129, ../tools-kanban-board/kanban-board.scss */
-.blockInline-subtask h6 {
-  margin-top: 6px;
-  display: inline;
-}
-
-/* line 135, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban {
   display: inline-block;
   padding: 0 6px;
@@ -31934,11 +31912,11 @@ a.olControlZoomOut {
   margin-top: 6px;
   font-size: 1.2em;
 }
-/* line 143, ../tools-kanban-board/kanban-board.scss */
+/* line 126, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban [class*=" icon-"], .widget-toolbar-kanban [class^="icon-"] {
   padding-left: 6px;
 }
-/* line 147, ../tools-kanban-board/kanban-board.scss */
+/* line 130, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .widget-toolbar-kanban {
   position: absolute;
   right: 7px;
@@ -31946,7 +31924,38 @@ a.olControlZoomOut {
   background-color: white;
 }
 
-/* line 155, ../tools-kanban-board/kanban-board.scss */
+/* line 138, ../tools-kanban-board/kanban-board.scss */
+.blockInline-subtask {
+  display: inline;
+}
+/* line 141, ../tools-kanban-board/kanban-board.scss */
+.blockInline-subtask span {
+  display: inline;
+}
+/* line 143, ../tools-kanban-board/kanban-board.scss */
+.blockInline-subtask span i {
+  display: inline;
+}
+/* line 146, ../tools-kanban-board/kanban-board.scss */
+.blockInline-subtask span h5 {
+  display: inline;
+}
+/* line 151, ../tools-kanban-board/kanban-board.scss */
+.blockInline-subtask h6 {
+  margin-top: 6px;
+  display: inline;
+}
+
+/* line 157, ../tools-kanban-board/kanban-board.scss */
+.task-header {
+  position: absolute;
+  right: 7px;
+  top: 12px;
+  background-color: #FFF;
+  z-index: 100;
+}
+
+/* line 165, ../tools-kanban-board/kanban-board.scss */
 .tab-content-kanban {
   display: block;
   margin-top: 5px;

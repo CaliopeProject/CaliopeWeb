@@ -7,6 +7,7 @@ require.config({
     'jquery'                           : 'libs-js-thirdparty/jquery/jquery',
     'dform'                            : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
     'angular'                          : 'libs-js-thirdparty/angular-unstable/angular',
+    'angular-route-unstable'           : 'libs-js-thirdparty/angular-route-unstable/angular-route',
     'angular-ui-bootstrap-bower'       : 'libs-js-thirdparty/angular-ui-bootstrap-bower/ui-bootstrap-tpls',
     'angular-ui-ng-grid'               : 'libs-js-thirdparty/ng-grid/ng-grid-2.0.7.debug',
     'uuid'                             : 'libs-js-thirdparty/uuid-js/lib/uuid',
@@ -96,21 +97,21 @@ require.config({
   shim: {
     'jquery'                         : {'exports' : 'jquery'},
     'angular'                        : {'exports' : 'angular'},
+    'angular-route-unstable'         : {'deps'    : ['angular']},
     'angular-ui-bootstrap-bower'     : {'exports' : 'ui-bootstrap'},
-    'application-event'              : {'deps'      : ['jquery']},
+    'application-event'              : {'deps'    : ['jquery']},
     'angular-ui-ng-grid'             : {'exports' : 'ui-ng-grid'},
     'application-app'                : {'exports' : 'app'},
     'application-servicesWebSocket'  : {'exports' : 'webSocket'},
     'application-routes'             : {'exports' : 'routes'},
     'application-controller'         : {'exports' : 'appcontroller'},
+    'jquery-ui'                      : {'deps'    : ['jquery']},
+    'angular-dragdrop'               : {'deps'    : ['angular', 'jquery-ui']},
 
-    'jquery-ui'                      : {'deps'      : ['jquery']},
-    'angular-dragdrop'               : {'deps'      : ['angular', 'jquery-ui']},
+    'CryptoSHA256'                   : {'deps'    : ['Crypto']},
 
-    'CryptoSHA256'                   : {'deps'      : ['Crypto']},
-
-    'wysiwyg-editor-directive'       : {'deps'      : ['jquery','angular','ckeditor']},
-    'jquery.fileupload-angular'      : {'deps'      :
+    'wysiwyg-editor-directive'       : {'deps'    : ['jquery','angular','ckeditor']},
+    'jquery.fileupload-angular'      : {'deps'    :
                                         [
                                         'jquery',
                                         'angular',

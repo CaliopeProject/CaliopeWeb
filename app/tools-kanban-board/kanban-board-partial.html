@@ -49,6 +49,11 @@
                         <input type="checkbox" name="subtask.complete" ng-model='subtask.complete'  ng:click="checkSubtask(item,obj.category)">
                         <span class="lbl"> {{subtask.description}}</span>
                       </label>
+                      <div class="task-header">
+                        <span ng-click="removeSubtask(item,obj.category,$index)">
+                          <i class="icon-trash bigger-125"></i>
+                        </span>
+                      </div>
                       </li>
                     </ul>
                   </div>

@@ -4,6 +4,7 @@
 
 var dependencies = [
     'angular',
+    'angular-route-unstable',
     'application-controller',
     'application-servicesWebSocket',
     'application-commonservices',
@@ -44,6 +45,7 @@ var dependencies = [
   ];
 
 var modulesAngular = [
+    'ngRoute',
     'CaliopeController',
     'webSocket',
     'CaliopeController',

@@ -46,7 +46,6 @@ define(['angular','angular-dragdrop'], function (angular) {
         function(security, $scope, webSocket, taskService) {
           var webSockets = webSocket.WebSockets();
 
-
           $scope.countSubtask = taskService.countSubtask ;
 
           angular.forEach($scope.item.subtask, function(value, key){
@@ -62,9 +61,7 @@ define(['angular','angular-dragdrop'], function (angular) {
             $scope.description = '';
           };
 
-          $scope.checkSubtask = function (task){
-            taskService.checkSubtask(task);
-          };
-
+          $scope.checkSubtask = taskService.checkSubtask;
+          $scope.removeSubtask= taskService.removeSubtask;
         }]);
 });

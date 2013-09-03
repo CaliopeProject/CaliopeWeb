@@ -195,6 +195,13 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             loadTask();
           },
 
+          removeSubtask: function(task, category, index){
+            task.category = category;
+            task.subtasks.splice(index,1);
+            tempServices.sendDataForm('tasks', 'tasks.edit', task, task.uuid, task.uuid);
+            loadTask();
+          },
+
           addSubtask : function(parentTask, description, category) {
 
             var subTask = {

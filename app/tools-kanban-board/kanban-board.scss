@@ -115,23 +115,6 @@ $borKanba: 12px;
   }
 }
 
-.blockInline-subtask {
-  display: inline;
-  span {
-    display: inline;
-    i {
-      display: inline;
-    }
-    h5{
-      display: inline;
-    }
-  }
-  h6{
-    margin-top: 6px;
-    display: inline;
-  }
-}
-
 .widget-toolbar-kanban {
   display: inline-block;
   padding: 0 6px;
@@ -150,6 +133,33 @@ $borKanba: 12px;
     top: 1px;
     background-color: white;
   }
+}
+
+.blockInline-subtask {
+  display: inline;
+
+  span {
+    display: inline;
+    i {
+      display: inline;
+    }
+    h5{
+      display: inline;
+    }
+  }
+
+  h6{
+    margin-top: 6px;
+    display: inline;
+  }
+}
+
+.task-header {
+  position: absolute;
+  right: 7px;
+  top: 12px;
+  background-color: #FFF;
+  z-index: 100;
 }
 
 .tab-content-kanban {
