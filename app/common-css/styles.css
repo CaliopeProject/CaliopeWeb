@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
  * Bootstrap v2.3.2
  *
@@ -32269,6 +32270,13 @@ input.ng-valid.ng-dirty {
 /* line 275, ../caliopeweb-forms/caliopeweb.scss */
 .calendar td > em {
   font-size: 10px;
+}
+
+/* line 280, ../caliopeweb-forms/caliopeweb.scss */
+.grid {
+  border: 1px solid #d4d4d4;
+  width: 800px;
+  height: 400px;
 }
 
 /* line 3, ../read-rss/read-rss.scss */
