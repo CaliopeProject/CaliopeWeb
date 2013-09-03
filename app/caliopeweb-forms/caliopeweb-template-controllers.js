@@ -222,13 +222,13 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   );
 
   moduleControllers.controller('SIMMGridCtrl',
-      ['caliopewebTemplateSrv', '$scope', '$routeParams',
-        function (caliopewebTemplateSrv, $scope, $routeParams) {
+      ['caliopewebGridSrv', '$scope', '$routeParams',
+        function (cwGridService, $scope, $routeParams) {
 
 
         function loadDataGrid() {
           var paramsSearch = {};
-          $scope.responseLoadDataGrid = caliopewebTemplateSrv.loadDataGrid(
+          $scope.responseLoadDataGrid = cwGridService.loadDataGrid(
               $scope.methodLoadDataGrid, paramsSearch);
         }
 
@@ -256,30 +256,24 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
         $scope.$watch('responseLoadDataGrid', function (value) {
 
-          if( value !== undefined && value !== null && value['error'] === undefined) {
-            var caliopeWebGrid = new CaliopeWebGrid();
-            caliopeWebGrid.addGridName($scope.gridName);
-            caliopeWebGrid.addData(value);
-            CaliopeWebGridDataDecorator.createStructureToRender(caliopeWebGrid);
-            var structureToRender = caliopeWebGrid.createStructureToRender();
-
-            $scope.data = structureToRender.data;
-            console.log('data', $scope.data);
-            $scope.columnDefs = [{field:'name', displayName:'Name'}, {field:'uuid', displayName:'Id'}];
-            $scope.gridOptions = {
-              data  : 'data',
-              columnDefs: 'columnDefs'
-            };
-
-          } else {
-            $scope.data = [
-            ];
-            $scope.gridOptions = {
-              data: 'data',
-              columnDefs: 'columnDefs'
-            };
+          if( value !== undefined ) {
+            if( value.error !== undefined) {
+              //TODO: Manejar error
+            }
+            if( value.gridToRender !== undefined && value.gridToRender.data !== undefined) {
+              $scope.data = value.gridToRender.data;
+              $scope.columnDefs = [
+                {field:'name', displayName:'Name'},
+                {field:'uuid', displayName:'Id'}
+              ];
+              $scope.gridOptions = {
+                data  : 'data',
+                columnDefs: 'columnDefs'
+              };
+            } else {
+              //TODO: Manejar error
+            }
           }
-
         });
 
       }]
