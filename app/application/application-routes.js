@@ -6,8 +6,17 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl: '/task/partial-task-init.html'});
     $routeProvider.when('/view2', {
       templateUrl: '/application/view-partial2.html'    });
-    $routeProvider.when('/crear-proyectomtv/:plantilla/:mode', {
-      templateUrl: '/proyectosmtv/crear-proyecto-partial.html'});
+
+    /*
+      Routes for projectmtv
+    */
+    $routeProvider.when('/list-proyectomtv', {
+      templateUrl: '/proyectosmtv/list-proyectomtv-partial.html'});
+
+    $routeProvider.when('/form-proyectomtv/:plantilla/:mode', {
+      templateUrl: '/proyectosmtv/form-proyectomtv-partial.html'});
+
+
     $routeProvider.when('/gis', {
       templateUrl: '/tools-gis-viewer/partial-gis-init.html'});
     $routeProvider.when('/login/:plantilla/:mode', {
