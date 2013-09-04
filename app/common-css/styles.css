@@ -31958,24 +31958,21 @@ a.olControlZoomOut {
   position: absolute;
   right: 8px;
   top: 8px;
-  background-color: #FFF;
   z-index: 100;
 }
 
-/* line 165, ../tools-kanban-board/kanban-board.scss */
+/* line 164, ../tools-kanban-board/kanban-board.scss */
 .tab-content-kanban {
   display: block;
   margin-top: 5px;
   clear: both;
   font-size: smaller;
 }
-/* line 171, ../tools-kanban-board/kanban-board.scss */
+/* line 170, ../tools-kanban-board/kanban-board.scss */
 .tab-content-kanban .item-list li {
   padding: 5px;
 }
 
-/*2.4*/
-/*119879,99*/
 /* line 3, ../caliopeweb-forms/caliopeweb.scss */
 input.ng-invalid.ng-dirty {
   background-color: #FA787E;
