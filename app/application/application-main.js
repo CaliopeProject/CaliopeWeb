@@ -42,6 +42,8 @@ require.config({
     'gis-init'                         : 'tools-gis-viewer/Init',
     'gis-view-ctrl'                    : 'tools-gis-viewer/gis-viewer-controller',
     'gis-directives'                   : 'tools-gis-viewer/gis-directives',
+    'seeinmap-directives'              : 'tools-gis-viewer/seeinmap-directives',
+    'seeinmap-services'                : 'tools-gis-viewer/seeinmap-services',
     'gis-ext-all'                      : 'libs-js-thirdparty/compiled-gis/ext-all',
     'gis-ext-base'                     : 'libs-js-thirdparty/compiled-gis/ext-base',
     'gis-heron'                        : 'libs-js-thirdparty/heron-mc/heron',
@@ -137,6 +139,7 @@ require.config({
     'gis-init'                       : {'deps'      : ['gis-geoext','gis-ext-all']},
     'gis-heron'                      : {'deps'      : ['gis-init']},
     'gis-view-ctrl'                  : {'deps'      : ['gis-heron']},
+    'seeinmap-services'              : {'deps'      : ['angular', 'jquery-ui']},
 
 
     'angularMocks'                   : {'deps'      : ['angular'], 'exports' : 'angular.mock'}
