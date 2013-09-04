@@ -160,6 +160,7 @@ define(['angular'], function(angular) {
     function ($q, $rootScope, $http, webSocket) {
 
       var Service     = {};
+      var webSockets = webSocket.WebSockets();
 
       function load(dataGrid) {
         var structureToRender = undefined;
@@ -175,6 +176,42 @@ define(['angular'], function(angular) {
         return structureToRender;
       };
 
+      Service.createGrid = function(nameGrid, methodServer, params) {
+
+        /**
+         * Method of procesing response
+         * @param promise
+         * @returns {*}
+         */
+
+        var caliopeWebGrid = {};
+
+        var processResponse = function(promise) {
+          var promiseHandResult = promise.then( function(response) {
+            var data = undefined;
+
+            if( response !== undefined && response !== null ) {
+              if( response['error'] === undefined ) {
+                data = response;
+                caliopeWebGrid.addData(data);
+              } else {
+                var error = response['error'];
+                throw new Error('Has produced a server error:' + error.message);
+              }
+            }
+
+            return data;
+          });
+
+          return promiseHandResult;
+        };
+
+        caliopeWebGrid = new CaliopeWebGrid(webSockets.serversimm, methodServer, params,
+            processResponse);
+
+        return caliopeWebGrid;
+      }
+
       Service.loadDataGrid = function(method, paramsSearch) {
         var method = method;
         var params = {};
@@ -183,7 +220,6 @@ define(['angular'], function(angular) {
           jQuery.extend(params, paramsSearch);
         }
 
-        var webSockets = webSocket.WebSockets();
         promise = webSockets.serversimm.sendRequest(method, params);
 
         var promiseHandResult = promise.then( function(response) {
