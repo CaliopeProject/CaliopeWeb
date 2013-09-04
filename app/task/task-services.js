@@ -19,11 +19,14 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
         var ALLTASK;
         var DIALOG_NAME_CONF_DELETE = 'dialogConfirmDeleteTask';
+        var DIALOG_NAME_CONF_ARCHIV = 'dialogConfirmArchivTask';
         var DIALOG_NAME_FORM_TASK   = 'dialogFormTask';
         var WEBSOCKETS              = webSocket.WebSockets();
         var UUIDSESSION             = security.getIdSession();
         // task form dialog stuff
         var TASKDIALOG = null;
+        var MESSAGE_TASK_DELETE = '¿Está seguro que desea eliminar la información?';
+        var MESSAGE_TASK_ARCHIV = '¿Está seguro que desea archivar la información?';
 
 
         // Redirect to the given url (defaults to '/')
@@ -105,6 +108,46 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             opentaskDialog(DIALOG_NAME_FORM_TASK);
           },
 
+          archiveTask: function(uuid) {
+            opts.templateUrl = './task/partial-task-dialog-acction.html';
+
+            var data = {
+              message       : MESSAGE_TASK_ARCHIV,
+              template      : NAME_MODEL_TASK,
+              actionMethod  : 'task.archive',
+              uuid          : uuid,
+              dialogName    : DIALOG_NAME_CONF_ARCHIV
+            };
+
+            opts.resolve = {
+              action : function(){
+                return angular.copy(data);
+              }
+            };
+            opentaskDialog(DIALOG_NAME_CONF_ARCHIV);
+            loadTask();
+          },
+
+          deleteTask: function(uuid) {
+            opts.templateUrl = './task/partial-task-dialog-acction.html';
+
+            var data = {
+              message       : MESSAGE_TASK_DELETE,
+              template      : NAME_MODEL_TASK,
+              actionMethod  : 'task.delete',
+              uuid          : uuid,
+              dialogName    : DIALOG_NAME_CONF_DELETE
+            };
+
+            opts.resolve = {
+              action : function(){
+                return angular.copy(data);
+              }
+            };
+            opentaskDialog(DIALOG_NAME_CONF_DELETE);
+            loadTask();
+          },
+
           editTask: function(numuuid, category) {
             console.log(numuuid);
             opts.templateUrl = './task/partial-task-dialog.html';
@@ -124,24 +167,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             loadTask();
           },
 
-          deleteTask: function(uuid) {
-            opts.templateUrl = './task/partial-task-dialog-delete.html';
-
-            var data = {
-              template      : NAME_MODEL_TASK,
-              actionMethod  : 'task.delete',
-              uuid          : uuid,
-              dialogName    : DIALOG_NAME_CONF_DELETE
-            };
-
-            opts.resolve = {
-              action : function(){
-                return angular.copy(data);
-              }
-            };
-            opentaskDialog(DIALOG_NAME_CONF_DELETE);
-            loadTask();
-          },
 
           cancelTask: function() {
             closetaskDialog(false);

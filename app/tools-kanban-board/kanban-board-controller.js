@@ -18,17 +18,13 @@ define(['angular','angular-dragdrop'], function (angular) {
             $scope.data = taskService.getTask();
         });
 
-        $scope.editTask = function ( uuid, category ){
-          taskService.editTask(uuid, category);
-        };
+        $scope.editTask     = taskService.editTask;
 
-        $scope.deleteTask = function( uuid ) {
-          taskService.deleteTask(uuid);
-        };
+        $scope.deleteTask   = taskService.deleteTask;
 
-        $scope.getSubTasks = function(task){
-          task.subtasks = taskService.getSubTasks(task);
-        };
+        $scope.archiveTask  = taskService.archiveTask;
+
+        $scope.getSubTasks  = taskService.getSubTasks;
 
         $scope.dropCallback = function(event, ui) {
           taskService.changeCategory(ui,$scope.taskDrag);

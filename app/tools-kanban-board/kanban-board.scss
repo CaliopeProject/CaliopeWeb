@@ -87,6 +87,7 @@ $borKanba: 12px;
   background-color: #ffffff;
   padding: 0px 15px 7px 15px;
   text-align: right;
+  font-size: small;
   > :hover { cursor: move; }
 
   li {
@@ -121,7 +122,6 @@ $borKanba: 12px;
   position: relative;
   text-align: left;
   margin-top: 6px;
-  font-size: 1.2em;
 
   [class*=" icon-"], [class^="icon-"] {
     padding-left: 6px;
@@ -156,8 +156,8 @@ $borKanba: 12px;
 
 .task-header {
   position: absolute;
-  right: 7px;
-  top: 12px;
+  right: 8px;
+  top: 8px;
   background-color: #FFF;
   z-index: 100;
 }
@@ -166,6 +166,12 @@ $borKanba: 12px;
   display: block;
   margin-top: 5px;
   clear: both;
+  font-size: smaller;
+  .item-list{
+    li {
+      padding: 5px; 
+    }
+  }
 }
 
 /*2.4*/

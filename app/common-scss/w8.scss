@@ -3,6 +3,13 @@ html {
   position: relative;
 }
 
+.ng-hide {
+  display:block!important;
+  position:absolute;
+  top:-9999px;
+  left:-9999px;
+}
+
 body {
   background-color: #e4e6e9;
   min-height: 100%;
@@ -36,7 +43,6 @@ body {
 
 #main-container {
   padding: 0;
-  position: relative;
   @include heightall;
 }
 
