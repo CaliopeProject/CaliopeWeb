@@ -102,20 +102,21 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           calwebtem.mode   = action.mode;
           calwebtem.uuid   = action.uuid;
 
-          $scope.dialogName = action.dialogName
-          $scope.fromDialog = true
+          $scope.dialogName = action.dialogName;
+          $scope.fromDialog = true;
 
           $scope.caliopeForm   = calwebTemSrv.caliopeForm;
           $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();
         };
 
-        $scope.initDeleteFromDialog = function() {
-          $scope.formDelete = action.template
-          $scope.templateToDelete = action.template
-          $scope.actionMethodDelete = action.actionMethod
-          $scope.uuidToDelete = action.uuid
-          $scope.dialogName = action.dialogName
-          $scope.fromDialog = true
+        $scope.initFromDialog = function() {
+          $scope.message      = action.message;
+          $scope.form         = action.template;
+          $scope.template     = action.template;
+          $scope.actionMethod = action.actionMethod;
+          $scope.uuid         = action.uuid;
+          $scope.dialogName   = action.dialogName;
+          $scope.fromDialog   = true;
         };
 
         $scope.closeDialog = function (dialogName) {
@@ -126,7 +127,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
               $scope.fromDialog = false;
             }
           }
-        }
+        };
 
       }
   ]);
@@ -164,7 +165,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
               */
             } else {
-              console.log('Server error response', value.error)
+              console.log('Server error response', value.error);
             }
           }
         });
@@ -222,53 +223,59 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   );
 
   moduleControllers.controller('SIMMGridCtrl',
-      ['caliopewebTemplateSrv', '$scope', '$routeParams',
-        function (caliopewebTemplateSrv,
-                  $scope, $routeParams) {
+      ['caliopewebGridSrv', '$scope', '$routeParams',
+        function (cwGridService, $scope, $routeParams) {
 
 
-          var caliopeForm = {};
+        function loadDataGrid() {
+          var paramsSearch = {};
+          $scope.responseLoadDataGrid = cwGridService.loadDataGrid(
+              $scope.methodLoadDataGrid, paramsSearch);
+        }
 
-          caliopeForm.id = $routeParams.plantilla;
-          $scope.caliopeForm = caliopeForm;
-          $scope.responseLoadDataGrid = {};
+        $scope.methodLoadDataGrid = "";
+        $scope.gridName = "";
 
-          $scope.data = [];
+        $scope.init = function(_method, gridName, columnsToRender) {
+          $scope.methodLoadDataGrid = _method;
+          $scope.gridName = gridName;
+        };
 
-          $scope.gridOptions = {
-            'data': 'data'
-          };
+        $scope.responseLoadDataGrid = {};
 
-          function loadDataGrid() {
-            var paramsSearch = {};
-            $scope.responseLoadDataGrid = caliopewebTemplateSrv.loadDataGrid(
-                caliopeForm.id, paramsSearch);
-          }
+        $scope.data = [];
 
-          $scope.$watch('responseLoadDataGrid', function (value) {
 
-            if( value !== undefined && value['error'] === undefined) {
-              var caliopeWebGrid = new CaliopeWebGrid();
-              caliopeWebGrid.addGridName($scope.caliopeForm.id);
-              caliopeWebGrid.addData(value.data);
-              CaliopeWebGridDataDecorator.createStructureToRender(caliopeWebGrid);
-              var structureToRender = caliopeWebGrid.createStructureToRender();
+        $scope.gridOptions = {
+          data: 'data',
+          columnDefs: 'columnDefs'
+        };
 
-              $scope.data = structureToRender.data;
-              $scope.gridOptions = {
-                'data'  : 'data'
-              };
-            } else {
-              $scope.data = [
+        $scope.loadDataGrid = function()  {
+          loadDataGrid();
+        };
+
+        $scope.$watch('responseLoadDataGrid', function (value) {
+
+          if( value !== undefined ) {
+            if( value.error !== undefined) {
+              //TODO: Manejar error
+            }
+            if( value.gridToRender !== undefined && value.gridToRender.data !== undefined) {
+              $scope.data = value.gridToRender.data;
+              $scope.columnDefs = [
+                {field:'name', displayName:'Name'},
+                {field:'uuid', displayName:'Id'}
               ];
               $scope.gridOptions = {
-                'data': 'data'
+                data  : 'data',
+                columnDefs: 'columnDefs'
               };
+            } else {
+              //TODO: Manejar error
             }
-
-          });
-
-          loadDataGrid();
+          }
+        });
 
       }]
   );

@@ -15,7 +15,7 @@ define(['angular', 'login-security-services'], function(angular) {
       // The reason that we are being asked to login - for instance because we tried to access something to which we are not authorized
       // We could do something diffent for each reason here but to keep it simple...
       $scope.authReason = null;
-      if ( security.getLoginReason() ) {
+      if ( security.getLoginReason()) {
         $scope.authReason = ( security.isAuthenticated() ) ?
           'No autorizado' :
           'No autenticado';

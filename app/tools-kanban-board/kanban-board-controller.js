@@ -18,17 +18,13 @@ define(['angular','angular-dragdrop'], function (angular) {
             $scope.data = taskService.getTask();
         });
 
-        $scope.editTask = function ( uuid, category ){
-          taskService.editTask(uuid, category);
-        };
+        $scope.editTask     = taskService.editTask;
 
-        $scope.deleteTask = function( uuid ) {
-          taskService.deleteTask(uuid);
-        };
+        $scope.deleteTask   = taskService.deleteTask;
 
-        $scope.getSubTasks = function(task){
-          task.subtasks = taskService.getSubTasks(task);
-        };
+        $scope.archiveTask  = taskService.archiveTask;
+
+        $scope.getSubTasks  = taskService.getSubTasks;
 
         $scope.dropCallback = function(event, ui) {
           taskService.changeCategory(ui,$scope.taskDrag);
@@ -46,12 +42,9 @@ define(['angular','angular-dragdrop'], function (angular) {
         function(security, $scope, webSocket, taskService) {
           var webSockets = webSocket.WebSockets();
 
-          $scope.remaining = 0;
+          $scope.countSubtask = taskService.countSubtask ;
 
           angular.forEach($scope.item.subtask, function(value, key){
-            if(value === false){
-              $scope.remaining++;
-            }
           });
 
           $scope.startCallback = function(event, ui) {
@@ -64,9 +57,7 @@ define(['angular','angular-dragdrop'], function (angular) {
             $scope.description = '';
           };
 
-          $scope.checkSubtask = function (task){
-            taskService.checkSubtask(task);
-          };
-
+          $scope.checkSubtask = taskService.checkSubtask;
+          $scope.removeSubtask= taskService.removeSubtask;
         }]);
 });
