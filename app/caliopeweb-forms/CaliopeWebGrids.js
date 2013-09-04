@@ -4,9 +4,9 @@
 var CaliopeWebGrid = (function() {
 
   var gridName;
+  var gridProperties;
   var data;
   var columns;
-  var columnsName;
   var columnsToRender;
   var structureToRender;
   var connectionToServer;
@@ -16,12 +16,20 @@ var CaliopeWebGrid = (function() {
   var decorators;
 
 
-
+  /**
+   *
+   * @returns {*}
+   */
   function loadDataFromServer() {
     var response = connectionToServer.sendRequest(parMethodRequest, parParameters);
     return processResponseFromServer(response)
   }
 
+  /**
+   *
+   * @param responseFromServer
+   * @returns {*}
+   */
   function processResponseFromServer(responseFromServer) {
     var processedResponse = methodProcessResponse(responseFromServer);
     return processedResponse;
@@ -36,7 +44,7 @@ var CaliopeWebGrid = (function() {
       _parParameters, _methodProcessResponse) {
       structureToRender = {};
       columns = {};
-      columnsName = [];
+      gridProperties = {};
       connectionToServer = _connectionToServer;
       methodProcessResponse = _methodProcessResponse;
       parMethodRequest = _parMethodRequest;
@@ -70,14 +78,6 @@ var CaliopeWebGrid = (function() {
       },
 
     /**
-     * Add the columns name for the data.
-     * @param _columnsName
-     */
-      addColumnsName : function(_columnsName) {
-        columnsName = _columnsName;
-      },
-
-    /**
      * Indicate the columns to show in the data grid.
      * @param _columnsToRender
      */
@@ -93,14 +93,33 @@ var CaliopeWebGrid = (function() {
      */
       addColumn : function(name, properties) {
         columns[name] = properties;
-        columnsName.push(name);
       },
 
+    /**
+     *
+     * @param name
+     * @param properties
+     */
       addColumnProperties: function(name, properties) {
-        if(name in columns) {
+        if( name !== undefined && name in columns) {
           jQuery.extend(columns[name], properties);
+        } else {
+          columns[name] = properties;
         }
       },
+
+    /**
+     *
+     * @param name
+     * @param properties
+     */
+    addGridProperties: function(name, properties) {
+      if( name !== undefined && name in gridProperties ) {
+        jQuery.extend(gridProperties[name], properties);
+      } else {
+        gridProperties[name] = properties;
+      }
+    },
 
     /**
      * Create the structure to render the form. Use decorates for change the structure to
@@ -245,7 +264,9 @@ var CWGridColumnsDefNgGridDecorator = ( function() {
           var columnDef = {
             field: key,
             displayName: columns[key].name,
-            cellTemplate: columns[key].htmlContent
+            cellTemplate: columns[key].htmlContent,
+            width : columns[key].width,
+            visible: columns[key].show
           }
         }
         columnsDef.push(columnDef);
