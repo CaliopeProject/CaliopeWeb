@@ -7,7 +7,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
   moduleServices.factory('taskService',
     ['SessionSrv', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv'
-      , function( security,    $log,  $http,   $q,   $location,   $dialog,   $rootScope,   webSocket, tempServices) {
+      , function(security,    $log,  $http,   $q,   $location,   $dialog,   $rootScope,   webSocket, tempServices) {
 
         var NAME_MODEL_TASK = 'tasks';
         var opts = {
@@ -217,18 +217,15 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           checkSubtask : function(task, category){
             task.category = category;
             tempServices.sendDataForm('tasks', 'tasks.edit', task, task.uuid, task.uuid);
-            loadTask();
           },
 
           removeSubtask: function(task, category, index){
             task.category = category;
             task.subtasks.splice(index,1);
             tempServices.sendDataForm('tasks', 'tasks.edit', task, task.uuid, task.uuid);
-            loadTask();
           },
 
           addSubtask : function(parentTask, description, category) {
-
             var subTask = {
               description : description,
               complete : false

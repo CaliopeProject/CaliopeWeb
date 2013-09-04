@@ -35,6 +35,7 @@ define(['angular','angular-dragdrop'], function (angular) {
             $scope.taskDrag = value;
           });
         });
+
       }]);
 
 

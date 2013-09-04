@@ -35,7 +35,7 @@
                   <i class="icon-edit"></i>
                 </span>
 
-                <span class="text-info" ng-click="archiveTask(item.uuid)">
+                <span ng-if="obj.category == 'Done'" class="text-info" ng-click="archiveTask(item.uuid)">
                   <i class="icon-archive"></i>
                 </span>
 
