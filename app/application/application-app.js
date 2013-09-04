@@ -20,9 +20,11 @@ var dependencies = [
     'login-retryQueue',
     'login-directives',
 
+    'seeinmap-directives',
     'menu-top-controller',
     'gis-view-ctrl',
     'gis-directives',
+    'seeinmap-services',
     'notificationsService',
     'httpRequestTrackerService',
     'angular-ui-ng-grid',
@@ -60,8 +62,10 @@ var modulesAngular = [
     'login-retryQueue',
     'login-directives',
 
+    'seeinmap-directives',
     'GisViewerController',
     'gis-directives',
+    'seeinmap-services',
     'MenuTopControllers',
     'NotificationsServices',
     'httpRequestTrackerService',

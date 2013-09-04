@@ -10,12 +10,18 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
           Ext.namespace('Heron.options.map');
           Ext.namespace('Heron.App.mapPanel');
 
+          $scope.gridSelection = [];
+          $scope.$on('findPredioByBarmanpre',  function(){
+              console.log("gridSelection",$scope.gridSelection);
+          });
+
           $scope.showGrillaPredios = false;
-          console.log("$scope.$id: ",$scope.$id);
           $scope.data = [
           ];
           $scope.gridOptions = {
-              'data': 'data',
+              data: 'data',
+              selectedItems: $scope.gridSelection,
+              multiSelect: false,
               columnDefs: [
                   {
                       field: 'area_construida',
@@ -58,8 +64,9 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                       displayName: 'Sector'
                   },
                   {
-                      field: 'Acciones',
-                      displayName: 'acciones'
+                      displayName: 'Acciones',
+                      cellTemplate: '<widget-seeinmap></widget-seeinmap>'
+
                   }
               ]
 
@@ -335,7 +342,6 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   'catastro.getPredio', paramsSearch);
           };
 
-
           $scope.$watch('responseLoadDataGrid', function (value) {
               console.log("value: ",value);
               if( value !== undefined && value['error'] === undefined) {
@@ -351,12 +357,13 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                       $scope.data = structureToRender.data;
                       $scope.gridOptions = {
                           data  : 'data',
+                          multiSelect: false,
+                          selectedItems: $scope.gridSelection,
                           columnDefs: $scope.columnsDefGisGrid
                       };
                   }
               } else {
-                  $scope.data = [
-                  ];
+                  $scope.data = [];
                   $scope.gridOptions = {
                       data: 'data',
                       columnDefs: [
@@ -399,10 +406,6 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                           {
                               field: 'sector',
                               displayName: 'Sector'
-                          },
-                          {
-                              field: 'Acciones',
-                              displayName: 'acciones'
                           }
                       ]
                   };
