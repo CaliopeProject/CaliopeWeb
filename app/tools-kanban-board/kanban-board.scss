@@ -87,6 +87,7 @@ $borKanba: 12px;
   background-color: #ffffff;
   padding: 0px 15px 7px 15px;
   text-align: right;
+  font-size: small;
   > :hover { cursor: move; }
 
   li {
@@ -115,30 +116,12 @@ $borKanba: 12px;
   }
 }
 
-.blockInline-subtask {
-  display: inline;
-  span {
-    display: inline;
-    i {
-      display: inline;
-    }
-    h5{
-      display: inline;
-    }
-  }
-  h6{
-    margin-top: 6px;
-    display: inline;
-  }
-}
-
 .widget-toolbar-kanban {
   display: inline-block;
   padding: 0 6px;
   position: relative;
   text-align: left;
   margin-top: 6px;
-  font-size: 1.2em;
 
   [class*=" icon-"], [class^="icon-"] {
     padding-left: 6px;
@@ -152,10 +135,43 @@ $borKanba: 12px;
   }
 }
 
+.blockInline-subtask {
+  display: inline;
+
+  span {
+    display: inline;
+    i {
+      display: inline;
+    }
+    h5{
+      display: inline;
+    }
+  }
+
+  h6{
+    margin-top: 6px;
+    display: inline;
+  }
+}
+
+.task-header {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background-color: #FFF;
+  z-index: 100;
+}
+
 .tab-content-kanban {
   display: block;
   margin-top: 5px;
   clear: both;
+  font-size: smaller;
+  .item-list{
+    li {
+      padding: 5px; 
+    }
+  }
 }
 
 /*2.4*/

@@ -3,7 +3,7 @@
   "version": "0.01",
    "dependencies": {
     "jquery"                     : "~2.0.2",
-    "angular-unstable"           : "~1.1.0",
+    "angular-unstable"           : "f73e0f9171ef205d28fd0451f4c15d35c9ea331a",
     "angular-ui-bootstrap-bower" : "~0.5.0",
     "requirejs"                  : "~2.1.6",
     "jquery.dform"               : "~1.1.0",
@@ -18,6 +18,7 @@
     "geoext"                     : "~1.1.0",
     "uuid-js"		         : "~0.7.5",
     "ng-grid"                    : "~2.0.7",
+    "angular-route-unstable"     : "4d596260ca4674700eccbe11769b7d157fb89cad",
     "jquery-ui-bootstrap"        : "~0.2.5",
     "angular-dragdrop"           : "~1.0.2",
     "ckeditor"                   : "0b243e1c3a292c728442f47f47d8e5da8fab649b"

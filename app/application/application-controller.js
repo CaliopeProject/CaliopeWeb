@@ -11,7 +11,6 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
       'HandlerResponseServerSrv',
       'httpRequestTrackerService',
       'taskService',
-      'breadcrumbs',
 
       function(security,
         sessionUuid,
@@ -19,16 +18,24 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         $timeout,
         handlerResServerSrv,
         httpRequestTrackerService,
-        taskService,
-        breadcrumbs
+        taskService
       ){
         var timerMessage;
         var initMessage = {type: 'success', msg: 'Bienvenidos al SIIM' };
 
         $scope.isAuthenticated = security.isAuthenticated;
 
+        $scope.$watch(function() {
+          return security.isAuthenticated();
+        }, function(value) {
+          try{
+            taskService.loadData();
+          }catch(err){
+            console.log("Usuario no registrado");
+          }
+        });
+
         $scope.alerts      = [];
-        $scope.breadcrumbs = breadcrumbs;
 
         timerMessage = function(data){
           $scope.alerts.push(data);
@@ -42,11 +49,6 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         $scope.$on('openWebSocket', function(event, data) {
           var uuid = sessionUuid.getIdSession();
           security.requestCurrentUser(uuid);
-          try{
-            taskService.loadData();
-          }catch(err){
-              console.log("Usuario no registrado");
-          }
         });
 
         $scope.$on('closeWebSocket', function(event, data) {

@@ -19,12 +19,13 @@
               <div class="blockInline-subtask">
                 <span class="green">
                   <i class="icon-list-ul"></i>
-                  <h5>{{item.subtasks.length || 0 }} - <span class="text-error"> {{countSubtask(item.subtasks)}}</span></h5>
+                  ({{item.subtasks.length || 0 }} - <span class="text-error"> {{countSubtask(item.subtasks)}})</span>
                 </span>
-                <h6> {{item.descripcion}} </h6>
+                {{item.descripcion}} 
               </div>
 
               <div class="lbl widget-toolbar-kanban no-border" >
+
                 <span class="text-info" ng-click="showSubtasks=!showSubtasks">
                   <i class="icon-double-angle-down" ng-show="showSubtasks==false" ></i>
                   <i class="icon-double-angle-up" ng-show="showSubtasks==true"></i>
@@ -34,21 +35,30 @@
                   <i class="icon-edit"></i>
                 </span>
 
-                <span class="text-error"  ng-click="deleteTask(item.uuid)">
+                <span ng-if="obj.category == 'Done'" class="text-info" ng-click="archiveTask(item.uuid)">
+                  <i class="icon-archive"></i>
+                </span>
+
+                <span ng-click="deleteTask(item)">
                   <i class="icon-trash"></i>
                 </span>
 
               </div>
 
               <div ng-init="log2=false" ng-show='showSubtasks' class="tab-content-kanban">
-                <div id="task-tab" class="tab-pane active">
+                <div class="tab-pane active">
                   <div ng-repeat="subtask in item.subtasks">
-                    <ul id="tasks" class="item-list ui-sortable">
+                    <ul class="item-list ui-sortable">
                       <li class="item-orange" ng-class="{'selected': subtask.complete}">
-                      <label class="inline">
-                        <input type="checkbox" name="subtask.complete" ng-model='subtask.complete'  ng:click="checkSubtask(item)">
-                        <span class="lbl"> {{subtask.description}}</span>
-                      </label>
+                        <label class="inline">
+                          <input type="checkbox" name="subtask.complete" ng-model='subtask.complete'  ng:click="checkSubtask(item,obj.category)">
+                          <span class="lbl"> {{subtask.description}}</span>
+                        </label>
+                        <div class="task-header">
+                          <span ng-click="removeSubtask(item,obj.category,$index)">
+                            <i class="icon-trash"></i>
+                          </span>
+                        </div>
                       </li>
                     </ul>
                   </div>

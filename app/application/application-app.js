@@ -4,6 +4,7 @@
 
 var dependencies = [
     'angular',
+    'angular-route-unstable',
     'application-controller',
     'application-servicesWebSocket',
     'application-commonservices',
@@ -19,12 +20,13 @@ var dependencies = [
     'login-retryQueue',
     'login-directives',
 
+    'seeinmap-directives',
     'menu-top-controller',
     'gis-view-ctrl',
     'gis-directives',
+    'seeinmap-services',
     'notificationsService',
     'httpRequestTrackerService',
-    'breadcrumbsService',
     'angular-ui-ng-grid',
     'menu-right-controller',
     'menu-right-directives',
@@ -44,6 +46,7 @@ var dependencies = [
   ];
 
 var modulesAngular = [
+    'ngRoute',
     'CaliopeController',
     'webSocket',
     'CaliopeController',
@@ -59,12 +62,13 @@ var modulesAngular = [
     'login-retryQueue',
     'login-directives',
 
+    'seeinmap-directives',
     'GisViewerController',
     'gis-directives',
+    'seeinmap-services',
     'MenuTopControllers',
     'NotificationsServices',
     'httpRequestTrackerService',
-    'breadcrumbsService',
     'ngGrid',
     'menu-right-controller',
     'menu-right-directives',

@@ -102,20 +102,21 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           calwebtem.mode   = action.mode;
           calwebtem.uuid   = action.uuid;
 
-          $scope.dialogName = action.dialogName
-          $scope.fromDialog = true
+          $scope.dialogName = action.dialogName;
+          $scope.fromDialog = true;
 
           $scope.caliopeForm   = calwebTemSrv.caliopeForm;
           $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();
         };
 
-        $scope.initDeleteFromDialog = function() {
-          $scope.formDelete = action.template
-          $scope.templateToDelete = action.template
-          $scope.actionMethodDelete = action.actionMethod
-          $scope.uuidToDelete = action.uuid
-          $scope.dialogName = action.dialogName
-          $scope.fromDialog = true
+        $scope.initFromDialog = function() {
+          $scope.message      = action.message;
+          $scope.form         = action.template;
+          $scope.template     = action.template;
+          $scope.actionMethod = action.actionMethod;
+          $scope.uuid         = action.uuid;
+          $scope.dialogName   = action.dialogName;
+          $scope.fromDialog   = true;
         };
 
         $scope.closeDialog = function (dialogName) {
@@ -126,7 +127,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
               $scope.fromDialog = false;
             }
           }
-        }
+        };
 
       }
   ]);
@@ -164,7 +165,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
               */
             } else {
-              console.log('Server error response', value.error)
+              console.log('Server error response', value.error);
             }
           }
         });
