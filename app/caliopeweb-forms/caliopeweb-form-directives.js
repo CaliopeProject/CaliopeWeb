@@ -488,7 +488,7 @@ define(['angular', 'dform'], function (angular) {
    *
    *
    */
-  moduleDirectives.directive('cwGrid', function ($compile) {
+  moduleDirectives.directive('cwGrid',['caliopewebGridSrv', '$compile', function (cwGridService, $compile) {
 
     /**
      * Define the function for link the directive to AngularJS Context.
@@ -496,28 +496,64 @@ define(['angular', 'dform'], function (angular) {
     var directiveDefinitionObject = {
       restrict : 'E',
       //replace : true,
-      template : '<div class="grid" ng-grid="gridOptions"></div>',
-      link: function (scope, element, attrs) {
 
-        scope.dataGrid = scope.cwGrid.loadDataFromServer();
+      template : '<div></div>',
+      /**
+       *
+       * @param $scope
+       * @param $attrs
+       */
+      controller : function($scope, $attrs, $element) {
 
-        scope.$watch('dataGrid', function(dataGrid) {
+        var gridName = $attrs['name'];
+        var method = $attrs['method'];
+        if( gridName === undefined ) {
+          gridName = 'cwGrid';
+        }
+
+        var gridOptionsName = gridName.concat('options');
+
+        $scope[gridOptionsName] = {
+          data: 'data'.concat(gridName),
+          columnDefs: 'columnDefs'.concat(gridName)
+        };
+
+        $element.children().attr('ng-grid', gridOptionsName);
+        $scope[gridName] = cwGridService.createGrid($attrs['name'], method, []);
+        $compile($element.contents())($scope);
+      },
+      /**
+       *
+       * @param $scope
+       * @param $element
+       * @param $attrs
+       */
+      link: function ($scope, $element, $attrs) {
+
+        var gridName = $attrs['name'];
+
+        if( gridName === undefined ) {
+          gridName = 'cwGrid';
+        }
+
+        $element.children().addClass($attrs['class']);
+        $scope['dataGrid'.concat(gridName)] = $scope[gridName].loadDataFromServer();
+
+        $scope.$watch('dataGrid'.concat(gridName), function(dataGrid) {
           if( dataGrid !== undefined ) {
-            scope.cwGrid.addData(dataGrid);
-            scope.cwGrid.applyDecorators();
-            var structureToRender = scope.cwGrid.createStructureToRender();
-            scope.data = structureToRender.data;
-            scope.columnDefs = structureToRender.columnsDef;
-            console.log('change gridOptions', scope.data, scope.columnDefs);
+            $scope[gridName].addData(dataGrid);
+            $scope[gridName].applyDecorators();
+            var structureToRender = $scope[gridName].createStructureToRender();
+            $scope['data'.concat(gridName)] = structureToRender.data;
+            $scope['columnDefs'.concat(gridName)] = structureToRender.columnsDef;
           }
         });
 
-        //console.log('gridOptions', scope.gridOptions);
       }
     };
 
     return directiveDefinitionObject;
-  });
+  }]);
 
 });
 

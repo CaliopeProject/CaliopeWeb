@@ -266,7 +266,8 @@ var CWGridColumnsDefNgGridDecorator = ( function() {
             displayName: columns[key].name,
             cellTemplate: columns[key].htmlContent,
             width : columns[key].width,
-            visible: columns[key].show
+            visible: columns[key].show,
+            cellClass : columns[key]['class']
           }
         }
         columnsDef.push(columnDef);
