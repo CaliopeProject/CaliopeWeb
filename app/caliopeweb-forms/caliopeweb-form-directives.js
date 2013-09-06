@@ -519,7 +519,7 @@ define(['angular', 'dform'], function (angular) {
         };
 
         $element.children().attr('ng-grid', gridOptionsName);
-        $scope[gridName] = cwGridService.createGrid($attrs['name'], method, []);
+        $scope[gridName] = cwGridService.createGrid(gridName, method, []);
         $compile($element.contents())($scope);
       },
       /**

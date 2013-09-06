@@ -8,7 +8,7 @@ define(['angular'], function(angular) {
     function (cwTemplateService, cwGridService, $scope, $routeParams) {
 
 
-      $scope.initGrid = function(method, nameGrid) {
+      $scope.initGrid = function() {
 
 
         var cwGrid = $scope['gridProjectsmtv'];

@@ -184,7 +184,7 @@ define(['angular'], function(angular) {
          * @returns {*}
          */
 
-        var caliopeWebGrid = {};
+
 
         var processResponse = function(promise) {
           var promiseHandResult = promise.then( function(response) {
@@ -206,8 +206,10 @@ define(['angular'], function(angular) {
           return promiseHandResult;
         };
 
-        caliopeWebGrid = new CaliopeWebGrid(webSockets.serversimm, methodServer, params,
+        var caliopeWebGrid = new CaliopeWebGrid(webSockets.serversimm, methodServer, params,
             processResponse);
+
+        caliopeWebGrid.addGridName(nameGrid);
 
         return caliopeWebGrid;
       }

@@ -1,12 +1,12 @@
-<div class="grid" >
+<div class="grid" ng-controller="ProyectomtvCtrl">
   <!--
     name=Nombre del grid debe ser en la página y páginas incluidas
     method=El método que se invocara al servidor para recuperar la información
     ng-controller=El controlador del grid
     class=Clase asignada al contenedor del grid
   -->
-  <cw-grid name="gridProjectsmtv" method="projects.getAll" ng-controller="ProyectomtvCtrl" class="height-5" ng-init="initGrid('projects.getAll', 'projectsmtv')"></cw-grid>
+  <cw-grid name="gridProjectsmtv" method="projects.getAll"  class="height-5" ng-init="initGrid()"></cw-grid>
 
-  <cw-grid name="gridProjectsmtv1" method="projects.getAll" ng-controller="ProyectomtvCtrl" class="height-5" ng-init="initGrid1('projects.getAll', 'projectsmtv')"></cw-grid>
+  <cw-grid name="gridProjectsmtv1" method="tasks.getAll" class="height-5" ng-init="initGrid1()"></cw-grid>
 
 </div>
