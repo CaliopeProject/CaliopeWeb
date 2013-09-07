@@ -475,5 +475,49 @@ define(['angular', 'dform'], function (angular) {
         }
       };
   }]);
+
+  /**
+   * @ngdoc directive
+   * @name cw.directive:cwValidationMess
+   * @restrict E
+   * @replace true
+   *
+   * @description
+   * Define the directive for add validation message to forms. This use template define in
+   * 'caliopeweb-forms/caliopeweb-valmess-partial.html'
+   *
+   *
+   */
+  moduleDirectives.directive('cwGrid', function ($compile) {
+
+    /**
+     * Define the function for link the directive to AngularJS Context.
+     */
+    var directiveDefinitionObject = {
+      restrict : 'E',
+      //replace : true,
+      template : '<div class="grid" ng-grid="gridOptions"></div>',
+      link: function (scope, element, attrs) {
+
+        scope.dataGrid = scope.cwGrid.loadDataFromServer();
+
+        scope.$watch('dataGrid', function(dataGrid) {
+          if( dataGrid !== undefined ) {
+            scope.cwGrid.addData(dataGrid);
+            scope.cwGrid.applyDecorators();
+            var structureToRender = scope.cwGrid.createStructureToRender();
+            scope.data = structureToRender.data;
+            scope.columnDefs = structureToRender.columnsDef;
+            console.log('change gridOptions', scope.data, scope.columnDefs);
+          }
+        });
+
+        //console.log('gridOptions', scope.gridOptions);
+      }
+    };
+
+    return directiveDefinitionObject;
+  });
+
 });
 

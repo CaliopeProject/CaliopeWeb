@@ -15,12 +15,12 @@ define(['angular'], function(angular) {
       replace: true,
       scope: {
         title : '=',
-        parent: '=',
+        parent: '@parent',
         category: '@category'
       },
       link: function($scope, $element, $attrs, $controller) {
         $scope.createTask  = function (parent, category){
-          taskService.createTask($scope.parent, category);
+          taskService.createTask(parent, category);
         };
       }
     };
