@@ -4713,9 +4713,10 @@ input {
 
 .tab-content {
   border: 1px solid #c5d0dc;
-  padding: 16px 12px;
   position: relative;
+  display: inline-block;
   z-index: 11;
+  width: 100%;
   &.no-padding {
     padding: 0;
   }
@@ -4757,25 +4758,30 @@ input {
   }
 }
 
+.tabbable {
+  display: inline;
+}
+
 .nav-tabs {
   border-color: #d6d6d6;
   margin-bottom: -1px;
+  font-size: smaller;
   > li {
     > a {
       border-radius: 0 !important;
       background-color: #f9f9f9;
       color: #999;
       margin-right: -1px;
-      line-height: 16px;
+      line-height: 11px;
       position: relative;
-      z-index: 11;
+      z-index: 10;
       border-color: #c5d0dc;
       &:focus {
         border-radius: 0 !important;
         background-color: #f9f9f9;
         color: #999;
         margin-right: -1px;
-        line-height: 16px;
+        line-height: 10px;
         position: relative;
         z-index: 11;
         border-color: #c5d0dc;
@@ -4799,7 +4805,7 @@ input {
       border-bottom-color: transparent;
       background-color: #FFF;
       z-index: 12;
-      line-height: 16px;
+      line-height: 10px;
       margin-top: -1px;
       box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.15);
       &:hover, &:focus {
@@ -4809,7 +4815,7 @@ input {
         border-bottom-color: transparent;
         background-color: #FFF;
         z-index: 12;
-        line-height: 16px;
+        line-height: 10px;
         margin-top: -1px;
         box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.15);
       }
@@ -4916,6 +4922,7 @@ input {
 }
 
 .nav-tabs {
+  border: 0px;
   > li {
     > a > {
       .badge {
