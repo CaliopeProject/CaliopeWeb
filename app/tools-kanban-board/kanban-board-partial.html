@@ -22,7 +22,7 @@
                   <i tooltip="Estado Sub-tareas" class="icon-list-ul"></i>
                   ({{item.subtasks.length || 0 }} - <span class="text-error"> {{countSubtask(item.subtasks)}})</span>
                 </span>
-                {{item.descripcion}}
+                {{item.name}}
               </div>
 
               <div class="lbl widget-toolbar-kanban no-border" >
@@ -47,8 +47,8 @@
               </div>
 
               <div ng-init="log2=false" class='inline row-fluid' ng-show='showSubtasks'>
+                {{item.descripcion}}
                 <tabset>
-
                   <tab heading="Sub-Tareas">
                      <div ng-repeat="subtask in item.subtasks">
                           <ul class="item-list ui-sortable">
