@@ -537,9 +537,21 @@ define(['angular', 'dform'], function (angular) {
         }
 
         $element.children().addClass($attrs['class']);
-        $scope['dataGrid'.concat(gridName)] = $scope[gridName].loadDataFromServer();
+        var loadInit = $attrs['loadInit'];
+        if( loadInit === 'true' ) {
+          loadInit = true;
+        } else {
+          loadInit = false;
+        }
 
-        $scope.$watch('dataGrid'.concat(gridName), function(dataGrid) {
+        var dataGridName = "data_".concat(gridName);
+        $scope[gridName].setGridDataName(dataGridName);
+
+        if( loadInit === true ) {
+          $scope[dataGridName] = $scope[gridName].loadDataFromServer();
+        }
+
+        $scope.$watch(''.concat(dataGridName), function(dataGrid) {
           if( dataGrid !== undefined ) {
             $scope[gridName].addData(dataGrid);
             $scope[gridName].applyDecorators();

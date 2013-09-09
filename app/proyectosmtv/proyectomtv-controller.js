@@ -23,10 +23,19 @@ define(['angular'], function(angular) {
         });
 
         cwGrid.setDecorators([CaliopeWebGridDataDecorator, CWGridColumnsDefNgGridDecorator])
-
       };
-
-
+      /*
+      Ejemplo de carga de grilla cuando se invoca un evento y se envian parámetros.
+      $scope.findWithFilter = function(uuidProyecto) {
+        var cwGrid = $scope['gridProjectsmtv'];
+        var parameters = {
+          //"uuid" : uuidProyecto
+        }
+        cwGrid.setParameters(parameters);
+        console.log('gridDataName', cwGrid.getGridDataName());
+        $scope[cwGrid.getGridDataName()] = cwGrid.loadDataFromServer();
+      };
+      */
 
     }]
   );

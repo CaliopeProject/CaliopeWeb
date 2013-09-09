@@ -4,6 +4,7 @@
 var CaliopeWebGrid = (function() {
 
   var gridName;
+  var gridDataName;
   var gridProperties;
   var data;
   var columns;
@@ -155,12 +156,19 @@ var CaliopeWebGrid = (function() {
 
     /**
      * Get the name of the form.
-     * @returns {*}
+     * @returns {String}
      */
       getGridName : function() {
         return this.gridName;
       },
 
+      /**
+       * Get the name of the data in grid
+       * return {String}
+       */
+      getGridDataName : function() {
+        return this.gridDataName;
+      },
       /**
        *
        */
@@ -174,6 +182,22 @@ var CaliopeWebGrid = (function() {
        */
       setDecorators : function(_decorators) {
         this.decorators = _decorators;
+      },
+
+    /**
+     * Set parameters to request server when load data grid.
+     * @param _parameters {Object} Parameters to send to server
+     */
+      setParameters : function(_parameters) {
+        this.parParameters = _parameters;
+      },
+
+    /**
+     * Set the name of the data in the grid.
+     * @param _nameDataGrid
+     */
+      setGridDataName : function(_gridDataName) {
+        this.gridDataName = _gridDataName;
       },
 
       /**
