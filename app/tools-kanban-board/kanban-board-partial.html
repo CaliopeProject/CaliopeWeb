@@ -19,36 +19,36 @@
             <div ng-controller="kanbanItemCtrl" class="task-header-kanban" ng-init="showSubtasks=false"  uuid="{{item.uuid}}" ng-show='item.uuid'  ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStart:'startCallback'}">
               <div class="blockInline-subtask">
                 <span class="green">
-                  <i class="icon-list-ul"></i>
+                  <i tooltip="Estado Sub-tareas" class="icon-list-ul"></i>
                   ({{item.subtasks.length || 0 }} - <span class="text-error"> {{countSubtask(item.subtasks)}})</span>
                 </span>
-                {{item.descripcion}}
+                {{item.name}}
               </div>
 
               <div class="lbl widget-toolbar-kanban no-border" >
 
                 <span class="text-info" ng-click="showSubtasks=!showSubtasks">
-                  <i class="icon-double-angle-down" ng-show="showSubtasks==false" ></i>
-                  <i class="icon-double-angle-up" ng-show="showSubtasks==true"></i>
+                  <i class="icon-double-angle-down" tooltip="Mostrar" ng-show="showSubtasks==false" ></i>
+                  <i class="icon-double-angle-up" tooltip="Ocultar" ng-show="showSubtasks==true"></i>
                 </span>
 
                 <span class="text-warning" ng-click="editTask(item.uuid, obj.category)">
-                  <i class="icon-edit"></i>
+                  <i tooltip="Editar" class="icon-edit"></i>
                 </span>
 
                 <span ng-if="obj.category == 'Done'" class="text-info" ng-click="archiveTask(item.uuid)">
-                  <i class="icon-archive"></i>
+                  <i tooltip="Archivar" class="icon-archive"></i>
                 </span>
 
                 <span ng-click="deleteTask(item)">
-                  <i class="icon-trash"></i>
+                  <i tooltip="Eliminar" class="icon-trash"></i>
                 </span>
 
               </div>
 
               <div ng-init="log2=false" class='inline row-fluid' ng-show='showSubtasks'>
+                {{item.descripcion}}
                 <tabset>
-
                   <tab heading="Sub-Tareas">
                      <div ng-repeat="subtask in item.subtasks">
                           <ul class="item-list ui-sortable">
