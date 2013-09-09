@@ -61,6 +61,13 @@ var CaliopeWebForm = (function() {
    *
    */
     var actions;
+
+  /**
+   * Action to render in the form
+   * @member {object} actions
+   * @memberOf CaliopeWebForm
+   */
+    var actionsToShow;
   /**
    * Translations for the label inputs in the form.
    * @member {object} translations
@@ -235,6 +242,10 @@ var CaliopeWebForm = (function() {
       addActions: function(_actions) {
         actions = _actions;
       },
+
+      addActionsToShow : function(_actionsToShow) {
+        actionsToShow = _actionsToShow;
+      },
     /**
      * Add the translations retrieve from the server to the translations attribute
      * @function
@@ -279,6 +290,16 @@ var CaliopeWebForm = (function() {
         return actions;
       },
 
+    /**
+     * Get the columns to show
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {Array}
+     */
+      getActionsToShow : function() {
+        return actionsToShow;
+      },
 
     /**
      *  Get the data added
@@ -776,7 +797,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
    * @param {string} modelUUID Data Identifier.
    * @param {string} objID Data Identifier
    */
-  function completeActions(structureInit, structureActions,formName, modelUUID, objID) {
+  function completeActions(structureInit, structureActions, actionsToShow, formName, modelUUID, objID) {
 
     var i;
 
@@ -805,27 +826,30 @@ var CaliopeWebFormActionsDecorator = ( function() {
         var action = {};
         var actionName = structureActions[i][VAR_NAME_NAME];
         var actionMethod = structureActions[i][VAR_NAME_METHOD];
-        var paramsToSend = structureActions[i][VAR_NAME_PARAMS_TO_SEND];
-        if( paramsToSend === undefined ) {
-          paramsToSend = "";
+        if(actionsToShow === undefined || actionsToShow.length === 0 || actionsToShow.indexOf(actionMethod) >= 0 ) {
+          var actionMethod = structureActions[i][VAR_NAME_METHOD];
+          var paramsToSend = structureActions[i][VAR_NAME_PARAMS_TO_SEND];
+          if( paramsToSend === undefined ) {
+            paramsToSend = "";
+          }
+          action.type = TYPE_ACTION;
+          /*
+            create ng-click: sendAction(form, 'formName', 'method', 'modelUUID', 'objID', 'params_to_send_to_server');
+           */
+          action[DIRECTIVE_NG_CLICK] = NAME_METHOD_CONTROLLER.concat("(").
+              concat(formName).concat(", ").
+              concat("'").concat(formName).concat("', ").
+              concat("'").concat(actionMethod).concat("', ").
+              concat("'").concat(modelUUID).concat("', ").
+              concat("'").concat(objID).concat("', ").
+              concat("'").concat(paramsToSend).concat("'").
+              concat(")");
+          action[DIRECTIVE_NG_DISABLED] = formName.concat('.$invalid');
+          action.name = action.type.concat('-').concat(actionName) ;
+          action.class = NAME_CLASS_BUTTON_DEFAULT;
+          action.html = actionName;
+          buttonContainer.html.push(action);
         }
-        action.type = TYPE_ACTION;
-        /*
-          create ng-click: sendAction(form, 'formName', 'method', 'modelUUID', 'objID', 'params_to_send_to_server');
-         */
-        action[DIRECTIVE_NG_CLICK] = NAME_METHOD_CONTROLLER.concat("(").
-            concat(formName).concat(", ").
-            concat("'").concat(formName).concat("', ").
-            concat("'").concat(actionMethod).concat("', ").
-            concat("'").concat(modelUUID).concat("', ").
-            concat("'").concat(objID).concat("', ").
-            concat("'").concat(paramsToSend).concat("'").
-            concat(")");
-        action[DIRECTIVE_NG_DISABLED] = formName.concat('.$invalid');
-        action.name = action.type.concat('-').concat(actionName) ;
-        action.class = NAME_CLASS_BUTTON_DEFAULT;
-        action.html = actionName;
-        buttonContainer.html.push(action);
       }
 
       structureInit.html.push(buttonContainer);
@@ -846,6 +870,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
       var structureAction = caliopeWebForm.getActions();
       var formName = caliopeWebForm.getFormName();
       var modelUUID = caliopeWebForm.getModelUUID();
+      var actionsToShow = caliopeWebForm.getActionsToShow();
       var objID;
       if( caliopeWebForm.getData() !== undefined && caliopeWebForm.getData().uuid !== 'undefined') {
         objID = caliopeWebForm.getData().uuid;
@@ -854,7 +879,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
         objID = '';
       }
       caliopeWebForm.createStructureToRender = function() {
-        completeActions(structureInit, structureAction, formName, modelUUID, objID);
+        completeActions(structureInit, structureAction, actionsToShow, formName, modelUUID, objID);
         return structureInit;
       };
     }

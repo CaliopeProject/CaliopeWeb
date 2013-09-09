@@ -115,7 +115,7 @@ define(['angular'], function(angular) {
         return promise;
       };
 
-      Service.load = function ( value , context) {
+      Service.load = function ( value , context, actionsToShow) {
 
           var templateFromServer = value;
           var result = {};
@@ -126,6 +126,7 @@ define(['angular'], function(angular) {
             var caliopeWebForm = new CaliopeWebForm();
             caliopeWebForm.addStructure(templateFromServer.form, templateFromServer.form.name);
             caliopeWebForm.addActions(templateFromServer.actions);
+            caliopeWebForm.addActionsToShow(actionsToShow);
             caliopeWebForm.addData(templateFromServer.data);
             caliopeWebForm.addTranslations(templateFromServer.translations);
             caliopeWebForm.addlayout(templateFromServer.layout);
@@ -183,9 +184,6 @@ define(['angular'], function(angular) {
          * @param promise
          * @returns {*}
          */
-
-
-
         var processResponse = function(promise) {
           var promiseHandResult = promise.then( function(response) {
             var data = undefined;
