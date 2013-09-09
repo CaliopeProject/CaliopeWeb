@@ -77,9 +77,9 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
 
         };
 
-        $scope.hasPendingRequests = function () {
-          return httpRequestTrackerService.hasPendingRequests();
-        };
+        if(!httpRequestTrackerService.first){
+          $scope.hasPendingRequests = httpRequestTrackerService.hasPendingRequests;
+        }
 
       }]
   );

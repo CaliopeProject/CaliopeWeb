@@ -5,3 +5,199 @@
   right: 3px;
   bottom: 0px;
 }
+
+#loadingSpin {
+  background: #000;
+}
+
+.spinner {
+    width:28px;
+    height:28px;
+    background:#161c1f;
+    position:relative;
+}
+
+@-webkit-keyframes blink {
+    from { opacity:1 }
+    to { opacity:.3 }
+}
+
+@-moz-keyframes blink {
+    from { opacity:1 }
+    to { opacity:.3 }
+}
+
+@-o-keyframes blink {
+    from { opacity:1 }
+    to { opacity:.3 }
+}
+
+@keyframes blink {
+    from { opacity:1 }
+    to { opacity:.3 }
+}
+.spin-line {
+    background:#fff;
+    opacity:.3;
+    height:9px;
+    width:25%;
+    position:absolute;
+    top:50%; left:50%;
+    margin-top:-3px;
+    border-radius:3px;
+    -webkit-transform-origin:0% 50%;
+    -moz-transform-origin:0% 50%;
+    -ms-transform-origin:0% 50%;
+    -o-transform-origin:0% 50%;
+    transform-origin:0% 50%;
+    -webkit-animation:blink 1s linear infinite;
+    -moz-animation:blink 1s linear infinite;
+    -o-animation:blink 1s linear infinite;
+    animation:blink 1s linear infinite;
+}
+
+@-webkit-keyframes blink {
+    from { opacity:1 }
+    to { opacity:.3 }
+}
+@-moz-keyframes blink {
+    from { opacity:1 }
+    to { opacity:.3 }
+}
+@-o-keyframes blink {
+    from { opacity:1 }
+    to { opacity:.3 }
+}
+@keyframes blink {
+    from { opacity:1 }
+    to { opacity:.3 }
+}
+.spin-line {
+    background:#fff;
+    opacity:.3;
+    height:6px;
+    width:25%;
+    position:absolute;
+    top:50%; left:50%;
+    margin-top:-3px;
+    border-radius:3px;
+    -webkit-transform-origin:0% 50%;
+    -moz-transform-origin:0% 50%;
+    -ms-transform-origin:0% 50%;
+    -o-transform-origin:0% 50%;
+    transform-origin:0% 50%;
+    -webkit-animation:blink 1s linear infinite;
+    -moz-animation:blink 1s linear infinite;
+    -o-animation:blink 1s linear infinite;
+    animation:blink 1s linear infinite;
+}
+.sl1 {
+    -webkit-transform:rotate(0deg) translate(6px, 0px);
+    -moz-transform:rotate(0deg) translate(6px, 0px);
+    -ms-transform:rotate(0deg) translate(6px, 0px);
+    -o-transform:rotate(0deg) translate(6px, 0px);
+    transform:rotate(0deg) translate(6px, 0px);
+    -webkit-animation-delay:0;
+    -moz-animation-delay:0;
+    -o-animation-delay:0;
+    animation-delay:0;
+}
+.sl2 {
+    -webkit-transform:rotate(36deg) translate(6px, 0px);
+    -moz-transform:rotate(36deg) translate(6px, 0px);
+    -ms-transform:rotate(36deg) translate(6px, 0px);
+    -o-transform:rotate(36deg) translate(6px, 0px);
+    transform:rotate(36deg) translate(6px, 0px);
+    -webkit-animation-delay:.1s;
+    -moz-animation-delay:.1s;
+    -o-animation-delay:.1s;
+    animation-delay:.1s;
+}
+.sl3 {
+    -webkit-transform:rotate(72deg) translate(6px, 0px);
+    -moz-transform:rotate(72deg) translate(6px, 0px);
+    -ms-transform:rotate(72deg) translate(6px, 0px);
+    -o-transform:rotate(72deg) translate(6px, 0px);
+    transform:rotate(72deg) translate(6px, 0px);
+    -webkit-animation-delay:.2s;
+    -moz-animation-delay:.2s;
+    -o-animation-delay:.2s;
+    animation-delay:.2s;
+}
+.sl4 {
+    -webkit-transform:rotate(108deg) translate(6px, 0px);
+    -moz-transform:rotate(108deg) translate(6px, 0px);
+    -ms-transform:rotate(108deg) translate(6px, 0px);
+    -o-transform:rotate(108deg) translate(6px, 0px);
+    transform:rotate(108deg) translate(6px, 0px);
+    -webkit-animation-delay:.3s;
+    -moz-animation-delay:.3s;
+    -o-animation-delay:.3s;
+    animation-delay:.3s;
+}
+.sl5 {
+    -webkit-transform:rotate(144deg) translate(6px, 0px);
+    -moz-transform:rotate(144deg) translate(6px, 0px);
+    -ms-transform:rotate(144deg) translate(6px, 0px);
+    -o-transform:rotate(144deg) translate(6px, 0px);
+    transform:rotate(144deg) translate(6px, 0px);
+    -webkit-animation-delay:.4s;
+    -moz-animation-delay:.4s;
+    -o-animation-delay:.4s;
+    animation-delay:.4s;
+}
+.sl6 {
+    -webkit-transform:rotate(180deg) translate(6px, 0px);
+    -moz-transform:rotate(180deg) translate(6px, 0px);
+    -ms-transform:rotate(180deg) translate(6px, 0px);
+    -o-transform:rotate(180deg) translate(6px, 0px);
+    transform:rotate(180deg) translate(6px, 0px);
+    -webkit-animation-delay:.5s;
+    -moz-animation-delay:.5s;
+    -o-animation-delay:.5s;
+    animation-delay:.5s;
+}
+.sl7 {
+    -webkit-transform:rotate(216deg) translate(6px, 0px);
+    -moz-transform:rotate(216deg) translate(6px, 0px);
+    -ms-transform:rotate(216deg) translate(6px, 0px);
+    -o-transform:rotate(216deg) translate(6px, 0px);
+    transform:rotate(216deg) translate(6px, 0px);
+    -webkit-animation-delay:.6s;
+    -moz-animation-delay:.6s;
+    -o-animation-delay:.6s;
+    animation-delay:.6s;
+}
+.sl8 {
+    -webkit-transform:rotate(252deg) translate(6px, 0px);
+    -moz-transform:rotate(252deg) translate(6px, 0px);
+    -ms-transform:rotate(252deg) translate(6px, 0px);
+    -o-transform:rotate(252deg) translate(6px, 0px);
+    transform:rotate(252deg) translate(6px, 0px);
+    -webkit-animation-delay:.7s;
+    -moz-animation-delay:.7s;
+    -o-animation-delay:.7s;
+    animation-delay:.7s;
+}
+.sl9 {
+    -webkit-transform:rotate(288deg) translate(6px, 0px);
+    -moz-transform:rotate(288deg) translate(6px, 0px);
+    -ms-transform:rotate(288deg) translate(6px, 0px);
+    -o-transform:rotate(288deg) translate(6px, 0px);
+    transform:rotate(288deg) translate(6px, 0px);
+    -webkit-animation-delay:.8s;
+    -moz-animation-delay:.8s;
+    -o-animation-delay:.8s;
+    animation-delay:.8s;
+}
+.sl10 {
+    -webkit-transform:rotate(324deg) translate(6px, 0px);
+    -moz-transform:rotate(324deg) translate(6px, 0px);
+    -ms-transform:rotate(324deg) translate(6px, 0px);
+    -o-transform:rotate(324deg) translate(6px, 0px);
+    transform:rotate(324deg) translate(6px, 0px);
+    -webkit-animation-delay:.9s;
+    -moz-animation-delay:.9s;
+    -o-animation-delay:.9s;
+    animation-delay:.9s;
+}

@@ -85,13 +85,17 @@ $borKanba: 12px;
   min-height: 26px;
   border: 1px solid #CCC;
   background-color: #ffffff;
-  padding: 0px 15px 7px 15px;
+  padding: 0px 11px 7px 11px;
   text-align: right;
   font-size: small;
   > :hover { cursor: move; }
 
   li {
     text-align: left;
+    label {
+      font-size: small;
+      font-weight: normal;
+    }
   }
 
   form{
@@ -99,7 +103,6 @@ $borKanba: 12px;
   }
 
   > :first-child {
-
     line-height: 33px;
     max-height: 36px;
     height: 36px;
@@ -112,7 +115,7 @@ $borKanba: 12px;
   }
 
   input{
-    width: 80%; 
+    width: 80%;
   }
 }
 
@@ -130,8 +133,25 @@ $borKanba: 12px;
   .task-header-kanban & {
     position: absolute;
     right: 7px;
-    top: 1px;
     background-color: white;
+    padding: 0px;
+    margin: 0px;
+
+    [class*=" icon-"], [class^="icon-"] {
+      padding-left: 5px;
+      padding-top: 10px;
+      padding-right: 5px;
+      padding-bottom: 10px;
+    }
+
+  }
+
+  span{
+    margin: 0px;
+    padding: 0px;
+    &:last-child{
+      padding-right: 0px;
+    }
   }
 }
 
@@ -166,9 +186,5 @@ $borKanba: 12px;
   margin-top: 5px;
   clear: both;
   font-size: smaller;
-  .item-list{
-    li {
-      padding: 5px; 
-    }
-  }
+
 }
