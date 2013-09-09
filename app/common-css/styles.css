@@ -32016,7 +32016,23 @@ input.ng-valid.ng-dirty {
   display: inline;
 }
 
-/* line 45, ../caliopeweb-forms/caliopeweb.scss */
+/* line 46, ../caliopeweb-forms/caliopeweb.scss */
+#base-form input[type=radio], #container-form input[type=radio], #base-form input[type=checkbox], #container-form input[type=checkbox] {
+  opacity: 1;
+  margin-left: 5px;
+}
+/* line 51, ../caliopeweb-forms/caliopeweb.scss */
+#base-form input[type=radio] + label, #container-form input[type=radio] + label {
+  margin-left: 25px;
+  font-weight: normal;
+}
+/* line 55, ../caliopeweb-forms/caliopeweb.scss */
+#base-form input[type=checkbox] + label, #container-form input[type=checkbox] + label {
+  margin-left: 25px;
+  font-weight: normal;
+}
+
+/* line 61, ../caliopeweb-forms/caliopeweb.scss */
 #container-form {
   padding: 19px 29px 29px;
   overflow: auto;
@@ -32032,26 +32048,11 @@ input.ng-valid.ng-dirty {
   -moz-background-clip: padding-box;
   background-clip: padding-box;
 }
-/* line 60, ../caliopeweb-forms/caliopeweb.scss */
-#container-form input[type=radio], #container-form input[type=checkbox] {
-  opacity: 1;
-  margin-left: 5px;
-}
-/* line 65, ../caliopeweb-forms/caliopeweb.scss */
-#container-form input[type=radio] + label {
-  margin-left: 25px;
-  font-weight: normal;
-}
-/* line 69, ../caliopeweb-forms/caliopeweb.scss */
-#container-form input[type=checkbox] + label {
-  margin-left: 25px;
-  font-weight: normal;
-}
 
 /* //INIT ui-multicombo directive*/
 /* Based on Chosen */
 /* @group Base */
-/* line 80, ../caliopeweb-forms/caliopeweb.scss */
+/* line 84, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container {
   font-size: 13px;
   position: relative;
@@ -32060,7 +32061,7 @@ input.ng-valid.ng-dirty {
   *display: inline;
 }
 
-/* line 87, ../caliopeweb-forms/caliopeweb.scss */
+/* line 91, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-active .mcombo-drop {
   background: #fff;
   border: 1px solid #aaa;
@@ -32077,7 +32078,7 @@ input.ng-valid.ng-dirty {
 
 /* @end */
 /* @group Multi Chosen */
-/* line 103, ../caliopeweb-forms/caliopeweb.scss */
+/* line 107, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-multi .mcombo-selected-choices {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eeeeee), color-stop(15%, white));
   background-image: -webkit-linear-gradient(top, #eeeeee 1%, white 15%);
@@ -32096,20 +32097,20 @@ input.ng-valid.ng-dirty {
   width: 100%;
 }
 
-/* line 120, ../caliopeweb-forms/caliopeweb.scss */
+/* line 124, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-multi .mcombo-selected-choices li {
   float: left;
   list-style: none;
 }
 
-/* line 124, ../caliopeweb-forms/caliopeweb.scss */
+/* line 128, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-multi .mcombo-selected-choices .search-field {
   white-space: nowrap;
   margin: 0;
   padding: 0;
 }
 
-/* line 129, ../caliopeweb-forms/caliopeweb.scss */
+/* line 133, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-multi .mcombo-selected-choices .search-field input {
   color: #666;
   background: transparent !important;
@@ -32126,12 +32127,12 @@ input.ng-valid.ng-dirty {
   box-shadow: none;
 }
 
-/* line 144, ../caliopeweb-forms/caliopeweb.scss */
+/* line 148, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-multi .mcombo-selected-choices .search-field .default {
   color: #999;
 }
 
-/* line 147, ../caliopeweb-forms/caliopeweb.scss */
+/* line 151, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-multi .mcombo-selected-choices .selected-choice {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -32151,14 +32152,14 @@ input.ng-valid.ng-dirty {
   cursor: default;
 }
 
-/* line 166, ../caliopeweb-forms/caliopeweb.scss */
+/* line 170, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-multi .mcombo-selected-choices .selected-choice .selected-choice-delete:hover {
   background-position: right -11px;
 }
 
 /* @end */
 /* @group Results */
-/* line 173, ../caliopeweb-forms/caliopeweb.scss */
+/* line 177, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container .choices {
   margin: 0 4px 4px 0;
   max-height: 240px;
@@ -32170,13 +32171,13 @@ input.ng-valid.ng-dirty {
   -webkit-overflow-scrolling: touch;
 }
 
-/* line 184, ../caliopeweb-forms/caliopeweb.scss */
+/* line 188, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-multi .choices {
   margin: -1px 0 0;
   padding: 10px 2px;
 }
 
-/* line 188, ../caliopeweb-forms/caliopeweb.scss */
+/* line 192, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container .choices li {
   display: none;
   line-height: 15px;
@@ -32184,7 +32185,7 @@ input.ng-valid.ng-dirty {
   list-style: none;
 }
 
-/* line 195, ../caliopeweb-forms/caliopeweb.scss */
+/* line 199, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-multi .mcombo-selected-choices .selected-choice .selected-choice-delete {
   display: block;
   position: absolute;
@@ -32196,12 +32197,12 @@ input.ng-valid.ng-dirty {
   color: #006f04;
 }
 
-/* line 207, ../caliopeweb-forms/caliopeweb.scss */
+/* line 211, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-active .choices li {
   display: block;
 }
 
-/* line 211, ../caliopeweb-forms/caliopeweb.scss */
+/* line 215, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-active .choices hr {
   border: 0;
   border-top: 1px solid;
@@ -32210,13 +32211,13 @@ input.ng-valid.ng-dirty {
   border-color: #e0e0e0;
 }
 
-/* line 219, ../caliopeweb-forms/caliopeweb.scss */
+/* line 223, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-active .choices li .msg-photo {
   margin-right: 6px;
   max-width: 42px;
 }
 
-/* line 223, ../caliopeweb-forms/caliopeweb.scss */
+/* line 227, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container .choices li.item:hover {
   background-color: #3875d7;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3875d7', endColorstr='#2a62bc', GradientType=0 );
@@ -32229,25 +32230,25 @@ input.ng-valid.ng-dirty {
   color: #fff;
 }
 
-/* line 234, ../caliopeweb-forms/caliopeweb.scss */
+/* line 238, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container .choices li em {
   background: #feffde;
   font-style: normal;
 }
 
-/* line 238, ../caliopeweb-forms/caliopeweb.scss */
+/* line 242, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container .choices .no-results {
   background: #f4f4f4;
   display: list-item;
 }
 
-/* line 242, ../caliopeweb-forms/caliopeweb.scss */
+/* line 246, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-active .mcombo-selected-choices {
   border: 1px solid #5897fb;
   postion: relative;
 }
 
-/* line 246, ../caliopeweb-forms/caliopeweb.scss */
+/* line 250, ../caliopeweb-forms/caliopeweb.scss */
 .mcombo-container-active .mcombo-selected-choices .search-field input {
   color: #111 !important;
 }
@@ -32265,59 +32266,59 @@ input.ng-valid.ng-dirty {
     cursor: default;
 }*/
 /* //END  ui-multicombo directive*/
-/* line 264, ../caliopeweb-forms/caliopeweb.scss */
+/* line 268, ../caliopeweb-forms/caliopeweb.scss */
 .calendar .btn {
   padding: 0 5px;
   line-height: 22px;
   border-width: 2px;
   font-size: 12px;
 }
-/* line 271, ../caliopeweb-forms/caliopeweb.scss */
+/* line 275, ../caliopeweb-forms/caliopeweb.scss */
 .calendar th {
   font-size: 10px;
 }
-/* line 275, ../caliopeweb-forms/caliopeweb.scss */
+/* line 279, ../caliopeweb-forms/caliopeweb.scss */
 .calendar td > em {
   font-size: 10px;
 }
 
-/* line 287, ../caliopeweb-forms/caliopeweb.scss */
+/* line 291, ../caliopeweb-forms/caliopeweb.scss */
 .grid .height-1 {
   height: 150px;
 }
-/* line 287, ../caliopeweb-forms/caliopeweb.scss */
+/* line 291, ../caliopeweb-forms/caliopeweb.scss */
 .grid .height-2 {
   height: 200px;
 }
-/* line 287, ../caliopeweb-forms/caliopeweb.scss */
+/* line 291, ../caliopeweb-forms/caliopeweb.scss */
 .grid .height-3 {
   height: 250px;
 }
-/* line 287, ../caliopeweb-forms/caliopeweb.scss */
+/* line 291, ../caliopeweb-forms/caliopeweb.scss */
 .grid .height-4 {
   height: 300px;
 }
-/* line 287, ../caliopeweb-forms/caliopeweb.scss */
+/* line 291, ../caliopeweb-forms/caliopeweb.scss */
 .grid .height-5 {
   height: 350px;
 }
-/* line 287, ../caliopeweb-forms/caliopeweb.scss */
+/* line 291, ../caliopeweb-forms/caliopeweb.scss */
 .grid .height-6 {
   height: 400px;
 }
-/* line 287, ../caliopeweb-forms/caliopeweb.scss */
+/* line 291, ../caliopeweb-forms/caliopeweb.scss */
 .grid .height-7 {
   height: 450px;
 }
-/* line 287, ../caliopeweb-forms/caliopeweb.scss */
+/* line 291, ../caliopeweb-forms/caliopeweb.scss */
 .grid .height-8 {
   height: 500px;
 }
-/* line 287, ../caliopeweb-forms/caliopeweb.scss */
+/* line 291, ../caliopeweb-forms/caliopeweb.scss */
 .grid .height-9 {
   height: 550px;
 }
-/* line 287, ../caliopeweb-forms/caliopeweb.scss */
+/* line 291, ../caliopeweb-forms/caliopeweb.scss */
 .grid .height-10 {
   height: 600px;
 }
@@ -32325,48 +32326,48 @@ input.ng-valid.ng-dirty {
 /*
   STYLES FOR GRID
 */
-/* line 301, ../caliopeweb-forms/caliopeweb.scss */
+/* line 305, ../caliopeweb-forms/caliopeweb.scss */
 grid .height-1 {
   height: 150px;
 }
-/* line 301, ../caliopeweb-forms/caliopeweb.scss */
+/* line 305, ../caliopeweb-forms/caliopeweb.scss */
 grid .height-2 {
   height: 200px;
 }
-/* line 301, ../caliopeweb-forms/caliopeweb.scss */
+/* line 305, ../caliopeweb-forms/caliopeweb.scss */
 grid .height-3 {
   height: 250px;
 }
-/* line 301, ../caliopeweb-forms/caliopeweb.scss */
+/* line 305, ../caliopeweb-forms/caliopeweb.scss */
 grid .height-4 {
   height: 300px;
 }
-/* line 301, ../caliopeweb-forms/caliopeweb.scss */
+/* line 305, ../caliopeweb-forms/caliopeweb.scss */
 grid .height-5 {
   height: 350px;
 }
-/* line 301, ../caliopeweb-forms/caliopeweb.scss */
+/* line 305, ../caliopeweb-forms/caliopeweb.scss */
 grid .height-6 {
   height: 400px;
 }
-/* line 301, ../caliopeweb-forms/caliopeweb.scss */
+/* line 305, ../caliopeweb-forms/caliopeweb.scss */
 grid .height-7 {
   height: 450px;
 }
-/* line 301, ../caliopeweb-forms/caliopeweb.scss */
+/* line 305, ../caliopeweb-forms/caliopeweb.scss */
 grid .height-8 {
   height: 500px;
 }
-/* line 301, ../caliopeweb-forms/caliopeweb.scss */
+/* line 305, ../caliopeweb-forms/caliopeweb.scss */
 grid .height-9 {
   height: 550px;
 }
-/* line 301, ../caliopeweb-forms/caliopeweb.scss */
+/* line 305, ../caliopeweb-forms/caliopeweb.scss */
 grid .height-10 {
   height: 600px;
 }
 
-/* line 306, ../caliopeweb-forms/caliopeweb.scss */
+/* line 310, ../caliopeweb-forms/caliopeweb.scss */
 .cell-center {
   text-align: center;
 }
@@ -32374,23 +32375,23 @@ grid .height-10 {
 /*
   STYLES FOR ngGRID
 */
-/* line 313, ../caliopeweb-forms/caliopeweb.scss */
+/* line 317, ../caliopeweb-forms/caliopeweb.scss */
 .ngGrid {
   background-color: #fdfdfd;
 }
 
-/* line 316, ../caliopeweb-forms/caliopeweb.scss */
+/* line 320, ../caliopeweb-forms/caliopeweb.scss */
 .ngGrid input[type="checkbox"] {
   margin: 0;
   padding: 0;
 }
 
-/* line 320, ../caliopeweb-forms/caliopeweb.scss */
+/* line 324, ../caliopeweb-forms/caliopeweb.scss */
 .ngGrid input {
   vertical-align: top;
 }
 
-/* line 323, ../caliopeweb-forms/caliopeweb.scss */
+/* line 327, ../caliopeweb-forms/caliopeweb.scss */
 .ngGrid.unselectable {
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -32399,36 +32400,36 @@ grid .height-10 {
   user-select: none;
 }
 
-/* line 330, ../caliopeweb-forms/caliopeweb.scss */
+/* line 334, ../caliopeweb-forms/caliopeweb.scss */
 .ngViewport {
   overflow: auto;
   min-height: 20px;
 }
 
-/* line 334, ../caliopeweb-forms/caliopeweb.scss */
+/* line 338, ../caliopeweb-forms/caliopeweb.scss */
 .ngViewport:focus {
   outline: none;
 }
 
-/* line 337, ../caliopeweb-forms/caliopeweb.scss */
+/* line 341, ../caliopeweb-forms/caliopeweb.scss */
 .ngCanvas {
   position: relative;
 }
 
-/* line 340, ../caliopeweb-forms/caliopeweb.scss */
+/* line 344, ../caliopeweb-forms/caliopeweb.scss */
 .ngVerticalBar {
   position: absolute;
   right: 0;
   width: 0;
 }
 
-/* line 345, ../caliopeweb-forms/caliopeweb.scss */
+/* line 349, ../caliopeweb-forms/caliopeweb.scss */
 .ngVerticalBarVisible {
   width: 1px;
   background-color: #d4d4d4;
 }
 
-/* line 349, ../caliopeweb-forms/caliopeweb.scss */
+/* line 353, ../caliopeweb-forms/caliopeweb.scss */
 .ngHeaderContainer {
   position: relative;
   overflow: hidden;
@@ -32436,7 +32437,7 @@ grid .height-10 {
   background-color: inherit;
 }
 
-/* line 355, ../caliopeweb-forms/caliopeweb.scss */
+/* line 359, ../caliopeweb-forms/caliopeweb.scss */
 .ngHeaderCell {
   position: absolute;
   top: 0;
@@ -32444,18 +32445,18 @@ grid .height-10 {
   background-color: inherit;
 }
 
-/* line 361, ../caliopeweb-forms/caliopeweb.scss */
+/* line 365, ../caliopeweb-forms/caliopeweb.scss */
 .ngHeaderCell.pinned {
   z-index: 1;
 }
 
-/* line 364, ../caliopeweb-forms/caliopeweb.scss */
+/* line 368, ../caliopeweb-forms/caliopeweb.scss */
 .ngHeaderSortColumn {
   position: absolute;
   overflow: hidden;
 }
 
-/* line 368, ../caliopeweb-forms/caliopeweb.scss */
+/* line 372, ../caliopeweb-forms/caliopeweb.scss */
 .ngTopPanel {
   position: relative;
   z-index: 1;
@@ -32463,7 +32464,7 @@ grid .height-10 {
   border-bottom: 1px solid #d4d4d4;
 }
 
-/* line 374, ../caliopeweb-forms/caliopeweb.scss */
+/* line 378, ../caliopeweb-forms/caliopeweb.scss */
 .ngSortButtonDown {
   position: absolute;
   top: 3px;
@@ -32478,12 +32479,12 @@ grid .height-10 {
   width: 0;
 }
 
-/* line 387, ../caliopeweb-forms/caliopeweb.scss */
+/* line 391, ../caliopeweb-forms/caliopeweb.scss */
 .ngNoSort {
   cursor: default;
 }
 
-/* line 390, ../caliopeweb-forms/caliopeweb.scss */
+/* line 394, ../caliopeweb-forms/caliopeweb.scss */
 .ngHeaderButton {
   position: absolute;
   right: 2px;
@@ -32498,7 +32499,7 @@ grid .height-10 {
   cursor: pointer;
 }
 
-/* line 403, ../caliopeweb-forms/caliopeweb.scss */
+/* line 407, ../caliopeweb-forms/caliopeweb.scss */
 .ngSortButtonUp {
   position: absolute;
   top: 3px;
@@ -32513,13 +32514,13 @@ grid .height-10 {
   width: 0;
 }
 
-/* line 416, ../caliopeweb-forms/caliopeweb.scss */
+/* line 420, ../caliopeweb-forms/caliopeweb.scss */
 .ngHeaderScroller {
   position: absolute;
   background-color: inherit;
 }
 
-/* line 420, ../caliopeweb-forms/caliopeweb.scss */
+/* line 424, ../caliopeweb-forms/caliopeweb.scss */
 .ngSortPriority {
   position: absolute;
   top: -5px;
@@ -32528,7 +32529,7 @@ grid .height-10 {
   font-weight: bold;
 }
 
-/* line 427, ../caliopeweb-forms/caliopeweb.scss */
+/* line 431, ../caliopeweb-forms/caliopeweb.scss */
 .ngHeaderGrip {
   cursor: col-resize;
   width: 10px;
@@ -32539,7 +32540,7 @@ grid .height-10 {
   background-color: transparent;
 }
 
-/* line 436, ../caliopeweb-forms/caliopeweb.scss */
+/* line 440, ../caliopeweb-forms/caliopeweb.scss */
 .ngHeaderText {
   padding: 5px;
   -moz-box-sizing: border-box;
@@ -32552,7 +32553,7 @@ grid .height-10 {
   overflow: hidden;
 }
 
-/* line 447, ../caliopeweb-forms/caliopeweb.scss */
+/* line 451, ../caliopeweb-forms/caliopeweb.scss */
 .ngHeaderButtonArrow {
   position: absolute;
   top: 4px;
@@ -32564,7 +32565,7 @@ grid .height-10 {
   border-color: #4d4d4d transparent transparent transparent;
 }
 
-/* line 457, ../caliopeweb-forms/caliopeweb.scss */
+/* line 461, ../caliopeweb-forms/caliopeweb.scss */
 .ngPinnedIcon {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAmElEQVQoU33PQapBURjA8UtkwJuaWYGSgfQWYBMvczPmTCzAAGVuaA228BZhRCkDGSmE31FucuRfvzq3vr5zT/JSjSU7DsypEPXDkDVn2hSIytJhw4kWGaLCxgHh2gt/RBuLzNhz5caWPjnSqqw4EraFfwznf8qklWjwy4IRTerkiQoPGtPl40OehcEJvcfXl8LglLfBJLkDcMgbgHlHhK8AAAAASUVORK5CYII=);
   background-repeat: no-repeat;
@@ -32575,7 +32576,7 @@ grid .height-10 {
   width: 10px;
 }
 
-/* line 466, ../caliopeweb-forms/caliopeweb.scss */
+/* line 470, ../caliopeweb-forms/caliopeweb.scss */
 .ngUnPinnedIcon {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAlElEQVQoU33PPQrCQBRF4fFnI2KfZVi5ARvdgo1l6mwmkCJVOgluwd5OwUoDtnoOxAei8cLXTN7cvEl/skCNDCMPfsUPO5zQwOHIDEvYtMURHe6wOVLgigvOePRyeDkyR4ln7wZ//7XfFBu8B23+aDJjrHGAwza7hjtHJvDmHg7b7Bru7AMjK7Rw2ObBVHDY5oGk9AKQNB2zy8MBTgAAAABJRU5ErkJggg==);
   background-repeat: no-repeat;
@@ -32586,7 +32587,7 @@ grid .height-10 {
   top: 5px;
 }
 
-/* line 475, ../caliopeweb-forms/caliopeweb.scss */
+/* line 479, ../caliopeweb-forms/caliopeweb.scss */
 .ngColMenu {
   right: 2px;
   padding: 5px;
@@ -32600,19 +32601,19 @@ grid .height-10 {
   z-index: 1;
 }
 
-/* line 487, ../caliopeweb-forms/caliopeweb.scss */
+/* line 491, ../caliopeweb-forms/caliopeweb.scss */
 .ngColListCheckbox {
   position: relative;
   right: 3px;
   top: 4px;
 }
 
-/* line 492, ../caliopeweb-forms/caliopeweb.scss */
+/* line 496, ../caliopeweb-forms/caliopeweb.scss */
 .ngColList {
   list-style-type: none;
 }
 
-/* line 495, ../caliopeweb-forms/caliopeweb.scss */
+/* line 499, ../caliopeweb-forms/caliopeweb.scss */
 .ngColListItem {
   position: relative;
   right: 17px;
@@ -32620,47 +32621,47 @@ grid .height-10 {
   white-space: nowrap;
 }
 
-/* line 501, ../caliopeweb-forms/caliopeweb.scss */
+/* line 505, ../caliopeweb-forms/caliopeweb.scss */
 .ngMenuText {
   position: relative;
   top: 2px;
   left: 2px;
 }
 
-/* line 506, ../caliopeweb-forms/caliopeweb.scss */
+/* line 510, ../caliopeweb-forms/caliopeweb.scss */
 .ngGroupPanel {
   background-color: #eaeaea;
   overflow: hidden;
   border-bottom: 1px solid #d4d4d4;
 }
 
-/* line 511, ../caliopeweb-forms/caliopeweb.scss */
+/* line 515, ../caliopeweb-forms/caliopeweb.scss */
 .ngGroupPanelDescription {
   margin-top: 5px;
   margin-left: 5px;
 }
 
-/* line 515, ../caliopeweb-forms/caliopeweb.scss */
+/* line 519, ../caliopeweb-forms/caliopeweb.scss */
 .ngGroupList {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-/* line 520, ../caliopeweb-forms/caliopeweb.scss */
+/* line 524, ../caliopeweb-forms/caliopeweb.scss */
 .ngAggHeader {
   position: absolute;
   border: none;
 }
 
-/* line 524, ../caliopeweb-forms/caliopeweb.scss */
+/* line 528, ../caliopeweb-forms/caliopeweb.scss */
 .ngGroupElement {
   float: left;
   height: 100%;
   width: 100%;
 }
 
-/* line 529, ../caliopeweb-forms/caliopeweb.scss */
+/* line 533, ../caliopeweb-forms/caliopeweb.scss */
 .ngGroupIcon {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAEFJREFUKFNjoAhISkr+h2J5JDZODNXGwGBsbPwfhIGAA8bGh6HaGBiAGhxAGJmND4M1gQCSM0adCsVQbcPcqQwMALWDGyDvWPefAAAAAElFTkSuQmCC);
   background-repeat: no-repeat;
@@ -32671,7 +32672,7 @@ grid .height-10 {
   top: 2px;
 }
 
-/* line 538, ../caliopeweb-forms/caliopeweb.scss */
+/* line 542, ../caliopeweb-forms/caliopeweb.scss */
 .ngGroupedByIcon {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAElJREFUKFNjoAhISkr+R8LyaHwMDNXGwGBsbPwfhoGAA5mPDUO1oWpE52PDYE0gALTFAYbR+dgwWBMIoPlh1I9ADNU2NPzIwAAAFQYI9E4OLvEAAAAASUVORK5CYII=);
   background-repeat: no-repeat;
@@ -32682,7 +32683,7 @@ grid .height-10 {
   top: 2px;
 }
 
-/* line 547, ../caliopeweb-forms/caliopeweb.scss */
+/* line 551, ../caliopeweb-forms/caliopeweb.scss */
 .ngGroupName {
   background-color: #fdfdfd;
   border: 1px solid #d4d4d4;
@@ -32696,7 +32697,7 @@ grid .height-10 {
   font-weight: bold;
 }
 
-/* line 559, ../caliopeweb-forms/caliopeweb.scss */
+/* line 563, ../caliopeweb-forms/caliopeweb.scss */
 .ngGroupArrow {
   width: 0;
   height: 0;
@@ -32709,14 +32710,14 @@ grid .height-10 {
   float: right;
 }
 
-/* line 570, ../caliopeweb-forms/caliopeweb.scss */
+/* line 574, ../caliopeweb-forms/caliopeweb.scss */
 .ngGroupingNumber {
   position: absolute;
   right: -10px;
   top: -2px;
 }
 
-/* line 575, ../caliopeweb-forms/caliopeweb.scss */
+/* line 579, ../caliopeweb-forms/caliopeweb.scss */
 .ngAggArrowCollapsed {
   position: absolute;
   left: 8px;
@@ -32728,17 +32729,17 @@ grid .height-10 {
   border-color: transparent transparent transparent #000000;
 }
 
-/* line 585, ../caliopeweb-forms/caliopeweb.scss */
+/* line 589, ../caliopeweb-forms/caliopeweb.scss */
 .ngGroupItem {
   float: left;
 }
 
-/* line 588, ../caliopeweb-forms/caliopeweb.scss */
+/* line 592, ../caliopeweb-forms/caliopeweb.scss */
 .ngGroupItem:first-child {
   margin-left: 2px;
 }
 
-/* line 591, ../caliopeweb-forms/caliopeweb.scss */
+/* line 595, ../caliopeweb-forms/caliopeweb.scss */
 .ngRemoveGroup {
   width: 5px;
   -moz-opacity: 0.4;
@@ -32747,7 +32748,7 @@ grid .height-10 {
   margin-left: 5px;
 }
 
-/* line 598, ../caliopeweb-forms/caliopeweb.scss */
+/* line 602, ../caliopeweb-forms/caliopeweb.scss */
 .ngRemoveGroup:hover {
   color: black;
   text-decoration: none;
@@ -32756,7 +32757,7 @@ grid .height-10 {
   opacity: 0.7;
 }
 
-/* line 605, ../caliopeweb-forms/caliopeweb.scss */
+/* line 609, ../caliopeweb-forms/caliopeweb.scss */
 .ngAggArrowExpanded {
   position: absolute;
   left: 8px;
@@ -32768,7 +32769,7 @@ grid .height-10 {
   border-color: transparent transparent #000000 transparent;
 }
 
-/* line 615, ../caliopeweb-forms/caliopeweb.scss */
+/* line 619, ../caliopeweb-forms/caliopeweb.scss */
 .ngAggregate {
   position: absolute;
   background-color: #c9dde1;
@@ -32780,7 +32781,7 @@ grid .height-10 {
   left: 0;
 }
 
-/* line 625, ../caliopeweb-forms/caliopeweb.scss */
+/* line 629, ../caliopeweb-forms/caliopeweb.scss */
 .ngAggregateText {
   position: absolute;
   left: 27px;
@@ -32789,28 +32790,28 @@ grid .height-10 {
   white-space: nowrap;
 }
 
-/* line 632, ../caliopeweb-forms/caliopeweb.scss */
+/* line 636, ../caliopeweb-forms/caliopeweb.scss */
 .ngRow {
   position: absolute;
   border-bottom: 1px solid #d4d4d4;
 }
 
-/* line 636, ../caliopeweb-forms/caliopeweb.scss */
+/* line 640, ../caliopeweb-forms/caliopeweb.scss */
 .ngRow.odd {
   background-color: #fdfdfd;
 }
 
-/* line 639, ../caliopeweb-forms/caliopeweb.scss */
+/* line 643, ../caliopeweb-forms/caliopeweb.scss */
 .ngRow.even {
   background-color: #f3f3f3;
 }
 
-/* line 642, ../caliopeweb-forms/caliopeweb.scss */
+/* line 646, ../caliopeweb-forms/caliopeweb.scss */
 .ngRow.selected {
   background-color: #c9dde1;
 }
 
-/* line 645, ../caliopeweb-forms/caliopeweb.scss */
+/* line 649, ../caliopeweb-forms/caliopeweb.scss */
 .ngCell {
   overflow: hidden;
   position: absolute;
@@ -32819,12 +32820,12 @@ grid .height-10 {
   background-color: inherit;
 }
 
-/* line 652, ../caliopeweb-forms/caliopeweb.scss */
+/* line 656, ../caliopeweb-forms/caliopeweb.scss */
 .ngCell.pinned {
   z-index: 1;
 }
 
-/* line 655, ../caliopeweb-forms/caliopeweb.scss */
+/* line 659, ../caliopeweb-forms/caliopeweb.scss */
 .ngCellText {
   padding: 5px;
   -moz-box-sizing: border-box;
@@ -32837,37 +32838,37 @@ grid .height-10 {
   overflow: hidden;
 }
 
-/* line 666, ../caliopeweb-forms/caliopeweb.scss */
+/* line 670, ../caliopeweb-forms/caliopeweb.scss */
 .ngSelectionCell {
   margin-top: 9px;
   margin-left: 6px;
 }
 
-/* line 670, ../caliopeweb-forms/caliopeweb.scss */
+/* line 674, ../caliopeweb-forms/caliopeweb.scss */
 .ngSelectionHeader {
   position: absolute;
   top: 11px;
   left: 6px;
 }
 
-/* line 675, ../caliopeweb-forms/caliopeweb.scss */
+/* line 679, ../caliopeweb-forms/caliopeweb.scss */
 .ngCellElement:focus {
   outline: 0;
   background-color: #b3c4c7;
 }
 
-/* line 679, ../caliopeweb-forms/caliopeweb.scss */
+/* line 683, ../caliopeweb-forms/caliopeweb.scss */
 .ngRow.canSelect {
   cursor: pointer;
 }
 
-/* line 682, ../caliopeweb-forms/caliopeweb.scss */
+/* line 686, ../caliopeweb-forms/caliopeweb.scss */
 .ngSelectionCheckbox {
   margin-top: 9px;
   margin-left: 6px;
 }
 
-/* line 686, ../caliopeweb-forms/caliopeweb.scss */
+/* line 690, ../caliopeweb-forms/caliopeweb.scss */
 .ngFooterPanel {
   background-color: #eaeaea;
   padding: 0;
@@ -32875,7 +32876,7 @@ grid .height-10 {
   position: relative;
 }
 
-/* line 692, ../caliopeweb-forms/caliopeweb.scss */
+/* line 696, ../caliopeweb-forms/caliopeweb.scss */
 .nglabel {
   display: block;
   float: left;
@@ -32883,24 +32884,24 @@ grid .height-10 {
   padding-right: 5px;
 }
 
-/* line 698, ../caliopeweb-forms/caliopeweb.scss */
+/* line 702, ../caliopeweb-forms/caliopeweb.scss */
 .ngTotalSelectContainer {
   float: left;
   margin: 5px;
   margin-top: 7px;
 }
 
-/* line 703, ../caliopeweb-forms/caliopeweb.scss */
+/* line 707, ../caliopeweb-forms/caliopeweb.scss */
 .ngFooterSelectedItems {
   padding: 2px;
 }
 
-/* line 706, ../caliopeweb-forms/caliopeweb.scss */
+/* line 710, ../caliopeweb-forms/caliopeweb.scss */
 .ngFooterTotalItems.ngnoMultiSelect {
   padding: 0 !important;
 }
 
-/* line 709, ../caliopeweb-forms/caliopeweb.scss */
+/* line 713, ../caliopeweb-forms/caliopeweb.scss */
 .ngPagerFirstBar {
   width: 10px;
   border-left: 2px solid #4d4d4d;
@@ -32909,13 +32910,13 @@ grid .height-10 {
   margin-left: -3px;
 }
 
-/* line 716, ../caliopeweb-forms/caliopeweb.scss */
+/* line 720, ../caliopeweb-forms/caliopeweb.scss */
 .ngPagerButton {
   height: 25px;
   min-width: 26px;
 }
 
-/* line 720, ../caliopeweb-forms/caliopeweb.scss */
+/* line 724, ../caliopeweb-forms/caliopeweb.scss */
 .ngPagerFirstTriangle {
   width: 0;
   height: 0;
@@ -32925,17 +32926,17 @@ grid .height-10 {
   margin-left: 2px;
 }
 
-/* line 728, ../caliopeweb-forms/caliopeweb.scss */
+/* line 732, ../caliopeweb-forms/caliopeweb.scss */
 .ngPagerNextTriangle {
   margin-left: 1px;
 }
 
-/* line 731, ../caliopeweb-forms/caliopeweb.scss */
+/* line 735, ../caliopeweb-forms/caliopeweb.scss */
 .ngPagerPrevTriangle {
   margin-left: 0;
 }
 
-/* line 734, ../caliopeweb-forms/caliopeweb.scss */
+/* line 738, ../caliopeweb-forms/caliopeweb.scss */
 .ngPagerLastTriangle {
   width: 0;
   height: 0;
@@ -32945,7 +32946,7 @@ grid .height-10 {
   margin-left: -1px;
 }
 
-/* line 742, ../caliopeweb-forms/caliopeweb.scss */
+/* line 746, ../caliopeweb-forms/caliopeweb.scss */
 .ngPagerLastBar {
   width: 10px;
   border-left: 2px solid #4d4d4d;
@@ -32954,7 +32955,7 @@ grid .height-10 {
   margin-left: 1px;
 }
 
-/* line 749, ../caliopeweb-forms/caliopeweb.scss */
+/* line 753, ../caliopeweb-forms/caliopeweb.scss */
 .ngFooterTotalItems {
   padding: 2px;
 }

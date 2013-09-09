@@ -42,6 +42,22 @@ input.ng-valid.ng-dirty {
   display:inline;
 }
 
+#base-form {
+  input[type=radio], input[type=checkbox]  {
+    opacity: 1;
+    margin-left: 5px;
+  }
+
+  input[type=radio] + label {
+    margin-left: 25px;
+    font-weight: normal;
+  }
+  input[type=checkbox] + label {
+    margin-left: 25px;
+    font-weight: normal;
+  }
+}
+
 #container-form {
     padding: 19px 29px 29px;
     overflow: auto;
@@ -57,21 +73,9 @@ input.ng-valid.ng-dirty {
     -moz-background-clip: padding-box;
     background-clip: padding-box;
 
-    input[type=radio], input[type=checkbox]  {
-      opacity: 1;
-      margin-left: 5px;
-    }
+    @extend #base-form;
 
-    input[type=radio] + label {
-      margin-left: 25px;
-      font-weight: normal;
-    }
-    input[type=checkbox] + label {
-      margin-left: 25px;
-      font-weight: normal;
-    }
 }
-
 
 /* //INIT ui-multicombo directive*/
 /* Based on Chosen */
