@@ -48,12 +48,13 @@
 
               <div ng-init="log2=false" class='inline row-fluid' ng-show='showSubtasks'>
                 <tabset>
+
                   <tab heading="Sub-Tareas">
-                        <div ng-repeat="subtask in item.subtasks">
+                     <div ng-repeat="subtask in item.subtasks">
                           <ul class="item-list ui-sortable">
                             <li class="item-orange scrollbar16" ng-class="{'selected': subtask.complete}">
                               <label class="inline">
-                                <input type="checkbox" name="subtask.complete" ng-model='subtask.complete'  ng:click="checkSubtask(item,obj.category)">
+                                <input type="checkbox"  ng-model='subtask.complete'  ng:click="checkSubtask(item,obj.category)">
                                 <span class="lbl"> {{subtask.description}}</span>
                               </label>
                               <div class="task-header">
@@ -63,14 +64,23 @@
                               </div>
                             </li>
                           </ul>
-                    </div>
-
-                    <form class="item-list tab-content-kanban" ng-show="showSubtasks==true" ng-submit="addSubtask(item,description,obj.category)">
-                        <input type="text" name="description" placeholder="Agregar subtarea..." class="input" ng-model="description"/>
-                    </form>
+                     </div>
+                     <form class="item-list tab-content-kanban"  ng-submit="addSubtask(item,description,obj.category)">
+                        <input type="text" name="description" placeholder="Subtarea..." class="input" ng-model="description"/>
+                     </form>
                   </tab>
 
                   <tab heading="Comentarios">
+                     <div ng-repeat="comment in item.comments">
+                        <ul class="item-list ui-sortable">
+                          <li class="item-green scrollbar16">
+                            <label> {{comment.text}}</label>
+                          </li>
+                        </ul>
+                     </div>
+                     <form class="item-list tab-content-kanban" ng-submit="addComment(item,text,obj.category)">
+                        <input type="text" name="text" placeholder="Comentario..." class="input" ng-model="text"/>
+                     </form>
                   </tab>
                 </tabset>
               </div>

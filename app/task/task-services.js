@@ -251,6 +251,21 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             return remaining;
           },
 
+          addComment : function(parentTask, text, category) {
+            var commentext = {
+              text : text
+            };
+
+            if( parentTask.comments === undefined) {
+              parentTask.comments = [];
+            }
+
+            parentTask.comments.push(commentext);
+            parentTask.category = category;
+
+            tempServices.sendDataForm('tasks', 'tasks.edit', parentTask, parentTask.uuid, parentTask.uuid);
+          },
+
           changeCategory: function(uiElement, taskDrag){
 
             var category , categ, uuid, itemsbycateg, data;

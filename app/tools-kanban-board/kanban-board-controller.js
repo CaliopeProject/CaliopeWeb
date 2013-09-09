@@ -58,6 +58,11 @@ define(['angular','angular-dragdrop'], function (angular) {
             $scope.description = '';
           };
 
+          $scope.addComment   = function (parentTask, text, category){
+            taskService.addComment(parentTask, text, category);
+            $scope.text = '';
+          };
+
           $scope.checkSubtask = taskService.checkSubtask;
           $scope.removeSubtask= taskService.removeSubtask;
         }]);

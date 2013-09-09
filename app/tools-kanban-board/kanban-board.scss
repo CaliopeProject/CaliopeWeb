@@ -92,6 +92,10 @@ $borKanba: 12px;
 
   li {
     text-align: left;
+    label {
+      font-size: small;
+      font-weight: normal;
+    }
   }
 
   form{
@@ -99,7 +103,6 @@ $borKanba: 12px;
   }
 
   > :first-child {
-
     line-height: 33px;
     max-height: 36px;
     height: 36px;
@@ -140,6 +143,7 @@ $borKanba: 12px;
       padding-right: 5px;
       padding-bottom: 10px;
     }
+
   }
 
   span{
@@ -182,13 +186,5 @@ $borKanba: 12px;
   margin-top: 5px;
   clear: both;
   font-size: smaller;
-  .item-list{
-    li {
-          padding: 5px;
-          overflow: auto;
-    }
-  }
+
 }
-
-
-

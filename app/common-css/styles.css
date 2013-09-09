@@ -32184,11 +32184,16 @@ a.olControlZoomOut {
 .task-header-kanban li {
   text-align: left;
 }
-/* line 97, ../tools-kanban-board/kanban-board.scss */
+/* line 95, ../tools-kanban-board/kanban-board.scss */
+.task-header-kanban li label {
+  font-size: small;
+  font-weight: normal;
+}
+/* line 101, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban form {
   padding-right: 7px;
 }
-/* line 101, ../tools-kanban-board/kanban-board.scss */
+/* line 105, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban > :first-child {
   line-height: 33px;
   max-height: 36px;
@@ -32200,12 +32205,12 @@ a.olControlZoomOut {
   text-align: left;
   overflow: hidden;
 }
-/* line 114, ../tools-kanban-board/kanban-board.scss */
+/* line 117, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban input {
   width: 80%;
 }
 
-/* line 119, ../tools-kanban-board/kanban-board.scss */
+/* line 122, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban {
   display: inline-block;
   padding: 0 6px;
@@ -32213,11 +32218,11 @@ a.olControlZoomOut {
   text-align: left;
   margin-top: 6px;
 }
-/* line 126, ../tools-kanban-board/kanban-board.scss */
+/* line 129, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban [class*=" icon-"], .widget-toolbar-kanban [class^="icon-"] {
   padding-left: 6px;
 }
-/* line 130, ../tools-kanban-board/kanban-board.scss */
+/* line 133, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .widget-toolbar-kanban {
   position: absolute;
   right: 7px;
@@ -32225,46 +32230,46 @@ a.olControlZoomOut {
   padding: 0px;
   margin: 0px;
 }
-/* line 137, ../tools-kanban-board/kanban-board.scss */
+/* line 140, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .widget-toolbar-kanban [class*=" icon-"], .task-header-kanban .widget-toolbar-kanban [class^="icon-"] {
   padding-left: 5px;
   padding-top: 10px;
   padding-right: 5px;
   padding-bottom: 10px;
 }
-/* line 145, ../tools-kanban-board/kanban-board.scss */
+/* line 149, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban span {
   margin: 0px;
   padding: 0px;
 }
-/* line 148, ../tools-kanban-board/kanban-board.scss */
+/* line 152, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban span:last-child {
   padding-right: 0px;
 }
 
-/* line 154, ../tools-kanban-board/kanban-board.scss */
+/* line 158, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask {
   display: inline;
 }
-/* line 157, ../tools-kanban-board/kanban-board.scss */
+/* line 161, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span {
   display: inline;
 }
-/* line 159, ../tools-kanban-board/kanban-board.scss */
+/* line 163, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span i {
   display: inline;
 }
-/* line 162, ../tools-kanban-board/kanban-board.scss */
+/* line 166, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span h5 {
   display: inline;
 }
-/* line 167, ../tools-kanban-board/kanban-board.scss */
+/* line 171, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask h6 {
   margin-top: 6px;
   display: inline;
 }
 
-/* line 173, ../tools-kanban-board/kanban-board.scss */
+/* line 177, ../tools-kanban-board/kanban-board.scss */
 .task-header {
   position: absolute;
   right: 8px;
@@ -32272,17 +32277,12 @@ a.olControlZoomOut {
   z-index: 100;
 }
 
-/* line 180, ../tools-kanban-board/kanban-board.scss */
+/* line 184, ../tools-kanban-board/kanban-board.scss */
 .tab-content-kanban {
   display: block;
   margin-top: 5px;
   clear: both;
   font-size: smaller;
-}
-/* line 186, ../tools-kanban-board/kanban-board.scss */
-.tab-content-kanban .item-list li {
-  padding: 5px;
-  overflow: auto;
 }
 
 /* line 3, ../caliopeweb-forms/caliopeweb.scss */
