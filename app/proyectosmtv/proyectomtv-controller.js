@@ -13,13 +13,13 @@ define(['angular'], function(angular) {
         var cwGrid = $scope['gridProjectsmtv'];
         cwGrid.addColumn("name", {"name": "Nombre", "show" : true});
         cwGrid.addColumn("locality", {"name": "Localidad", "show" : true});
-        cwGrid.addColumn("uuid", {"name": "Id", "show" : false});
+        cwGrid.addColumn("uuid", {"name": "Id", "show" : true});
         cwGrid.addColumn("tree", {"name": "Arbol", "show" : true});
         cwGrid.addColumn("Kanban", {"name": "Kanban", "show" : true});
         cwGrid.addColumn("actions", {"name": "Acciones", "show" : true, "width" : 200, "class" : "cell-center"});
 
         cwGrid.addColumnProperties("actions", {
-          "htmlContent": '<widget-task category="ToDo" parent="{{row.entity.uuid}}"/>'
+          "htmlContent": '<widget-task category="ToDo" target-uuid="{{row.entity.uuid}}" target-entity="projects"/>' //
         });
 
         cwGrid.setDecorators([CaliopeWebGridDataDecorator, CWGridColumnsDefNgGridDecorator])
