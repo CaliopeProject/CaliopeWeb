@@ -1,4 +1,6 @@
 <div class="container fill" ng-controller="GisViewerController">
    <div id="siim_mapdiv" ></div>
-   <div id="siim_griddiv" ng-grid="gridOptions" ng-show="showGrillaPredios"></div>
+    <div ng-show="showGrillaPredios" class="grid">
+        <cw-grid name="gridPrediosmtv" class="height-5" method="catastro.getPredio" ng-init="initGrid()" load-init="false" ></cw-grid>
+    </div>
 </div>

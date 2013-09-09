@@ -4,8 +4,8 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
   var moduleControllers = angular.module('GisViewerController',[]);
 
   moduleControllers.controller('GisViewerController',
-      ['$scope', '$routeParams','caliopewebTemplateSrv',
-      function ($scope, $routeParams, caliopewebTemplateSrv) {
+      ['$scope', '$routeParams','caliopewebTemplateSrv','caliopewebGridSrv',
+      function ($scope, $routeParams, caliopewebTemplateSrv, caliopewebGridSrv) {
 
           Ext.namespace('Heron.options.map');
           Ext.namespace('Heron.App.mapPanel');
@@ -14,84 +14,47 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
           $scope.$on('findPredioByBarmanpre',  function(){
               console.log("gridSelection",$scope.gridSelection);
           });
-
+          var cwGrid;
           $scope.showGrillaPredios = false;
-          $scope.data = [
-          ];
-          $scope.gridOptions = {
-              data: 'data',
-              selectedItems: $scope.gridSelection,
-              multiSelect: false,
-              columnDefs: [
-                  {
-                      field: 'area_construida',
-                      displayName: 'Área construida'
-                  },
-                  {
-                      field: 'area_terreno',
-                      displayName: 'Área terreno'
-                  },
-                  {
-                      field: 'cedula_catastral',
-                      displayName: 'Cédula Catastral    '
-                  },
-                  {
-                      field: 'chip',
-                      displayName: 'Chip'
-                  },
-                  {
-                      field: 'clase_predio',
-                      displayName: 'Clase predio'
-                  },
-                  {
-                      field: 'direccion_actual',
-                      displayName: 'Dirección actual'
-                  },
-                  {
-                      field: 'escritura',
-                      displayName: 'Escritura'
-                  },
-                  {
-                      field: 'matricula',
-                      displayName: 'Matrícula'
-                  },
-                  {
-                      field: 'notaria',
-                      displayName: 'Notaría'
-                  },
-                  {
-                      field: 'sector',
-                      displayName: 'Sector'
-                  },
-                  {
-                      displayName: 'Acciones',
-                      cellTemplate: '<widget-seeinmap></widget-seeinmap>'
+          $scope.data = [];
 
-                  }
-              ]
+          $scope.initGrid = function() {
 
+              /*$scope.gridOptions = {
+                  data: 'data',
+                  selectedItems: $scope.gridSelection,
+                  multiSelect: false,
+                  columnDefs: 'columnDefs'
+              };*/
+              $scope.parent="parent";
+              cwGrid = $scope['gridPrediosmtv'];
+              console.log("cwGrid",cwGrid);
+              cwGrid.addColumn('area_construida', {"name": 'Área construida', "show" : true});
+              cwGrid.addColumn('area_terreno', {"name": 'Área Terreno', "show" : true});
+              cwGrid.addColumn('cedula_catastral', {"name": 'Cédula Catastral', "show" : true});
+              cwGrid.addColumn('chip', {"name": 'Chip', "show" : true});
+              cwGrid.addColumn('clase_predio', {"name": 'Clase Predio', "show" : true});
+              cwGrid.addColumn('direccion_actual', {"name": 'Dirección Actual', "show" : true});
+              cwGrid.addColumn('escritura', {"name": 'Escritura', "show" : true});
+              cwGrid.addColumn('matricula', {"name": 'Matrícula', "show" : true});
+              cwGrid.addColumn('notaria', {"name": 'Notaria', "show" : true});
+              cwGrid.addColumn('sector', {"name": 'Sector', "show" : true});
+              cwGrid.addColumn('actions', {"name": 'Acciones', "show" : true, "width" : 200});
+
+              cwGrid.addColumnProperties('actions', {
+                  "htmlContent": '<widget-seeinmap></widget-seeinmap>'
+              });
+
+              cwGrid.setDecorators([CaliopeWebGridDataDecorator, CWGridColumnsDefNgGridDecorator])
+              $scope.cwGrid = cwGrid;
           };
+
           var barmanpre;
 
           var bounds = new OpenLayers.Bounds(
               -74.221, 4.471,
               -74.008, 4.849
           );
-
-          var resultReader = new Ext.data.JsonReader({
-              // metadata configuration options:
-              idProperty: 'uuid',
-              root: 'data',
-              fields: [
-                  {name: 'estado'},
-                  {name: 'ficha'},
-                  {name: 'forma_intervencion'},
-                  {name: 'localidad'},
-                  {name: 'nombre'},
-                  {name: 'timestamp'},
-                  {name: 'uuid'}
-              ]
-      });
 
           Heron.options.map.settings = {
 			projection: 'EPSG:4686',
@@ -338,79 +301,10 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
 
           function loadDataGrid(barmanpreParam) {
               var paramsSearch = {"sector": "008108150300122004"};
-              $scope.responseLoadDataGrid = caliopewebTemplateSrv.loadDataGrid(
-                  'catastro.getPredio', paramsSearch);
+              $scope.initGrid();
+              cwGrid.setParameters(paramsSearch);
+              $scope[cwGrid.getGridDataName()] = cwGrid.loadDataFromServer();
           };
-
-          $scope.$watch('responseLoadDataGrid', function (value) {
-              console.log("value: ",value);
-              if( value !== undefined && value['error'] === undefined) {
-                  var err = value['error'];
-                  var append = false;
-                  if( err === undefined ) {
-                      var caliopeWebGrid = new CaliopeWebGrid();
-                      caliopeWebGrid.addGridName('catastro.getPredio');
-                      caliopeWebGrid.addData(value);
-                      CaliopeWebGridDataDecorator.createStructureToRender(caliopeWebGrid);
-                      var structureToRender = caliopeWebGrid.createStructureToRender();
-                      console.log('Structure To Render', structureToRender);
-                      $scope.data = structureToRender.data;
-                      $scope.gridOptions = {
-                          data  : 'data',
-                          multiSelect: false,
-                          selectedItems: $scope.gridSelection,
-                          columnDefs: $scope.columnsDefGisGrid
-                      };
-                  }
-              } else {
-                  $scope.data = [];
-                  $scope.gridOptions = {
-                      data: 'data',
-                      columnDefs: [
-                          {
-                              field: 'area_construida',
-                              displayName: 'Área construida'
-                          },
-                          {
-                              field: 'area_terreno',
-                              displayName: 'Área terreno'
-                          },
-                          {
-                              field: 'cedula_catastral',
-                              displayName: 'Cédula Catastral    '
-                          },
-                          {
-                              field: 'chip',
-                              displayName: 'Chip'
-                          },
-                          {
-                              field: 'clase_predio',
-                              displayName: 'Clase predio'
-                          },
-                          {
-                              field: 'direccion_actual',
-                              displayName: 'Dirección actual'
-                          },
-                          {
-                              field: 'escritura',
-                              displayName: 'Escritura'
-                          },
-                          {
-                              field: 'matricula',
-                              displayName: 'Matrícula'
-                          },
-                          {
-                              field: 'notaria',
-                              displayName: 'Notaría'
-                          },
-                          {
-                              field: 'sector',
-                              displayName: 'Sector'
-                          }
-                      ]
-                  };
-              }
-          });
 
           Heron.App.create();
           Heron.App.map.addControl(featureInfoControl);
