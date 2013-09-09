@@ -14,13 +14,24 @@ define(['angular'], function(angular) {
       restrict: 'E',
       replace: true,
       scope: {
-        title : '=',
-        parent: '@parent',
-        category: '@category'
+        'title'         : '=',
+        'category'      : '@',
+        'target-uuid'   : '@targetUuid',
+        'target-entity' : '@targetEntity'
       },
       link: function($scope, $element, $attrs, $controller) {
-        $scope.createTask  = function (parent, category){
-          taskService.createTask(parent, category);
+
+        if( $scope['target-entity'] !== undefined || $scope['target-uuid'] !== undefined ) {
+          $scope.target = {
+            'uuid'    : $scope['target-uuid'],
+            'entity'  : $scope['target-entity']
+          };
+        }
+
+        $scope.createTask  = function (category, target){
+          console.log('category', category);
+          console.log('target', target);
+          taskService.createTask(undefined, category);
         };
       }
     };
