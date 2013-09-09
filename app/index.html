@@ -10,7 +10,7 @@
   <body ng-controller="CaliopeController" ng-init="init()" class='scrollbar16'>
 
     <!-- SPINNER INIT -->
-    <div class='init-backdrop' ng-show="hasPendingRequests()">
+    <div class='init-backdrop' ng-show="hasPendingRequests() && !isAuthenticated()">
       <div class="container">
         <div class="row-fluid" id='margloading'>
           <div class="span12">

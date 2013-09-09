@@ -37,6 +37,24 @@
 
   <div class="span4">
     <ul class="nav ace-nav pull-right">
+
+      <li id="loadingSpin" ng-show="hasPendingRequests() && isAuthenticated()">
+      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+        <div class="spinner">
+          <div class="spin-line sl1"></div>
+          <div class="spin-line sl2"></div>
+          <div class="spin-line sl3"></div>
+          <div class="spin-line sl4"></div>
+          <div class="spin-line sl5"></div>
+          <div class="spin-line sl6"></div>
+          <div class="spin-line sl7"></div>
+          <div class="spin-line sl8"></div>
+          <div class="spin-line sl9"></div>
+          <div class="spin-line sl10"></div>
+        </div>
+      </a>
+      </li>
+
       <li class="grey" ng-show="isAuthenticated()" >
       <a data-toggle="dropdown" class="dropdown-toggle" href="#">
         <i class="icon-tasks"></i>

@@ -3,12 +3,17 @@ define(['angular', 'application-servicesWebSocket'], function (angular, webSocke
   angular.module('httpRequestTrackerService').factory('httpRequestTrackerService', ['$http', 'webSocket', function($http, webSocket){
 
     var httpRequestTracker = {};
+    var firstEvent = false;
 
-    httpRequestTracker.hasPendingRequests = function() {
+    hasPending = function() {
+      firstEvent = true;
       return $http.pendingRequests.length > 0;
     };
 
-    return httpRequestTracker;
+    return {
+      first:firstEvent,
+      hasPendingRequests : hasPending
+    };
 
   }]);
 });
