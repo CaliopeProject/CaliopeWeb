@@ -28,7 +28,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
         $scope.$watch('jsonPlantilla', function (value) {
           if( value !== undefined && value.error === undefined) {
-            var result = calwebTemSrv.load(value, $scope);
+            var result = calwebTemSrv.load(value, $scope, $scope.actionsToShow);
             if( result !== undefined ) {
               if( result.structureToRender !== undefined ) {
                 $scope.jsonPlantillaAngular = result.structureToRender;
@@ -51,11 +51,12 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();
         };
 
-        $scope.initWithRouteParams = function() {
+        $scope.initWithRouteParams = function(actionsToShow) {
           var calwebtem = calwebTemSrv.caliopeForm;
           calwebtem.id     = $routeParams.plantilla;
           calwebtem.mode   = $routeParams.mode;
           calwebtem.uuid   = $routeParams.uuid;
+          $scope.actionsToShow = actionsToShow;
 
           $scope.caliopeForm   = calwebTemSrv.caliopeForm;
           $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();

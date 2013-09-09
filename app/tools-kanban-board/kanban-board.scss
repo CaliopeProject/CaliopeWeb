@@ -1,7 +1,7 @@
 @import "compass";
 
 .ng-hide {
-  display:block!important;
+  display:none!important;
   //this is just another form of hiding an element
   position:absolute;
   top:-9999px;

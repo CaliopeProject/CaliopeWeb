@@ -4,6 +4,7 @@
 var CaliopeWebGrid = (function() {
 
   var gridName;
+  var gridDataName;
   var gridProperties;
   var data;
   var columns;
@@ -20,9 +21,9 @@ var CaliopeWebGrid = (function() {
    *
    * @returns {*}
    */
-  function loadDataFromServer() {
-    var response = connectionToServer.sendRequest(parMethodRequest, parParameters);
-    return processResponseFromServer(response)
+  function loadDataFromServer(connectionToServer, methodProcessResponse, parMehodRequest, parParameters) {
+    var response = connectionToServer.sendRequest(parMehodRequest, parParameters);
+    return processResponseFromServer(response, methodProcessResponse)
   }
 
   /**
@@ -30,7 +31,7 @@ var CaliopeWebGrid = (function() {
    * @param responseFromServer
    * @returns {*}
    */
-  function processResponseFromServer(responseFromServer) {
+  function processResponseFromServer(responseFromServer, methodProcessResponse) {
     var processedResponse = methodProcessResponse(responseFromServer);
     return processedResponse;
   }
@@ -42,13 +43,13 @@ var CaliopeWebGrid = (function() {
    */
     var CaliopeWebGrid = function(_connectionToServer, _parMethodRequest,
       _parParameters, _methodProcessResponse) {
-      structureToRender = {};
-      columns = {};
-      gridProperties = {};
-      connectionToServer = _connectionToServer;
-      methodProcessResponse = _methodProcessResponse;
-      parMethodRequest = _parMethodRequest;
-      parParameters = _parParameters;
+      this.structureToRender = {};
+      this.columns = {};
+      this.gridProperties = {};
+      this.connectionToServer = _connectionToServer;
+      this.methodProcessResponse = _methodProcessResponse;
+      this.parMethodRequest = _parMethodRequest;
+      this.parParameters = _parParameters;
     };
 
   /**
@@ -66,7 +67,7 @@ var CaliopeWebGrid = (function() {
      * @param _gridName
      */
       addGridName: function(_gridName) {
-        gridName = _gridName;
+        this.gridName = _gridName;
       },
 
     /**
@@ -74,7 +75,7 @@ var CaliopeWebGrid = (function() {
      * @param _data
      */
       addData: function(_data) {
-        data = _data;
+        this.data = _data;
       },
 
     /**
@@ -83,7 +84,7 @@ var CaliopeWebGrid = (function() {
      */
       //TODO: Eliminar cuando no se referencia más en el código
       addColumnsToRender : function(_columnsToRender) {
-        columnsToRender = _columnsToRender;
+        this.columnsToRender = _columnsToRender;
       },
 
     /**
@@ -92,7 +93,7 @@ var CaliopeWebGrid = (function() {
      * @param properties
      */
       addColumn : function(name, properties) {
-        columns[name] = properties;
+        this.columns[name] = properties;
       },
 
     /**
@@ -101,10 +102,10 @@ var CaliopeWebGrid = (function() {
      * @param properties
      */
       addColumnProperties: function(name, properties) {
-        if( name !== undefined && name in columns) {
-          jQuery.extend(columns[name], properties);
+        if( name !== undefined && name in this.columns) {
+          jQuery.extend(this.columns[name], properties);
         } else {
-          columns[name] = properties;
+          this.columns[name] = properties;
         }
       },
 
@@ -114,10 +115,10 @@ var CaliopeWebGrid = (function() {
      * @param properties
      */
     addGridProperties: function(name, properties) {
-      if( name !== undefined && name in gridProperties ) {
-        jQuery.extend(gridProperties[name], properties);
+      if( name !== undefined && name in this.gridProperties ) {
+        jQuery.extend(this.gridProperties[name], properties);
       } else {
-        gridProperties[name] = properties;
+        this.gridProperties[name] = properties;
       }
     },
 
@@ -127,7 +128,7 @@ var CaliopeWebGrid = (function() {
      * @returns {*}
      */
       createStructureToRender : function() {
-        return structureToRender;
+        return this.structureToRender;
       },
 
     /**
@@ -135,7 +136,7 @@ var CaliopeWebGrid = (function() {
      * @returns {*}
      */
       getColumns : function() {
-        return columns;
+        return this.columns;
       },
 
     /**
@@ -143,29 +144,36 @@ var CaliopeWebGrid = (function() {
      * @returns {*}
      */
       getColumnsToRender : function() {
-        return columnsToRender;
+        return this.columnsToRender;
       },
 
     /**
      * Get the data of the grid.
      */
       getData : function() {
-        return data;
+        return this.data;
       },
 
     /**
      * Get the name of the form.
-     * @returns {*}
+     * @returns {String}
      */
-      getFormName : function() {
-        return gridName;
+      getGridName : function() {
+        return this.gridName;
       },
 
+      /**
+       * Get the name of the data in grid
+       * return {String}
+       */
+      getGridDataName : function() {
+        return this.gridDataName;
+      },
       /**
        *
        */
       loadDataFromServer : function() {
-        return loadDataFromServer();
+        return loadDataFromServer(this.connectionToServer, this.methodProcessResponse, this.parMethodRequest, this.parParameters);
       },
 
       /**
@@ -173,7 +181,23 @@ var CaliopeWebGrid = (function() {
        * @param _decorators {Array} decorates to use in create structure to render
        */
       setDecorators : function(_decorators) {
-        decorators = _decorators;
+        this.decorators = _decorators;
+      },
+
+    /**
+     * Set parameters to request server when load data grid.
+     * @param _parameters {Object} Parameters to send to server
+     */
+      setParameters : function(_parameters) {
+        this.parParameters = _parameters;
+      },
+
+    /**
+     * Set the name of the data in the grid.
+     * @param _nameDataGrid
+     */
+      setGridDataName : function(_gridDataName) {
+        this.gridDataName = _gridDataName;
       },
 
       /**
@@ -181,10 +205,10 @@ var CaliopeWebGrid = (function() {
        */
       applyDecorators : function() {
 
-        if( decorators !== undefined && decorators.length > 0 ) {
+        if( this.decorators !== undefined && this.decorators.length > 0 ) {
           var i;
-          for(i = 0; i < decorators.length; i++ ) {
-            structureToRender = decorators[i].createStructureToRender(this);
+          for(i = 0; i < this.decorators.length; i++ ) {
+            this.structureToRender = this.decorators[i].createStructureToRender(this);
           }
         }
       }
@@ -266,7 +290,8 @@ var CWGridColumnsDefNgGridDecorator = ( function() {
             displayName: columns[key].name,
             cellTemplate: columns[key].htmlContent,
             width : columns[key].width,
-            visible: columns[key].show
+            visible: columns[key].show,
+            cellClass : columns[key]['class']
           }
         }
         columnsDef.push(columnDef);

@@ -5,38 +5,39 @@ define(['angular'], function(angular) {
 
   moduleControllers.controller('ProyectomtvCtrl',
     ['caliopewebTemplateSrv', 'caliopewebGridSrv', '$scope', '$routeParams',
-    function (cwTemplateService, cwGridService, $scope, $routeParams) {
+    function (cwTemplateService, cwGridService, $scope) {
 
 
-      $scope.initGrid = function(method, nameGrid) {
+      $scope.initGrid = function() {
 
-        $scope.gridOptions = {
-          data: 'data',
-          columnDefs: 'columnDefs'
-        };
-
-        $scope.parent="parent";
-
-        var cwGrid = cwGridService.createGrid(nameGrid, method, []);
+        var cwGrid = $scope['gridProjectsmtv'];
         cwGrid.addColumn("name", {"name": "Nombre", "show" : true});
         cwGrid.addColumn("locality", {"name": "Localidad", "show" : true});
         cwGrid.addColumn("uuid", {"name": "Id", "show" : false});
         cwGrid.addColumn("tree", {"name": "Arbol", "show" : true});
         cwGrid.addColumn("Kanban", {"name": "Kanban", "show" : true});
-        cwGrid.addColumn("actions", {"name": "Acciones", "show" : true, "width" : 200});
+        cwGrid.addColumn("actions", {"name": "Acciones", "show" : true, "width" : 200, "class" : "cell-center"});
 
         cwGrid.addColumnProperties("actions", {
-          "htmlContent": '<widget-task category="ToDo" parent="{{row.entity.uuid}}"/>' //'<span ng-cell-text><button onclick="console.log({{row.entity.hasOwnProperty(\'uuid\') ? row.entity[\'uuid\'] : null}})">Boton</button>{{row.entity.uuid}}</span>'
+          "htmlContent": '<widget-task category="ToDo" parent="{{row.entity.uuid}}"/>'
         });
 
         cwGrid.setDecorators([CaliopeWebGridDataDecorator, CWGridColumnsDefNgGridDecorator])
-        $scope.cwGrid = cwGrid;
       };
-
-      $scope.loadGrid = function() {
-
+      /*
+      Ejemplo de carga de grilla cuando se invoca un evento y se envian parámetros.
+      $scope.findWithFilter = function(uuidProyecto) {
+        var cwGrid = $scope['gridProjectsmtv'];
+        var parameters = {
+          //"uuid" : uuidProyecto
+        }
+        cwGrid.setParameters(parameters);
+        console.log('gridDataName', cwGrid.getGridDataName());
+        $scope[cwGrid.getGridDataName()] = cwGrid.loadDataFromServer();
       };
+      */
 
     }]
   );
 });
+
