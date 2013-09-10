@@ -192,7 +192,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
                 if( $scope[nameVarScope] !== undefined ) {
                   var value;
                   if(inputs[i].type === 'div' && inputs[i].type1 === 'datepicker') {
-                    value = $scope[nameVarScope].toString();
+                    value = $scope[nameVarScope].toJSON();
                   } else if(inputs[i].type === 'select') {
                     value = $scope[nameVarScope];
                   } else if(inputs[i].type === 'ui-mcombo-choices' && inputs[i].type1 === 'multi-choices') {
