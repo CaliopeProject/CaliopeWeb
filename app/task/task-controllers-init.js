@@ -7,7 +7,7 @@ define(['angular'], function (angular) {
   var module = angular.module('task-controllers-init', []);
 
   module.controller("taskControllersInit", function($scope) {
-    $scope.task = {parent : '', title : 'Tareas'};
+    $scope.task = {title : 'Tareas'};
 
     $scope.choices1 = [
       {value: 1, text:'Este es un nombre decente'},
