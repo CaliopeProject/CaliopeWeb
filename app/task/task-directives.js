@@ -29,9 +29,7 @@ define(['angular'], function(angular) {
         }
 
         $scope.createTask  = function (category, target){
-          console.log('category', category);
-          console.log('target', target);
-          taskService.createTask(undefined, category);
+          taskService.createTask(target, category);
         };
       }
     };

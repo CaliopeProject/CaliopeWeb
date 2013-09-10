@@ -91,12 +91,12 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           loadData: loadTask,
 
           // Show the modal task dialog
-          createTask: function(parent, category) {
+          createTask: function(target, category) {
             opts.templateUrl = './task/partial-task-dialog.html';
             var data = {
               template: NAME_MODEL_TASK,
               mode  : 'create',
-              uuidparent: parent,
+              target: target,
               category: category,
               dialogName : DIALOG_NAME_FORM_TASK
             };
