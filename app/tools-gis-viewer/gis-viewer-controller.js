@@ -15,6 +15,11 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
               console.log("gridSelection",$scope.gridSelection);
           });
           var cwGrid;
+          $scope.featurelote;
+          $scope.featurenamespace;
+          $scope.geometryname;
+          $scope.value;
+
           $scope.showGrillaPredios = false;
           $scope.data = [];
 
@@ -42,7 +47,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
               cwGrid.addColumn('actions', {"name": 'Acciones', "show" : true, "width" : 200});
 
               cwGrid.addColumnProperties('actions', {
-                  "htmlContent": '<widget-seeinmap></widget-seeinmap>'
+                  "htmlContent": '<widget-seeinmap ng-attr-feature="{{featurelote}}" ng-attr-featurename="{{featurenamespace}}" ng-attr-geometryname="{{geometryname}}" ng-attr-value="{{value}}"></widget-seeinmap>'
               });
 
               cwGrid.setDecorators([CaliopeWebGridDataDecorator, CWGridColumnsDefNgGridDecorator])
@@ -301,6 +306,10 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
 
           function loadDataGrid(barmanpreParam) {
               var paramsSearch = {"sector": "008108150300122004"};
+              $scope.value = barmanpreParam;
+              $scope.featurelote = "lotes";
+              $scope.featurenamespace = "mtv_gis";
+              $scope.geometryname = "the_geom";
               $scope.initGrid();
               cwGrid.setParameters(paramsSearch);
               $scope[cwGrid.getGridDataName()] = cwGrid.loadDataFromServer();
