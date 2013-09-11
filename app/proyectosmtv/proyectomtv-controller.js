@@ -5,7 +5,7 @@ define(['angular'], function(angular) {
 
   moduleControllers.controller('ProyectomtvCtrl',
     ['caliopewebTemplateSrv', 'caliopewebGridSrv', '$scope', '$routeParams',
-    function (cwTemplateService, cwGridService, $scope) {
+    function (cwFormService, cwGridService, $scope, $routeParams) {
 
 
       $scope.initGrid = function() {
@@ -23,6 +23,16 @@ define(['angular'], function(angular) {
         });
 
         cwGrid.setDecorators([CaliopeWebGridDataDecorator, CWGridColumnsDefNgGridDecorator])
+      };
+
+      $scope.initForm = function(methodsToSupport) {
+        //cwTempCtrl.initWithRouteParams(methodsToSupport);
+        //$scope.mehodsToSupport = methodsToSupport;
+        $scope.showWidgetTask=true;
+        //var cwForm = cwFormService.createForm($routeParams.plantilla, $routeParams.mode, $routeParams.uuid);
+        var cwForm = $scope['project'];
+        $scope.jsonPlantilla = cwFormService.loadForm();
+
       };
       /*
       Ejemplo de carga de grilla cuando se invoca un evento y se envian parámetros.
