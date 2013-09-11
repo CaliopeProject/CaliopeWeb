@@ -114,7 +114,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             var data = {
               message       : MESSAGE_TASK_ARCHIV,
               template      : NAME_MODEL_TASK,
-              actionMethod  : 'task.archive',
+              actionMethod  : 'tasks.archive',
               uuid          : uuid,
               dialogName    : DIALOG_NAME_CONF_ARCHIV
             };
@@ -134,7 +134,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             var data = {
               message       : MESSAGE_TASK_DELETE,
               template      : NAME_MODEL_TASK,
-              actionMethod  : 'task.delete',
+              actionMethod  : 'tasks.delete',
               uuid          : uuid,
               dialogName    : DIALOG_NAME_CONF_DELETE
             };
