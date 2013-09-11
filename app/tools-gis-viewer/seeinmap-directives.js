@@ -10,12 +10,9 @@ define(['angular'], function(angular) {
               templateUrl: 'tools-gis-viewer/seeinmap-partial.html',
               restrict: 'E',
               replace: true,
-              scope: {
-                  map: '@map'
-              },
               link: function($scope, $element, $attrs, $controller) {
-                  $scope.findByPredio = function(map){
-                      seeinmapService.findByPredio();
+                  $scope.findByPredio = function(feature,featurename,geometryname,value){
+                      seeinmapService.findByPredio(feature,featurename,geometryname,value);
                   }
               }
           };
