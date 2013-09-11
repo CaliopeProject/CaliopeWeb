@@ -63,8 +63,8 @@ var CaliopeWebForm = (function() {
     var actions;
 
   /**
-   * Action to render in the form
-   * @member {object} actions
+   * Action to render/show in the form
+   * @member {Array} actions
    * @memberOf CaliopeWebForm
    */
     var actionsToShow;
@@ -90,19 +90,33 @@ var CaliopeWebForm = (function() {
    */
     var layout;
     /**
-     * Contains the elements (inputs) of form
-     * @member {object} elementsForm
-     * @memberOf CaliopeWebForm
-     *
-     */
+    * Contains the elements (inputs) of form
+    * @member {object} elementsForm
+    * @memberOf CaliopeWebForm
+    *
+    */
     var elementsForm;
     /**
-     * Contains the elements (inputs) names.
-     * @member {object} elementsFormName
-     * @memberOf CaliopeWebForm
-     *
-     */
+    * Contains the elements (inputs) names.
+    * @member {object} elementsFormName
+    * @memberOf CaliopeWebForm
+    *
+    */
     var elementsFormName;
+
+    /**
+    * Entity or model represented in this form.
+    * @member {object} entityModel
+    * @memberOf CaliopeWebForm
+    */
+    var entityModel;
+
+    /**
+    * Mode to load data from server. Posibble modes are: toCreate, toEdit
+    * @member {object} entityModel
+    * @memberOf CaliopeWebForm
+    */
+    var mode;
 
   /**
    * This function search all the elements that are presents in the form structure. This function
@@ -192,7 +206,11 @@ var CaliopeWebForm = (function() {
 
    * @memberOf CaliopeWebForm
    */
-    var CaliopeWebForm = function() {
+    var CaliopeWebForm = function(entityModel, mode, uuid) {
+
+      this.entityModel = entityModel;
+      this.mode = mode;
+      this.modelUUID = uuid;
     };
 
   /**
@@ -243,9 +261,6 @@ var CaliopeWebForm = (function() {
         actions = _actions;
       },
 
-      addActionsToShow : function(_actionsToShow) {
-        actionsToShow = _actionsToShow;
-      },
     /**
      * Add the translations retrieve from the server to the translations attribute
      * @function
@@ -324,6 +339,17 @@ var CaliopeWebForm = (function() {
       },
 
     /**
+     * Get the elements (input) contains in the structure
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {object}
+     */
+      getEntityModel : function() {
+        return this.entityModel;
+      },
+
+    /**
      * Get the layout contains in the structure
      * @function
      * @memberOf CaliopeWebForm
@@ -361,7 +387,17 @@ var CaliopeWebForm = (function() {
      * @returns {string}
      */
       getModelUUID : function() {
-        return modelUUID;
+        return this.modelUUID;
+      },
+    /**
+     * Get the mode to render the form
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {string}
+     */
+      getMode : function() {
+        return this.mode;
       },
     /**
      * Put the data represented for data structure in a specific context.  The allocation
@@ -395,6 +431,46 @@ var CaliopeWebForm = (function() {
       render : function(formDOMElement) {
         //TODO: Determinar como se puede realizar el render de la forma sobre el DOM de la página.
       },
+
+    /**
+     * Set the actions to show in the form
+     * @function
+     * @memberOf CaliopeWebForm
+     * @param _actionsMethodToShow {array} Add the actions to show in the form
+     */
+    setActionsMethodToShow : function(_actionsMethodToShow) {
+      actionsToShow = _actionsMethodToShow;
+    },
+
+    /**
+     * Set the value of entity model of the form
+     * @function
+     * @memberOf CaliopeWebForm
+     * @param entityModel {String} Name of entity model
+     */
+    setEntityModel : function(entityModel) {
+      this.entityModel = entityModel;
+    },
+
+    /**
+     * Set the value of form mode
+     * @function
+     * @memberOf CaliopeWebForm
+     * @param mode {string} Form mode
+     */
+    setMode : function(mode) {
+      this.mode = mode;
+    },
+
+    /**
+     * Set the value of uuid data form
+     * @function
+     * @memberOf CaliopeWebForm
+     * @param modelUUID {string} UUID data form
+     */
+    setModelUUID : function(modelUUID) {
+      this.modelUUID = modelUUID;
+    },
 
     /**
      * Validate the form according to the validations presents in elements and validations structure.
