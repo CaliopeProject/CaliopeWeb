@@ -101,7 +101,16 @@ define(['angular'], function(angular) {
         return promise;
       };
 
+      Service.loadData = function(met, params) {
+        var method = met;
+
+        var webSockets = webSocket.WebSockets();
+        var promise    = webSockets.serversimm.sendRequest(method, params);
+        return promise;
+      };
+
       Service.loadDataOptions = function(met, formId, paramsSearch) {
+
         var method = met;
         var params = {
           'formId' : formId

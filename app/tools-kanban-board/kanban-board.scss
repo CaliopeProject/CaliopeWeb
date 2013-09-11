@@ -86,7 +86,6 @@ $borKanba: 12px;
   border: 1px solid #CCC;
   background-color: #ffffff;
   padding: 0px 11px 7px 11px;
-  text-align: right;
   font-size: small;
   > :hover { cursor: move; }
 
@@ -114,8 +113,8 @@ $borKanba: 12px;
     overflow: hidden;
   }
 
-  input{
-    width: 80%;
+  .input-prepend{
+    text-align: right;
   }
 }
 
@@ -152,6 +151,9 @@ $borKanba: 12px;
     &:last-child{
       padding-right: 0px;
     }
+  }
+  .input-append {
+    overflow: hidden;
   }
 }
 

@@ -946,11 +946,12 @@ blockquote {
     }
   }
   .nav-user-photo {
-    margin: -4px 8px 0 0;
+    margin: -4px 10px 0 0;
     border-radius: 24px;
     border: 2px solid #FFF;
-    max-width: 36px !important;
+    max-width: 24px !important;
   }
+
   li:last-child a [class^="icon-"] {
     display: inline-block;
     width: 1.25em;
@@ -7235,7 +7236,6 @@ td.td-actions a.td-action {
   > {
     .user {
       display: inline-block;
-      width: 42px;
       position: absolute;
       left: 0;
       > img {
@@ -7246,7 +7246,7 @@ td.td-actions a.td-action {
       }
     }
     .body {
-      margin-left: 50px;
+      margin-left: 31px;
       padding-left: 0;
       width: auto;
       margin-right: 12px;
@@ -7306,7 +7306,6 @@ td.td-actions a.td-action {
     }
   }
   &.dialogdiv {
-    padding-bottom: 14px;
     &:before {
       position: absolute;
       display: block;
@@ -7337,7 +7336,7 @@ td.td-actions a.td-action {
           display: block;
           position: absolute;
           left: -7px;
-          top: 11px;
+          top: 7px;
           width: 8px;
           height: 8px;
           border: 2px solid #dde4ed;
@@ -7356,6 +7355,7 @@ td.td-actions a.td-action {
           }
           .text {
             padding-left: 0;
+            overflow-x: auto;
             padding-bottom: 0;
             &:after {
               display: none;
