@@ -19,6 +19,34 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   var moduleControllers = angular.module('CaliopeWebTemplateControllers', []);
 
   /**
+   *
+   * @param result
+   */
+  function processResultLoadForm(result, $scope) {
+    if( result !== undefined && result.error === undefined) {
+      if( result !== undefined ) {
+        if( result.structureToRender !== undefined ) {
+          $scope.jsonPlantillaAngular = result.structureToRender;
+        }
+        if( result.elements !== undefined ) {
+          $scope.elementsFormTemplate = result.elements;
+        }
+        $scope.modelUUID = result.modelUUID;
+
+        if (result.data !== undefined) {
+          var varname;
+          for (varname in result.data) {
+            if(result.data.hasOwnProperty(varname)) {
+              $scope[varname] = result.data[varname];
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+  /**
   * Define the controller for management the events from view related with
   * templates of caliope framework
   */
@@ -27,20 +55,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
       function (calwebTemSrv, $scope, $routeParams) {
 
 
-        $scope.$watch('jsonPlantilla', function (result) {
-          if( result !== undefined && result.error === undefined) {
-            if( result !== undefined ) {
-              if( result.structureToRender !== undefined ) {
-                $scope.jsonPlantillaAngular = result.structureToRender;
-              }
-              if( result.elements !== undefined ) {
-                $scope.elementsFormTemplate   = result.elements;
-              }
-              $scope.modelUUID               = result.modelUUID;
-            }
-          }
-        });
-
         $scope.init = function(template, mode, uuid) {
           var calwebtem = calwebTemSrv.caliopeForm;
           calwebtem.id     = template;
@@ -48,7 +62,9 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           calwebtem.uuid   = uuid;
 
           $scope.caliopeForm   = calwebTemSrv.caliopeForm;
-          $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();
+          calwebTemSrv.loadTemplateData().then(function(result) {
+            processResultLoadForm(result, $scope);
+          });
         };
 
         $scope.initWithRouteParams = function() {
@@ -59,9 +75,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           $scope.actionsToShow = actionsToShow;
 
           $scope.caliopeForm   = calwebTemSrv.caliopeForm;
-          $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();
+          calwebTemSrv.loadTemplateData().then(function(result) {
+            processResultLoadForm(result, $scope);
+          });
         };
-
 
         if (calwebTemSrv.caliopeForm.mode === 'edit') {
           calwebTemSrv.caliopeForm.id     = $routeParams.plantilla;
@@ -77,25 +94,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
     ['caliopewebTemplateSrv', 'dialog', '$scope', 'action', 'taskService',
       function (calwebTemSrv, dialog, $scope, action, taskService) {
 
-        $scope.$watch('jsonPlantilla', function (result) {
-          if( result !== undefined && result.error === undefined) {
-            if( result !== undefined ) {
-              $scope.jsonPlantillaAngular = result.structureToRender;
-              $scope.elementsFormTemplate   = result.elements;
-              $scope.modelUUID             = result.modelUUID;
-
-              var inputs = $scope.elementsFormTemplate;
-              var i;
-              for (i = 0; i < inputs.length; i++) {
-                var nameVarScope = inputs[i].name;
-                if( action[nameVarScope] !== undefined) {
-                  $scope[nameVarScope] = action[nameVarScope];
-                }
-              }
-            }
-          }
-        });
-
         $scope.init = function() {
           var calwebtem = calwebTemSrv.caliopeForm;
           calwebtem.id     = action.template;
@@ -106,7 +104,17 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           $scope.fromDialog = true;
 
           $scope.caliopeForm   = calwebTemSrv.caliopeForm;
-          $scope.jsonPlantilla = calwebTemSrv.loadTemplateData();
+          calwebTemSrv.loadTemplateData().then(function(result) {
+            var i;
+            var inputs = result.elements;
+            for (i = 0; i < inputs.length; i++) {
+              var nameVarScope = inputs[i].name;
+              if( action[nameVarScope] !== undefined) {
+                $scope[nameVarScope] = action[nameVarScope];
+              }
+            }
+            processResultLoadForm(result, $scope);
+          });
         };
 
         $scope.initFromDialog = function() {

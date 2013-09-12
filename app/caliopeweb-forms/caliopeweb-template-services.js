@@ -39,7 +39,6 @@ define(['angular'], function(angular) {
       function getForm(cwForm, params) {
 
         var promise = {};
-        console.log('getForm.cwForm', cwForm);
         if( cwForm !== undefined ) {
           var method = {};
           var promiseMode = {};
@@ -53,9 +52,17 @@ define(['angular'], function(angular) {
           var deferred = $q.defer();
           promise = deferred.promise;
 
+          var resolveResult = function(dataForm) {
+            if( dataForm !== undefined && dataForm.error === undefined) {
+              var result = Service.load(dataForm, cwForm) ;
+              deferred.resolve(result);
+            }
+          };
+
           if (mode === 'create') {
             method = model.concat('.getModel');
             promiseMode = webSockets.serversimm.sendRequest(method, params);
+            promiseMode.then(resolveResult)
           }
           if (mode === 'edit') {
             var modelUUID = cwForm.getModelUUID();
@@ -72,18 +79,13 @@ define(['angular'], function(angular) {
                 if( resultData !== undefined && resultModel !== undefined ) {
                   resultModel.data = resultData;
                 }
+                resolveResult(resultModel);
               });
               promiseMode = promiseGetData;
 
             });
           }
 
-          promiseMode.then( function(dataForm) {
-            if( dataForm !== undefined && dataForm.error === undefined) {
-              var result = Service.load(dataForm, cwForm) ;
-              deferred.resolve(result);
-            }
-          });
 
         }
 
