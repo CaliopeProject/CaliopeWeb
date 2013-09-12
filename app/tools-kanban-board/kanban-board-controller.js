@@ -41,20 +41,11 @@ define(['angular','angular-dragdrop'], function (angular) {
       dirmodule.controller("kanbanItemCtrl", ["SessionSrv", "$scope", "webSocket", 'taskService',
         function(security, $scope, webSocket, taskService) {
 
-          var faces = taskService.getFaces();
 
           $scope.countSubtask = taskService.countSubtask ;
           $scope.checkSubtask = taskService.checkSubtask;
           $scope.removeSubtask= taskService.removeSubtask;
 
-          $scope.getFace = function (user){
-          console.log('pase  poraqui');
-            angular.forEach(faces, function(value){
-              if(faces === value.user){
-                return value.img;
-              }
-            });
-          };
 
           $scope.startCallback = function(event, ui) {
             $scope.showSubtasks = false;

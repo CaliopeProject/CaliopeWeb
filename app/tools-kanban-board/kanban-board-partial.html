@@ -74,18 +74,18 @@
                     <div ng-repeat="comment in item.comments">
                       <div class="dialogs">
                         <div class="itemdiv dialogdiv">
-                          <div class="user">
-                            <img class="nav-user-photo" src="data:image/png;base64, {{comment.image}}">
+                          <div class="user hidden-phone">
+                            <img class="nav-user-photo " src="data:image/png;base64, {{comment.user.face}}">
                           </div>
-                          <div class="body">
+                          <div class="body scrollbar16">
                             <div class="time">
                               <i class="icon-time"></i>
                               <span class="green name">{{comment.time | date:'short'}}</span>
                             </div>
-                            <div class="name">
-                              <a href="#">{{comment.user}}</a>
+                            <div class="name ">
+                              <a href="#">{{comment.user.login}}</a>
                             </div>
-                            <div class="text scrollbar16">{{comment.text}}</div>
+                            <div class="text ">{{comment.text}}</div>
                           </div>
                         </div>
                       </div>
