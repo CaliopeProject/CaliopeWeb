@@ -90,7 +90,8 @@ define(['angular', 'dform'], function (angular) {
    * @namespace Directive:cwDform
    *
   */
-  moduleDirectives.directive('cwDform', function ($compile) {
+  moduleDirectives.directive('cwDform',['$compile','$routeParams','caliopewebTemplateSrv',
+    function ($compile, $routeParams, cwFormService) {
 
     /**
      * Define the properties of directive. This define:<br/>
@@ -104,6 +105,31 @@ define(['angular', 'dform'], function (angular) {
      *
     */
     var directiveDefinitionObject = {
+
+      controller : function($scope, $attrs, $element) {
+
+        var entity = $attrs['entity'];
+        var mode = $attrs['mode'];
+        var uuid = $attrs['uuid'];
+        var name = $attrs['name'];
+
+
+        if( !( $attrs['fromRouteparams'] !== undefined &&
+               $attrs['fromRouteparams'] !== true) ) {
+          entity = $routeParams.plantilla;
+          mode = $routeParams.mode;
+          uuid = $routeParams.uuid;
+        }
+        if( entity === undefined ) {
+          //TODO: Generar Error, entidad requerida
+        }
+        if( name === undefined ) {
+          //TODO: Generar Error, nombre requerido
+        }
+        var cwForm = cwFormService.createForm(entity, mode, uuid);
+        $scope[name] = cwForm;
+      },
+
       /**
        * Link function of the directive. This get the directive element and call the
        * Jquery Dform library to render the form.
@@ -160,7 +186,7 @@ define(['angular', 'dform'], function (angular) {
 
     return directiveDefinitionObject;
 
-  });
+  }]);
 
 
   /**
