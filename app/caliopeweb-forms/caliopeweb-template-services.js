@@ -151,6 +151,21 @@ define(['angular'], function(angular) {
         return promise;
       };
 
+
+      /**
+       *
+       * @param met
+       * @param params
+       * @returns {Function|promise}
+       */
+      Service.loadData = function(met, params) {
+        var method = met;
+
+        var webSockets = webSocket.WebSockets();
+        var promise    = webSockets.serversimm.sendRequest(method, params);
+        return promise;
+      };
+
       /**
        *
        * @param met
@@ -159,6 +174,7 @@ define(['angular'], function(angular) {
        * @returns {Function|promise}
        */
       Service.loadDataOptions = function(met, formId, paramsSearch) {
+
         var method = met;
         var params = {
           'formId' : formId

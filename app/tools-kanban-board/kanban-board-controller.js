@@ -6,10 +6,9 @@ define(['angular','angular-dragdrop'], function (angular) {
   var dirmodule = angular.module('kanbanBoardCtrl', ['login-security-services','ngDragDrop', 'ui.bootstrap']);
 
   dirmodule.controller("kanbanBoardCtrl",
-    ["$scope","webSocket", "$log", 'taskService',
-      function($scope, webSocket, $log, taskService) {
+    ["$scope","webSocket", 'taskService',
+      function($scope, webSocket, taskService) {
 
-        var tasks;
         $scope.data = taskService.getTask();
 
         $scope.showSubtasks = false;
@@ -41,12 +40,21 @@ define(['angular','angular-dragdrop'], function (angular) {
 
       dirmodule.controller("kanbanItemCtrl", ["SessionSrv", "$scope", "webSocket", 'taskService',
         function(security, $scope, webSocket, taskService) {
-          var webSockets = webSocket.WebSockets();
+
+          var faces = taskService.getFaces();
 
           $scope.countSubtask = taskService.countSubtask ;
+          $scope.checkSubtask = taskService.checkSubtask;
+          $scope.removeSubtask= taskService.removeSubtask;
 
-          angular.forEach($scope.item.subtask, function(value, key){
-          });
+          $scope.getFace = function (user){
+          console.log('pase  poraqui');
+            angular.forEach(faces, function(value){
+              if(faces === value.user){
+                return value.img;
+              }
+            });
+          };
 
           $scope.startCallback = function(event, ui) {
             $scope.showSubtasks = false;
@@ -63,7 +71,5 @@ define(['angular','angular-dragdrop'], function (angular) {
             $scope.text = '';
           };
 
-          $scope.checkSubtask = taskService.checkSubtask;
-          $scope.removeSubtask= taskService.removeSubtask;
         }]);
 });

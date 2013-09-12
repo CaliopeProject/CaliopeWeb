@@ -6,8 +6,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
   var moduleServices = angular.module('task-services', ['ui.bootstrap.dialog']);
 
   moduleServices.factory('taskService',
-    ['SessionSrv', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv'
-      , function(security,    $log,  $http,   $q,   $location,   $dialog,   $rootScope,   webSocket, tempServices) {
+    ['SessionSrv', 'loginSecurity', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv'
+      , function(security, loginSecurity,   $log,  $http,   $q,   $location,   $dialog,   $rootScope,   webSocket, tempServices) {
 
         var NAME_MODEL_TASK = 'tasks';
         var opts = {
@@ -17,7 +17,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           controller    : 'CaliopeWebTemplateCtrlDialog'
         };
 
-        var ALLTASK;
+        var ALLTASK, FACE;
         var DIALOG_NAME_CONF_DELETE = 'dialogConfirmDeleteTask';
         var DIALOG_NAME_CONF_ARCHIV = 'dialogConfirmArchivTask';
         var DIALOG_NAME_FORM_TASK   = 'dialogFormTask';
@@ -35,13 +35,45 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           $location.path(url);
         }
 
+        function getUserTask(){
+          var alluser = [];
+          angular.forEach(ALLTASK, function(value){
+            if(!angular.isUndefined(value.tasks)){
+              angular.forEach(value.tasks, function(value){
+                if(!angular.isUndefined(value.ente_asignado)){
+                  angular.forEach(value.ente_asignado, function(value){
+                    if(alluser.indexOf(value) === -1){
+                      alluser.push(value);
+                    }
+                  });
+                }
+                if(!angular.isUndefined(value.comments)){
+                  angular.forEach(value.comments, function(value){
+                    if(alluser.indexOf(value.user) === -1){
+                      alluser.push(value.user);
+                    }
+                  });
+                }
+              });
+            }
+          });
+          return alluser;
+        }
+
         function loadTask(){
           var params     = {};
           var method     = "tasks.getAll";
-          WEBSOCKETS.serversimm.sendRequest(method, params).then(function(data){
-            ALLTASK = data;
-            $rootScope.$broadcast('taskServiceNewTask');
-          });
+          WEBSOCKETS.serversimm.sendRequest(method, params)
+                    .then(function(data){
+                      ALLTASK = data;
+                      var getuser = {};
+                      getuser.users = getUserTask();
+                      tempServices.loadData('accounts.getThumbnailList',getuser)
+                              .then(function(data){
+                                FACE = data;
+                              });
+                      $rootScope.$broadcast('taskServiceNewTask');
+                    });
         }
 
         function onTaskDialogClose(result) {
@@ -85,6 +117,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           }
         }
 
+
         // The public API of the service
         var service =  {
 
@@ -114,7 +147,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             var data = {
               message       : MESSAGE_TASK_ARCHIV,
               template      : NAME_MODEL_TASK,
-              actionMethod  : 'task.archive',
+              actionMethod  : 'tasks.archive',
               uuid          : uuid,
               dialogName    : DIALOG_NAME_CONF_ARCHIV
             };
@@ -134,7 +167,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             var data = {
               message       : MESSAGE_TASK_DELETE,
               template      : NAME_MODEL_TASK,
-              actionMethod  : 'task.delete',
+              actionMethod  : 'tasks.delete',
               uuid          : uuid,
               dialogName    : DIALOG_NAME_CONF_DELETE
             };
@@ -174,6 +207,10 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
           getTask: function(){
             return ALLTASK;
+          },
+
+          getFaces: function (){
+            return FACE;
           },
 
           getTaskpend: function(){
@@ -252,8 +289,12 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           },
 
           addComment : function(parentTask, text, category) {
+            var timeall = new Date();
+            var user    = loginSecurity.currentUser.user;
             var commentext = {
-              text : text
+              text : text,
+              user : user,
+              time : timeall
             };
 
             if( parentTask.comments === undefined) {

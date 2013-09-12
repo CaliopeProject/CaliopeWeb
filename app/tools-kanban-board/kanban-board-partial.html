@@ -71,16 +71,28 @@
                   </tab>
 
                   <tab heading="Comentarios">
-                     <div ng-repeat="comment in item.comments">
-                        <ul class="item-list ui-sortable">
-                          <li class="item-green scrollbar16">
-                            <label> {{comment.text}}</label>
-                          </li>
-                        </ul>
-                     </div>
-                     <form class="item-list tab-content-kanban" ng-submit="addComment(item,text,obj.category)">
-                        <input type="text" name="text" placeholder="Comentario..." class="input" ng-model="text"/>
-                     </form>
+                    <div ng-repeat="comment in item.comments">
+                      <div class="dialogs">
+                        <div class="itemdiv dialogdiv">
+                          <div class="user">
+                            <img class="nav-user-photo" src="data:image/png;base64, {{comment.image}}">
+                          </div>
+                          <div class="body">
+                            <div class="time">
+                              <i class="icon-time"></i>
+                              <span class="green name">{{comment.time | date:'short'}}</span>
+                            </div>
+                            <div class="name">
+                              <a href="#">{{comment.user}}</a>
+                            </div>
+                            <div class="text scrollbar16">{{comment.text}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <form class="item-list tab-content-kanban" ng-submit="addComment(item,text,obj.category)">
+                      <input type="text" name="text" placeholder="Comentario..." class="input" ng-model="text"/>
+                    </form>
                   </tab>
                 </tabset>
               </div>
