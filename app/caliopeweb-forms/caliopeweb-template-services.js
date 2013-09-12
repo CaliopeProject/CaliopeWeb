@@ -59,12 +59,11 @@ define(['angular'], function(angular) {
             }
           };
 
-          if (mode === 'create') {
+          if (mode === 'toCreate') {
             method = model.concat('.getModel');
             promiseMode = webSockets.serversimm.sendRequest(method, params);
             promiseMode.then(resolveResult)
-          }
-          if (mode === 'edit') {
+          } else if (mode === 'toEdit') {
             var modelUUID = cwForm.getModelUUID();
             //promise = deferred.promise;
 
@@ -84,9 +83,11 @@ define(['angular'], function(angular) {
               promiseMode = promiseGetData;
 
             });
+          } else {
+            throw new Error('Mode isn\'t supported to load the form from server.');
           }
-
-
+        } else {
+          throw new Error('Caliope Web Form is undefined.');
         }
 
         return promise;
@@ -240,6 +241,7 @@ define(['angular'], function(angular) {
         calWebForm.setEntityModel(entityModel);
         calWebForm.setMode(mode);
         calWebForm.setModelUUID(uuid);
+        return calWebForm;
       };
 
 

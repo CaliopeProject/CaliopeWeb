@@ -3,6 +3,34 @@ define(['angular'], function(angular) {
 
   var moduleControllers = angular.module('ProyectoControllers', []);
 
+  /**
+   *
+   * @param result
+   */
+  function processResultLoadForm(result, $scope) {
+    if( result !== undefined && result.error === undefined) {
+      if( result !== undefined ) {
+        if( result.structureToRender !== undefined ) {
+          $scope.jsonPlantillaAngular = result.structureToRender;
+        }
+        if( result.elements !== undefined ) {
+          $scope.elementsFormTemplate = result.elements;
+        }
+        $scope.modelUUID = result.modelUUID;
+
+        if (result.data !== undefined) {
+          var varname;
+          for (varname in result.data) {
+            if(result.data.hasOwnProperty(varname)) {
+              $scope[varname] = result.data[varname];
+            }
+          }
+        }
+
+      }
+    }
+  }
+
   moduleControllers.controller('ProyectomtvCtrl',
     ['caliopewebTemplateSrv', 'caliopewebGridSrv', '$scope', '$routeParams',
     function (cwFormService, cwGridService, $scope, $routeParams) {
@@ -26,14 +54,17 @@ define(['angular'], function(angular) {
       };
 
       $scope.initForm = function(methodsToSupport) {
-        //cwTempCtrl.initWithRouteParams(methodsToSupport);
-        //$scope.mehodsToSupport = methodsToSupport;
-        $scope.showWidgetTask=true;
-        //var cwForm = cwFormService.createForm($routeParams.plantilla, $routeParams.mode, $routeParams.uuid);
         var cwForm = $scope['project'];
-        $scope.jsonPlantilla = cwFormService.loadForm();
-
+        cwFormService.loadForm(cwForm, {}).then(function(result) {
+          processResultLoadForm(result, $scope);
+          if($scope.modelUUID !== undefined) {
+            $scope.showWidgetTask=true;
+          } else {
+            $scope.showWidgetTask=false;
+          }
+        });
       };
+
       /*
       Ejemplo de carga de grilla cuando se invoca un evento y se envian parámetros.
       $scope.findWithFilter = function(uuidProyecto) {
