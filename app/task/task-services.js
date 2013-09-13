@@ -76,20 +76,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
                                   angular.forEach(ALLTASK, function(value1, key1){
                                     if(!angular.isUndefined(value1.tasks)){
                                       angular.forEach(value1.tasks, function(value2, key2){
-                                        if(!angular.isUndefined(value2.ente_asignado)){
-                                          angular.forEach(value2.ente_asignado, function(value3, key3){
-                                            var tempUser = {};
-                                            tempUser.login = value3;
-                                            angular.forEach(data, function(valUser, key4User){
-                                              angular.forEach(valUser, function(valNomb, key4Face){
-                                                if(key4Face === value3){
-                                                  tempUser.face = valNomb;
-                                                }
-                                              });
-                                            });
-                                            tempALLTASK[key1].tasks[key2].ente_asignado[key3] = tempUser;
-                                          });
-                                        }
                                         if(!angular.isUndefined(value2.comments)){
                                           angular.forEach(value2.comments, function(value3, key3){
                                             var tempUser = {};
@@ -115,6 +101,19 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
                       $rootScope.$broadcast('taskServiceNewTask');
                     });
         }
+
+        function sendData(entidad,metodo,datos,uuidEntidad){
+          if(!angular.isUndefined(datos.comments)){
+            angular.forEach(datos.comments, function(value, key){
+              var user = value.user.login;
+              datos.comments[key].user = user;
+            });
+          }
+
+          tempServices.sendDataForm(entidad,metodo,datos,uuidEntidad,uuidEntidad);
+
+        }
+
 
         function onTaskDialogClose(result) {
           TASKDIALOG = null;
@@ -288,13 +287,13 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
           checkSubtask : function(task, category){
             task.category = category;
-            tempServices.sendDataForm('tasks', 'tasks.edit', task, task.uuid, task.uuid);
+            sendData('tasks', 'tasks.edit', task, task.uuid);
           },
 
           removeSubtask: function(task, category, index){
             task.category = category;
             task.subtasks.splice(index,1);
-            tempServices.sendDataForm('tasks', 'tasks.edit', task, task.uuid, task.uuid);
+            sendData('tasks', 'tasks.edit', task, task.uuid);
           },
 
           addSubtask : function(parentTask, description, category) {
@@ -310,7 +309,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             parentTask.subtasks.push(subTask);
             parentTask.category = category;
 
-            tempServices.sendDataForm('tasks', 'tasks.edit', parentTask, parentTask.uuid, parentTask.uuid);
+            sendData('tasks', 'tasks.edit', parentTask, parentTask.uuid);
           },
 
           countSubtask : function(task) {
@@ -326,9 +325,10 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           addComment : function(parentTask, text, category) {
             var timeall = new Date();
             var user    = loginSecurity.currentUser.user;
+            var face    = loginSecurity.currentUser.image;
             var commentext = {
               text : text,
-              user : user,
+              user : {login: user, face: face},
               time : timeall
             };
 
@@ -339,7 +339,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             parentTask.comments.push(commentext);
             parentTask.category = category;
 
-            tempServices.sendDataForm('tasks', 'tasks.edit', parentTask, parentTask.uuid, parentTask.uuid);
+            sendData('tasks', 'tasks.edit', parentTask, parentTask.uuid);
           },
 
           changeCategory: function(uiElement, taskDrag){
@@ -370,7 +370,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             if(!angular.isUndefined(categ)){
               data = taskDrag;
               data.category = categ;
-              tempServices.sendDataForm('tasks', 'tasks.edit', data, uuid, uuid).then(function(data){
+
+              sendData('tasks', 'tasks.edit', data, uuid).then(function(data){
                 loadTask();
               });
             }

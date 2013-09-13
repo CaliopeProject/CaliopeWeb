@@ -42,10 +42,9 @@ define(['angular','angular-dragdrop'], function (angular) {
         function(security, $scope, webSocket, taskService) {
 
 
-          $scope.countSubtask = taskService.countSubtask ;
+          $scope.countSubtask = taskService.countSubtask;
           $scope.checkSubtask = taskService.checkSubtask;
           $scope.removeSubtask= taskService.removeSubtask;
-
 
           $scope.startCallback = function(event, ui) {
             $scope.showSubtasks = false;

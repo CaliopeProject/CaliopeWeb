@@ -32102,7 +32102,7 @@ a.olControlZoomOut {
   background-image: -o-linear-gradient(#ffffff, #e9e3a5);
   background-image: linear-gradient(#ffffff, #e9e3a5);
   margin: 3px 0;
-  border-bottom: 1px solid #CCC;
+  padding-bottom: 42px solid #CCC;
 }
 
 /* line 45, ../tools-kanban-board/kanban-board.scss */
