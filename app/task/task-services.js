@@ -111,7 +111,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             });
           }
 
-          tempServices.sendDataForm(entidad,metodo,sendData,uuidEntidad,uuidEntidad);
+          tempServices.sendDataForm(entidad,metodo,sendDato,uuidEntidad,uuidEntidad);
 
         }
 
