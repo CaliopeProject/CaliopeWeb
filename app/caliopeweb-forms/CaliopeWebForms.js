@@ -248,7 +248,7 @@ var CaliopeWebForm = (function() {
       addData: function(_data) {
         data = _data;
         if(_data !== undefined) {
-          modelUUID = _data.uuid;
+          this.modelUUID = _data.uuid;
         }
       },
     /**

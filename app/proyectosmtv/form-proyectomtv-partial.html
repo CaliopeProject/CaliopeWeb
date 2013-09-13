@@ -1,7 +1,7 @@
 <div id="base-form" ng-controller="ProyectomtvCtrl">
   <div class="widget-box.transparent">
-    <div class="widget-toolbar-task no-border widget-toolbar-kanban-form">
-      <widget-task ng-show="{{showWidgetTask}}" target-uuid="{{uuid}}" target-entity="{{project.getEntityModel()}}"></widget-task>
+    <div ng-show="showWidgetTask" class="widget-toolbar-task no-border widget-toolbar-kanban-form" ng-init="showWidgetTask=false">
+      <widget-task category="'ToDo'" target-uuid="modelUUID" target-entity="entityModel"></widget-task>
     </div>
   </div>
   <cw-dform name="project" cw-dform="jsonPlantillaAngular" entity="projects" mode="toCreate" uuid="" from-routeparams="true" ng-init="initForm(['projects.create'])"/>

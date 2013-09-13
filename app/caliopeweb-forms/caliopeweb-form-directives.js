@@ -114,8 +114,8 @@ define(['angular', 'dform'], function (angular) {
         var name = $attrs['name'];
 
 
-        if( !( $attrs['fromRouteparams'] !== undefined &&
-               $attrs['fromRouteparams'] !== true) ) {
+        if( $attrs['fromRouteparams'] !== undefined &&
+            $attrs['fromRouteparams'] === "true") {
           entity = $routeParams.plantilla;
           mode = $routeParams.mode;
           uuid = $routeParams.uuid;
@@ -437,6 +437,10 @@ define(['angular', 'dform'], function (angular) {
             */
             scope[VAR_SCOPE_PUT_CHOICES_SELECTED] = attrs['name'];
 
+            /**
+             * When promise is resolve then push the options in ng-model of multichoice
+             *
+             */
             promise.then(function(dataResponse) {
 
               if( dataResponse !== undefined ) {

@@ -13,20 +13,21 @@ define(['angular'], function(angular) {
       templateUrl: 'task/partial-task-widget-task.html',
       restrict: 'E',
       replace: true,
-      scope: {
-        'title'         : '=',
-        'category'      : '@',
-        'target-uuid'   : '@targetUuid',
-        'target-entity' : '@targetEntity'
-      },
       link: function($scope, $element, $attrs, $controller) {
 
-        if( $scope['target-entity'] !== undefined || $scope['target-uuid'] !== undefined ) {
-          $scope.target = {
-            'uuid'    : $scope['target-uuid'],
-            'entity'  : $scope['target-entity']
-          };
-        }
+        //$scope.category = $attrs.category;
+        $scope.title = $attrs.title;
+        $scope.target = {};
+
+        $scope.$watch($attrs.category, function(value){
+          $scope.category = value;
+        });
+        $scope.$watch($attrs.targetUuid, function(value){
+          $scope.target.uuid = value;
+        });
+        $scope.$watch($attrs.targetEntity, function(value){
+          $scope.target.entity = value;
+        });
 
         $scope.createTask  = function (category, target){
           taskService.createTask(target, category);

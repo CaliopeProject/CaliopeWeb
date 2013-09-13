@@ -32,7 +32,11 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           $scope.elementsFormTemplate = result.elements;
         }
         $scope.modelUUID = result.modelUUID;
+        $scope.entityModel = result.entityModel;
 
+        /*
+        Add data to scope
+         */
         if (result.data !== undefined) {
           var varname;
           for (varname in result.data) {
