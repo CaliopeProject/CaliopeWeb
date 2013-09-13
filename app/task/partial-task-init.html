@@ -1,6 +1,11 @@
-<div ng-controller='taskControllersInit'>
+<div ng-controller='TaskCtrlInit'>
 
-  <widget-task title="task.title"></widget-task>
+  <!--
+    category: Nombre de la categoria donde quedará la tarea
+    target-uuid: variable del scope de donde se recuperará el id de la entidad asociada a la tarea
+    target-entity: variable del scope de donde se recuperará la entidad asociada a la tarea.
+  -->
+  <widget-task title="task.title" category="ToDo" target-uuid="row.entity.uuid" target-entity="gridEntity"></widget-task>
 
 </div>
 

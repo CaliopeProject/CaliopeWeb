@@ -2,5 +2,6 @@
   <button type='button' class='close' ng-click='closeDialog(dialogName)'>
     <i class="icon-remove"></i>
   </button>
-  <cw-dform cw-dform="jsonPlantillaAngular"></cw-dform>
+  {{target}}
+  <cw-dform name="task" cw-dform="jsonPlantillaAngular" entity="tasks" mode="toCreate" uuid="" from-routeparams="false" ng-init="initForm()"></cw-dform>
 </div>

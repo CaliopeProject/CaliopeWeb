@@ -35,7 +35,7 @@ var dependencies = [
     'wysiwyg-editor-controller',
     'wysiwyg-editor-directive',
 
-    'task-controllers-init',
+    'task-controllers',
     'task-directives',
     'task-services',
 
@@ -78,7 +78,7 @@ var modulesAngular = [
     'wysiwygEditorDirective',
     'kanbanBoardCtrl',
 
-    'task-controllers-init',
+    'task-controllers',
     'task-directives',
     'task-services',
 
