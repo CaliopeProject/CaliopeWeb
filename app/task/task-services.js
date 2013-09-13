@@ -103,14 +103,15 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
         }
 
         function sendData(entidad,metodo,datos,uuidEntidad){
-          if(!angular.isUndefined(datos.comments)){
-            angular.forEach(datos.comments, function(value, key){
+          var sendDato = angular.copy(datos);
+          if(!angular.isUndefined(sendDato.comments)){
+            angular.forEach(sendDato.comments, function(value, key){
               var user = value.user.login;
-              datos.comments[key].user = user;
+              sendDato.comments[key].user = user;
             });
           }
 
-          tempServices.sendDataForm(entidad,metodo,datos,uuidEntidad,uuidEntidad);
+          tempServices.sendDataForm(entidad,metodo,sendData,uuidEntidad,uuidEntidad);
 
         }
 
@@ -180,14 +181,14 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             opentaskDialog(DIALOG_NAME_FORM_TASK);
           },
 
-          archiveTask: function(uuid) {
+          archiveTask: function(item) {
             opts.templateUrl = './task/partial-task-dialog-acction.html';
 
             var data = {
               message       : MESSAGE_TASK_ARCHIV,
               template      : NAME_MODEL_TASK,
               actionMethod  : 'tasks.archive',
-              uuid          : uuid,
+              uuid          : item.uuid,
               dialogName    : DIALOG_NAME_CONF_ARCHIV
             };
 
@@ -200,14 +201,14 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             loadTask();
           },
 
-          deleteTask: function(uuid) {
+          deleteTask: function(item) {
             opts.templateUrl = './task/partial-task-dialog-acction.html';
 
             var data = {
               message       : MESSAGE_TASK_DELETE,
               template      : NAME_MODEL_TASK,
               actionMethod  : 'tasks.delete',
-              uuid          : uuid,
+              uuid          : item.uuid,
               dialogName    : DIALOG_NAME_CONF_DELETE
             };
 
@@ -371,10 +372,9 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
               data = taskDrag;
               data.category = categ;
 
-              sendData('tasks', 'tasks.edit', data, uuid).then(function(data){
-                loadTask();
-              });
+              sendData('tasks', 'tasks.edit', data, uuid);
             }
+            loadTask();
           }
 
         };

@@ -45,50 +45,63 @@
                 </span>
 
               </div>
-
               <div ng-init="log2=false" class='inline row-fluid' ng-show='showSubtasks'>
-                {{item.descripcion}}
-                     <div ng-repeat="subtask in item.subtasks">
-                          <ul class="item-list ui-sortable">
-                            <li class="item-orange scrollbar16" ng-class="{'selected': subtask.complete}">
-                              <label class="inline">
-                                <input type="checkbox"  ng-model='subtask.complete'  ng:click="checkSubtask(item,obj.category)">
-                                <span class="lbl"> {{subtask.description}}</span>
-                              </label>
-                              <div class="task-header">
-                                <span ng-click="removeSubtask(item,obj.category,$index)">
-                                  <i class="icon-trash"></i>
-                                </span>
-                              </div>
-                            </li>
-                          </ul>
-                     </div>
-                     <form class="item-list tab-content-kanban"  ng-submit="addSubtask(item,description,obj.category)">
-                        <input type="text" name="description" placeholder="Subtarea..." class="input" ng-model="description"/>
-                     </form>
-                    <div ng-repeat="comment in item.comments">
-                      <div class="dialogs">
-                        <div class="itemdiv dialogdiv">
-                          <div class="user hidden-phone">
-                            <img class="nav-user-photo " src="data:image/png;base64,{{comment.user.face}}">
-                          </div>
-                          <div class="body scrollbar16">
-                            <div class="time">
-                              <i class="icon-time"></i>
-                              <span class="green name">{{comment.time | date:'short'}}</span>
-                            </div>
-                            <div class="name ">
-                              <a href="#">{{comment.user.login}}</a>
-                            </div>
-                            <div class="text ">{{comment.text}}</div>
-                          </div>
+              {{item.descripcion}}
+              <tabset>
+
+                <tab heading="Subtareas">
+                <div ng-repeat="subtask in item.subtasks">
+                  <ul class="item-list ui-sortable">
+                    <li class="item-orange scrollbar16" ng-class="{'selected': subtask.complete}">
+                    <label class="inline">
+                      <input type="checkbox"  ng-model='subtask.complete'  ng:click="checkSubtask(item,obj.category)">
+                      <span class="lbl"> {{subtask.description}}</span>
+                    </label>
+                    <div class="task-header">
+                      <span ng-click="removeSubtask(item,obj.category,$index)">
+                        <i class="icon-trash"></i>
+                      </span>
+                    </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <form class="item-list tab-content-kanban"  ng-submit="addSubtask(item,description,obj.category)">
+                  <input type="text" name="description" placeholder="Subtarea..." class="input" ng-model="description"/>
+                </form>
+
+                </tab>
+
+                <tab heading="Comentarios">
+                <div ng-repeat="comment in item.comments">
+                  <div class="dialogs">
+                    <div class="itemdiv dialogdiv">
+                      <div class="user hidden-phone">
+                        <img class="nav-user-photo " src="data:image/png;base64,{{comment.user.face}}">
+                      </div>
+
+                      <div class="body scrollbar16">
+                        <div class="time">
+                          <i class="icon-time"></i>
+                          <span class="green name">{{comment.time | date:'short'}}</span>
                         </div>
+
+                        <div class="name ">
+                          <a href="#">{{comment.user.login}}</a>
+                        </div>
+
+                        <div class="text ">{{comment.text}}</div>
                       </div>
                     </div>
-                    <form class="item-list tab-content-kanban" ng-submit="addComment(item,text,obj.category)">
-                      <input type="text" name="text" placeholder="Comentario..." class="input" ng-model="text"/>
-                    </form>
-              </div>
+                  </div>
+                </div>
+
+                <form class="item-list tab-content-kanban" ng-submit="addComment(item,text,obj.category)">
+                  <input type="text" name="text" placeholder="Comentario..." class="input" ng-model="text"/>
+                </form>
+                </tab>
+              </tabset>
+
             </div>
           </div>
         </div>
