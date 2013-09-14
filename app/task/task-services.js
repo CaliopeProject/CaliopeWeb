@@ -343,36 +343,9 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             sendData('tasks', 'tasks.edit', parentTask, parentTask.uuid);
           },
 
-          changeCategory: function(uiElement, taskDrag){
-
-            var category , categ, uuid, itemsbycateg, data;
-            var params = {};
-            var method = "tasks.edit";
-
-            itemsbycateg = (function(){
-              var i,j,categoryUiid = [];
-              angular.forEach(ALLTASK, function(value, key){
-                var category, tasksCategory;
-                category = value.category;
-                for(j=0; value.tasks.length > j; j++){
-                  if(!angular.isUndefined(value.tasks[j].uuid)){
-                    categoryUiid.push({uuid : value.tasks[j].uuid, categ: category});
-                  }
-                }
-              });
-
-              return categoryUiid;
-
-            }());
-
-            uuid         = uiElement.draggable.attr("uuid");
-            categ        = findCateg(itemsbycateg, uuid);
-
-            if(!angular.isUndefined(categ)){
-              data = taskDrag;
-              data.category = categ;
-
-              sendData('tasks', 'tasks.edit', data, uuid);
+          changeCategory: function(taskDrag){
+            if(!angular.isUndefined(taskDrag)){
+              sendData('tasks', 'tasks.edit', taskDrag, taskDrag.uuid);
             }
             loadTask();
           }

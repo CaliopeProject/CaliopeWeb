@@ -6,6 +6,7 @@
 </div>
 <div class="row-fluid fillallheight" ng-controller="kanbanBoardCtrl">
   <div class="span4 fillallheight" ng-repeat="obj in data" ng-model="obj.tasks" data-drop="true" data-jqyoui-options="{accept:'.task-header-kanban'}" jqyoui-droppable="{multiple:true, onDrop:'dropCallback'}">
+    {{obj}}
     <div class="widget-box-kanban fillallheight">
       <div class="widget-header-kanban widget-header-small-kanban">
         <h5>{{obj.category}}</h5>

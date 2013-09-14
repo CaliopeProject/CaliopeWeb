@@ -26,14 +26,20 @@ define(['angular','angular-dragdrop'], function (angular) {
         $scope.getSubTasks  = taskService.getSubTasks;
 
         $scope.dropCallback = function(event, ui) {
-          taskService.changeCategory(ui,$scope.taskDrag);
-        };
-
-        $scope.$on('DragTask', function(event, data) {
-          angular.forEach(data, function(value, key){
-            $scope.taskDrag = value;
+          var uuidtask = ui.draggable.attr("uuid");
+          var changetask;
+          angular.forEach($scope.data, function(value1, key1){
+            if(!angular.isUndefined(value1.tasks)){
+              angular.forEach(value1.tasks, function(value2, key2){
+                if(value2.uuid === uuidtask){
+                  changetask =  $scope.data[key1].tasks[key2];
+                  return;
+                }
+              });
+            }
           });
-        });
+          taskService.changeCategory(changetask);
+        };
 
       }]);
 
@@ -48,7 +54,6 @@ define(['angular','angular-dragdrop'], function (angular) {
 
           $scope.startCallback = function(event, ui) {
             $scope.showSubtasks = false;
-            $scope.$emit('DragTask', [$scope.item]);
           };
 
           $scope.addSubtask   = function (parentTask, description, category){
