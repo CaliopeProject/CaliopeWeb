@@ -17,8 +17,8 @@ define(['angular', 'uuid'], function(angular) {
   });
 
   moduleWebSocket.factory('webSocket',
-    ['$q', '$rootScope', 'JsonRpcConst', 'HandlerResponseServerSrv',
-     function($q, $rootScope, jsonRpcConst, handlerResponseSrv) {
+    ['$q', '$rootScope', 'JsonRpcConst','global_constants', 'HandlerResponseServerSrv',
+     function($q, $rootScope, jsonRpcConst, global_constants, handlerResponseSrv) {
 
       var Service = {};
       var webSockets = {};
