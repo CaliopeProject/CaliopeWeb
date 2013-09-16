@@ -65,8 +65,18 @@ define(['angular'], function (angular) {
     function($scope, cwFormService, action) {
 
 
-    $scope.initFormDialog = function() {
 
+    $scope.initFromDialogAction = function() {
+      $scope.message      = action.message;
+      $scope.form         = action.template;
+      $scope.template     = action.template;
+      $scope.actionMethod = action.actionMethod;
+      $scope.uuid         = action.uuid;
+      $scope.dialogName   = action.dialogName;
+      $scope.fromDialog   = true;
+    };
+
+    $scope.initFormDialog = function() {
       $scope.dialogName = action.dialogName;
       $scope.fromDialog = true;
       var cwForm = $scope['task'];
