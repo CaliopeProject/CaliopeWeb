@@ -65,8 +65,9 @@ require.config({
     'caliopeweb-templateControllers'   : 'caliopeweb-forms/caliopeweb-template-controllers',
     'caliopeweb-formDirectives'        : 'caliopeweb-forms/caliopeweb-form-directives',
 
-    'proyectosmtv-controller'          : 'proyectosmtv/proyectomtv-controller',
-    'proyectosmtv-service'             : 'proyectosmtv/proyectomtv-service',
+    'proyectomtv-controller'          : 'proyectomtv/proyectomtv-controller',
+    'proyectomtv-summary-controller'  : 'proyectomtv/proyectomtv-summary-controller',
+    'proyectomtv-service'             : 'proyectomtv/proyectomtv-service',
 
     'login-security-services'          : 'login/login-security-services',
     'login-retryQueue'                 : 'login/login-retryQueue',

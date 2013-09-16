@@ -11,8 +11,10 @@ var dependencies = [
     'caliopeweb-templateServices',
     'caliopeweb-templateControllers',
     'caliopeweb-formDirectives',
-    'proyectosmtv-controller',
-    'proyectosmtv-service',
+
+    'proyectomtv-controller',
+    'proyectomtv-service',
+    'proyectomtv-summary-controller',
 
     'login-security-services',
     'login-controllers',
@@ -53,8 +55,10 @@ var modulesAngular = [
     'CaliopeWebTemplatesServices',
     'CaliopeWebTemplateControllers',
     'CaliopeWebFormDirectives',
+
     'ProyectoControllers',
     'ProyectoServices',
+    'ProyectoSummary',
 
     'login-security-services',
     'LoginControllers',

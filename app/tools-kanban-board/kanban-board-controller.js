@@ -3,11 +3,10 @@
 
 define(['angular','angular-dragdrop'], function (angular) {
   'use strict';
-  var dirmodule = angular.module('kanbanBoardCtrl', ['login-security-services','ngDragDrop', 'ui.bootstrap']);
+  var dirmodule = angular.module('kanbanBoardCtrl', ['ngDragDrop', 'ui.bootstrap']);
 
-  dirmodule.controller("kanbanBoardCtrl",
-    ["$scope","webSocket", 'taskService',
-      function($scope, webSocket, taskService) {
+  dirmodule.controller("kanbanBoardCtrl", ["$scope",'taskService',
+      function($scope, taskService) {
 
         $scope.data = taskService.getTask();
 
@@ -44,8 +43,8 @@ define(['angular','angular-dragdrop'], function (angular) {
       }]);
 
 
-      dirmodule.controller("kanbanItemCtrl", ["SessionSrv", "$scope", "webSocket", 'taskService',
-        function(security, $scope, webSocket, taskService) {
+      dirmodule.controller("kanbanItemCtrl", ["$scope", 'taskService',
+        function($scope, taskService) {
 
 
           $scope.countSubtask = taskService.countSubtask;

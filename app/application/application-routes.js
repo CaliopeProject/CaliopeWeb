@@ -11,12 +11,11 @@ define(['angular', 'application-app'], function(angular, app) {
       Routes for projectmtv
     */
     $routeProvider.when('/list-proyectomtv', {
-      templateUrl: '/proyectosmtv/list-proyectomtv-partial.html'});
-
+      templateUrl: '/proyectomtv/list-proyectomtv-partial.html'});
     $routeProvider.when('/form-proyectomtv/:plantilla/:mode', {
-      templateUrl: '/proyectosmtv/form-proyectomtv-partial.html'});
-
-
+      templateUrl: '/proyectomtv/form-proyectomtv-partial.html'});
+    $routeProvider.when('/summary-proyectomtv', { 
+      templateUrl: '/proyectomtv/proyectomtv-summary-partial.html'}); 
     $routeProvider.when('/gis', {
       templateUrl: '/tools-gis-viewer/partial-gis-init.html'});
     $routeProvider.when('/login/:plantilla/:mode', {

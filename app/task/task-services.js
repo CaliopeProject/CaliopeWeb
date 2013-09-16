@@ -102,6 +102,15 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
                     });
         }
 
+        function getAllTask(){
+          var params     = {};
+          var method     = "tasks.getAll";
+          return WEBSOCKETS.serversimm.sendRequest(method, params)
+           .then(function(data){
+             return data;
+           });
+        }
+
         function sendData(entidad,metodo,datos,uuidEntidad){
           var sendDato = angular.copy(datos);
           if(!angular.isUndefined(sendDato.comments)){
@@ -112,7 +121,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           }
 
           tempServices.sendDataForm(entidad,metodo,sendDato,uuidEntidad,uuidEntidad);
-
         }
 
 
@@ -247,6 +255,9 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           getTask: function(){
             return ALLTASK;
           },
+
+          getAll: getAllTask,
+
 
           getTaskpend: function(){
             var taskNot = {};
