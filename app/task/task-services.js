@@ -14,7 +14,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           backdrop      : false,
           keyboard      : true,
           backdropClick : false,
-          controller    : 'CaliopeWebTemplateCtrlDialog'
+          controller    : 'TaskFormCtrl'
         };
 
         var ALLTASK, FACE;
@@ -62,7 +62,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
         function loadTask(){
           var params     = {};
-          var method     = "tasks.getAll";
+          var method     = "tasks.getCurrentUserKanban";
           WEBSOCKETS.serversimm.sendRequest(method, params)
                     .then(function(data){
                       ALLTASK = data;
