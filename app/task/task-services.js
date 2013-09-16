@@ -128,7 +128,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             opts.templateUrl = './task/partial-task-dialog.html';
             var data = {
               template: NAME_MODEL_TASK,
-              mode  : 'toCreate',
+              mode  : 'create',
               target: target,
               category: category,
               dialogName : DIALOG_NAME_FORM_TASK
@@ -182,11 +182,10 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           },
 
           editTask: function(numuuid, category) {
-            console.log(numuuid);
             opts.templateUrl = './task/partial-task-dialog.html';
             var data = {
               template: NAME_MODEL_TASK,
-              mode    : 'toEdit',
+              mode    : 'edit',
               uuid    : numuuid,
               category: category,
               dialogName : DIALOG_NAME_FORM_TASK

@@ -66,9 +66,15 @@ define(['angular'], function (angular) {
 
 
     $scope.initFormDialog = function() {
+
       $scope.dialogName = action.dialogName;
       $scope.fromDialog = true;
       var cwForm = $scope['task'];
+      var methodSupport = cwForm.getEntityModel().concat('.').concat(action.mode);
+      cwForm.setActionsMethodToShow([methodSupport]);
+      cwForm.setMode(action.mode);
+      cwForm.setModelUUID(action.uuid);
+
       cwFormService.loadForm(cwForm, {}).then(function(result){
         var i;
         var inputs = result.elements;
