@@ -27,20 +27,20 @@ define(['angular','angular-dragdrop'], function (angular) {
 
         $scope.dropCallback = function(event, ui) {
           var uuidtask = ui.draggable.attr("uuid");
-          var changetask;
+          var changetask, category;
           angular.forEach($scope.data, function(value1, key1){
             if(!angular.isUndefined(value1.tasks)){
               angular.forEach(value1.tasks, function(value2, key2){
                 if(value2.uuid === uuidtask){
-                  changetask =  $scope.data[key1].tasks[key2];
+                  category   = $scope.data[key1].category;
+                  changetask = $scope.data[key1].tasks[key2];
                   return;
                 }
               });
             }
           });
-          taskService.changeCategory(changetask);
+          taskService.changeCategory(changetask, category);
         };
-
       }]);
 
 

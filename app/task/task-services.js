@@ -343,13 +343,13 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             sendData('tasks', 'tasks.edit', parentTask, parentTask.uuid);
           },
 
-          changeCategory: function(taskDrag){
+          changeCategory: function(taskDrag, category){
             if(!angular.isUndefined(taskDrag)){
+              taskDrag.category = category;
               sendData('tasks', 'tasks.edit', taskDrag, taskDrag.uuid);
             }
             loadTask();
           }
-
         };
 
         return service;
