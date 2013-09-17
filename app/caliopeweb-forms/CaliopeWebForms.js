@@ -112,7 +112,7 @@ var CaliopeWebForm = (function() {
     var entityModel;
 
     /**
-    * Mode to load data from server. Posibble modes are: toCreate, toEdit
+    * Mode to load data from server. Posibble modes are: toCreate, create, toEdit, edit
     * @member {object} entityModel
     * @memberOf CaliopeWebForm
     */
