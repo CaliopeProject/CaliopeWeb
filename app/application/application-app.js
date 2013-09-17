@@ -95,9 +95,15 @@ var modulesAngular = [
 
     moduleApp.constant('global_constants', {
         'caliope_server_address':  'ws://' + document.domain + ':' + location.port + '/api/ws',
-        'hyperion_server_address': document.domain + ':' + '9001'
+        'hyperion_server_address': 'http://' + document.domain + ':' + '9001'
     });
-    
+
+    moduleApp.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        }
+    ]);
+     
     moduleApp.run(function(webSocket) {
       webSocket.initWebSockets();
     });
