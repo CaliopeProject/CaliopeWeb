@@ -1,7 +1,7 @@
 /*jslint browser: true*/
 /*global define, console, $*/
 
-define(['angular'], function (angular) {
+define(['angular', 'Crypto'], function (angular) {
   'use strict';
 
   var module = angular.module('task-controllers', []);
@@ -70,7 +70,9 @@ define(['angular'], function (angular) {
       var route = 'form/'
 
       if($scope.target !== undefined) {
-        route = route.concat($scope.target.entity).concat('/edit/').concat($scope.uuid);
+        //TODO: Create centralized function to encode and decode uuid
+        var bytesUUID = Crypto.charenc.Binary.stringToBytes($scope.target.uuid);
+        route = route.concat($scope.target.entity).concat('/edit/').concat(Crypto.util.bytesToBase64(bytesUUID));
       }
       $location.path(route);
 

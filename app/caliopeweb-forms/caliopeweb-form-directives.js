@@ -30,7 +30,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-define(['angular', 'dform'], function (angular) {
+define(['angular', 'dform', 'Crypto'], function (angular) {
   'use strict';
 
   /**
@@ -125,6 +125,11 @@ define(['angular', 'dform'], function (angular) {
         }
         if( name === undefined ) {
           //TODO: Generar Error, nombre requerido
+        }
+        if($attrs['encUuid']==="true") {
+          //TODO: Create centralized function to encode and decode uuid
+          var bytesUUID = Crypto.util.base64ToBytes(uuid);
+          uuid = Crypto.charenc.Binary.bytesToString(bytesUUID)
         }
         var cwForm = cwFormService.createForm(entity, mode, uuid);
         $scope[name] = cwForm;

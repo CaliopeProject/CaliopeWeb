@@ -29,9 +29,9 @@ define(['angular'], function(angular) {
         }
       }
     } else if(result.error !== undefined) {
-      throw new Error('Error load form form server.' + result.error.message);
+      throw new Error('Error load form from server.' + result.error.message);
     } else {
-      throw new Error('Error load form form server. Form is empty');
+      throw new Error('Error load form from server. Form is empty');
     }
   }
 
