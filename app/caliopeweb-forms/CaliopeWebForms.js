@@ -718,6 +718,32 @@ var CaliopeWebFormSpecificDecorator = ( function() {
   }
 
   /**
+   * Add datepicker angular directive to the structure for each elements in the structure with
+   * the type datepicker defined in json structure form.
+   *
+   * @function
+   * @memberOf CaliopeWebFormSpecificDecorator
+   * @param {array} elementsTemplate Elements Field config in the template.
+   */
+  function completeTypeExecuteTask(elementsTemplate) {
+    if( elementsTemplate !== undefined ) {
+      var i;
+      var TYPE_EXCUTETASK = 'execute-task';
+      var DIRECTIVE_EXCUTETASK = 'cw-task-execute';
+
+      for(i=0; i < elementsTemplate.length; i++) {
+        if( elementsTemplate[i] !== undefined && elementsTemplate[i].type !== undefined &&
+            elementsTemplate[i].type === TYPE_EXCUTETASK)  {
+
+          elementsTemplate[i].type = DIRECTIVE_EXCUTETASK;
+          elementsTemplate[i].type1 = TYPE_EXCUTETASK;
+
+        }
+      }
+    }
+  }
+
+  /**
    * This function transform the element of type select for add the behavior of load the
    * options from server. Add the directive cw-option for this purpose.
    *
@@ -822,6 +848,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeSelect(elementsTemplate);
         completeTypeDatePicker(elementsTemplate);
         completeTypeMultiChoices(elementsTemplate,data);
+        completeTypeExecuteTask(elementsTemplate);
 
         return structureInit;
       };
