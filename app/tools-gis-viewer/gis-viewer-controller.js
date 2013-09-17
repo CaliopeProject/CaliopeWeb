@@ -157,6 +157,149 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
               closeAction: 'hide'
           });
 
+          var identifyAction;
+
+          var identifyDialog = new Ext.Window({
+              layout: "fit",
+              width: 350,
+              height: 150,
+              renderTo: "siim_mapdiv",
+              constrain: true,
+              closeAction: 'hide'
+          });
+
+          var toolPanelDisplayAction;
+
+          var datosProyectos = [
+              ['--',0],
+              ['La Hoja',1],
+              ['La Vía Láctea',2]
+          ];
+
+          var datosVersiones = [
+              [1],
+              [2]
+          ];
+
+          var storeProyectos = new Ext.data.ArrayStore({
+              autoDestroy: true,
+              storeId: 'storeProyectos',
+              idIndex: 0,
+              fields: [
+                  'proyecto',
+                  'id'
+              ],
+              data: datosProyectos
+          });
+
+          var storeVersiones = new Ext.data.ArrayStore({
+              autoDestroy: true,
+              storeId: 'storeVersiones',
+              idIndex: 0,
+              fields: [
+                  'idVersion'
+              ],
+              data: datosVersiones
+          });
+
+          var comboProyectos = new Ext.form.ComboBox({
+              store: storeProyectos,
+              displayField:'proyecto',
+              typeAhead: true,
+              mode: 'local',
+              forceSelection: true,
+              triggerAction: 'all',
+              emptyText:'Seleccione un Proyecto',
+              selectOnFocus:true,
+              fieldLabel: 'Proyectos',
+              listeners:{
+                  'select': activeComboVersiones
+              }
+          });
+
+          var comboVersiones = new Ext.form.ComboBox({
+              store: storeVersiones,
+              displayField:'idVersion',
+              typeAhead: true,
+              mode: 'local',
+              forceSelection: true,
+              triggerAction: 'all',
+              emptyText:'Seleccione una Versión',
+              selectOnFocus:true,
+              fieldLabel: 'Versiones',
+              disabled : true
+          });
+
+          function activeComboVersiones (){
+              if(comboProyectos.getValue()=="--"){
+                  comboVersiones.reset();
+                  comboVersiones.disable();
+              }else{
+                  comboVersiones.enable();
+              }
+          }
+
+          var formPanelSearchProyectos = new GeoExt.form.FormPanel({
+              items: [comboProyectos, comboVersiones]
+          });
+
+          formPanelSearchProyectos.addButton({
+              text: "Buscar",
+              handler: showVersionProyecto,
+              scope: formPanelSearchProyectos
+          });
+
+          function showVersionProyecto(){
+              alert("estos son los valores seleccionados: Proyecto: "+comboProyectos.getValue()+" Versión: "+comboVersiones.getValue());
+          }
+
+          var toolPanelSearchProyectos = new Ext.Panel({
+              title: 'Por proyectos',
+              items:[formPanelSearchProyectos],
+              cls: 'empty'
+          });
+
+          var toolPanelSearchPorDivision = new Ext.Panel({
+              title: 'Por organización',
+              html: 'aquí van las búsquedas por oranización administrativa',
+              cls: 'empty'
+          });
+
+          var accordionToolPanelSearchs = new Ext.Panel({
+              region:'west',
+              split:true,
+              layout:'accordion',
+              items: [toolPanelSearchProyectos, toolPanelSearchPorDivision]
+          });
+
+          var tabTools = new Ext.TabPanel({
+              id: 'toolTabPanel',
+              width:450,
+              activeTab: 0,
+              frame:true,
+              items:[
+                  {
+                      title: 'Búsquedas',
+                      items: accordionToolPanelSearchs
+                  },
+                  {
+                      title: 'Exportar',
+                      html: 'Tab de exportar'
+                  }
+              ]
+          });
+
+          var toolPanelDialog = new Ext.Window({
+              id:'toolPanel',
+              layout: "fit",
+              width: 450,
+              height: 250,
+              renderTo: "siim_mapdiv",
+              constrain: true,
+              closeAction: 'hide',
+              items: tabTools
+          });
+
           var filt = new OpenLayers.Filter.Logical({
               type: OpenLayers.Filter.Logical.OR,
               filters: [
@@ -177,36 +320,6 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
               renderTo: "siim_mapdiv",
               constrain: true,
               closeAction: 'hide'
-          });
-
-          var formPanel = new GeoExt.form.FormPanel({
-              protocol: new OpenLayers.Protocol.WFS({
-                      url: 'http://' + document.domain + ':' + location.port + '/gis_proxy/wfs',
-                      srsName: "EPSG:4686",
-                      featureType: "proyectos",
-                      featureNS: "mtv_gis",
-                      geometryName: "the_geom"
-              }),
-              items: [{
-                  xtype: "textfield",
-                  name: "PROYECTO__like",
-                  value: "",
-                  fieldLabel: "  nombre"
-              }],
-              listeners: {
-                  actioncomplete: function(form, action) {
-                      var featureSearch = action.response.features[0];
-                      Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
-                  }
-              }
-          });
-
-          formPanel.addButton({
-              text: "search",
-              handler: function() {
-                  this.search();
-              },
-              scope: formPanel
           });
 
           var featureInfoAction;
@@ -267,19 +380,6 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
             },
             {
                 create: function(mapPanel, options){
-                    options.handler = function () {
-                        proyectoSearchDialog.add(formPanel);
-                        proyectoSearchDialog.show();
-                    };
-                    proyectoSearchAction = new Ext.Action(options);
-                    return proyectoSearchAction;
-                },
-                options: {
-                    text : 'Busqueda de proyectos'
-                }
-            },
-            {
-                create: function(mapPanel, options){
                     options.handler = function(){
                         $scope.showGrillaPredios = true;
                         $scope.$apply();
@@ -293,6 +393,19 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                     enableToggle : true,
                     allowDepress: false,
                     toggleGroup : "toolGroup"
+                }
+            },
+            {
+                create: function(mapPanel, options){
+                    options.handler = function () {
+                        //toolPanelDialog.add(formPanel);
+                        toolPanelDialog.show();
+                    };
+                    toolPanelDisplayAction = new Ext.Action(options);
+                    return toolPanelDisplayAction;
+                },
+                options: {
+                    text : 'Herramientas'
                 }
             }
         ];
