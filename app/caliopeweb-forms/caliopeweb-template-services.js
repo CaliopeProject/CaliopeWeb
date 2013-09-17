@@ -53,7 +53,7 @@ define(['angular'], function(angular) {
           promise = deferred.promise;
 
           var resolveResult = function(dataForm) {
-            if( dataForm !== undefined && dataForm.error === undefined) {
+            if( dataForm !== undefined ) {
               var result = Service.load(dataForm, cwForm) ;
               deferred.resolve(result);
             }
@@ -76,8 +76,11 @@ define(['angular'], function(angular) {
               params.uuid = modelUUID;
               var promiseGetData = webSockets.serversimm.sendRequest(method, params);
               promiseGetData.then(function(resultData) {
-                if( resultData !== undefined && resultModel !== undefined ) {
+                if( resultData !== undefined && resultData.error === undefined &&
+                    resultModel !== undefined ) {
                   resultModel.data = resultData;
+                } else if(resultData.error !== undefined){
+                  resultModel = resultData;
                 }
                 resolveResult(resultModel);
               });
@@ -228,8 +231,12 @@ define(['angular'], function(angular) {
             result.entityModel       = caliopeWebForm.getEntityModel();
 
             //caliopeWebForm.putDataToContext(context, result.elements);
-            return result;
+          } else if(templateFromServer.error !== undefined) {
+            result.error = templateFromServer.error
+          } else if(templateFromServer === undefined || templateFromServer.form === undefined ) {
+            result.error = 'Form load from server is empty'
           }
+          return result;
       };
 
       /**

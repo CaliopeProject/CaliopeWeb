@@ -27,8 +27,11 @@ define(['angular'], function(angular) {
             }
           }
         }
-
       }
+    } else if(result.error !== undefined) {
+      throw new Error('Error load form form server.' + result.error.message);
+    } else {
+      throw new Error('Error load form form server. Form is empty');
     }
   }
 
@@ -57,8 +60,10 @@ define(['angular'], function(angular) {
         cwGrid.setDecorators([CaliopeWebGridDataDecorator, CWGridColumnsDefNgGridDecorator])
       };
 
-      $scope.initForm = function(methodsToSupport) {
+      $scope.initForm = function() {
         var cwForm = $scope['project'];
+        var methodSupport = cwForm.getEntityModel().concat('.').concat(cwForm.getMode());
+        cwForm.setActionsMethodToShow([methodSupport]);
         cwFormService.loadForm(cwForm, {}).then(function(result) {
           processResultLoadForm(result, $scope);
           if($scope.modelUUID !== undefined) {
