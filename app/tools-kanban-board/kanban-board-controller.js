@@ -26,39 +26,34 @@ define(['angular','angular-dragdrop'], function (angular) {
         $scope.getSubTasks  = taskService.getSubTasks;
 
         $scope.dropCallback = function(event, ui) {
-          taskService.changeCategory(ui,$scope.taskDrag);
-        };
-
-        $scope.$on('DragTask', function(event, data) {
-          angular.forEach(data, function(value, key){
-            $scope.taskDrag = value;
+          var uuidtask = ui.draggable.attr("uuid");
+          var changetask, category;
+          angular.forEach($scope.data, function(value1, key1){
+            if(!angular.isUndefined(value1.tasks)){
+              angular.forEach(value1.tasks, function(value2, key2){
+                if(value2.uuid === uuidtask){
+                  category   = $scope.data[key1].category;
+                  changetask = $scope.data[key1].tasks[key2];
+                  return;
+                }
+              });
+            }
           });
-        });
-
+          taskService.changeCategory(changetask, category);
+        };
       }]);
 
 
       dirmodule.controller("kanbanItemCtrl", ["SessionSrv", "$scope", "webSocket", 'taskService',
         function(security, $scope, webSocket, taskService) {
 
-          var faces = taskService.getFaces();
 
-          $scope.countSubtask = taskService.countSubtask ;
+          $scope.countSubtask = taskService.countSubtask;
           $scope.checkSubtask = taskService.checkSubtask;
           $scope.removeSubtask= taskService.removeSubtask;
 
-          $scope.getFace = function (user){
-          console.log('pase  poraqui');
-            angular.forEach(faces, function(value){
-              if(faces === value.user){
-                return value.img;
-              }
-            });
-          };
-
           $scope.startCallback = function(event, ui) {
             $scope.showSubtasks = false;
-            $scope.$emit('DragTask', [$scope.item]);
           };
 
           $scope.addSubtask   = function (parentTask, description, category){

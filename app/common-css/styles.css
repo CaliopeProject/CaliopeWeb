@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*
  * Bootstrap v2.3.2
  *
@@ -18844,7 +18843,7 @@ td.td-actions a.td-action:hover {
 }
 /* line 7248, ../common-scss/w8.scss */
 .itemdiv > .body {
-  margin-left: 31px;
+  margin-left: 34px;
   padding-left: 0;
   width: auto;
   margin-right: 12px;
@@ -18937,8 +18936,9 @@ td.td-actions a.td-action:hover {
   padding: 3px 7px 7px;
   border-left-width: 2px;
   margin-right: 1px;
+  overflow-x: auto;
 }
-/* line 7334, ../common-scss/w8.scss */
+/* line 7335, ../common-scss/w8.scss */
 .itemdiv.dialogdiv > .body:before {
   content: "";
   display: block;
@@ -18956,15 +18956,14 @@ td.td-actions a.td-action:hover {
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
-/* line 7352, ../common-scss/w8.scss */
+/* line 7353, ../common-scss/w8.scss */
 .itemdiv.dialogdiv > .body > .time {
   position: static;
   float: right;
 }
-/* line 7356, ../common-scss/w8.scss */
+/* line 7357, ../common-scss/w8.scss */
 .itemdiv.dialogdiv > .body > .text {
   padding-left: 0;
-  overflow-x: auto;
   padding-bottom: 0;
 }
 /* line 7360, ../common-scss/w8.scss */
@@ -32104,9 +32103,10 @@ a.olControlZoomOut {
   background-image: linear-gradient(#ffffff, #e9e3a5);
   margin: 3px 0;
   border-bottom: 1px solid #CCC;
+  padding-bottom: 42px;
 }
 
-/* line 45, ../tools-kanban-board/kanban-board.scss */
+/* line 46, ../tools-kanban-board/kanban-board.scss */
 .widget-header-kanban {
   -moz-border-radius-topleft: 12px;
   -webkit-border-top-left-radius: 12px;
@@ -32122,7 +32122,7 @@ a.olControlZoomOut {
   padding-left: 12px;
   text-align: right;
 }
-/* line 55, ../tools-kanban-board/kanban-board.scss */
+/* line 56, ../tools-kanban-board/kanban-board.scss */
 .widget-header-kanban > :first-child {
   line-height: 36px;
   padding: 0;
@@ -32130,18 +32130,18 @@ a.olControlZoomOut {
   float: left;
   text-align: left;
 }
-/* line 63, ../tools-kanban-board/kanban-board.scss */
+/* line 64, ../tools-kanban-board/kanban-board.scss */
 .widget-header-kanban h5 {
   font-weight: bold;
 }
 
-/* line 68, ../tools-kanban-board/kanban-board.scss */
+/* line 69, ../tools-kanban-board/kanban-board.scss */
 .widget-header-small-kanban {
   min-height: 25px;
   padding: 10px 23px 5px 23px;
 }
 
-/* line 73, ../tools-kanban-board/kanban-board.scss */
+/* line 74, ../tools-kanban-board/kanban-board.scss */
 .widget-body-kanban {
   -moz-border-radius-bottomleft: 12px;
   -webkit-border-bottom-left-radius: 12px;
@@ -32154,7 +32154,7 @@ a.olControlZoomOut {
   border-bottom: 0;
 }
 
-/* line 80, ../tools-kanban-board/kanban-board.scss */
+/* line 81, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -32172,24 +32172,38 @@ a.olControlZoomOut {
   padding: 0px 11px 7px 11px;
   font-size: small;
 }
-/* line 90, ../tools-kanban-board/kanban-board.scss */
+/* line 91, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban > :hover {
   cursor: move;
 }
-/* line 92, ../tools-kanban-board/kanban-board.scss */
+/* line 93, ../tools-kanban-board/kanban-board.scss */
+.task-header-kanban .nav-user-photo {
+  margin: -4px 10px 0 0;
+  border-radius: 24px;
+  border: 2px solid #FFF;
+  max-width: 24px !important;
+}
+/* line 98, ../tools-kanban-board/kanban-board.scss */
+.task-header-kanban .nav-user-photo:hover {
+  border-radius: 50px;
+  z-index: 1;
+  max-width: 50px !important;
+}
+/* line 105, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban li {
   text-align: left;
 }
-/* line 94, ../tools-kanban-board/kanban-board.scss */
+/* line 107, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban li label {
   font-size: small;
   font-weight: normal;
 }
-/* line 100, ../tools-kanban-board/kanban-board.scss */
+/* line 113, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban form {
   padding-right: 7px;
+  overflow-x: hidden;
 }
-/* line 104, ../tools-kanban-board/kanban-board.scss */
+/* line 118, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban > :first-child {
   line-height: 33px;
   max-height: 36px;
@@ -32201,17 +32215,17 @@ a.olControlZoomOut {
   text-align: left;
   overflow: hidden;
 }
-/* line 116, ../tools-kanban-board/kanban-board.scss */
+/* line 130, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .input-prepend {
   text-align: right;
 }
 
-/* line 121, ../tools-kanban-board/kanban-board.scss */
+/* line 135, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban-form {
   text-align: right;
 }
 
-/* line 125, ../tools-kanban-board/kanban-board.scss */
+/* line 139, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban {
   display: inline-block;
   padding: 0 6px;
@@ -32219,11 +32233,11 @@ a.olControlZoomOut {
   text-align: left;
   margin-top: 6px;
 }
-/* line 132, ../tools-kanban-board/kanban-board.scss */
+/* line 146, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban [class*=" icon-"], .widget-toolbar-kanban [class^="icon-"] {
   padding-left: 6px;
 }
-/* line 136, ../tools-kanban-board/kanban-board.scss */
+/* line 150, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .widget-toolbar-kanban {
   position: absolute;
   right: 7px;
@@ -32231,50 +32245,50 @@ a.olControlZoomOut {
   padding: 0px;
   margin: 0px;
 }
-/* line 143, ../tools-kanban-board/kanban-board.scss */
+/* line 157, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .widget-toolbar-kanban [class*=" icon-"], .task-header-kanban .widget-toolbar-kanban [class^="icon-"] {
   padding-left: 5px;
   padding-top: 10px;
   padding-right: 5px;
   padding-bottom: 10px;
 }
-/* line 152, ../tools-kanban-board/kanban-board.scss */
+/* line 168, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban span {
   margin: 0px;
   padding: 0px;
 }
-/* line 155, ../tools-kanban-board/kanban-board.scss */
+/* line 171, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban span:last-child {
   padding-right: 0px;
 }
-/* line 159, ../tools-kanban-board/kanban-board.scss */
+/* line 175, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban .input-append {
   overflow: hidden;
 }
 
-/* line 164, ../tools-kanban-board/kanban-board.scss */
+/* line 180, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask {
   display: inline;
 }
-/* line 167, ../tools-kanban-board/kanban-board.scss */
+/* line 183, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span {
   display: inline;
 }
-/* line 169, ../tools-kanban-board/kanban-board.scss */
+/* line 185, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span i {
   display: inline;
 }
-/* line 172, ../tools-kanban-board/kanban-board.scss */
+/* line 188, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span h5 {
   display: inline;
 }
-/* line 177, ../tools-kanban-board/kanban-board.scss */
+/* line 193, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask h6 {
   margin-top: 6px;
   display: inline;
 }
 
-/* line 183, ../tools-kanban-board/kanban-board.scss */
+/* line 199, ../tools-kanban-board/kanban-board.scss */
 .task-header {
   position: absolute;
   right: 8px;
@@ -32282,7 +32296,7 @@ a.olControlZoomOut {
   z-index: 100;
 }
 
-/* line 190, ../tools-kanban-board/kanban-board.scss */
+/* line 206, ../tools-kanban-board/kanban-board.scss */
 .tab-content-kanban {
   display: block;
   margin-top: 5px;
@@ -33350,94 +33364,104 @@ footer:before {
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 37, ../common-scss/w8-responsive.scss */
+  /* line 36, ../common-scss/w8-responsive.scss */
+  .itemdiv > .body {
+    margin-left: 0px;
+  }
+
+  /* line 40, ../common-scss/w8-responsive.scss */
+  .itemdiv.dialogdiv > .body:before {
+    content: initial;
+  }
+
+  /* line 45, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right {
     right: -80px;
   }
-  /* line 39, ../common-scss/w8-responsive.scss */
+  /* line 47, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right:after {
     right: 100px;
   }
-  /* line 43, ../common-scss/w8-responsive.scss */
+  /* line 51, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right {
     right: -40px;
   }
-  /* line 45, ../common-scss/w8-responsive.scss */
+  /* line 53, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right:after {
     right: 60px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 54, ../common-scss/w8-responsive.scss */
+  /* line 62, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right {
     right: -120px;
   }
-  /* line 56, ../common-scss/w8-responsive.scss */
+  /* line 64, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right:after {
     right: 140px;
   }
-  /* line 60, ../common-scss/w8-responsive.scss */
+  /* line 68, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right {
     right: -80px;
   }
-  /* line 62, ../common-scss/w8-responsive.scss */
+  /* line 70, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right:after {
     right: 100px;
   }
-  /* line 66, ../common-scss/w8-responsive.scss */
+  /* line 74, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(3) > .dropdown-menu.pull-right {
     right: -50px;
   }
-  /* line 68, ../common-scss/w8-responsive.scss */
+  /* line 76, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(3) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(3) > .dropdown-menu.pull-right:after {
     right: 70px;
   }
 }
 @media only screen and (max-width: 360px) {
-  /* line 77, ../common-scss/w8-responsive.scss */
+  /* line 85, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right {
     left: -5px;
     right: auto;
   }
-  /* line 80, ../common-scss/w8-responsive.scss */
+  /* line 88, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(1) > .dropdown-menu.pull-right:after {
     right: auto;
     left: 25px;
   }
-  /* line 85, ../common-scss/w8-responsive.scss */
+  /* line 93, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right {
     left: -60px;
     right: auto;
   }
-  /* line 88, ../common-scss/w8-responsive.scss */
+  /* line 96, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(2) > .dropdown-menu.pull-right:after {
     left: 80px;
     right: auto;
   }
-  /* line 93, ../common-scss/w8-responsive.scss */
+  /* line 101, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(3) > .dropdown-menu.pull-right {
     left: -110px;
     right: auto;
   }
-  /* line 96, ../common-scss/w8-responsive.scss */
+  /* line 104, ../common-scss/w8-responsive.scss */
   .ace-nav > li:nth-child(3) > .dropdown-menu.pull-right:before, .ace-nav > li:nth-child(3) > .dropdown-menu.pull-right:after {
     left: 130px;
     right: auto;
   }
 }
 @media only screen and (max-width: 422px) {
-  /* line 105, ../common-scss/w8-responsive.scss */
+  /* line 113, ../common-scss/w8-responsive.scss */
   .navbar .brand {
     display: block;
     float: none;
   }
 
-  /* line 109, ../common-scss/w8-responsive.scss */
+  /* line 117, ../common-scss/w8-responsive.scss */
   .navbar-inverse .navbar-inner {
     border-bottom-width: 0;
   }
 
-  /* line 113, ../common-scss/w8-responsive.scss */
+  /* line 121, ../common-scss/w8-responsive.scss */
   .ace-nav > li {
     display: inline-block;
     float: none !important;
@@ -33445,37 +33469,37 @@ footer:before {
     letter-spacing: normal;
     word-spacing: normal;
   }
-  /* line 119, ../common-scss/w8-responsive.scss */
+  /* line 127, ../common-scss/w8-responsive.scss */
   .ace-nav > li:first-child {
     border-left: 1px solid #DDD;
   }
-  /* line 122, ../common-scss/w8-responsive.scss */
+  /* line 130, ../common-scss/w8-responsive.scss */
   .ace-nav > li:last-child {
     border-right: 1px solid #DDD;
   }
 }
 @media only screen and (max-width: 260px) {
-  /* line 131, ../common-scss/w8-responsive.scss */
+  /* line 139, ../common-scss/w8-responsive.scss */
   .ace-nav > li:first-child {
     border-left: none;
   }
-  /* line 134, ../common-scss/w8-responsive.scss */
+  /* line 142, ../common-scss/w8-responsive.scss */
   .ace-nav > li:last-child {
     border-right: 0;
   }
 }
 @media (min-width: 422px) and (max-width: 480px), (max-width: 340px) {
-  /* line 141, ../common-scss/w8-responsive.scss */
+  /* line 149, ../common-scss/w8-responsive.scss */
   #user_menu {
     padding-top: 42px;
   }
 
-  /* line 144, ../common-scss/w8-responsive.scss */
+  /* line 152, ../common-scss/w8-responsive.scss */
   .ace-nav .nav-user-photo {
     margin-right: 0;
   }
 
-  /* line 147, ../common-scss/w8-responsive.scss */
+  /* line 155, ../common-scss/w8-responsive.scss */
   #user_info {
     position: absolute;
     margin-top: 40px;
@@ -33496,24 +33520,24 @@ footer:before {
     vertical-align: none;
     line-height: normal;
   }
-  /* line 166, ../common-scss/w8-responsive.scss */
+  /* line 174, ../common-scss/w8-responsive.scss */
   #user_info > small {
     display: inline;
     opacity: 1;
   }
 
-  /* line 171, ../common-scss/w8-responsive.scss */
+  /* line 179, ../common-scss/w8-responsive.scss */
   li.open #user_info {
     display: inline-block;
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 177, ../common-scss/w8-responsive.scss */
+  /* line 185, ../common-scss/w8-responsive.scss */
   .fillallheight {
     height: auto;
   }
 
-  /* line 181, ../common-scss/w8-responsive.scss */
+  /* line 189, ../common-scss/w8-responsive.scss */
   .ace-nav {
     display: block;
     float: none !important;
@@ -33525,49 +33549,49 @@ footer:before {
     word-spacing: -4px;
   }
 
-  /* line 192, ../common-scss/w8-responsive.scss */
+  /* line 200, ../common-scss/w8-responsive.scss */
   #nav-search {
     right: 5px;
   }
 
-  /* line 195, ../common-scss/w8-responsive.scss */
+  /* line 203, ../common-scss/w8-responsive.scss */
   #nav-search-input {
     width: 80px;
   }
 
-  /* line 198, ../common-scss/w8-responsive.scss */
+  /* line 206, ../common-scss/w8-responsive.scss */
   #nav-search:hover #nav-search-input, #nav-search-btn:active + #nav-search-input {
     width: 100px;
   }
 
-  /* line 202, ../common-scss/w8-responsive.scss */
+  /* line 210, ../common-scss/w8-responsive.scss */
   #nav-search-input:focus, #nav-search-input:hover, #nav-search-input:active {
     width: 100px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 209, ../common-scss/w8-responsive.scss */
+  /* line 217, ../common-scss/w8-responsive.scss */
   #nav-search-input {
     width: 0;
     opacity: 0;
     max-width: 0;
   }
 
-  /* line 214, ../common-scss/w8-responsive.scss */
+  /* line 222, ../common-scss/w8-responsive.scss */
   #nav-search:hover #nav-search-input, #nav-search-btn:active + #nav-search-input {
     opacity: 1;
     width: 100px;
     max-width: 100px;
   }
 
-  /* line 220, ../common-scss/w8-responsive.scss */
+  /* line 228, ../common-scss/w8-responsive.scss */
   #nav-search-input:focus, #nav-search-input:hover, #nav-search-input:active {
     opacity: 1;
     width: 100px;
     max-width: 100px;
   }
 
-  /* line 226, ../common-scss/w8-responsive.scss */
+  /* line 234, ../common-scss/w8-responsive.scss */
   #nav-search-icon {
     border: 1px solid;
     border-radius: 32px;
@@ -33575,14 +33599,14 @@ footer:before {
     padding: 0 5px;
   }
 
-  /* line 232, ../common-scss/w8-responsive.scss */
+  /* line 240, ../common-scss/w8-responsive.scss */
   #nav-search:hover #nav-search-icon {
     border: 0;
     border-radius: 0;
     padding: 0 3px;
   }
 
-  /* line 238, ../common-scss/w8-responsive.scss */
+  /* line 246, ../common-scss/w8-responsive.scss */
   #nav-search-input:focus ~ #nav-search-icon, #nav-search-input:hover ~ #nav-search-icon, #nav-search-input:active ~ #nav-search-icon {
     border: 0;
     border-radius: 0;
@@ -33590,19 +33614,19 @@ footer:before {
   }
 }
 @media only screen and (max-width: 979px) {
-  /* line 247, ../common-scss/w8-responsive.scss */
+  /* line 255, ../common-scss/w8-responsive.scss */
   body {
     padding-right: 0;
     padding-left: 0;
   }
 
-  /* line 251, ../common-scss/w8-responsive.scss */
+  /* line 259, ../common-scss/w8-responsive.scss */
   #page-content {
     padding-left: 5px;
     padding-right: 5px;
   }
 
-  /* line 255, ../common-scss/w8-responsive.scss */
+  /* line 263, ../common-scss/w8-responsive.scss */
   #sidebar {
     z-index: 14;
     left: -200px;
@@ -33616,29 +33640,29 @@ footer:before {
     -ms-transition: left .15s ease;
     transition: left .15s ease;
   }
-  /* line 256, ../common-scss/w8-responsive.scss */
+  /* line 264, ../common-scss/w8-responsive.scss */
   #sidebar:before {
     display: none;
   }
-  /* line 270, ../common-scss/w8-responsive.scss */
+  /* line 278, ../common-scss/w8-responsive.scss */
   #sidebar.display {
     left: 0;
   }
-  /* line 273, ../common-scss/w8-responsive.scss */
+  /* line 281, ../common-scss/w8-responsive.scss */
   #sidebar.menu-min {
     left: -50px;
   }
-  /* line 274, ../common-scss/w8-responsive.scss */
+  /* line 282, ../common-scss/w8-responsive.scss */
   #sidebar.menu-min.display {
     left: 0;
   }
 
-  /* line 280, ../common-scss/w8-responsive.scss */
+  /* line 288, ../common-scss/w8-responsive.scss */
   #main-content {
     margin-left: 42px !important;
   }
 
-  /* line 283, ../common-scss/w8-responsive.scss */
+  /* line 291, ../common-scss/w8-responsive.scss */
   #menu-toggler {
     display: inline-block;
     position: absolute;
@@ -33657,11 +33681,11 @@ footer:before {
     background-color: #141313;
     color: #f3f3f3;
   }
-  /* line 300, ../common-scss/w8-responsive.scss */
+  /* line 308, ../common-scss/w8-responsive.scss */
   #menu-toggler:hover {
     text-decoration: none;
   }
-  /* line 303, ../common-scss/w8-responsive.scss */
+  /* line 311, ../common-scss/w8-responsive.scss */
   #menu-toggler:before {
     border-top: 1px solid #87b87f;
     border-bottom: 1px solid #6fb3e0;
@@ -33678,7 +33702,7 @@ footer:before {
     -ms-transition: all .1s ease;
     transition: all .1s ease;
   }
-  /* line 319, ../common-scss/w8-responsive.scss */
+  /* line 327, ../common-scss/w8-responsive.scss */
   #menu-toggler:after {
     border-top: 1px solid #ffa24d;
     border-bottom: 1px solid #d15b47;
@@ -33694,25 +33718,25 @@ footer:before {
     -ms-transition: all .1s ease;
     transition: all .1s ease;
   }
-  /* line 335, ../common-scss/w8-responsive.scss */
+  /* line 343, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:before {
     height: 4px;
     top: 8px;
     border-width: 2px;
   }
-  /* line 340, ../common-scss/w8-responsive.scss */
+  /* line 348, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:after {
     height: 4px;
     top: 20px;
     border-width: 2px;
   }
 
-  /* line 347, ../common-scss/w8-responsive.scss */
+  /* line 355, ../common-scss/w8-responsive.scss */
   .breadcrumb {
     margin-left: 90px;
   }
 
-  /* line 350, ../common-scss/w8-responsive.scss */
+  /* line 358, ../common-scss/w8-responsive.scss */
   #breadcrumbs.fixed {
     position: relative;
     left: auto;
@@ -33720,27 +33744,27 @@ footer:before {
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 358, ../common-scss/w8-responsive.scss */
+  /* line 366, ../common-scss/w8-responsive.scss */
   .breadcrumb > li > a {
     padding: 0;
   }
 }
 @media only screen and (max-width: 320px) {
-  /* line 364, ../common-scss/w8-responsive.scss */
+  /* line 372, ../common-scss/w8-responsive.scss */
   .breadcrumb {
     margin-left: 36px;
   }
 
-  /* line 367, ../common-scss/w8-responsive.scss */
+  /* line 375, ../common-scss/w8-responsive.scss */
   #menu-toggler {
     width: 0;
   }
-  /* line 369, ../common-scss/w8-responsive.scss */
+  /* line 377, ../common-scss/w8-responsive.scss */
   #menu-toggler > span {
     border-width: 7px 16px;
     bottom: -14px;
   }
-  /* line 372, ../common-scss/w8-responsive.scss */
+  /* line 380, ../common-scss/w8-responsive.scss */
   #menu-toggler > span:after {
     font-size: 9px;
     font-weight: normal;
@@ -33749,47 +33773,47 @@ footer:before {
     left: -13px;
     top: -42px;
   }
-  /* line 381, ../common-scss/w8-responsive.scss */
+  /* line 389, ../common-scss/w8-responsive.scss */
   #menu-toggler:before, #menu-toggler:after {
     margin-top: 8px;
   }
-  /* line 385, ../common-scss/w8-responsive.scss */
+  /* line 393, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:before, #menu-toggler.display:after {
     height: 2px;
     border-width: 1px;
   }
-  /* line 389, ../common-scss/w8-responsive.scss */
+  /* line 397, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:before {
     top: 13px;
   }
-  /* line 392, ../common-scss/w8-responsive.scss */
+  /* line 400, ../common-scss/w8-responsive.scss */
   #menu-toggler.display:after {
     top: 19px;
   }
 }
 @media only screen and (max-width: 979px) {
-  /* line 400, ../common-scss/w8-responsive.scss */
+  /* line 408, ../common-scss/w8-responsive.scss */
   #page-content {
     padding-left: 11px;
     padding-right: 11px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 407, ../common-scss/w8-responsive.scss */
+  /* line 415, ../common-scss/w8-responsive.scss */
   #page-content {
     padding-left: 7px;
     padding-right: 7px;
   }
 }
 @media only screen and (max-width: 320px) {
-  /* line 414, ../common-scss/w8-responsive.scss */
+  /* line 422, ../common-scss/w8-responsive.scss */
   #page-content {
     padding-left: 5px;
     padding-right: 5px;
   }
 }
 @media only screen and (max-width: 460px) {
-  /* line 421, ../common-scss/w8-responsive.scss */
+  /* line 429, ../common-scss/w8-responsive.scss */
   .infobox {
     min-width: 95%;
     margin-top: 2px;
@@ -33797,42 +33821,42 @@ footer:before {
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 429, ../common-scss/w8-responsive.scss */
+  /* line 437, ../common-scss/w8-responsive.scss */
   .widget-box {
     margin-top: 7px;
     margin-bottom: 7px;
   }
 }
 @media only screen and (max-width: 420px) {
-  /* line 436, ../common-scss/w8-responsive.scss */
+  /* line 444, ../common-scss/w8-responsive.scss */
   .login-layout .widget-box .widget-main {
     padding: 16px;
   }
 }
 @media only screen and (max-width: 320px) {
-  /* line 442, ../common-scss/w8-responsive.scss */
+  /* line 450, ../common-scss/w8-responsive.scss */
   .login-layout .widget-box .widget-main {
     padding: 16px 8px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 448, ../common-scss/w8-responsive.scss */
+  /* line 456, ../common-scss/w8-responsive.scss */
   .login-container {
     width: 98%;
   }
 
-  /* line 451, ../common-scss/w8-responsive.scss */
+  /* line 459, ../common-scss/w8-responsive.scss */
   .login-layout .widget-box {
     padding: 0;
   }
 
-  /* line 454, ../common-scss/w8-responsive.scss */
+  /* line 462, ../common-scss/w8-responsive.scss */
   #login-box .toolbar > div {
     width: auto;
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 460, ../common-scss/w8-responsive.scss */
+  /* line 468, ../common-scss/w8-responsive.scss */
   .login-layout .widget-box.visible {
     -webkit-transition: none;
     -moz-transition: none;
@@ -33842,19 +33866,19 @@ footer:before {
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 470, ../common-scss/w8-responsive.scss */
+  /* line 478, ../common-scss/w8-responsive.scss */
   .error-container {
     margin: 12px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 476, ../common-scss/w8-responsive.scss */
+  /* line 484, ../common-scss/w8-responsive.scss */
   .error-container {
     margin: 6px;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 482, ../common-scss/w8-responsive.scss */
+  /* line 490, ../common-scss/w8-responsive.scss */
   .fc-header td {
     display: block;
     width: auto;
@@ -33862,18 +33886,18 @@ footer:before {
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 490, ../common-scss/w8-responsive.scss */
+  /* line 498, ../common-scss/w8-responsive.scss */
   .ace-thumbnails {
     text-align: center;
   }
-  /* line 492, ../common-scss/w8-responsive.scss */
+  /* line 500, ../common-scss/w8-responsive.scss */
   .ace-thumbnails > li {
     float: none;
     display: inline-block;
   }
 }
 @media only screen and (max-width: 360px) {
-  /* line 500, ../common-scss/w8-responsive.scss */
+  /* line 508, ../common-scss/w8-responsive.scss */
   .grid3, .grid4 {
     float: none;
     display: block;
@@ -33885,7 +33909,7 @@ footer:before {
     padding-bottom: 4px;
   }
 
-  /* line 510, ../common-scss/w8-responsive.scss */
+  /* line 518, ../common-scss/w8-responsive.scss */
   .grid3 > [class*="pull-"], .grid4 > [class*="pull-"] {
     float: none !important;
     display: inline-block;
@@ -33895,79 +33919,79 @@ footer:before {
     margin-top: 0;
   }
 
-  /* line 518, ../common-scss/w8-responsive.scss */
+  /* line 526, ../common-scss/w8-responsive.scss */
   .grid3:last-child, .grid4:last-child {
     border-bottom: 0;
   }
 }
 @media (max-width: 979px) {
-  /* line 524, ../common-scss/w8-responsive.scss */
+  /* line 532, ../common-scss/w8-responsive.scss */
   body.navbar-fixed {
     padding-top: 0;
   }
 
-  /* line 527, ../common-scss/w8-responsive.scss */
+  /* line 535, ../common-scss/w8-responsive.scss */
   .navbar-fixed-top {
     margin-bottom: 0;
   }
-  /* line 529, ../common-scss/w8-responsive.scss */
+  /* line 537, ../common-scss/w8-responsive.scss */
   .navbar-fixed-top .navbar-inner {
     padding-top: 0;
     padding-bottom: 0;
   }
 
-  /* line 534, ../common-scss/w8-responsive.scss */
+  /* line 542, ../common-scss/w8-responsive.scss */
   .navbar-fixed-bottom .navbar-inner {
     padding-top: 0;
     padding-bottom: 0;
   }
 
-  /* line 538, ../common-scss/w8-responsive.scss */
+  /* line 546, ../common-scss/w8-responsive.scss */
   #sidebar.fixed {
     position: absolute;
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 544, ../common-scss/w8-responsive.scss */
+  /* line 552, ../common-scss/w8-responsive.scss */
   .help-inline, .input-icon + .help-inline {
     padding-left: 0;
     display: block !important;
   }
 }
 @media only screen and (max-width: 640px) {
-  /* line 552, ../common-scss/w8-responsive.scss */
+  /* line 560, ../common-scss/w8-responsive.scss */
   .wizard-steps li .step {
     padding: 2px 7px;
     border-width: 3px;
   }
-  /* line 556, ../common-scss/w8-responsive.scss */
+  /* line 564, ../common-scss/w8-responsive.scss */
   .wizard-steps li:before, .wizard-steps li:after {
     border-width: 3px;
   }
-  /* line 559, ../common-scss/w8-responsive.scss */
+  /* line 567, ../common-scss/w8-responsive.scss */
   .wizard-steps li.complete .step:before {
     padding: 5px 4px;
     font-size: 13px;
   }
-  /* line 563, ../common-scss/w8-responsive.scss */
+  /* line 571, ../common-scss/w8-responsive.scss */
   .wizard-steps li:after {
     top: -12px;
   }
 
-  /* line 567, ../common-scss/w8-responsive.scss */
+  /* line 575, ../common-scss/w8-responsive.scss */
   .step-content .step-pane {
     padding: 4px 4px 6px;
   }
 }
 @media only screen and (max-width: 400px) {
-  /* line 573, ../common-scss/w8-responsive.scss */
+  /* line 581, ../common-scss/w8-responsive.scss */
   .itemdiv.memberdiv {
     float: none;
     width: auto;
   }
 }
 @media only screen and (max-width: 979px) {
-  /* line 580, ../common-scss/w8-responsive.scss */
+  /* line 588, ../common-scss/w8-responsive.scss */
   .ace-spinner .spinner-buttons > .btn {
     height: 29px;
     line-height: 20px;
@@ -33976,14 +34000,14 @@ footer:before {
     display: inline-block;
     vertical-align: sub;
   }
-  /* line 587, ../common-scss/w8-responsive.scss */
+  /* line 595, ../common-scss/w8-responsive.scss */
   .ace-spinner .spinner-buttons > .btn > [class*="icon-"] {
     vertical-align: middle;
     display: inline-block;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 595, ../common-scss/w8-responsive.scss */
+  /* line 603, ../common-scss/w8-responsive.scss */
   #ace-settings-container {
     top: 65px;
   }

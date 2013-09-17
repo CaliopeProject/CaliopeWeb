@@ -61,10 +61,26 @@ define(['angular'], function (angular) {
     }
   }
 
-  module.controller("TaskFormCtrl", ['$scope', 'caliopewebTemplateSrv','action',
-    function($scope, cwFormService, action) {
+  module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv','action',
+    function($scope, $location, cwFormService, action) {
 
 
+    $scope.executeTask = function(dialogName) {
+
+      var route = 'form/'
+
+      if($scope.target !== undefined) {
+        route = route.concat($scope.target.entity).concat('/edit/').concat($scope.uuid);
+      }
+      $location.path(route);
+
+      if( dialogName !== undefined ) {
+        if($scope[dialogName] !== undefined) {
+          $scope[dialogName].close([false, dialogName]);
+          $scope.fromDialog = false;
+        }
+      }
+    }
 
     $scope.initFromDialogAction = function() {
       $scope.message      = action.message;

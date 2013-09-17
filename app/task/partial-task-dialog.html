@@ -2,6 +2,10 @@
   <button type='button' class='close' ng-click='closeDialog(dialogName)'>
     <i class="icon-remove"></i>
   </button>
+
   {{target}}
+  <span ng-click='executeTask(dialogName)' ng-show="uuid !== undefined">
+    <i class="icon-signin"></i>
+  </span>
   <cw-dform name="task" cw-dform="jsonPlantillaAngular" entity="tasks" from-routeparams="false" ng-init="initFormDialog()"></cw-dform>
 </div>

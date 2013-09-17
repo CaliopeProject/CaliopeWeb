@@ -17,7 +17,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           controller    : 'TaskFormCtrl'
         };
 
-        var ALLTASK, FACE;
+        var ALLTASK;
         var DIALOG_NAME_CONF_DELETE = 'dialogConfirmDeleteTask';
         var DIALOG_NAME_CONF_ARCHIV = 'dialogConfirmArchivTask';
         var DIALOG_NAME_FORM_TASK   = 'dialogFormTask';
@@ -70,11 +70,51 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
                       getuser.users = getUserTask();
                       tempServices.loadData('accounts.getThumbnailList',getuser)
                               .then(function(data){
-                                FACE = data;
-                              });
+                                var tempALLTASK = angular.copy(ALLTASK);
+
+                                if(!angular.isUndefined(data)){
+                                  angular.forEach(ALLTASK, function(value1, key1){
+                                    if(!angular.isUndefined(value1.tasks)){
+                                      angular.forEach(value1.tasks, function(value2, key2){
+                                        if(!angular.isUndefined(value2.comments)){
+                                          angular.forEach(value2.comments, function(value3, key3){
+                                            var tempUser = {};
+                                            tempUser.login = value3.user;
+                                            angular.forEach(data, function(valUser, key4User){
+                                              angular.forEach(valUser, function(valNomb, key4Face){
+                                                if(key4Face === value3.user){
+                                                  tempUser.face = valNomb;
+                                                }
+                                              });
+                                            });
+                                            tempALLTASK[key1].tasks[key2].comments[key3].user = tempUser;
+                                          });
+                                        }
+                                      });
+                                    }
+                                  });
+                                }
+
+                                ALLTASK = tempALLTASK;
+
+                            });
                       $rootScope.$broadcast('taskServiceNewTask');
                     });
         }
+
+        function sendData(entidad,metodo,datos,uuidEntidad){
+          var sendDato = angular.copy(datos);
+          if(!angular.isUndefined(sendDato.comments)){
+            angular.forEach(sendDato.comments, function(value, key){
+              var user = value.user.login;
+              sendDato.comments[key].user = user;
+            });
+          }
+
+          tempServices.sendDataForm(entidad,metodo,sendDato,uuidEntidad,uuidEntidad);
+
+        }
+
 
         function onTaskDialogClose(result) {
           TASKDIALOG = null;
@@ -141,14 +181,14 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             opentaskDialog(DIALOG_NAME_FORM_TASK);
           },
 
-          archiveTask: function(uuid) {
+          archiveTask: function(item) {
             opts.templateUrl = './task/partial-task-dialog-acction.html';
 
             var data = {
               message       : MESSAGE_TASK_ARCHIV,
               template      : NAME_MODEL_TASK,
               actionMethod  : 'tasks.archive',
-              uuid          : uuid,
+              uuid          : item.uuid,
               dialogName    : DIALOG_NAME_CONF_ARCHIV
             };
 
@@ -161,14 +201,14 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             loadTask();
           },
 
-          deleteTask: function(uuid) {
+          deleteTask: function(item) {
             opts.templateUrl = './task/partial-task-dialog-acction.html';
 
             var data = {
               message       : MESSAGE_TASK_DELETE,
               template      : NAME_MODEL_TASK,
               actionMethod  : 'tasks.delete',
-              uuid          : uuid,
+              uuid          : item.uuid,
               dialogName    : DIALOG_NAME_CONF_DELETE
             };
 
@@ -199,17 +239,12 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             loadTask();
           },
 
-
           cancelTask: function() {
             closetaskDialog(false);
           },
 
           getTask: function(){
             return ALLTASK;
-          },
-
-          getFaces: function (){
-            return FACE;
           },
 
           getTaskpend: function(){
@@ -252,13 +287,13 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
           checkSubtask : function(task, category){
             task.category = category;
-            tempServices.sendDataForm('tasks', 'tasks.edit', task, task.uuid, task.uuid);
+            sendData('tasks', 'tasks.edit', task, task.uuid);
           },
 
           removeSubtask: function(task, category, index){
             task.category = category;
             task.subtasks.splice(index,1);
-            tempServices.sendDataForm('tasks', 'tasks.edit', task, task.uuid, task.uuid);
+            sendData('tasks', 'tasks.edit', task, task.uuid);
           },
 
           addSubtask : function(parentTask, description, category) {
@@ -274,7 +309,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             parentTask.subtasks.push(subTask);
             parentTask.category = category;
 
-            tempServices.sendDataForm('tasks', 'tasks.edit', parentTask, parentTask.uuid, parentTask.uuid);
+            sendData('tasks', 'tasks.edit', parentTask, parentTask.uuid);
           },
 
           countSubtask : function(task) {
@@ -290,9 +325,10 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           addComment : function(parentTask, text, category) {
             var timeall = new Date();
             var user    = loginSecurity.currentUser.user;
+            var face    = loginSecurity.currentUser.image;
             var commentext = {
               text : text,
-              user : user,
+              user : {login: user, face: face},
               time : timeall
             };
 
@@ -303,43 +339,16 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             parentTask.comments.push(commentext);
             parentTask.category = category;
 
-            tempServices.sendDataForm('tasks', 'tasks.edit', parentTask, parentTask.uuid, parentTask.uuid);
+            sendData('tasks', 'tasks.edit', parentTask, parentTask.uuid);
           },
 
-          changeCategory: function(uiElement, taskDrag){
-
-            var category , categ, uuid, itemsbycateg, data;
-            var params = {};
-            var method = "tasks.edit";
-
-            itemsbycateg = (function(){
-              var i,j,categoryUiid = [];
-              angular.forEach(ALLTASK, function(value, key){
-                var category, tasksCategory;
-                category = value.category;
-                for(j=0; value.tasks.length > j; j++){
-                  if(!angular.isUndefined(value.tasks[j].uuid)){
-                    categoryUiid.push({uuid : value.tasks[j].uuid, categ: category});
-                  }
-                }
-              });
-
-              return categoryUiid;
-
-            }());
-
-            uuid         = uiElement.draggable.attr("uuid");
-            categ        = findCateg(itemsbycateg, uuid);
-
-            if(!angular.isUndefined(categ)){
-              data = taskDrag;
-              data.category = categ;
-              tempServices.sendDataForm('tasks', 'tasks.edit', data, uuid, uuid).then(function(data){
-                loadTask();
-              });
+          changeCategory: function(taskDrag, category){
+            if(!angular.isUndefined(taskDrag)){
+              taskDrag.category = category;
+              sendData('tasks', 'tasks.edit', taskDrag, taskDrag.uuid);
             }
+            loadTask();
           }
-
         };
 
         return service;

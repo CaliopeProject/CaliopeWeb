@@ -116,7 +116,7 @@ define(['angular', 'dform'], function (angular) {
 
         if( $attrs['fromRouteparams'] !== undefined &&
             $attrs['fromRouteparams'] === "true") {
-          entity = $routeParams.plantilla;
+          entity = $routeParams.entity;
           mode = $routeParams.mode;
           uuid = $routeParams.uuid;
         }

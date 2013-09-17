@@ -8251,7 +8251,7 @@ td.td-actions a.td-action:hover {
 }
 /* line 7248, ../common-scss/w8.scss */
 .itemdiv > .body {
-  margin-left: 31px;
+  margin-left: 34px;
   padding-left: 0;
   width: auto;
   margin-right: 12px;
@@ -8344,8 +8344,9 @@ td.td-actions a.td-action:hover {
   padding: 3px 7px 7px;
   border-left-width: 2px;
   margin-right: 1px;
+  overflow-x: auto;
 }
-/* line 7334, ../common-scss/w8.scss */
+/* line 7335, ../common-scss/w8.scss */
 .itemdiv.dialogdiv > .body:before {
   content: "";
   display: block;
@@ -8363,15 +8364,14 @@ td.td-actions a.td-action:hover {
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
-/* line 7352, ../common-scss/w8.scss */
+/* line 7353, ../common-scss/w8.scss */
 .itemdiv.dialogdiv > .body > .time {
   position: static;
   float: right;
 }
-/* line 7356, ../common-scss/w8.scss */
+/* line 7357, ../common-scss/w8.scss */
 .itemdiv.dialogdiv > .body > .text {
   padding-left: 0;
-  overflow-x: auto;
   padding-bottom: 0;
 }
 /* line 7360, ../common-scss/w8.scss */
