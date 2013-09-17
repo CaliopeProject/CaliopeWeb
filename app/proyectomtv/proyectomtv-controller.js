@@ -3,9 +3,37 @@ define(['angular'], function(angular) {
 
   var moduleControllers = angular.module('ProyectoControllers', []);
 
+  /**
+   *
+   * @param result
+   */
+  function processResultLoadForm(result, $scope) {
+    if( result !== undefined && result.error === undefined) {
+      if( result !== undefined ) {
+        if( result.structureToRender !== undefined ) {
+          $scope.jsonPlantillaAngular = result.structureToRender;
+        }
+        if( result.elements !== undefined ) {
+          $scope.elementsFormTemplate = result.elements;
+        }
+        $scope.modelUUID = result.modelUUID;
+
+        if (result.data !== undefined) {
+          var varname;
+          for (varname in result.data) {
+            if(result.data.hasOwnProperty(varname)) {
+              $scope[varname] = result.data[varname];
+            }
+          }
+        }
+
+      }
+    }
+  }
+
   moduleControllers.controller('ProyectomtvCtrl',
     ['caliopewebTemplateSrv', 'caliopewebGridSrv', '$scope', '$routeParams',
-    function (cwTemplateService, cwGridService, $scope) {
+    function (cwFormService, cwGridService, $scope, $routeParams) {
 
 
       $scope.initGrid = function() {
@@ -24,6 +52,19 @@ define(['angular'], function(angular) {
 
         cwGrid.setDecorators([CaliopeWebGridDataDecorator, CWGridColumnsDefNgGridDecorator])
       };
+
+      $scope.initForm = function(methodsToSupport) {
+        var cwForm = $scope['project'];
+        cwFormService.loadForm(cwForm, {}).then(function(result) {
+          processResultLoadForm(result, $scope);
+          if($scope.modelUUID !== undefined) {
+            $scope.showWidgetTask=true;
+          } else {
+            $scope.showWidgetTask=false;
+          }
+        });
+      };
+
       /*
       Ejemplo de carga de grilla cuando se invoca un evento y se envian parámetros.
       $scope.findWithFilter = function(uuidProyecto) {

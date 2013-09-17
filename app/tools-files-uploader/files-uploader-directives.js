@@ -6,7 +6,7 @@ define(['angular','jquery.fileupload'], function (angular) {
   
 var dirmodule = angular.module('fileuploaderDirectives', ['login-security-services']);
 
-dirmodule.directive('ngFileuploader', ['SessionSrv',  function(security) {
+dirmodule.directive('ngFileuploader', ['SessionSrv','global_constants',  function(security,global_constants) {
     return {
         templateUrl: 'tools-files-uploader/files-uploader-directives.html',
         replace: true,
@@ -18,7 +18,8 @@ dirmodule.directive('ngFileuploader', ['SessionSrv',  function(security) {
         link: function(scope, elm, attrs) {
 
             $(elm).fileupload({
-                url     : '/upload/',
+                method : 'POST',
+                url     : global_constants.hyperion_server_address + '/upload/',
                 dataType: 'json',
                 paramName: 'files[]',
                 sequentialUploads: true,

@@ -1,9 +1,9 @@
 <li class="orange user-profile">
 <a data-toggle="dropdown" class="dropdown-toggle" ng-click="openDialog()" href="#">
-  <i class="icon-user"></i>
+  <img class="nav-user-photo" ng-show="isAuthenticated()" src="data:image/png;base64, {{currentUser.image || 'R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='}}">
   <span ng-hide="isAuthenticated()" class="badge-transparent" ng-click="login()">Ingresar</span>
   <span id="user_info" ng-show="isAuthenticated()">
-    {{currentUser.name}} {{currentUser.last_name}}
+    {{currentUser.first_name}} {{currentUser.last_name}}
  </span>
   <span ng-show="isAuthenticated()" ><i class="icon-caret-down" ></i></span>
 </a>

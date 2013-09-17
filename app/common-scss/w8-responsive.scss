@@ -33,6 +33,14 @@
 }
 
 @media only screen and (max-width: 767px) {
+  .itemdiv > .body {
+    margin-left: 0px;
+  }
+
+  .itemdiv.dialogdiv > .body:before {
+    content: initial;
+  }
+
   .ace-nav > li {
     &:nth-child(1) > .dropdown-menu.pull-right {
       right: -80px;

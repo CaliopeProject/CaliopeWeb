@@ -946,11 +946,12 @@ blockquote {
     }
   }
   .nav-user-photo {
-    margin: -4px 8px 0 0;
+    margin: -4px 10px 0 0;
     border-radius: 24px;
     border: 2px solid #FFF;
-    max-width: 36px !important;
+    max-width: 24px !important;
   }
+
   li:last-child a [class^="icon-"] {
     display: inline-block;
     width: 1.25em;
@@ -5047,17 +5048,6 @@ th, td, .table-bordered {
 
 .table {
   thead:first-child tr {
-    color: #707070;
-    font-weight: normal;
-    background: #f2f2f2;
-    background-color: #f3f3f3;
-    background-image: -moz-linear-gradient(top, #f8f8f8, #ececec);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f8f8f8), to(#ececec));
-    background-image: -webkit-linear-gradient(top, #f8f8f8, #ececec);
-    background-image: -o-linear-gradient(top, #f8f8f8, #ececec);
-    background-image: linear-gradient(to bottom, #f8f8f8, #ececec);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8',endColorstr='#ffececec',GradientType=0);
     th {
       border: 1px solid #DDD;
       border-width: 0 1px;
@@ -5083,6 +5073,9 @@ th, td, .table-bordered {
   }
   &.table-hover tbody tr:hover td {
     background-color: #f1f1f1;
+  }
+  & tr td:first-child {
+    font-weight: bold;
   }
 }
 
@@ -7235,7 +7228,6 @@ td.td-actions a.td-action {
   > {
     .user {
       display: inline-block;
-      width: 42px;
       position: absolute;
       left: 0;
       > img {
@@ -7246,7 +7238,7 @@ td.td-actions a.td-action {
       }
     }
     .body {
-      margin-left: 50px;
+      margin-left: 34px;
       padding-left: 0;
       width: auto;
       margin-right: 12px;
@@ -7306,7 +7298,6 @@ td.td-actions a.td-action {
     }
   }
   &.dialogdiv {
-    padding-bottom: 14px;
     &:before {
       position: absolute;
       display: block;
@@ -7332,12 +7323,13 @@ td.td-actions a.td-action {
         padding: 3px 7px 7px;
         border-left-width: 2px;
         margin-right: 1px;
+        overflow-x: auto;
         &:before {
           content: "";
           display: block;
           position: absolute;
           left: -7px;
-          top: 11px;
+          top: 7px;
           width: 8px;
           height: 8px;
           border: 2px solid #dde4ed;
@@ -7373,7 +7365,6 @@ td.td-actions a.td-action {
     padding: 2px;
     margin: 3px 0;
     float: left;
-    border-bottom: 1px solid #e8e8e8;
     > {
       .user > img {
         border-color: #dce3ed;

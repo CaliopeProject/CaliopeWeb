@@ -40,6 +40,7 @@ $borKanba: 12px;
   @include background-image(linear-gradient(white, #e9e3a5));
   margin: 3px 0;
   border-bottom: 1px solid #CCC;
+  padding-bottom: 42px ;
 }
 
 .widget-header-kanban {
@@ -86,9 +87,20 @@ $borKanba: 12px;
   border: 1px solid #CCC;
   background-color: #ffffff;
   padding: 0px 11px 7px 11px;
-  text-align: right;
   font-size: small;
   > :hover { cursor: move; }
+
+  & .nav-user-photo {
+    margin: -4px 10px 0 0;
+    border-radius: 24px;
+    border: 2px solid #FFF;
+    max-width: 24px !important;
+    &:hover {
+      border-radius: 50px;
+      z-index: 1;
+      max-width: 50px !important;
+    }
+  }
 
   li {
     text-align: left;
@@ -100,6 +112,7 @@ $borKanba: 12px;
 
   form{
     padding-right: 7px;
+    overflow-x: hidden;
   }
 
   > :first-child {
@@ -114,9 +127,13 @@ $borKanba: 12px;
     overflow: hidden;
   }
 
-  input{
-    width: 80%;
+  .input-prepend{
+    text-align: right;
   }
+}
+
+.widget-toolbar-kanban-form {
+  text-align: right;
 }
 
 .widget-toolbar-kanban {
@@ -144,7 +161,9 @@ $borKanba: 12px;
       padding-bottom: 10px;
     }
 
+
   }
+
 
   span{
     margin: 0px;
@@ -152,6 +171,9 @@ $borKanba: 12px;
     &:last-child{
       padding-right: 0px;
     }
+  }
+  .input-append {
+    overflow: hidden;
   }
 }
 

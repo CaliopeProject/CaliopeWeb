@@ -22,48 +22,99 @@ define(['angular'], function(angular) {
 
       //We return this object to anything injecting our service
       var Service     = {};
+      /**
+       *
+       * @type {{}}
+       */
       Service.caliopeForm = {};
+
+      /**
+       *
+       * @param model
+       * @param mode
+       * @param modelUUID
+       * @param params
+       * @returns {{}}
+       */
+      function getForm(cwForm, params) {
+
+        var promise = {};
+        if( cwForm !== undefined ) {
+          var method = {};
+          var promiseMode = {};
+          var webSockets = webSocket.WebSockets()
+          var mode = cwForm.getMode();
+          var model = cwForm.getEntityModel();
+
+          if(params === undefined ) {
+            params = {};
+          }
+          var deferred = $q.defer();
+          promise = deferred.promise;
+
+          var resolveResult = function(dataForm) {
+            if( dataForm !== undefined && dataForm.error === undefined) {
+              var result = Service.load(dataForm, cwForm) ;
+              deferred.resolve(result);
+            }
+          };
+
+          if (mode === 'toCreate') {
+            method = model.concat('.getModel');
+            promiseMode = webSockets.serversimm.sendRequest(method, params);
+            promiseMode.then(resolveResult)
+          } else if (mode === 'toEdit') {
+            var modelUUID = cwForm.getModelUUID();
+            //promise = deferred.promise;
+
+            method = model.concat('.getModel');
+            var promiseGetModel = webSockets.serversimm.sendRequest(method, params);
+
+            promiseGetModel.then(function(resultModel) {
+              method = model.concat('.getData');
+              params.uuid = modelUUID;
+              var promiseGetData = webSockets.serversimm.sendRequest(method, params);
+              promiseGetData.then(function(resultData) {
+                if( resultData !== undefined && resultModel !== undefined ) {
+                  resultModel.data = resultData;
+                }
+                resolveResult(resultModel);
+              });
+              promiseMode = promiseGetData;
+
+            });
+          } else {
+            throw new Error('Mode isn\'t supported to load the form from server.');
+          }
+        } else {
+          throw new Error('Caliope Web Form is undefined.');
+        }
+
+        return promise;
+      };
+
       /**
       * Load the json template that define the form with fields.
       * @param caliopeForm Form to retrieve.
       * @returns {{}} Promise created to the send the request to the server.
       */
       Service.loadTemplateData = function () {
-        var method = {};
         var params = {};
-        var promise = {};
-        var webSockets = webSocket.WebSockets();
 
-        var model = Service.caliopeForm.id;
-        if (Service.caliopeForm.mode === 'create') {
-          method = model.concat('.getModel');
-          promise = webSockets.serversimm.sendRequest(method, params);
-        }
-        if (Service.caliopeForm.mode === 'edit') {
+        var cwForm = new CaliopeWebForm(
+            Service.caliopeForm.id, Service.caliopeForm.mode, Service.caliopeForm.uuid);
 
-          var deferred = $q.defer();
-          promise = deferred.promise;
+        return getForm(cwForm, params);
+      };
 
-          method = model.concat('.getModel');
-          var promiseGetModel = webSockets.serversimm.sendRequest(method, params);
-
-          promiseGetModel.then(function(resultModel) {
-            method = model.concat('.getData');
-            params.uuid = Service.caliopeForm.uuid;
-            var promiseGetData = webSockets.serversimm.sendRequest(method, params);
-            promiseGetData.then(function(resultData) {
-              if( resultData !== undefined && resultModel !== undefined ) {
-                resultModel.data = resultData;
-              }
-
-              deferred.resolve(resultModel);
-            });
-
-          });
-
-        }
-
-        return promise;
+      /**
+       *
+       * @param cwForm
+       * @param params
+       * @returns {*}
+       */
+      Service.loadForm = function(cwForm, params) {
+        return getForm(cwForm, params);
       };
 
       /**
@@ -101,7 +152,30 @@ define(['angular'], function(angular) {
         return promise;
       };
 
+
+      /**
+       *
+       * @param met
+       * @param params
+       * @returns {Function|promise}
+       */
+      Service.loadData = function(met, params) {
+        var method = met;
+
+        var webSockets = webSocket.WebSockets();
+        var promise    = webSockets.serversimm.sendRequest(method, params);
+        return promise;
+      };
+
+      /**
+       *
+       * @param met
+       * @param formId
+       * @param paramsSearch
+       * @returns {Function|promise}
+       */
       Service.loadDataOptions = function(met, formId, paramsSearch) {
+
         var method = met;
         var params = {
           'formId' : formId
@@ -115,18 +189,26 @@ define(['angular'], function(angular) {
         return promise;
       };
 
-      Service.load = function ( value , context, actionsToShow) {
+      /**
+       *
+       * @param value
+       * @param context
+       * @param actionsToShow
+       * @returns {{}}
+       */
+      Service.load = function (value , cwForm) {
 
+          var context = {};
           var templateFromServer = value;
           var result = {};
 
           if (templateFromServer !== undefined && templateFromServer.error === undefined &&
           templateFromServer.form !== undefined) {
 
-            var caliopeWebForm = new CaliopeWebForm();
+            var caliopeWebForm = cwForm;
             caliopeWebForm.addStructure(templateFromServer.form, templateFromServer.form.name);
             caliopeWebForm.addActions(templateFromServer.actions);
-            caliopeWebForm.addActionsToShow(actionsToShow);
+            caliopeWebForm.setActionsMethodToShow(cwForm.getActionsToShow());
             caliopeWebForm.addData(templateFromServer.data);
             caliopeWebForm.addTranslations(templateFromServer.translations);
             caliopeWebForm.addlayout(templateFromServer.layout);
@@ -143,10 +225,25 @@ define(['angular'], function(angular) {
             result.data              = caliopeWebForm.getData();
             result.elementsName      = caliopeWebForm.getElementsName();
 
-            caliopeWebForm.putDataToContext(context, result.elements);
+            //caliopeWebForm.putDataToContext(context, result.elements);
             return result;
           }
       };
+
+      /**
+       *
+       * @param entityModel
+       * @param mode
+       * @param uuid
+       */
+      Service.createForm = function(entityModel, mode, uuid) {
+        var calWebForm = new CaliopeWebForm();
+        calWebForm.setEntityModel(entityModel);
+        calWebForm.setMode(mode);
+        calWebForm.setModelUUID(uuid);
+        return calWebForm;
+      };
+
 
     return Service;
 
@@ -177,7 +274,7 @@ define(['angular'], function(angular) {
         return structureToRender;
       };
 
-      Service.createGrid = function(nameGrid, methodServer, params) {
+      Service.createGrid = function(gridName, methodServer, params) {
 
         /**
          * Method of procesing response
@@ -207,7 +304,7 @@ define(['angular'], function(angular) {
         var caliopeWebGrid = new CaliopeWebGrid(webSockets.serversimm, methodServer, params,
             processResponse);
 
-        caliopeWebGrid.addGridName(nameGrid);
+        caliopeWebGrid.addGridName(gridName);
 
         return caliopeWebGrid;
       }

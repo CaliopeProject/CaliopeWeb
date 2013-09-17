@@ -11,8 +11,10 @@ var dependencies = [
     'caliopeweb-templateServices',
     'caliopeweb-templateControllers',
     'caliopeweb-formDirectives',
-    'proyectosmtv-controller',
-    'proyectosmtv-service',
+
+    'proyectomtv-controller',
+    'proyectomtv-service',
+    'proyectomtv-summary-controller',
 
     'login-security-services',
     'login-controllers',
@@ -53,8 +55,10 @@ var modulesAngular = [
     'CaliopeWebTemplatesServices',
     'CaliopeWebTemplateControllers',
     'CaliopeWebFormDirectives',
+
     'ProyectoControllers',
     'ProyectoServices',
+    'ProyectoSummary',
 
     'login-security-services',
     'LoginControllers',
@@ -86,9 +90,20 @@ var modulesAngular = [
     'read-rss-controllers'
   ];
 
-  define(dependencies, function ( angular, webSocket, appcontroller) {
+  define(dependencies, function ( angular, webSocket, appcontroller, $rootScope) {
     var moduleApp = angular.module('caliope', modulesAngular);
 
+    moduleApp.constant('global_constants', {
+        'caliope_server_address':  'ws://' + document.domain + ':' + location.port + '/api/ws',
+        'hyperion_server_address': 'http://' + document.domain + ':' + '9001'
+    });
+
+    moduleApp.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        }
+    ]);
+     
     moduleApp.run(function(webSocket) {
       webSocket.initWebSockets();
     });
