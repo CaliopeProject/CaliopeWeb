@@ -2,7 +2,7 @@ define(['angular', 'application-app'], function(angular, app) {
   'use strict';
 
   var pagesRoute = {
-    'projects' : '/proyectosmtv/form-proyectomtv-partial.html'
+    'projects' : '/proyectomtv/form-proyectomtv-partial.html'
   }
 
 
@@ -18,10 +18,10 @@ define(['angular', 'application-app'], function(angular, app) {
       Routes for projectmtv
     */
     $routeProvider.when('/list-proyectomtv', {
-      templateUrl: '/proyectosmtv/list-proyectomtv-partial.html'});
+      templateUrl: '/proyectomtv/list-proyectomtv-partial.html'});
 
     $routeProvider.when('/form-proyectomtv/:entity/:mode', {
-      templateUrl: '/proyectosmtv/form-proyectomtv-partial.html'});
+      templateUrl: '/proyectomtv/form-proyectomtv-partial.html'});
 
     $routeProvider.when('/form/:entity/:mode/:uuid',{
       templateUrl : function(routeParams) {
