@@ -17,8 +17,8 @@ define(['angular', 'uuid'], function(angular) {
   });
 
   moduleWebSocket.factory('webSocket',
-    ['$q', '$rootScope', 'JsonRpcConst', 'HandlerResponseServerSrv',
-     function($q, $rootScope, jsonRpcConst, handlerResponseSrv) {
+    ['$q', '$rootScope', 'JsonRpcConst','global_constants', 'HandlerResponseServerSrv',
+     function($q, $rootScope, jsonRpcConst, global_constants, handlerResponseSrv) {
 
       var Service = {};
       var webSockets = {};
@@ -171,7 +171,8 @@ define(['angular', 'uuid'], function(angular) {
       function initWebSockets() {
         var wsTemplates = new WebSocketCaliope(
             'ws://' + document.domain + ':' + location.port + '/api/ws'
-            //'ws://' + '192.168.2.57' + ':' + location.port + '/api/ws'
+            //'ws://' + '192.168.0.11' + ':' + location.port + '/api/ws'
+            //'ws://' + '192.168.50.57' + ':' + location.port + '/api/ws'
           );
         webSockets.serversimm = wsTemplates;
       }

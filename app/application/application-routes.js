@@ -33,6 +33,8 @@ define(['angular', 'application-app'], function(angular, app) {
         }
       }
     );
+    $routeProvider.when('/summary-proyectomtv', {
+      templateUrl: '/proyectomtv/proyectomtv-summary-partial.html'}); 
 
     $routeProvider.when('/gis', {
       templateUrl: '/tools-gis-viewer/partial-gis-init.html'});
