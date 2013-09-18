@@ -40,6 +40,9 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
    */
   var moduleDirectives = angular.module('CaliopeWebFormDirectives', []);
 
+  /*
+    TODO: Put this function for global use
+   */
   /**
    * Get the final value of a attribute in a object, where attribute is represented by a string
    * notation that indicate the path to final attribute..
@@ -69,7 +72,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
       try {
         objValue = objValue[fieldsValue[j]];
       } catch (ex) {
-        console.error('Error creando opción en html select. No se encontró el atributo ' + strAttrValue + ' en ', obj );
+        console.error('Error searching value. The attribute ' + strAttrValue + ' in ' + obj + ' doesn\'t exist' );
       }
     }
     return objValue;
@@ -128,8 +131,10 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
         }
         if($attrs['encUuid']==="true") {
           //TODO: Create centralized function to encode and decode uuid
-          var bytesUUID = Crypto.util.base64ToBytes(uuid);
-          uuid = Crypto.charenc.Binary.bytesToString(bytesUUID)
+          if( uuid !== undefined ) {
+            var bytesUUID = Crypto.util.base64ToBytes(uuid);
+            uuid = Crypto.charenc.Binary.bytesToString(bytesUUID);
+          }
         }
         var cwForm = cwFormService.createForm(entity, mode, uuid);
         $scope[name] = cwForm;
