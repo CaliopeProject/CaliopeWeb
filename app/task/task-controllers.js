@@ -64,26 +64,6 @@ define(['angular', 'Crypto'], function (angular) {
   module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv','action',
     function($scope, $location, cwFormService, action) {
 
-
-    $scope.executeTask = function(dialogName) {
-
-      var route = 'form/'
-
-      if($scope.target !== undefined) {
-        //TODO: Create centralized function to encode and decode uuid
-        var bytesUUID = Crypto.charenc.Binary.stringToBytes($scope.target.uuid);
-        route = route.concat($scope.target.entity).concat('/edit/').concat(Crypto.util.bytesToBase64(bytesUUID));
-      }
-      $location.path(route);
-
-      if( dialogName !== undefined ) {
-        if($scope[dialogName] !== undefined) {
-          $scope[dialogName].close([false, dialogName]);
-          $scope.fromDialog = false;
-        }
-      }
-    }
-
     $scope.initFromDialogAction = function() {
       $scope.message      = action.message;
       $scope.form         = action.template;

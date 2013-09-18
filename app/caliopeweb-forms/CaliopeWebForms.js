@@ -200,7 +200,6 @@ var CaliopeWebForm = (function() {
       };
     }
 
-
   /**
    * Constructor of CaliopeWebForm module
 
@@ -547,6 +546,44 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    */
   var ctrlEndName            = 'Ctrl';
 
+  /*
+   TODO: Put this function for global use. Code in caliopeweb-form-directives.js
+   */
+  /**
+   * Get the final value of a attribute in a object, where attribute is represented by a string
+   * notation that indicate the path to final attribute..
+   *
+   * @example
+   * obj = { "user" : {
+    *            "username" : {value : "username"},
+    *            "name"  : {value : "NAME USER"}
+    *          }
+    *       }
+   * strAttrValue = user.name.value
+   * charSplit = '.'
+   *
+   * Return "NAME USER"
+   *
+   * @memberOf CaliopeWebFormDirectives
+   * @param {object} obj Object with the data
+   * @param {string} strAttrValue String that represent the attribute final to return value.
+   * @param {string} charSplit A character that indicate the separation of attributes in strAttrValue
+   * @return {object} The value of attribute
+   */
+  function getFinalValueFromString(obj, strAttrValue, charSplit) {
+    var fieldsValue = strAttrValue.split(charSplit);
+    var j;
+    var objValue = obj;
+    for(j=0;j<fieldsValue.length;j++) {
+      try {
+        objValue = objValue[fieldsValue[j]];
+      } catch (ex) {
+        console.error('Error searching value. The attribute ' + strAttrValue + ' in ' + obj + ' doesn\'t exist' );
+      }
+    }
+    return objValue;
+  }
+
   /**
    * Add ng-controller of angular controller directive to the form.
    * @function
@@ -725,11 +762,13 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    * @memberOf CaliopeWebFormSpecificDecorator
    * @param {array} elementsTemplate Elements Field config in the template.
    */
-  function completeTypeExecuteTask(elementsTemplate) {
+  function completeTypeExecuteTask(elementsTemplate, data) {
     if( elementsTemplate !== undefined ) {
       var i;
       var TYPE_EXCUTETASK = 'execute-task';
       var DIRECTIVE_EXCUTETASK = 'cw-task-execute';
+      var NAME_DATA_TARGET_UUID_VAL= 'target-uuid-field';
+      var NAME_DATA_TARGET_ENTITY_VAL = 'target-entity-field'
 
       for(i=0; i < elementsTemplate.length; i++) {
         if( elementsTemplate[i] !== undefined && elementsTemplate[i].type !== undefined &&
@@ -737,7 +776,10 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 
           elementsTemplate[i].type = DIRECTIVE_EXCUTETASK;
           elementsTemplate[i].type1 = TYPE_EXCUTETASK;
-
+          var attUUID = elementsTemplate[i].options[NAME_DATA_TARGET_UUID_VAL];
+          var attEntity = elementsTemplate[i].options[NAME_DATA_TARGET_ENTITY_VAL];
+          elementsTemplate[i]['target-uuid'] = getFinalValueFromString(data, attUUID, '.');
+          elementsTemplate[i]['target-entity'] = getFinalValueFromString(data, attEntity, '.');
         }
       }
     }
@@ -848,7 +890,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeSelect(elementsTemplate);
         completeTypeDatePicker(elementsTemplate);
         completeTypeMultiChoices(elementsTemplate,data);
-        completeTypeExecuteTask(elementsTemplate);
+        completeTypeExecuteTask(elementsTemplate, data);
 
         return structureInit;
       };

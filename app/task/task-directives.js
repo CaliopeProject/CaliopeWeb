@@ -39,15 +39,36 @@ define(['angular'], function(angular) {
   }]);
 
 
-  moduleDirectives.directive('cwTaskExecute', ['taskService', function(taskService) {
+  moduleDirectives.directive('cwTaskExecute', ['taskService', '$location', function(taskService, $location) {
     var directive = {
       templateUrl: 'task/partial-task-execute-template.html',
       restrict: 'E',
       replace: true,
-      link: function($scope, $element, $attrs, $controller) {
+      controller: function($scope, $element, $attrs) {
 
-        console.log('Link cwTaskExecute')
+        if($attrs['targetUuid'] !== undefined && $attrs['targetEntity'] !== undefined) {
+          $scope.showExecuteTask = true;
+        } else {
+          $scope.showExecuteTask = false;
+        }
 
+        $scope.executeTask = function(dialogName) {
+          var route = 'form/'
+
+          if($attrs['targetUuid'] !== undefined && $attrs['targetEntity'] !== undefined) {
+            //TODO: Create centralized function to encode and decode uuid
+            var bytesUUID = Crypto.charenc.Binary.stringToBytes($attrs['targetUuid']);
+            route = route.concat($attrs['targetEntity']).concat('/edit/').concat(Crypto.util.bytesToBase64(bytesUUID));
+          }
+          $location.path(route);
+
+          if( dialogName !== undefined ) {
+            if($scope[dialogName] !== undefined) {
+              $scope[dialogName].close([false, dialogName]);
+              $scope.fromDialog = false;
+            }
+          }
+        }
       }
     };
 
