@@ -5,30 +5,6 @@ define(['angular', 'Crypto'], function (angular) {
   'use strict';
 
   var module = angular.module('task-controllers', []);
-
-  module.controller("TaskCtrlInit", function($scope) {
-    $scope.task = {title : 'Tareas'};
-
-    $scope.choices1 = [
-      {value: 1, text:'Este es un nombre decente'},
-      {value: 2, text:'bbb'},
-      {value: 3, text:'ccc'},
-      {value: 2, text:'bbb'}
-    ];
-
-    $scope.selectedChoices1 = [
-      {value: 1, text:'aaa'}
-    ];
-
-
-    $scope.addChoice = function(choices, newValueName, newTextName) {
-      choices.push({value: $scope[newValueName], text: $scope[newTextName]});
-      $scope[newValueName]='';
-      $scope[newTextName]='';
-    };
-
-  });
-
   /**
    *
    * @param result
@@ -77,7 +53,7 @@ define(['angular', 'Crypto'], function (angular) {
     $scope.initFormDialog = function() {
       $scope.dialogName = action.dialogName;
       $scope.fromDialog = true;
-      var cwForm = $scope['task'];
+      var cwForm = $scope.task;
       var methodSupport = cwForm.getEntityModel().concat('.').concat(action.mode);
       cwForm.setActionsMethodToShow([methodSupport]);
       cwForm.setMode(action.mode);
