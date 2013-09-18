@@ -202,6 +202,34 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
                   } else {
                     value = $scope[nameVarScope];
                   }
+                  if(inputs[i].hasOwnProperty('relation')) {
+                    var relation = inputs[i].relation;
+                    var oTarget = inputs[i].relation.target;
+                    if( oTarget !== undefined ) {
+                      //var ownRelation = inputs[i].name;
+                      var target = [];
+                      angular.forEach(value, function(vVal, kVal){
+                        var cTarget = angular.copy(oTarget);
+                        angular.forEach(oTarget.properties, function(vProp, kProp){
+                          if(vProp === inputs[i].name ) {
+                            cTarget.properties[kProp] = vVal;
+                          } else {
+                            cTarget.properties[kProp] = $scope[vProp];
+                          }
+                        });
+                        angular.forEach(oTarget['entity-data'], function(vProp, kProp){
+                          if(vProp === inputs[i].name ) {
+                            cTarget['entity-data'][kProp] = vVal;
+                          } else {
+                            cTarget[['entity-data']][kProp] = $scope[vProp];
+                          }
+                        });
+                        target.push(cTarget);
+                      });
+                      relation.target = target;
+                      value = relation;
+                    }
+                  }
                   obj[nameVarScope] = value;
                 }
               }
