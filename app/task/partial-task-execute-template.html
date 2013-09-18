@@ -1,5 +1,8 @@
 <div>
-    <span ng-click='executeTask(dialogName)' ng-show="target.uuid !== undefined">
+    <span ng-click='executeTask(dialogName)' ng-show="showExecuteTask">
       <h1><i  tooltip="Ejecutar" tooltip-placement="right" class="icon-signin"></i></h1>
     </span>
+  <span ng-show="target.uuid === undefined">
+    <h1><i style="visibility: hidden;" tooltip="Ejecutar" tooltip-placement="right" class="icon-empty"></i></h1>
+  </span>
 </div>
