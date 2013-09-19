@@ -230,13 +230,13 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
                             }
                           }
                         });
-                        angular.forEach(oTarget['entity-data'], function(vProp, kProp){
+                        angular.forEach(oTarget['entity_data'], function(vProp, kProp){
                           if(patt.test(vProp)) {
                             var vPropScope = getVarNameScopeFromFormRep(vProp);
                             if(vPropScope === inputs[i].name ) {
-                              cTarget['entity-data'][kProp] = vVal;
+                              cTarget['entity_data'][kProp] = vVal;
                             } else {
-                              cTarget[['entity-data']][kProp] = $scope[vPropScope];
+                              cTarget[['entity_data']][kProp] = $scope[vPropScope];
                             }
                           }
                         });
