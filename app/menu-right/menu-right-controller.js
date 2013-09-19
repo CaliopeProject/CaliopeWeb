@@ -6,6 +6,7 @@ define(['angular'], function(angular) {
 
   moduleControllers.controller('menuRightController',['$scope',
     function($scope){
+
       $scope.shortcuts = [
         { btn  : 'info',    icon  : 'pencil', url : '#/tools/wysihtml5-editor', ttip : 'Editor'},
         { btn  : 'warning', icon  : 'cogs'  , url : '#/kanban', ttip : 'Kanban'},
@@ -15,6 +16,7 @@ define(['angular'], function(angular) {
         { btn  : 'inverse',  icon  : 'comments' , url : '#/caliopeweb-forms/SIIMForm/create'   , ttip : 'Gis'},
         { btn  : 'success',  icon  : 'coffee' , url : '#/caliopeweb-grids/SIIMForm' , ttip : 'Gis'}
       ];
+
     }
   ]);
 });
