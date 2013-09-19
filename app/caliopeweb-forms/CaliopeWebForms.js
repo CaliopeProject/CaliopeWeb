@@ -578,7 +578,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       try {
         objValue = objValue[fieldsValue[j]];
       } catch (ex) {
-        console.error('Error searching value. The attribute ' + strAttrValue + ' in ' + obj + ' doesn\'t exist' );
+        objValue = undefined;
       }
     }
     return objValue;
@@ -768,7 +768,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       var TYPE_EXCUTETASK = 'execute-task';
       var DIRECTIVE_EXCUTETASK = 'cw-task-execute';
       var NAME_DATA_TARGET_UUID_VAL= 'target-uuid-field';
-      var NAME_DATA_TARGET_ENTITY_VAL = 'target-entity-field'
+      var NAME_DATA_TARGET_ENTITY_VAL = 'target-entity-field';
 
       for(i=0; i < elementsTemplate.length; i++) {
         if( elementsTemplate[i] !== undefined && elementsTemplate[i].type !== undefined &&

@@ -7,7 +7,6 @@ define(['angular'], function(angular) {
   moduleControllers.controller('menuRightController',['$scope',
     function($scope){
       $scope.shortcuts = [
-        { btn  : 'success', icon  : 'signal', url : '#/task', ttip : 'Tareas'},
         { btn  : 'info',    icon  : 'pencil', url : '#/tools/wysihtml5-editor', ttip : 'Editor'},
         { btn  : 'warning', icon  : 'cogs'  , url : '#/kanban', ttip : 'Kanban'},
         { btn  : 'error',   icon  : 'globe' , url : '#/gis'   , ttip : 'Gis'},
