@@ -202,7 +202,6 @@ var CaliopeWebForm = (function() {
 
   /**
    * Constructor of CaliopeWebForm module
-
    * @memberOf CaliopeWebForm
    */
     var CaliopeWebForm = function(entityModel, mode, uuid) {
@@ -210,6 +209,39 @@ var CaliopeWebForm = (function() {
       this.entityModel = entityModel;
       this.mode = mode;
       this.modelUUID = uuid;
+    };
+
+    function dataToViewData(elements, dataFromServer) {
+      /*
+      - Si la data proveniente del servidor es nula entonces se retorna un objeto con el nombre
+      de todas las propiedades y el valor en undefined
+      - Si los elementos son nulos entonces se retorna undefined
+       */
+
+      var data;
+
+      if(elements !== undefined) {
+        data = {};
+        jQuery.each(elements, function(key, value) {
+          if( value.hasOwnProperty('name') ) {
+            data[value.name] = dataFromServer[value.name];
+            if( value.hasOwnProperty('relation') ) {
+              data[value.name] = [];
+              jQuery.each(dataFromServer[value.name].target, function(targetKey, targetValue) {
+                if(targetValue.hasOwnProperty('entity_data')){
+                  data[value.name].push( targetValue.entity_data );
+                }
+              });
+            }
+          };
+        });
+      }
+
+      return data;
+    };
+
+    function dataToServerData(dataFromView) {
+
     };
 
   /**
@@ -292,6 +324,13 @@ var CaliopeWebForm = (function() {
         structureToRender = structure;
         return structureToRender;
       },
+
+    /**
+     *
+     */
+    dataToViewData : function() {
+      return dataToViewData(elementsForm, data);
+    },
 
     /**
      * Get the actions added
@@ -850,10 +889,11 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           }
           element[VARNAME_LOADREMOTE] = true;
           element[NAME_DIRECTIVE_MCOMBO] = "mc-".concat(element.name);
-          element[VARNAME_SELECTEDCHOICES] = "";
+
           /*
-          Get choices selected and put in attribute define in var VARNAME_SELECTEDCHOICES
-          */
+           Get choices selected and put in attribute define in var VARNAME_SELECTEDCHOICES
+          element[VARNAME_SELECTEDCHOICES] = "";
+
           if( data !== undefined ) {
             var selectedChoices = data[element.name];
             if( selectedChoices !== undefined ) {
@@ -868,11 +908,14 @@ var CaliopeWebFormSpecificDecorator = ( function() {
               }
             }
           }
+           */
 
         }
       });
     }
   }
+
+
 
   return {
     /**

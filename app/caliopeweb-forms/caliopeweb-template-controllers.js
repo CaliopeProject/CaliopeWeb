@@ -234,9 +234,9 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
                           if(patt.test(vProp)) {
                             var vPropScope = getVarNameScopeFromFormRep(vProp);
                             if(vPropScope === inputs[i].name ) {
-                              cTarget['entity_data'][kProp] = vVal;
+                              cTarget['entity_data'][kProp] = vVal[kProp];
                             } else {
-                              cTarget[['entity_data']][kProp] = $scope[vPropScope];
+                              cTarget[['entity_data']][kProp] = $scope[vPropScope][kProp];
                             }
                           }
                         });

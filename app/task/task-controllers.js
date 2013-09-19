@@ -24,6 +24,7 @@ define(['angular', 'Crypto'], function (angular) {
         $scope.modelUUID = result.modelUUID;
         $scope.entityModel = result.entityModel;
 
+        /*
         if (result.data !== undefined) {
           var varname;
           for (varname in result.data) {
@@ -32,6 +33,7 @@ define(['angular', 'Crypto'], function (angular) {
             }
           }
         }
+        */
 
       }
     }
@@ -60,15 +62,20 @@ define(['angular', 'Crypto'], function (angular) {
       cwForm.setModelUUID(action.uuid);
 
       cwFormService.loadForm(cwForm, {}).then(function(result){
-        var i;
         var inputs = result.elements;
-        for (i = 0; i < inputs.length; i++) {
-          var nameVarScope = inputs[i].name;
-          if( action[nameVarScope] !== undefined) {
-            $scope[nameVarScope] = action[nameVarScope];
+        processResultLoadForm(result, $scope);
+        if( result !== undefined && result.data !== undefined ) {
+          var dataToView = cwForm.dataToViewData();
+          console.log('dataToView', dataToView);
+          if( dataToView !== undefined ) {
+            angular.forEach(dataToView, function(value, key){
+              $scope[key] = value;
+            });
           }
         }
-        processResultLoadForm(result, $scope);
+        angular.forEach(action, function(value, key){
+          $scope[key] = value;
+        });
       });
     };
 

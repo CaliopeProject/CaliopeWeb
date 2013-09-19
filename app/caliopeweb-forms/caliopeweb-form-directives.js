@@ -430,10 +430,9 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                 scope[scopeMultiComboChoices] = [];
                 scope[scopeMultiComboSelected] = [];
                 for(i=0; i<dataResponse.length; i++) {
-                  var option = {
-                    value : tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.'),
-                    text  : tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.')
-                  };
+                  var option = {value : {}};
+                  option.value[attrFieldValue] = tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.');
+                  option.text = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
                   scope[scopeMultiComboChoices].push(option);
                 }
               }
@@ -442,6 +441,39 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
               Code for load selected choices from server to componente ui-mcombo-choices and
               remove selected choices.
               */
+
+              var selectedChoices  = scope[attrs['name']];
+              var scopeMultiComboChoicesTmp = scope[scopeMultiComboChoices];
+              if( selectedChoices !== undefined ) {
+                for(i=0; i < selectedChoices.length; i++ ) {
+                  var valueChoice = selectedChoices[i];
+                  if( valueChoice !== undefined ) {
+                    var j;
+                    var objChoice = undefined;
+                    for(j=0; j < scope[scopeMultiComboChoices].length; j++ ) {
+                      if( scope[scopeMultiComboChoices][j] !== undefined ) {
+
+                        if(scope[scopeMultiComboChoices][j].value[attrFieldValue] === valueChoice[attrFieldValue]) {
+                          objChoice = scope[scopeMultiComboChoices][j];
+                          break;
+                        }
+                      }
+                    }
+                    if( objChoice !== undefined ) {
+                      scope[scopeMultiComboSelected].push(objChoice);
+                      var indexOf = scopeMultiComboChoicesTmp.indexOf(objChoice);
+                      scopeMultiComboChoicesTmp.splice(indexOf, 1);
+                    }
+                  }
+                }
+                scope[scopeMultiComboChoices] = scopeMultiComboChoicesTmp;
+              }
+
+
+              /*
+              Code for load selected choices from server to componente ui-mcombo-choices and
+              remove selected choices.
+
               var selectedChoices  = attrs['selectedChoices'].split(",");
               var scopeMultiComboChoicesTmp = scope[scopeMultiComboChoices];
               if( selectedChoices !== undefined ) {
@@ -468,7 +500,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                 }
                 scope[scopeMultiComboChoices] = scopeMultiComboChoicesTmp;
               }
-
+               */
             });
 
           }
