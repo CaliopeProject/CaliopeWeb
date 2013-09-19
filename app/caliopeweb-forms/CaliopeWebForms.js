@@ -550,28 +550,32 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    TODO: Put this function for global use. Code in caliopeweb-form-directives.js
    */
   /**
-   * Get the final value of a attribute in a object, where attribute is represented by a string
+   * Get the final value of a attribute in a object. Attribute is represented by a string
    * notation that indicate the path to final attribute..
    *
    * @example
    * obj = { "user" : {
-    *            "username" : {value : "username"},
-    *            "name"  : {value : "NAME USER"}
-    *          }
-    *       }
-   * strAttrValue = user.name.value
-   * charSplit = '.'
+     *            "username" : {value : "username"},
+     *            "name"  : {value : "NAME USER"}
+     *          }
+     *       }
+   * attName = user.name.value
+   * charSplitAttName = '.'
    *
    * Return "NAME USER"
    *
-   * @memberOf CaliopeWebFormDirectives
+   * @memberOf commonServices
    * @param {object} obj Object with the data
-   * @param {string} strAttrValue String that represent the attribute final to return value.
-   * @param {string} charSplit A character that indicate the separation of attributes in strAttrValue
-   * @return {object} The value of attribute
+   * @param {string} attName String that represent the attribute final to return value.
+   * @param {string} charSplitAttName A character that indicate the separation of attributes in attName,
+   * if this is undefined or empty or type is not string then the value by default is '.'.
+   * @return {object} The value of attribute, if strAttrValues don't exist then return undefined
    */
-  function getFinalValueFromString(obj, strAttrValue, charSplit) {
-    var fieldsValue = strAttrValue.split(charSplit);
+  function getValueAttInObject(obj, attName, charSplitAttName) {
+    if(charSplitAttName === undefined || typeof charSplitAttName !== 'string' || charSplitAttName.length < 1) {
+      charSplitAttName = '.';
+    }
+    var fieldsValue = attName.split(charSplitAttName);
     var j;
     var objValue = obj;
     for(j=0;j<fieldsValue.length;j++) {
@@ -778,8 +782,8 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           elementsTemplate[i].type1 = TYPE_EXCUTETASK;
           var attUUID = elementsTemplate[i].options[NAME_DATA_TARGET_UUID_VAL];
           var attEntity = elementsTemplate[i].options[NAME_DATA_TARGET_ENTITY_VAL];
-          elementsTemplate[i]['target-uuid'] = getFinalValueFromString(data, attUUID, '.');
-          elementsTemplate[i]['target-entity'] = getFinalValueFromString(data, attEntity, '.');
+          elementsTemplate[i]['target-uuid'] = getValueAttInObject(data, attUUID, '.');
+          elementsTemplate[i]['target-entity'] = getValueAttInObject(data, attEntity, '.');
         }
       }
     }

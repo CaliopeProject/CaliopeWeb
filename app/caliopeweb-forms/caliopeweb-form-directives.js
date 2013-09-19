@@ -40,45 +40,6 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
    */
   var moduleDirectives = angular.module('CaliopeWebFormDirectives', []);
 
-  /*
-    TODO: Put this function for global use
-   */
-  /**
-   * Get the final value of a attribute in a object, where attribute is represented by a string
-   * notation that indicate the path to final attribute..
-   *
-   * @example
-   * obj = { "user" : {
-    *            "username" : {value : "username"},
-    *            "name"  : {value : "NAME USER"}
-    *          }
-    *       }
-   * strAttrValue = user.name.value
-   * charSplit = '.'
-   *
-   * Return "NAME USER"
-   *
-   * @memberOf CaliopeWebFormDirectives
-   * @param {object} obj Object with the data
-   * @param {string} strAttrValue String that represent the attribute final to return value.
-   * @param {string} charSplit A character that indicate the separation of attributes in strAttrValue
-   * @return {object} The value of attribute
-   */
-  function getFinalValueFromString(obj, strAttrValue, charSplit) {
-    var fieldsValue = strAttrValue.split(charSplit);
-    var j;
-    var objValue = obj;
-    for(j=0;j<fieldsValue.length;j++) {
-      try {
-        objValue = objValue[fieldsValue[j]];
-      } catch (ex) {
-        console.error('Error searching value. The attribute ' + strAttrValue + ' in ' + obj + ' doesn\'t exist' );
-      }
-    }
-    return objValue;
-  }
-
-
   /**
    * Define the directive for cw-dform. This print a html form using the
    * Dform library based in JQuery.  This directive should be used as an
@@ -261,7 +222,9 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
   * @param entity: Name of the entity that contains the data.
   *
   */
-  moduleDirectives.directive('cwOptions', ['caliopewebTemplateSrv', "$compile", function (caliopewebTemplateSrv, $compile) {
+  moduleDirectives.directive('cwOptions', [
+    'caliopewebTemplateSrv', "$compile", "toolservices",
+    function (caliopewebTemplateSrv, $compile, tools) {
 
     var ATTNAME_LOADREMOTE = 'fromserver';
     var ATTNAME_METHOD = 'method';
@@ -283,8 +246,6 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
       scope: false,
       link: function (scope, element, attrs) {
 
-        console.log('Attrs', attrs);
-
         if( attrs[ATTNAME_LOADREMOTE] !== undefined && attrs[ATTNAME_LOADREMOTE] === 'true') {
 
           var fieldId = attrs[ATTNAME_FIELDID];
@@ -300,7 +261,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
               var attrFieldDesc = attrs[ATTNAME_FIELDDESC];
               if(attrs[ATTNAME_FIELD_DATALIST] !== undefined) {
                 dataResponse =
-                getFinalValueFromString(dataResponse, attrs[ATTNAME_FIELD_DATALIST], '.');
+                    tools.getValueAttInObject(dataResponse, attrs[ATTNAME_FIELD_DATALIST], '.');
               }
 
               var scopeOptionsName = attrs[ATTNAME_OPTIONSNAME];
@@ -308,8 +269,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                 scope[scopeOptionsName] = [];
                 for(i=0; i<dataResponse.length; i++) {
                   var option = {
-                    value : getFinalValueFromString(dataResponse[i], attrFieldValue, '.'),
-                    label  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
+                    value : tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.'),
+                    label  : tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.')
                   };
                   scope[scopeOptionsName].push(option);
                 }
@@ -326,8 +287,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
     return directiveDefinitionObject;
   }]);
 
-  moduleDirectives.directive("uiMcomboChoices", ['caliopewebTemplateSrv', '$document',
-    function(caliopewebTemplateSrv, $document){
+  moduleDirectives.directive("uiMcomboChoices", ['caliopewebTemplateSrv', '$document', 'toolservices',
+    function(caliopewebTemplateSrv, $document, tools){
     // simultaneously should not be two open items
 
       var openElement = null, close;
@@ -460,7 +421,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                 var attrFieldDesc = attrs[ATTNAME_FIELDDESC];
                 if(attrs[ATTNAME_FIELD_DATALIST] !== undefined) {
                   dataResponse =
-                      getFinalValueFromString(dataResponse, attrs[ATTNAME_FIELD_DATALIST], '.');
+                      tools.getValueAttInObject(dataResponse, attrs[ATTNAME_FIELD_DATALIST], '.');
                 }
 
                 var scopeMultiComboChoices = '_choices';
@@ -470,8 +431,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                 scope[scopeMultiComboSelected] = [];
                 for(i=0; i<dataResponse.length; i++) {
                   var option = {
-                    value : getFinalValueFromString(dataResponse[i], attrFieldValue, '.'),
-                    text  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
+                    value : tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.'),
+                    text  : tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.')
                   };
                   scope[scopeMultiComboChoices].push(option);
                 }
