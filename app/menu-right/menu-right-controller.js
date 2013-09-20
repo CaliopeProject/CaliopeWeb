@@ -17,6 +17,9 @@ define(['angular'], function(angular) {
         { btn  : 'success',  icon  : 'coffee' , url : '#/caliopeweb-grids/SIIMForm' , ttip : 'Gis'}
       ];
 
+      $scope.closeMenu = function(){
+        $scope.$emit('closemenu');
+      };
     }
   ]);
 });

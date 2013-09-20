@@ -24,7 +24,7 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         var initMessage = {type: 'success', msg: 'Bienvenidos al SIIM' };
 
         $scope.showMenu = false;
-        $scope.toggle   = true;
+        $scope.toggle   = false;
         $scope.isAuthenticated = security.isAuthenticated;
 
         $scope.$watch(function() {
@@ -90,6 +90,10 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         $scope.changeToogleMenu = function (){
           $scope.toggle = !$scope.toggle;
         };
+
+        $scope.$on('closemenu', function(event, data) {
+          $scope.showMenu = false;
+        });
      }]
   );
 });
