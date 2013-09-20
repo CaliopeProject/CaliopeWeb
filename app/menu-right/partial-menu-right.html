@@ -2,13 +2,14 @@
 <div id="sidebar-shortcuts">
   <!--MENU ICON SHORTCUTS-LARGE INIT-->
   <div id="sidebar-shortcuts-large">
-    <a ng-repeat="short in shortcuts" ng-click='closeMenu()' href='{{short.url}}'><button ng-class="'btn btn-small btn-' + short.btn" tooltip-placement="right" tooltip='{{short.ttip}}'><i ng-class="'icon-' + short.icon"></i></button></a>
+    <a ng-repeat="short in shortcuts" ng-click='closeMenu()' href='{{short.url}}'><button ng-class="'btn btn-small btn-' + short.btn" tooltip='{{short.ttip}}'><i ng-class="'icon-' + short.icon"></i></button></a>
   </div>
   <!--MENU ICON SHORTCUTS-LARGE END-->
   <!--MENU ICON SHORTCUTS-MINI INIT-->
   <div id="sidebar-shortcuts-mini">
-    <div ng-repeat="short in shortcuts" btn="short.btn"  shortcuts ></div>
+    <a ng-repeat="short in shortcuts" href='{{short.url}}'><span ng-class="'btn btn-' + short.btn" ng-click='closeMenu()'></span></a>
   </div>
+
   <!--MENU ICON SHORTCUTS-MINI END-->
 </div>
 <!--MENU SHORTCUTS END-->
