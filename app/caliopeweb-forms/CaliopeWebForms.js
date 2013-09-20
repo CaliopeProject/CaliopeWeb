@@ -1,3 +1,11 @@
+
+var CaliopeWebFormConstants = {
+  'rexp_value_in_form' : "^{{2}[^{].*[^}]}{2}$",
+  'rexp_value_in_form_inrep' : "^{{2}",
+  'rexp_value_in_form_firep' : "}{2}$"
+}
+
+
 /**
  * Constructor not execute functionality associate to initialize variables, this is the constructor by default.
  * @class CaliopeWebForm
@@ -240,7 +248,103 @@ var CaliopeWebForm = (function() {
       return data;
     };
 
-    function dataToServerData(dataFromView) {
+    function dataToServerData(elements, dataFromView) {
+
+      function getVarNameScopeFromFormRep(formRep) {
+        return formRep.replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_inrep),"").
+            replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_firep),"")
+      }
+
+      /*
+        Si el parámetro dataFromView es undefined entonces se crea una estructura de datos
+        que contiene los elementos y estos con valor null o undefined.
+
+        Si los elementos son indefinidos entonces la estructura de datos será undefined
+       */
+      var data;
+
+
+      if( elements !== undefined ) {
+        data = {};
+        //TODO: Verificar si aún se va a utilizar params to send.
+        var paramsToSend = [];
+        /*
+         if( paramsToSend === undefined || paramsToSend === '' ) {
+         paramsToSend = [];
+         } else {
+         paramsToSend = paramsToSend.split(',');
+         }
+         */
+
+        for (i = 0; i < elements.length; i++) {
+          if( paramsToSend.length === 0 || paramsToSend.indexOf(elements[i]) >= 0 ) {
+            var nameVarScope = elements[i].name;
+            if( dataFromView[nameVarScope] !== undefined ) {
+              var value;
+              if(elements[i].type === 'div' && elements[i].type1 === 'datepicker') {
+                value = (dataFromView[nameVarScope] instanceof Date )? dataFromView[nameVarScope].toJSON() : dataFromView[nameVarScope] ;
+              } else if(elements[i].type === 'select') {
+                value = dataFromView[nameVarScope];
+              } else if(elements[i].type === 'ui-mcombo-choices' && elements[i].type1 === 'multi-choices') {
+                if(dataFromView[nameVarScope] instanceof Array) {
+                  var j;
+                  value = [];
+                  for( j=0; j<dataFromView[nameVarScope].length; j++) {
+                    if( dataFromView[nameVarScope][j].value !== undefined) {
+                      //value = value.concat(dataFromView[nameVarScope].value);
+                      value.push(dataFromView[nameVarScope][j].value);
+                    }
+                  }
+                }
+              } else {
+                value = dataFromView[nameVarScope];
+              }
+              if(elements[i].hasOwnProperty('relation')) {
+                var patt = new RegExp(CaliopeWebFormConstants.rexp_value_in_form);
+                var relation = elements[i].relation;
+                var oTarget = elements[i].relation.target;
+                if( oTarget !== undefined ) {
+                  //var ownRelation = elements[i].name;
+                  var target = [];
+                  jQuery.each(value, function(kRel, vRel){
+                    var cTarget = {};
+                    jQuery.extend(true, cTarget, oTarget);
+                    if(patt.test(oTarget.entity)) {
+                      cTarget.entity = dataFromView[oTarget.entity];
+                    }
+                    jQuery.each(oTarget.properties, function(kProp, vProp){
+                      if(patt.test(kProp)) {
+                        var vPropScope = getVarNameScopeFromFormRep(kProp);
+                        if(vPropScope === elements[i].name ) {
+                          cTarget.properties[vProp] = kRel;
+                        } else {
+                          cTarget.properties[vProp] = dataFromView[vPropScope];
+                        }
+                      }
+                    });
+                    jQuery.each(oTarget['entity_data'], function(kProp, vProp){
+                      if(patt.test(kProp)) {
+                        var vPropScope = getVarNameScopeFromFormRep(kProp);
+                        if(vPropScope === elements[i].name ) {
+                          cTarget['entity_data'][vProp] = kRel[vProp];
+                        } else {
+                          cTarget[['entity_data']][vProp] = dataFromView[vPropScope][vProp];
+                        }
+                      }
+                    });
+                    target.push(cTarget);
+                  });
+                  relation.target = target;
+                  value = relation;
+                }
+              }
+              data[nameVarScope] = value;
+            }
+          }
+        }
+      }
+
+      return data;
 
     };
 
@@ -330,6 +434,15 @@ var CaliopeWebForm = (function() {
      */
     dataToViewData : function() {
       return dataToViewData(elementsForm, data);
+    },
+
+    /**
+     *
+     * @param dataFromView
+     * @returns {*}
+     */
+    dataToServerData : function(dataFromView) {
+      return dataToServerData(elementsForm, dataFromView);
     },
 
     /**

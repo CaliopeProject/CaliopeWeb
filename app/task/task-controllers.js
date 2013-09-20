@@ -55,7 +55,7 @@ define(['angular', 'Crypto'], function (angular) {
     $scope.initFormDialog = function() {
       $scope.dialogName = action.dialogName;
       $scope.fromDialog = true;
-      var cwForm = $scope.task;
+      var cwForm = $scope['cwForm-task'];
       var methodSupport = cwForm.getEntityModel().concat('.').concat(action.mode);
       cwForm.setActionsMethodToShow([methodSupport]);
       cwForm.setMode(action.mode);
@@ -66,7 +66,6 @@ define(['angular', 'Crypto'], function (angular) {
         processResultLoadForm(result, $scope);
         if( result !== undefined && result.data !== undefined ) {
           var dataToView = cwForm.dataToViewData();
-          console.log('dataToView', dataToView);
           if( dataToView !== undefined ) {
             angular.forEach(dataToView, function(value, key){
               $scope[key] = value;

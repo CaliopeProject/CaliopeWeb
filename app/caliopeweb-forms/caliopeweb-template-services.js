@@ -207,30 +207,29 @@ define(['angular'], function(angular) {
           var result = {};
 
           if (templateFromServer !== undefined && templateFromServer.error === undefined &&
-          templateFromServer.form !== undefined) {
+            templateFromServer.form !== undefined) {
 
-            var caliopeWebForm = cwForm;
-            caliopeWebForm.addStructure(templateFromServer.form, templateFromServer.form.name);
-            caliopeWebForm.addActions(templateFromServer.actions);
-            caliopeWebForm.setActionsMethodToShow(cwForm.getActionsToShow());
-            caliopeWebForm.addData(templateFromServer.data);
-            caliopeWebForm.addTranslations(templateFromServer.translations);
-            caliopeWebForm.addlayout(templateFromServer.layout);
+            cwForm.addStructure(templateFromServer.form, templateFromServer.form.name);
+            cwForm.addActions(templateFromServer.actions);
+            cwForm.setActionsMethodToShow(cwForm.getActionsToShow());
+            cwForm.addData(templateFromServer.data);
+            cwForm.addTranslations(templateFromServer.translations);
+            cwForm.addlayout(templateFromServer.layout);
 
-            CaliopeWebFormSpecificDecorator.createStructureToRender(caliopeWebForm);
-            CaliopeWebFormLayoutDecorator.createStructureToRender(caliopeWebForm);
-            CaliopeWebFormValidDecorator.createStructureToRender(caliopeWebForm);
-            CaliopeWebFormActionsDecorator.createStructureToRender(caliopeWebForm);
-            CaliopeWebFormAttachmentsDecorator.createStructureToRender(caliopeWebForm);
+            CaliopeWebFormSpecificDecorator.createStructureToRender(cwForm);
+            CaliopeWebFormLayoutDecorator.createStructureToRender(cwForm);
+            CaliopeWebFormValidDecorator.createStructureToRender(cwForm);
+            CaliopeWebFormActionsDecorator.createStructureToRender(cwForm);
+            CaliopeWebFormAttachmentsDecorator.createStructureToRender(cwForm);
 
-            result.structureToRender = caliopeWebForm.createStructureToRender();
-            result.elements          = caliopeWebForm.getElements();
-            result.modelUUID         = caliopeWebForm.getModelUUID();
-            result.data              = caliopeWebForm.getData();
-            result.elementsName      = caliopeWebForm.getElementsName();
-            result.entityModel       = caliopeWebForm.getEntityModel();
+            result.structureToRender = cwForm.createStructureToRender();
+            result.elements          = cwForm.getElements();
+            result.modelUUID         = cwForm.getModelUUID();
+            result.data              = cwForm.getData();
+            result.elementsName      = cwForm.getElementsName();
+            result.entityModel       = cwForm.getEntityModel();
 
-            //caliopeWebForm.putDataToContext(context, result.elements);
+            //cwForm.putDataToContext(context, result.elements);
           } else if(templateFromServer.error !== undefined) {
             result.error = templateFromServer.error
           } else if(templateFromServer === undefined || templateFromServer.form === undefined ) {

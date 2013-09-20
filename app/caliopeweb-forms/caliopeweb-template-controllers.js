@@ -165,95 +165,17 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
         });
 
 
-        function getVarNameScopeFromFormRep(formRep) {
-          return formRep.replace(new RegExp(GConst.rexp_value_in_form_inrep),"").
-                         replace(new RegExp(GConst.rexp_value_in_form_firep),"")
-        }
-
         $scope.sendAction = function(form, formTemplateName, actionMethod, modelUUID, objID, paramsToSend) {
 
-          var inputs = $scope.elementsFormTemplate;
-          var obj = {};
-          var i;
+          var cwFormName = 'cwForm-'.concat($scope['cwForm-name']);
 
-          $scope.responseSendAction   = {};
-
-          if( paramsToSend === undefined || paramsToSend === '' ) {
-            paramsToSend = [];
-          } else {
-            paramsToSend = paramsToSend.split(',');
+          var cwForm = $scope[cwFormName];
+          if( cwForm !== undefined ) {
+            $scope.responseSendAction   = {};
+            var data = cwForm.dataToServerData($scope);
+            $scope.responseSendAction = caliopewebTemplateSrv.sendDataForm(formTemplateName,
+                actionMethod, data, modelUUID, objID);
           }
-
-          if( inputs !== undefined ) {
-            for (i = 0; i < inputs.length; i++) {
-              if( paramsToSend.length === 0 || paramsToSend.indexOf(inputs[i]) >= 0 ) {
-                var nameVarScope = inputs[i].name;
-                if( $scope[nameVarScope] !== undefined ) {
-                  var value;
-                  if(inputs[i].type === 'div' && inputs[i].type1 === 'datepicker') {
-                    value = ($scope[nameVarScope] instanceof Date )? $scope[nameVarScope].toJSON() : $scope[nameVarScope] ;
-                  } else if(inputs[i].type === 'select') {
-                    value = $scope[nameVarScope];
-                  } else if(inputs[i].type === 'ui-mcombo-choices' && inputs[i].type1 === 'multi-choices') {
-                    if($scope[nameVarScope] instanceof Array) {
-                      var j;
-                      value = [];
-                      for( j=0; j<$scope[nameVarScope].length; j++) {
-                        if( $scope[nameVarScope][j].value !== undefined) {
-                          //value = value.concat($scope[nameVarScope].value);
-                          value.push($scope[nameVarScope][j].value);
-                        }
-                      }
-                    }
-                  } else {
-                    value = $scope[nameVarScope];
-                  }
-                  if(inputs[i].hasOwnProperty('relation')) {
-                    var patt = new RegExp(GConst.rexp_value_in_form);
-                    var relation = inputs[i].relation;
-                    var oTarget = inputs[i].relation.target;
-                    if( oTarget !== undefined ) {
-                      //var ownRelation = inputs[i].name;
-                      var target = [];
-                      angular.forEach(value, function(vVal, kVal){
-                        var cTarget = angular.copy(oTarget);
-                        if(patt.test(oTarget.entity)) {
-                          cTarget.entity = $scope[oTarget.entity];
-                        }
-                        angular.forEach(oTarget.properties, function(vProp, kProp){
-                          if(patt.test(vProp)) {
-                            var vPropScope = getVarNameScopeFromFormRep(vProp);
-                            if(vPropScope === inputs[i].name ) {
-                              cTarget.properties[kProp] = vVal;
-                            } else {
-                              cTarget.properties[kProp] = $scope[vPropScope];
-                            }
-                          }
-                        });
-                        angular.forEach(oTarget['entity_data'], function(vProp, kProp){
-                          if(patt.test(vProp)) {
-                            var vPropScope = getVarNameScopeFromFormRep(vProp);
-                            if(vPropScope === inputs[i].name ) {
-                              cTarget['entity_data'][kProp] = vVal[kProp];
-                            } else {
-                              cTarget[['entity_data']][kProp] = $scope[vPropScope][kProp];
-                            }
-                          }
-                        });
-                        target.push(cTarget);
-                      });
-                      relation.target = target;
-                      value = relation;
-                    }
-                  }
-                  obj[nameVarScope] = value;
-                }
-              }
-            }
-          }
-
-          $scope.responseSendAction = caliopewebTemplateSrv.sendDataForm(formTemplateName,
-              actionMethod, obj, modelUUID, objID);
 
         };
 
