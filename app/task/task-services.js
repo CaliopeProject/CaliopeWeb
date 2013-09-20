@@ -67,7 +67,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           data1.method  = "tasks.getCurrentUserKanban";
           data2.method  = "tasks.getModel";
 
-          WEBSOCKETS.serversimm.sendRequest(data1, data2)
+          WEBSOCKETS.serversimm.sendRequestBatch(data1, data2)
                     .then(function(data){
                       ALLTASK = data;
                       var getuser = {};

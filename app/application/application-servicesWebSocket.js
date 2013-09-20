@@ -94,11 +94,6 @@ define(['angular', 'uuid'], function(angular) {
             cb:defer
           };
 
-          //if(request.params.data.$$hashKey){
-            //delete request.params.data.$$hashKey;
-          //}
-
-
           //fix remove $$hashKey
           output = angular.toJson(request);
           output = angular.fromJson(output);
@@ -109,6 +104,37 @@ define(['angular', 'uuid'], function(angular) {
           return promise;
         }
 
+
+        /**
+         * Send a message to the server.
+         * @param obj many object to send with method and params.
+         * @returns {Function|promise} Promise of response.
+         */
+        //function sendRequest (method, params) {
+        function sendRequestBatch () {
+          var request = [];
+          var promise = [];
+          var output;
+
+          angular.forEach(arguments, function(value){
+            var callbackId = UUIDjs.create().hex;
+            var defer      = $q.defer();
+            request.push(createRequest(value.method, value.params, callbackId));
+            callbacks[callbackId] = {
+              time: new Date(),
+              cb:defer
+            };
+            promise.push(handlerResponseSrv.addPromisesHandlerRespNotif(defer.promise));
+          });
+
+          //fix remove $$hashKey
+          output = angular.toJson(request);
+          output = angular.fromJson(output);
+
+          console.log('Sending request file application-servicesWebsocket 112', (output));
+          ws.send(JSON.stringify(output));
+          return promise;
+        }
         /**
          * Define a listener for process the response of server side websocket. Apply
          * the response to the root scope of angular.
