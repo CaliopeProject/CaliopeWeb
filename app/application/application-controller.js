@@ -23,6 +23,8 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         var timerMessage;
         var initMessage = {type: 'success', msg: 'Bienvenidos al SIIM' };
 
+        $scope.showMenu = false;
+        $scope.toggle   = true;
         $scope.isAuthenticated = security.isAuthenticated;
 
         $scope.$watch(function() {
@@ -81,6 +83,13 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
           $scope.hasPendingRequests = httpRequestTrackerService.hasPendingRequests;
         }
 
-      }]
+        $scope.changeMenu = function (){
+          $scope.showMenu = !$scope.showMenu;
+        };
+
+        $scope.changeToogleMenu = function (){
+          $scope.toggle = !$scope.toggle;
+        };
+     }]
   );
 });

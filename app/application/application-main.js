@@ -69,7 +69,7 @@ require.config({
     'wysiwyg-editor-controller'        : 'tools-wysiwyg-editor/wysiwyg-editor-controller',
 
     'kanban-board-controller'          : 'tools-kanban-board/kanban-board-controller',
-    'task-controllers-init'            : 'task/task-controllers-init',
+    'task-controllers'                 : 'task/task-controllers',
     'task-services'                    : 'task/task-services',
     'task-directives'                  : 'task/task-directives',
 

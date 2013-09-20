@@ -112,7 +112,7 @@ var CaliopeWebForm = (function() {
     var entityModel;
 
     /**
-    * Mode to load data from server. Posibble modes are: toCreate, toEdit
+    * Mode to load data from server. Posibble modes are: toCreate, create, toEdit, edit
     * @member {object} entityModel
     * @memberOf CaliopeWebForm
     */
@@ -200,7 +200,6 @@ var CaliopeWebForm = (function() {
       };
     }
 
-
   /**
    * Constructor of CaliopeWebForm module
 
@@ -248,7 +247,7 @@ var CaliopeWebForm = (function() {
       addData: function(_data) {
         data = _data;
         if(_data !== undefined) {
-          modelUUID = _data.uuid;
+          this.modelUUID = _data.uuid;
         }
       },
     /**
@@ -547,6 +546,44 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    */
   var ctrlEndName            = 'Ctrl';
 
+  /*
+   TODO: Put this function for global use. Code in caliopeweb-form-directives.js
+   */
+  /**
+   * Get the final value of a attribute in a object, where attribute is represented by a string
+   * notation that indicate the path to final attribute..
+   *
+   * @example
+   * obj = { "user" : {
+    *            "username" : {value : "username"},
+    *            "name"  : {value : "NAME USER"}
+    *          }
+    *       }
+   * strAttrValue = user.name.value
+   * charSplit = '.'
+   *
+   * Return "NAME USER"
+   *
+   * @memberOf CaliopeWebFormDirectives
+   * @param {object} obj Object with the data
+   * @param {string} strAttrValue String that represent the attribute final to return value.
+   * @param {string} charSplit A character that indicate the separation of attributes in strAttrValue
+   * @return {object} The value of attribute
+   */
+  function getFinalValueFromString(obj, strAttrValue, charSplit) {
+    var fieldsValue = strAttrValue.split(charSplit);
+    var j;
+    var objValue = obj;
+    for(j=0;j<fieldsValue.length;j++) {
+      try {
+        objValue = objValue[fieldsValue[j]];
+      } catch (ex) {
+        objValue = undefined;
+      }
+    }
+    return objValue;
+  }
+
   /**
    * Add ng-controller of angular controller directive to the form.
    * @function
@@ -718,6 +755,37 @@ var CaliopeWebFormSpecificDecorator = ( function() {
   }
 
   /**
+   * Add datepicker angular directive to the structure for each elements in the structure with
+   * the type datepicker defined in json structure form.
+   *
+   * @function
+   * @memberOf CaliopeWebFormSpecificDecorator
+   * @param {array} elementsTemplate Elements Field config in the template.
+   */
+  function completeTypeExecuteTask(elementsTemplate, data) {
+    if( elementsTemplate !== undefined ) {
+      var i;
+      var TYPE_EXCUTETASK = 'execute-task';
+      var DIRECTIVE_EXCUTETASK = 'cw-task-execute';
+      var NAME_DATA_TARGET_UUID_VAL= 'target-uuid-field';
+      var NAME_DATA_TARGET_ENTITY_VAL = 'target-entity-field';
+
+      for(i=0; i < elementsTemplate.length; i++) {
+        if( elementsTemplate[i] !== undefined && elementsTemplate[i].type !== undefined &&
+            elementsTemplate[i].type === TYPE_EXCUTETASK)  {
+
+          elementsTemplate[i].type = DIRECTIVE_EXCUTETASK;
+          elementsTemplate[i].type1 = TYPE_EXCUTETASK;
+          var attUUID = elementsTemplate[i].options[NAME_DATA_TARGET_UUID_VAL];
+          var attEntity = elementsTemplate[i].options[NAME_DATA_TARGET_ENTITY_VAL];
+          elementsTemplate[i]['target-uuid'] = getFinalValueFromString(data, attUUID, '.');
+          elementsTemplate[i]['target-entity'] = getFinalValueFromString(data, attEntity, '.');
+        }
+      }
+    }
+  }
+
+  /**
    * This function transform the element of type select for add the behavior of load the
    * options from server. Add the directive cw-option for this purpose.
    *
@@ -822,6 +890,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeSelect(elementsTemplate);
         completeTypeDatePicker(elementsTemplate);
         completeTypeMultiChoices(elementsTemplate,data);
+        completeTypeExecuteTask(elementsTemplate, data);
 
         return structureInit;
       };

@@ -1,10 +1,10 @@
 <!-- MENU-RIGHT INIT-->
-<div id="sidebar" ng-controller='menuRightController' ng-init='toogle=false' class='display'  ng-class="{true:'menu-min', false:''}[toggle]">
+<div id="sidebar" ng-controller='menuRightController' ng-class="{'display': showMenu, 'menu-min': toggle}">
 
-  <div ng-include src="'menu-right/partial-menu-right.html'"></div>
+  <div ng-include src="'menu-right/partial-menu-right.html'" ng-class="{'menu-min': toggle}" ></div>
 
   <!--ACTION COLLAPSE INIT -->
-  <div id="sidebar-collapse" ng-click='toggle = !toggle' ng-model="toggle">
+  <div id="sidebar-collapse" ng-click='changeToogleMenu()'>
     <i class="icon-double-angle-left"></i>
   </div>
   <!--ACTION COLLAPSE END -->

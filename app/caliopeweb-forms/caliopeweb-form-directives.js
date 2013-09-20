@@ -30,7 +30,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-define(['angular', 'dform'], function (angular) {
+define(['angular', 'dform', 'Crypto'], function (angular) {
   'use strict';
 
   /**
@@ -40,6 +40,9 @@ define(['angular', 'dform'], function (angular) {
    */
   var moduleDirectives = angular.module('CaliopeWebFormDirectives', []);
 
+  /*
+    TODO: Put this function for global use
+   */
   /**
    * Get the final value of a attribute in a object, where attribute is represented by a string
    * notation that indicate the path to final attribute..
@@ -69,7 +72,7 @@ define(['angular', 'dform'], function (angular) {
       try {
         objValue = objValue[fieldsValue[j]];
       } catch (ex) {
-        console.error('Error creando opción en html select. No se encontró el atributo ' + strAttrValue + ' en ', obj );
+        console.error('Error searching value. The attribute ' + strAttrValue + ' in ' + obj + ' doesn\'t exist' );
       }
     }
     return objValue;
@@ -114,9 +117,9 @@ define(['angular', 'dform'], function (angular) {
         var name = $attrs['name'];
 
 
-        if( !( $attrs['fromRouteparams'] !== undefined &&
-               $attrs['fromRouteparams'] !== true) ) {
-          entity = $routeParams.plantilla;
+        if( $attrs['fromRouteparams'] !== undefined &&
+            $attrs['fromRouteparams'] === "true") {
+          entity = $routeParams.entity;
           mode = $routeParams.mode;
           uuid = $routeParams.uuid;
         }
@@ -125,6 +128,13 @@ define(['angular', 'dform'], function (angular) {
         }
         if( name === undefined ) {
           //TODO: Generar Error, nombre requerido
+        }
+        if($attrs['encUuid']==="true") {
+          //TODO: Create centralized function to encode and decode uuid
+          if( uuid !== undefined ) {
+            var bytesUUID = Crypto.util.base64ToBytes(uuid);
+            uuid = Crypto.charenc.Binary.bytesToString(bytesUUID);
+          }
         }
         var cwForm = cwFormService.createForm(entity, mode, uuid);
         $scope[name] = cwForm;
@@ -437,6 +447,10 @@ define(['angular', 'dform'], function (angular) {
             */
             scope[VAR_SCOPE_PUT_CHOICES_SELECTED] = attrs['name'];
 
+            /**
+             * When promise is resolve then push the options in ng-model of multichoice
+             *
+             */
             promise.then(function(dataResponse) {
 
               if( dataResponse !== undefined ) {

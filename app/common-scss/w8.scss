@@ -47,7 +47,6 @@ body {
 }
 
 #main-content {
-  margin-left: 190px;
   margin-right: 0;
   margin-top: 0;
   padding: 0;
@@ -835,7 +834,7 @@ blockquote {
     line-height: 30px;
     max-height: 30px;
     padding: 0px;
-    margin-left: 20px;
+    margin-left: 4px;
   }
   .nav > li > a {
     font-size: 13px;
@@ -1139,27 +1138,37 @@ blockquote {
     }
   }
   width: 189px;
+  z-index: 14;
   position: absolute;
-  margin-left: 0;
-  margin-top: 3px;
+  left: -200px;
+  margin-top: -3px;
   border-right: 1px solid #ccc;
+  border: 1px solid #CCC;
   background-color: #FFF;
   &:before {
-    content: "";
-    display: block;
-    width: 189px;
-    position: fixed;
-    bottom: 0;
-    top: 0;
-    z-index: -1;
-    background-color: #f2f2f2;
-    border-right: 1px solid #ccc;
+      display: none;
   }
   &.fixed {
     position: fixed;
     z-index: 14;
   }
+  box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -webkit-transition: left .15s ease;
+  -moz-transition: left .15s ease;
+  -o-transition: left .15s ease;
+  -ms-transition: left .15s ease;
+  transition: left .15s ease;
+  &.display {
+    left: 0;
+  }
+  &.menu-min {
+    &.display {
+      left: 0;
+    }
+    left: -50px;
+  }
 }
+
 
 li {
   [class^="icon-"], [class*=" icon-"] {
@@ -1452,6 +1461,7 @@ li {
 }
 
 #sidebar-shortcuts-mini {
+  display: none;
   font-size: 0;
   line-height: 18px;
   padding-top: 2px;
@@ -1472,12 +1482,6 @@ li {
   width: 42px;
   &:before {
     width: 42px;
-  }
-  + #main-content {
-    margin-left: 43px;
-    #breadcrumbs.fixed {
-      left: 43px;
-    }
   }
 }
 

@@ -32,7 +32,11 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           $scope.elementsFormTemplate = result.elements;
         }
         $scope.modelUUID = result.modelUUID;
+        $scope.entityModel = result.entityModel;
 
+        /*
+        Add data to scope
+         */
         if (result.data !== undefined) {
           var varname;
           for (varname in result.data) {
@@ -141,8 +145,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   ]);
 
   moduleControllers.controller('SIMMFormCtrl',
-    ['caliopewebTemplateSrv', '$scope', '$filter',
-      function (caliopewebTemplateSrv, $scope, $filter) {
+    ['caliopewebTemplateSrv', 'global_constants', '$scope', '$filter',
+      function (caliopewebTemplateSrv, GConst, $scope, $filter) {
 
         $scope.$watch('responseSendAction', function (value) {
 
@@ -159,6 +163,12 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
             }
           }
         });
+
+
+        function getVarNameScopeFromFormRep(formRep) {
+          return formRep.replace(new RegExp(GConst.rexp_value_in_form_inrep),"").
+                         replace(new RegExp(GConst.rexp_value_in_form_firep),"")
+        }
 
         $scope.sendAction = function(form, formTemplateName, actionMethod, modelUUID, objID, paramsToSend) {
 
@@ -197,6 +207,44 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
                     }
                   } else {
                     value = $scope[nameVarScope];
+                  }
+                  if(inputs[i].hasOwnProperty('relation')) {
+                    var patt = new RegExp(GConst.rexp_value_in_form);
+                    var relation = inputs[i].relation;
+                    var oTarget = inputs[i].relation.target;
+                    if( oTarget !== undefined ) {
+                      //var ownRelation = inputs[i].name;
+                      var target = [];
+                      angular.forEach(value, function(vVal, kVal){
+                        var cTarget = angular.copy(oTarget);
+                        if(patt.test(oTarget.entity)) {
+                          cTarget.entity = $scope[oTarget.entity];
+                        }
+                        angular.forEach(oTarget.properties, function(vProp, kProp){
+                          if(patt.test(vProp)) {
+                            var vPropScope = getVarNameScopeFromFormRep(vProp);
+                            if(vPropScope === inputs[i].name ) {
+                              cTarget.properties[kProp] = vVal;
+                            } else {
+                              cTarget.properties[kProp] = $scope[vPropScope];
+                            }
+                          }
+                        });
+                        angular.forEach(oTarget['entity_data'], function(vProp, kProp){
+                          if(patt.test(vProp)) {
+                            var vPropScope = getVarNameScopeFromFormRep(vProp);
+                            if(vPropScope === inputs[i].name ) {
+                              cTarget['entity_data'][kProp] = vVal;
+                            } else {
+                              cTarget[['entity_data']][kProp] = $scope[vPropScope];
+                            }
+                          }
+                        });
+                        target.push(cTarget);
+                      });
+                      relation.target = target;
+                      value = relation;
+                    }
                   }
                   obj[nameVarScope] = value;
                 }

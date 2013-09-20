@@ -7,20 +7,28 @@
 <div class="navbar-inner">
 
 <div class="row-fluid" >
-
-  <!-- BRAND INIT-->
-  <div class="span1">
-    <div class="nav ace-nav pull-right">
+  <div class="span3">
+    <ul class="nav ace-nav">
+      <li class="light-orange" ng-show="isAuthenticated()" >
+      <a data-toggle="dropdown" ng-click='changeMenu()' class="dropdown-toggle" href="#">
+        <i ng-class="{'icon-chevron-down': !showMenu}"></i>
+        <i ng-class="{'icon-chevron-up': showMenu}"></i>
+        Menu
+      </a>
+      </li>
+    </ul><!--/.w8-nav-->
+    <!-- BRAND INIT-->
+    <div class="nav ace-nav">
       <a href="#" class="brand">
         <small>
           SIMM
         </small>
       </a>
     </div>
+    <!-- BRAND END-->
   </div>
-  <!-- BRAND END-->
 
-  <div class="span7">
+  <div class="span5">
     <div class="nav ace-nav pull-right" id="breadcrumbs" ng-show="isAuthenticated()">
       <!-- NAV-SEARCH INIT-->
       <div id="nav-search">
