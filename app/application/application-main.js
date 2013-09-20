@@ -62,7 +62,6 @@ require.config({
     'menu-top-controller'              : 'menu-top/menu-top-controllers',
 
     'menu-right-controller'            : 'menu-right/menu-right-controller',
-    'menu-right-directives'            : 'menu-right/menu-right-directives',
 
     'ckeditor'                         : 'libs-js-thirdparty/ckeditor/ckeditor',
     'wysiwyg-editor-directive'         : 'tools-wysiwyg-editor/wysiwyg-editor-directive',

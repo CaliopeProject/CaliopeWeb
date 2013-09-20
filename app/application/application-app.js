@@ -31,7 +31,6 @@ var dependencies = [
     'httpRequestTrackerService',
     'angular-ui-ng-grid',
     'menu-right-controller',
-    'menu-right-directives',
     'files-uploader-controller',
     'files-uploader-directives',
     'wysiwyg-editor-controller',
@@ -75,7 +74,6 @@ var modulesAngular = [
     'httpRequestTrackerService',
     'ngGrid',
     'menu-right-controller',
-    'menu-right-directives',
     'fileuploaderCtrl',
     'fileuploaderDirectives',
     'wysiwygEditorCtrl',
@@ -106,7 +104,7 @@ var modulesAngular = [
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
         }
     ]);
-     
+
     moduleApp.run(function(webSocket) {
       webSocket.initWebSockets();
     });

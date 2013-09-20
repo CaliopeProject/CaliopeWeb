@@ -5,7 +5,8 @@
 
   <!--ACTION COLLAPSE INIT -->
   <div id="sidebar-collapse" ng-click='changeToogleMenu()'>
-    <i class="icon-double-angle-left"></i>
+    <i ng-class="{'icon-double-angle-left': !toggle}"></i>
+    <i ng-class="{'icon-double-angle-right': toggle}"></i>
   </div>
   <!--ACTION COLLAPSE END -->
 

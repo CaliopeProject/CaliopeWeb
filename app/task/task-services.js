@@ -17,7 +17,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           controller    : 'TaskFormCtrl'
         };
 
-        var ALLTASK;
+        var ALLTASK, MODEL;
         var DIALOG_NAME_CONF_DELETE = 'dialogConfirmDeleteTask';
         var DIALOG_NAME_CONF_ARCHIV = 'dialogConfirmArchivTask';
         var DIALOG_NAME_FORM_TASK   = 'dialogFormTask';
@@ -61,9 +61,13 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
         }
 
         function loadTask(){
-          var params     = {};
-          var method     = "tasks.getCurrentUserKanban";
-          WEBSOCKETS.serversimm.sendRequest(method, params)
+          var data1 = {};
+          var data2 = {};
+          data1.params   = data2.params = {};
+          data1.method  = "tasks.getCurrentUserKanban";
+          data2.method  = "tasks.getModel";
+
+          WEBSOCKETS.serversimm.sendRequest(data1, data2)
                     .then(function(data){
                       ALLTASK = data;
                       var getuser = {};

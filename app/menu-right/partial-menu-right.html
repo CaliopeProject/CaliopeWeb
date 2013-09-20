@@ -1,18 +1,15 @@
 <!--MENU SHORTCUTS INIT-->
 <div id="sidebar-shortcuts">
-
   <!--MENU ICON SHORTCUTS-LARGE INIT-->
   <div id="sidebar-shortcuts-large">
-    <div ng-repeat="short in shortcuts" ttip='short.ttip' url='short.url' btn="short.btn" icon='short.icon' sidebar>
-    </div>
-
+    <a ng-repeat="short in shortcuts" ng-click='closeMenu()' href='{{short.url}}'><button ng-class="'btn btn-small btn-' + short.btn" tooltip='{{short.ttip}}'><i ng-class="'icon-' + short.icon"></i></button></a>
   </div>
   <!--MENU ICON SHORTCUTS-LARGE END-->
-
   <!--MENU ICON SHORTCUTS-MINI INIT-->
   <div id="sidebar-shortcuts-mini">
-    <div ng-repeat="short in shortcuts" btn="short.btn" shortcuts></div>
+    <a ng-repeat="short in shortcuts" href='{{short.url}}'><span ng-class="'btn btn-' + short.btn" ng-click='closeMenu()'></span></a>
   </div>
+
   <!--MENU ICON SHORTCUTS-MINI END-->
 </div>
 <!--MENU SHORTCUTS END-->
@@ -20,7 +17,7 @@
 <!--MENU INIT-->
 <ul class="nav nav-list">
   <li class="active">
-  <a href="index.html">
+  <a href="index.html" ng-click='closeMenu()'>
     <i class="icon-list-ul"></i>
     <span>Opciones</span>
   </a>
