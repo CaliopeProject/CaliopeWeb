@@ -279,8 +279,8 @@ var CaliopeWebForm = (function() {
         for (i = 0; i < elements.length; i++) {
           if( paramsToSend.length === 0 || paramsToSend.indexOf(elements[i]) >= 0 ) {
             var nameVarScope = elements[i].name;
+            var value;
             if( dataFromView[nameVarScope] !== undefined ) {
-              var value;
               if(elements[i].type === 'div' && elements[i].type1 === 'datepicker') {
                 value = (dataFromView[nameVarScope] instanceof Date )? dataFromView[nameVarScope].toJSON() : dataFromView[nameVarScope] ;
               } else if(elements[i].type === 'select') {
@@ -313,22 +313,22 @@ var CaliopeWebForm = (function() {
                       cTarget.entity = dataFromView[oTarget.entity];
                     }
                     jQuery.each(oTarget.properties, function(kProp, vProp){
-                      if(patt.test(kProp)) {
-                        var vPropScope = getVarNameScopeFromFormRep(kProp);
+                      if(patt.test(vProp)) {
+                        var vPropScope = getVarNameScopeFromFormRep(vProp);
                         if(vPropScope === elements[i].name ) {
-                          cTarget.properties[vProp] = kRel;
+                          cTarget.properties[kProp] = kRel;
                         } else {
-                          cTarget.properties[vProp] = dataFromView[vPropScope];
+                          cTarget.properties[kProp] = dataFromView[vPropScope];
                         }
                       }
                     });
                     jQuery.each(oTarget['entity_data'], function(kProp, vProp){
-                      if(patt.test(kProp)) {
-                        var vPropScope = getVarNameScopeFromFormRep(kProp);
+                      if(patt.test(vProp)) {
+                        var vPropScope = getVarNameScopeFromFormRep(vProp);
                         if(vPropScope === elements[i].name ) {
-                          cTarget['entity_data'][vProp] = kRel[vProp];
+                          cTarget['entity_data'][kProp] = vRel[kProp];
                         } else {
-                          cTarget[['entity_data']][vProp] = dataFromView[vPropScope][vProp];
+                          cTarget['entity_data'][kProp] = dataFromView[vPropScope][kProp];
                         }
                       }
                     });
