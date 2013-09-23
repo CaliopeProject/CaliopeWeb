@@ -2,7 +2,8 @@ define(['angular', 'application-app'], function(angular, app) {
   'use strict';
 
   var pagesRoute = {
-    'projects' : '/proyectomtv/form-proyectomtv-partial.html'
+    'projects' : '/proyectomtv/form-proyectomtv-partial.html',
+    'predialcards' : '/caliopeweb-forms/caliopeweb-form-partial.html'
   }
 
 
@@ -23,11 +24,14 @@ define(['angular', 'application-app'], function(angular, app) {
     $routeProvider.when('/form-proyectomtv/:entity/:mode', {
       templateUrl: '/proyectomtv/form-proyectomtv-partial.html'});
 
+    $routeProvider.when('/form-generic/:entity/:mode/:uuid', {
+      templateUrl: '/caliopeweb-forms/caliopeweb-form-partial.html'});
+
     $routeProvider.when('/form/:entity/:mode/:uuid',{
       templateUrl : function(routeParams) {
           console.log('/form/:entity/:mode/:uuid', routeParams);
           if( pagesRoute.hasOwnProperty(routeParams.entity) == false ) {
-            throw new Error('No route page find in configuration for entity ',routeParams.entity);
+            throw new Error('No route page find in configuration for entity ' + routeParams.entity);
           }
           return pagesRoute[routeParams.entity]
         }

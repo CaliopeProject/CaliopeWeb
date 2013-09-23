@@ -71,21 +71,30 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           });
         };
 
-        $scope.initWithRouteParams = function() {
+        $scope.initWithRouteParams = function(actionsToShow, generic) {
+          var cwFormName = $scope['cwForm-name'];
+          var cwForm = $scope[cwFormName];
+          var params = {};
+
           var calwebtem = calwebTemSrv.caliopeForm;
-          calwebtem.id     = $routeParams.plantilla;
+          calwebtem.id     = $routeParams.entity;
+          if( generic === true ) {
+            params.formId = calwebtem.id;
+            calwebtem.id  = 'form';
+          }
           calwebtem.mode   = $routeParams.mode;
           calwebtem.uuid   = $routeParams.uuid;
           $scope.actionsToShow = actionsToShow;
 
+
           $scope.caliopeForm   = calwebTemSrv.caliopeForm;
-          calwebTemSrv.loadTemplateData().then(function(result) {
+          calwebTemSrv.loadTemplateData(params).then(function(result) {
             processResultLoadForm(result, $scope);
           });
         };
 
         if (calwebTemSrv.caliopeForm.mode === 'edit') {
-          calwebTemSrv.caliopeForm.id     = $routeParams.plantilla;
+          calwebTemSrv.caliopeForm.id     = $routeParams.entity;
           calwebTemSrv.caliopeForm.mode   = $routeParams.mode;
           calwebTemSrv.caliopeForm.uuid   = $routeParams.uuid;
           $scope.caliopeForm = calwebTemSrv.caliopeForm;
@@ -167,7 +176,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
         $scope.sendAction = function(form, formTemplateName, actionMethod, modelUUID, objID, paramsToSend) {
 
-          var cwFormName = 'cwForm-'.concat($scope['cwForm-name']);
+          var cwFormName = $scope['cwForm-name'];
 
           var cwForm = $scope[cwFormName];
           if( cwForm !== undefined ) {

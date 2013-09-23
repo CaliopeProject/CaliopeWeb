@@ -102,8 +102,7 @@ define(['angular'], function(angular) {
       * @param caliopeForm Form to retrieve.
       * @returns {{}} Promise created to the send the request to the server.
       */
-      Service.loadTemplateData = function () {
-        var params = {};
+      Service.loadTemplateData = function (params) {
 
         var cwForm = new CaliopeWebForm(
             Service.caliopeForm.id, Service.caliopeForm.mode, Service.caliopeForm.uuid);

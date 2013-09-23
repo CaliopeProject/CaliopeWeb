@@ -98,8 +98,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           }
         }
         var cwForm = cwFormService.createForm(entity, mode, uuid);
-        $scope['cwForm-name'] = name;
-        $scope['cwForm-'.concat(name)] = cwForm;
+        $scope['cwForm-name'] = 'cwForm-'.concat(name);
+        $scope[$scope['cwForm-name']] = cwForm;
       },
 
       /**
