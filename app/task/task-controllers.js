@@ -24,17 +24,6 @@ define(['angular', 'Crypto'], function (angular) {
         $scope.modelUUID = result.modelUUID;
         $scope.entityModel = result.entityModel;
 
-        /*
-        if (result.data !== undefined) {
-          var varname;
-          for (varname in result.data) {
-            if(result.data.hasOwnProperty(varname)) {
-              $scope[varname] = result.data[varname];
-            }
-          }
-        }
-        */
-
       }
     }
   }

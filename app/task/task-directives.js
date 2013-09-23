@@ -14,11 +14,34 @@ define(['angular'], function(angular) {
       restrict: 'E',
       replace: true,
       link: function($scope, $element, $attrs, $controller) {
+
+        /*
         $scope.target        = {};
         $scope.title         = $attrs.title;
         $scope.category      = $attrs.category || '';
         $scope.target.uuid   = $attrs.targetUuid || '';
         $scope.target.entity = $attrs.targetEntity || '';
+        */
+
+        $scope.title = $attrs.title;
+        $scope.target = {};
+
+        if($attrs.hasOwnProperty('category')) {
+          $scope.$watch($attrs.category, function(value){
+            $scope.category = value;
+          });
+        }
+        if($attrs.hasOwnProperty('targetUuid')) {
+          $scope.$watch($attrs.targetUuid, function(value){
+            $scope.target.uuid = value;
+          });
+        }
+        if($attrs.hasOwnProperty('targetEntity')) {
+          $scope.$watch($attrs.targetEntity, function(value){
+            $scope.target.entity = value;
+          });
+        }
+
 
         $scope.createTask  = function (category, target){
           taskService.createTask(target, category);
