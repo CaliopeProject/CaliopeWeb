@@ -61,7 +61,7 @@ define(['angular'], function(angular) {
       };
 
       $scope.initForm = function() {
-        var cwForm = $scope['project'];
+        var cwForm = $scope['cwForm-project'];
         var methodSupport = cwForm.getEntityModel().concat('.').concat(cwForm.getMode());
         cwForm.setActionsMethodToShow([methodSupport]);
         cwFormService.loadForm(cwForm, {}).then(function(result) {
