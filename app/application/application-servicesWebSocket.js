@@ -154,9 +154,10 @@ define(['angular', 'uuid'], function(angular) {
           }
         };
 
-        this.sendRequest = sendRequest;
-        this.getStatus   = getStatus;
-        this.getUrl      = getUrl;
+        this.sendRequest      = sendRequest;
+        this.sendRequestBatch = sendRequestBatch;
+        this.getStatus        = getStatus;
+        this.getUrl           = getUrl;
 
         /**
          * Override the method of WebSocket object when the connection is established
