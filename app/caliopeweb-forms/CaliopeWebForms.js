@@ -911,8 +911,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
   }
 
   /**
-   * Add datepicker angular directive to the structure for each elements in the structure with
-   * the type datepicker defined in json structure form.
+   * TODO: DOCUMENTATION
    *
    * @function
    * @memberOf CaliopeWebFormSpecificDecorator
@@ -940,6 +939,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       }
     }
   }
+
 
   /**
    * This function transform the element of type select for add the behavior of load the
