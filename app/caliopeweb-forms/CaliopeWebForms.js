@@ -3,7 +3,7 @@ var CaliopeWebFormConstants = {
   'rexp_value_in_form' : "^{{2}[^{].*[^}]}{2}$",
   'rexp_value_in_form_inrep' : "^{{2}",
   'rexp_value_in_form_firep' : "}{2}$"
-}
+};
 
 
 /**
@@ -505,7 +505,7 @@ var CaliopeWebForm = (function() {
      * @function
      * @memberOf CaliopeWebForm
      *
-     * @param {object}
+     * @param {object} Layout
      */
       getlayout : function() {
          return layout;
