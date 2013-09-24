@@ -1,4 +1,4 @@
-<div class="grid" ng-controller="SIMMGridCtrl">
+<div class="grid" ng-controller="ProyectomtvCtrl">
   <!--
     name=Nombre del grid debe ser en la página y páginas incluidas
     method=El método que se invocara al servidor para recuperar la información
@@ -6,8 +6,8 @@
     load-init=Indica si se debe cargar el grid al inicio
     class=Clase asignada al contenedor del grid
   -->
-  <cw-grid name="gridProjectsmtv" method="projects.getAll" load-init="true" class="height-5" ng-init="initGrid()"></cw-grid>
-
+  <cw-grid name="gridProjectsmtv" grid-options='{"enableCellEditOnFocus":true,"enableCellSelection":true,"enableRowSelection":false}' method="projects.getAll" load-init="true" class="height-5" ng-init="initGrid()"></cw-grid>
+  <button ng-click="addRow()">Add Row</button>
   <!-- Ejemplo de carga de grilla al dar click en un boton y enviar parámetros
   <input type="button" ng-click="findWithFilter('')" value="Buscar UUID"/>
   -->

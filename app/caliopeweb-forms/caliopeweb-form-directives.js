@@ -547,14 +547,28 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
 
         var gridOptionsName = gridName.concat('options');
 
-        $scope[gridOptionsName] = {
+        $scope[gridOptionsName] = 'gridOptionsName1';
+
+        $scope.gridOptionsName1 = {
           data: 'data'.concat(gridName),
           columnDefs: 'columnDefs'.concat(gridName)
+          //enableRowSelection: false
         };
 
-        $element.children().attr('ng-grid', gridOptionsName);
+        $element.children().attr('ng-grid', 'gridOptionsName1');
         $scope[gridName] = cwGridService.createGrid(gridName, method, []);
+        var gridOptions;
+        try {
+          gridOptions = angular.fromJson($attrs.gridOptions);
+        } catch (ex) {
+          throw Error('Error parsing attribute grid-option of directive cw-grid '+ ex.message)
+        }
+        $scope[gridName].addGridProperties(gridOptions);
         $compile($element.contents())($scope);
+
+        $scope.addRow = function() {
+           $scope['data'.concat(gridName)].push({});
+        };
       },
       /**
        *
@@ -585,6 +599,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           $scope[dataGridName] = $scope[gridName].loadDataFromServer();
         }
 
+        var gridOptionsName = gridName.concat('options');
         $scope.$watch(''.concat(dataGridName), function(dataGrid) {
           if( dataGrid !== undefined ) {
             $scope[gridName].addData(dataGrid);
@@ -592,6 +607,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
             var structureToRender = $scope[gridName].createStructureToRender();
             $scope['data'.concat(gridName)] = structureToRender.data;
             $scope['columnDefs'.concat(gridName)] = structureToRender.columnsDef;
+            //angular.extend($scope[gridOptionsName], structureToRender.gridPropertiesDef);
+            $scope['enableRowSelection'] = false;
           }
         });
 
