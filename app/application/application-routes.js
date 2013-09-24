@@ -25,7 +25,7 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl: '/proyectomtv/form-proyectomtv-partial.html'});
 
     $routeProvider.when('/form-generic/:entity/:mode/:uuid', {
-      templateUrl: '/caliopeweb-forms/caliopeweb-form-partial.html'});
+      templateUrl: '/caliopeweb-forms/caliopeweb-form-generic-partial.html'});
 
     $routeProvider.when('/form/:entity/:mode/:uuid',{
       templateUrl : function(routeParams) {
