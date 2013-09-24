@@ -10,8 +10,6 @@ define(['angular', 'application-app'], function(angular, app) {
     function($routeProvider) {
     $routeProvider.when('/task', {
       templateUrl: '/task/partial-task-init.html'})
-    .when('/view2', {
-      templateUrl: '/application/view-partial2.html'})
     .when('/list-proyectomtv', {
       templateUrl: '/proyectomtv/list-proyectomtv-partial.html'})
     .when('/form-proyectomtv/:entity/:mode', {
@@ -47,6 +45,8 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl: 'tools-wysiwyg-editor/wysiwyg-editor-partial.html'})
     .otherwise({redirectTo: '/kanban'});
   }]);
+
+  app.run(['$route', angular.noop]);
 
 });
 
