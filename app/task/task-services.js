@@ -61,49 +61,50 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
         }
 
         function loadTask(){
-          var data1 = {};
-          var data2 = {};
-          data1.params   = data2.params = {};
-          data1.method  = "tasks.getCurrentUserKanban";
-          data2.method  = "tasks.getModel";
+          var data1    = {};
+          var data2    = {};
+          data1.params = data2.params = {};
+          data1.method = "tasks.getCurrentUserKanban";
+          data2.method = "tasks.getModel";
 
-          WEBSOCKETS.serversimm.sendRequestBatch(data1, data2);
-                    //.then(function(data){
-                      //ALLTASK = data;
-                      //var getuser = {};
-                      //getuser.users = getUserTask();
-                      //tempServices.loadData('accounts.getThumbnailList',getuser)
-                              //.then(function(data){
-                                //var tempALLTASK = angular.copy(ALLTASK);
-
-                                //if(!angular.isUndefined(data)){
-                                  //angular.forEach(ALLTASK, function(value1, key1){
-                                    //if(!angular.isUndefined(value1.tasks)){
-                                      //angular.forEach(value1.tasks, function(value2, key2){
-                                        //if(!angular.isUndefined(value2.comments)){
-                                          //angular.forEach(value2.comments, function(value3, key3){
-                                            //var tempUser = {};
-                                            //tempUser.login = value3.user;
-                                            //angular.forEach(data, function(valUser, key4User){
-                                              //angular.forEach(valUser, function(valNomb, key4Face){
-                                                //if(key4Face === value3.user){
-                                                  //tempUser.face = valNomb;
-                                                //}
-                                              //});
-                                            //});
-                                            //tempALLTASK[key1].tasks[key2].comments[key3].user = tempUser;
-                                          //});
-                                        //}
-                                      //});
-                                    //}
-                                  //});
-                                //}
-
-                                //ALLTASK = tempALLTASK;
-
-                            //});
-                      //$rootScope.$broadcast('taskServiceNewTask');
-                    //});
+          WEBSOCKETS.serversimm.sendRequestBatch(data1, data2).
+          then(function (returnValues){
+            angular.forEach(returnValues, function(valueII, keyII){
+              if(keyII === 0){
+                ALLTASK = valueII;
+                var getuser = {};
+                getuser.users = getUserTask();
+                tempServices.loadData('accounts.getThumbnailList',getuser)
+                .then(function(data){
+                  var tempALLTASK = angular.copy(ALLTASK);
+                  if(!angular.isUndefined(data)){
+                    angular.forEach(ALLTASK, function(value1, key1){
+                      if(!angular.isUndefined(value1.tasks)){
+                        angular.forEach(value1.tasks, function(value2, key2){
+                          if(!angular.isUndefined(value2.comments)){
+                            angular.forEach(value2.comments, function(value3, key3){
+                              var tempUser = {};
+                              tempUser.login = value3.user;
+                              angular.forEach(data, function(valUser, key4User){
+                                angular.forEach(valUser, function(valNomb, key4Face){
+                                  if(key4Face === value3.user){
+                                    tempUser.face = valNomb;
+                                  }
+                                });
+                              });
+                              tempALLTASK[key1].tasks[key2].comments[key3].user = tempUser;
+                            });
+                          }
+                        });
+                      }
+                    });
+                  }
+                  ALLTASK = tempALLTASK;
+                });
+                $rootScope.$broadcast('taskServiceNewTask');
+              }
+            });
+          });
         }
 
         function getAllTask(){
