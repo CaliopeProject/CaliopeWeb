@@ -47,32 +47,31 @@
               </div>
               <div ng-init="log2=false" class='inline row-fluid' ng-show='showSubtasks'>
               {{item.descripcion}}
-              <tabset>
+              <accordion close-others="true">
+                <accordion-group heading="Subtareas">
+                  <div ng-repeat="subtask in item.subtasks">
+                    <ul class="item-list ui-sortable">
+                      <li class="item-orange scrollbar16" ng-class="{'selected': subtask.complete}">
+                      <label class="inline">
+                        <input type="checkbox"  ng-model='subtask.complete'  ng:click="checkSubtask(item,obj.category)">
+                        <span class="lbl"> {{subtask.description}}</span>
+                      </label>
+                      <div class="task-header">
+                        <span ng-click="removeSubtask(item,obj.category,$index)">
+                          <i class="icon-trash"></i>
+                        </span>
+                      </div>
+                      </li>
+                    </ul>
+                  </div>
 
-                <tab heading="Subtareas">
-                <div ng-repeat="subtask in item.subtasks">
-                  <ul class="item-list ui-sortable">
-                    <li class="item-orange scrollbar16" ng-class="{'selected': subtask.complete}">
-                    <label class="inline">
-                      <input type="checkbox"  ng-model='subtask.complete'  ng:click="checkSubtask(item,obj.category)">
-                      <span class="lbl"> {{subtask.description}}</span>
-                    </label>
-                    <div class="task-header">
-                      <span ng-click="removeSubtask(item,obj.category,$index)">
-                        <i class="icon-trash"></i>
-                      </span>
-                    </div>
-                    </li>
-                  </ul>
-                </div>
+                  <form lass="form-inline"  ng-submit="addSubtask(item,description,obj.category)">
+                    <input type="text" name="description" placeholder="Subtarea..." class="input-medium" ng-model="description"/>
+                    <button type="submit" class="btn btn-mini">Enviar</button>
+                  </form>
+                </accordion-group>
 
-                <form class="item-list tab-content-kanban"  ng-submit="addSubtask(item,description,obj.category)">
-                  <input type="text" name="description" placeholder="Subtarea..." class="input" ng-model="description"/>
-                </form>
-
-                </tab>
-
-                <tab heading="Comentarios">
+                <accordion-group heading="Comentarios">
                 <div ng-repeat="comment in item.comments">
                   <div class="dialogs">
                     <div class="itemdiv dialogdiv">
@@ -96,11 +95,12 @@
                   </div>
                 </div>
 
-                <form class="item-list tab-content-kanban" ng-submit="addComment(item,text,obj.category)">
-                  <input type="text" name="text" placeholder="Comentario..." class="input" ng-model="text"/>
+                <form class="form-inline" ng-submit="addComment(item,text,obj.category)">
+                  <input type="text" name="text" placeholder="Comentario..." class="input-medium" ng-model="text"/>
+                  <button type="submit" class="btn btn-mini">Enviar</button>
                 </form>
-                </tab>
-              </tabset>
+                </accordion-group>
+              </accordion>
 
             </div>
           </div>

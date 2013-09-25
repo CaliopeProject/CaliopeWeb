@@ -37,7 +37,7 @@ $borKanba: 12px;
 
 .widget-box-kanban {
   @include border-radius($borKanba);
-  @include background-image(linear-gradient(white, #e9e3a5));
+  @include background-image(linear-gradient(white, rgba(247, 247, 247, 0.6)));
   margin: 3px 0;
   border-bottom: 1px solid #CCC;
   padding-bottom: 42px ;
@@ -110,11 +110,6 @@ $borKanba: 12px;
     }
   }
 
-  form{
-    padding-right: 7px;
-    overflow-x: hidden;
-  }
-
   > :first-child {
     line-height: 33px;
     max-height: 36px;
@@ -129,6 +124,9 @@ $borKanba: 12px;
 
   .input-prepend{
     text-align: right;
+  }
+  form input[type="text"]{
+    margin-bottom: 0px;
   }
 }
 
