@@ -128,12 +128,12 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
             $.dform.options.prefix = null;
             $(element).dform(plantilla);
           } catch (exDform) {
-            console.log('Error generating the dynamic form with dForm', exDform);
+            console.log('Error generating the dynamic form with dForm' +  exDform.message );
           }
           try {
             $compile(element.contents())(scope);
           } catch (exCom) {
-            console.log('Error compiling form generated:', exCom);
+            console.log('Error compiling form generated' +  exCom.message);
           }
         }
 
@@ -551,10 +551,23 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           data: 'data'.concat(gridName),
           columnDefs: 'columnDefs'.concat(gridName)
         };
+        var gridOptions;
+        try {
+          gridOptions = angular.fromJson($attrs.gridOptions);
+          angular.extend($scope[gridOptionsName], gridOptions);
+        } catch (ex) {
+          throw Error('Error parsing attribute grid-option of directive cw-grid '+ ex.message)
+        }
 
         $element.children().attr('ng-grid', gridOptionsName);
         $scope[gridName] = cwGridService.createGrid(gridName, method, []);
+
+        $scope[gridName].addGridProperties(gridOptions);
         $compile($element.contents())($scope);
+
+        $scope.addRow = function() {
+           $scope['data'.concat(gridName)].push({});
+        };
       },
       /**
        *
@@ -585,6 +598,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           $scope[dataGridName] = $scope[gridName].loadDataFromServer();
         }
 
+        var gridOptionsName = gridName.concat('options');
         $scope.$watch(''.concat(dataGridName), function(dataGrid) {
           if( dataGrid !== undefined ) {
             $scope[gridName].addData(dataGrid);

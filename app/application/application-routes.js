@@ -8,15 +8,31 @@ define(['angular', 'application-app'], function(angular, app) {
 
   app.config(['$routeProvider',
     function($routeProvider) {
+
+    /*
+      Routes for task and kanban
+     */
     $routeProvider.when('/task', {
-      templateUrl: '/task/partial-task-init.html'})
-    .when('/list-proyectomtv', {
-      templateUrl: '/proyectomtv/list-proyectomtv-partial.html'})
-    .when('/form-proyectomtv/:entity/:mode', {
-      templateUrl: '/proyectomtv/form-proyectomtv-partial.html'})
-    .when('/form-generic/:entity/:mode/:uuid', {
-      templateUrl: '/caliopeweb-forms/caliopeweb-form-partial.html'})
-    .when('/form/:entity/:mode/:uuid',{
+      templateUrl: '/task/partial-task-init.html'});
+    /*
+      Routes for projectmtv
+    */
+    $routeProvider.when('/list-proyectomtv', {
+      templateUrl: '/proyectomtv/list-proyectomtv-partial.html'});
+
+    $routeProvider.when('/form-proyectomtv/:entity/:mode', {
+      templateUrl: '/proyectomtv/form-proyectomtv-partial.html'});
+
+    /*
+    Route for generic form
+     */
+    $routeProvider.when('/form-generic/:entity/:mode/:uuid', {
+      templateUrl: '/caliopeweb-forms/caliopeweb-form-generic-partial.html'});
+
+    /*
+      Dynamic route
+     */
+    $routeProvider.when('/form/:entity/:mode/:uuid',{
       templateUrl : function(routeParams) {
         console.log('/form/:entity/:mode/:uuid', routeParams);
         if( pagesRoute.hasOwnProperty(routeParams.entity) === false ) {

@@ -3,7 +3,7 @@ var CaliopeWebFormConstants = {
   'rexp_value_in_form' : "^{{2}[^{].*[^}]}{2}$",
   'rexp_value_in_form_inrep' : "^{{2}",
   'rexp_value_in_form_firep' : "}{2}$"
-}
+};
 
 
 /**
@@ -300,6 +300,20 @@ var CaliopeWebForm = (function() {
                 value = dataFromView[nameVarScope];
               }
               if(elements[i].hasOwnProperty('relation')) {
+                /*
+                  Evaluate if value is a relation. True then create value with only value of
+                  entity_data in relation
+                */
+                if(value.hasOwnProperty('direction') && value.hasOwnProperty('target')) {
+                  var cValue = {}
+                  jQuery.extend(true, cValue, value);
+                  value = [];
+                  jQuery.each(cValue.target, function(k,v) {
+                    if(v.hasOwnProperty('entity_data')) {
+                      value.push(v.entity_data);
+                    }
+                  });
+                }
                 var patt = new RegExp(CaliopeWebFormConstants.rexp_value_in_form);
                 var relation = elements[i].relation;
                 var oTarget = elements[i].relation.target;
@@ -316,7 +330,7 @@ var CaliopeWebForm = (function() {
                       if(patt.test(vProp)) {
                         var vPropScope = getVarNameScopeFromFormRep(vProp);
                         if(vPropScope === elements[i].name ) {
-                          cTarget.properties[kProp] = kRel;
+                          cTarget.properties[kProp] = vRel;
                         } else {
                           cTarget.properties[kProp] = dataFromView[vPropScope];
                         }
@@ -505,7 +519,7 @@ var CaliopeWebForm = (function() {
      * @function
      * @memberOf CaliopeWebForm
      *
-     * @param {object}
+     * @param {object} Layout
      */
       getlayout : function() {
          return layout;
@@ -918,6 +932,26 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    * @memberOf CaliopeWebFormSpecificDecorator
    * @param {array} elementsTemplate Elements Field config in the template.
    */
+  function completeTypeCwGrid(elementsTemplate) {
+    var i;
+    var TYPE_CWGRID = 'cw-grid';
+    var CWGRID_OPT = 'cw-grid-options';
+
+    for(i=0; i < elementsTemplate.length; i++) {
+      if(elementsTemplate[i].hasOwnProperty(CWGRID_OPT) ) {
+        elementsTemplate[i].columns = JSON.stringify(elementsTemplate[i][CWGRID_OPT].columns);
+      }
+    }
+
+  }
+
+  /**
+   * TODO: DOCUMENTATION
+   *
+   * @function
+   * @memberOf CaliopeWebFormSpecificDecorator
+   * @param {array} elementsTemplate Elements Field config in the template.
+   */
   function completeTypeExecuteTask(elementsTemplate, data) {
     if( elementsTemplate !== undefined ) {
       var i;
@@ -940,6 +974,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       }
     }
   }
+
 
   /**
    * This function transform the element of type select for add the behavior of load the
@@ -1051,6 +1086,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeDatePicker(elementsTemplate);
         completeTypeMultiChoices(elementsTemplate,data);
         completeTypeExecuteTask(elementsTemplate, data);
+        completeTypeCwGrid(elementsTemplate);
 
         return structureInit;
       };

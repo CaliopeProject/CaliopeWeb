@@ -10,6 +10,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
       , function(security, loginSecurity,   $log,  $http,   $q,   $location,   $dialog,   $rootScope,   webSocket, tempServices) {
 
         var NAME_MODEL_TASK = 'tasks';
+        var MODEL_TASK;
         var opts = {
           backdrop      : false,
           keyboard      : true,
@@ -61,6 +62,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
         }
 
         function loadTask(){
+
           var data1    = {};
           var data2    = {};
           data1.params = data2.params = {};
@@ -103,8 +105,14 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
                 });
                 $rootScope.$broadcast('taskServiceNewTask');
               }
+              if(keyII === 1){
+                if( valueII !== undefined ) {
+                  MODEL_TASK = valueII.form;
+                }
+              }
             });
           });
+
         }
 
         function getAllTask(){
@@ -361,7 +369,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           changeCategory: function(taskDrag, category){
             if(!angular.isUndefined(taskDrag)){
               taskDrag.category = category;
-              sendData('tasks', 'tasks.edit', taskDrag, taskDrag.uuid);
+              var data =  tempServices.getDataToServer(MODEL_TASK, taskDrag);
+              sendData('tasks', 'tasks.edit', data, taskDrag.uuid);
             }
             loadTask();
           }

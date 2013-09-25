@@ -184,6 +184,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
             var data = cwForm.dataToServerData($scope);
             $scope.responseSendAction = caliopewebTemplateSrv.sendDataForm(formTemplateName,
                 actionMethod, data, modelUUID, objID);
+          } else {
+            var data = {};
+            $scope.responseSendAction = caliopewebTemplateSrv.sendDataForm(formTemplateName,
+                actionMethod, data, modelUUID, objID);
           }
 
         };

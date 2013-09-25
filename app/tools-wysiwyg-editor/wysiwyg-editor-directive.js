@@ -16,8 +16,16 @@ dirmodule.directive('ckedit', function ($parse) {
         replace: true,
         restrict: 'E',
         require: '?ngModel',
-        
         link: function (scope, element, attrs, ngModel) {
+
+          var initData;
+          if(scope.$parent !== undefined) {
+            var name = attrs.name;
+            if(name !== undefined && scope.$parent.hasOwnProperty(name)) {
+              initData = scope.$parent[name];
+              element.append(initData);
+            }
+          }
 
           // Write data to the model
           function read() {
@@ -40,6 +48,7 @@ dirmodule.directive('ckedit', function ($parse) {
             element.on('blur keyup change', function() {
               scope.$apply(read);
             });
+
             read(); // initialize
           }
 
