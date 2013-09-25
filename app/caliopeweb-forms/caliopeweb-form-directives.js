@@ -128,12 +128,12 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
             $.dform.options.prefix = null;
             $(element).dform(plantilla);
           } catch (exDform) {
-            console.log('Error generating the dynamic form with dForm', exDform);
+            console.log('Error generating the dynamic form with dForm' +  exDform.message );
           }
           try {
             $compile(element.contents())(scope);
           } catch (exCom) {
-            console.log('Error compiling form generated:', exCom);
+            console.log('Error compiling form generated' +  exCom.message);
           }
         }
 
@@ -547,22 +547,21 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
 
         var gridOptionsName = gridName.concat('options');
 
-        $scope[gridOptionsName] = 'gridOptionsName1';
-
-        $scope.gridOptionsName1 = {
+        $scope[gridOptionsName] = {
           data: 'data'.concat(gridName),
           columnDefs: 'columnDefs'.concat(gridName)
-          //enableRowSelection: false
         };
-
-        $element.children().attr('ng-grid', 'gridOptionsName1');
-        $scope[gridName] = cwGridService.createGrid(gridName, method, []);
         var gridOptions;
         try {
           gridOptions = angular.fromJson($attrs.gridOptions);
+          angular.extend($scope[gridOptionsName], gridOptions);
         } catch (ex) {
           throw Error('Error parsing attribute grid-option of directive cw-grid '+ ex.message)
         }
+
+        $element.children().attr('ng-grid', gridOptionsName);
+        $scope[gridName] = cwGridService.createGrid(gridName, method, []);
+
         $scope[gridName].addGridProperties(gridOptions);
         $compile($element.contents())($scope);
 
@@ -607,8 +606,6 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
             var structureToRender = $scope[gridName].createStructureToRender();
             $scope['data'.concat(gridName)] = structureToRender.data;
             $scope['columnDefs'.concat(gridName)] = structureToRender.columnsDef;
-            //angular.extend($scope[gridOptionsName], structureToRender.gridPropertiesDef);
-            $scope['enableRowSelection'] = false;
           }
         });
 

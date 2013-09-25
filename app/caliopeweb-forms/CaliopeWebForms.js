@@ -911,6 +911,27 @@ var CaliopeWebFormSpecificDecorator = ( function() {
   }
 
   /**
+   * Add datepicker angular directive to the structure for each elements in the structure with
+   * the type datepicker defined in json structure form.
+   *
+   * @function
+   * @memberOf CaliopeWebFormSpecificDecorator
+   * @param {array} elementsTemplate Elements Field config in the template.
+   */
+  function completeTypeCwGrid(elementsTemplate) {
+    var i;
+    var TYPE_CWGRID = 'cw-grid';
+    var CWGRID_OPT = 'cw-grid-options';
+
+    for(i=0; i < elementsTemplate.length; i++) {
+      if(elementsTemplate[i].hasOwnProperty(CWGRID_OPT) ) {
+        elementsTemplate[i].columns = JSON.stringify(elementsTemplate[i][CWGRID_OPT].columns);
+      }
+    }
+
+  }
+
+  /**
    * TODO: DOCUMENTATION
    *
    * @function
@@ -1051,6 +1072,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeDatePicker(elementsTemplate);
         completeTypeMultiChoices(elementsTemplate,data);
         completeTypeExecuteTask(elementsTemplate, data);
+        completeTypeCwGrid(elementsTemplate);
 
         return structureInit;
       };
