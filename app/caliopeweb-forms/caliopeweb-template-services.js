@@ -251,6 +251,12 @@ define(['angular'], function(angular) {
         return calWebForm;
       };
 
+      /**
+       *
+       * @param model
+       * @param data
+       * @returns {*}
+       */
       Service.getDataToServer = function(model, data) {
         var cwForm = new CaliopeWebForm();
         cwForm.addStructure(model, 'model');
