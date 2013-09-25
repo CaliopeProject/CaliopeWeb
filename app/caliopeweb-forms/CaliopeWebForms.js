@@ -300,6 +300,20 @@ var CaliopeWebForm = (function() {
                 value = dataFromView[nameVarScope];
               }
               if(elements[i].hasOwnProperty('relation')) {
+                /*
+                  Evaluate if value is a relation. True then create value with only value of
+                  entity_data in relation
+                */
+                if(value.hasOwnProperty('direction') && value.hasOwnProperty('target')) {
+                  var cValue = {}
+                  jQuery.extend(true, cValue, value);
+                  value = [];
+                  jQuery.each(cValue.target, function(k,v) {
+                    if(v.hasOwnProperty('entity_data')) {
+                      value.push(v.entity_data);
+                    }
+                  });
+                }
                 var patt = new RegExp(CaliopeWebFormConstants.rexp_value_in_form);
                 var relation = elements[i].relation;
                 var oTarget = elements[i].relation.target;
@@ -316,7 +330,7 @@ var CaliopeWebForm = (function() {
                       if(patt.test(vProp)) {
                         var vPropScope = getVarNameScopeFromFormRep(vProp);
                         if(vPropScope === elements[i].name ) {
-                          cTarget.properties[kProp] = kRel;
+                          cTarget.properties[kProp] = vRel;
                         } else {
                           cTarget.properties[kProp] = dataFromView[vPropScope];
                         }
