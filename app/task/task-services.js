@@ -38,18 +38,18 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
         function getUserTask(){
           var alluser = [];
-          angular.forEach(ALLTASK, function(value){
-            if(!angular.isUndefined(value.tasks)){
-              angular.forEach(value.tasks, function(value){
-                if(!angular.isUndefined(value.ente_asignado)){
-                  angular.forEach(value.ente_asignado, function(value){
-                    if(alluser.indexOf(value) === -1){
-                      alluser.push(value);
+          angular.forEach(ALLTASK, function(valueAllTask){
+            if(!angular.isUndefined(valueAllTask.tasks)){
+              angular.forEach(valueAllTask.tasks, function(valueTask){
+                if(!angular.isUndefined(valueTask.holders.target)){
+                  angular.forEach(valueTask.holders.target, function(valueHolders){
+                    if(alluser.indexOf(valueHolders.entity_data.uuid) === -1){
+                      alluser.push(valueHolders.entity_data.uuid);
                     }
                   });
                 }
-                if(!angular.isUndefined(value.comments)){
-                  angular.forEach(value.comments, function(value){
+                if(!angular.isUndefined(valueTask.comments)){
+                  angular.forEach(valueTask.comments, function(value){
                     if(alluser.indexOf(value.user) === -1){
                       alluser.push(value.user);
                     }
@@ -76,7 +76,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
                 ALLTASK = valueII;
                 var getuser = {};
                 getuser.users = getUserTask();
-                tempServices.loadData('accounts.getThumbnailList',getuser)
+                tempServices.loadData('accounts.getPublicInfo',getuser)
                 .then(function(data){
                   var tempALLTASK = angular.copy(ALLTASK);
                   if(!angular.isUndefined(data)){
@@ -128,7 +128,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           var sendDato = angular.copy(datos);
           if(!angular.isUndefined(sendDato.comments)){
             angular.forEach(sendDato.comments, function(value, key){
-              var user = value.user.login;
+              var user = value.user.uuid;
               sendDato.comments[key].user = user;
             });
           }
@@ -349,10 +349,11 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           addComment : function(parentTask, text, category) {
             var timeall = new Date();
             var user    = loginSecurity.currentUser.user;
+            var uuid    = loginSecurity.currentUser.user_uuid;
             var face    = loginSecurity.currentUser.image;
             var commentext = {
               text : text,
-              user : {login: user, face: face},
+              user : {uuid: uuid, face: face},
               time : timeall
             };
 

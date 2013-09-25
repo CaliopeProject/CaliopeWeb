@@ -71,7 +71,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
           if (uuidLocalStorage !== undefined){
             var method = "login.authenticate_with_uuid";
             var params = {
-              "uuid" : uuidLocalStorage
+              "session_uuid" : uuidLocalStorage
             };
             var webSockets = webSocket.WebSockets();
             promise = webSockets.serversimm.sendRequest(method, params);
@@ -180,7 +180,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         return request.then(function(data) {
           if(data.user !== undefined){
             service.currentUser = data;
-            SessionSrv.createSession(data.uuid, data.user.value);
+            SessionSrv.createSession(data.user_uuid, data.user);
             $rootScope.$broadcast('login-service-user');
           }else{
             service.currentUser = null;
