@@ -27,16 +27,6 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         $scope.toggle   = false;
         $scope.isAuthenticated = security.isAuthenticated;
 
-        $scope.$watch(function() {
-          return security.isAuthenticated();
-        }, function(value) {
-          try{
-            taskService.loadData();
-          }catch(err){
-            console.log("Usuario no registrado");
-          }
-        });
-
         $scope.alerts      = [];
 
         timerMessage = function(data){
@@ -50,8 +40,13 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
 
         $scope.$on('openWebSocket', function(event, data) {
           var uuid = sessionUuid.getIdSession();
-          security.requestCurrentUser(uuid);
+          security.requestCurrentUser(uuid).then(function(){
+            if(!!security.currentUser){
+              taskService.loadData();
+            }
+          });
         });
+
 
         $scope.$on('closeWebSocket', function(event, data) {
           security.resetAuthentication();
@@ -69,8 +64,12 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
             try{
               $scope.taskpend = taskService.getTaskpend();
             }catch(err){
-              console.log("Usuario no registrado");
+              console.log("No existen tareas pendientes");
             }
+          });
+
+          $scope.$on('login-service-user', function (event, data) {
+              taskService.loadData();
           });
 
           $scope.closeAlert = function(index) {

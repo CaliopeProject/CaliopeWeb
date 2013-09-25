@@ -78,7 +78,6 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
          }
          return  promise;
         };
-
         return Services;
       }
     ]
@@ -86,6 +85,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
 
   moduleServices.factory('loginSecurity', [
   '$http',
+  '$rootScope',
   '$q',
   '$location',
   'loginRetryQueue',
@@ -94,6 +94,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
   'SessionSrv',
   'webSocket',
   function($http,
+  $rootScope,
   $q,
   $location,
   queue,
@@ -180,6 +181,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
           if(data.user !== undefined){
             service.currentUser = data;
             SessionSrv.createSession(data.uuid, data.user.value);
+            $rootScope.$broadcast('login-service-user');
           }else{
             service.currentUser = null;
           }
@@ -217,7 +219,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
       // Ask the backend to see if a user is already authenticated - this may be from a previous session.
       requestCurrentUser: function(uuidLocalStorage) {
         if ( service.isAuthenticated() ) {
-          return $q.when(service.currentUser);
+          return service.currentUser;
         }
         return LoginSrv.currentAuthenticate(uuidLocalStorage).then(function(data) {
           if(data.user !== undefined){

@@ -9,13 +9,15 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
 
           var sizeWindows = {};
           var timeoutId;
-          var idContent = '#usable space';
+          var idContent = '#siim_mapdiv';
           sizeWindows.heightcontent = jQuery(idContent).height();
           sizeWindows.widthcontent  = jQuery(idContent).width();
 
           function position() {
+              jQuery(idContent).html('');
               sizeWindows.heightcontent = jQuery(idContent).height();
               sizeWindows.widthcontent  = jQuery(idContent).width();
+
               Ext.namespace('Heron.options.map');
               Ext.namespace('Heron.App.mapPanel');
 
@@ -386,8 +388,8 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
               Heron.layout = {
                   xtype: 'hr_mappanel',
                   renderTo: 'siim_mapdiv',
-                  height: 400,
-                  width: '100%',
+                  height: sizeWindows.heightcontent,
+                  width:  sizeWindows.widthcontent,
                   hropts: Heron.options.map
               };
 
