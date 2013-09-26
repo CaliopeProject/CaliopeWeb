@@ -5077,6 +5077,7 @@ th, td, .table-bordered {
       border: 1px solid #DDD;
       border-width: 0 1px;
       font-weight: bold;
+      min-width: 80px;
       [class*="icon-"]:first-child {
         margin-right: 2px;
       }
