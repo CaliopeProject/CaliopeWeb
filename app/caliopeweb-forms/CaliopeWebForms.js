@@ -934,12 +934,16 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    */
   function completeTypeCwGrid(elementsTemplate) {
     var i;
-    var TYPE_CWGRID = 'cw-grid';
+    var TYPE_CWGRID = 'cw-grid-in-form';
     var CWGRID_OPT = 'cw-grid-options';
 
     for(i=0; i < elementsTemplate.length; i++) {
       if(elementsTemplate[i].hasOwnProperty(CWGRID_OPT) ) {
+        //elementsTemplate[i].typeo = elementsTemplate[i].type;
+        elementsTemplate[i].type = TYPE_CWGRID;
         elementsTemplate[i].columns = JSON.stringify(elementsTemplate[i][CWGRID_OPT].columns);
+        //elementsTemplate[i]['show-add-row'] = true;
+        //elementsTemplate[i]['grid-options'] = '{"enableCellEditOnFocus":true,"enableCellSelection":true,"enableRowSelection":false}'
       }
     }
 
