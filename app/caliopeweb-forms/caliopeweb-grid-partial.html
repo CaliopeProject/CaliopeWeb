@@ -6,8 +6,11 @@
     load-init=Indica si se debe cargar el grid al inicio
     class=Clase asignada al contenedor del grid
   -->
-  <cw-grid name="gridProjectsmtv" grid-options='{"enableCellEditOnFocus":true,"enableCellSelection":true,"enableRowSelection":false}' method="projects.getAll" load-init="true" class="height-5" ng-init="initGrid()"></cw-grid>
-  <button ng-click="addRow()">Add Row</button>
+  <cw-grid name="areas"
+           grid-options='{"enableCellEditOnFocus":true,"enableCellSelection":true,"enableRowSelection":false}'
+           columns='{"field" : " }'
+           load-init="false" class="height-5"></cw-grid>
+
   <!-- Ejemplo de carga de grilla al dar click en un boton y enviar parámetros
   <input type="button" ng-click="findWithFilter('')" value="Buscar UUID"/>
   -->

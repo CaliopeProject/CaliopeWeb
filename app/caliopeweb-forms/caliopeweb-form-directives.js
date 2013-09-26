@@ -529,8 +529,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
      */
     var directiveDefinitionObject = {
       restrict : 'E',
-      //replace : true,
-
+      replace : false,
       template : '<div></div>',
       /**
        *
@@ -538,6 +537,12 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
        * @param $attrs
        */
       controller : function($scope, $attrs, $element) {
+
+        if($element.data() !== undefined) {
+          angular.forEach($element.data(), function(v,k){
+            $attrs.$set(k,v);
+          });
+        }
 
         var gridName = $attrs['name'];
         var method = $attrs['method'];
@@ -556,18 +561,35 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           gridOptions = angular.fromJson($attrs.gridOptions);
           angular.extend($scope[gridOptionsName], gridOptions);
         } catch (ex) {
-          throw Error('Error parsing attribute grid-option of directive cw-grid '+ ex.message)
+          throw Error('Error parsing attribute grid-option of directive cw-grid. '+ ex.message)
+        }
+
+        if($attrs.hasOwnProperty('columns')){
+          try {
+            var columns = JSON.parse($attrs.columns);
+            var reg={};
+            var colsDefs = [];
+            angular.forEach(columns, function(v,k){
+              reg[v.name] = '';
+              var colDef = {
+                'field' : v.name,
+                'displayName' : v.caption
+              }
+              colsDefs.push(colDef);
+            });
+            $scope['data'.concat(gridName)] = [];
+            $scope['data'.concat(gridName)].push(reg);
+            $scope['columnDefs'.concat(gridName)] = colsDefs;
+
+          } catch (ex) {
+            console.log('Error load columns from attribute columns. ' + ex)
+          }
         }
 
         $element.children().attr('ng-grid', gridOptionsName);
         $scope[gridName] = cwGridService.createGrid(gridName, method, []);
 
-        $scope[gridName].addGridProperties(gridOptions);
         $compile($element.contents())($scope);
-
-        $scope.addRow = function() {
-           $scope['data'.concat(gridName)].push({});
-        };
       },
       /**
        *
@@ -608,6 +630,63 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
             $scope['columnDefs'.concat(gridName)] = structureToRender.columnsDef;
           }
         });
+
+        $scope.addRow = function() {
+          console.log('add Row');
+          if($scope['data'.concat(gridName)] == undefined) {
+            $scope['data'.concat(gridName)] = [];
+          }
+          $scope['data'.concat(gridName)].push({});
+        };
+
+      }
+    };
+
+    return directiveDefinitionObject;
+  }]);
+
+  /**
+   * @ngdoc directive
+   * @name cw.directive:cwValidationMess
+   * @restrict E
+   * @replace true
+   *
+   * @description
+   * Define the directive for add validation message to forms. This use template define in
+   * 'caliopeweb-forms/caliopeweb-valmess-partial.html'
+   *
+   *
+   */
+  moduleDirectives.directive('cwGridInForm',['caliopewebGridSrv', '$compile', function (cwGridService, $compile) {
+
+    /**
+     * Define the function for link the directive to AngularJS Context.
+     */
+    var directiveDefinitionObject = {
+      restrict : 'E',
+      replace : true,
+      templateUrl : 'caliopeweb-forms/caliopeweb-cwgridform-partial-directive.html',
+      /**
+       *
+       * @param $scope
+       * @param $attrs
+       */
+      controller : function($scope, $attrs, $element) {
+        var eCwGrid = $element.find('cw-grid');
+        if(eCwGrid !== undefined) {
+          eCwGrid.data('name', $attrs.name);
+          eCwGrid.data('columns', $attrs.columns);
+          eCwGrid.children().addClass($attrs.class);
+        }
+
+      },
+      /**
+       *
+       * @param $scope
+       * @param $element
+       * @param $attrs
+       */
+      link: function ($scope, $element, $attrs) {
 
       }
     };
