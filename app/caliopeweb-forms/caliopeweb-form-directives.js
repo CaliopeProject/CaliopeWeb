@@ -394,11 +394,11 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
 
           if( loadRemote !== undefined && loadRemote === 'true') {
 
-            var ATTNAME_METHOD = 'method';
-            var ATTNAME_FIELDVALUE = 'fieldvalue';
-            var ATTNAME_FIELDDESC = 'fielddesc';
-            var ATTNAME_FIELIMAGE] = 'fieldimage'; 
-            var ATTNAME_FIELDID = 'formid';
+            var ATTNAME_METHOD         = 'method';
+            var ATTNAME_FIELDVALUE     = 'fieldvalue';
+            var ATTNAME_FIELDDESC      = 'fielddesc';
+            var ATTNAME_FIELIMAGE      = 'fieldimage';
+            var ATTNAME_FIELDID        = 'formid';
             var ATTNAME_FIELD_DATALIST = 'fieldDatalist';
 
             var promise = caliopewebTemplateSrv.loadDataOptions(attrs[ATTNAME_METHOD],

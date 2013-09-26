@@ -56,9 +56,10 @@ body {
 #page-content {
   background: #fff;
   margin: 0;
-  padding: 8px;
+  padding: 4px;
   padding-bottom: 0px;
-  height: calc(100% - 8px);
+  padding-top: 0px;
+  height: 100%;
   .page-header:first-child {
     margin: 0 0 12px;
     border-bottom: 1px dotted #e2e2e2;
@@ -79,6 +80,12 @@ body {
   .row-fluid {
     @include heightall;
   }
+}
+
+.page-header {
+  padding: 0px;
+  margin: 0px;
+  border-bottom: 1px solid #eeeeee;
 }
 
 [class*=" icon-"], [class^="icon-"] {
