@@ -13,7 +13,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function (angular) {
 
         $scope.$watch('respLoginAuthenticate', function (value) {
           if (value !== undefined) {
-            var uuid = value.uuid;
+            var uuid = value.session_uuid;
             if (uuid !== undefined) {
               sessionSrv.createSession(uuid, $scope.username);
               var user = sessionSrv.getUserNameSession();

@@ -43,7 +43,7 @@ body {
 
 #main-container {
   padding: 0;
-  @include heightall;
+  height: calc(100% - 36px);
 }
 
 #main-content {
@@ -56,8 +56,9 @@ body {
 #page-content {
   background: #fff;
   margin: 0;
-  padding: 8px 20px 24px;
-  @include heightall;
+  padding: 8px;
+  padding-bottom: 0px;
+  height: calc(100% - 8px);
   .page-header:first-child {
     margin: 0 0 12px;
     border-bottom: 1px dotted #e2e2e2;
@@ -4990,9 +4991,14 @@ input {
   }
 }
 
+.accordion {
+  margin: 0px;
+  margin-top: 7px;
+}
+
 .accordion-group {
   border-radius: 0;
-  border-color: #c5d0dc;
+  border-color: #fcfafa;
   background-color: #FFF;
   &:last-child {
     border-bottom-width: 1px;
@@ -5003,18 +5009,22 @@ input {
   background-color: #FFF;
 }
 
+.accordion-heading{
+  font-weight: bold;
+  text-decoration: initial;
+}
 .accordion-heading .accordion-toggle {
-  color: #4c8fbd;
-  background-color: #f1f9ff;
+  @extend .green;
   position: relative;
+  padding: 3px 13px;
   &.collapsed {
     color: #679;
     font-weight: normal;
     background-color: #f1f9ff;
   }
   &:hover {
-    color: #4c8fbd;
-    background-color: #f1f9ff;
+    @extend .light-green;
+    text-decoration: initial;
   }
   &:after {
     display: inline-block;
@@ -5050,7 +5060,7 @@ input {
 }
 
 .accordion-inner, .collapse.in > .accordion-inner {
-  border-top: 1px solid #c5d0dc;
+  border-top: 1px solid #fcfafa;
 }
 
 .accordion-inner .no-padding {

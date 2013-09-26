@@ -68,6 +68,7 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
             }
           });
 
+          //this metodo is the same that method in login_controller.
           $scope.$on('login-service-user', function (event, data) {
               taskService.loadData();
           });
