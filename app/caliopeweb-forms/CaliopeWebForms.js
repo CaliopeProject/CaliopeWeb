@@ -296,7 +296,10 @@ var CaliopeWebForm = (function() {
                     }
                   }
                 }
-              } else {
+              } else if(elements[i].type === 'cw-grid-in-form' && elements[i].typeo === 'cw-grid') {
+                value = dataFromView[dataFromView[nameVarScope].gridDataName];
+              }
+              else {
                 value = dataFromView[nameVarScope];
               }
               if(elements[i].hasOwnProperty('relation')) {
@@ -939,11 +942,10 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 
     for(i=0; i < elementsTemplate.length; i++) {
       if(elementsTemplate[i].hasOwnProperty(CWGRID_OPT) ) {
-        //elementsTemplate[i].typeo = elementsTemplate[i].type;
+        elementsTemplate[i].typeo = elementsTemplate[i].type;
         elementsTemplate[i].type = TYPE_CWGRID;
         elementsTemplate[i].columns = JSON.stringify(elementsTemplate[i][CWGRID_OPT].columns);
-        //elementsTemplate[i]['show-add-row'] = true;
-        //elementsTemplate[i]['grid-options'] = '{"enableCellEditOnFocus":true,"enableCellSelection":true,"enableRowSelection":false}'
+
       }
     }
 

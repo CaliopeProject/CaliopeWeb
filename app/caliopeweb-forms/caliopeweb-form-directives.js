@@ -128,7 +128,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
             $.dform.options.prefix = null;
             $(element).dform(plantilla);
           } catch (exDform) {
-            console.log('Error generating the dynamic form with dForm' +  exDform.message );
+            console.log('Error generating the dynamic form with dForm' +  exDform.message + exDform );
           }
           try {
             $compile(element.contents())(scope);
@@ -605,15 +605,16 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           loadInit = false;
         }
 
-        var dataGridName = "data_".concat(gridName);
-        $scope[gridName].setGridDataName(dataGridName);
+        var dataGridNameSrv = "data_".concat(gridName);
+        var dataGridNameGrid = "data".concat(gridName);
+        $scope[gridName].setGridDataName(dataGridNameGrid);
 
         if( loadInit === true ) {
-          $scope[dataGridName] = $scope[gridName].loadDataFromServer();
+          $scope[dataGridNameSrv] = $scope[gridName].loadDataFromServer();
         }
 
         var gridOptionsName = gridName.concat('options');
-        $scope.$watch(''.concat(dataGridName), function(dataGrid) {
+        $scope.$watch(''.concat(dataGridNameSrv), function(dataGrid) {
           if( dataGrid !== undefined ) {
             $scope[gridName].addData(dataGrid);
             $scope[gridName].applyDecorators();
