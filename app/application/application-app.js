@@ -12,7 +12,7 @@ var dependencies = [
     'caliopeweb-templateControllers',
     'caliopeweb-formDirectives',
 
-    'admin-user-controller',
+    'admin-users-controller',
 
     'proyectomtv-controller',
     'proyectomtv-service',
@@ -21,6 +21,7 @@ var dependencies = [
     'login-security-services',
     'login-controllers',
     'login-controllers-form',
+    'login-retryQueue',
     'login-directives',
 
     'seeinmap-directives',

@@ -50,7 +50,7 @@ require.config({
     'caliopeweb-templateControllers'   : 'caliopeweb-forms/caliopeweb-template-controllers',
     'caliopeweb-formDirectives'        : 'caliopeweb-forms/caliopeweb-form-directives',
 
-    'admin-users-controllers'           : 'admin-users/admin-users-controllers',
+    'admin-users-controller'           : 'admin-users/admin-users-controller',
 
     'proyectomtv-controller'          : 'proyectomtv/proyectomtv-controller',
     'proyectomtv-summary-controller'  : 'proyectomtv/proyectomtv-summary-controller',
@@ -60,6 +60,7 @@ require.config({
     'login-controllers'                : 'login/login-controllers',
     'login-controllers-form'           : 'login/login-controllers-form',
     'login-directives'                 : 'login/login-directives',
+    'login-retryQueue'                 : 'login/login-retryQueue',
 
     'menu-top-controller'              : 'menu-top/menu-top-controllers',
 
