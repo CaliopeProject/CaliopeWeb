@@ -41,6 +41,7 @@ $borKanba: 12px;
   margin: 3px 0;
   border-bottom: 1px solid #CCC;
   padding-bottom: 42px ;
+
 }
 
 .widget-header-kanban {
@@ -76,6 +77,7 @@ $borKanba: 12px;
   border: 1px solid #CCC;
   border-top: 0;
   border-bottom: 0;
+  margin-bottom: -42px;
 }
 
 .task-header-kanban {

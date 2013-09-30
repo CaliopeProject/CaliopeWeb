@@ -320,8 +320,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
             taskNot.porcTask    = 100 - ((pend * 100)/alltask);
             taskNot.porcSubTask = 100 - ((subt * 100)/allSubtask);
-            taskNot.pend        = pend;
-            taskNot.subt        = subt;
+            taskNot.pend        = pend || 0;
+            taskNot.subt        = subt || 0;
 
             return taskNot;
 
