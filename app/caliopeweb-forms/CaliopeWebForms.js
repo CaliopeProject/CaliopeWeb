@@ -1040,6 +1040,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           var VARNAME_METHOD = 'method';
           var VARNAME_FIELDVAL = 'field-value';
           var VARNAME_FIELDDESC = 'field-desc';
+          var VARNAME_FIELDIMAGE = 'field-image';
           var VARNAME_FORMID = 'formid';
           var VARNAME_DATALIST = 'field-data-list';
           var VARNAME_LOADREMOTE = 'load-remote';
@@ -1053,6 +1054,9 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           }
           if(element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDDESC] !== undefined) {
             element.fielddesc = element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDDESC];
+          }
+          if(element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDIMAGE] !== undefined) {
+            element.fieldimage = element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDIMAGE];
           }
           if(element[VARNAME_LOAD_OPT_SRV][VARNAME_FORMID] !== undefined) {
             element.formid = element[VARNAME_LOAD_OPT_SRV][VARNAME_FORMID];

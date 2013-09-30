@@ -12,6 +12,8 @@ var dependencies = [
     'caliopeweb-templateControllers',
     'caliopeweb-formDirectives',
 
+    'admin-user-controller',
+
     'proyectomtv-controller',
     'proyectomtv-service',
     'proyectomtv-summary-controller',
@@ -19,7 +21,6 @@ var dependencies = [
     'login-security-services',
     'login-controllers',
     'login-controllers-form',
-    'login-retryQueue',
     'login-directives',
 
     'seeinmap-directives',
@@ -54,6 +55,8 @@ var modulesAngular = [
     'CaliopeWebTemplatesServices',
     'CaliopeWebTemplateControllers',
     'CaliopeWebFormDirectives',
+
+    'AdminUsersController',
 
     'ProyectoControllers',
     'ProyectoServices',

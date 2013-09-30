@@ -7,8 +7,28 @@ define(['angular','angular-dragdrop'], function (angular) {
 
   dirmodule.controller("summaryProyecto",
     ["$scope",'taskService', function($scope, taskService) {
-        $scope.dataAll = taskService.getAll();
-        $scope.imagen = "data:image/png;base64, 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";
-      }
-    ]);
+        $scope.task = [];
+        angular.forEach(taskService.getAll(),function(vtask){
+          var user, image;
+          var category = [];
+          var name = vtask.name;
+          var descripcion = vtask.descripcion;
+          angular.forEach(vtask.holders.target, function(vtarget){
+            var user = {};
+            var exist= false;
+            user.name  = vtarget.user.name;
+            user.image = vtarget.user.image;
+            angular.forEach(category, function(vcategory, kcategory){
+              if(vcategory.name === vtarget.properties.category){
+                exist = true;
+                vcategory[kcategory].users.push(user);
+              }
+            });
+            if(!exist){
+              category.push({name : vtarget.properties.category, users: [user]});
+            }
+          });
+          $scope.task.push({task: name, desc: descripcion, cate: category});
+        });
+    }]);
 });

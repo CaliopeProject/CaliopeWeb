@@ -300,8 +300,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
         replace: true,
         templateUrl: 'caliopeweb-forms/caliopeweb-mcombo-partial-directive.html',
         scope: true,
-        controller: ['$scope', '$filter', function($scope, $filter) {
-
+        controller: ['$scope', '$filter', '$attrs', function($scope, $filter, $attrs) {
           $scope._searchElem = null;
           $scope.filteredChoices = function() {
             var filtered = $filter('filter')($scope._choices, $scope._search);
@@ -309,13 +308,16 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           };
 
           $scope.moveToSelected = function(choice, $event) {
-            $scope._selectedChoices.push(choice);
-            $scope._choices.splice($scope._choices.indexOf(choice), 1);
+            if(!$attrs.single ){
+              $scope._selectedChoices.push(choice);
+              $scope._choices.splice($scope._choices.indexOf(choice), 1);
+              // do not 'close' on choice click
+            }else if ($attrs.single && ($scope._selectedChoices.length < 1)){
+              $scope._selectedChoices.push(choice);
+              $scope._choices.splice($scope._choices.indexOf(choice), 1);
+            }
             $scope._search='';
-
             $scope._searchElem.focus();
-
-            // do not 'close' on choice click
             $event.preventDefault();
             $event.stopPropagation();
           };
@@ -328,16 +330,14 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           };
 
           /**
-           * THis watch is to update the scope and parent scope with choices selected.
-           */
+          * THis watch is to update the scope and parent scope with choices selected.
+          */
           $scope.$watch('_selectedChoices.length', function(value) {
             if($scope[VAR_SCOPE_PUT_CHOICES_SELECTED] !== undefined && value !== undefined) {
               $scope[$scope[VAR_SCOPE_PUT_CHOICES_SELECTED]] = $scope._selectedChoices;
               $scope.$parent[$scope[VAR_SCOPE_PUT_CHOICES_SELECTED]] = $scope._selectedChoices;
             }
           });
-
-
         }
         ],
         link: function(scope, element, attrs) {
@@ -394,10 +394,11 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
 
           if( loadRemote !== undefined && loadRemote === 'true') {
 
-            var ATTNAME_METHOD = 'method';
-            var ATTNAME_FIELDVALUE = 'fieldvalue';
-            var ATTNAME_FIELDDESC = 'fielddesc';
-            var ATTNAME_FIELDID = 'formid';
+            var ATTNAME_METHOD         = 'method';
+            var ATTNAME_FIELDVALUE     = 'fieldvalue';
+            var ATTNAME_FIELDDESC      = 'fielddesc';
+            var ATTNAME_FIELIMAGE      = 'fieldimage';
+            var ATTNAME_FIELDID        = 'formid';
             var ATTNAME_FIELD_DATALIST = 'fieldDatalist';
 
             var promise = caliopewebTemplateSrv.loadDataOptions(attrs[ATTNAME_METHOD],
@@ -419,7 +420,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
 
                 var i;
                 var attrFieldValue = attrs[ATTNAME_FIELDVALUE];
-                var attrFieldDesc = attrs[ATTNAME_FIELDDESC];
+                var attrFieldDesc  = attrs[ATTNAME_FIELDDESC];
+                var attrFieldImage = attrs[ATTNAME_FIELIMAGE];
                 if(attrs[ATTNAME_FIELD_DATALIST] !== undefined) {
                   dataResponse =
                       tools.getValueAttInObject(dataResponse, attrs[ATTNAME_FIELD_DATALIST], '.');
@@ -434,7 +436,9 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                   var option = {value : {}};
                   option.value[attrFieldValue] = tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.');
                   option.text = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
+                  option.image = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
                   scope[scopeMultiComboChoices].push(option);
+                  
                 }
               }
 
@@ -469,39 +473,6 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                 }
                 scope[scopeMultiComboChoices] = scopeMultiComboChoicesTmp;
               }
-
-
-              /*
-              Code for load selected choices from server to componente ui-mcombo-choices and
-              remove selected choices.
-
-              var selectedChoices  = attrs['selectedChoices'].split(",");
-              var scopeMultiComboChoicesTmp = scope[scopeMultiComboChoices];
-              if( selectedChoices !== undefined ) {
-                for(i=0; i < selectedChoices.length; i++ ) {
-                  var valueChoice = selectedChoices[i];
-                  if( valueChoice !== undefined ) {
-                    var j;
-                    var objChoice = undefined;
-                    for(j=0; j < scope[scopeMultiComboChoices].length; j++ ) {
-                      if( scope[scopeMultiComboChoices][j] !== undefined ) {
-
-                        if(scope[scopeMultiComboChoices][j].value === valueChoice) {
-                          objChoice = scope[scopeMultiComboChoices][j];
-                          break;
-                        }
-                      }
-                    }
-                    if( objChoice !== undefined ) {
-                      scope[scopeMultiComboSelected].push(objChoice);
-                      var indexOf = scopeMultiComboChoicesTmp.indexOf(objChoice);
-                      scopeMultiComboChoicesTmp.splice(indexOf, 1);
-                    }
-                  }
-                }
-                scope[scopeMultiComboChoices] = scopeMultiComboChoicesTmp;
-              }
-               */
             });
 
           }
