@@ -179,17 +179,12 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           var cwFormName = $scope['cwForm-name'];
 
           var cwForm = $scope[cwFormName];
+          var data = {};
           if( cwForm !== undefined ) {
-            $scope.responseSendAction   = {};
-            var data = cwForm.dataToServerData($scope);
-            $scope.responseSendAction = caliopewebTemplateSrv.sendDataForm(formTemplateName,
-                actionMethod, data, modelUUID, objID);
-          } else {
-            var data = {};
-            $scope.responseSendAction = caliopewebTemplateSrv.sendDataForm(formTemplateName,
-                actionMethod, data, modelUUID, objID);
+            data = cwForm.dataToServerData($scope);
           }
-
+          $scope.responseSendAction = caliopewebTemplateSrv.sendDataForm(formTemplateName,
+              actionMethod, data, modelUUID, objID);
         };
 
       }]
