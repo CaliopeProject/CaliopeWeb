@@ -6,9 +6,8 @@ define(['angular', 'application-app'], function(angular, app) {
     'predialcards' : '/caliopeweb-forms/caliopeweb-form-partial.html'
   };
 
-  app.config(['$routeProvider',
-    function($routeProvider) {
-
+  app.config(['$routeProvider','$locationProvider'
+    ,function($routeProvider, $locationProvider) {
     /*
       Routes for task and kanban
      */
@@ -47,6 +46,8 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl: '/tools-gis-viewer/partial-gis-init.html'})
     .when('/login/:entity/:mode', {
       templateUrl: '/login/login-partial.html'})
+    .when('/', {
+      templateUrl: 'tools-kanban-board/kanban-board-partial.html'})
     .when('/kanban', {
       templateUrl: 'tools-kanban-board/kanban-board-partial.html'})
     .when('/caliopeweb-forms/:entity/:mode', {
@@ -59,7 +60,7 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl: '/caliopeweb-forms/caliopeweb-grid-partial.html'})
     .when('/tools/wysihtml5-editor', {
       templateUrl: 'tools-wysiwyg-editor/wysiwyg-editor-partial.html'})
-    .otherwise({redirectTo: '/kanban'});
+    .otherwise({redirectTo: '/'});
   }]);
 
   app.run(['$route', angular.noop]);
