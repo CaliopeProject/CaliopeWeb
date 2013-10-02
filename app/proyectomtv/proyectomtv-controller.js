@@ -63,6 +63,22 @@ define(['angular'], function(angular) {
       $scope.initForm = function() {
         var cwForm = $scope['cwForm-project'];
         var methodSupport = cwForm.getEntityModel().concat('.').concat(cwForm.getMode());
+
+        /*
+        $scope.$on(methodSupport.concat('_').concat(cwForm.getFormName()), function(params) {
+          console.log('on ' + methodSupport.concat('_').concat(cwForm.getFormName()), params);
+        });
+        */
+        var eventNameCreate = methodSupport.concat('_').concat(cwForm.getEntityModel());
+        console.log('eventNameCreate', eventNameCreate);
+        $scope.$on(''.concat(eventNameCreate), function(event, result) {
+          console.log('Se notifico  ' + methodSupport.concat('_').concat(cwForm.getFormName()), result[0], result[1]);
+          if( result[0] === true ) {
+            $scope.target.uuid = result[1].uuid;
+            cwForm.setActionsMethodToShow(['projects.edit']);
+          }
+        });
+
         cwForm.setActionsMethodToShow([methodSupport]);
         cwFormService.loadForm(cwForm, {}).then(function(result) {
           processResultLoadForm(result, $scope);
@@ -72,7 +88,11 @@ define(['angular'], function(angular) {
             $scope.showWidgetTask=false;
           }
         });
+
+
       };
+
+
 
       /*
       Ejemplo de carga de grilla cuando se invoca un evento y se envian parámetros.
