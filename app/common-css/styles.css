@@ -34004,3 +34004,14 @@ footer:before {
     top: 65px;
   }
 }
+/* line 3, ../common-scss/error.scss */
+#errorpage {
+  height: 100%;
+  width: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-image: url('/common-img/errorpage.png');
+  background-repeat: no-repeat;
+}
