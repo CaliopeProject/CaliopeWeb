@@ -180,7 +180,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         return request.then(function(data) {
           if(data.user !== undefined){
             service.currentUser = data;
-            SessionSrv.createSession(data.user_uuid, data.user);
+            SessionSrv.createSession(data.session_uuid, data.user);
             $rootScope.$broadcast('login-service-user');
           }else{
             service.currentUser = null;
@@ -191,6 +191,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
           }
         });
       },
+
 
       // Give up trying to login and clear the retry queue
       cancelLogin: function() {
@@ -239,12 +240,16 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         return !!service.currentUser;
       },
 
-      // Is the current user an adminstrator?
-      isAdmin: function() {
-        return !!(service.currentUser && service.currentUser.admin);
+      havePermission: function(){
+        var promise = {};
+        var params= {};
+        var webSockets = webSocket.WebSockets();
+        var method = "ac.isAccessGranted";
+        promise = webSockets.serversimm.sendRequest(method, params);
+        return promise;
       },
 
-      resetAuthentication : function()  {
+      resetAuthentication : function(){
         service.currentUser = null;
       }
     };
@@ -255,6 +260,8 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         service.showLogin();
       }
     });
+
+
 
     return service;
 
