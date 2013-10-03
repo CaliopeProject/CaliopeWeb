@@ -128,7 +128,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
             $.dform.options.prefix = null;
             $(element).dform(plantilla);
           } catch (exDform) {
-            console.log('Error generating the dynamic form with dForm' +  exDform.message );
+            console.log('Error generating the dynamic form with dForm' +  exDform.message + exDform );
           }
           try {
             $compile(element.contents())(scope);
@@ -537,17 +537,9 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
 
         if($attrs.hasOwnProperty('columns')){
           try {
-            var columns = JSON.parse($attrs.columns);
+            var colsDefs = JSON.parse($attrs.columns);
             var reg={};
-            var colsDefs = [];
-            angular.forEach(columns, function(v,k){
-              reg[v.name] = '';
-              var colDef = {
-                'field' : v.name,
-                'displayName' : v.caption
-              }
-              colsDefs.push(colDef);
-            });
+
             $scope['data'.concat(gridName)] = [];
             $scope['data'.concat(gridName)].push(reg);
             $scope['columnDefs'.concat(gridName)] = colsDefs;
@@ -584,15 +576,16 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           loadInit = false;
         }
 
-        var dataGridName = "data_".concat(gridName);
-        $scope[gridName].setGridDataName(dataGridName);
+        var dataGridNameSrv = "data_".concat(gridName);
+        var dataGridNameGrid = "data".concat(gridName);
+        $scope[gridName].setGridDataName(dataGridNameGrid);
 
         if( loadInit === true ) {
-          $scope[dataGridName] = $scope[gridName].loadDataFromServer();
+          $scope[dataGridNameSrv] = $scope[gridName].loadDataFromServer();
         }
 
         var gridOptionsName = gridName.concat('options');
-        $scope.$watch(''.concat(dataGridName), function(dataGrid) {
+        $scope.$watch(''.concat(dataGridNameSrv), function(dataGrid) {
           if( dataGrid !== undefined ) {
             $scope[gridName].addData(dataGrid);
             $scope[gridName].applyDecorators();
@@ -603,12 +596,17 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
         });
 
         $scope.addRow = function() {
-          console.log('add Row');
           if($scope['data'.concat(gridName)] == undefined) {
             $scope['data'.concat(gridName)] = [];
           }
           $scope['data'.concat(gridName)].push({});
         };
+
+        $scope.removeRow = function(row) {
+          if($scope['data'.concat(gridName)] !== undefined) {
+            $scope['data'.concat(gridName)].splice(row.rowIndex,1);
+          }
+        }
 
       }
     };
@@ -645,19 +643,39 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
       controller : function($scope, $attrs, $element) {
         var eCwGrid = $element.find('cw-grid');
         if(eCwGrid !== undefined) {
+
+          if($attrs.columns !== undefined) {
+            try {
+              var columns = JSON.parse($attrs.columns);
+              var colsDef = [];
+              angular.forEach(columns, function(v,k){
+                var colDef = {
+                  'field'               : v.name,
+                  'displayName'         : v.caption,
+                  "cellClass"           : "cell-center",
+                  'cellTempalte'        : v.cellTempalte,
+                  'headerCellTemplate'  : v.headerCellTemplate
+                }
+                colsDef.push(colDef);
+              });
+              if(colsDef.length > 0) {
+                colsDef.push({
+                  "name"                : 'Acciones',
+                  "cellClass"           : "cell-center",
+                  "headerCellTemplate"  : '<span ng-click="addRow()"><i tooltip="Agregar Fila" tooltip-placement="right" class="icon-plus"></i></button>',
+                  "cellTemplate"        : '<span ng-click="removeRow(row)"><i tooltip="Eliminar Fila" tooltip-placement="right"  class="icon-remove"></i></button>',
+                  "enableCellEdit"      : false
+                });
+                $attrs.$set('columns', JSON.stringify(colsDef));
+              }
+            } catch (ex) {
+              console.log('Error load columns from attribute columns. ' + ex)
+            }
+          }
           eCwGrid.data('name', $attrs.name);
           eCwGrid.data('columns', $attrs.columns);
           eCwGrid.children().addClass($attrs.class);
         }
-
-      },
-      /**
-       *
-       * @param $scope
-       * @param $element
-       * @param $attrs
-       */
-      link: function ($scope, $element, $attrs) {
 
       }
     };

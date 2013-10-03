@@ -235,11 +235,13 @@ var CaliopeWebForm = (function() {
             data[value.name] = dataFromServer[value.name];
             if( value.hasOwnProperty('relation') ) {
               data[value.name] = [];
-              jQuery.each(dataFromServer[value.name].target, function(targetKey, targetValue) {
-                if(targetValue.hasOwnProperty('entity_data')){
-                  data[value.name].push( targetValue.entity_data );
-                }
-              });
+              if( dataFromServer[value.name] !== undefined ) {
+                jQuery.each(dataFromServer[value.name].target, function(targetKey, targetValue) {
+                  if(targetValue.hasOwnProperty('entity_data')){
+                    data[value.name].push( targetValue.entity_data );
+                  }
+                });
+              }
             }
           };
         });
@@ -296,7 +298,10 @@ var CaliopeWebForm = (function() {
                     }
                   }
                 }
-              } else {
+              } else if(elements[i].type === 'cw-grid-in-form' && elements[i].typeo === 'cw-grid') {
+                value = dataFromView[dataFromView[nameVarScope].gridDataName];
+              }
+              else {
                 value = dataFromView[nameVarScope];
               }
               if(elements[i].hasOwnProperty('relation')) {
@@ -320,11 +325,20 @@ var CaliopeWebForm = (function() {
                 if( oTarget !== undefined ) {
                   //var ownRelation = elements[i].name;
                   var target = [];
+
+                  if( value !== undefined) {
+                    if( value instanceof Array) {
+                    } else {
+                      value = [value];
+                    }
+                  }
+
                   jQuery.each(value, function(kRel, vRel){
                     var cTarget = {};
                     jQuery.extend(true, cTarget, oTarget);
                     if(patt.test(oTarget.entity)) {
-                      cTarget.entity = dataFromView[oTarget.entity];
+                      var vPropScope = getVarNameScopeFromFormRep(oTarget.entity);
+                      cTarget.entity = dataFromView[vPropScope];
                     }
                     jQuery.each(oTarget.properties, function(kProp, vProp){
                       if(patt.test(vProp)) {
@@ -342,7 +356,14 @@ var CaliopeWebForm = (function() {
                         if(vPropScope === elements[i].name ) {
                           cTarget['entity_data'][kProp] = vRel[kProp];
                         } else {
-                          cTarget['entity_data'][kProp] = dataFromView[vPropScope][kProp];
+                          cTarget['entity_data'][kProp] = getValueAttInObject(dataFromView, vPropScope, '.');
+                          /*
+                          if(dataFromView[vPropScope] instanceof Object) {
+                            cTarget['entity_data'][kProp] = getValueAttInObject(dataFromView, vPropScope, '.');
+                          } else if(dataFromView[vPropScope] instanceof Array) {
+                            cTarget['entity_data'][kProp] = getValueAttInObject(dataFromView, vPropScope, '.')[kProp];
+                          }
+                          */
                         }
                       }
                     });
@@ -653,6 +674,49 @@ var CaliopeWebForm = (function() {
 
 }());
 
+
+/*
+ TODO: Put this function for global use. Code in caliopeweb-form-directives.js
+ */
+/**
+ * Get the final value of a attribute in a object. Attribute is represented by a string
+ * notation that indicate the path to final attribute..
+ *
+ * @example
+ * obj = { "user" : {
+     *            "username" : {value : "username"},
+     *            "name"  : {value : "NAME USER"}
+     *          }
+     *       }
+ * attName = user.name.value
+ * charSplitAttName = '.'
+ *
+ * Return "NAME USER"
+ *
+ * @memberOf commonServices
+ * @param {object} obj Object with the data
+ * @param {string} attName String that represent the attribute final to return value.
+ * @param {string} charSplitAttName A character that indicate the separation of attributes in attName,
+ * if this is undefined or empty or type is not string then the value by default is '.'.
+ * @return {object} The value of attribute, if strAttrValues don't exist then return undefined
+ */
+function getValueAttInObject(obj, attName, charSplitAttName) {
+  if(charSplitAttName === undefined || typeof charSplitAttName !== 'string' || charSplitAttName.length < 1) {
+    charSplitAttName = '.';
+  }
+  var fieldsValue = attName.split(charSplitAttName);
+  var j;
+  var objValue = obj;
+  for(j=0;j<fieldsValue.length;j++) {
+    try {
+      objValue = objValue[fieldsValue[j]];
+    } catch (ex) {
+      objValue = undefined;
+    }
+  }
+  return objValue;
+}
+
 /**
  *
  * This class don't has a constructor. Decorator override the function createStructureToRender
@@ -711,48 +775,6 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    * @type {string}
    */
   var ctrlEndName            = 'Ctrl';
-
-  /*
-   TODO: Put this function for global use. Code in caliopeweb-form-directives.js
-   */
-  /**
-   * Get the final value of a attribute in a object. Attribute is represented by a string
-   * notation that indicate the path to final attribute..
-   *
-   * @example
-   * obj = { "user" : {
-     *            "username" : {value : "username"},
-     *            "name"  : {value : "NAME USER"}
-     *          }
-     *       }
-   * attName = user.name.value
-   * charSplitAttName = '.'
-   *
-   * Return "NAME USER"
-   *
-   * @memberOf commonServices
-   * @param {object} obj Object with the data
-   * @param {string} attName String that represent the attribute final to return value.
-   * @param {string} charSplitAttName A character that indicate the separation of attributes in attName,
-   * if this is undefined or empty or type is not string then the value by default is '.'.
-   * @return {object} The value of attribute, if strAttrValues don't exist then return undefined
-   */
-  function getValueAttInObject(obj, attName, charSplitAttName) {
-    if(charSplitAttName === undefined || typeof charSplitAttName !== 'string' || charSplitAttName.length < 1) {
-      charSplitAttName = '.';
-    }
-    var fieldsValue = attName.split(charSplitAttName);
-    var j;
-    var objValue = obj;
-    for(j=0;j<fieldsValue.length;j++) {
-      try {
-        objValue = objValue[fieldsValue[j]];
-      } catch (ex) {
-        objValue = undefined;
-      }
-    }
-    return objValue;
-  }
 
   /**
    * Add ng-controller of angular controller directive to the form.
@@ -939,11 +961,10 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 
     for(i=0; i < elementsTemplate.length; i++) {
       if(elementsTemplate[i].hasOwnProperty(CWGRID_OPT) ) {
-        //elementsTemplate[i].typeo = elementsTemplate[i].type;
+        elementsTemplate[i].typeo = elementsTemplate[i].type;
         elementsTemplate[i].type = TYPE_CWGRID;
         elementsTemplate[i].columns = JSON.stringify(elementsTemplate[i][CWGRID_OPT].columns);
-        //elementsTemplate[i]['show-add-row'] = true;
-        //elementsTemplate[i]['grid-options'] = '{"enableCellEditOnFocus":true,"enableCellSelection":true,"enableRowSelection":false}'
+
       }
     }
 

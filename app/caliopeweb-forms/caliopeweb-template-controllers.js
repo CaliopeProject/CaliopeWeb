@@ -157,39 +157,35 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
     ['caliopewebTemplateSrv', 'global_constants', '$scope', '$filter',
       function (caliopewebTemplateSrv, GConst, $scope, $filter) {
 
-        $scope.$watch('responseSendAction', function (value) {
-
-          if (value !== undefined && value !== null) {
-
-            if(value.error === undefined) {
-              if($scope.fromDialog) {
-                if($scope[$scope.dialogName] !== undefined) {
-                  $scope[$scope.dialogName].close([true, $scope.dialogName]);
-                }
-              }
-            } else {
-              console.log('Server error response', value.error);
-            }
-          }
-        });
-
-
         $scope.sendAction = function(form, formTemplateName, actionMethod, modelUUID, objID, paramsToSend) {
 
           var cwFormName = $scope['cwForm-name'];
 
           var cwForm = $scope[cwFormName];
+          var data = {};
           if( cwForm !== undefined ) {
-            $scope.responseSendAction   = {};
-            var data = cwForm.dataToServerData($scope);
-            $scope.responseSendAction = caliopewebTemplateSrv.sendDataForm(formTemplateName,
-                actionMethod, data, modelUUID, objID);
-          } else {
-            var data = {};
-            $scope.responseSendAction = caliopewebTemplateSrv.sendDataForm(formTemplateName,
-                actionMethod, data, modelUUID, objID);
+            data = cwForm.dataToServerData($scope);
           }
+          caliopewebTemplateSrv.sendDataForm(formTemplateName,
+              actionMethod, data, modelUUID, objID).then( function(value) {
 
+              if (value !== undefined && value !== null) {
+
+                if(value.error === undefined) {
+                  if($scope.fromDialog) {
+                    if($scope[$scope.dialogName] !== undefined) {
+                      $scope[$scope.dialogName].close([true, $scope.dialogName]);
+                    }
+                  }
+                  var eventEmit = actionMethod.concat('_').concat(formTemplateName);
+                  $scope.$emit(''.concat(eventEmit), [true, value]);
+                } else {
+                  console.log('Server error response', value.error);
+                }
+              }
+
+
+            });
         };
 
       }]
