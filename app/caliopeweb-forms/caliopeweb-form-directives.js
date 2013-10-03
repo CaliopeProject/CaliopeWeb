@@ -683,5 +683,52 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
     return directiveDefinitionObject;
   }]);
 
+  /**
+   * @ngdoc directive
+   * @name cw.directive:cwValidationMess
+   * @restrict E
+   * @replace true
+   *
+   * @description
+   * Define the directive for add validation message to forms. This use template define in
+   * 'caliopeweb-forms/caliopeweb-valmess-partial.html'
+   *
+   *
+   */
+  moduleDirectives.directive('cwAction',['$compile', function ($compile) {
+
+    /**
+     * Define the function for link the directive to AngularJS Context.
+     */
+    var directiveDefinitionObject = {
+      restrict : 'E',
+      replace : true,
+      template : '<button type="button"></button>',
+      /**
+       *
+       * @param $scope
+       * @param $element
+       * @param $attrs
+       */
+      link: function ($scope, $element, $attrs) {
+        $element.append($attrs.title);
+
+        var varShowScopeName = 'show_' + $attrs.name;
+        $element.attr('ng-show', ''.concat(varShowScopeName).concat(''));
+        var show = false;
+        if( $attrs.ngShow === "true" ) {
+          show = false;
+        }
+        $scope[varShowScopeName] = show;
+        //$scope.$apply();
+
+      }
+
+
+    };
+
+    return directiveDefinitionObject;
+  }]);
+
 });
 

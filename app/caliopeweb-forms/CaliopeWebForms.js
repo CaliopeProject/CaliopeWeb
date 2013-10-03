@@ -1176,9 +1176,10 @@ var CaliopeWebFormActionsDecorator = ( function() {
 
       var VAR_NAME_NAME = "name";
       var VAR_NAME_METHOD = "method";
-      var TYPE_ACTION = "button";
-      var DIRECTIVE_NG_CLICK = 'ng-click';
-      var DIRECTIVE_NG_DISABLED = 'ng-disabled';
+      var TYPE_ACTION = "cw-action";
+      var DIRECTIVE_CLICK = 'ng-click';
+      var DIRECTIVE_DISABLED = 'ng-disabled';
+      var DIRECTIVE_SHOW = 'ng-show';
       var NAME_METHOD_CONTROLLER = 'sendAction';
       var NAME_CLASS_ACTIONS = 'modal-footer';
       var NAME_CLASS_BUTTON_DEFAULT = "btn";
@@ -1196,31 +1197,36 @@ var CaliopeWebFormActionsDecorator = ( function() {
         var action = {};
         var actionName = structureActions[i][VAR_NAME_NAME];
         var actionMethod = structureActions[i][VAR_NAME_METHOD];
-        if(actionsToShow === undefined || actionsToShow.length === 0 || actionsToShow.indexOf(actionMethod) >= 0 ) {
-          var actionMethod = structureActions[i][VAR_NAME_METHOD];
-          var paramsToSend = structureActions[i][VAR_NAME_PARAMS_TO_SEND];
-          if( paramsToSend === undefined ) {
-            paramsToSend = "";
-          }
-          action.type = TYPE_ACTION;
-          /*
-            create ng-click: sendAction(form, 'formName', 'method', 'modelUUID', 'objID', 'params_to_send_to_server');
-           */
-          action[DIRECTIVE_NG_CLICK] = NAME_METHOD_CONTROLLER.concat("(").
-              concat(formName).concat(", ").
-              concat("'").concat(formName).concat("', ").
-              concat("'").concat(actionMethod).concat("', ").
-              concat("'").concat(modelUUID).concat("', ").
-              concat("'").concat(objID).concat("', ").
-              concat("'").concat(paramsToSend).concat("'").
-              concat(")");
-          action[DIRECTIVE_NG_DISABLED] = formName.concat('.$invalid');
-          action.name = action.type.concat('-').concat(actionName) ;
-          action.class = NAME_CLASS_BUTTON_DEFAULT;
-          action.html = actionName;
-          buttonContainer.html.push(action);
+        var show = false;
+        if(actionsToShow !== undefined && actionsToShow.indexOf(actionMethod) >= 0 ) {
+          show = true;
         }
+
+        //var actionMethod = structureActions[i][VAR_NAME_METHOD];
+        var paramsToSend = structureActions[i][VAR_NAME_PARAMS_TO_SEND];
+        if( paramsToSend === undefined ) {
+          paramsToSend = "";
+        }
+        action.type = TYPE_ACTION;
+        /*
+          create ng-click: sendAction(form, 'formName', 'method', 'modelUUID', 'objID', 'params_to_send_to_server');
+         */
+        action[DIRECTIVE_CLICK] = NAME_METHOD_CONTROLLER.concat("(").
+            concat(formName).concat(", ").
+            concat("'").concat(formName).concat("', ").
+            concat("'").concat(actionMethod).concat("', ").
+            concat("'").concat(modelUUID).concat("', ").
+            concat("'").concat(objID).concat("', ").
+            concat("'").concat(paramsToSend).concat("'").
+            concat(")");
+        action[DIRECTIVE_DISABLED] = formName.concat('.$invalid');
+        action[DIRECTIVE_SHOW] = show;
+        action.name = formName.concat('_').concat(actionMethod) ;
+        action.class = NAME_CLASS_BUTTON_DEFAULT;
+        action.title = actionName;
+        buttonContainer.html.push(action);
       }
+
 
       structureInit.html.push(buttonContainer);
     }

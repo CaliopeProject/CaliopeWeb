@@ -75,7 +75,9 @@ define(['angular'], function(angular) {
           console.log('Se notifico  ' + methodSupport.concat('_').concat(cwForm.getFormName()), result[0], result[1]);
           if( result[0] === true ) {
             $scope.target.uuid = result[1].uuid;
-            cwForm.setActionsMethodToShow(['projects.edit']);
+            //cwForm.setActionsMethodToShow(['projects.edit']);
+            $scope['show_projects_projects.create'] = false;
+            $scope['show_projects_projects.edit'] = true;
           }
         });
 
