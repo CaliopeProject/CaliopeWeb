@@ -28,6 +28,13 @@ define(['angular', 'application-app'], function(angular, app) {
     $routeProvider.when('/form-generic/:entity/:mode/:uuid', {
       templateUrl: '/caliopeweb-forms/caliopeweb-form-generic-partial.html'});
 
+     /*
+    Route for generic form based in VersionedNode
+     */
+    $routeProvider.when('/siim2_forms/:entity/:mode/:uuid', {
+      templateUrl: '/caliopeweb-forms/siim2-form-generic-partial.html'});
+    
+    
     /*
       Dynamic route
      */
