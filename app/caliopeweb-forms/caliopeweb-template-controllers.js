@@ -177,15 +177,28 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
                       $scope[$scope.dialogName].close([true, $scope.dialogName]);
                     }
                   }
-                  var eventEmit = actionMethod.concat('_').concat(formTemplateName);
-                  $scope.$emit(''.concat(eventEmit), [true, value]);
+
+                  $scope.$emit('actionComplete', [actionMethod, true, value]);
                 } else {
+                  $scope.$emit('actionComplete', [actionMethod, false, value]);
                   console.log('Server error response', value.error);
                 }
               }
-
-
             });
+
+          $scope.$on('changeActions', function(event, actionsConf) {
+            var actionsToShow = actionsConf[0];
+            var actionsToHide = actionsConf[1];
+
+            angular.forEach(actionsToShow, function(v,k){
+              $scope.$eval('showAct_'.concat(v).concat('= true'));
+            });
+            angular.forEach(actionsToHide, function(v,k){
+              $scope.$eval('showAct_'.concat(v).concat('= false'));
+            });
+
+          });
+
         };
 
       }]

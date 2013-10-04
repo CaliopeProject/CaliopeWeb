@@ -1179,6 +1179,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
       var TYPE_ACTION = "cw-action";
       var DIRECTIVE_CLICK = 'ng-click';
       var DIRECTIVE_DISABLED = 'ng-disabled';
+      var DIRECTIVE_INIT = 'ng-init';
       var DIRECTIVE_SHOW = 'ng-show';
       var NAME_METHOD_CONTROLLER = 'sendAction';
       var NAME_CLASS_ACTIONS = 'modal-footer';
@@ -1197,9 +1198,12 @@ var CaliopeWebFormActionsDecorator = ( function() {
         var action = {};
         var actionName = structureActions[i][VAR_NAME_NAME];
         var actionMethod = structureActions[i][VAR_NAME_METHOD];
-        var show = false;
+        var show = 'showAct_'.concat(actionMethod).concat('');
+
         if(actionsToShow !== undefined && actionsToShow.indexOf(actionMethod) >= 0 ) {
-          show = true;
+          action[DIRECTIVE_INIT] = ''.concat(show).concat('=true');
+        } else {
+          action[DIRECTIVE_INIT] = ''.concat(show).concat('=false');
         }
 
         //var actionMethod = structureActions[i][VAR_NAME_METHOD];
@@ -1224,6 +1228,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
         action.name = formName.concat('_').concat(actionMethod) ;
         action.class = NAME_CLASS_BUTTON_DEFAULT;
         action.title = actionName;
+        action['action-method'] = actionMethod;
         buttonContainer.html.push(action);
       }
 

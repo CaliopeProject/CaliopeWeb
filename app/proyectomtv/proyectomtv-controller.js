@@ -70,28 +70,22 @@ define(['angular'], function(angular) {
         });
         */
         var eventNameCreate = methodSupport.concat('_').concat(cwForm.getEntityModel());
-        console.log('eventNameCreate', eventNameCreate);
-        $scope.$on(''.concat(eventNameCreate), function(event, result) {
-          console.log('Se notifico  ' + methodSupport.concat('_').concat(cwForm.getFormName()), result[0], result[1]);
-          if( result[0] === true ) {
-            $scope.target.uuid = result[1].uuid;
-            //cwForm.setActionsMethodToShow(['projects.edit']);
-            $scope['show_projects_projects.create'] = false;
-            $scope['show_projects_projects.edit'] = true;
+
+        $scope.$on('actionComplete', function(event, result) {
+          if( result[1] === true ) {
+            $scope.target.uuid = result[2].uuid;
+            $scope.uuid = result[2].uuid;
+            $scope.showWidgetTask = true;
           }
+
+          $scope.$broadcast('changeActions', [['projects.edit', 'projects.delete'],['projects.create']]);
+
         });
 
         cwForm.setActionsMethodToShow([methodSupport]);
         cwFormService.loadForm(cwForm, {}).then(function(result) {
-
-          console.log('scope.id proyecto controller', $scope.$id);
-
           processResultLoadForm(result, $scope);
-          if($scope.modelUUID !== undefined) {
-            $scope.showWidgetTask=true;
-          } else {
             $scope.showWidgetTask=false;
-          }
         });
 
 
