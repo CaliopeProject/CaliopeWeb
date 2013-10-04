@@ -711,6 +711,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
        * @param $attrs
        */
       link: function ($scope, $element, $attrs) {
+        console.log('scope.id directive', $scope.$id);
         $element.append($attrs.title);
 
         var varShowScopeName = 'show_' + $attrs.name;

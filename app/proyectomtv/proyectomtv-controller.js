@@ -83,6 +83,9 @@ define(['angular'], function(angular) {
 
         cwForm.setActionsMethodToShow([methodSupport]);
         cwFormService.loadForm(cwForm, {}).then(function(result) {
+
+          console.log('scope.id proyecto controller', $scope.$id);
+
           processResultLoadForm(result, $scope);
           if($scope.modelUUID !== undefined) {
             $scope.showWidgetTask=true;
