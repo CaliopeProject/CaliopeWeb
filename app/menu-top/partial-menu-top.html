@@ -1,113 +1,106 @@
+<div class="menu_top_message_alert">
   <!-- ALERT INIT-->
-  <div class="menu_top_message_alert">
-    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-  </div>
+  <aljert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
   <!-- ALERT END-->
+</div>
 
 <div class="navbar-inner">
-
-<div class="row-fluid" >
-  <div class="span3">
-    <ul class="nav ace-nav">
-      <li class="light-orange" ng-show="isAuthenticated()" >
+  <div class="row-fluid" >
+    <div class="span2">
+      <ul class="nav ace-nav">
+        <li class="light-orange" ng-show="isAuthenticated()" >
         <a data-toggle="dropdown" ng-click='changeMenu()' class="dropdown-toggle" href="#">
           <i ng-class="{'icon-chevron-down': !showMenu}"></i>
           <i ng-class="{'icon-chevron-up': showMenu}"></i>
           Menu 
         </a>
-      </li>
-      <li class="dark">
-         <a>SIMM</a>
-      </li>
-    </ul><!--/.w8-nav-->
-  </div>
-
-  <div class="span5">
-    <div class="nav ace-nav pull-right" id="breadcrumbs" ng-show="isAuthenticated()">
-      <!-- NAV-SEARCH INIT-->
-      <div id="nav-search">
-        <form class="form-search">
-          <span class="input-icon">
-            <input type="text" placeholder="Busca algo divertido ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
-            <i class="icon-search" id="nav-search-icon"></i>
-          </span>
-        </form>
-      </div>
-      <!-- NAV-SEARCH END-->
+        </li>
+        <li class="dark">
+        <a>SIMM</a>
+        </li>
+      </ul><!--/.w8-nav-->
     </div>
-  </div>
-
-  <div class="span4">
-    <ul class="nav ace-nav pull-right">
-
-      <li id="loadingSpin" ng-show="hasPendingRequests() && isAuthenticated()">
-      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-        <div class="spinner">
-          <div class="spin-line sl1"></div>
-          <div class="spin-line sl2"></div>
-          <div class="spin-line sl3"></div>
-          <div class="spin-line sl4"></div>
-          <div class="spin-line sl5"></div>
-          <div class="spin-line sl6"></div>
-          <div class="spin-line sl7"></div>
-          <div class="spin-line sl8"></div>
-          <div class="spin-line sl9"></div>
-          <div class="spin-line sl10"></div>
+    <div class="span10">
+        <!-- NAV-SEARCH INIT-->
+        <div id="nav-search" ng-show="isAuthenticated()">
+          <form class="form-search">
+            <span class="input-icon">
+              <input type="text" placeholder="Busca algo divertido ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
+              <i class="icon-search" id="nav-search-icon"></i>
+            </span>
+          </form>
         </div>
-      </a>
-      </li>
+        <!-- NAV-SEARCH END-->
+      <ul class="nav ace-nav pull-right">
 
-      <li class="grey" ng-show="isAuthenticated()" >
-      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-        <i class="icon-tasks"></i>
-        <span class="badge badge-grey">{{taskpend.pend}}</span>
-      </a>
-
-      <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-        <li class="nav-header">
-        <i class="icon-ok"></i>
-        {{taskpend.pend}} tareas pendientes
-        </li>
-        <li>
-        <a href="#">
-          <div class="clearfix">
-            <span class="pull-left">Porcentaje de Tareas terminadas</span>
-            <span class="pull-right">{{taskpend.porcTask | number:0}}%</span>
-          </div>
-
-          <div class="progress progress-mini ">
-            <div style="width:{{taskpend.porcTask}}%" class="bar"></div>
+        <li id="loadingSpin" ng-show="hasPendingRequests() && isAuthenticated()">
+        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+          <div class="spinner">
+            <div class="spin-line sl1"></div>
+            <div class="spin-line sl2"></div>
+            <div class="spin-line sl3"></div>
+            <div class="spin-line sl4"></div>
+            <div class="spin-line sl5"></div>
+            <div class="spin-line sl6"></div>
+            <div class="spin-line sl7"></div>
+            <div class="spin-line sl8"></div>
+            <div class="spin-line sl9"></div>
+            <div class="spin-line sl10"></div>
           </div>
         </a>
         </li>
 
-        <li>
-        <a href="#">
-          <div class="clearfix">
-            <span class="pull-left">Porcentaje de Sub-tareas terminadas</span>
-            <span class="pull-right">{{taskpend.porcSubTask | number:0}}%</span>
-          </div>
-
-          <div class="progress progress-mini progress-danger">
-            <div style="width:{{taskpend.porcSubTask}}%" class="bar"></div>
-          </div>
+        <li class="grey" ng-show="isAuthenticated()" >
+        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+          <i class="icon-tasks"></i>
+          <span class="badge badge-grey">{{taskpend.pend}}</span>
         </a>
+
+        <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
+          <li class="nav-header">
+          <i class="icon-ok"></i>
+          {{taskpend.pend}} tareas pendientes
+          </li>
+          <li>
+          <a href="#">
+            <div class="clearfix">
+              <span class="pull-left">Porcentaje de Tareas terminadas</span>
+              <span class="pull-right">{{taskpend.porcTask | number:0}}%</span>
+            </div>
+
+            <div class="progress progress-mini ">
+              <div style="width:{{taskpend.porcTask}}%" class="bar"></div>
+            </div>
+          </a>
+          </li>
+
+          <li>
+          <a href="#">
+            <div class="clearfix">
+              <span class="pull-left">Porcentaje de Sub-tareas terminadas</span>
+              <span class="pull-right">{{taskpend.porcSubTask | number:0}}%</span>
+            </div>
+
+            <div class="progress progress-mini progress-danger">
+              <div style="width:{{taskpend.porcSubTask}}%" class="bar"></div>
+            </div>
+          </a>
+          </li>
+
+
+          <li>
+          <a href="#">
+            ver todas en el kanban
+            <i class="icon-arrow-right"></i>
+          </a>
+          </li>
+
+        </ul>
         </li>
 
+        <login-toolbar></login-toolbar>
 
-        <li>
-        <a href="#">
-          ver todas en el kanban
-          <i class="icon-arrow-right"></i>
-        </a>
-        </li>
-
-      </ul>
-      </li>
-
-      <login-toolbar></login-toolbar>
-
-    </ul><!--/.w8-nav-->
-  </div><!--/.container-fluid-->
+      </ul><!--/.w8-nav-->
+    </div><!--/.container-fluid-->
   </div>
 </div><!--/.navbar-inner-->

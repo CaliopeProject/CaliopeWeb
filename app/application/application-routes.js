@@ -7,7 +7,7 @@ define(['angular', 'application-app'], function(angular, app) {
   };
 
   app.config(['$routeProvider','$locationProvider'
-    ,function($routeProvider, $locationProvider) {
+    ,function($routeProvider, $locationProvider, loginSecurity) {
     /*
       Routes for task and kanban
      */
@@ -40,26 +40,50 @@ define(['angular', 'application-app'], function(angular, app) {
         return pagesRoute[routeParams.entity];
       }
     })
+
     .when('/summary-proyectomtv', {
       templateUrl: '/proyectomtv/proyectomtv-summary-partial.html'})
+
     .when('/gis', {
       templateUrl: '/tools-gis-viewer/partial-gis-init.html'})
+
+    .when('/admin-users', {
+      templateUrl :function(routeParams) {
+        loginSecurity.havePermission(routeParams.entity).then(
+          function(data) {
+            console.log('/form/:entity/:mode/:uuid', routeParams);
+            if( data === false ) {
+              throw new Error('No route page find in configuration for entity ' + routeParams.entity);
+            }
+            return '/admin-users/admin-users-partial.html';
+          });
+      }
+    })
+
     .when('/login/:entity/:mode', {
       templateUrl: '/login/login-partial.html'})
+
     .when('/', {
       templateUrl: 'tools-kanban-board/kanban-board-partial.html'})
+
     .when('/kanban', {
       templateUrl: 'tools-kanban-board/kanban-board-partial.html'})
+
     .when('/caliopeweb-forms/:entity/:mode', {
       templateUrl: '/caliopeweb-forms/caliopeweb-form-partial.html'})
+
     .when('/caliopeweb-forms/:entity/:mode/:uuid', {
       templateUrl: '/caliopeweb-forms/caliopeweb-form-partial.html'})
+
     .when('/tools/upload/files', {
       templateUrl: '/tools-files-uploader/files-uploader-partial.html'})
+
     .when('/caliopeweb-grids/:entity', {
       templateUrl: '/caliopeweb-forms/caliopeweb-grid-partial.html'})
+
     .when('/tools/wysihtml5-editor', {
       templateUrl: 'tools-wysiwyg-editor/wysiwyg-editor-partial.html'})
+
     .otherwise({redirectTo: '/'});
   }]);
 
