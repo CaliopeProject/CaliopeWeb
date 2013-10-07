@@ -60,7 +60,7 @@ define(['angular'], function(angular) {
       replace: true,
       controller: function($scope, $element, $attrs) {
 
-        if($attrs.targetUuid !== undefined && $attrs.targetEntity !== undefined) {
+        if($attrs.targetEntity !== undefined) {
           $scope.showExecuteTask = true;
         } else {
           $scope.showExecuteTask = false;
@@ -69,17 +69,20 @@ define(['angular'], function(angular) {
         $scope.executeTask = function(dialogName) {
           var route = 'form/';
 
-          if($attrs.targetUuid !== undefined && $attrs.targetEntity !== undefined) {
-            //TODO: Create centralized function to encode and decode uuid
-            var bytesUUID = Crypto.charenc.Binary.stringToBytes($attrs.targetUuid);
-            route = route.concat($attrs.targetEntity).concat('/edit/').concat(Crypto.util.bytesToBase64(bytesUUID));
-          }
-          $location.path(route);
-
-          if( dialogName !== undefined ) {
-            if($scope[dialogName] !== undefined) {
-              $scope[dialogName].close([false, dialogName]);
-              $scope.fromDialog = false;
+          if($attrs.targetEntity !== undefined ) {
+            if( $attrs.Uuid !== undefined ) {
+              //TODO: Create centralized function to encode and decode uuid
+              var bytesUUID = Crypto.charenc.Binary.stringToBytes($attrs.targetUuid);
+              route = route.concat($attrs.targetEntity).concat('/').concat('edit').concat('/').concat(Crypto.util.bytesToBase64(bytesUUID));
+            }else {
+              route = route.concat($attrs.targetEntity).concat('/').concat('create').concat('/');
+            }
+            $location.path(route);
+            if( dialogName !== undefined ) {
+              if($scope[dialogName] !== undefined) {
+                $scope[dialogName].close([false, dialogName]);
+                $scope.fromDialog = false;
+              }
             }
           }
         };
