@@ -142,8 +142,8 @@ define(['angular'], function(angular) {
         }
 
         params = {
-          //"formId" : formTemplateName
-          //"modelUUID" : modelUUID
+          "formId" : formTemplateName
+          //"formUUID" : modelUUID
         };
         params.data = {};
         jQuery.extend(params.data, object);
