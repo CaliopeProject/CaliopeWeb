@@ -31,19 +31,23 @@ define(['angular', 'Crypto'], function (angular) {
   module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv','action',
     function($scope, $location, cwFormService, action) {
 
+      function putActionDataInScope() {
+        angular.forEach(action, function(value, key){
+          $scope[key] = value;
+        });
+      }
+
     $scope.initFromDialogAction = function() {
-      $scope.message      = action.message;
+      putActionDataInScope();
       $scope.form         = action.template;
-      $scope.template     = action.template;
-      $scope.actionMethod = action.actionMethod;
-      $scope.uuid         = action.uuid;
-      $scope.dialogName   = action.dialogName;
       $scope.fromDialog   = true;
     };
 
     $scope.initFormDialog = function() {
-      $scope.dialogName = action.dialogName;
+
+
       $scope.fromDialog = true;
+
       var cwForm = $scope['cwForm-task'];
       var methodSupport = cwForm.getEntityModel().concat('.').concat(action.mode);
       cwForm.setActionsMethodToShow([methodSupport]);
@@ -60,10 +64,11 @@ define(['angular', 'Crypto'], function (angular) {
               $scope[key] = value;
             });
           }
+          putActionDataInScope();
+          $scope.formtask = action.target.entity;
+
         }
-        angular.forEach(action, function(value, key){
-          $scope[key] = value;
-        });
+
       });
     };
 
