@@ -288,7 +288,9 @@ var CaliopeWebForm = (function() {
               } else if(elements[i].type === 'select') {
                 value = dataFromView[nameVarScope];
               } else if(elements[i].type === 'ui-mcombo-choices' && elements[i].type1 === 'multi-choices') {
-                if(dataFromView[nameVarScope] instanceof Array) {
+                if(elements[i].hasOwnProperty('single') && elements[i].single === "true") {
+                  value = dataFromView[nameVarScope][0].value
+                } else {
                   var j;
                   value = [];
                   for( j=0; j<dataFromView[nameVarScope].length; j++) {
