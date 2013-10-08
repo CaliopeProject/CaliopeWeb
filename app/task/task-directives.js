@@ -70,7 +70,7 @@ define(['angular'], function(angular) {
           var route = 'form/';
 
           if($attrs.targetEntity !== undefined ) {
-            if( $attrs.Uuid !== undefined ) {
+            if( $attrs.targetUuid !== undefined ) {
               //TODO: Create centralized function to encode and decode uuid
               var bytesUUID = Crypto.charenc.Binary.stringToBytes($attrs.targetUuid);
               route = route.concat($attrs.targetEntity).concat('/').concat('edit').concat('/').concat(Crypto.util.bytesToBase64(bytesUUID));
