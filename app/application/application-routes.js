@@ -1,6 +1,8 @@
 define(['angular', 'application-app'], function(angular, app) {
   'use strict';
 
+  var ERROR_FORMTEMP_NOTFOUND = "FormTemplateNotFoundError";
+
   var pagesRoute = {
     'projects' : '/proyectomtv/form-proyectomtv-partial.html',
     'predialcards' : '/caliopeweb-forms/caliopeweb-form-partial.html'
@@ -42,7 +44,9 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl : function(routeParams) {
         console.log('/form/:entity/:mode/:uuid', routeParams);
         if( pagesRoute.hasOwnProperty(routeParams.entity) === false ) {
-          throw new Error('No route page find in configuration for entity ' + routeParams.entity);
+          var error = new Error("No route page find in configuration for entity " + routeParams.entity);
+          error.name = ERROR_FORMTEMP_NOTFOUND;
+          throw error;
         }
         return pagesRoute[routeParams.entity];
       }
@@ -55,12 +59,13 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl: '/tools-gis-viewer/partial-gis-init.html'})
 
     .when('/admin-users', {
-      templateUrl :function(routeParams) {
+      templateUrl :function(routeParams, $rootScope) {
+        console.log('$rootScope', $rootScope);
         loginSecurity.havePermission(routeParams.entity).then(
           function(data) {
             console.log('/form/:entity/:mode/:uuid', routeParams);
             if( data === false ) {
-              throw new Error('No route page find in configuration for entity ' + routeParams.entity);
+              throw new Error("No route page find in configuration for entity " + routeParams.entity);
             }
             return '/admin-users/admin-users-partial.html';
           });
@@ -90,11 +95,18 @@ define(['angular', 'application-app'], function(angular, app) {
 
     .when('/tools/wysihtml5-editor', {
       templateUrl: 'tools-wysiwyg-editor/wysiwyg-editor-partial.html'})
-
     .otherwise({redirectTo: '/'});
   }]);
 
-  app.run(['$route', angular.noop]);
+  app.run(['$rootScope','$route',function($rootScope, $route) {
+    angular.noop();
+    $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
+      if( rejection !== undefined && rejection.name === ERROR_FORMTEMP_NOTFOUND ) {
+        window.history.back()
+      }
+    });
+
+  }]);
 
 });
 

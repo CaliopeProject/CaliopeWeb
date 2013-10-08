@@ -403,10 +403,10 @@ var CaliopeWebForm = (function() {
      */
       addStructure: function (_structure, _formName) {
         var result = searchElements(_structure);
-        formName = _formName;
-        elementsForm = result.elements;
-        elementsFormName = result.elementsName;
-        structure = _structure;
+        this.formName = _formName;
+        this.elementsForm = result.elements;
+        this.elementsFormName = result.elementsName;
+        this.structure = _structure;
       },
     /**
      * Add the data to the data attribute and get the value of identifier of object data and
@@ -416,7 +416,7 @@ var CaliopeWebForm = (function() {
      * @param _data {object} Json Structure representing the data
      */
       addData: function(_data) {
-        data = _data;
+        this.data = _data;
         if(_data !== undefined) {
           this.modelUUID = _data.uuid;
         }
@@ -428,7 +428,7 @@ var CaliopeWebForm = (function() {
      * @param _actions {_object} Json structure representing the actions
      */
       addActions: function(_actions) {
-        actions = _actions;
+        this.actions = _actions;
       },
 
     /**
@@ -438,7 +438,7 @@ var CaliopeWebForm = (function() {
      * @param _translations {object} Json structure representing the translations
      */
       addTranslations: function(_translations) {
-        translations = _translations;
+        this.translations = _translations;
       },
 
     /**
@@ -448,7 +448,7 @@ var CaliopeWebForm = (function() {
      * @param _layout {_object}  Json structure representing the layout
      */
       addlayout: function(_layout) {
-         layout = _layout;
+         this.layout = _layout;
       },
 
     /**
@@ -460,15 +460,15 @@ var CaliopeWebForm = (function() {
      * @returns {object} The structure to render.
      */
       createStructureToRender : function() {
-        structureToRender = structure;
-        return structureToRender;
+        this.structureToRender = this.structure;
+        return this.structureToRender;
       },
 
     /**
      *
      */
     dataToViewData : function() {
-      return dataToViewData(elementsForm, data);
+      return dataToViewData(this.elementsForm, this.data);
     },
 
     /**
@@ -477,7 +477,7 @@ var CaliopeWebForm = (function() {
      * @returns {*}
      */
     dataToServerData : function(dataFromView) {
-      return dataToServerData(elementsForm, dataFromView);
+      return dataToServerData(this.elementsForm, dataFromView);
     },
 
     /**
@@ -488,7 +488,7 @@ var CaliopeWebForm = (function() {
      * @returns {object}
      */
       getActions : function() {
-        return actions;
+        return this.actions;
       },
 
     /**
@@ -499,7 +499,7 @@ var CaliopeWebForm = (function() {
      * @returns {Array}
      */
       getActionsToShow : function() {
-        return actionsToShow;
+        return this.actionsToShow;
       },
 
     /**
@@ -510,7 +510,7 @@ var CaliopeWebForm = (function() {
      * @returns {object}
      */
       getData : function() {
-        return data;
+        return this.data;
       },
 
     /**
@@ -521,7 +521,7 @@ var CaliopeWebForm = (function() {
      * @returns {object}
      */
       getElements : function() {
-        return elementsForm;
+        return this.elementsForm;
       },
 
     /**
@@ -543,7 +543,7 @@ var CaliopeWebForm = (function() {
      * @param {object} Layout
      */
       getlayout : function() {
-         return layout;
+         return this.layout;
       },
     /**
      * Get the names of the elements (inputs).
@@ -553,7 +553,7 @@ var CaliopeWebForm = (function() {
      * @returns {object} Names of the elements contains in the json structure
      */
       getElementsName : function() {
-        return elementsFormName;
+        return this.elementsFormName;
       },
     /**
      * Get the name of the form.
@@ -563,7 +563,7 @@ var CaliopeWebForm = (function() {
      * @returns {string}
      */
       getFormName : function() {
-        return formName;
+        return this.formName;
       },
     /**
      * Get the UUID or identifier of the data.
@@ -596,11 +596,11 @@ var CaliopeWebForm = (function() {
      */
       putDataToContext : function(context, elements) {
 
-        if (data !== undefined) {
+        if (this.data !== undefined) {
           var varname;
-          for (varname in data) {
-            if(data.hasOwnProperty(varname)) {
-              context[varname] = data[varname];
+          for (varname in this.data) {
+            if(this.data.hasOwnProperty(varname)) {
+              context[varname] = this.data[varname];
             }
           }
         }
@@ -625,7 +625,7 @@ var CaliopeWebForm = (function() {
      * @param _actionsMethodToShow {array} Add the actions to show in the form
      */
     setActionsMethodToShow : function(_actionsMethodToShow) {
-      actionsToShow = _actionsMethodToShow;
+      this.actionsToShow = _actionsMethodToShow;
     },
 
     /**
