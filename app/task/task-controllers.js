@@ -65,8 +65,9 @@ define(['angular', 'Crypto'], function (angular) {
             });
           }
           putActionDataInScope();
-          $scope.formtask = action.target.entity;
-
+          if( action.target !== undefined && action.target.hasOwnProperty('entity')) {
+            $scope.formtask = action.target.entity;
+          }
         }
 
       });
