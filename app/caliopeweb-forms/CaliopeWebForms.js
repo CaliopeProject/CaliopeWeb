@@ -1200,7 +1200,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
         var actionMethod = structureActions[i][VAR_NAME_METHOD];
         var show = 'showAct_'.concat(actionMethod).concat('');
 
-        if(actionsToShow !== undefined && actionsToShow.indexOf(actionMethod) >= 0 ) {
+        if(actionsToShow === undefined || actionsToShow.length === 0 || actionsToShow.indexOf(actionMethod) >= 0 ) {
           action[DIRECTIVE_INIT] = ''.concat(show).concat('=true');
         } else {
           action[DIRECTIVE_INIT] = ''.concat(show).concat('=false');
