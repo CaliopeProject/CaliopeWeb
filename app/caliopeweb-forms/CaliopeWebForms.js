@@ -1610,15 +1610,13 @@ var CaliopeWebFormValidDecorator = ( function() {
           if( htmlElements[i].html !== undefined ) {
             var htmlElementsReplacedTmp = replaceContainer(htmlElements[i].html, containerSearch, containerNew);
             if( htmlElementsReplacedTmp.hasOwnProperty('replace') ) {
-              htmlElements[i].html =  htmlElementsReplacedTmp.replace;
+              htmlElements[i].html =  htmlElementsReplacedTmp
               return htmlElements[i];
             }
           } else {
             if( containerSearch === htmlElements[i] ) {
               htmlElements = containerNew;
-              return {
-                replace: htmlElements
-              };
+              return htmlElements;
             }
           }
         }
