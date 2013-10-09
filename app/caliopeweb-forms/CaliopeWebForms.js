@@ -281,14 +281,15 @@ var CaliopeWebForm = (function() {
         for (i = 0; i < elements.length; i++) {
           if( paramsToSend.length === 0 || paramsToSend.indexOf(elements[i]) >= 0 ) {
             var nameVarScope = elements[i].name;
-            var value;
+            var value = undefined;
             if( dataFromView[nameVarScope] !== undefined ) {
               if(elements[i].type === 'div' && elements[i].type1 === 'datepicker') {
                 value = (dataFromView[nameVarScope] instanceof Date )? dataFromView[nameVarScope].toJSON() : dataFromView[nameVarScope] ;
               } else if(elements[i].type === 'select') {
                 value = dataFromView[nameVarScope];
               } else if(elements[i].type === 'ui-mcombo-choices' && elements[i].type1 === 'multi-choices') {
-                if(elements[i].hasOwnProperty('single') && elements[i].single === "true") {
+                if(elements[i].hasOwnProperty('single') && elements[i].single === "true" &&
+                    dataFromView[nameVarScope] !== undefined && dataFromView[nameVarScope][0] !== undefined) {
                   value = dataFromView[nameVarScope][0].value
                 } else {
                   var j;
@@ -902,7 +903,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           element[VARNAME_DIRECTIVE_CWOPT] = '';
           element[VARNAME_OPTIONSNAME] = 'options_' + element.name;
           element[VARNAME_DIRECTIVE_OPT] =
-              'opt.label as opt.label for opt in ' + element[VARNAME_OPTIONSNAME];
+              'opt.value as opt.label for opt in ' + element[VARNAME_OPTIONSNAME];
           if( element.hasOwnProperty('options') ) {
             element[VARNAME_OPTIONSSTATIC] = JSON.stringify(element.options);
           }
