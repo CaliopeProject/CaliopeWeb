@@ -76,25 +76,14 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           var cwForm = $scope[cwFormName];
           var params = {};
 
-          //var calwebtem = calwebTemSrv.caliopeForm;
-          //calwebtem.id     = $routeParams.entity;
           if( generic === true ) {
             params.formId = $routeParams.entity;
-            //calwebtem.id  = 'form';
             cwForm.setEntityModel('form');
-            //entityModel, mode, uuid
-            //Service.caliopeForm.id, Service.caliopeForm.mode, Service.caliopeForm.uuid
           }
-          //calwebtem.mode   = $routeParams.mode;
-          //calwebtem.uuid   = $routeParams.uuid;
           $scope.actionsToShow = actionsToShow;
 
-
           $scope.caliopeForm   = cwForm;
-          /*calwebTemSrv.loadTemplateData(params).then(function(result) {
-            processResultLoadForm(result, $scope);
-          });
-          */
+
           calwebTemSrv.loadForm(cwForm,params).then(function(result) {
             processResultLoadForm(result, $scope);
           });
