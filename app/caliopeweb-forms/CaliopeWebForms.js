@@ -1610,13 +1610,15 @@ var CaliopeWebFormValidDecorator = ( function() {
           if( htmlElements[i].html !== undefined ) {
             var htmlElementsReplacedTmp = replaceContainer(htmlElements[i].html, containerSearch, containerNew);
             if( htmlElementsReplacedTmp.hasOwnProperty('replace') ) {
-              htmlElements[i].html =  htmlElementsReplacedTmp
+              htmlElements[i].html =  htmlElementsReplacedTmp.replace;
               return htmlElements[i];
             }
           } else {
             if( containerSearch === htmlElements[i] ) {
               htmlElements = containerNew;
-              return htmlElements;
+              return {
+                replace: htmlElements
+              };
             }
           }
         }
@@ -1703,7 +1705,9 @@ var CaliopeWebFormValidDecorator = ( function() {
                 var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName, params);
                 var containerNew = containerIni.concat(elementMsgVal).concat(containerFin);
                 htmlElements = replaceContainer(htmlElements, elementsInputs[i], containerNew);
-
+                if(htmlElements.hasOwnProperty('replace')) {
+                  htmlElements = htmlElements.replace
+                }
               }
             }
           }
