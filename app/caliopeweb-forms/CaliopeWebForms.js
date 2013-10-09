@@ -883,6 +883,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           var VARNAME_FORMID = 'formid';
           var VARNAME_DATALIST = 'field-data-list';
           var VARNAME_OPTIONSNAME = 'options-name';
+          var VARNAME_OPTIONSSTATIC = 'options-static';
 
           element.fromserver = true;
           element.method = element[VARNAME_LOAD_OPT_SRV][VARNAME_METHOD];
@@ -902,7 +903,9 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           element[VARNAME_OPTIONSNAME] = 'options_' + element.name;
           element[VARNAME_DIRECTIVE_OPT] =
               'opt.label as opt.label for opt in ' + element[VARNAME_OPTIONSNAME];
-          //element.options = {};
+          if( element.hasOwnProperty('options') ) {
+            element[VARNAME_OPTIONSSTATIC] = JSON.stringify(element.options);
+          }
         }
       });
     }

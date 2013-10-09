@@ -236,6 +236,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
     var ATTNAME_OPTIONSNAME = 'optionsName';
     var ATTNAME_MCOMBO_CHOICES = 'uiMcomboChoices';
     var ATTNAME_MCOMBO_SELECTED = 'uiMcomboSelected';
+    var ATTNAME_OPTIONS_STATIC = 'optionsStatic';
 
     /**
     * Define the function for link the directive to AngularJS Context.
@@ -245,43 +246,54 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
       restrict : 'A',
       replace : false,
       scope: false,
-      link: function (scope, element, attrs) {
+      link: function ($scope, $element, $attrs) {
 
-        if( attrs[ATTNAME_LOADREMOTE] !== undefined && attrs[ATTNAME_LOADREMOTE] === 'true') {
+        if( $attrs[ATTNAME_LOADREMOTE] !== undefined && $attrs[ATTNAME_LOADREMOTE] === 'true') {
 
-          var fieldId = attrs[ATTNAME_FIELDID];
+          var fieldId = $attrs[ATTNAME_FIELDID];
           var promise =
-          caliopewebTemplateSrv.loadDataOptions(attrs[ATTNAME_METHOD], fieldId, undefined);
+          caliopewebTemplateSrv.loadDataOptions($attrs[ATTNAME_METHOD], fieldId, undefined);
 
           promise.then(function(dataResponse) {
 
 
             if( dataResponse !== undefined ) {
               var i;
-              var attrFieldValue = attrs[ATTNAME_FIELDVALUE];
-              var attrFieldDesc = attrs[ATTNAME_FIELDDESC];
-              if(attrs[ATTNAME_FIELD_DATALIST] !== undefined) {
+              var attrFieldValue = $attrs[ATTNAME_FIELDVALUE];
+              var attrFieldDesc = $attrs[ATTNAME_FIELDDESC];
+              if($attrs[ATTNAME_FIELD_DATALIST] !== undefined) {
                 dataResponse =
-                    tools.getValueAttInObject(dataResponse, attrs[ATTNAME_FIELD_DATALIST], '.');
+                    tools.getValueAttInObject(dataResponse, $attrs[ATTNAME_FIELD_DATALIST], '.');
               }
 
-              var scopeOptionsName = attrs[ATTNAME_OPTIONSNAME];
+              var scopeOptionsName = $attrs[ATTNAME_OPTIONSNAME];
               if( scopeOptionsName !== undefined ) {
-                scope[scopeOptionsName] = [];
+                $scope[scopeOptionsName] = [];
                 for(i=0; i<dataResponse.length; i++) {
                   var option = {
                     value : tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.'),
                     label  : tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.')
                   };
-                  scope[scopeOptionsName].push(option);
+                  $scope[scopeOptionsName].push(option);
                 }
               }
 
             }
+
+            if($attrs.hasOwnProperty(ATTNAME_OPTIONS_STATIC) ) {
+              var optionsStatic = JSON.parse($attrs[ATTNAME_OPTIONS_STATIC]);
+              angular.forEach(optionsStatic, function(v,k){
+                var option = {
+                  value : k,
+                  label : v
+                }
+                $scope[scopeOptionsName].push(option);
+              });
+            }
           });
 
         }
-//        $compile(element.contents())(scope);
+//        $compile($element.contents())($scope);
       }
     };
 
