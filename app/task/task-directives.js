@@ -53,41 +53,46 @@ define(['angular'], function(angular) {
   }]);
 
 
-  moduleDirectives.directive('cwTaskExecute', ['taskService', '$location', function(taskService, $location) {
-    var directive = {
-      templateUrl: 'task/partial-task-execute-template.html',
-      restrict: 'E',
-      replace: true,
-      controller: function($scope, $element, $attrs) {
+  moduleDirectives.directive('cwTaskExecute', ['taskService', '$location', 'toolservices',
+    function(taskService, $location, toolservices) {
 
-        if($attrs.targetEntity !== undefined) {
-          $scope.showExecuteTask = true;
-        } else {
-          $scope.showExecuteTask = false;
-        }
+      var directive = {
+        templateUrl: 'task/partial-task-execute-template.html',
+        restrict: 'E',
+        replace: true,
+        controller: function($scope, $element, $attrs) {
 
-        $scope.executeTask = function(dialogName) {
-          var route = 'form/';
+          if($attrs.targetEntity !== undefined) {
+            $scope.showExecuteTask = true;
+          } else {
+            $scope.showExecuteTask = false;
+          }
 
-          if($attrs.targetEntity !== undefined ) {
-            if( $attrs.targetUuid !== undefined ) {
-              //TODO: Create centralized function to encode and decode uuid
-              var bytesUUID = Crypto.charenc.Binary.stringToBytes($attrs.targetUuid);
-              route = route.concat($attrs.targetEntity).concat('/').concat('edit').concat('/').concat(Crypto.util.bytesToBase64(bytesUUID));
-            }else {
-              route = route.concat($attrs.targetEntity).concat('/').concat('create').concat('/');
-            }
-            $location.path(route);
-            if( dialogName !== undefined ) {
-              if($scope[dialogName] !== undefined) {
-                $scope[dialogName].close([false, dialogName]);
-                $scope.fromDialog = false;
+          $scope.executeTask = function(dialogName) {
+            var route = 'form/';
+
+            var targetEntity =  $attrs.targetEntity;
+            var targetUuid = $attrs.targetUuid;
+
+            if(targetEntity !== undefined ) {
+              if( targetUuid !== undefined && targetUuid.length > 0 ) {
+                //TODO: Create centralized function to encode and decode uuid
+                var bytesUUID = Crypto.charenc.Binary.stringToBytes(targetUuid);
+                route = route.concat($attrs.targetEntity).concat('/').concat('edit').concat('/').concat(Crypto.util.bytesToBase64(bytesUUID));
+              }else {
+                route = route.concat($attrs.targetEntity).concat('/').concat('create').concat('/');
+              }
+              $location.path(route);
+              if( dialogName !== undefined ) {
+                if($scope[dialogName] !== undefined) {
+                  $scope[dialogName].close([false, dialogName]);
+                  $scope.fromDialog = false;
+                }
               }
             }
-          }
-        };
-      }
-    };
+          };
+        }
+      };
 
     return directive;
   }]);

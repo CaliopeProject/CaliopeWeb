@@ -844,7 +844,9 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       //valueNgModel = stNameTemplate;
       console.error('No se encontro valor para el atributo name en el template.', element);
     }
-    element['ng-model'] = valueNgModel;
+    if( element.type !== 'div' ) {
+      element['ng-model'] = valueNgModel;
+    }
   }
 
   /**
@@ -1001,6 +1003,13 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           var attEntity = elementsTemplate[i].options[NAME_DATA_TARGET_ENTITY_VAL];
           elementsTemplate[i]['target-uuid'] = getValueAttInObject(data, attUUID, '.');
           elementsTemplate[i]['target-entity'] = getValueAttInObject(data, attEntity, '.');
+
+          var element =  {};
+          jQuery.extend(true, element, elementsTemplate[i]);
+          element.type = "h1";
+          element.html = elementsTemplate[i];
+          elementsTemplate[i] = element;
+
         }
       }
     }

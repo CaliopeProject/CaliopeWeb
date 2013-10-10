@@ -27,6 +27,10 @@
 
               <div class="lbl widget-toolbar-kanban no-border" >
 
+                <span >
+                  <cw-task-execute target-uuid="{{item.target.target.0.entity_data.uuid}}" target-entity="{{item.target.target.0.entity}}"></cw-task-execute>
+                </span>
+
                 <span class="text-info" ng-click="showSubtasks=!showSubtasks">
                   <i class="icon-double-angle-down" tooltip="Mostrar" ng-show="showSubtasks==false" ></i>
                   <i class="icon-double-angle-up" tooltip="Ocultar" ng-show="showSubtasks==true"></i>
