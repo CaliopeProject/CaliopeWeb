@@ -137,7 +137,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
                 return allTaskValues;
               });
             }
-            return;
           });
         }
 

@@ -1,14 +1,14 @@
 /*jslint browser: true*/
 /*global define, console, $*/
-
-define(['angular','angular-dragdrop'], function (angular) {
+define(['angular'], function (angular) {
   'use strict';
   var dirmodule = angular.module('ProyectoSummary', ['ui.bootstrap']);
 
   dirmodule.controller("summaryProyecto",
     ["$scope",'taskService', function($scope, taskService) {
-        $scope.task = [];
-        angular.forEach(taskService.getAll(),function(vtask){
+      $scope.task = [];
+      taskService.getAll().then(function(allTaskValues){
+        angular.forEach(allTaskValues,function(vtask){
           var user, image;
           var category = [];
           var name = vtask.name;
@@ -30,5 +30,6 @@ define(['angular','angular-dragdrop'], function (angular) {
           });
           $scope.task.push({task: name, desc: descripcion, cate: category});
         });
+      });
     }]);
 });
