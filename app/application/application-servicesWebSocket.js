@@ -102,7 +102,7 @@ define(['angular', 'uuid'], function(angular) {
                 }
               },200);
             } else {
-              console.log('Sending request application-servicesWebsocket 102', (request));
+              console.log('Sending request application-servicesWebsocket 105', (request));
               ws.send(JSON.stringify(request));
             }
           }
