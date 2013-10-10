@@ -17,8 +17,8 @@ define(['angular', 'uuid'], function(angular) {
   });
 
   moduleWebSocket.factory('webSocket',
-    ['$q', '$rootScope', 'JsonRpcConst','global_constants', 'HandlerResponseServerSrv',
-      function($q, $rootScope, jsonRpcConst, global_constants, handlerResponseSrv) {
+    ['$q', '$rootScope', 'JsonRpcConst','global_constants', 'HandlerResponseServerSrv', '$timeout',
+      function($q, $rootScope, jsonRpcConst, global_constants, handlerResponseSrv, $timeout) {
 
         var Service = {};
         var webSockets = {};
@@ -88,6 +88,32 @@ define(['angular', 'uuid'], function(angular) {
             return request;
           }
 
+          /**
+           * Send message to the server, this prevent the utilization of websocket when this is not open.
+           * @param request Data to send.
+           */
+          function send(request) {
+            if( getStatus() !== 1 ) {
+              if( getStatus() === 2 ) {
+                throw Error ('Connection is going through the closing handshake');
+              }
+              if( getStatus() === 3 ) {
+                throw Error ('Connection has been closed or could not be opened');
+              }
+              var promiseTO = $timeout(function() {
+                if(getStatus() === 0) {
+                  console.log('Waiting for open websocket to send resquest...');
+                  send(request);
+                } else {
+                  $timeout.cancel(promiseTO);
+                }
+              },200);
+            } else {
+              console.log('Sending request application-servicesWebsocket 105', (request));
+              ws.send(JSON.stringify(request));
+            }
+          }
+
 
           /**
           * Send a message to the server.
@@ -109,9 +135,7 @@ define(['angular', 'uuid'], function(angular) {
             //fix remove $$hashKey
             output = angular.toJson(request);
             output = angular.fromJson(output);
-
-            console.log('Sending request file application-servicesWebsocket 106', (output));
-            ws.send(JSON.stringify(output));
+            send(output);
             var promise = handlerResponseSrv.addPromisesHandlerRespNotif(defer.promise);
             return promise;
           }
@@ -123,6 +147,7 @@ define(['angular', 'uuid'], function(angular) {
           * @returns {Function|promise} Promise of response.
           */
           function sendRequestBatch () {
+
             var request = [];
             var promise = [];
             var output;
@@ -141,9 +166,7 @@ define(['angular', 'uuid'], function(angular) {
             //fix remove $$hashKey
             output = angular.toJson(request);
             output = angular.fromJson(output);
-
-            console.log('Sending request file application-servicesWebsocket 134', (output));
-            ws.send(JSON.stringify(output));
+            send(output);
             return $q.all(promise);
           }
           /**
@@ -185,6 +208,7 @@ define(['angular', 'uuid'], function(angular) {
           */
           ws.onopen = function() {
             console.log("Socket has been opened! ", ws.url);
+            $rootScope.openWebSocket = true;
             $rootScope.$broadcast('openWebSocket', []);
           };
 
