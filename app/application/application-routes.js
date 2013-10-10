@@ -6,7 +6,16 @@ define(['angular', 'application-app'], function(angular, app) {
   var pagesRoute = {
     'projects' : '/proyectomtv/form-proyectomtv-partial.html',
     'predialcards' : '/caliopeweb-forms/caliopeweb-form-partial.html',
-    'FichaPredial' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html'
+    'FichaPredial' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'ActaReciboPredios' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'AplicacionTraslado' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'ChequeoTrasladoProvision' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'DerechoPreferencia' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'FichaCatastral' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'FichaPrejuridica' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'FichaUrbanistica' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'ViabilidadNormativa' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'ConceptoViabilidad' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html'
   };
 
   app.config(['$routeProvider','$locationProvider'
