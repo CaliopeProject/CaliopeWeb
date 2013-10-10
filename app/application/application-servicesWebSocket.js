@@ -101,12 +101,10 @@ define(['angular', 'uuid'], function(angular) {
                 throw Error ('Connection has been closed or could not be opened');
               }
               var promiseTO = $timeout(function() {
-                if(getStatus() === 0) {
-                  console.log('Waiting for open websocket to send resquest...');
-                  send(request);
-                } else {
+                if(getStatus() !== 0) {
                   $timeout.cancel(promiseTO);
                 }
+                send(request);
               },200);
             } else {
               console.log('Sending request application-servicesWebsocket 105', (request));
