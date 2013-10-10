@@ -38,24 +38,37 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
         function getUserTask(tasktoprocess){
           var alluser = [];
-          tasktoprocess = (tasktoprocess === null)? ALLTASK : tasktoprocess;
-          angular.forEach(ALLTASK, function(valueAllTask){
+          var adduser = function(userNew){
+            if((alluser.indexOf(userNew) === -1) && !angular.isUndefined(userNew)){
+              alluser.push(userNew);
+            }
+          };
+
+          tasktoprocess = (tasktoprocess === undefined)? ALLTASK : tasktoprocess;
+
+          angular.forEach(tasktoprocess, function(valueAllTask){
             if(!angular.isUndefined(valueAllTask.tasks)){
               angular.forEach(valueAllTask.tasks, function(valueTask){
                 if(!angular.isUndefined(valueTask.holders.target)){
                   angular.forEach(valueTask.holders.target, function(valueHolders){
-                    if(alluser.indexOf(valueHolders.entity_data.uuid) === -1){
-                      alluser.push(valueHolders.entity_data.uuid);
-                    }
+                    adduser(valueHolders.entity_data.uuid);
                   });
                 }
                 if(!angular.isUndefined(valueTask.comments)){
                   angular.forEach(valueTask.comments, function(value){
-                    if(alluser.indexOf(value.user) === -1){
-                      alluser.push(value.user);
-                    }
+                    adduser(value.user);
                   });
                 }
+              });
+            }
+            if(!angular.isUndefined(valueAllTask.holders)){
+              angular.forEach(valueAllTask.holders.target, function(valueHolders){
+                adduser(valueHolders.entity_data.uuid);
+              });
+            }
+            if(!angular.isUndefined(valueAllTask.comments)){
+              angular.forEach(valueAllTask.comments, function(value){
+                adduser(value.user);
               });
             }
           });
@@ -123,13 +136,13 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
             var getuser = {};
             if(!angular.isUndefined(allTaskValues)){
               getuser.users = getUserTask(allTaskValues);
-              tempServices.loadData('accounts.getPublicInfo',getuser)
+              return tempServices.loadData('accounts.getPublicInfo',getuser)
               .then(function(data){
                 angular.forEach(allTaskValues, function(vtask, ktask){
                   angular.forEach(vtask.holders.target, function(ventity, kentity){
                     angular.forEach(data, function(vdata){
-                      if(vdata.user_uuid === ventity.enttity_data.uuid){
-                        allTaskValues[ktask].holders.target[kentity].user = vdata;
+                      if(vdata.uuid === ventity.entity_data.uuid){
+                        allTaskValues[ktask].holders.target[kentity].entity_data = vdata;
                       }
                     });
                   });

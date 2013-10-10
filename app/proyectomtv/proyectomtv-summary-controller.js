@@ -6,7 +6,7 @@ define(['angular'], function (angular) {
 
   dirmodule.controller("summaryProyecto",
     ["$scope",'taskService', function($scope, taskService) {
-      $scope.task = [];
+      $scope.tasks = [];
       taskService.getAll().then(function(allTaskValues){
         angular.forEach(allTaskValues,function(vtask){
           var user, image;
@@ -14,21 +14,23 @@ define(['angular'], function (angular) {
           var name = vtask.name;
           var descripcion = vtask.descripcion;
           angular.forEach(vtask.holders.target, function(vtarget){
-            var user = {};
-            var exist= false;
-            user.name  = vtarget.user.name;
-            user.image = vtarget.user.image;
+            var user   = vtarget.entity_data;
+            var exist  = false;
             angular.forEach(category, function(vcategory, kcategory){
               if(vcategory.name === vtarget.properties.category){
                 exist = true;
-                vcategory[kcategory].users.push(user);
+                if(angular.isUndefined(category[kcategory].users)){
+                  category[kcategory].push({users: [user]});
+                }else{
+                  category[kcategory].users.push(user);
+                }
               }
             });
             if(!exist){
               category.push({name : vtarget.properties.category, users: [user]});
             }
           });
-          $scope.task.push({task: name, desc: descripcion, cate: category});
+          $scope.tasks.push({'name': name, desc: descripcion, cate: category});
         });
       });
     }]);
