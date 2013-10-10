@@ -15,7 +15,9 @@ define(['angular', 'application-app'], function(angular, app) {
     'FichaPrejuridica' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
     'FichaUrbanistica' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
     'ViabilidadNormativa' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
-    'ConceptoViabilidad' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html'
+    'ConceptoViabilidad' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'EvaluacionProducto' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'ControlAjustes' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html'
   };
 
   app.config(['$routeProvider','$locationProvider'
