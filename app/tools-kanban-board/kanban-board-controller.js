@@ -8,8 +8,6 @@ define(['angular','angular-dragdrop'], function (angular) {
   dirmodule.controller("kanbanBoardCtrl", ["$scope",'taskService',
       function($scope, taskService) {
 
-        $scope.data = taskService.getTask();
-
         $scope.showSubtasks = false;
 
         $scope.$on('taskServiceNewTask', function (event, data) {
