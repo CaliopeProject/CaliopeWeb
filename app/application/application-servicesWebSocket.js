@@ -93,10 +93,17 @@ define(['angular', 'uuid'], function(angular) {
            * @param request Data to send.
            */
           function send(request) {
-            if( getStatus() === 0 ) {
+            if( getStatus() !== 1 ) {
+              if( getStatus() === 2 ) {
+                throw Error ('Connection is going through the closing handshake');
+              }
+              if( getStatus() === 3 ) {
+                throw Error ('Connection has been closed or could not be opened');
+              }
               var promiseTO = $timeout(function() {
                 if(getStatus() === 0) {
-                  send();
+                  console.log('Waiting for open websocket to send resquest...');
+                  send(request);
                 } else {
                   $timeout.cancel(promiseTO);
                 }
