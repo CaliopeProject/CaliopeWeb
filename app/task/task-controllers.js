@@ -54,6 +54,17 @@ define(['angular', 'Crypto'], function (angular) {
       cwForm.setMode(action.mode);
       cwForm.setModelUUID(action.uuid);
 
+
+      $scope.$on('actionComplete', function(event, result) {
+        console.log('actionComplete event', event);
+        console.log('actionComplete result', result);
+        if( result[1] == true ) {
+          cwForm.addData(result[2]);
+          cwForm.dataToViewData($scope);
+        }
+      });
+
+
       cwFormService.loadForm(cwForm, {}).then(function(result){
         var inputs = result.elements;
         processResultLoadForm(result, $scope);

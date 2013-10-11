@@ -470,8 +470,15 @@ var CaliopeWebForm = (function() {
     /**
      *
      */
-    dataToViewData : function() {
-      return dataToViewData(this.elementsForm, this.data);
+    dataToViewData : function(viewData) {
+      var data = dataToViewData(this.elementsForm, this.data);
+      if( viewData !== undefined ) {
+        jQuery.each(data, function(key, value) {
+          viewData[key] = value;
+        });
+      } else {
+        return data;
+      }
     },
 
     /**
