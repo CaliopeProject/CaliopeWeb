@@ -47,8 +47,8 @@ define(['angular', 'application-app'], function(angular, app) {
      */
     $routeProvider.when('/siim2_forms/:entity/:mode/:uuid', {
       templateUrl: '/caliopeweb-forms/siim2-form-generic-partial.html'});
-    
-    
+
+
     /*
       Dynamic route
      */
@@ -110,8 +110,9 @@ define(['angular', 'application-app'], function(angular, app) {
     .otherwise({redirectTo: '/'});
   }]);
 
+  app.run(['$route', angular.noop]);
+
   app.run(['$rootScope','$route',function($rootScope, $route) {
-    angular.noop();
     $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
       if( rejection !== undefined && rejection.name === ERROR_FORMTEMP_NOTFOUND ) {
         window.history.back()
