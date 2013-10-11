@@ -18,7 +18,7 @@ define(['angular'], function(angular) {
         }
         $scope.modelUUID = result.modelUUID;
         $scope.entityModel = result.entityModel;
-
+        /*
         if (result.data !== undefined) {
           var varname;
           for (varname in result.data) {
@@ -27,6 +27,7 @@ define(['angular'], function(angular) {
             }
           }
         }
+        */
       }
     } else if(result.error !== undefined) {
       throw new Error('Error load form from server.' + result.error.message);
@@ -64,13 +65,6 @@ define(['angular'], function(angular) {
         var cwForm = $scope['cwForm-project'];
         var methodSupport = cwForm.getEntityModel().concat('.').concat(cwForm.getMode());
 
-        /*
-        $scope.$on(methodSupport.concat('_').concat(cwForm.getFormName()), function(params) {
-          console.log('on ' + methodSupport.concat('_').concat(cwForm.getFormName()), params);
-        });
-        */
-        var eventNameCreate = methodSupport.concat('_').concat(cwForm.getEntityModel());
-
         $scope.$on('actionComplete', function(event, result) {
           if( result[1] === true ) {
             $scope.target.uuid = result[2].uuid;
@@ -83,9 +77,19 @@ define(['angular'], function(angular) {
         });
 
         cwForm.setActionsMethodToShow([methodSupport]);
-        cwFormService.loadForm(cwForm, {}).then(function(result) {
+        cwFormService.loadForm(cwForm, {}).then( function(result) {
           processResultLoadForm(result, $scope);
-            $scope.showWidgetTask=false;
+          $scope.showWidgetTask=false;
+
+          if( result !== undefined && result.data !== undefined ) {
+            var dataToView = cwForm.dataToViewData();
+            if( dataToView !== undefined ) {
+              angular.forEach(dataToView, function(value, key){
+                $scope[key] = value;
+              });
+            }
+          }
+
         });
 
 

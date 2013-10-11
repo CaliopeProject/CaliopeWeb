@@ -553,9 +553,11 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
             var reg={};
 
             $scope['data'.concat(gridName)] = [];
-            $scope['data'.concat(gridName)].push(reg);
             $scope['columnDefs'.concat(gridName)] = colsDefs;
 
+            if( angular.isArray($scope[$attrs.name]) && $scope[$attrs.name].length > 0 ) {
+              $scope['data'.concat(gridName)] = $scope['data'.concat(gridName)].concat($scope[$attrs.name]);
+            }
           } catch (ex) {
             console.log('Error load columns from attribute columns. ' + ex)
           }
@@ -687,6 +689,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           eCwGrid.data('name', $attrs.name);
           eCwGrid.data('columns', $attrs.columns);
           eCwGrid.children().addClass($attrs.class);
+
+
         }
 
       }
