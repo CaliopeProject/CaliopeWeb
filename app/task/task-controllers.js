@@ -69,7 +69,6 @@ define(['angular', 'Crypto'], function (angular) {
             $scope.formtask = action.target.entity;
           }
         }
-
       });
     };
 

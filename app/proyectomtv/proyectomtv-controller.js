@@ -94,9 +94,6 @@ define(['angular'], function(angular) {
 
 
       };
-
-
-
       /*
       Ejemplo de carga de grilla cuando se invoca un evento y se envian parámetros.
       $scope.findWithFilter = function(uuidProyecto) {
@@ -113,4 +110,3 @@ define(['angular'], function(angular) {
     }]
   );
 });
-
