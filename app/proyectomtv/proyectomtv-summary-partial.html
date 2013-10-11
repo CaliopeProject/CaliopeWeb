@@ -35,17 +35,20 @@
       <tbody>
         <tr class="animate-repeat" ng-repeat="task in tasks">
 
-          <td>Nombre de la tarea a realizar</td>
+          <td>
+            <h6>{{task.name}}</h6>
+            {{task.desc}}
+          </td>
 
           <td>
-            <div class="itemdiv memberdiv">
+            <div class="itemdiv memberdiv" ng-repeat="user in task.cate['ToDo']">
               <div class="user">
-                <img alt="Andres Calderon" src="{{imagen}}">
+                <img alt="{{user.username}}" ng-src="data:image/png;base64,{{user.image}}">
               </div>
 
               <div class="body">
                 <div class="name">
-                  <a href="#">Andres Calderon</a>
+                  <a href="#">{{user.name}}</a>
                 </div>
                 <div>
                   <span class="label label-warning">Pendiente</span>
@@ -53,190 +56,54 @@
               </div>
             </div>
           </td>
+
           <td>
-            <div class="itemdiv memberdiv">
+            <div class="itemdiv memberdiv" ng-repeat="user in task.cate['Doing']">
               <div class="user">
-                <img alt="Andres Calderon" src="{{imagen}}">
+                <img alt="{{user.username}}" ng-src="data:image/png;base64,{{user.image}}">
               </div>
 
               <div class="body">
                 <div class="name">
-                  <a href="#">Andres Calderon</a>
+                  <a href="#">{{user.name}}</a>
                 </div>
-
                 <div>
                   <span class="label label-warning">Pendiente</span>
                 </div>
               </div>
             </div>
           </td>
+
           <td>
+            <div class="itemdiv memberdiv" ng-repeat="user in task.cate['Done']">
+              <div class="user">
+                <img alt="{{user.username}}" ng-src="data:image/png;base64,{{user.image}}">
+              </div>
+
+              <div class="body">
+                <div class="name">
+                  <a href="#">{{user.name}}</a>
+                </div>
+                <div>
+                  <span class="label label-warning">Pendiente</span>
+                </div>
+              </div>
+            </div>
           </td>
+
           <td>
             <h1>
               <a href="#">
                 <div class="clearfix">
-                  <span class="pull-right">70%</span>
+                  <span class="pull-right">{{task.total}}%</span>
                 </div>
-                <div class="progress progress-mini progress-success">
-                  <div style="width:70%" class="bar"></div>
+                <div class="progress progress-mini progress{{task.bclass}}">
+                  <div style="width:{{task.total}}%" class="bar"></div>
                 </div>
-              </a> 
+              </a>
               <h1>
           </td>
-        </tr>
-        <tr>
-          <td>Otro nombre</td>
 
-          <td>
-            <div class="itemdiv memberdiv">
-              <div class="user">
-                <img alt="Andres Calderon" src="{{imagen}}">
-              </div>
-              <div class="body">
-                <div class="name">
-                  <a href="#">Sebastian Ortiz</a>
-                </div>
-                <div>
-                  <span class="label label-success">Terminada</span>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div class="itemdiv memberdiv">
-              <div class="user">
-                <img alt="Andres Calderon" src="{{imagen}}">
-              </div>
-
-              <div class="body">
-                <div class="name">
-                  <a href="#">Andres Calderon</a>
-                </div>
-
-                <div>
-                  <span class="label label-warning">Pendiente</span>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div class="itemdiv memberdiv">
-              <div class="user">
-                <img alt="Andres Calderon" src="{{imagen}}">
-              </div>
-              <div class="body">
-                <div class="name">
-                  <a href="#">Sebastian Ortiz</a>
-                </div>
-                <div>
-                  <span class="label label-success">Terminada</span>
-                </div>
-              </div>
-            </div>
-            <div class="itemdiv memberdiv">
-              <div class="user">
-                <img alt="Andres Calderon" src="{{imagen}}">
-              </div>
-              <div class="body">
-                <div class="name">
-                  <a href="#">Sebastian Ortiz</a>
-                </div>
-                <div>
-                  <span class="label label-success">Terminada</span>
-                </div>
-              </div>
-            </div>
-            <div class="itemdiv memberdiv">
-              <div class="user">
-                <img alt="Andres Calderon" src="{{imagen}}">
-              </div>
-              <div class="body">
-                <div class="name">
-                  <a href="#">Sebastian Ortiz</a>
-                </div>
-                <div>
-                  <span class="label label-success">Terminada</span>
-                </div>
-              </div>
-            </div>
-            <div class="itemdiv memberdiv">
-              <div class="user">
-                <img alt="Andres Calderon" src="{{imagen}}">
-              </div>
-              <div class="body">
-                <div class="name">
-                  <a href="#">Sebastian Ortiz</a>
-                </div>
-                <div>
-                  <span class="label label-success">Terminada</span>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td>
-            <h1>
-              <a href="#">
-                <div class="clearfix">
-                  <span class="pull-right">10%</span>
-                </div>
-                <div class="progress progress-mini progress-danger">
-                  <div style="width:10%" class="bar"></div>
-                </div>
-              </a> 
-              <h1>
-          </td>
-        </tr>
-        <tr>
-          <td>Nombre de la tarea a realizar</td>
-
-          <td>
-            <div class="itemdiv memberdiv">
-              <div class="user">
-                <img alt="Andres Calderon" src="{{imagen}}">
-              </div>
-
-              <div class="body">
-                <div class="name">
-                  <a href="#">Andres Calderon</a>
-                </div>
-                <div>
-                  <span class="label label-warning">Pendiente</span>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div class="itemdiv memberdiv">
-              <div class="user">
-                <img alt="Andres Calderon" src="{{imagen}}">
-              </div>
-
-              <div class="body">
-                <div class="name">
-                  <a href="#">Andres Calderon</a>
-                </div>
-
-                <div>
-                  <span class="label label-warning">Pendiente</span>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td>
-          </td>
-          <td>
-            <h1>
-              <a href="#">
-                <div class="clearfix">
-                  <span class="pull-right">70%</span>
-                </div>
-                <div class="progress progress-mini progress-success">
-                  <div style="width:70%" class="bar"></div>
-                </div>
-              </a> 
-              <h1>
-          </td>
         </tr>
       </tbody>
     </table>
