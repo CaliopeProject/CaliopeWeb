@@ -49,47 +49,36 @@ var dependencies = [
   ];
 
 var modulesAngular = [
-    'ngRoute',
-    'CaliopeController',
-    'webSocket',
-    'CaliopeController',
-    'CaliopeWebTemplatesServices',
-    'CaliopeWebTemplateControllers',
-    'CaliopeWebFormDirectives',
+    'ngRoute'
+    ,'webSocket'
+    ,'CaliopeController'
+    ,'httpRequestTrackerService'
+    ,'menu-right-controller'
+    ,'read-rss-controllers'
+    ,'kanbanBoardCtrl'
+    ,'ProyectoControllers'
+    ,'CaliopeWebTemplateControllers'
+    ,'GisViewerController'
+    ,'ProyectoSummary'
+    ,'MenuTopControllers'
+    ,'login-controllers-form'
+    //,'CaliopeWebFormDirectives'
+    //'ProyectoServices',
+    //'LoginControllers',
 
-    'AdminUsersController',
+    //'seeinmap-directives',
+    //'gis-directives',
+    //'seeinmap-services',
+    //'NotificationsServices',
+    //'ngGrid',
+    //'fileuploaderCtrl',
+    //'fileuploaderDirectives',
+    //'wysiwygEditorDirective',
 
-    'ProyectoControllers',
-    'ProyectoServices',
-    'ProyectoSummary',
+    //,'task-controllers'
+    //'task-directives',
+    //'task-services',
 
-    'login-security-services',
-    'LoginControllers',
-    'login-controllers-form',
-    'login-retryQueue',
-    'login-directives',
-
-    'seeinmap-directives',
-    'GisViewerController',
-    'gis-directives',
-    'seeinmap-services',
-    'MenuTopControllers',
-    'NotificationsServices',
-    'httpRequestTrackerService',
-    'ngGrid',
-    'menu-right-controller',
-    'fileuploaderCtrl',
-    'fileuploaderDirectives',
-    'wysiwygEditorCtrl',
-    'wysiwygEditorDirective',
-    'kanbanBoardCtrl',
-
-    'task-controllers',
-    'task-directives',
-    'task-services',
-
-    'read-rss-services',
-    'read-rss-controllers'
   ];
 
   define(dependencies, function ( angular, webSocket, appcontroller, $rootScope) {

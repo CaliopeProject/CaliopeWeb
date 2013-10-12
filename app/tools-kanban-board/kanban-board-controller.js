@@ -3,7 +3,7 @@
 
 define(['angular','angular-dragdrop'], function (angular) {
   'use strict';
-  var dirmodule = angular.module('kanbanBoardCtrl', ['ngDragDrop', 'ui.bootstrap']);
+  var dirmodule = angular.module('kanbanBoardCtrl', ['ngDragDrop', 'ui.bootstrap', 'task-directives']);
 
   dirmodule.controller("kanbanBoardCtrl", ["$scope",'taskService',
       function($scope, taskService) {
@@ -56,10 +56,13 @@ define(['angular','angular-dragdrop'], function (angular) {
 
           $scope.addSubtask   = function (parentTask, description, category){
             taskService.addSubtask(parentTask, description, category);
+            console.log($scope.$id);
           };
 
           $scope.addComment   = function (parentTask, text, category){
+            console.log($scope.$id);
             taskService.addComment(parentTask, text, category);
+            $scope.description = '';
           };
 
         }]);

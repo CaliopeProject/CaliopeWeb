@@ -3,7 +3,7 @@
 define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
   'use strict';
 
-  var moduleServices = angular.module('task-services', ['ui.bootstrap.dialog']);
+  var moduleServices = angular.module('task-services', ['CaliopeWebTemplatesServices', 'ui.bootstrap.dialog', 'task-controllers']);
 
   moduleServices.factory('taskService',
     ['SessionSrv', 'loginSecurity', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv'

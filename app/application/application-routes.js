@@ -1,3 +1,5 @@
+/*jslint browser: true*/
+/*global window*/
 define(['angular', 'application-app'], function(angular, app) {
   'use strict';
 
@@ -115,7 +117,7 @@ define(['angular', 'application-app'], function(angular, app) {
   app.run(['$rootScope','$route',function($rootScope, $route) {
     $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
       if( rejection !== undefined && rejection.name === ERROR_FORMTEMP_NOTFOUND ) {
-        window.history.back()
+        window.history.back();
       }
     });
 

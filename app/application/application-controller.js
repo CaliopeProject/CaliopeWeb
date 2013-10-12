@@ -1,7 +1,7 @@
 define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'], function(angular, webSocket) {
   'use strict';
 
-  var module = angular.module('CaliopeController', ['ui.bootstrap','login-security-services', 'task-services']);
+  var module = angular.module('CaliopeController', ['ui.bootstrap','login-retryQueue','login-security-services', 'task-services', 'login-directives']);
 
   module.controller('CaliopeController',
     ['loginSecurity',

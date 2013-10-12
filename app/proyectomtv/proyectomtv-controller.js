@@ -1,7 +1,8 @@
-define(['angular'], function(angular) {
+define(['angular','caliopeWebForms'], function(angular) {
   'use strict';
 
-  var moduleControllers = angular.module('ProyectoControllers', []);
+  var moduleControllers = angular.module('ProyectoControllers', ['CaliopeWebFormDirectives', 'wysiwygEditorDirective', 'fileuploaderDirectives']);
+
 
   /**
    *
@@ -46,7 +47,7 @@ define(['angular'], function(angular) {
         TODO: Load the value gridEntity from server.
          */
         $scope.gridEntity = 'projects';
-        var cwGrid = $scope['gridProjectsmtv'];
+        var cwGrid = $scope.gridProjectsmtv;
         cwGrid.addColumn("name", {"name": "Nombre", "show" : true});
         cwGrid.addColumn("locality", {"name": "Localidad", "show" : true});
         cwGrid.addColumn("uuid", {"name": "Id", "show" : true});
@@ -73,7 +74,6 @@ define(['angular'], function(angular) {
           }
 
           $scope.$broadcast('changeActions', [['projects.edit', 'projects.delete'],['projects.create']]);
-
         });
 
         cwForm.setActionsMethodToShow([methodSupport]);

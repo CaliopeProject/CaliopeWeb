@@ -4,7 +4,7 @@
 define(['angular'], function (angular) {
   'use strict';
 
-  var App = angular.module('read-rss-controllers', []);
+  var App = angular.module('read-rss-controllers', ['read-rss-services']);
 
   App.controller("reedControllers", ['$scope','reedService', function ($scope, Feed) {
     Feed.parseFeed('http://www.metrovivienda.gov.co/index.php?format=feed&type=rss').then(function(res){
