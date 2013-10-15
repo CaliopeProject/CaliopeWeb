@@ -183,6 +183,14 @@ h6 {
   }
 }
 
+.uppercase-text{
+  text-transform:uppercase;
+}
+
+.capitalize-text{
+  text-transform:capitalize;
+}
+
 li > {
   ul.margin, ol.margin {
     margin-left: 18px;
@@ -7278,7 +7286,7 @@ td.td-actions a.td-action {
       }
     }
     .body {
-      margin-left: 34px;
+      margin-left: 44px;
       padding-left: 0;
       width: auto;
       margin-right: 12px;
@@ -7401,7 +7409,6 @@ td.td-actions a.td-action {
     }
   }
   &.memberdiv {
-    width: 80px;
     padding: 2px;
     margin: 3px 0;
     float: left;
