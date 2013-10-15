@@ -69,7 +69,7 @@
                     </ul>
                   </div>
 
-                  <form lass="form-inline"  ng-submit="addSubtask(item,description,obj.category)">
+                  <form ng-controller="kanbanItemDataCtrl"class="form-inline"  ng-submit="addSubtask(item,description,obj.category)">
                     <input type="text" name="description" placeholder="Subtarea..." class="input-medium" ng-model="description"/>
                     <button type="submit" class="btn btn-mini">Enviar</button>
                   </form>
@@ -99,7 +99,7 @@
                   </div>
                 </div>
 
-                <form class="form-inline" ng-submit="addComment(item,text,obj.category)">
+                <form ng-controller="kanbanItemDataCtrl" class="form-inline" ng-submit="addComment(item,text,obj.category)">
                   <input type="text" name="text" placeholder="Comentario..." class="input-medium" ng-model="text"/>
                   <button type="submit" class="btn btn-mini">Enviar</button>
                 </form>
