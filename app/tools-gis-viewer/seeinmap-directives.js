@@ -12,7 +12,7 @@ define(['angular'], function(angular) {
               replace: true,
               link: function($scope, $element, $attrs, $controller) {
                   $scope.findByPredio = function(feature,featurename,geometryname,value){
-                      seeinmapService.findByPredio(feature,featurename,geometryname,value);
+                      seeinmapService.findByFeature(feature,featurename,geometryname,value);
                   }
               }
           };

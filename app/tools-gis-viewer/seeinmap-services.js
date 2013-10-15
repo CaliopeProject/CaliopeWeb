@@ -12,21 +12,21 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
            // The public API of the service
             var service =  {
-                findByPredio: function(feature,featurename,geometryname,value) {
+                findByFeature: function(feature,featurename,geometryname,value,propertyName) {
                     protocol = new OpenLayers.Protocol.WFS({
                         url:  'http://' + document.domain + ':' + location.port + '/gis_proxy/wfs',
-                        srsName: "EPSG:4686",
+                        srsName: "EPSG:100000",
                         featureType: feature,
                         featureNS: featurename,
                         geometryName: geometryname
                     });
-                    this.request(value, {single: true});
+                    this.request(value, {single: true,property: propertyName});
                 },
                 request: function(value, options) {
                     options = options || {};
                     var filter = new OpenLayers.Filter.Comparison({
                         type: OpenLayers.Filter.Comparison.LIKE,
-                        property: "LotCodigo",
+                        property: options.property,
                         value: value
                     });
                     // Set the cursor to "wait" to tell the user we're working.
