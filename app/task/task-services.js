@@ -399,7 +399,27 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           changeCategory: function(taskDrag, category){
             if(!angular.isUndefined(taskDrag)){
               taskDrag.category = category;
+              var holderRelOld = {};
+              angular.forEach(taskDrag.holders.target, function(vtarget){
+                var user   = vtarget.entity_data.uuid;
+                var category = vtarget.properties.category;
+                holderRelOld[user] = category;
+              });
+
               var data =  tempServices.getDataToServer(MODEL_TASK, taskDrag);
+              var user = loginSecurity.currentUser;
+
+              if(data.target !== undefined) {
+                angular.forEach(data.holders.target, function(vHolder, kHolder) {
+                  console.log('user', user);
+                  if(vHolder.entity_data.uuid === user.user_uuid) {
+                    vHolder.properties.category = category;
+                  } else {
+                    vHolder.properties.category = holderRelOld[vHolder.entity_data.uuid];
+                  }
+                });
+              }
+
               sendData('tasks', 'tasks.edit', data, taskDrag.uuid);
             }
             loadTask();
