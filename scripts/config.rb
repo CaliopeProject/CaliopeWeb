@@ -2,7 +2,7 @@
 # http_path = "/"
 css_dir         = "../app/common-css"
 sass_dir        = "../app/common-scss"
-images_dir      = "../app/common-img"
+images_dir      = "common-img"
 #
 # # You can select your preferred output style here (can be overridden via the command line):
 # # output_style = :expanded or :nested or :compact or :compressed

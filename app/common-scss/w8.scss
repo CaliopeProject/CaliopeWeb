@@ -43,7 +43,7 @@ body {
 
 #main-container {
   padding: 0;
-  @include heightall;
+  height: calc(100% - 36px);
 }
 
 #main-content {
@@ -56,8 +56,10 @@ body {
 #page-content {
   background: #fff;
   margin: 0;
-  padding: 8px 20px 24px;
-  @include heightall;
+  padding: 4px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  height: 100%;
   .page-header:first-child {
     margin: 0 0 12px;
     border-bottom: 1px dotted #e2e2e2;
@@ -78,6 +80,12 @@ body {
   .row-fluid {
     @include heightall;
   }
+}
+
+.page-header {
+  padding: 0px;
+  margin: 0px;
+  border-bottom: 1px solid #eeeeee;
 }
 
 [class*=" icon-"], [class^="icon-"] {
@@ -173,6 +181,14 @@ h6 {
   &.block {
     margin-bottom: 16px;
   }
+}
+
+.uppercase-text{
+  text-transform:uppercase;
+}
+
+.capitalize-text{
+  text-transform:capitalize;
 }
 
 li > {
@@ -368,6 +384,10 @@ blockquote {
 
 .inline {
   display: inline-block !important;
+}
+
+.inlinei {
+  display: inline !important;
 }
 
 .block {
@@ -845,6 +865,9 @@ blockquote {
       text-shadow: none;
       color: #fff;
     }
+  }
+  .nav{
+   margin: 0px;
   }
 }
 .logo {
@@ -4298,6 +4321,17 @@ input {
   margin-top: 10px;
 }
 
+.fileinput-button {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.fileinput-button input {
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
 .ace-file-input {
   position: relative;
   height: 38px;
@@ -4979,9 +5013,14 @@ input {
   }
 }
 
+.accordion {
+  margin: 0px;
+  margin-top: 7px;
+}
+
 .accordion-group {
   border-radius: 0;
-  border-color: #c5d0dc;
+  border-color: #fcfafa;
   background-color: #FFF;
   &:last-child {
     border-bottom-width: 1px;
@@ -4992,18 +5031,22 @@ input {
   background-color: #FFF;
 }
 
+.accordion-heading{
+  font-weight: bold;
+  text-decoration: initial;
+}
 .accordion-heading .accordion-toggle {
-  color: #4c8fbd;
-  background-color: #f1f9ff;
+  @extend .green;
   position: relative;
+  padding: 3px 13px;
   &.collapsed {
     color: #679;
     font-weight: normal;
     background-color: #f1f9ff;
   }
   &:hover {
-    color: #4c8fbd;
-    background-color: #f1f9ff;
+    @extend .light-green;
+    text-decoration: initial;
   }
   &:after {
     display: inline-block;
@@ -5039,7 +5082,7 @@ input {
 }
 
 .accordion-inner, .collapse.in > .accordion-inner {
-  border-top: 1px solid #c5d0dc;
+  border-top: 1px solid #fcfafa;
 }
 
 .accordion-inner .no-padding {
@@ -5056,6 +5099,7 @@ th, td, .table-bordered {
       border: 1px solid #DDD;
       border-width: 0 1px;
       font-weight: bold;
+      min-width: 80px;
       [class*="icon-"]:first-child {
         margin-right: 2px;
       }
@@ -7242,7 +7286,7 @@ td.td-actions a.td-action {
       }
     }
     .body {
-      margin-left: 34px;
+      margin-left: 44px;
       padding-left: 0;
       width: auto;
       margin-right: 12px;
@@ -7365,7 +7409,6 @@ td.td-actions a.td-action {
     }
   }
   &.memberdiv {
-    width: 175px;
     padding: 2px;
     margin: 3px 0;
     float: left;

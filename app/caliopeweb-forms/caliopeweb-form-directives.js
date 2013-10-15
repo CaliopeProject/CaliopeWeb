@@ -40,45 +40,6 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
    */
   var moduleDirectives = angular.module('CaliopeWebFormDirectives', []);
 
-  /*
-    TODO: Put this function for global use
-   */
-  /**
-   * Get the final value of a attribute in a object, where attribute is represented by a string
-   * notation that indicate the path to final attribute..
-   *
-   * @example
-   * obj = { "user" : {
-    *            "username" : {value : "username"},
-    *            "name"  : {value : "NAME USER"}
-    *          }
-    *       }
-   * strAttrValue = user.name.value
-   * charSplit = '.'
-   *
-   * Return "NAME USER"
-   *
-   * @memberOf CaliopeWebFormDirectives
-   * @param {object} obj Object with the data
-   * @param {string} strAttrValue String that represent the attribute final to return value.
-   * @param {string} charSplit A character that indicate the separation of attributes in strAttrValue
-   * @return {object} The value of attribute
-   */
-  function getFinalValueFromString(obj, strAttrValue, charSplit) {
-    var fieldsValue = strAttrValue.split(charSplit);
-    var j;
-    var objValue = obj;
-    for(j=0;j<fieldsValue.length;j++) {
-      try {
-        objValue = objValue[fieldsValue[j]];
-      } catch (ex) {
-        console.error('Error searching value. The attribute ' + strAttrValue + ' in ' + obj + ' doesn\'t exist' );
-      }
-    }
-    return objValue;
-  }
-
-
   /**
    * Define the directive for cw-dform. This print a html form using the
    * Dform library based in JQuery.  This directive should be used as an
@@ -137,7 +98,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           }
         }
         var cwForm = cwFormService.createForm(entity, mode, uuid);
-        $scope[name] = cwForm;
+        $scope['cwForm-name'] = 'cwForm-'.concat(name);
+        $scope[$scope['cwForm-name']] = cwForm;
       },
 
       /**
@@ -166,12 +128,12 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
             $.dform.options.prefix = null;
             $(element).dform(plantilla);
           } catch (exDform) {
-            console.log('Error generating the dynamic form with dForm', exDform);
+            console.log('Error generating the dynamic form with dForm' +  exDform.message + exDform );
           }
           try {
             $compile(element.contents())(scope);
           } catch (exCom) {
-            console.log('Error compiling form generated:', exCom);
+            console.log('Error compiling form generated' +  exCom.message);
           }
         }
 
@@ -261,7 +223,9 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
   * @param entity: Name of the entity that contains the data.
   *
   */
-  moduleDirectives.directive('cwOptions', ['caliopewebTemplateSrv', "$compile", function (caliopewebTemplateSrv, $compile) {
+  moduleDirectives.directive('cwOptions', [
+    'caliopewebTemplateSrv', "$compile", "toolservices",
+    function (caliopewebTemplateSrv, $compile, tools) {
 
     var ATTNAME_LOADREMOTE = 'fromserver';
     var ATTNAME_METHOD = 'method';
@@ -270,8 +234,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
     var ATTNAME_FIELDID = 'formid';
     var ATTNAME_FIELD_DATALIST = 'fieldDatalist';
     var ATTNAME_OPTIONSNAME = 'optionsName';
-    var ATTNAME_MCOMBO_CHOICES = 'uiMcomboChoices';
-    var ATTNAME_MCOMBO_SELECTED = 'uiMcomboSelected';
+    var ATTNAME_OPTIONS_STATIC = 'optionsStatic';
 
     /**
     * Define the function for link the directive to AngularJS Context.
@@ -281,53 +244,62 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
       restrict : 'A',
       replace : false,
       scope: false,
-      link: function (scope, element, attrs) {
+      link: function ($scope, $element, $attrs) {
 
-        console.log('Attrs', attrs);
+        if( $attrs[ATTNAME_LOADREMOTE] !== undefined && $attrs[ATTNAME_LOADREMOTE] === 'true') {
 
-        if( attrs[ATTNAME_LOADREMOTE] !== undefined && attrs[ATTNAME_LOADREMOTE] === 'true') {
-
-          var fieldId = attrs[ATTNAME_FIELDID];
+          var fieldId = $attrs[ATTNAME_FIELDID];
           var promise =
-          caliopewebTemplateSrv.loadDataOptions(attrs[ATTNAME_METHOD], fieldId, undefined);
+          caliopewebTemplateSrv.loadDataOptions($attrs[ATTNAME_METHOD], fieldId, undefined);
 
           promise.then(function(dataResponse) {
 
 
             if( dataResponse !== undefined ) {
               var i;
-              var attrFieldValue = attrs[ATTNAME_FIELDVALUE];
-              var attrFieldDesc = attrs[ATTNAME_FIELDDESC];
-              if(attrs[ATTNAME_FIELD_DATALIST] !== undefined) {
+              var attrFieldValue = $attrs[ATTNAME_FIELDVALUE];
+              var attrFieldDesc = $attrs[ATTNAME_FIELDDESC];
+              if($attrs[ATTNAME_FIELD_DATALIST] !== undefined) {
                 dataResponse =
-                getFinalValueFromString(dataResponse, attrs[ATTNAME_FIELD_DATALIST], '.');
+                    tools.getValueAttInObject(dataResponse, $attrs[ATTNAME_FIELD_DATALIST], '.');
               }
 
-              var scopeOptionsName = attrs[ATTNAME_OPTIONSNAME];
+              var scopeOptionsName = $attrs[ATTNAME_OPTIONSNAME];
               if( scopeOptionsName !== undefined ) {
-                scope[scopeOptionsName] = [];
+                $scope[scopeOptionsName] = [];
                 for(i=0; i<dataResponse.length; i++) {
                   var option = {
-                    value : getFinalValueFromString(dataResponse[i], attrFieldValue, '.'),
-                    label  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
+                    value : tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.'),
+                    label  : tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.')
                   };
-                  scope[scopeOptionsName].push(option);
+                  $scope[scopeOptionsName].push(option);
                 }
               }
 
             }
+
+            if($attrs.hasOwnProperty(ATTNAME_OPTIONS_STATIC) ) {
+              var optionsStatic = JSON.parse($attrs[ATTNAME_OPTIONS_STATIC]);
+              angular.forEach(optionsStatic, function(v,k){
+                var option = {
+                  value : k,
+                  label : v
+                }
+                $scope[scopeOptionsName].push(option);
+              });
+            }
           });
 
         }
-//        $compile(element.contents())(scope);
+//        $compile($element.contents())($scope);
       }
     };
 
     return directiveDefinitionObject;
   }]);
 
-  moduleDirectives.directive("uiMcomboChoices", ['caliopewebTemplateSrv', '$document',
-    function(caliopewebTemplateSrv, $document){
+  moduleDirectives.directive("uiMcomboChoices", ['caliopewebTemplateSrv', '$document', 'toolservices',
+    function(caliopewebTemplateSrv, $document, tools){
     // simultaneously should not be two open items
 
       var openElement = null, close;
@@ -338,8 +310,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
         replace: true,
         templateUrl: 'caliopeweb-forms/caliopeweb-mcombo-partial-directive.html',
         scope: true,
-        controller: ['$scope', '$filter', function($scope, $filter) {
-
+        controller: ['$scope', '$filter', '$attrs', function($scope, $filter, $attrs) {
           $scope._searchElem = null;
           $scope.filteredChoices = function() {
             var filtered = $filter('filter')($scope._choices, $scope._search);
@@ -347,13 +318,16 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           };
 
           $scope.moveToSelected = function(choice, $event) {
-            $scope._selectedChoices.push(choice);
-            $scope._choices.splice($scope._choices.indexOf(choice), 1);
+            if(!$attrs.single ){
+              $scope._selectedChoices.push(choice);
+              $scope._choices.splice($scope._choices.indexOf(choice), 1);
+              // do not 'close' on choice click
+            }else if ($attrs.single && ($scope._selectedChoices.length < 1)){
+              $scope._selectedChoices.push(choice);
+              $scope._choices.splice($scope._choices.indexOf(choice), 1);
+            }
             $scope._search='';
-
             $scope._searchElem.focus();
-
-            // do not 'close' on choice click
             $event.preventDefault();
             $event.stopPropagation();
           };
@@ -366,16 +340,14 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           };
 
           /**
-           * THis watch is to update the scope and parent scope with choices selected.
-           */
+          * THis watch is to update the scope and parent scope with choices selected.
+          */
           $scope.$watch('_selectedChoices.length', function(value) {
             if($scope[VAR_SCOPE_PUT_CHOICES_SELECTED] !== undefined && value !== undefined) {
               $scope[$scope[VAR_SCOPE_PUT_CHOICES_SELECTED]] = $scope._selectedChoices;
               $scope.$parent[$scope[VAR_SCOPE_PUT_CHOICES_SELECTED]] = $scope._selectedChoices;
             }
           });
-
-
         }
         ],
         link: function(scope, element, attrs) {
@@ -432,10 +404,11 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
 
           if( loadRemote !== undefined && loadRemote === 'true') {
 
-            var ATTNAME_METHOD = 'method';
-            var ATTNAME_FIELDVALUE = 'fieldvalue';
-            var ATTNAME_FIELDDESC = 'fielddesc';
-            var ATTNAME_FIELDID = 'formid';
+            var ATTNAME_METHOD         = 'method';
+            var ATTNAME_FIELDVALUE     = 'fieldvalue';
+            var ATTNAME_FIELDDESC      = 'fielddesc';
+            var ATTNAME_FIELIMAGE      = 'fieldimage';
+            var ATTNAME_FIELDID        = 'formid';
             var ATTNAME_FIELD_DATALIST = 'fieldDatalist';
 
             var promise = caliopewebTemplateSrv.loadDataOptions(attrs[ATTNAME_METHOD],
@@ -457,10 +430,11 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
 
                 var i;
                 var attrFieldValue = attrs[ATTNAME_FIELDVALUE];
-                var attrFieldDesc = attrs[ATTNAME_FIELDDESC];
+                var attrFieldDesc  = attrs[ATTNAME_FIELDDESC];
+                var attrFieldImage = attrs[ATTNAME_FIELIMAGE];
                 if(attrs[ATTNAME_FIELD_DATALIST] !== undefined) {
                   dataResponse =
-                      getFinalValueFromString(dataResponse, attrs[ATTNAME_FIELD_DATALIST], '.');
+                      tools.getValueAttInObject(dataResponse, attrs[ATTNAME_FIELD_DATALIST], '.');
                 }
 
                 var scopeMultiComboChoices = '_choices';
@@ -469,11 +443,12 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                 scope[scopeMultiComboChoices] = [];
                 scope[scopeMultiComboSelected] = [];
                 for(i=0; i<dataResponse.length; i++) {
-                  var option = {
-                    value : getFinalValueFromString(dataResponse[i], attrFieldValue, '.'),
-                    text  : getFinalValueFromString(dataResponse[i], attrFieldDesc, '.')
-                  };
+                  var option = {value : {}};
+                  option.value[attrFieldValue] = tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.');
+                  option.text = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
+                  option.image = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
                   scope[scopeMultiComboChoices].push(option);
+                  
                 }
               }
 
@@ -481,9 +456,19 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
               Code for load selected choices from server to componente ui-mcombo-choices and
               remove selected choices.
               */
-              var selectedChoices  = attrs['selectedChoices'].split(",");
+
+              var selectedChoices  = scope[attrs['name']];
               var scopeMultiComboChoicesTmp = scope[scopeMultiComboChoices];
               if( selectedChoices !== undefined ) {
+                if( selectedChoices.hasOwnProperty('direction') && selectedChoices.hasOwnProperty('target') &&
+                    selectedChoices.target.length > 0) {
+
+                  var selectedChoicesInTaget = [];
+                  angular.forEach(selectedChoices.target, function(vSelChoicesTarget, kSelChoicesTarget){
+                    selectedChoicesInTaget.push(vSelChoicesTarget.entity_data);
+                  });
+                  selectedChoices = selectedChoicesInTaget;
+                }
                 for(i=0; i < selectedChoices.length; i++ ) {
                   var valueChoice = selectedChoices[i];
                   if( valueChoice !== undefined ) {
@@ -492,7 +477,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                     for(j=0; j < scope[scopeMultiComboChoices].length; j++ ) {
                       if( scope[scopeMultiComboChoices][j] !== undefined ) {
 
-                        if(scope[scopeMultiComboChoices][j].value === valueChoice) {
+                        if(scope[scopeMultiComboChoices][j].value[attrFieldValue] === valueChoice[attrFieldValue]) {
                           objChoice = scope[scopeMultiComboChoices][j];
                           break;
                         }
@@ -507,7 +492,6 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                 }
                 scope[scopeMultiComboChoices] = scopeMultiComboChoicesTmp;
               }
-
             });
 
           }
@@ -535,8 +519,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
      */
     var directiveDefinitionObject = {
       restrict : 'E',
-      //replace : true,
-
+      replace : false,
       template : '<div></div>',
       /**
        *
@@ -544,6 +527,12 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
        * @param $attrs
        */
       controller : function($scope, $attrs, $element) {
+
+        if($element.data() !== undefined) {
+          angular.forEach($element.data(), function(v,k){
+            $attrs.$set(k,v);
+          });
+        }
 
         var gridName = $attrs['name'];
         var method = $attrs['method'];
@@ -557,9 +546,33 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           data: 'data'.concat(gridName),
           columnDefs: 'columnDefs'.concat(gridName)
         };
+        var gridOptions;
+        try {
+          gridOptions = angular.fromJson($attrs.gridOptions);
+          angular.extend($scope[gridOptionsName], gridOptions);
+        } catch (ex) {
+          throw Error('Error parsing attribute grid-option of directive cw-grid. '+ ex.message)
+        }
+
+        if($attrs.hasOwnProperty('columns')){
+          try {
+            var colsDefs = JSON.parse($attrs.columns);
+            var reg={};
+
+            $scope['data'.concat(gridName)] = [];
+            $scope['columnDefs'.concat(gridName)] = colsDefs;
+
+            if( angular.isArray($scope[$attrs.name]) && $scope[$attrs.name].length > 0 ) {
+              $scope['data'.concat(gridName)] = $scope['data'.concat(gridName)].concat($scope[$attrs.name]);
+            }
+          } catch (ex) {
+            console.log('Error load columns from attribute columns. ' + ex)
+          }
+        }
 
         $element.children().attr('ng-grid', gridOptionsName);
         $scope[gridName] = cwGridService.createGrid(gridName, method, []);
+
         $compile($element.contents())($scope);
       },
       /**
@@ -584,14 +597,16 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           loadInit = false;
         }
 
-        var dataGridName = "data_".concat(gridName);
-        $scope[gridName].setGridDataName(dataGridName);
+        var dataGridNameSrv = "data_".concat(gridName);
+        var dataGridNameGrid = "data".concat(gridName);
+        $scope[gridName].setGridDataName(dataGridNameGrid);
 
         if( loadInit === true ) {
-          $scope[dataGridName] = $scope[gridName].loadDataFromServer();
+          $scope[dataGridNameSrv] = $scope[gridName].loadDataFromServer();
         }
 
-        $scope.$watch(''.concat(dataGridName), function(dataGrid) {
+        var gridOptionsName = gridName.concat('options');
+        $scope.$watch(''.concat(dataGridNameSrv), function(dataGrid) {
           if( dataGrid !== undefined ) {
             $scope[gridName].addData(dataGrid);
             $scope[gridName].applyDecorators();
@@ -601,7 +616,128 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           }
         });
 
+        $scope.addRow = function() {
+          if($scope['data'.concat(gridName)] == undefined) {
+            $scope['data'.concat(gridName)] = [];
+          }
+          $scope['data'.concat(gridName)].push({});
+        };
+
+        $scope.removeRow = function(row) {
+          if($scope['data'.concat(gridName)] !== undefined) {
+            $scope['data'.concat(gridName)].splice(row.rowIndex,1);
+          }
+        }
+
       }
+    };
+
+    return directiveDefinitionObject;
+  }]);
+
+  /**
+   * @ngdoc directive
+   * @name cw.directive:cwValidationMess
+   * @restrict E
+   * @replace true
+   *
+   * @description
+   * Define the directive for add validation message to forms. This use template define in
+   * 'caliopeweb-forms/caliopeweb-valmess-partial.html'
+   *
+   *
+   */
+  moduleDirectives.directive('cwGridInForm',['caliopewebGridSrv', '$compile', function (cwGridService, $compile) {
+
+    /**
+     * Define the function for link the directive to AngularJS Context.
+     */
+    var directiveDefinitionObject = {
+      restrict : 'E',
+      replace : true,
+      templateUrl : 'caliopeweb-forms/caliopeweb-cwgridform-partial-directive.html',
+      /**
+       *
+       * @param $scope
+       * @param $attrs
+       */
+      controller : function($scope, $attrs, $element) {
+        var eCwGrid = $element.find('cw-grid');
+        if(eCwGrid !== undefined) {
+
+          if($attrs.columns !== undefined) {
+            try {
+              var columns = JSON.parse($attrs.columns);
+              var colsDef = [];
+              angular.forEach(columns, function(v,k){
+                var colDef = {
+                  'field'               : v.name,
+                  'displayName'         : v.caption,
+                  "cellClass"           : "cell-center",
+                  'cellTempalte'        : v.cellTempalte,
+                  'headerCellTemplate'  : v.headerCellTemplate
+                }
+                colsDef.push(colDef);
+              });
+              if(colsDef.length > 0) {
+                colsDef.push({
+                  "name"                : 'Acciones',
+                  "cellClass"           : "cell-center",
+                  "headerCellTemplate"  : '<span ng-click="addRow()"><i tooltip="Agregar Fila" tooltip-placement="right" class="icon-plus"></i></button>',
+                  "cellTemplate"        : '<span ng-click="removeRow(row)"><i tooltip="Eliminar Fila" tooltip-placement="right"  class="icon-remove"></i></button>',
+                  "enableCellEdit"      : false
+                });
+                $attrs.$set('columns', JSON.stringify(colsDef));
+              }
+            } catch (ex) {
+              console.log('Error load columns from attribute columns. ' + ex)
+            }
+          }
+          eCwGrid.data('name', $attrs.name);
+          eCwGrid.data('columns', $attrs.columns);
+          eCwGrid.children().addClass($attrs.class);
+
+
+        }
+
+      }
+    };
+
+    return directiveDefinitionObject;
+  }]);
+
+  /**
+   * @ngdoc directive
+   * @name cw.directive:cwValidationMess
+   * @restrict E
+   * @replace true
+   *
+   * @description
+   * Define the directive for add validation message to forms. This use template define in
+   * 'caliopeweb-forms/caliopeweb-valmess-partial.html'
+   *
+   *
+   */
+  moduleDirectives.directive('cwAction',['$compile', function ($compile) {
+
+    /**
+     * Define the function for link the directive to AngularJS Context.
+     */
+    var directiveDefinitionObject = {
+      restrict : 'E',
+      replace : true,
+      template : '<button type="button"></button>',
+      /**
+       *
+       * @param $scope
+       * @param $element
+       * @param $attrs
+       */
+      link: function ($scope, $element, $attrs) {
+        $element.append($attrs.title);
+      }
+
+
     };
 
     return directiveDefinitionObject;

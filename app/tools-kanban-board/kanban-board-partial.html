@@ -16,9 +16,9 @@
       <div class="widget-body-kanban fillallheight" >
         <div class="widget-main fillallheight">
           <div class="boxDrop fillallheight" >
-            <div ng-controller="kanbanItemCtrl" class="task-header-kanban" ng-init="showSubtasks=false"  uuid="{{item.uuid}}" ng-show='item.uuid'  ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false, onStop:'startCallback'}">
+            <div ng-controller="kanbanItemCtrl" class="task-header-kanban" ng-init="showSubtasks=false" category="{{obj.category}}"  uuid="{{item.uuid}}" ng-show='item.uuid'  ng-repeat="item in obj.tasks" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false, onStart:'startDragCallback', onStop:'stopDragCallback'}">
               <div class="blockInline-subtask">
-                <span class="green">
+                <span class="green" ng-click="showSubtasks=!showSubtasks">
                   <i tooltip="Estado Sub-tareas" class="icon-list-ul"></i>
                   ({{item.subtasks.length || 0 }} - <span class="text-error"> {{countSubtask(item.subtasks)}})</span>
                 </span>
@@ -26,6 +26,10 @@
               </div>
 
               <div class="lbl widget-toolbar-kanban no-border" >
+
+                <span >
+                  <cw-task-execute target-uuid="{{item.target.target.0.entity_data.uuid}}" target-entity="{{item.target.target.0.entity}}"></cw-task-execute>
+                </span>
 
                 <span class="text-info" ng-click="showSubtasks=!showSubtasks">
                   <i class="icon-double-angle-down" tooltip="Mostrar" ng-show="showSubtasks==false" ></i>
@@ -47,37 +51,36 @@
               </div>
               <div ng-init="log2=false" class='inline row-fluid' ng-show='showSubtasks'>
               {{item.descripcion}}
-              <tabset>
+              <accordion close-others="true">
+                <accordion-group heading="Subtareas">
+                  <div ng-repeat="subtask in item.subtasks">
+                    <ul class="item-list ui-sortable">
+                      <li class="item-orange scrollbar16" ng-class="{'selected': subtask.complete}">
+                      <label class="inline">
+                        <input type="checkbox"  ng-model='subtask.complete'  ng:click="checkSubtask(item,obj.category)">
+                        <span class="lbl"> {{subtask.description}}</span>
+                      </label>
+                      <div class="task-header">
+                        <span ng-click="removeSubtask(item,obj.category,$index)">
+                          <i class="icon-trash"></i>
+                        </span>
+                      </div>
+                      </li>
+                    </ul>
+                  </div>
 
-                <tab heading="Subtareas">
-                <div ng-repeat="subtask in item.subtasks">
-                  <ul class="item-list ui-sortable">
-                    <li class="item-orange scrollbar16" ng-class="{'selected': subtask.complete}">
-                    <label class="inline">
-                      <input type="checkbox"  ng-model='subtask.complete'  ng:click="checkSubtask(item,obj.category)">
-                      <span class="lbl"> {{subtask.description}}</span>
-                    </label>
-                    <div class="task-header">
-                      <span ng-click="removeSubtask(item,obj.category,$index)">
-                        <i class="icon-trash"></i>
-                      </span>
-                    </div>
-                    </li>
-                  </ul>
-                </div>
+                  <form ng-controller="kanbanItemDataCtrl"class="form-inline"  ng-submit="addSubtask(item,description,obj.category)">
+                    <input type="text" name="description" placeholder="Subtarea..." class="input-medium" ng-model="description"/>
+                    <button type="submit" class="btn btn-mini">Enviar</button>
+                  </form>
+                </accordion-group>
 
-                <form class="item-list tab-content-kanban"  ng-submit="addSubtask(item,description,obj.category)">
-                  <input type="text" name="description" placeholder="Subtarea..." class="input" ng-model="description"/>
-                </form>
-
-                </tab>
-
-                <tab heading="Comentarios">
+                <accordion-group heading="Comentarios">
                 <div ng-repeat="comment in item.comments">
                   <div class="dialogs">
                     <div class="itemdiv dialogdiv">
                       <div class="user hidden-phone">
-                        <img class="nav-user-photo " src="data:image/png;base64,{{comment.user.face}}">
+                        <img class="nav-user-photo " ng-src="data:image/png;base64,{{comment.user.face}}">
                       </div>
 
                       <div class="body scrollbar16">
@@ -86,8 +89,8 @@
                           <span class="green name">{{comment.time | date:'short'}}</span>
                         </div>
 
-                        <div class="name ">
-                          <a href="#">{{comment.user.login}}</a>
+                        <div class="name">
+                          <span href="#">{{comment.user.name}}</span>
                         </div>
 
                         <div class="text ">{{comment.text}}</div>
@@ -96,11 +99,12 @@
                   </div>
                 </div>
 
-                <form class="item-list tab-content-kanban" ng-submit="addComment(item,text,obj.category)">
-                  <input type="text" name="text" placeholder="Comentario..." class="input" ng-model="text"/>
+                <form ng-controller="kanbanItemDataCtrl" class="form-inline" ng-submit="addComment(item,text,obj.category)">
+                  <input type="text" name="text" placeholder="Comentario..." class="input-medium" ng-model="text"/>
+                  <button type="submit" class="btn btn-mini">Enviar</button>
                 </form>
-                </tab>
-              </tabset>
+                </accordion-group>
+              </accordion>
 
             </div>
           </div>

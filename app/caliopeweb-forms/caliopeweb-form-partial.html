@@ -1,7 +1,8 @@
-<div ng-controller="CaliopeWebTemplateCtrl">
+<div id="base-form"  ng-controller="CaliopeWebTemplateCtrl">
 
-    <div cw-dform="jsonPlantillaAngular" ng-init="initWithRouteParams()"></div>
-    <!--<cw-dform cw-dform="jsonPlantillaAngular" layout="jsonPlantillaLayout"/>-->
+    <cw-dform name="SIIMForm" cw-dform="jsonPlantillaAngular" from-routeparams="true" ng-init="initWithRouteParams([],false)" ></cw-dform>
+
+  <!--<cw-dform cw-dform="jsonPlantillaAngular" layout="jsonPlantillaLayout"/>
     <div>
         <br/>
         <h1>Información enviada</h1>
@@ -12,6 +13,7 @@
             </li>
         </ul>
     </div>
+    -->
 </div>
 
 

@@ -110,16 +110,21 @@ var CaliopeWebGrid = (function() {
       },
 
     /**
-     *
+     * Add a set of porperties to grid
      * @param name
      * @param properties
      */
-    addGridProperties: function(name, properties) {
-      if( name !== undefined && name in this.gridProperties ) {
-        jQuery.extend(this.gridProperties[name], properties);
-      } else {
-        this.gridProperties[name] = properties;
-      }
+    addGridProperties: function(properties) {
+      jQuery.extend(this.gridProperties, properties);
+    },
+
+    /**
+     * Add or replace a value of a grid property
+     * @param name Property name
+     * @param value Property value
+     */
+    addGridProperty: function(name, value) {
+      this.gridProperties[name] = value;
     },
 
     /**
@@ -168,6 +173,14 @@ var CaliopeWebGrid = (function() {
        */
       getGridDataName : function() {
         return this.gridDataName;
+      },
+
+    /**
+     * Get the properties of grid
+     * @returns {array} Properties
+     */
+      getGridProperties : function() {
+        return this.gridProperties;
       },
       /**
        *

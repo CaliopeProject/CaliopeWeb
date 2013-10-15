@@ -43,26 +43,28 @@ require.config({
     'httpRequestTrackerService'        : 'application/httpRequestTrackerService',
     'breadcrumbsService'               : 'application/breadcrumbsService',
     'application-event'                : 'application/application-event',
+
     'caliopeWebForms'                  : 'caliopeweb-forms/CaliopeWebForms',
     'caliopeWebGrids'                  : 'caliopeweb-forms/CaliopeWebGrids',
     'caliopeweb-templateServices'      : 'caliopeweb-forms/caliopeweb-template-services',
     'caliopeweb-templateControllers'   : 'caliopeweb-forms/caliopeweb-template-controllers',
     'caliopeweb-formDirectives'        : 'caliopeweb-forms/caliopeweb-form-directives',
 
+    'admin-users-controller'           : 'admin-users/admin-users-controller',
+
     'proyectomtv-controller'          : 'proyectomtv/proyectomtv-controller',
     'proyectomtv-summary-controller'  : 'proyectomtv/proyectomtv-summary-controller',
     'proyectomtv-service'             : 'proyectomtv/proyectomtv-service',
 
     'login-security-services'          : 'login/login-security-services',
-    'login-retryQueue'                 : 'login/login-retryQueue',
     'login-controllers'                : 'login/login-controllers',
     'login-controllers-form'           : 'login/login-controllers-form',
     'login-directives'                 : 'login/login-directives',
+    'login-retryQueue'                 : 'login/login-retryQueue',
 
     'menu-top-controller'              : 'menu-top/menu-top-controllers',
 
     'menu-right-controller'            : 'menu-right/menu-right-controller',
-    'menu-right-directives'            : 'menu-right/menu-right-directives',
 
     'ckeditor'                         : 'libs-js-thirdparty/ckeditor/ckeditor',
     'wysiwyg-editor-directive'         : 'tools-wysiwyg-editor/wysiwyg-editor-directive',
@@ -78,7 +80,6 @@ require.config({
 
     'jquery-ui'                        : 'libs-js-thirdparty/jquery-ui/ui/jquery-ui',
     'angular-dragdrop'                 : 'libs-js-thirdparty/angular-dragdrop/src/angular-dragdrop'
-
   },
   baseUrl: '/',
   shim: {

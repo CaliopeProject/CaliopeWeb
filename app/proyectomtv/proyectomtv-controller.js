@@ -18,7 +18,7 @@ define(['angular'], function(angular) {
         }
         $scope.modelUUID = result.modelUUID;
         $scope.entityModel = result.entityModel;
-
+        /*
         if (result.data !== undefined) {
           var varname;
           for (varname in result.data) {
@@ -27,6 +27,7 @@ define(['angular'], function(angular) {
             }
           }
         }
+        */
       }
     } else if(result.error !== undefined) {
       throw new Error('Error load form from server.' + result.error.message);
@@ -60,19 +61,41 @@ define(['angular'], function(angular) {
         cwGrid.setDecorators([CaliopeWebGridDataDecorator, CWGridColumnsDefNgGridDecorator])
       };
 
-      $scope.initForm = function() {
-        var cwForm = $scope['project'];
-        var methodSupport = cwForm.getEntityModel().concat('.').concat(cwForm.getMode());
-        cwForm.setActionsMethodToShow([methodSupport]);
-        cwFormService.loadForm(cwForm, {}).then(function(result) {
+      function loadForm(cwForm) {
+        cwFormService.loadForm(cwForm, {}).then( function(result) {
           processResultLoadForm(result, $scope);
-          if($scope.modelUUID !== undefined) {
-            $scope.showWidgetTask=true;
-          } else {
-            $scope.showWidgetTask=false;
+          $scope.showWidgetTask=false;
+
+          if( result !== undefined && result.data !== undefined ) {
+            var dataToView = cwForm.dataToViewData();
+            if( dataToView !== undefined ) {
+              angular.forEach(dataToView, function(value, key){
+                $scope[key] = value;
+              });
+            }
           }
+
         });
       };
+
+      $scope.initForm = function() {
+        var cwForm = $scope['cwForm-project'];
+        var methodSupport = cwForm.getEntityModel().concat('.').concat(cwForm.getMode());
+        cwForm.setActionsMethodToShow([methodSupport]);
+        loadForm(cwForm);
+      };
+
+      $scope.$on('actionComplete', function(event, result) {
+        if( result[1] === true ) {
+
+          $scope.targetTask.uuid = result[2].uuid;
+          $scope.showWidgetTask = true;
+          var cwForm = $scope['cwForm-project'];
+          cwForm.setModelUUID(result[2].uuid);
+          $scope.$broadcast('changeActions', [['projects.edit'],['projects.create']]);
+        }
+      });
+
 
       /*
       Ejemplo de carga de grilla cuando se invoca un evento y se envian parámetros.
@@ -90,4 +113,3 @@ define(['angular'], function(angular) {
     }]
   );
 });
-

@@ -6,10 +6,11 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
   var moduleServices = angular.module('task-services', ['ui.bootstrap.dialog']);
 
   moduleServices.factory('taskService',
-    ['SessionSrv', 'loginSecurity', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv'
-      , function(security, loginSecurity,   $log,  $http,   $q,   $location,   $dialog,   $rootScope,   webSocket, tempServices) {
+    ['SessionSrv', 'loginSecurity', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv', 'toolservices'
+      , function(security, loginSecurity,   $log,  $http,   $q,   $location,   $dialog,   $rootScope,   webSocket, tempServices, tools) {
 
         var NAME_MODEL_TASK = 'tasks';
+        var MODEL_TASK;
         var opts = {
           backdrop      : false,
           keyboard      : true,
@@ -17,7 +18,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           controller    : 'TaskFormCtrl'
         };
 
-        var ALLTASK;
+        var ALLTASK, MODEL;
         var DIALOG_NAME_CONF_DELETE = 'dialogConfirmDeleteTask';
         var DIALOG_NAME_CONF_ARCHIV = 'dialogConfirmArchivTask';
         var DIALOG_NAME_FORM_TASK   = 'dialogFormTask';
@@ -35,25 +36,39 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           $location.path(url);
         }
 
-        function getUserTask(){
+        function getUserTask(tasktoprocess){
           var alluser = [];
-          angular.forEach(ALLTASK, function(value){
-            if(!angular.isUndefined(value.tasks)){
-              angular.forEach(value.tasks, function(value){
-                if(!angular.isUndefined(value.ente_asignado)){
-                  angular.forEach(value.ente_asignado, function(value){
-                    if(alluser.indexOf(value) === -1){
-                      alluser.push(value);
-                    }
+          var adduser = function(userNew){
+            if((alluser.indexOf(userNew) === -1) && !angular.isUndefined(userNew)){
+              alluser.push(userNew);
+            }
+          };
+
+          tasktoprocess = (tasktoprocess === undefined)? ALLTASK : tasktoprocess;
+
+          angular.forEach(tasktoprocess, function(valueAllTask){
+            if(!angular.isUndefined(valueAllTask.tasks)){
+              angular.forEach(valueAllTask.tasks, function(valueTask){
+                if(!angular.isUndefined(valueTask.holders.target)){
+                  angular.forEach(valueTask.holders.target, function(valueHolders){
+                    adduser(valueHolders.entity_data.uuid);
                   });
                 }
-                if(!angular.isUndefined(value.comments)){
-                  angular.forEach(value.comments, function(value){
-                    if(alluser.indexOf(value.user) === -1){
-                      alluser.push(value.user);
-                    }
+                if(!angular.isUndefined(valueTask.comments)){
+                  angular.forEach(valueTask.comments, function(value){
+                    adduser(value.user);
                   });
                 }
+              });
+            }
+            if(!angular.isUndefined(valueAllTask.holders)){
+              angular.forEach(valueAllTask.holders.target, function(valueHolders){
+                adduser(valueHolders.entity_data.uuid);
+              });
+            }
+            if(!angular.isUndefined(valueAllTask.comments)){
+              angular.forEach(valueAllTask.comments, function(value){
+                adduser(value.user);
               });
             }
           });
@@ -61,61 +76,88 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
         }
 
         function loadTask(){
-          var params     = {};
-          var method     = "tasks.getCurrentUserKanban";
-          WEBSOCKETS.serversimm.sendRequest(method, params)
-                    .then(function(data){
-                      ALLTASK = data;
-                      var getuser = {};
-                      getuser.users = getUserTask();
-                      tempServices.loadData('accounts.getThumbnailList',getuser)
-                              .then(function(data){
-                                var tempALLTASK = angular.copy(ALLTASK);
 
-                                if(!angular.isUndefined(data)){
-                                  angular.forEach(ALLTASK, function(value1, key1){
-                                    if(!angular.isUndefined(value1.tasks)){
-                                      angular.forEach(value1.tasks, function(value2, key2){
-                                        if(!angular.isUndefined(value2.comments)){
-                                          angular.forEach(value2.comments, function(value3, key3){
-                                            var tempUser = {};
-                                            tempUser.login = value3.user;
-                                            angular.forEach(data, function(valUser, key4User){
-                                              angular.forEach(valUser, function(valNomb, key4Face){
-                                                if(key4Face === value3.user){
-                                                  tempUser.face = valNomb;
-                                                }
-                                              });
-                                            });
-                                            tempALLTASK[key1].tasks[key2].comments[key3].user = tempUser;
-                                          });
-                                        }
-                                      });
-                                    }
-                                  });
+          var data1    = {};
+          var data2    = {};
+          data1.params = data2.params = {};
+          data1.method = "tasks.getCurrentUserKanban";
+          data2.method = "tasks.getModel";
+
+          WEBSOCKETS.serversimm.sendRequestBatch(data1, data2).
+          then(function (returnValues){
+            angular.forEach(returnValues, function(valueII, keyII){
+              if(keyII === 0){
+                ALLTASK = valueII;
+                var tempALLTASK = angular.copy(ALLTASK);
+                var getuser = {};
+                getuser.users = getUserTask();
+                tempServices.loadData('accounts.getPublicInfo',getuser)
+                .then(function(data){
+                  if(!angular.isUndefined(data)){
+                    angular.forEach(ALLTASK, function(value1, key1){
+                      if(!angular.isUndefined(value1.tasks)){
+                        angular.forEach(value1.tasks, function(value2, key2){
+                          if(!angular.isUndefined(value2.comments)){
+                            angular.forEach(value2.comments, function(value3, key3){
+                              var tempUser = {};
+                              tempUser.uuid = value3.user;
+                              angular.forEach(data, function(valUser, key4User){
+                                if (valUser.uuid === value3.user) {
+                                  tempUser.face = valUser.image;
+                                  tempUser.name = valUser.name;
                                 }
-
-                                ALLTASK = tempALLTASK;
-
+                              });
+                              tempALLTASK[key1].tasks[key2].comments[key3].user = tempUser;
                             });
-                      $rootScope.$broadcast('taskServiceNewTask');
+                          }
+                        });
+                      }
                     });
+                  }
+                  ALLTASK = tempALLTASK;
+                  $rootScope.$broadcast('taskServiceNewTask');
+                });
+              }
+              if(keyII === 1){
+                if( valueII !== undefined ) {
+                  MODEL_TASK = valueII.form;
+                }
+              }
+            });
+          });
+
         }
 
         function getAllTask(){
           var params     = {};
           var method     = "tasks.getAll";
           return WEBSOCKETS.serversimm.sendRequest(method, params)
-           .then(function(data){
-             return data;
-           });
+          .then(function(allTaskValues){
+            var getuser = {};
+            if(!angular.isUndefined(allTaskValues)){
+              getuser.users = getUserTask(allTaskValues);
+              return tempServices.loadData('accounts.getPublicInfo',getuser)
+              .then(function(data){
+                angular.forEach(allTaskValues, function(vtask, ktask){
+                  angular.forEach(vtask.holders.target, function(ventity, kentity){
+                    angular.forEach(data, function(vdata){
+                      if(vdata.uuid === ventity.entity_data.uuid){
+                        allTaskValues[ktask].holders.target[kentity].entity_data = vdata;
+                      }
+                    });
+                  });
+                });
+                return allTaskValues;
+              });
+            }
+          });
         }
 
         function sendData(entidad,metodo,datos,uuidEntidad){
           var sendDato = angular.copy(datos);
           if(!angular.isUndefined(sendDato.comments)){
             angular.forEach(sendDato.comments, function(value, key){
-              var user = value.user.login;
+              var user = value.user.uuid;
               sendDato.comments[key].user = user;
             });
           }
@@ -172,12 +214,12 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           loadData: loadTask,
 
           // Show the modal task dialog
-          createTask: function(target, category) {
+          createTask: function(targetTask, category) {
             opts.templateUrl = './task/partial-task-dialog.html';
             var data = {
               template: NAME_MODEL_TASK,
               mode  : 'create',
-              target: target,
+              targetTask: targetTask,
               category: category,
               dialogName : DIALOG_NAME_FORM_TASK
             };
@@ -289,8 +331,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
             taskNot.porcTask    = 100 - ((pend * 100)/alltask);
             taskNot.porcSubTask = 100 - ((subt * 100)/allSubtask);
-            taskNot.pend        = pend;
-            taskNot.subt        = subt;
+            taskNot.pend        = pend || 0;
+            taskNot.subt        = subt || 0;
 
             return taskNot;
 
@@ -336,10 +378,11 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           addComment : function(parentTask, text, category) {
             var timeall = new Date();
             var user    = loginSecurity.currentUser.user;
+            var uuid    = loginSecurity.currentUser.user_uuid;
             var face    = loginSecurity.currentUser.image;
             var commentext = {
               text : text,
-              user : {login: user, face: face},
+              user : {uuid: uuid, face: face},
               time : timeall
             };
 
@@ -356,7 +399,28 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           changeCategory: function(taskDrag, category){
             if(!angular.isUndefined(taskDrag)){
               taskDrag.category = category;
-              sendData('tasks', 'tasks.edit', taskDrag, taskDrag.uuid);
+              var holderRelOld = {};
+              angular.forEach(taskDrag.holders.target, function(vtarget){
+                var user   = vtarget.entity_data.uuid;
+                var category = vtarget.properties.category;
+                holderRelOld[user] = category;
+              });
+
+              var data =  tempServices.getDataToServer(MODEL_TASK, taskDrag);
+              var user = loginSecurity.currentUser;
+
+              if(data.target !== undefined) {
+                angular.forEach(data.holders.target, function(vHolder, kHolder) {
+                  console.log('user', user);
+                  if(vHolder.entity_data.uuid === user.user_uuid) {
+                    vHolder.properties.category = category;
+                  } else {
+                    vHolder.properties.category = holderRelOld[vHolder.entity_data.uuid];
+                  }
+                });
+              }
+
+              sendData('tasks', 'tasks.edit', data, taskDrag.uuid);
             }
             loadTask();
           }

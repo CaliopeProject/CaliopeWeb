@@ -1,0 +1,11 @@
+@import "compass/css3";
+
+#errorpage{
+  height: 100%;
+  width: 100%;
+  @include background-size(cover);
+  background: {
+    image: image-url("errorpage.png");
+    repeat: no-repeat;
+  };
+}

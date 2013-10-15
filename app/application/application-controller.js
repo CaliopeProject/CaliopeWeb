@@ -24,18 +24,8 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         var initMessage = {type: 'success', msg: 'Bienvenidos al SIIM' };
 
         $scope.showMenu = false;
-        $scope.toggle   = true;
+        $scope.toggle   = false;
         $scope.isAuthenticated = security.isAuthenticated;
-
-        $scope.$watch(function() {
-          return security.isAuthenticated();
-        }, function(value) {
-          try{
-            taskService.loadData();
-          }catch(err){
-            console.log("Usuario no registrado");
-          }
-        });
 
         $scope.alerts      = [];
 
@@ -50,8 +40,13 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
 
         $scope.$on('openWebSocket', function(event, data) {
           var uuid = sessionUuid.getIdSession();
-          security.requestCurrentUser(uuid);
+          security.requestCurrentUser(uuid).then(function(){
+            if(!!security.currentUser){
+              taskService.loadData();
+            }
+          });
         });
+
 
         $scope.$on('closeWebSocket', function(event, data) {
           security.resetAuthentication();
@@ -69,8 +64,13 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
             try{
               $scope.taskpend = taskService.getTaskpend();
             }catch(err){
-              console.log("Usuario no registrado");
+              console.log("No existen tareas pendientes");
             }
+          });
+
+          //this metodo is the same that method in login_controller.
+          $scope.$on('login-service-user', function (event, data) {
+              taskService.loadData();
           });
 
           $scope.closeAlert = function(index) {
@@ -90,6 +90,10 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         $scope.changeToogleMenu = function (){
           $scope.toggle = !$scope.toggle;
         };
+
+        $scope.$on('closemenu', function(event, data) {
+          $scope.showMenu = false;
+        });
      }]
   );
 });

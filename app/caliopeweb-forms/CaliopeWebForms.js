@@ -1,3 +1,11 @@
+
+var CaliopeWebFormConstants = {
+  'rexp_value_in_form' : "^{{2}[^{].*[^}]}{2}$",
+  'rexp_value_in_form_inrep' : "^{{2}",
+  'rexp_value_in_form_firep' : "}{2}$"
+};
+
+
 /**
  * Constructor not execute functionality associate to initialize variables, this is the constructor by default.
  * @class CaliopeWebForm
@@ -200,9 +208,13 @@ var CaliopeWebForm = (function() {
       };
     }
 
+  function getVarNameScopeFromFormRep(formRep) {
+    return formRep.replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_inrep),"").
+        replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_firep),"")
+  }
+
   /**
    * Constructor of CaliopeWebForm module
-
    * @memberOf CaliopeWebForm
    */
     var CaliopeWebForm = function(entityModel, mode, uuid) {
@@ -210,6 +222,166 @@ var CaliopeWebForm = (function() {
       this.entityModel = entityModel;
       this.mode = mode;
       this.modelUUID = uuid;
+    };
+
+    function dataToViewData(elements, dataFromServer) {
+      /*
+      - Si la data proveniente del servidor es nula entonces se retorna un objeto con el nombre
+      de todas las propiedades y el valor en undefined
+      - Si los elementos son nulos entonces se retorna undefined
+       */
+
+      var data;
+
+      if(elements !== undefined) {
+        data = {};
+        jQuery.each(elements, function(kElement, vElement) {
+          if( vElement.hasOwnProperty('name') ) {
+            data[vElement.name] = dataFromServer[vElement.name];
+
+            if( vElement.hasOwnProperty('relation') ) {
+              if(dataFromServer[vElement.name] === undefined) {
+                data[vElement.name] = vElement.relation;
+              }
+            }
+          };
+        });
+      }
+
+      return data;
+    };
+
+    function dataToServerData(elements, dataFromView) {
+
+      /*
+        Si el parámetro dataFromView es undefined entonces se crea una estructura de datos
+        que contiene los elementos y estos con valor null o undefined.
+
+        Si los elementos son indefinidos entonces la estructura de datos será undefined
+       */
+      var data;
+
+
+      if( elements !== undefined ) {
+        data = {};
+        //TODO: Verificar si aún se va a utilizar params to send.
+        var paramsToSend = [];
+        /*
+         if( paramsToSend === undefined || paramsToSend === '' ) {
+         paramsToSend = [];
+         } else {
+         paramsToSend = paramsToSend.split(',');
+         }
+         */
+
+        for (i = 0; i < elements.length; i++) {
+          if( paramsToSend.length === 0 || paramsToSend.indexOf(elements[i]) >= 0 ) {
+            var nameVarScope = elements[i].name;
+            var valueToServer = undefined;
+            if( dataFromView[nameVarScope] !== undefined ) {
+              if(elements[i].type === 'div' && elements[i].type1 === 'datepicker') {
+                valueToServer = (dataFromView[nameVarScope] instanceof Date )? dataFromView[nameVarScope].toJSON() : dataFromView[nameVarScope] ;
+              } else if(elements[i].type === 'select') {
+                valueToServer = dataFromView[nameVarScope];
+              } else if(elements[i].type === 'ui-mcombo-choices' && elements[i].type1 === 'multi-choices') {
+                if(elements[i].hasOwnProperty('single') && elements[i].single === "true" &&
+                    dataFromView[nameVarScope] !== undefined && dataFromView[nameVarScope][0] !== undefined) {
+                  valueToServer = dataFromView[nameVarScope][0].value
+                } else {
+                  var j;
+                  valueToServer = [];
+                  for( j=0; j<dataFromView[nameVarScope].length; j++) {
+                    if( dataFromView[nameVarScope][j].value !== undefined) {
+                      valueToServer.push(dataFromView[nameVarScope][j].value);
+                    }
+                  }
+                }
+              } else if(elements[i].type === 'cw-grid-in-form' && elements[i].typeo === 'cw-grid') {
+                valueToServer = dataFromView[dataFromView[nameVarScope].gridDataName];
+              }
+              else {
+                valueToServer = dataFromView[nameVarScope];
+              }
+              if(elements[i].hasOwnProperty('relation')) {
+                /*
+                  Evaluate if valueToServer is a relation. True then create valueToServer with only valueToServer of
+                  entity_data in relation
+                 */
+                if(valueToServer.hasOwnProperty('direction') && valueToServer.hasOwnProperty('target')) {
+                  if( valueToServer.target.hasOwnProperty('length') ) {
+                    var cValue = {}
+                    jQuery.extend(true, cValue, valueToServer);
+                    valueToServer = [];
+                    jQuery.each(cValue.target, function(k,v) {
+                      if(v.hasOwnProperty('entity_data')) {
+                        valueToServer.push(v.entity_data);
+                      }
+                    });
+                  }
+                }
+
+                var patt = new RegExp(CaliopeWebFormConstants.rexp_value_in_form);
+                var relation = elements[i].relation;
+                var oTarget = elements[i].relation.target;
+                if( oTarget !== undefined ) {
+                  //var ownRelation = elements[i].name;
+                  var target = [];
+
+                  if( valueToServer !== undefined) {
+                    if( valueToServer instanceof Array) {
+                    } else {
+                      valueToServer = [valueToServer];
+                    }
+                  }
+
+                  jQuery.each(valueToServer, function(kRel, vRel){
+                    var cTarget = {};
+                    jQuery.extend(true, cTarget, oTarget);
+                    if(patt.test(oTarget.entity)) {
+                      var vPropScope = getVarNameScopeFromFormRep(oTarget.entity);
+                      cTarget.entity = dataFromView[vPropScope];
+                    }
+                    jQuery.each(oTarget.properties, function(kProp, vProp){
+                      if(patt.test(vProp)) {
+                        var vPropScope = getVarNameScopeFromFormRep(vProp);
+                        if(vPropScope === elements[i].name ) {
+                          cTarget.properties[kProp] = vRel;
+                        } else {
+                          cTarget.properties[kProp] = dataFromView[vPropScope];
+                        }
+                      }
+                    });
+                    jQuery.each(oTarget['entity_data'], function(kProp, vProp){
+                      if(patt.test(vProp)) {
+                        var vPropScope = getVarNameScopeFromFormRep(vProp);
+                        if(vPropScope === elements[i].name ) {
+                          cTarget['entity_data'][kProp] = vRel[kProp];
+                        } else {
+                          cTarget['entity_data'][kProp] = getValueAttInObject(dataFromView, vPropScope, '.');
+                          /*
+                          if(dataFromView[vPropScope] instanceof Object) {
+                            cTarget['entity_data'][kProp] = getValueAttInObject(dataFromView, vPropScope, '.');
+                          } else if(dataFromView[vPropScope] instanceof Array) {
+                            cTarget['entity_data'][kProp] = getValueAttInObject(dataFromView, vPropScope, '.')[kProp];
+                          }
+                          */
+                        }
+                      }
+                    });
+                    target.push(cTarget);
+                  });
+                  relation.target = target;
+                  valueToServer = relation;
+                }
+              }
+              data[nameVarScope] = valueToServer;
+            }
+          }
+        }
+      }
+
+      return data;
+
     };
 
   /**
@@ -232,10 +404,10 @@ var CaliopeWebForm = (function() {
      */
       addStructure: function (_structure, _formName) {
         var result = searchElements(_structure);
-        formName = _formName;
-        elementsForm = result.elements;
-        elementsFormName = result.elementsName;
-        structure = _structure;
+        this.formName = _formName;
+        this.elementsForm = result.elements;
+        this.elementsFormName = result.elementsName;
+        this.structure = _structure;
       },
     /**
      * Add the data to the data attribute and get the value of identifier of object data and
@@ -245,7 +417,7 @@ var CaliopeWebForm = (function() {
      * @param _data {object} Json Structure representing the data
      */
       addData: function(_data) {
-        data = _data;
+        this.data = _data;
         if(_data !== undefined) {
           this.modelUUID = _data.uuid;
         }
@@ -257,7 +429,7 @@ var CaliopeWebForm = (function() {
      * @param _actions {_object} Json structure representing the actions
      */
       addActions: function(_actions) {
-        actions = _actions;
+        this.actions = _actions;
       },
 
     /**
@@ -267,7 +439,7 @@ var CaliopeWebForm = (function() {
      * @param _translations {object} Json structure representing the translations
      */
       addTranslations: function(_translations) {
-        translations = _translations;
+        this.translations = _translations;
       },
 
     /**
@@ -277,7 +449,7 @@ var CaliopeWebForm = (function() {
      * @param _layout {_object}  Json structure representing the layout
      */
       addlayout: function(_layout) {
-         layout = _layout;
+         this.layout = _layout;
       },
 
     /**
@@ -289,9 +461,32 @@ var CaliopeWebForm = (function() {
      * @returns {object} The structure to render.
      */
       createStructureToRender : function() {
-        structureToRender = structure;
-        return structureToRender;
+        this.structureToRender = this.structure;
+        return this.structureToRender;
       },
+
+    /**
+     *
+     */
+    dataToViewData : function(viewData) {
+      var data = dataToViewData(this.elementsForm, this.data);
+      if( viewData !== undefined ) {
+        jQuery.each(data, function(key, value) {
+          viewData[key] = value;
+        });
+      } else {
+        return data;
+      }
+    },
+
+    /**
+     *
+     * @param dataFromView
+     * @returns {*}
+     */
+    dataToServerData : function(dataFromView) {
+      return dataToServerData(this.elementsForm, dataFromView);
+    },
 
     /**
      * Get the actions added
@@ -301,7 +496,7 @@ var CaliopeWebForm = (function() {
      * @returns {object}
      */
       getActions : function() {
-        return actions;
+        return this.actions;
       },
 
     /**
@@ -312,7 +507,7 @@ var CaliopeWebForm = (function() {
      * @returns {Array}
      */
       getActionsToShow : function() {
-        return actionsToShow;
+        return this.actionsToShow;
       },
 
     /**
@@ -323,7 +518,7 @@ var CaliopeWebForm = (function() {
      * @returns {object}
      */
       getData : function() {
-        return data;
+        return this.data;
       },
 
     /**
@@ -334,7 +529,7 @@ var CaliopeWebForm = (function() {
      * @returns {object}
      */
       getElements : function() {
-        return elementsForm;
+        return this.elementsForm;
       },
 
     /**
@@ -353,10 +548,10 @@ var CaliopeWebForm = (function() {
      * @function
      * @memberOf CaliopeWebForm
      *
-     * @param {object}
+     * @param {object} Layout
      */
       getlayout : function() {
-         return layout;
+         return this.layout;
       },
     /**
      * Get the names of the elements (inputs).
@@ -366,7 +561,7 @@ var CaliopeWebForm = (function() {
      * @returns {object} Names of the elements contains in the json structure
      */
       getElementsName : function() {
-        return elementsFormName;
+        return this.elementsFormName;
       },
     /**
      * Get the name of the form.
@@ -376,7 +571,7 @@ var CaliopeWebForm = (function() {
      * @returns {string}
      */
       getFormName : function() {
-        return formName;
+        return this.formName;
       },
     /**
      * Get the UUID or identifier of the data.
@@ -409,11 +604,11 @@ var CaliopeWebForm = (function() {
      */
       putDataToContext : function(context, elements) {
 
-        if (data !== undefined) {
+        if (this.data !== undefined) {
           var varname;
-          for (varname in data) {
-            if(data.hasOwnProperty(varname)) {
-              context[varname] = data[varname];
+          for (varname in this.data) {
+            if(this.data.hasOwnProperty(varname)) {
+              context[varname] = this.data[varname];
             }
           }
         }
@@ -438,7 +633,7 @@ var CaliopeWebForm = (function() {
      * @param _actionsMethodToShow {array} Add the actions to show in the form
      */
     setActionsMethodToShow : function(_actionsMethodToShow) {
-      actionsToShow = _actionsMethodToShow;
+      this.actionsToShow = _actionsMethodToShow;
     },
 
     /**
@@ -486,6 +681,49 @@ var CaliopeWebForm = (function() {
     return CaliopeWebForm;
 
 }());
+
+
+/*
+ TODO: Put this function for global use. Code in caliopeweb-form-directives.js
+ */
+/**
+ * Get the final value of a attribute in a object. Attribute is represented by a string
+ * notation that indicate the path to final attribute..
+ *
+ * @example
+ * obj = { "user" : {
+     *            "username" : {value : "username"},
+     *            "name"  : {value : "NAME USER"}
+     *          }
+     *       }
+ * attName = user.name.value
+ * charSplitAttName = '.'
+ *
+ * Return "NAME USER"
+ *
+ * @memberOf commonServices
+ * @param {object} obj Object with the data
+ * @param {string} attName String that represent the attribute final to return value.
+ * @param {string} charSplitAttName A character that indicate the separation of attributes in attName,
+ * if this is undefined or empty or type is not string then the value by default is '.'.
+ * @return {object} The value of attribute, if strAttrValues don't exist then return undefined
+ */
+function getValueAttInObject(obj, attName, charSplitAttName) {
+  if(charSplitAttName === undefined || typeof charSplitAttName !== 'string' || charSplitAttName.length < 1) {
+    charSplitAttName = '.';
+  }
+  var fieldsValue = attName.split(charSplitAttName);
+  var j;
+  var objValue = obj;
+  for(j=0;j<fieldsValue.length;j++) {
+    try {
+      objValue = objValue[fieldsValue[j]];
+    } catch (ex) {
+      objValue = undefined;
+    }
+  }
+  return objValue;
+}
 
 /**
  *
@@ -545,44 +783,6 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    * @type {string}
    */
   var ctrlEndName            = 'Ctrl';
-
-  /*
-   TODO: Put this function for global use. Code in caliopeweb-form-directives.js
-   */
-  /**
-   * Get the final value of a attribute in a object, where attribute is represented by a string
-   * notation that indicate the path to final attribute..
-   *
-   * @example
-   * obj = { "user" : {
-    *            "username" : {value : "username"},
-    *            "name"  : {value : "NAME USER"}
-    *          }
-    *       }
-   * strAttrValue = user.name.value
-   * charSplit = '.'
-   *
-   * Return "NAME USER"
-   *
-   * @memberOf CaliopeWebFormDirectives
-   * @param {object} obj Object with the data
-   * @param {string} strAttrValue String that represent the attribute final to return value.
-   * @param {string} charSplit A character that indicate the separation of attributes in strAttrValue
-   * @return {object} The value of attribute
-   */
-  function getFinalValueFromString(obj, strAttrValue, charSplit) {
-    var fieldsValue = strAttrValue.split(charSplit);
-    var j;
-    var objValue = obj;
-    for(j=0;j<fieldsValue.length;j++) {
-      try {
-        objValue = objValue[fieldsValue[j]];
-      } catch (ex) {
-        objValue = undefined;
-      }
-    }
-    return objValue;
-  }
 
   /**
    * Add ng-controller of angular controller directive to the form.
@@ -649,7 +849,9 @@ var CaliopeWebFormSpecificDecorator = ( function() {
       //valueNgModel = stNameTemplate;
       console.error('No se encontro valor para el atributo name en el template.', element);
     }
-    element['ng-model'] = valueNgModel;
+    if( element.type !== 'div' ) {
+      element['ng-model'] = valueNgModel;
+    }
   }
 
   /**
@@ -689,6 +891,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           var VARNAME_FORMID = 'formid';
           var VARNAME_DATALIST = 'field-data-list';
           var VARNAME_OPTIONSNAME = 'options-name';
+          var VARNAME_OPTIONSSTATIC = 'options-static';
 
           element.fromserver = true;
           element.method = element[VARNAME_LOAD_OPT_SRV][VARNAME_METHOD];
@@ -707,8 +910,10 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           element[VARNAME_DIRECTIVE_CWOPT] = '';
           element[VARNAME_OPTIONSNAME] = 'options_' + element.name;
           element[VARNAME_DIRECTIVE_OPT] =
-              'opt.label as opt.label for opt in ' + element[VARNAME_OPTIONSNAME];
-          //element.options = {};
+              'opt.value as opt.label for opt in ' + element[VARNAME_OPTIONSNAME];
+          if( element.hasOwnProperty('options') ) {
+            element[VARNAME_OPTIONSSTATIC] = JSON.stringify(element.options);
+          }
         }
       });
     }
@@ -762,6 +967,29 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    * @memberOf CaliopeWebFormSpecificDecorator
    * @param {array} elementsTemplate Elements Field config in the template.
    */
+  function completeTypeCwGrid(elementsTemplate) {
+    var i;
+    var TYPE_CWGRID = 'cw-grid-in-form';
+    var CWGRID_OPT = 'cw-grid-options';
+
+    for(i=0; i < elementsTemplate.length; i++) {
+      if(elementsTemplate[i].hasOwnProperty(CWGRID_OPT) ) {
+        elementsTemplate[i].typeo = elementsTemplate[i].type;
+        elementsTemplate[i].type = TYPE_CWGRID;
+        elementsTemplate[i].columns = JSON.stringify(elementsTemplate[i][CWGRID_OPT].columns);
+
+      }
+    }
+
+  }
+
+  /**
+   * TODO: DOCUMENTATION
+   *
+   * @function
+   * @memberOf CaliopeWebFormSpecificDecorator
+   * @param {array} elementsTemplate Elements Field config in the template.
+   */
   function completeTypeExecuteTask(elementsTemplate, data) {
     if( elementsTemplate !== undefined ) {
       var i;
@@ -778,12 +1006,20 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           elementsTemplate[i].type1 = TYPE_EXCUTETASK;
           var attUUID = elementsTemplate[i].options[NAME_DATA_TARGET_UUID_VAL];
           var attEntity = elementsTemplate[i].options[NAME_DATA_TARGET_ENTITY_VAL];
-          elementsTemplate[i]['target-uuid'] = getFinalValueFromString(data, attUUID, '.');
-          elementsTemplate[i]['target-entity'] = getFinalValueFromString(data, attEntity, '.');
+          elementsTemplate[i]['target-uuid'] = getValueAttInObject(data, attUUID, '.');
+          elementsTemplate[i]['target-entity'] = getValueAttInObject(data, attEntity, '.');
+
+          var element =  {};
+          jQuery.extend(true, element, elementsTemplate[i]);
+          element.type = "h1";
+          element.html = elementsTemplate[i];
+          elementsTemplate[i] = element;
+
         }
       }
     }
   }
+
 
   /**
    * This function transform the element of type select for add the behavior of load the
@@ -824,6 +1060,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           var VARNAME_METHOD = 'method';
           var VARNAME_FIELDVAL = 'field-value';
           var VARNAME_FIELDDESC = 'field-desc';
+          var VARNAME_FIELDIMAGE = 'field-image';
           var VARNAME_FORMID = 'formid';
           var VARNAME_DATALIST = 'field-data-list';
           var VARNAME_LOADREMOTE = 'load-remote';
@@ -838,6 +1075,9 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           if(element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDDESC] !== undefined) {
             element.fielddesc = element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDDESC];
           }
+          if(element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDIMAGE] !== undefined) {
+            element.fieldimage = element[VARNAME_LOAD_OPT_SRV][VARNAME_FIELDIMAGE];
+          }
           if(element[VARNAME_LOAD_OPT_SRV][VARNAME_FORMID] !== undefined) {
             element.formid = element[VARNAME_LOAD_OPT_SRV][VARNAME_FORMID];
           }
@@ -846,10 +1086,11 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           }
           element[VARNAME_LOADREMOTE] = true;
           element[NAME_DIRECTIVE_MCOMBO] = "mc-".concat(element.name);
-          element[VARNAME_SELECTEDCHOICES] = "";
+
           /*
-          Get choices selected and put in attribute define in var VARNAME_SELECTEDCHOICES
-          */
+           Get choices selected and put in attribute define in var VARNAME_SELECTEDCHOICES
+          element[VARNAME_SELECTEDCHOICES] = "";
+
           if( data !== undefined ) {
             var selectedChoices = data[element.name];
             if( selectedChoices !== undefined ) {
@@ -864,11 +1105,14 @@ var CaliopeWebFormSpecificDecorator = ( function() {
               }
             }
           }
+           */
 
         }
       });
     }
   }
+
+
 
   return {
     /**
@@ -891,6 +1135,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeDatePicker(elementsTemplate);
         completeTypeMultiChoices(elementsTemplate,data);
         completeTypeExecuteTask(elementsTemplate, data);
+        completeTypeCwGrid(elementsTemplate);
 
         return structureInit;
       };
@@ -951,9 +1196,11 @@ var CaliopeWebFormActionsDecorator = ( function() {
 
       var VAR_NAME_NAME = "name";
       var VAR_NAME_METHOD = "method";
-      var TYPE_ACTION = "button";
-      var DIRECTIVE_NG_CLICK = 'ng-click';
-      var DIRECTIVE_NG_DISABLED = 'ng-disabled';
+      var TYPE_ACTION = "cw-action";
+      var DIRECTIVE_CLICK = 'ng-click';
+      var DIRECTIVE_DISABLED = 'ng-disabled';
+      var DIRECTIVE_INIT = 'ng-init';
+      var DIRECTIVE_SHOW = 'ng-show';
       var NAME_METHOD_CONTROLLER = 'sendAction';
       var NAME_CLASS_ACTIONS = 'modal-footer';
       var NAME_CLASS_BUTTON_DEFAULT = "btn";
@@ -971,31 +1218,40 @@ var CaliopeWebFormActionsDecorator = ( function() {
         var action = {};
         var actionName = structureActions[i][VAR_NAME_NAME];
         var actionMethod = structureActions[i][VAR_NAME_METHOD];
+        var show = 'showAct_'.concat(actionMethod).concat('');
+
         if(actionsToShow === undefined || actionsToShow.length === 0 || actionsToShow.indexOf(actionMethod) >= 0 ) {
-          var actionMethod = structureActions[i][VAR_NAME_METHOD];
-          var paramsToSend = structureActions[i][VAR_NAME_PARAMS_TO_SEND];
-          if( paramsToSend === undefined ) {
-            paramsToSend = "";
-          }
-          action.type = TYPE_ACTION;
-          /*
-            create ng-click: sendAction(form, 'formName', 'method', 'modelUUID', 'objID', 'params_to_send_to_server');
-           */
-          action[DIRECTIVE_NG_CLICK] = NAME_METHOD_CONTROLLER.concat("(").
-              concat(formName).concat(", ").
-              concat("'").concat(formName).concat("', ").
-              concat("'").concat(actionMethod).concat("', ").
-              concat("'").concat(modelUUID).concat("', ").
-              concat("'").concat(objID).concat("', ").
-              concat("'").concat(paramsToSend).concat("'").
-              concat(")");
-          action[DIRECTIVE_NG_DISABLED] = formName.concat('.$invalid');
-          action.name = action.type.concat('-').concat(actionName) ;
-          action.class = NAME_CLASS_BUTTON_DEFAULT;
-          action.html = actionName;
-          buttonContainer.html.push(action);
+          action[DIRECTIVE_INIT] = ''.concat(show).concat('=true');
+        } else {
+          action[DIRECTIVE_INIT] = ''.concat(show).concat('=false');
         }
+
+        //var actionMethod = structureActions[i][VAR_NAME_METHOD];
+        var paramsToSend = structureActions[i][VAR_NAME_PARAMS_TO_SEND];
+        if( paramsToSend === undefined ) {
+          paramsToSend = "";
+        }
+        action.type = TYPE_ACTION;
+        /*
+          create ng-click: sendAction(form, 'formName', 'method', 'modelUUID', 'objID', 'params_to_send_to_server');
+         */
+        action[DIRECTIVE_CLICK] = NAME_METHOD_CONTROLLER.concat("(").
+            concat(formName).concat(", ").
+            concat("'").concat(formName).concat("', ").
+            concat("'").concat(actionMethod).concat("', ").
+            concat("'").concat(modelUUID).concat("', ").
+            concat("'").concat(objID).concat("', ").
+            concat("'").concat(paramsToSend).concat("'").
+            concat(")");
+        action[DIRECTIVE_DISABLED] = formName.concat('.$invalid');
+        action[DIRECTIVE_SHOW] = show;
+        action.name = formName.concat('_').concat(actionMethod) ;
+        action.class = NAME_CLASS_BUTTON_DEFAULT;
+        action.title = actionName;
+        action['action-method'] = actionMethod;
+        buttonContainer.html.push(action);
       }
+
 
       structureInit.html.push(buttonContainer);
     }
@@ -1463,7 +1719,9 @@ var CaliopeWebFormValidDecorator = ( function() {
                 var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName, params);
                 var containerNew = containerIni.concat(elementMsgVal).concat(containerFin);
                 htmlElements = replaceContainer(htmlElements, elementsInputs[i], containerNew);
-
+                if(htmlElements.hasOwnProperty('replace')) {
+                  htmlElements = htmlElements.replace
+                }
               }
             }
           }

@@ -1,52 +1,169 @@
 <!--MENU SHORTCUTS INIT-->
 <div id="sidebar-shortcuts">
-
   <!--MENU ICON SHORTCUTS-LARGE INIT-->
   <div id="sidebar-shortcuts-large">
-    <div ng-repeat="short in shortcuts" ttip='short.ttip' url='short.url' btn="short.btn" icon='short.icon' sidebar>
-    </div>
-
+    <a ng-repeat="short in shortcuts" ng-click='closeMenu()' href='{{short.url}}'><button ng-class="'btn btn-small btn-' + short.btn" tooltip='{{short.ttip}}'><i ng-class="'icon-' + short.icon"></i></button></a>
   </div>
   <!--MENU ICON SHORTCUTS-LARGE END-->
-
   <!--MENU ICON SHORTCUTS-MINI INIT-->
   <div id="sidebar-shortcuts-mini">
-    <div ng-repeat="short in shortcuts" btn="short.btn" shortcuts></div>
+    <a ng-repeat="short in shortcuts" href='{{short.url}}'><span ng-class="'btn btn-' + short.btn" ng-click='closeMenu()'></span></a>
   </div>
+
   <!--MENU ICON SHORTCUTS-MINI END-->
 </div>
 <!--MENU SHORTCUTS END-->
 
 <!--MENU INIT-->
 <ul class="nav nav-list">
-  <li class="active">
-  <a href="index.html">
-    <i class="icon-list-ul"></i>
-    <span>Opciones</span>
-  </a>
-  </li>
   <li>
-    <a href="#/form-proyectomtv/projects/create">
+    <a href="#" ng-init="show=false" class="dropdown-toggle" ng-click='show = !show'>
+      <i class="icon-list-ul"></i>
+      <span>Administrador</span>
+      <b class="arrow icon-angle-down"></b>
+    </a>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/admin-users" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Usuarios
+      </a>
+      </li>
+    </ul>
+  </li>
+  
+  <li>
+    <a href="#" ng-init="show=false" class="dropdown-toggle" ng-click='show = !show'>
+      <i class="icon-list-ul"></i>
+      <span>Gestión del Suelo</span>
+      <b class="arrow icon-angle-down"></b>
+    </a>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/form-generic/FichaPredial/create/" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Ficha predial
+      </a>
+      </li>
+    </ul>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/form-generic/ViabilidadNormativa/create/" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Viabilidad normativa
+      </a>
+      </li>
+    </ul>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/form-generic/FichaUrbanistica/create/" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Ficha urbanistica
+      </a>
+      </li>
+    </ul>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/form-generic/FichaCatastral/create/" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Ficha catastral
+      </a>
+      </li>
+    </ul>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/form-generic/FichaPrejuridica/create/" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Ficha prejuridica
+      </a>
+      </li>
+    </ul>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/form-generic/ActaReciboPredios/create/" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Acta de recibo de predios
+      </a>
+      </li>
+    </ul>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/form-generic/AplicacionTraslado/create/" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Aplicación de traslado
+      </a>
+      </li>
+    </ul>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/form-generic/ChequeoTrasladoProvision/create/" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Lista de chequeo para la realización del traslado de provisión VIS/VIP
+      </a>
+      </li>
+    </ul>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/form-generic/DerechoPreferencia/create/" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Derecho de preferencia-datos básicos
+      </a>
+      </li>
+    </ul>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/form-generic/ConceptoViabilidad/create/" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Concepto viabilidad
+      </a>
+      </li>
+    </ul>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/form-generic/EvaluacionProducto/create/" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Evaluación del producto
+      </a>
+      </li>
+    </ul>
+    <ul class="submenu" ng-class="{block: show}">
+      <li>
+      <a href="#/form-generic/ControlAjustes/create/" ng-click='closeMenu()'>
+        <i class="icon-double-angle-right"></i>
+        Control de ajustes
+      </a>
+      </li>
+    </ul>
+  </li>
+  
+  <li>
+    <a href="#/form-proyectomtv/projects/create" ng-click='closeMenu()'>
       <i class="icon-calendar"></i>
       <span>Crear Proyecto</span>
     </a>
   </li>
   <li>
-    <a href="#/crear-proyectomtv/predialcards/create">
+    <a href="#/form/predialcards/create/" ng-click='closeMenu()'>
       <i class="icon-calendar"></i>
       <span>Ficha Predial</span>
     </a>
   </li>
   <li>
-    <a href="#/list-proyectomtv">
+    <a href="#/list-proyectomtv" g-click='closeMenu()'>
       <i class="icon-calendar"></i>
       <span>Listado Proyectos</span>
     </a>
   </li>
   <li>
-    <a href="#/summary-proyectomtv">
+    <a href="#/summary-proyectomtv" ng-click='closeMenu()'>
       <i class="icon-th"></i>
       <span>Resumen del Proyectos</span>
+    </a>
+  </li>
+  <li>
+    <a href="#/caliopeweb-grids/project" ng-click='closeMenu()'>
+      <i class="icon-th"></i>
+      <span>Grid Test</span>
     </a>
   </li>
 </ul>

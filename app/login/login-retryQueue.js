@@ -1,6 +1,6 @@
 /*jslint browser: true*/
-/*global localStorage, Crypto, $scope*/
-define(['angular'], function(angular) {
+/*global alert, define*/
+define(['angular'], function (angular) {
   'use strict';
 
   angular.module('login-retryQueue', [])
@@ -15,6 +15,7 @@ define(['angular'], function(angular) {
       hasMore: function() {
         return retryQueue.length > 0;
       },
+
       push: function(retryItem) {
         retryQueue.push(retryItem);
         // Call all the onItemAdded callbacks
@@ -56,6 +57,7 @@ define(['angular'], function(angular) {
         service.push(retryItem);
         return deferred.promise;
       },
+
       retryReason: function() {
         return service.hasMore() && retryQueue[0].reason;
       },
@@ -72,5 +74,4 @@ define(['angular'], function(angular) {
     };
     return service;
   }]);
-
 });

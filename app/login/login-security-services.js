@@ -71,14 +71,13 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
           if (uuidLocalStorage !== undefined){
             var method = "login.authenticate_with_uuid";
             var params = {
-              "uuid" : uuidLocalStorage
+              "session_uuid" : uuidLocalStorage
             };
             var webSockets = webSocket.WebSockets();
             promise = webSockets.serversimm.sendRequest(method, params);
          }
          return  promise;
         };
-
         return Services;
       }
     ]
@@ -86,6 +85,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
 
   moduleServices.factory('loginSecurity', [
   '$http',
+  '$rootScope',
   '$q',
   '$location',
   'loginRetryQueue',
@@ -94,6 +94,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
   'SessionSrv',
   'webSocket',
   function($http,
+  $rootScope,
   $q,
   $location,
   queue,
@@ -179,7 +180,8 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         return request.then(function(data) {
           if(data.user !== undefined){
             service.currentUser = data;
-            SessionSrv.createSession(data.uuid, data.user.value);
+            SessionSrv.createSession(data.session_uuid, data.user);
+            $rootScope.$broadcast('login-service-user');
           }else{
             service.currentUser = null;
           }
@@ -189,6 +191,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
           }
         });
       },
+
 
       // Give up trying to login and clear the retry queue
       cancelLogin: function() {
@@ -217,7 +220,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
       // Ask the backend to see if a user is already authenticated - this may be from a previous session.
       requestCurrentUser: function(uuidLocalStorage) {
         if ( service.isAuthenticated() ) {
-          return $q.when(service.currentUser);
+          return service.currentUser;
         }
         return LoginSrv.currentAuthenticate(uuidLocalStorage).then(function(data) {
           if(data.user !== undefined){
@@ -237,12 +240,16 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         return !!service.currentUser;
       },
 
-      // Is the current user an adminstrator?
-      isAdmin: function() {
-        return !!(service.currentUser && service.currentUser.admin);
+      havePermission: function(){
+        var promise = {};
+        var params= {};
+        var webSockets = webSocket.WebSockets();
+        var method = "ac.isAccessGranted";
+        promise = webSockets.serversimm.sendRequest(method, params);
+        return promise;
       },
 
-      resetAuthentication : function()  {
+      resetAuthentication : function(){
         service.currentUser = null;
       }
     };
@@ -253,6 +260,8 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         service.showLogin();
       }
     });
+
+
 
     return service;
 

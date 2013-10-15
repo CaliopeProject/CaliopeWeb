@@ -102,8 +102,7 @@ define(['angular'], function(angular) {
       * @param caliopeForm Form to retrieve.
       * @returns {{}} Promise created to the send the request to the server.
       */
-      Service.loadTemplateData = function () {
-        var params = {};
+      Service.loadTemplateData = function (params) {
 
         var cwForm = new CaliopeWebForm(
             Service.caliopeForm.id, Service.caliopeForm.mode, Service.caliopeForm.uuid);
@@ -143,8 +142,8 @@ define(['angular'], function(angular) {
         }
 
         params = {
-          //"formId" : formTemplateName
-          //"modelUUID" : modelUUID
+          "formId" : formTemplateName
+          //"formUUID" : modelUUID
         };
         params.data = {};
         jQuery.extend(params.data, object);
@@ -207,30 +206,29 @@ define(['angular'], function(angular) {
           var result = {};
 
           if (templateFromServer !== undefined && templateFromServer.error === undefined &&
-          templateFromServer.form !== undefined) {
+            templateFromServer.form !== undefined) {
 
-            var caliopeWebForm = cwForm;
-            caliopeWebForm.addStructure(templateFromServer.form, templateFromServer.form.name);
-            caliopeWebForm.addActions(templateFromServer.actions);
-            caliopeWebForm.setActionsMethodToShow(cwForm.getActionsToShow());
-            caliopeWebForm.addData(templateFromServer.data);
-            caliopeWebForm.addTranslations(templateFromServer.translations);
-            caliopeWebForm.addlayout(templateFromServer.layout);
+            cwForm.addStructure(templateFromServer.form, templateFromServer.form.name);
+            cwForm.addActions(templateFromServer.actions);
+            cwForm.setActionsMethodToShow(cwForm.getActionsToShow());
+            cwForm.addData(templateFromServer.data);
+            cwForm.addTranslations(templateFromServer.translations);
+            cwForm.addlayout(templateFromServer.layout);
 
-            CaliopeWebFormSpecificDecorator.createStructureToRender(caliopeWebForm);
-            CaliopeWebFormLayoutDecorator.createStructureToRender(caliopeWebForm);
-            CaliopeWebFormValidDecorator.createStructureToRender(caliopeWebForm);
-            CaliopeWebFormActionsDecorator.createStructureToRender(caliopeWebForm);
-            CaliopeWebFormAttachmentsDecorator.createStructureToRender(caliopeWebForm);
+            CaliopeWebFormSpecificDecorator.createStructureToRender(cwForm);
+            CaliopeWebFormLayoutDecorator.createStructureToRender(cwForm);
+            CaliopeWebFormValidDecorator.createStructureToRender(cwForm);
+            CaliopeWebFormActionsDecorator.createStructureToRender(cwForm);
+            CaliopeWebFormAttachmentsDecorator.createStructureToRender(cwForm);
 
-            result.structureToRender = caliopeWebForm.createStructureToRender();
-            result.elements          = caliopeWebForm.getElements();
-            result.modelUUID         = caliopeWebForm.getModelUUID();
-            result.data              = caliopeWebForm.getData();
-            result.elementsName      = caliopeWebForm.getElementsName();
-            result.entityModel       = caliopeWebForm.getEntityModel();
+            result.structureToRender = cwForm.createStructureToRender();
+            result.elements          = cwForm.getElements();
+            result.modelUUID         = cwForm.getModelUUID();
+            result.data              = cwForm.getData();
+            result.elementsName      = cwForm.getElementsName();
+            result.entityModel       = cwForm.getEntityModel();
 
-            //caliopeWebForm.putDataToContext(context, result.elements);
+            //cwForm.putDataToContext(context, result.elements);
           } else if(templateFromServer.error !== undefined) {
             result.error = templateFromServer.error
           } else if(templateFromServer === undefined || templateFromServer.form === undefined ) {
@@ -251,6 +249,18 @@ define(['angular'], function(angular) {
         calWebForm.setMode(mode);
         calWebForm.setModelUUID(uuid);
         return calWebForm;
+      };
+
+      /**
+       *
+       * @param model
+       * @param data
+       * @returns {*}
+       */
+      Service.getDataToServer = function(model, data) {
+        var cwForm = new CaliopeWebForm(model.name);
+        cwForm.addStructure(model, model.name);
+        return cwForm.dataToServerData(data);
       };
 
 

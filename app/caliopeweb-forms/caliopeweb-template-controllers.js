@@ -71,21 +71,26 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           });
         };
 
-        $scope.initWithRouteParams = function() {
-          var calwebtem = calwebTemSrv.caliopeForm;
-          calwebtem.id     = $routeParams.plantilla;
-          calwebtem.mode   = $routeParams.mode;
-          calwebtem.uuid   = $routeParams.uuid;
+        $scope.initWithRouteParams = function(actionsToShow, generic) {
+          var cwFormName = $scope['cwForm-name'];
+          var cwForm = $scope[cwFormName];
+          var params = {};
+
+          if( generic === true ) {
+            params.formId = $routeParams.entity;
+            cwForm.setEntityModel('form');
+          }
           $scope.actionsToShow = actionsToShow;
 
-          $scope.caliopeForm   = calwebTemSrv.caliopeForm;
-          calwebTemSrv.loadTemplateData().then(function(result) {
+          $scope.caliopeForm   = cwForm;
+
+          calwebTemSrv.loadForm(cwForm,params).then(function(result) {
             processResultLoadForm(result, $scope);
           });
         };
 
         if (calwebTemSrv.caliopeForm.mode === 'edit') {
-          calwebTemSrv.caliopeForm.id     = $routeParams.plantilla;
+          calwebTemSrv.caliopeForm.id     = $routeParams.entity;
           calwebTemSrv.caliopeForm.mode   = $routeParams.mode;
           calwebTemSrv.caliopeForm.uuid   = $routeParams.uuid;
           $scope.caliopeForm = calwebTemSrv.caliopeForm;
@@ -148,112 +153,52 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
     ['caliopewebTemplateSrv', 'global_constants', '$scope', '$filter',
       function (caliopewebTemplateSrv, GConst, $scope, $filter) {
 
-        $scope.$watch('responseSendAction', function (value) {
-
-          if (value !== undefined && value !== null) {
-
-            if(value.error === undefined) {
-              if($scope.fromDialog) {
-                if($scope[$scope.dialogName] !== undefined) {
-                  $scope[$scope.dialogName].close([true, $scope.dialogName]);
-                }
-              }
-            } else {
-              console.log('Server error response', value.error);
-            }
-          }
-        });
-
-
-        function getVarNameScopeFromFormRep(formRep) {
-          return formRep.replace(new RegExp(GConst.rexp_value_in_form_inrep),"").
-                         replace(new RegExp(GConst.rexp_value_in_form_firep),"")
-        }
-
         $scope.sendAction = function(form, formTemplateName, actionMethod, modelUUID, objID, paramsToSend) {
 
-          var inputs = $scope.elementsFormTemplate;
-          var obj = {};
-          var i;
+          var cwFormName = $scope['cwForm-name'];
 
-          $scope.responseSendAction   = {};
+          var cwForm = $scope[cwFormName];
+          var data = {};
+          if( cwForm !== undefined ) {
+            data = cwForm.dataToServerData($scope);
+            if( cwForm.getModelUUID() !== undefined ) {
+              modelUUID = cwForm.getModelUUID();
+              objID = cwForm.getModelUUID();
+            }
 
-          if( paramsToSend === undefined || paramsToSend === '' ) {
-            paramsToSend = [];
-          } else {
-            paramsToSend = paramsToSend.split(',');
           }
+          caliopewebTemplateSrv.sendDataForm(formTemplateName,
+              actionMethod, data, modelUUID, objID).then( function(value) {
 
-          if( inputs !== undefined ) {
-            for (i = 0; i < inputs.length; i++) {
-              if( paramsToSend.length === 0 || paramsToSend.indexOf(inputs[i]) >= 0 ) {
-                var nameVarScope = inputs[i].name;
-                if( $scope[nameVarScope] !== undefined ) {
-                  var value;
-                  if(inputs[i].type === 'div' && inputs[i].type1 === 'datepicker') {
-                    value = ($scope[nameVarScope] instanceof Date )? $scope[nameVarScope].toJSON() : $scope[nameVarScope] ;
-                  } else if(inputs[i].type === 'select') {
-                    value = $scope[nameVarScope];
-                  } else if(inputs[i].type === 'ui-mcombo-choices' && inputs[i].type1 === 'multi-choices') {
-                    if($scope[nameVarScope] instanceof Array) {
-                      var j;
-                      value = [];
-                      for( j=0; j<$scope[nameVarScope].length; j++) {
-                        if( $scope[nameVarScope][j].value !== undefined) {
-                          //value = value.concat($scope[nameVarScope].value);
-                          value.push($scope[nameVarScope][j].value);
-                        }
-                      }
-                    }
-                  } else {
-                    value = $scope[nameVarScope];
-                  }
-                  if(inputs[i].hasOwnProperty('relation')) {
-                    var patt = new RegExp(GConst.rexp_value_in_form);
-                    var relation = inputs[i].relation;
-                    var oTarget = inputs[i].relation.target;
-                    if( oTarget !== undefined ) {
-                      //var ownRelation = inputs[i].name;
-                      var target = [];
-                      angular.forEach(value, function(vVal, kVal){
-                        var cTarget = angular.copy(oTarget);
-                        if(patt.test(oTarget.entity)) {
-                          cTarget.entity = $scope[oTarget.entity];
-                        }
-                        angular.forEach(oTarget.properties, function(vProp, kProp){
-                          if(patt.test(vProp)) {
-                            var vPropScope = getVarNameScopeFromFormRep(vProp);
-                            if(vPropScope === inputs[i].name ) {
-                              cTarget.properties[kProp] = vVal;
-                            } else {
-                              cTarget.properties[kProp] = $scope[vPropScope];
-                            }
-                          }
-                        });
-                        angular.forEach(oTarget['entity_data'], function(vProp, kProp){
-                          if(patt.test(vProp)) {
-                            var vPropScope = getVarNameScopeFromFormRep(vProp);
-                            if(vPropScope === inputs[i].name ) {
-                              cTarget['entity_data'][kProp] = vVal;
-                            } else {
-                              cTarget[['entity_data']][kProp] = $scope[vPropScope];
-                            }
-                          }
-                        });
-                        target.push(cTarget);
-                      });
-                      relation.target = target;
-                      value = relation;
+              if (value !== undefined && value !== null) {
+
+                if(value.error === undefined) {
+                  if($scope.fromDialog) {
+                    if($scope[$scope.dialogName] !== undefined) {
+                      $scope[$scope.dialogName].close([true, $scope.dialogName]);
                     }
                   }
-                  obj[nameVarScope] = value;
+
+                  $scope.$emit('actionComplete', [actionMethod, true, value]);
+                } else {
+                  $scope.$emit('actionComplete', [actionMethod, false, value]);
+                  console.log('Server error response', value.error);
                 }
               }
-            }
-          }
+            });
 
-          $scope.responseSendAction = caliopewebTemplateSrv.sendDataForm(formTemplateName,
-              actionMethod, obj, modelUUID, objID);
+          $scope.$on('changeActions', function(event, actionsConf) {
+            var actionsToShow = actionsConf[0];
+            var actionsToHide = actionsConf[1];
+
+            angular.forEach(actionsToShow, function(v,k){
+              $scope.$eval('showAct_'.concat(v).concat('= true'));
+            });
+            angular.forEach(actionsToHide, function(v,k){
+              $scope.$eval('showAct_'.concat(v).concat('= false'));
+            });
+
+          });
 
         };
 

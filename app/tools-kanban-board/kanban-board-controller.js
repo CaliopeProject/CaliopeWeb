@@ -9,7 +9,6 @@ define(['angular','angular-dragdrop'], function (angular) {
       function($scope, taskService) {
 
         $scope.data = taskService.getTask();
-
         $scope.showSubtasks = false;
 
         $scope.$on('taskServiceNewTask', function (event, data) {
@@ -25,6 +24,10 @@ define(['angular','angular-dragdrop'], function (angular) {
         $scope.getSubTasks  = taskService.getSubTasks;
 
         $scope.dropCallback = function(event, ui) {
+
+        }
+
+        $scope.dropCallback = function(event, ui) {
           var uuidtask = ui.draggable.attr("uuid");
           var changetask, category;
           angular.forEach($scope.data, function(value1, key1){
@@ -38,22 +41,44 @@ define(['angular','angular-dragdrop'], function (angular) {
               });
             }
           });
-          taskService.changeCategory(changetask, category);
+          if($scope.categoryOld !== category) {
+            taskService.changeCategory(changetask, category);
+          }
         };
+
+        $scope.startDragCallback = function(event, ui) {
+          $scope.categoryOld = ui.helper.attr('category');
+        };
+
       }]);
 
 
       dirmodule.controller("kanbanItemCtrl", ["$scope", 'taskService',
         function($scope, taskService) {
 
-
           $scope.countSubtask = taskService.countSubtask;
           $scope.checkSubtask = taskService.checkSubtask;
           $scope.removeSubtask= taskService.removeSubtask;
 
-          $scope.startCallback = function(event, ui) {
+          $scope.stopDragCallback = function(event, ui) {
             $scope.showSubtasks = false;
           };
+
+
+
+          $scope.addSubtask   = function (parentTask, description, category){
+            taskService.addSubtask(parentTask, description, category);
+          };
+
+          $scope.addComment   = function (parentTask, text, category){
+            taskService.addComment(parentTask, text, category);
+          };
+
+        }]);
+
+
+      dirmodule.controller("kanbanItemDataCtrl", ["$scope", 'taskService',
+        function($scope, taskService) {
 
           $scope.addSubtask   = function (parentTask, description, category){
             taskService.addSubtask(parentTask, description, category);

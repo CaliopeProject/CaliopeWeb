@@ -1,13 +1,7 @@
 <div id="container-form">
+  <div id="fondo"></div>
   <button type='button' class='close' ng-click='closeDialog(dialogName)'>
-    <i class="icon-remove"></i>
+    <i class="icon-minus"></i>
   </button>
-  <!--
-  <div class="task-execute">
-    <span ng-click='executeTask(dialogName)' ng-show="target.uuid !== undefined">
-      <i class="icon-signin"></i>
-    </span>
-  </div>
-  -->
   <cw-dform name="task" cw-dform="jsonPlantillaAngular" entity="tasks" from-routeparams="false" ng-init="initFormDialog()"></cw-dform>
 </div>

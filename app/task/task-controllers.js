@@ -24,15 +24,6 @@ define(['angular', 'Crypto'], function (angular) {
         $scope.modelUUID = result.modelUUID;
         $scope.entityModel = result.entityModel;
 
-        if (result.data !== undefined) {
-          var varname;
-          for (varname in result.data) {
-            if(result.data.hasOwnProperty(varname)) {
-              $scope[varname] = result.data[varname];
-            }
-          }
-        }
-
       }
     }
   }
@@ -40,35 +31,61 @@ define(['angular', 'Crypto'], function (angular) {
   module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv','action',
     function($scope, $location, cwFormService, action) {
 
+      function putActionDataInScope() {
+        angular.forEach(action, function(value, key){
+          $scope[key] = value;
+        });
+      }
+
     $scope.initFromDialogAction = function() {
-      $scope.message      = action.message;
+      putActionDataInScope();
       $scope.form         = action.template;
-      $scope.template     = action.template;
-      $scope.actionMethod = action.actionMethod;
-      $scope.uuid         = action.uuid;
-      $scope.dialogName   = action.dialogName;
       $scope.fromDialog   = true;
     };
 
     $scope.initFormDialog = function() {
-      $scope.dialogName = action.dialogName;
+
+
       $scope.fromDialog = true;
-      var cwForm = $scope.task;
+
+      var cwForm = $scope['cwForm-task'];
       var methodSupport = cwForm.getEntityModel().concat('.').concat(action.mode);
       cwForm.setActionsMethodToShow([methodSupport]);
       cwForm.setMode(action.mode);
       cwForm.setModelUUID(action.uuid);
 
+
+      $scope.$on('actionComplete', function(event, result) {
+        console.log('actionComplete event', event);
+        console.log('actionComplete result', result);
+        if( result[1] == true ) {
+          cwForm.addData(result[2]);
+          cwForm.dataToViewData($scope);
+        }
+      });
+
+
       cwFormService.loadForm(cwForm, {}).then(function(result){
-        var i;
         var inputs = result.elements;
-        for (i = 0; i < inputs.length; i++) {
-          var nameVarScope = inputs[i].name;
-          if( action[nameVarScope] !== undefined) {
-            $scope[nameVarScope] = action[nameVarScope];
+        processResultLoadForm(result, $scope);
+        if( result !== undefined && result.data !== undefined ) {
+          var dataToView = cwForm.dataToViewData();
+          if( dataToView !== undefined ) {
+            angular.forEach(dataToView, function(value, key){
+              $scope[key] = value;
+            });
+          }
+          putActionDataInScope();
+          if( action.targetTask !== undefined && action.targetTask.hasOwnProperty('entity')) {
+            $scope.formtask = action.targetTask.entity;
+          }
+          if( action.targetTask !== undefined && action.targetTask.hasOwnProperty('uuid')) {
+            if($scope.target === undefined) {
+              $scope.target = {};
+            }
+            $scope.target.uuid = action.targetTask.uuid;
           }
         }
-        processResultLoadForm(result, $scope);
       });
     };
 
