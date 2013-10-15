@@ -161,6 +161,11 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           var data = {};
           if( cwForm !== undefined ) {
             data = cwForm.dataToServerData($scope);
+            if( cwForm.getModelUUID() !== undefined ) {
+              modelUUID = cwForm.getModelUUID();
+              objID = cwForm.getModelUUID();
+            }
+
           }
           caliopewebTemplateSrv.sendDataForm(formTemplateName,
               actionMethod, data, modelUUID, objID).then( function(value) {

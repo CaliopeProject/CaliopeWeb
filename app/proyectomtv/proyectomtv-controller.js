@@ -61,20 +61,7 @@ define(['angular'], function(angular) {
         cwGrid.setDecorators([CaliopeWebGridDataDecorator, CWGridColumnsDefNgGridDecorator])
       };
 
-      $scope.initForm = function() {
-        var cwForm = $scope['cwForm-project'];
-        var methodSupport = cwForm.getEntityModel().concat('.').concat(cwForm.getMode());
-
-        $scope.$on('actionComplete', function(event, result) {
-          if( result[1] === true ) {
-            $scope.targetTask.uuid = result[2].uuid;
-            $scope.uuid = result[2].uuid;
-            $scope.showWidgetTask = true;
-            $scope.$broadcast('changeActions', [['projects.edit', 'projects.delete'],['projects.create']]);
-          }
-        });
-
-        cwForm.setActionsMethodToShow([methodSupport]);
+      function loadForm(cwForm) {
         cwFormService.loadForm(cwForm, {}).then( function(result) {
           processResultLoadForm(result, $scope);
           $scope.showWidgetTask=false;
@@ -89,9 +76,27 @@ define(['angular'], function(angular) {
           }
 
         });
-
-
       };
+
+      $scope.initForm = function() {
+        var cwForm = $scope['cwForm-project'];
+        var methodSupport = cwForm.getEntityModel().concat('.').concat(cwForm.getMode());
+        cwForm.setActionsMethodToShow([methodSupport]);
+        loadForm(cwForm);
+      };
+
+      $scope.$on('actionComplete', function(event, result) {
+        if( result[1] === true ) {
+
+          $scope.targetTask.uuid = result[2].uuid;
+          $scope.showWidgetTask = true;
+          var cwForm = $scope['cwForm-project'];
+          cwForm.setModelUUID(result[2].uuid);
+          $scope.$broadcast('changeActions', [['projects.edit'],['projects.create']]);
+        }
+      });
+
+
       /*
       Ejemplo de carga de grilla cuando se invoca un evento y se envian parámetros.
       $scope.findWithFilter = function(uuidProyecto) {
