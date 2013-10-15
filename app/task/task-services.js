@@ -6,8 +6,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
   var moduleServices = angular.module('task-services', ['ui.bootstrap.dialog']);
 
   moduleServices.factory('taskService',
-    ['SessionSrv', 'loginSecurity', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv'
-      , function(security, loginSecurity,   $log,  $http,   $q,   $location,   $dialog,   $rootScope,   webSocket, tempServices) {
+    ['SessionSrv', 'loginSecurity', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv', 'toolservices'
+      , function(security, loginSecurity,   $log,  $http,   $q,   $location,   $dialog,   $rootScope,   webSocket, tempServices, tools) {
 
         var NAME_MODEL_TASK = 'tasks';
         var MODEL_TASK;
@@ -214,12 +214,12 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           loadData: loadTask,
 
           // Show the modal task dialog
-          createTask: function(target, category) {
+          createTask: function(targetTask, category) {
             opts.templateUrl = './task/partial-task-dialog.html';
             var data = {
               template: NAME_MODEL_TASK,
               mode  : 'create',
-              target: target,
+              targetTask: targetTask,
               category: category,
               dialogName : DIALOG_NAME_FORM_TASK
             };
@@ -399,7 +399,10 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           changeCategory: function(taskDrag, category){
             if(!angular.isUndefined(taskDrag)){
               taskDrag.category = category;
+              var target = {};
+              target.uuid = tools.getValueAttInObject(taskDrag, 'target.target.0.entity_data.uuid', '.');
               var data =  tempServices.getDataToServer(MODEL_TASK, taskDrag);
+              data.target = target;
               sendData('tasks', 'tasks.edit', data, taskDrag.uuid);
             }
             loadTask();
