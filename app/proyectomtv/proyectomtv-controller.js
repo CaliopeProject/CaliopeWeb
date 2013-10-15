@@ -67,13 +67,11 @@ define(['angular'], function(angular) {
 
         $scope.$on('actionComplete', function(event, result) {
           if( result[1] === true ) {
-            $scope.target.uuid = result[2].uuid;
+            $scope.targetTask.uuid = result[2].uuid;
             $scope.uuid = result[2].uuid;
             $scope.showWidgetTask = true;
+            $scope.$broadcast('changeActions', [['projects.edit', 'projects.delete'],['projects.create']]);
           }
-
-          $scope.$broadcast('changeActions', [['projects.edit', 'projects.delete'],['projects.create']]);
-
         });
 
         cwForm.setActionsMethodToShow([methodSupport]);

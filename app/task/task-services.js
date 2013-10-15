@@ -214,12 +214,12 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           loadData: loadTask,
 
           // Show the modal task dialog
-          createTask: function(target, category) {
+          createTask: function(targetTask, category) {
             opts.templateUrl = './task/partial-task-dialog.html';
             var data = {
               template: NAME_MODEL_TASK,
               mode  : 'create',
-              target: target,
+              targetTask: targetTask,
               category: category,
               dialogName : DIALOG_NAME_FORM_TASK
             };
@@ -401,8 +401,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
               taskDrag.category = category;
               var target = {};
               target.uuid = tools.getValueAttInObject(taskDrag, 'target.target.0.entity_data.uuid', '.');
-              data.target = target;
               var data =  tempServices.getDataToServer(MODEL_TASK, taskDrag);
+              data.target = target;
               sendData('tasks', 'tasks.edit', data, taskDrag.uuid);
             }
             loadTask();

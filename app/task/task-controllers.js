@@ -76,8 +76,14 @@ define(['angular', 'Crypto'], function (angular) {
             });
           }
           putActionDataInScope();
-          if( action.target !== undefined && action.target.hasOwnProperty('entity')) {
-            $scope.formtask = action.target.entity;
+          if( action.targetTask !== undefined && action.targetTask.hasOwnProperty('entity')) {
+            $scope.formtask = action.targetTask.entity;
+          }
+          if( action.targetTask !== undefined && action.targetTask.hasOwnProperty('uuid')) {
+            if($scope.target === undefined) {
+              $scope.target = {};
+            }
+            $scope.target.uuid = action.targetTask.uuid;
           }
         }
       });
