@@ -399,10 +399,7 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           changeCategory: function(taskDrag, category){
             if(!angular.isUndefined(taskDrag)){
               taskDrag.category = category;
-              var target = {};
-              target.uuid = tools.getValueAttInObject(taskDrag, 'target.target.0.entity_data.uuid', '.');
               var data =  tempServices.getDataToServer(MODEL_TASK, taskDrag);
-              data.target = target;
               sendData('tasks', 'tasks.edit', data, taskDrag.uuid);
             }
             loadTask();
