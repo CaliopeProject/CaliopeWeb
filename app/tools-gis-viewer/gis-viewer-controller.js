@@ -302,7 +302,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                               } else if(options.hover) {
                                   console.log("trata de hacer hover? :(");
                               } else {
-                                  console.log("no funcionó :(");
+                                  alert("No hay registros");
                               }
                           }
                           // Reset the cursor.
@@ -392,7 +392,8 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   renderTo: "siim_mapdiv",
                   constrain: true,
                   closeAction: 'hide',
-                  items: tabTools
+                  items: tabTools,
+                  x: 10
               });
 
               var filt = new OpenLayers.Filter.Logical({
