@@ -411,7 +411,6 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
 
               if(data.target !== undefined) {
                 angular.forEach(data.holders.target, function(vHolder, kHolder) {
-                  console.log('user', user);
                   if(vHolder.entity_data.uuid === user.user_uuid) {
                     vHolder.properties.category = category;
                   } else {

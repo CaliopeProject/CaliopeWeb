@@ -1,3 +1,8 @@
 <div id="base-form"  ng-controller="CaliopeWebTemplateCtrl">
+  <div class="widget-box.transparent">
+    <div ng-show="showWidgetTask" class="widget-toolbar-task no-border widget-toolbar-kanban-form" ng-init="showWidgetTask=false">
+      <widget-task category="'ToDo'" target-uuid="modelUUID" target-entity="entityModel"></widget-task>
+    </div>
+  </div>
   <cw-dform name="SIIMForm" cw-dform="jsonPlantillaAngular" from-routeparams="true" ng-init="initWithRouteParams([],true)" enc-uuid="true"></cw-dform>
 </div>
