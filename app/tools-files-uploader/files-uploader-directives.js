@@ -2,8 +2,8 @@
 /*global define, console, $*/
 
 define(['angular','jquery.fileupload'], function (angular) {
-  'use strict';  
-  
+  'use strict';
+
 var dirmodule = angular.module('fileuploaderDirectives', ['login-security-services']);
 
 dirmodule.directive('ngFileuploader', ['SessionSrv','global_constants',  function(security,global_constants) {
@@ -16,7 +16,9 @@ dirmodule.directive('ngFileuploader', ['SessionSrv','global_constants',  functio
         },
 
         link: function(scope, elm, attrs) {
-
+            var nid = 'progres' + Math.floor((Math.random()*100)+1);
+            console.log(nid);
+            $(elm).find('#progress').attr('id', nid);
             $(elm).fileupload({
                 method : 'POST',
                 url     : global_constants.hyperion_server_address + '/upload/',
@@ -40,22 +42,22 @@ dirmodule.directive('ngFileuploader', ['SessionSrv','global_constants',  functio
                 },
                 progress: function(e, data) {
                     var progress = parseInt(data.loaded / data.total * 100, 10);
-                },    
+                },
                 progressall: function(e, data) {
                     var progress = parseInt(data.loaded / data.total * 100, 10);
 
                     scope.$apply(function() {
-                        $('#progress .bar').css(
+                        $('#' + nid +' .bar').css(
                                 'width',
                                 progress + '%'
                         );
                     });
                 },
-                
+
                 done: function(e, data) {
 
                     var filelist = scope.filelist;
-                    if (filelist === undefined) 
+                    if (filelist === undefined)
                         filelist = [];
 
                     for (var i = 0; i < data.result.length; i++) {
