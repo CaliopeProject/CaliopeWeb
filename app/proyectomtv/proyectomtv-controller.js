@@ -48,8 +48,8 @@ define(['angular'], function(angular) {
         $scope.gridEntity = 'projects';
         var cwGrid = $scope['gridProjectsmtv'];
         cwGrid.addColumn("name", {"name": "Nombre", "show" : true});
-        cwGrid.addColumn("locality", {"name": "Localidad", "show" : true});
-        cwGrid.addColumn("uuid", {"name": "Id", "show" : true});
+        //cwGrid.addColumn("locality", {"name": "Localidad", "show" : true});
+        //cwGrid.addColumn("uuid", {"name": "Id", "show" : true});
         cwGrid.addColumn("tree", {"name": "Arbol", "show" : true});
         cwGrid.addColumn("Kanban", {"name": "Kanban", "show" : true});
         cwGrid.addColumn("actions", {"name": "Acciones", "show" : true, "width" : 200, "class" : "cell-center"});
