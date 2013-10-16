@@ -2,7 +2,10 @@
 var CaliopeWebFormConstants = {
   'rexp_value_in_form' : "^{{2}[^{].*[^}]}{2}$",
   'rexp_value_in_form_inrep' : "^{{2}",
-  'rexp_value_in_form_firep' : "}{2}$"
+  'rexp_value_in_form_firep' : "}{2}$",
+  'formsWithOwnController' : {
+    //Ej: 'Tasks' : 'task-controllers'
+  }
 };
 
 
@@ -760,29 +763,13 @@ function getValueAttInObject(obj, attName, charSplitAttName) {
 var CaliopeWebFormSpecificDecorator = ( function() {
 
   /**
-   * Define the forms with own angular controller.
-   * @member formsWithOwnController
-   * @memberOf CaliopeWebFormSpecificDecorator
-   * @type {Array}
-   */
-  var formsWithOwnController = [''];
-
-  /**
    * Define the name of general controller to the forms.
-   * @member formsWithOwnController
+   * @member ctrlSIMMName
    * @memberOf CaliopeWebFormSpecificDecorator
    *
    * @type {string}
    */
   var ctrlSIMMName           = 'SIMMFormCtrl';
-
-  /**
-   * Define the standard end name to form with own controller.
-   * @member formsWithOwnController
-   * @memberOf CaliopeWebFormSpecificDecorator
-   * @type {string}
-   */
-  var ctrlEndName            = 'Ctrl';
 
   /**
    * Add ng-controller of angular controller directive to the form.
@@ -794,16 +781,12 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    */
   function completeController(structureInit, formName) {
     var valueNgCtrl = ctrlSIMMName;
-
+    var formsWithOwnController = CaliopeWebFormConstants.formsWithOwnController;
     /*
      * Search if form name has own controller
      */
-    if( formsWithOwnController.indexOf(formName) >= 0 ) {
-      valueNgCtrl = formName;
-      valueNgCtrl = valueNgCtrl.slice(0, 1).toUpperCase().concat(
-          valueNgCtrl.slice(1, valueNgCtrl.length)
-      );
-      valueNgCtrl = valueNgCtrl.concat(ctrlEndName);
+    if( formsWithOwnController.hasOwnProperty(formName)) {
+      valueNgCtrl = formsWithOwnController[formName];
     }
     /*
      * Add to structure the definition of angular controller to use.
