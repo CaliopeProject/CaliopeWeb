@@ -446,9 +446,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                   var option = {value : {}};
                   option.value[attrFieldValue] = tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.');
                   option.text = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
-                  option.image = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
+                  option.image = tools.getValueAttInObject(dataResponse[i], attrFieldImage, '.');
                   scope[scopeMultiComboChoices].push(option);
-                  
                 }
               }
 
