@@ -56,8 +56,6 @@ define(['angular', 'Crypto'], function (angular) {
 
 
       $scope.$on('actionComplete', function(event, result) {
-        console.log('actionComplete event', event);
-        console.log('actionComplete result', result);
         if( result[1] == true ) {
           cwForm.addData(result[2]);
           cwForm.dataToViewData($scope);
