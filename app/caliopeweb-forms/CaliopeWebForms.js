@@ -124,10 +124,17 @@ var CaliopeWebForm = (function() {
 
     /**
     * Mode to load data from server. Posibble modes are: toCreate, create, toEdit, edit
-    * @member {object} entityModel
+    * @member {object} mode
     * @memberOf CaliopeWebForm
     */
     var mode;
+
+  /**
+   * Indicate if the CWForm is a generic form
+   * @member {object} isGeneric
+   * @memberOf CaliopeWebForm
+   */
+    var genericForm;
 
   /**
    * This function search all the elements that are presents in the form structure. This function
