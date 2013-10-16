@@ -6,7 +6,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
   moduleControllers.controller('GisViewerController',
       ['$scope', '$routeParams','caliopewebTemplateSrv','caliopewebGridSrv', '$timeout',
       function ($scope, $routeParams, caliopewebTemplateSrv, caliopewebGridSrv, $timeout) {
-
+          var maxFeatures = 10;
           var sizeWindows = {};
           var timeoutId;
           var idContent = '#siim_mapdiv';
@@ -195,6 +195,64 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   }
               }
 
+              var arrayProyectos = [];
+
+              var storeProyectos = new Ext.data.ArrayStore({
+                  // store configs
+                  autoDestroy: true,
+                  storeId: 'storeProyectos',
+                  idProperty: 'proyecto',
+                  fields: [
+                      'proyecto',
+                      {name: 'id', type: 'float'},
+                      'estado']
+              });
+
+              var gridProyectos = new Ext.grid.GridPanel({
+                  store: storeProyectos,
+                  columns: [
+
+                      {
+                          id       :'id',
+                          header   : 'Id',
+                          width    : 30,
+                          sortable : true,
+                          dataIndex: 'id'
+                      },{
+                          id       :'proyecto',
+                          header   : 'Proyecto',
+                          width    : 160,
+                          sortable : true,
+                          dataIndex: 'proyecto'
+                      },
+                      {
+                          id       :'estado',
+                          header   : 'Estado',
+                          width    : 60,
+                          sortable : true,
+                          dataIndex: 'estado'
+                      },
+                      {
+                          xtype: 'actioncolumn',
+                          width: 50,
+                          items: [{
+                              icon   : '/tools-gis-viewer/images/heron/silk/magnifier_zoom_in.png',  // Use a URL in the icon config
+                              tooltip: 'Ver en mapa',
+                              handler: function(grid, rowIndex, colIndex) {
+                                  var rec = storeProyectos.getAt(rowIndex);
+                                  findByFeature("proyectos_mtv","mtv_gis","the_geom",rec.get('proyecto'),"proyecto",true);
+                              }
+                          }]
+                      }
+                  ],
+                  stripeRows: true,
+                  height: 350,
+                  width: 600,
+                  title: 'Resultado búsqueda de Proyectos',
+                  stateful: true,
+                  stateId: 'gridProyectos'
+              });
+
               var formPanelSearchProyectos = new GeoExt.form.FormPanel({
                   items: [campoProyectos]
               });
@@ -214,23 +272,32 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   var filter = new OpenLayers.Filter.Comparison({
                       type: OpenLayers.Filter.Comparison.LIKE,
                       property: options.property,
-                      value: value
+                      value: "*"+value.toUpperCase()+"*"
                   });
                   // Set the cursor to "wait" to tell the user we're working.
                   OpenLayers.Element.addClass(Heron.App.map.viewPortDiv, "olCursorWait");
                   response = protocol.read({
+                      maxFeatures:10,
                       filter: filter,
                       callback: function(result) {
 
                           if(result.success()) {
+                              console.log("result.features.length",result.features.length);
                               if(result.features.length) {
                                   if(options.single == true) {
                                       var featureSearch = response.features[0];
                                       Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
                                   } else {
-                                      console.log("trae varios",response.features);
-                                      var featureSearch = response.features[0];
-                                      Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
+                                      storeProyectos.removeAll();
+                                      arrayProyectos = [];
+                                      for (var i=0;i<result.features.length;i++)
+                                      {
+                                          var featureSearch = response.features[i];
+                                          var arrayProyecto = [featureSearch.data['proyecto'],featureSearch.data['id'],featureSearch.data['estado']];
+                                          arrayProyectos.push(arrayProyecto);
+                                      }
+                                      storeProyectos.loadData(arrayProyectos);
+                                      //Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
                                   }
                               } else if(options.hover) {
                                   console.log("trata de hacer hover? :(");
@@ -249,7 +316,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   }
               }
 
-              function findByFeature(feature,featurename,geometryname,value,propertyName) {
+              function findByFeature(feature,featurename,geometryname,value,propertyName,single) {
                   protocol = new OpenLayers.Protocol.WFS({
                       url:  'http://' + document.domain + ':' + location.port + '/gis_proxy/wfs',
                       srsName: "EPSG:100000",
@@ -257,7 +324,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                       featureNS: featurename,
                       geometryName: geometryname
                   });
-                  request(value, {single: true,property: propertyName});
+                  request(value, {single: single,property: propertyName});
               }
 
               function showVersionProyecto(){
@@ -278,12 +345,12 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                    Heron.App.map.addLayer(newWMS);
                   * */
 
-                  findByFeature("proyectos_mtv","mtv_gis","the_geom",campoProyectos.getValue(),"proyecto");
+                  findByFeature("proyectos_mtv","mtv_gis","the_geom",campoProyectos.getValue(),"proyecto",false);
               }
 
               var toolPanelSearchProyectos = new Ext.Panel({
                   title: 'Por proyectos',
-                  items:[formPanelSearchProyectos],
+                  items:[formPanelSearchProyectos,gridProyectos],
                   cls: 'empty'
               });
 
@@ -321,7 +388,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   id:'toolPanel',
                   layout: "fit",
                   width: 450,
-                  height: 250,
+                  height: 450,
                   renderTo: "siim_mapdiv",
                   constrain: true,
                   closeAction: 'hide',
