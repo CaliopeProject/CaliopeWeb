@@ -10,7 +10,7 @@ define(['angular'], function (angular) {
       var maxpoint = 10;
 
       var result = function(category, total){
-        var value = {'Done':maxpoint,'Doing': 0,'ToDo':0};
+        var value = {'Done':maxpoint,'Doing': 0,'ToDo':0, 'archived':maxpoint};
         if(!angular.isUndefined(value[category])){
           total.users++;
           total.points+= value[category];

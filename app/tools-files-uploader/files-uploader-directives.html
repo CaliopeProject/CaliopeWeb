@@ -16,7 +16,7 @@
 
     <ul class="item-list">
       <li ng-repeat="data in filelist">
-        <img src="data:image/png;base64, {{data.thumbnail.data}}"></img> {{data.name}} - {{data.size}}
+        <img ng-src="data:image/png;base64, {{data.thumbnail.data}}"></img> {{data.name}} - {{data.size}}
       </li>
     </ul>
 
