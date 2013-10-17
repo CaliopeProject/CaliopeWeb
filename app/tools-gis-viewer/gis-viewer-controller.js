@@ -82,6 +82,19 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   zoom: 0
               };
               Heron.options.map.layers = [
+                  new OpenLayers.Layer.WMS("Sector Catastral",
+                      "http://" + document.domain + ":" + location.port + "/gis_proxy/wms",
+                      {
+                          id: 'capaSectorCatastral',
+                          layers: "mtv_gis:mtv_scatlocal",
+                          format: "image/png",
+                          transparent: true,
+                          visibility: false
+                      },
+                      {
+                          isBaseLayer:true
+                      }
+                  ),
                   new OpenLayers.Layer.WMS("Proyectos",
                       "http://" + document.domain + ":" + location.port + "/gis_proxy/wms",
                       {
@@ -92,7 +105,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                           visibility: false
                       },
                       {
-                          isBaseLayer:true
+                          isBaseLayer:false
                       }
                   )
               ];
