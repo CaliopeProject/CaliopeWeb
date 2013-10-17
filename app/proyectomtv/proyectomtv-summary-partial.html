@@ -118,6 +118,14 @@
                 <i class="icon-caret-right blue"></i>
                 Tarea
               </th>
+              <th>
+                <i class="icon-caret-right blue"></i>
+                Usuarios
+              </th>
+              <th>
+                <i class="icon-caret-right blue"></i>
+                Progreso
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -145,6 +153,18 @@
                 </div>
               </td>
 
+              <td>
+                <h1>
+                  <a href="#">
+                    <div class="clearfix">
+                      <span class="pull-right">{{task.total}}%</span>
+                    </div>
+                    <div class="progress progress-mini progress{{task.bclass}}">
+                      <div style="width:{{task.total}}%" class="bar"></div>
+                    </div>
+                  </a>
+                </h1>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -160,6 +180,12 @@
                 Tarea
               </th>
               <th>
+                <i class="icon-caret-right blue"></i>
+                Usuarios
+              </th>
+              <th>
+                <i class="icon-caret-right blue"></i>
+                Progreso
               </th>
             </tr>
           </thead>
@@ -186,6 +212,19 @@
                     </div>
                   </div>
                 </div>
+              </td>
+
+              <td>
+                <h1>
+                  <a href="#">
+                    <div class="clearfix">
+                      <span class="pull-right">{{task.total}}%</span>
+                    </div>
+                    <div class="progress progress-mini progress{{task.bclass}}">
+                      <div style="width:{{task.total}}%" class="bar"></div>
+                    </div>
+                  </a>
+                </h1>
               </td>
 
             </tr>
