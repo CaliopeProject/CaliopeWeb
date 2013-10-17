@@ -910,6 +910,55 @@ var CaliopeWebFormSpecificDecorator = ( function() {
   }
 
   /**
+   * This function transform the element of type radiobuttons defined in the structure
+   * for add the behavior of create de radio for angular.
+   * @function
+   * @memberOf CaliopeWebFormSpecificDecorator
+   * @param{array} elementsInputs Elements Field config in the template.
+   */
+  function completeTypeRadioBtns(elementsInputs) {
+
+    /*
+     * Verificar que existan elementos
+     */
+    if( elementsInputs !== undefined && elementsInputs.length > 0) {
+
+      var radioContainer = {
+        "type" : "radio",
+        "ng-model" : "",
+        "value" : "",
+        "html" : ""
+      }
+
+      /*
+       Para cada elemento del tipo (type) radiobuttons agregar a los options el ng-model y
+       quitar del principal el ng-model
+       */
+      jQuery.each(elementsInputs, function(kElement, vElement){
+        var radioOptions = [];
+        if( vElement.type === 'radiobuttons' ) {
+          var ngmodel = vElement['ng-model'];
+
+          delete vElement['ng-model'];
+
+          jQuery.each(vElement.options, function(kOption, vOptions){
+            var radioOption = {};
+            jQuery.extend(true, radioOption, radioContainer);
+            radioOption['ng-model'] = ngmodel;
+            radioOption.value = kOption;
+            radioOption.name = kOption;
+            radioOptions.push(radioOption);
+            radioOption.caption = vOptions;
+          });
+          delete vElement.options;
+          vElement.html = [];
+          vElement.html = vElement.html.concat(radioOptions);
+        }
+      });
+    }
+  }
+
+  /**
    * Add datepicker angular directive to the structure for each elements in the structure with
    * the type datepicker defined in json structure form.
    *
@@ -1126,6 +1175,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeMultiChoices(elementsTemplate,data);
         completeTypeExecuteTask(elementsTemplate, data);
         completeTypeCwGrid(elementsTemplate);
+        completeTypeRadioBtns(elementsTemplate);
 
         return structureInit;
       };
