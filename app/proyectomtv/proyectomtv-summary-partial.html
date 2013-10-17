@@ -4,109 +4,233 @@
       Proyecto la via  lactea
     </h1>
   </div>
-  <div class="row-fluid fillallheight" >
+  <tabset>
+    <tab heading="kanban">
+      <div class="row-fluid fillallheight" >
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                <i class="icon-caret-right blue"></i>
+                Tarea
+              </th>
+              <th>
+                <i class="icon-caret-right red"></i>
+                Todo
+              </th>
+              <th>
+                <i class="icon-caret-right blue"></i>
+                Doing
+              </th>
+              <th>
+                <i class="icon-caret-right orange"></i>
+                Done
+              </th>
+              <th>
+                <i class="icon-caret-right orange"></i>
+                Progreso
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="animate-repeat" ng-repeat="task in tasks">
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>
-            <i class="icon-caret-right blue"></i>
-            Tarea
-          </th>
-          <th>
-            <i class="icon-caret-right red"></i>
-            Todo
-          </th>
-          <th>
-            <i class="icon-caret-right blue"></i>
-            Doing
-          </th>
-          <th>
-            <i class="icon-caret-right orange"></i>
-            Done
-          </th>
-          <th>
-            <i class="icon-caret-right orange"></i>
-            Progreso
-          </th>
-        </tr>
-      </thead>
+              <td>
+                <span class="capitalize-text"> {{task.name}}</span>
+                <h6>{{task.desc}}</h6>
+              </td>
 
-      <tbody>
-        <tr class="animate-repeat" ng-repeat="task in tasks">
+              <td>
+                <div class="itemdiv memberdiv" ng-repeat="user in task.cate['ToDo']">
+                  <div class="user">
+                    <img alt="{{user.username}}" ng-src="data:image/png;base64,{{user.image}}">
+                  </div>
 
-          <td>
-            <span class="capitalize-text"> {{task.name}}</span>
-            <h6>{{task.desc}}</h6>
-          </td>
-
-          <td>
-            <div class="itemdiv memberdiv" ng-repeat="user in task.cate['ToDo']">
-              <div class="user">
-                <img alt="{{user.username}}" ng-src="data:image/png;base64,{{user.image}}">
-              </div>
-
-              <div class="body">
-                <div class="name">
-                  <a href="#">{{user.name}}</a>
+                  <div class="body">
+                    <div class="name">
+                      <a href="#">{{user.name}}</a>
+                    </div>
+                    <div>
+                      <span class="label label-warning">Pendiente</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <span class="label label-warning">Pendiente</span>
-                </div>
-              </div>
-            </div>
-          </td>
+              </td>
 
-          <td>
-            <div class="itemdiv memberdiv" ng-repeat="user in task.cate['Doing']">
-              <div class="user">
-                <img alt="{{user.username}}" ng-src="data:image/png;base64,{{user.image}}">
-              </div>
+              <td>
+                <div class="itemdiv memberdiv" ng-repeat="user in task.cate['Doing']">
+                  <div class="user">
+                    <img alt="{{user.username}}" ng-src="data:image/png;base64,{{user.image}}">
+                  </div>
 
-              <div class="body">
-                <div class="name">
-                  <a href="#">{{user.name}}</a>
+                  <div class="body">
+                    <div class="name">
+                      <a href="#">{{user.name}}</a>
+                    </div>
+                    <div>
+                      <span class="label label-warning">Pendiente</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <span class="label label-warning">Pendiente</span>
-                </div>
-              </div>
-            </div>
-          </td>
+              </td>
 
-          <td>
-            <div class="itemdiv memberdiv" ng-repeat="user in task.cate['Done']">
-              <div class="user">
-                <img alt="{{user.username}}" ng-src="data:image/png;base64,{{user.image}}">
-              </div>
+              <td>
+                <div class="itemdiv memberdiv" ng-repeat="user in task.cate['Done']">
+                  <div class="user">
+                    <img alt="{{user.username}}" ng-src="data:image/png;base64,{{user.image}}">
+                  </div>
 
-              <div class="body">
-                <div class="name">
-                  <a href="#">{{user.name}}</a>
+                  <div class="body">
+                    <div class="name">
+                      <a href="#">{{user.name}}</a>
+                    </div>
+                    <div>
+                      <span class="label label-warning">Pendiente</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <span class="label label-warning">Pendiente</span>
-                </div>
-              </div>
-            </div>
-          </td>
+              </td>
 
-          <td>
-            <h1>
-              <a href="#">
-                <div class="clearfix">
-                  <span class="pull-right">{{task.total}}%</span>
-                </div>
-                <div class="progress progress-mini progress{{task.bclass}}">
-                  <div style="width:{{task.total}}%" class="bar"></div>
-                </div>
-              </a>
-              <h1>
-          </td>
+              <td>
+                <h1>
+                  <a href="#">
+                    <div class="clearfix">
+                      <span class="pull-right">{{task.total}}%</span>
+                    </div>
+                    <div class="progress progress-mini progress{{task.bclass}}">
+                      <div style="width:{{task.total}}%" class="bar"></div>
+                    </div>
+                  </a>
+                </h1>
+              </td>
 
-        </tr>
-      </tbody>
-    </table>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </tab>
+    <tab heading="Archivado">
+      <div class="row-fluid fillallheight" >
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                <i class="icon-caret-right blue"></i>
+                Tarea
+              </th>
+              <th>
+                <i class="icon-caret-right blue"></i>
+                Usuarios
+              </th>
+              <th>
+                <i class="icon-caret-right blue"></i>
+                Progreso
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="animate-repeat" ng-repeat="task in tasks">
 
-  </div>
+              <td>
+                <span class="capitalize-text"> {{task.name}}</span>
+                <h6>{{task.desc}}</h6>
+              </td>
+
+              <td>
+                <div class="itemdiv memberdiv" ng-repeat="user in task.cate['archived']">
+                  <div class="user">
+                    <img alt="{{user.username}}" ng-src="data:image/png;base64,{{user.image}}">
+                  </div>
+
+                  <div class="body">
+                    <div class="name">
+                      <a href="#">{{user.name}}</a>
+                    </div>
+                    <div>
+                      <span class="label label-warning">Pendiente</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <h1>
+                  <a href="#">
+                    <div class="clearfix">
+                      <span class="pull-right">{{task.total}}%</span>
+                    </div>
+                    <div class="progress progress-mini progress{{task.bclass}}">
+                      <div style="width:{{task.total}}%" class="bar"></div>
+                    </div>
+                  </a>
+                </h1>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </tab>
+    <tab heading="Eliminado">
+      <div class="row-fluid fillallheight" >
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                <i class="icon-caret-right blue"></i>
+                Tarea
+              </th>
+              <th>
+                <i class="icon-caret-right blue"></i>
+                Usuarios
+              </th>
+              <th>
+                <i class="icon-caret-right blue"></i>
+                Progreso
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="animate-repeat" ng-repeat="task in tasks">
+
+              <td>
+                <span class="capitalize-text"> {{task.name}}</span>
+                <h6>{{task.desc}}</h6>
+              </td>
+
+              <td>
+                <div class="itemdiv memberdiv" ng-repeat="user in task.cate['deleted']">
+                  <div class="user">
+                    <img alt="{{user.username}}" ng-src="data:image/png;base64,{{user.image}}">
+                  </div>
+
+                  <div class="body">
+                    <div class="name">
+                      <a href="#">{{user.name}}</a>
+                    </div>
+                    <div>
+                      <span class="label label-warning">Pendiente</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <h1>
+                  <a href="#">
+                    <div class="clearfix">
+                      <span class="pull-right">{{task.total}}%</span>
+                    </div>
+                    <div class="progress progress-mini progress{{task.bclass}}">
+                      <div style="width:{{task.total}}%" class="bar"></div>
+                    </div>
+                  </a>
+                </h1>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </tab>
+  </tabset>
 </div>
