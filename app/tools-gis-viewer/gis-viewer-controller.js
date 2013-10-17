@@ -82,6 +82,19 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   zoom: 0
               };
               Heron.options.map.layers = [
+                  new OpenLayers.Layer.WMS("Sector Catastral",
+                      "http://" + document.domain + ":" + location.port + "/gis_proxy/wms",
+                      {
+                          id: 'capaSectorCatastral',
+                          layers: "mtv_gis:mtv_scatlocal",
+                          format: "image/png",
+                          transparent: true,
+                          visibility: false
+                      },
+                      {
+                          isBaseLayer:true
+                      }
+                  ),
                   new OpenLayers.Layer.WMS("Proyectos",
                       "http://" + document.domain + ":" + location.port + "/gis_proxy/wms",
                       {
@@ -92,7 +105,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                           visibility: false
                       },
                       {
-                          isBaseLayer:true
+                          isBaseLayer:false
                       }
                   )
               ];
@@ -302,7 +315,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                               } else if(options.hover) {
                                   console.log("trata de hacer hover? :(");
                               } else {
-                                  console.log("no funcionó :(");
+                                  alert("No hay registros");
                               }
                           }
                           // Reset the cursor.
@@ -392,7 +405,8 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   renderTo: "siim_mapdiv",
                   constrain: true,
                   closeAction: 'hide',
-                  items: tabTools
+                  items: tabTools,
+                  x: 10
               });
 
               var filt = new OpenLayers.Filter.Logical({
