@@ -95,6 +95,19 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                           isBaseLayer:true
                       }
                   ),
+                  new OpenLayers.Layer.WMS("Malla Vial",
+                      "http://" + document.domain + ":" + location.port + "/gis_proxy/wms",
+                      {
+                          id: 'capaMallaVial',
+                          layers: "mtv_gis:mvilocal",
+                          format: "image/png",
+                          transparent: true,
+                          visibility: false
+                      },
+                      {
+                          isBaseLayer:false
+                      }
+                  ),
                   new OpenLayers.Layer.WMS("Proyectos",
                       "http://" + document.domain + ":" + location.port + "/gis_proxy/wms",
                       {
