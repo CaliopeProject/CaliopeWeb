@@ -10,7 +10,7 @@ define(['angular'], function (angular) {
       var maxpoint = 10;
 
       var result = function(category, total){
-        var value = {'Done':maxpoint,'Doing': 0,'ToDo':0};
+        var value = {'Done':maxpoint,'Doing': 0,'ToDo':0, 'archived':maxpoint};
         if(!angular.isUndefined(value[category])){
           total.users++;
           total.points+= value[category];
@@ -40,7 +40,7 @@ define(['angular'], function (angular) {
             var user   = vtarget.entity_data;
             var exist  = false;
             angular.forEach(category, function(vcategory, kcategory){
-              if(vcategory[kcategory] === vtarget.properties.category){
+              if(kcategory === vtarget.properties.category){
                 exist = true;
                 category[kcategory].push(user);
                 total = result(kcategory, total);
@@ -63,6 +63,7 @@ define(['angular'], function (angular) {
             'bclass': barclass(total)
           });
         });
+        console.log('data',$scope.tasks);
       });
     }]);
 });

@@ -132,11 +132,6 @@ $borKanba: 12px;
   }
 }
 
-.widget-toolbar-kanban-form {
-  text-align: right;
-  margin-right: 30px;
-}
-
 .widget-toolbar-kanban {
   display: inline-block;
   padding: 0 6px;
@@ -161,14 +156,11 @@ $borKanba: 12px;
       padding-right: 5px;
       padding-bottom: 9px;
     }
-
-
   }
 
-
   span{
-    margin: 0px;
-    padding: 0px;
+    margin: 3px;
+    padding: 3px;
     &:last-child{
       padding-right: 0px;
     }
@@ -176,6 +168,13 @@ $borKanba: 12px;
   .input-append {
     overflow: hidden;
   }
+}
+
+.widget-toolbar-kanban-form {
+  @extend .widget-toolbar-kanban;
+  display: compact;
+  text-align: right;
+  margin-right: 30px;
 }
 
 .blockInline-subtask {

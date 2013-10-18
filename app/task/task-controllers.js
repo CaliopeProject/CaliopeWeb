@@ -54,6 +54,15 @@ define(['angular', 'Crypto'], function (angular) {
       cwForm.setMode(action.mode);
       cwForm.setModelUUID(action.uuid);
 
+
+      $scope.$on('actionComplete', function(event, result) {
+        if( result[1] == true ) {
+          cwForm.addData(result[2]);
+          cwForm.dataToViewData($scope);
+        }
+      });
+
+
       cwFormService.loadForm(cwForm, {}).then(function(result){
         var inputs = result.elements;
         processResultLoadForm(result, $scope);
@@ -65,11 +74,16 @@ define(['angular', 'Crypto'], function (angular) {
             });
           }
           putActionDataInScope();
-          if( action.target !== undefined && action.target.hasOwnProperty('entity')) {
-            $scope.formtask = action.target.entity;
+          if( action.targetTask !== undefined && action.targetTask.hasOwnProperty('entity')) {
+            $scope.formtask = action.targetTask.entity;
+          }
+          if( action.targetTask !== undefined && action.targetTask.hasOwnProperty('uuid')) {
+            if($scope.target === undefined) {
+              $scope.target = {};
+            }
+            $scope.target.uuid = action.targetTask.uuid;
           }
         }
-
       });
     };
 

@@ -234,8 +234,6 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
     var ATTNAME_FIELDID = 'formid';
     var ATTNAME_FIELD_DATALIST = 'fieldDatalist';
     var ATTNAME_OPTIONSNAME = 'optionsName';
-    var ATTNAME_MCOMBO_CHOICES = 'uiMcomboChoices';
-    var ATTNAME_MCOMBO_SELECTED = 'uiMcomboSelected';
     var ATTNAME_OPTIONS_STATIC = 'optionsStatic';
 
     /**
@@ -448,9 +446,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                   var option = {value : {}};
                   option.value[attrFieldValue] = tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.');
                   option.text = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
-                  option.image = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
+                  option.image = tools.getValueAttInObject(dataResponse[i], attrFieldImage, '.');
                   scope[scopeMultiComboChoices].push(option);
-                  
                 }
               }
 
@@ -462,6 +459,15 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
               var selectedChoices  = scope[attrs['name']];
               var scopeMultiComboChoicesTmp = scope[scopeMultiComboChoices];
               if( selectedChoices !== undefined ) {
+                if( selectedChoices.hasOwnProperty('direction') && selectedChoices.hasOwnProperty('target') &&
+                    selectedChoices.target.length > 0) {
+
+                  var selectedChoicesInTaget = [];
+                  angular.forEach(selectedChoices.target, function(vSelChoicesTarget, kSelChoicesTarget){
+                    selectedChoicesInTaget.push(vSelChoicesTarget.entity_data);
+                  });
+                  selectedChoices = selectedChoicesInTaget;
+                }
                 for(i=0; i < selectedChoices.length; i++ ) {
                   var valueChoice = selectedChoices[i];
                   if( valueChoice !== undefined ) {

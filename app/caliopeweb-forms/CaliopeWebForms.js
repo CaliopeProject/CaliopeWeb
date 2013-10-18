@@ -2,7 +2,10 @@
 var CaliopeWebFormConstants = {
   'rexp_value_in_form' : "^{{2}[^{].*[^}]}{2}$",
   'rexp_value_in_form_inrep' : "^{{2}",
-  'rexp_value_in_form_firep' : "}{2}$"
+  'rexp_value_in_form_firep' : "}{2}$",
+  'formsWithOwnController' : {
+    //Ej: 'Tasks' : 'task-controllers'
+  }
 };
 
 
@@ -121,10 +124,17 @@ var CaliopeWebForm = (function() {
 
     /**
     * Mode to load data from server. Posibble modes are: toCreate, create, toEdit, edit
-    * @member {object} entityModel
+    * @member {object} mode
     * @memberOf CaliopeWebForm
     */
     var mode;
+
+  /**
+   * Indicate if the CWForm is a generic form
+   * @member {object} isGeneric
+   * @memberOf CaliopeWebForm
+   */
+    var genericForm;
 
   /**
    * This function search all the elements that are presents in the form structure. This function
@@ -208,6 +218,11 @@ var CaliopeWebForm = (function() {
       };
     }
 
+  function getVarNameScopeFromFormRep(formRep) {
+    return formRep.replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_inrep),"").
+        replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_firep),"")
+  }
+
   /**
    * Constructor of CaliopeWebForm module
    * @memberOf CaliopeWebForm
@@ -230,17 +245,13 @@ var CaliopeWebForm = (function() {
 
       if(elements !== undefined) {
         data = {};
-        jQuery.each(elements, function(key, value) {
-          if( value.hasOwnProperty('name') ) {
-            data[value.name] = dataFromServer[value.name];
-            if( value.hasOwnProperty('relation') ) {
-              data[value.name] = [];
-              if( dataFromServer[value.name] !== undefined ) {
-                jQuery.each(dataFromServer[value.name].target, function(targetKey, targetValue) {
-                  if(targetValue.hasOwnProperty('entity_data')){
-                    data[value.name].push( targetValue.entity_data );
-                  }
-                });
+        jQuery.each(elements, function(kElement, vElement) {
+          if( vElement.hasOwnProperty('name') ) {
+            data[vElement.name] = dataFromServer[vElement.name];
+
+            if( vElement.hasOwnProperty('relation') ) {
+              if(dataFromServer[vElement.name] === undefined) {
+                data[vElement.name] = vElement.relation;
               }
             }
           };
@@ -251,11 +262,6 @@ var CaliopeWebForm = (function() {
     };
 
     function dataToServerData(elements, dataFromView) {
-
-      function getVarNameScopeFromFormRep(formRep) {
-        return formRep.replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_inrep),"").
-            replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_firep),"")
-      }
 
       /*
         Si el parámetro dataFromView es undefined entonces se crea una estructura de datos
@@ -281,47 +287,49 @@ var CaliopeWebForm = (function() {
         for (i = 0; i < elements.length; i++) {
           if( paramsToSend.length === 0 || paramsToSend.indexOf(elements[i]) >= 0 ) {
             var nameVarScope = elements[i].name;
-            var value = undefined;
+            var valueToServer = undefined;
             if( dataFromView[nameVarScope] !== undefined ) {
               if(elements[i].type === 'div' && elements[i].type1 === 'datepicker') {
-                value = (dataFromView[nameVarScope] instanceof Date )? dataFromView[nameVarScope].toJSON() : dataFromView[nameVarScope] ;
+                valueToServer = (dataFromView[nameVarScope] instanceof Date )? dataFromView[nameVarScope].toJSON() : dataFromView[nameVarScope] ;
               } else if(elements[i].type === 'select') {
-                value = dataFromView[nameVarScope];
+                valueToServer = dataFromView[nameVarScope];
               } else if(elements[i].type === 'ui-mcombo-choices' && elements[i].type1 === 'multi-choices') {
                 if(elements[i].hasOwnProperty('single') && elements[i].single === "true" &&
                     dataFromView[nameVarScope] !== undefined && dataFromView[nameVarScope][0] !== undefined) {
-                  value = dataFromView[nameVarScope][0].value
+                  valueToServer = dataFromView[nameVarScope][0].value
                 } else {
                   var j;
-                  value = [];
+                  valueToServer = [];
                   for( j=0; j<dataFromView[nameVarScope].length; j++) {
                     if( dataFromView[nameVarScope][j].value !== undefined) {
-                      //value = value.concat(dataFromView[nameVarScope].value);
-                      value.push(dataFromView[nameVarScope][j].value);
+                      valueToServer.push(dataFromView[nameVarScope][j].value);
                     }
                   }
                 }
               } else if(elements[i].type === 'cw-grid-in-form' && elements[i].typeo === 'cw-grid') {
-                value = dataFromView[dataFromView[nameVarScope].gridDataName];
+                valueToServer = dataFromView[dataFromView[nameVarScope].gridDataName];
               }
               else {
-                value = dataFromView[nameVarScope];
+                valueToServer = dataFromView[nameVarScope];
               }
               if(elements[i].hasOwnProperty('relation')) {
                 /*
-                  Evaluate if value is a relation. True then create value with only value of
+                  Evaluate if valueToServer is a relation. True then create valueToServer with only valueToServer of
                   entity_data in relation
-                */
-                if(value.hasOwnProperty('direction') && value.hasOwnProperty('target')) {
-                  var cValue = {}
-                  jQuery.extend(true, cValue, value);
-                  value = [];
-                  jQuery.each(cValue.target, function(k,v) {
-                    if(v.hasOwnProperty('entity_data')) {
-                      value.push(v.entity_data);
-                    }
-                  });
+                 */
+                if(valueToServer.hasOwnProperty('direction') && valueToServer.hasOwnProperty('target')) {
+                  if( valueToServer.target.hasOwnProperty('length') ) {
+                    var cValue = {}
+                    jQuery.extend(true, cValue, valueToServer);
+                    valueToServer = [];
+                    jQuery.each(cValue.target, function(k,v) {
+                      if(v.hasOwnProperty('entity_data')) {
+                        valueToServer.push(v.entity_data);
+                      }
+                    });
+                  }
                 }
+
                 var patt = new RegExp(CaliopeWebFormConstants.rexp_value_in_form);
                 var relation = elements[i].relation;
                 var oTarget = elements[i].relation.target;
@@ -329,14 +337,14 @@ var CaliopeWebForm = (function() {
                   //var ownRelation = elements[i].name;
                   var target = [];
 
-                  if( value !== undefined) {
-                    if( value instanceof Array) {
+                  if( valueToServer !== undefined) {
+                    if( valueToServer instanceof Array) {
                     } else {
-                      value = [value];
+                      valueToServer = [valueToServer];
                     }
                   }
 
-                  jQuery.each(value, function(kRel, vRel){
+                  jQuery.each(valueToServer, function(kRel, vRel){
                     var cTarget = {};
                     jQuery.extend(true, cTarget, oTarget);
                     if(patt.test(oTarget.entity)) {
@@ -373,10 +381,10 @@ var CaliopeWebForm = (function() {
                     target.push(cTarget);
                   });
                   relation.target = target;
-                  value = relation;
+                  valueToServer = relation;
                 }
               }
-              data[nameVarScope] = value;
+              data[nameVarScope] = valueToServer;
             }
           }
         }
@@ -470,8 +478,15 @@ var CaliopeWebForm = (function() {
     /**
      *
      */
-    dataToViewData : function() {
-      return dataToViewData(this.elementsForm, this.data);
+    dataToViewData : function(viewData) {
+      var data = dataToViewData(this.elementsForm, this.data);
+      if( viewData !== undefined ) {
+        jQuery.each(data, function(key, value) {
+          viewData[key] = value;
+        });
+      } else {
+        return data;
+      }
     },
 
     /**
@@ -755,29 +770,13 @@ function getValueAttInObject(obj, attName, charSplitAttName) {
 var CaliopeWebFormSpecificDecorator = ( function() {
 
   /**
-   * Define the forms with own angular controller.
-   * @member formsWithOwnController
-   * @memberOf CaliopeWebFormSpecificDecorator
-   * @type {Array}
-   */
-  var formsWithOwnController = [''];
-
-  /**
    * Define the name of general controller to the forms.
-   * @member formsWithOwnController
+   * @member ctrlSIMMName
    * @memberOf CaliopeWebFormSpecificDecorator
    *
    * @type {string}
    */
   var ctrlSIMMName           = 'SIMMFormCtrl';
-
-  /**
-   * Define the standard end name to form with own controller.
-   * @member formsWithOwnController
-   * @memberOf CaliopeWebFormSpecificDecorator
-   * @type {string}
-   */
-  var ctrlEndName            = 'Ctrl';
 
   /**
    * Add ng-controller of angular controller directive to the form.
@@ -789,16 +788,12 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    */
   function completeController(structureInit, formName) {
     var valueNgCtrl = ctrlSIMMName;
-
+    var formsWithOwnController = CaliopeWebFormConstants.formsWithOwnController;
     /*
      * Search if form name has own controller
      */
-    if( formsWithOwnController.indexOf(formName) >= 0 ) {
-      valueNgCtrl = formName;
-      valueNgCtrl = valueNgCtrl.slice(0, 1).toUpperCase().concat(
-          valueNgCtrl.slice(1, valueNgCtrl.length)
-      );
-      valueNgCtrl = valueNgCtrl.concat(ctrlEndName);
+    if( formsWithOwnController.hasOwnProperty(formName)) {
+      valueNgCtrl = formsWithOwnController[formName];
     }
     /*
      * Add to structure the definition of angular controller to use.

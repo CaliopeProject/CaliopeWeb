@@ -65,6 +65,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           calwebtem.mode   = mode;
           calwebtem.uuid   = uuid;
 
+          if(uuid !== undefined && uuid.length > 0) {
+            $scope.showWidgetTask=true;
+          }
+
           $scope.caliopeForm   = calwebTemSrv.caliopeForm;
           calwebTemSrv.loadTemplateData().then(function(result) {
             processResultLoadForm(result, $scope);
@@ -76,9 +80,14 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           var cwForm = $scope[cwFormName];
           var params = {};
 
+          if($routeParams.uuid !== undefined && $routeParams.uuid.length > 0) {
+            $scope.showWidgetTask=true;
+          }
+
           if( generic === true ) {
             params.formId = $routeParams.entity;
             cwForm.setEntityModel('form');
+            $scope.entityModel = $routeParams.entity;
           }
           $scope.actionsToShow = actionsToShow;
 
@@ -86,8 +95,22 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
           calwebTemSrv.loadForm(cwForm,params).then(function(result) {
             processResultLoadForm(result, $scope);
+            if( generic === true ) {
+              $scope.entityModel = params.formId;
+            }
           });
         };
+
+        $scope.$on('actionComplete', function(event, result) {
+          if( result[1] === true ) {
+            $scope.targetTask.uuid = result[2].uuid;
+            $scope.showWidgetTask = true;
+            var cwFormName = $scope['cwForm-name'];
+            var cwForm = $scope[cwFormName];
+            cwForm.setModelUUID(result[2].uuid);
+            //$scope.$broadcast('changeActions', [['projects.edit'],['projects.create']]);
+          }
+        });
 
         if (calwebTemSrv.caliopeForm.mode === 'edit') {
           calwebTemSrv.caliopeForm.id     = $routeParams.entity;
@@ -161,6 +184,11 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           var data = {};
           if( cwForm !== undefined ) {
             data = cwForm.dataToServerData($scope);
+            if( cwForm.getModelUUID() !== undefined ) {
+              modelUUID = cwForm.getModelUUID();
+              objID = cwForm.getModelUUID();
+            }
+
           }
           caliopewebTemplateSrv.sendDataForm(formTemplateName,
               actionMethod, data, modelUUID, objID).then( function(value) {

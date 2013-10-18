@@ -6,8 +6,8 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
   var moduleServices = angular.module('task-services', ['CaliopeWebTemplatesServices', 'ui.bootstrap.dialog', 'task-controllers']);
 
   moduleServices.factory('taskService',
-    ['SessionSrv', 'loginSecurity', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv'
-      , function(security, loginSecurity,   $log,  $http,   $q,   $location,   $dialog,   $rootScope,   webSocket, tempServices) {
+    ['SessionSrv', 'loginSecurity', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv', 'toolservices'
+      , function(security, loginSecurity,   $log,  $http,   $q,   $location,   $dialog,   $rootScope,   webSocket, tempServices, tools) {
 
         var NAME_MODEL_TASK = 'tasks';
         var MODEL_TASK;
@@ -214,12 +214,12 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           loadData: loadTask,
 
           // Show the modal task dialog
-          createTask: function(target, category) {
+          createTask: function(targetTask, category) {
             opts.templateUrl = './task/partial-task-dialog.html';
             var data = {
               template: NAME_MODEL_TASK,
               mode  : 'create',
-              target: target,
+              targetTask: targetTask,
               category: category,
               dialogName : DIALOG_NAME_FORM_TASK
             };
@@ -399,7 +399,26 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
           changeCategory: function(taskDrag, category){
             if(!angular.isUndefined(taskDrag)){
               taskDrag.category = category;
+              var holderRelOld = {};
+              angular.forEach(taskDrag.holders.target, function(vtarget){
+                var user   = vtarget.entity_data.uuid;
+                var category = vtarget.properties.category;
+                holderRelOld[user] = category;
+              });
+
               var data =  tempServices.getDataToServer(MODEL_TASK, taskDrag);
+              var user = loginSecurity.currentUser;
+
+              if(data.target !== undefined) {
+                angular.forEach(data.holders.target, function(vHolder, kHolder) {
+                  if(vHolder.entity_data.uuid === user.user_uuid) {
+                    vHolder.properties.category = category;
+                  } else {
+                    vHolder.properties.category = holderRelOld[vHolder.entity_data.uuid];
+                  }
+                });
+              }
+
               sendData('tasks', 'tasks.edit', data, taskDrag.uuid);
             }
             loadTask();

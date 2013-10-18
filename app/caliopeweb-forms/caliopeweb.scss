@@ -77,6 +77,16 @@ input.ng-valid.ng-dirty {
 
 }
 
+#fondo {
+  z-index: -1;
+  background-color: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  @include opacity(0.5);
+}
 /* //INIT ui-multicombo directive*/
 /* Based on Chosen */
 
@@ -216,7 +226,7 @@ input.ng-valid.ng-dirty {
   border: 0;
   border-top: 1px solid;
   margin-bottom: 6px;
-  margin: 7px 0px 4px 0px;
+  margin: 0px;
   border-color: rgb(224, 224, 224);
 }
 
