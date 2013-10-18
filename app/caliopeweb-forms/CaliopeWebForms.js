@@ -910,50 +910,68 @@ var CaliopeWebFormSpecificDecorator = ( function() {
   }
 
   /**
-   * This function transform the element of type radiobuttons defined in the structure
-   * for add the behavior of create de radio for angular.
+   * This function process the elements of type radiobuttons, checkboxes and checkbox.
+   * For radiobuttons and checkboxes the process is performance over option attribute.
    * @function
    * @memberOf CaliopeWebFormSpecificDecorator
    * @param{array} elementsInputs Elements Field config in the template.
    */
-  function completeTypeRadioBtns(elementsInputs) {
+  function completeTypeRadioButtonsCheckBoxess(elementsInputs) {
 
     /*
      * Verificar que existan elementos
      */
     if( elementsInputs !== undefined && elementsInputs.length > 0) {
 
+      var TYPE_RADIO = 'radio';
+      var TYPE_CHECK = 'checkbox';
+      var VALUE_TRUE = 'True';
+      var VALUE_FALSE = 'False';
+
       var radioContainer = {
-        "type" : "radio",
+        "type" : "",
         "ng-model" : "",
         "value" : "",
         "html" : ""
       }
 
       /*
-       Para cada elemento del tipo (type) radiobuttons agregar a los options el ng-model y
-       quitar del principal el ng-model
+       Para cada elemento del tipo (type) radiobuttons y/o checkboxes agregar a los options el ng-model,
+       el caption y el value. Quitar del principal el ng-model
        */
       jQuery.each(elementsInputs, function(kElement, vElement){
-        var radioOptions = [];
-        if( vElement.type === 'radiobuttons' ) {
+        var options = [];
+        if( vElement.type === 'radiobuttons' || vElement.type === 'checkboxes') {
           var ngmodel = vElement['ng-model'];
-
           delete vElement['ng-model'];
 
           jQuery.each(vElement.options, function(kOption, vOptions){
-            var radioOption = {};
-            jQuery.extend(true, radioOption, radioContainer);
-            radioOption['ng-model'] = ngmodel;
-            radioOption.value = kOption;
-            radioOption.name = kOption;
-            radioOptions.push(radioOption);
-            radioOption.caption = vOptions;
+            var option = {};
+            jQuery.extend(true, option, radioContainer);
+            if(vElement.type === 'radiobuttons') {
+              option.type = TYPE_RADIO;
+              option['ng-model'] = ngmodel;
+              option.value = kOption;
+            } else if(vElement.type === 'checkboxes') {
+              option.type = TYPE_CHECK;
+              option['ng-model'] = ngmodel.concat('.').concat(kOption);
+              option['ng-true-value'] = VALUE_TRUE;
+              option['ng-false-value'] = VALUE_FALSE;
+            }
+            delete option.name;
+            options.push(option);
+            option.caption = vOptions;
           });
           delete vElement.options;
           vElement.html = [];
-          vElement.html = vElement.html.concat(radioOptions);
+          vElement.html = vElement.html.concat(options);
         }
+
+        if( vElement.type === 'checkbox' ) {
+          vElement['ng-true-value'] = VALUE_TRUE;
+          vElement['ng-false-value'] = VALUE_FALSE;
+        }
+
       });
     }
   }
@@ -1175,7 +1193,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeMultiChoices(elementsTemplate,data);
         completeTypeExecuteTask(elementsTemplate, data);
         completeTypeCwGrid(elementsTemplate);
-        completeTypeRadioBtns(elementsTemplate);
+        completeTypeRadioButtonsCheckBoxess(elementsTemplate);
 
         return structureInit;
       };
