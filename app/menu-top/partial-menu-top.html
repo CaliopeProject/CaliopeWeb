@@ -3,7 +3,12 @@
   <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
   <!-- ALERT END-->
 </div>
-
+<script type="text/javascript" charset="utf-8">
+  sse = new EventSource('/event_from_server');
+  sse.onmessage = function(message) {
+    $('#output').html(message.data);
+  };
+</script>
 <div class="navbar-inner">
   <div class="row-fluid" >
     <div class="span2">
@@ -16,23 +21,15 @@
         </a>
         </li>
         <li class="dark">
-        <a>SIMM</a>
+          <a>SIMM</a>
+        </li>
+        <li>
+          <div id="output">Texto: </div>
         </li>
       </ul><!--/.w8-nav-->
     </div>
     <div class="span10">
-        <!-- NAV-SEARCH INIT-->
-        <div id="nav-search" ng-show="isAuthenticated()">
-          <form class="form-search">
-            <span class="input-icon">
-              <input type="text" placeholder="Busca algo divertido ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
-              <i class="icon-search" id="nav-search-icon"></i>
-            </span>
-          </form>
-        </div>
-        <!-- NAV-SEARCH END-->
       <ul class="nav ace-nav pull-right">
-
         <li id="loadingSpin" ng-show="hasPendingRequests() && isAuthenticated()">
         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
           <div class="spinner">
