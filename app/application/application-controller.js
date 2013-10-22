@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-define(['angular', 'notificationsService','httpRequestTrackerService','task-services', 'angular-ui-bootstrap-bower'], function(angular){
-  'use strict';
-
-  var module = angular.module('CaliopeController', ['ui.bootstrap','login-retryQueue','login-security-services', 'task-services', 'login-directives', 'NotificationsServices']);
-=======
 define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower','login-retryQueue','login-security-services','task-services', 'login-directives','httpRequestTrackerService'], function(angular) {
   'use strict';
 
   var module = angular.module('CaliopeController', ['ui.bootstrap','login-retryQueue','login-security-services', 'task-services', 'login-directives', 'httpRequestTrackerService']);
->>>>>>> bf9341c... fix modules, requiere and angular
 
   module.controller('CaliopeController',
     ['loginSecurity',

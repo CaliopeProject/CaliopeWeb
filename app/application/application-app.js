@@ -4,8 +4,6 @@
 
 var dependencies = [
     'angular'
-<<<<<<< HEAD
-
     ,'angular-route-unstable'
     ,'application-servicesWebSocket'
     //,'application-controller'
@@ -19,8 +17,6 @@ var dependencies = [
     //,'menu-top-controller'
     //,'login-controllers'
     //,'httpRequestTrackerService'
-
-
 
     //'application-commonservices',
     //'caliopeweb-templateServices',
@@ -37,7 +33,6 @@ var dependencies = [
     //'seeinmap-services',
     //'notificationsService',
     //'angular-ui-ng-grid',
-=======
     ,'angular-route-unstable'
     ,'application-controller'
     ,'application-servicesWebSocket'
@@ -67,17 +62,14 @@ var dependencies = [
     //'httpRequestTrackerService',
     //'angular-ui-ng-grid',
     //'menu-right-controller',
->>>>>>> bf9341c... fix modules, requiere and angular
     //'files-uploader-controller',
     //'files-uploader-directives',
     //'wysiwyg-editor-controller',
     //'wysiwyg-editor-directive',
-<<<<<<< HEAD
     //'task-controllers',
     //'task-directives',
     //'task-services',
     //'read-rss-services',
-=======
 
     //'task-controllers',
     //'task-directives',
@@ -87,17 +79,14 @@ var dependencies = [
 
     //'read-rss-services',
     //'read-rss-controllers'
->>>>>>> bf9341c... fix modules, requiere and angular
   ];
 
 var modulesAngular = [
      'ngRoute'
     ,'webSocket'
     ,'CaliopeController'
-<<<<<<< HEAD
-=======
     //,'httpRequestTrackerService'
->>>>>>> bf9341c... fix modules, requiere and angular
+    //,'httpRequestTrackerService'
     //,'menu-right-controller'
     //,'read-rss-controllers'
     //,'kanbanBoardCtrl'
@@ -107,10 +96,7 @@ var modulesAngular = [
     //,'ProyectoSummary'
     //,'MenuTopControllers'
     //,'login-controllers-form'
-<<<<<<< HEAD
     //,'httpRequestTrackerService'
-=======
->>>>>>> bf9341c... fix modules, requiere and angular
     //,'CaliopeWebFormDirectives'
     //'ProyectoServices',
     //'LoginControllers',
