@@ -1,7 +1,7 @@
 /*jslint browser: true*/
 /*global UUIDjs, WebSocket, WebSocketCaliope*/
 
-define(['angular', 'notificationsService', 'uuid'], function(angular, UUIDjs) {
+define(['angular', 'notificationsService', 'uuid'], function(angular) {
   'use strict';
 
   var moduleWebSocket = angular.module('webSocket', ['NotificationsServices']);

@@ -1,7 +1,7 @@
 /*jslint browser: true*/
 /*global define, console, $*/
 
-define(['angular'], function (angular) {
+define(['angular', 'read-rss-services'], function (angular) {
   'use strict';
 
   var App = angular.module('read-rss-controllers', ['read-rss-services']);

@@ -1,9 +1,9 @@
 /*jslint browser: true*/
 /*global define, console, $*/
 
-define(['angular','angular-dragdrop'], function (angular) {
+define(['angular', 'angular-dragdrop', 'task-directives','task-controllers'], function (angular) {
   'use strict';
-  var dirmodule = angular.module('kanbanBoardCtrl', ['ngDragDrop', 'ui.bootstrap', 'task-directives']);
+  var dirmodule = angular.module('kanbanBoardCtrl', ['ngDragDrop', 'ui.bootstrap', 'task-directives', 'task-controllers']);
 
   dirmodule.controller("kanbanBoardCtrl", ["$scope",'taskService',
     function($scope, taskService) {
@@ -25,7 +25,7 @@ define(['angular','angular-dragdrop'], function (angular) {
 
       $scope.dropCallback = function(event, ui) {
 
-      }
+      };
 
       $scope.dropCallback = function(event, ui) {
         var uuidtask = ui.draggable.attr("uuid");
@@ -49,47 +49,46 @@ define(['angular','angular-dragdrop'], function (angular) {
       $scope.startDragCallback = function(event, ui) {
         $scope.categoryOld = ui.helper.attr('category');
       };
-
-    }]);
-
-
-    dirmodule.controller("kanbanItemCtrl", ["$scope", 'taskService',
-      function($scope, taskService) {
-
-        $scope.countSubtask = taskService.countSubtask;
-        $scope.checkSubtask = taskService.checkSubtask;
-        $scope.removeSubtask= taskService.removeSubtask;
-
-        $scope.stopDragCallback = function(event, ui) {
-          $scope.showSubtasks = false;
-        };
+  }]);
 
 
+  dirmodule.controller("kanbanItemCtrl", ["$scope", 'taskService',
+    function($scope, taskService) {
 
-        $scope.addSubtask   = function (parentTask, description, category){
-          taskService.addSubtask(parentTask, description, category);
-        };
+      $scope.countSubtask = taskService.countSubtask;
+      $scope.checkSubtask = taskService.checkSubtask;
+      $scope.removeSubtask= taskService.removeSubtask;
 
-        $scope.addComment   = function (parentTask, text, category){
-          taskService.addComment(parentTask, text, category);
-        };
-
-      }]);
+      $scope.stopDragCallback = function(event, ui) {
+        $scope.showSubtasks = false;
+      };
 
 
-      dirmodule.controller("kanbanItemDataCtrl", ["$scope", 'taskService',
-        function($scope, taskService) {
 
-          $scope.addSubtask   = function (parentTask, description, category){
-            taskService.addSubtask(parentTask, description, category);
-            $scope.description = '';
-          };
+      $scope.addSubtask   = function (parentTask, description, category){
+        taskService.addSubtask(parentTask, description, category);
+      };
 
-          $scope.addComment   = function (parentTask, text, category){
-            console.log($scope.$id);
-            taskService.addComment(parentTask, text, category);
-            $scope.text = '';
-          };
+      $scope.addComment   = function (parentTask, text, category){
+        taskService.addComment(parentTask, text, category);
+      };
 
-        }]);
+  }]);
+
+
+  dirmodule.controller("kanbanItemDataCtrl", ["$scope", 'taskService',
+    function($scope, taskService) {
+
+      $scope.addSubtask   = function (parentTask, description, category){
+        taskService.addSubtask(parentTask, description, category);
+        $scope.description = '';
+      };
+
+      $scope.addComment   = function (parentTask, text, category){
+        console.log($scope.$id);
+        taskService.addComment(parentTask, text, category);
+        $scope.text = '';
+      };
+
+  }]);
 });
