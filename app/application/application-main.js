@@ -46,7 +46,7 @@ require.config({
 
     'caliopeWebForms'                  : 'caliopeweb-forms/CaliopeWebForms',
     'caliopeWebGrids'                  : 'caliopeweb-forms/CaliopeWebGrids',
-    'caliopeweb-templateServices'      : 'caliopeweb-forms/caliopeweb-template-services',
+    'caliopeweb-template-services'     : 'caliopeweb-forms/caliopeweb-template-services',
     'caliopeweb-templateControllers'   : 'caliopeweb-forms/caliopeweb-template-controllers',
     'caliopeweb-formDirectives'        : 'caliopeweb-forms/caliopeweb-form-directives',
 
@@ -134,12 +134,13 @@ require.config({
   ]
 });
 
+window.name = "NG_DEFER_BOOTSTRAP!";
+
 require([
   'jquery',
   'angular',
   'application-app',
   'application-routes',
-  'gis-view-ctrl'
 ], function(jQuery, angular, app, routes) {
   'use strict';
   $(document).ready(function () {

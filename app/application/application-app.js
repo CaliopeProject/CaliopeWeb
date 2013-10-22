@@ -3,65 +3,65 @@
 'use strict';
 
 var dependencies = [
-    'angular',
-    'angular-route-unstable',
-    'application-controller',
-    'application-servicesWebSocket',
-    'application-commonservices',
-    'caliopeweb-templateServices',
-    'caliopeweb-templateControllers',
-    'caliopeweb-formDirectives',
+    'angular'
+    ,'angular-route-unstable'
+    ,'application-controller'
+    ,'application-servicesWebSocket'
+    //'application-commonservices',
+    //'caliopeweb-templateServices',
+    //'caliopeweb-templateControllers',
+    //'caliopeweb-formDirectives',
 
-    'admin-users-controller',
+    //'admin-users-controller',
 
-    'proyectomtv-controller',
-    'proyectomtv-service',
-    'proyectomtv-summary-controller',
+    //'proyectomtv-controller',
+    //'proyectomtv-service',
+    //'proyectomtv-summary-controller',
 
-    'login-security-services',
-    'login-controllers',
-    'login-controllers-form',
-    'login-retryQueue',
-    'login-directives',
+    //'login-security-services',
+    //'login-controllers',
+    //'login-controllers-form',
+    //'login-retryQueue',
+    //'login-directives',
 
-    'seeinmap-directives',
-    'menu-top-controller',
-    'gis-view-ctrl',
-    'gis-directives',
-    'seeinmap-services',
-    'notificationsService',
-    'httpRequestTrackerService',
-    'angular-ui-ng-grid',
-    'menu-right-controller',
-    'files-uploader-controller',
-    'files-uploader-directives',
-    'wysiwyg-editor-controller',
-    'wysiwyg-editor-directive',
+    //'seeinmap-directives',
+    //'menu-top-controller',
+    //'gis-view-ctrl',
+    //'gis-directives',
+    //'seeinmap-services',
+    //'notificationsService',
+    //'httpRequestTrackerService',
+    //'angular-ui-ng-grid',
+    //'menu-right-controller',
+    //'files-uploader-controller',
+    //'files-uploader-directives',
+    //'wysiwyg-editor-controller',
+    //'wysiwyg-editor-directive',
 
-    'task-controllers',
-    'task-directives',
-    'task-services',
+    //'task-controllers',
+    //'task-directives',
+    //'task-services',
 
-    'kanban-board-controller',
+    //'kanban-board-controller',
 
-    'read-rss-services',
-    'read-rss-controllers'
+    //'read-rss-services',
+    //'read-rss-controllers'
   ];
 
 var modulesAngular = [
     'ngRoute'
     ,'webSocket'
     ,'CaliopeController'
-    ,'httpRequestTrackerService'
-    ,'menu-right-controller'
-    ,'read-rss-controllers'
-    ,'kanbanBoardCtrl'
-    ,'ProyectoControllers'
-    ,'CaliopeWebTemplateControllers'
-    ,'GisViewerController'
-    ,'ProyectoSummary'
-    ,'MenuTopControllers'
-    ,'login-controllers-form'
+    //,'httpRequestTrackerService'
+    //,'menu-right-controller'
+    //,'read-rss-controllers'
+    //,'kanbanBoardCtrl'
+    //,'ProyectoControllers'
+    //,'CaliopeWebTemplateControllers'
+    //,'GisViewerController'
+    //,'ProyectoSummary'
+    //,'MenuTopControllers'
+    //,'login-controllers-form'
     //,'CaliopeWebFormDirectives'
     //'ProyectoServices',
     //'LoginControllers',

@@ -1,9 +1,9 @@
 /*jslint browser: true*/
 /*global localStorage, Crypto, $scope*/
-define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
+define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'], function(angular){
   'use strict';
 
-  var moduleServices = angular.module('task-services', ['CaliopeWebTemplatesServices', 'ui.bootstrap.dialog', 'task-controllers']);
+  var moduleServices = angular.module('task-services', ['CaliopeWebTemplatesServices', 'ui.bootstrap.dialog']);
 
   moduleServices.factory('taskService',
     ['SessionSrv', 'loginSecurity', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv', 'toolservices'
