@@ -1,6 +1,6 @@
-define(['angular', 'application-servicesWebSocket'], function (angular, webSocket) {
+define(['angular'], function (angular) {
   angular.module('httpRequestTrackerService', []);
-  angular.module('httpRequestTrackerService').factory('httpRequestTrackerService', ['$http', 'webSocket', function($http, webSocket){
+  angular.module('httpRequestTrackerService').factory('httpRequestTrackerService', ['$http', function($http){
 
     var httpRequestTracker = {};
     var firstEvent = false;

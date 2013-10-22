@@ -4,6 +4,7 @@
 
 var dependencies = [
     'angular'
+<<<<<<< HEAD
 
     ,'angular-route-unstable'
     ,'application-servicesWebSocket'
@@ -36,20 +37,67 @@ var dependencies = [
     //'seeinmap-services',
     //'notificationsService',
     //'angular-ui-ng-grid',
+=======
+    ,'angular-route-unstable'
+    ,'application-controller'
+    ,'application-servicesWebSocket'
+    //'application-commonservices',
+    //'caliopeweb-templateServices',
+    //'caliopeweb-templateControllers',
+    //'caliopeweb-formDirectives',
+
+    //'admin-users-controller',
+
+    //'proyectomtv-controller',
+    //'proyectomtv-service',
+    //'proyectomtv-summary-controller',
+
+    //'login-security-services',
+    //'login-controllers',
+    //'login-controllers-form',
+    //'login-retryQueue',
+    //'login-directives',
+
+    //'seeinmap-directives',
+    //'menu-top-controller',
+    //'gis-view-ctrl',
+    //'gis-directives',
+    //'seeinmap-services',
+    //'notificationsService',
+    //'httpRequestTrackerService',
+    //'angular-ui-ng-grid',
+    //'menu-right-controller',
+>>>>>>> bf9341c... fix modules, requiere and angular
     //'files-uploader-controller',
     //'files-uploader-directives',
     //'wysiwyg-editor-controller',
     //'wysiwyg-editor-directive',
+<<<<<<< HEAD
     //'task-controllers',
     //'task-directives',
     //'task-services',
     //'read-rss-services',
+=======
+
+    //'task-controllers',
+    //'task-directives',
+    //'task-services',
+
+    //'kanban-board-controller',
+
+    //'read-rss-services',
+    //'read-rss-controllers'
+>>>>>>> bf9341c... fix modules, requiere and angular
   ];
 
 var modulesAngular = [
      'ngRoute'
     ,'webSocket'
     ,'CaliopeController'
+<<<<<<< HEAD
+=======
+    //,'httpRequestTrackerService'
+>>>>>>> bf9341c... fix modules, requiere and angular
     //,'menu-right-controller'
     //,'read-rss-controllers'
     //,'kanbanBoardCtrl'
@@ -59,7 +107,10 @@ var modulesAngular = [
     //,'ProyectoSummary'
     //,'MenuTopControllers'
     //,'login-controllers-form'
+<<<<<<< HEAD
     //,'httpRequestTrackerService'
+=======
+>>>>>>> bf9341c... fix modules, requiere and angular
     //,'CaliopeWebFormDirectives'
     //'ProyectoServices',
     //'LoginControllers',

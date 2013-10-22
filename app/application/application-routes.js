@@ -1,25 +1,25 @@
 /*jslint browser: true*/
 /*global window*/
-define(['angular', 'application-app'], function(angular, app) {
+define(['angular', 'application-app', 'application-controller'], function(angular, app) {
   'use strict';
 
   var ERROR_FORMTEMP_NOTFOUND = "FormTemplateNotFoundError";
 
   var pagesRoute = {
-    'projects' : '/proyectomtv/form-proyectomtv-partial.html',
-    'predialcards' : '/caliopeweb-forms/caliopeweb-form-partial.html',
-    'FichaPredial' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
-    'ActaReciboPredios' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
-    'AplicacionTraslado' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'projects'                 : '/proyectomtv/form-proyectomtv-partial.html',
+    'predialcards'             : '/caliopeweb-forms/caliopeweb-form-partial.html',
+    'FichaPredial'             : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'ActaReciboPredios'        : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'AplicacionTraslado'       : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
     'ChequeoTrasladoProvision' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
-    'DerechoPreferencia' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
-    'FichaCatastral' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
-    'FichaPrejuridica' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
-    'FichaUrbanistica' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
-    'ViabilidadNormativa' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
-    'ConceptoViabilidad' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
-    'EvaluacionProducto' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
-    'ControlAjustes' : '/caliopeweb-forms/caliopeweb-form-generic-partial.html'
+    'DerechoPreferencia'       : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'FichaCatastral'           : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'FichaPrejuridica'         : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'FichaUrbanistica'         : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'ViabilidadNormativa'      : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'ConceptoViabilidad'       : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'EvaluacionProducto'       : '/caliopeweb-forms/caliopeweb-form-generic-partial.html',
+    'ControlAjustes'           : '/caliopeweb-forms/caliopeweb-form-generic-partial.html'
   };
 
   app.config(['$routeProvider','$locationProvider'
@@ -120,7 +120,6 @@ define(['angular', 'application-app'], function(angular, app) {
         window.history.back();
       }
     });
-
   }]);
 
 });
