@@ -1,6 +1,6 @@
 /*jslint browser: true*/
 /*global window*/
-define(['angular', 'application-app', 'application-controller'], function(angular, app) {
+define(['angular', 'application-app'], function(angular, app) {
   'use strict';
 
   var ERROR_FORMTEMP_NOTFOUND = "FormTemplateNotFoundError";
@@ -67,7 +67,8 @@ define(['angular', 'application-app', 'application-controller'], function(angula
     })
 
     .when('/summary-proyectomtv', {
-      templateUrl: '/proyectomtv/proyectomtv-summary-partial.html'})
+      templateUrl: '/proyectomtv/proyectomtv-summary-partial.html'
+      ,controller: 'summaryProyectoCtrl'})
 
     .when('/gis', {
       templateUrl: '/tools-gis-viewer/partial-gis-init.html'})

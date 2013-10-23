@@ -1,11 +1,10 @@
 /*jslint browser: true*/
 /*global define, console, $*/
 
-define(['angular', 'caliopeWebForms'], function (angular, cwForm) {
+define(['angular', 'caliopeweb-formDirectives'], function (angular) {
   'use strict';
 
-console.log('cwForm text', cwForm);
-  var module = angular.module('task-controllers', []);
+  var module = angular.module('task-controllers', ['CaliopeWebFormDirectives']);
   /**
    *
    * @param result

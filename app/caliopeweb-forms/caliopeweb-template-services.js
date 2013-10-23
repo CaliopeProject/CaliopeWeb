@@ -7,7 +7,7 @@
  CaliopeWebFormLayoutDecorator,
  CaliopeWebForm,define
  */
-define(['angular'], function(angular) {
+define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
   'use strict';
 
   var moduleServices = angular.module('CaliopeWebTemplatesServices', []);
@@ -42,7 +42,7 @@ define(['angular'], function(angular) {
         if( cwForm !== undefined ) {
           var method = {};
           var promiseMode = {};
-          var webSockets = webSocket.WebSockets()
+          var webSockets = webSocket.WebSockets();
           var mode = cwForm.getMode();
           var model = cwForm.getEntityModel();
 
@@ -62,7 +62,7 @@ define(['angular'], function(angular) {
           if (mode === 'toCreate' || mode==='create' ) {
             method = model.concat('.getModel');
             promiseMode = webSockets.serversimm.sendRequest(method, params);
-            promiseMode.then(resolveResult)
+            promiseMode.then(resolveResult);
 
           } else if (mode === 'toEdit' || mode==='edit') {
             var modelUUID = cwForm.getModelUUID();
@@ -95,7 +95,7 @@ define(['angular'], function(angular) {
         }
 
         return promise;
-      };
+      }
 
       /**
       * Load the json template that define the form with fields.
@@ -230,9 +230,9 @@ define(['angular'], function(angular) {
 
             //cwForm.putDataToContext(context, result.elements);
           } else if(templateFromServer.error !== undefined) {
-            result.error = templateFromServer.error
+            result.error = templateFromServer.error;
           } else if(templateFromServer === undefined || templateFromServer.form === undefined ) {
-            result.error = 'Form load from server is empty'
+            result.error = 'Form load from server is empty';
           }
           return result;
       };
@@ -280,7 +280,7 @@ define(['angular'], function(angular) {
       var webSockets = webSocket.WebSockets();
 
       function load(dataGrid) {
-        var structureToRender = undefined;
+        var structureToRender;
         var error = false;
 
         if( dataGrid !== undefined && dataGrid !== null) {

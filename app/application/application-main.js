@@ -2,8 +2,8 @@
 /*global require, $*/
 
 require.config({
-  waitSeconds: 3,
-  urlArgs: "bust=" +  (new Date()).getTime(),
+  waitSeconds: 0,
+  //urlArgs: "bust=" +  (new Date()).getTime(),
   paths: {
     'jquery'                         : 'libs-js-thirdparty/jquery/jquery',
     'dform'                          : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
@@ -105,20 +105,20 @@ require.config({
 
     ,'wysiwyg-editor-directive'       : {'deps'    : ['jquery','angular','ckeditor']}
     ,'jquery.fileupload-angular'      : {'deps'    : [
-                                          'jquery',
-                                          'angular',
-                                          'jquery.ui.widget',
-                                          'load-image.min',
-                                          'canvas-to-blob.min',
-                                          'blueimp-gallery',
-                                          'jquery.blueimp-gallery',
-                                          'jquery.iframe-transport',
-                                          'jquery.fileupload',
-                                          'jquery.fileupload-process',
-                                          'jquery.fileupload-image',
-                                          'jquery.fileupload-audio',
-                                          'jquery.fileupload-video',
-                                          'jquery.fileupload-validate'
+                                          'jquery'
+                                          ,'angular'
+                                          ,'jquery.ui.widget'
+                                          ,'jquery.fileupload'
+                                          ,'jquery.fileupload-process'
+                                          //'load-image.min',
+                                          //'canvas-to-blob.min',
+                                          //'blueimp-gallery',
+                                          //'jquery.blueimp-gallery',
+                                          //'jquery.iframe-transport',
+                                          //'jquery.fileupload-image',
+                                          //'jquery.fileupload-audio',
+                                          //'jquery.fileupload-video',
+                                          //'jquery.fileupload-validate'
                                         ]}
 
     ,'dform'                          : {'deps'      : ['jquery']}

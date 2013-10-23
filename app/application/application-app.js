@@ -11,6 +11,9 @@ var dependencies = [
   ,'read-rss-controllers'
   ,'kanban-board-controller'
   ,'login-controllers-form'
+  ,'proyectomtv-summary-controller'
+  ,'caliopeweb-templateControllers'
+  ,'gis-view-ctrl'
 ];
 
 var modulesAngular = [
@@ -21,6 +24,9 @@ var modulesAngular = [
   ,'read-rss-controllers'
   ,'kanbanBoardCtrl'
   ,'login-controllers-form'
+  ,'ProyectoSummary'
+  ,'CaliopeWebTemplateControllers'
+  ,'GisViewerController'
 ];
 
 define(dependencies, function (angular) {
