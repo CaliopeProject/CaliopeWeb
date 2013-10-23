@@ -11,24 +11,21 @@
 </script>
 <div class="navbar-inner">
   <div class="row-fluid" >
-    <div class="span2">
+    <div class="span3">
       <ul class="nav ace-nav">
         <li class="light-orange" ng-show="isAuthenticated()" >
         <a data-toggle="dropdown" ng-click='changeMenu()' class="dropdown-toggle" href="#">
           <i ng-class="{'icon-chevron-down': !showMenu}"></i>
           <i ng-class="{'icon-chevron-up': showMenu}"></i>
-          Menu 
+          Menu
         </a>
         </li>
         <li class="dark">
           <a>SIMM</a>
         </li>
-        <li>
-          <div id="output">Texto: </div>
-        </li>
       </ul><!--/.w8-nav-->
     </div>
-    <div class="span10">
+    <div class="span9">
       <ul class="nav ace-nav pull-right">
         <li id="loadingSpin" ng-show="hasPendingRequests() && isAuthenticated()">
         <a data-toggle="dropdown" class="dropdown-toggle" href="#">

@@ -1,6 +1,6 @@
 /*jslint browser: true*/
 /*global $scope, angular */
-define(['angular'], function(angular) {
+define(['angular','angular-ui-bootstrap-bower'], function(angular) {
   'use strict';
   var moduleControllers = angular.module('menu-right-controller', ['ui.bootstrap']);
 

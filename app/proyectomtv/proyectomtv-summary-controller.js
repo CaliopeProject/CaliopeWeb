@@ -4,7 +4,7 @@ define(['angular'], function (angular) {
   'use strict';
   var dirmodule = angular.module('ProyectoSummary', ['ui.bootstrap']);
 
-  dirmodule.controller("summaryProyecto",
+  dirmodule.controller("summaryProyectoCtrl",
     ["$scope",'taskService', function($scope, taskService) {
       $scope.tasks = [];
       var maxpoint = 10;

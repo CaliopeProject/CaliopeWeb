@@ -2,7 +2,7 @@
 /*global $scope, angular */
 
 
-define(['angular'], function(angular) {
+define(['angular','login-security-services'], function(angular) {
   'use strict';
   var moduleControllers = angular.module('MenuTopControllers', []);
 
