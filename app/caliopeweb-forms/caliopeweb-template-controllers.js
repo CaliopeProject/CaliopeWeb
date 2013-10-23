@@ -10,7 +10,7 @@
 /**
 * Define the module angular in RequireJS
 */
-define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
+define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload-angular'], function (angular) {
   'use strict';
 
   /**

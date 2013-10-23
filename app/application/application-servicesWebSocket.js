@@ -1,7 +1,7 @@
 /*jslint browser: true*/
 /*global UUIDjs, WebSocket, WebSocketCaliope*/
 
-define(['angular', 'uuid'], function(angular) {
+define(['angular', 'notificationsService', 'uuid'], function(angular) {
   'use strict';
 
   var moduleWebSocket = angular.module('webSocket', ['NotificationsServices']);
@@ -16,9 +16,23 @@ define(['angular', 'uuid'], function(angular) {
     'error-att-name'    : 'error'
   });
 
-  moduleWebSocket.factory('webSocket',
-    ['$q', '$rootScope', 'JsonRpcConst','global_constants', 'HandlerResponseServerSrv', '$timeout',
-      function($q, $rootScope, jsonRpcConst, global_constants, handlerResponseSrv, $timeout) {
+  moduleWebSocket.factory('webSocket',[
+     '$q'
+    ,'$rootScope'
+    ,'JsonRpcConst'
+    ,'global_constants'
+    ,'HandlerResponseServerSrv'
+    ,'$timeout'
+    ,'HandlerNotification'
+
+    ,function(
+        $q
+      , $rootScope
+      , jsonRpcConst
+      , global_constants
+      , handlerResponseSrv
+      , $timeout
+      , HandlerNotification){
 
         var Service = {};
         var webSockets = {};
@@ -174,25 +188,27 @@ define(['angular', 'uuid'], function(angular) {
           */
           var listener = function (data) {
             var messageObj = data;
-            console.log("Received data from websocket 109: ", messageObj);
+            var procces    = function (callvalue){
+              if(callbacks.hasOwnProperty(callvalue[callbackAttName])) {
+                $rootScope.$apply(
+                  callbacks[callvalue[callbackAttName]].cb.resolve(callvalue)
+                );
+                delete callbacks[callvalue[callbackAttName]];
+              }else{
+                if(!angular.isUndefined(messageObj.method)){
+                  HandlerNotification.sendinfo(messageObj.params);
+                }
+              }
+            };
+            console.log("Received data from websocket 177: ", messageObj);
             // If an object exists with callback_id in our callbacks object, resolve it
             // console.log("messageObj.data:", messageObj.data);
             if(angular.isArray(messageObj)){
               angular.forEach(messageObj, function(value){
-                if(callbacks.hasOwnProperty(value[callbackAttName])) {
-                  $rootScope.$apply(
-                    callbacks[value[callbackAttName]].cb.resolve(value)
-                  );
-                  delete callbacks[value[callbackAttName]];
-                }
+                procces(value);
               });
             }else{
-              if(callbacks.hasOwnProperty(messageObj[callbackAttName])) {
-                $rootScope.$apply(
-                  callbacks[messageObj[callbackAttName]].cb.resolve(messageObj)
-                );
-                delete callbacks[messageObj[callbackAttName]];
-              }
+              procces(messageObj);
             }
           };
 

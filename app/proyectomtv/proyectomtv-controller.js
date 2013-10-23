@@ -1,7 +1,8 @@
-define(['angular'], function(angular) {
+define(['angular','caliopeWebForms'], function(angular) {
   'use strict';
 
-  var moduleControllers = angular.module('ProyectoControllers', []);
+  var moduleControllers = angular.module('ProyectoControllers', ['CaliopeWebFormDirectives', 'wysiwygEditorDirective', 'fileuploaderDirectives']);
+
 
   /**
    *
@@ -40,13 +41,12 @@ define(['angular'], function(angular) {
     ['caliopewebTemplateSrv', 'caliopewebGridSrv', '$scope', '$routeParams',
     function (cwFormService, cwGridService, $scope, $routeParams) {
 
-
       $scope.initGrid = function() {
         /*
         TODO: Load the value gridEntity from server.
          */
         $scope.gridEntity = 'projects';
-        var cwGrid = $scope['gridProjectsmtv'];
+        var cwGrid = $scope.gridProjectsmtv;
         cwGrid.addColumn("name", {"name": "Nombre", "show" : true});
         //cwGrid.addColumn("locality", {"name": "Localidad", "show" : true});
         //cwGrid.addColumn("uuid", {"name": "Id", "show" : true});
@@ -95,20 +95,6 @@ define(['angular'], function(angular) {
           $scope.$broadcast('changeActions', [['projects.edit'],['projects.create']]);
         }
       });
-
-
-      /*
-      Ejemplo de carga de grilla cuando se invoca un evento y se envian parámetros.
-      $scope.findWithFilter = function(uuidProyecto) {
-        var cwGrid = $scope['gridProjectsmtv'];
-        var parameters = {
-          //"uuid" : uuidProyecto
-        }
-        cwGrid.setParameters(parameters);
-        console.log('gridDataName', cwGrid.getGridDataName());
-        $scope[cwGrid.getGridDataName()] = cwGrid.loadDataFromServer();
-      };
-      */
 
     }]
   );

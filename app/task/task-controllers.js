@@ -1,10 +1,10 @@
 /*jslint browser: true*/
 /*global define, console, $*/
 
-define(['angular', 'Crypto'], function (angular) {
+define(['angular', 'caliopeweb-formDirectives'], function (angular) {
   'use strict';
 
-  var module = angular.module('task-controllers', []);
+  var module = angular.module('task-controllers', ['CaliopeWebFormDirectives']);
   /**
    *
    * @param result
@@ -56,7 +56,7 @@ define(['angular', 'Crypto'], function (angular) {
 
 
       $scope.$on('actionComplete', function(event, result) {
-        if( result[1] == true ) {
+        if( result[1] === true ) {
           cwForm.addData(result[2]);
           cwForm.dataToViewData($scope);
         }

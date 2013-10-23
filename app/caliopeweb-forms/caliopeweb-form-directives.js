@@ -38,7 +38,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
    * @memberOf CaliopeWebFormDirectives
    * @type {module}
    */
-  var moduleDirectives = angular.module('CaliopeWebFormDirectives', []);
+  var moduleDirectives = angular.module('CaliopeWebFormDirectives', ['CaliopeWebTemplatesServices','commonServices' ]);
 
   /**
    * Define the directive for cw-dform. This print a html form using the

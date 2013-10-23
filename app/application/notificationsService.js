@@ -6,7 +6,7 @@ define(['angular', 'application-commonservices'], function (angular) {
 
   var  moduleservice = angular.module('NotificationsServices', ['commonServices']);
 
-  return moduleservice.factory('HandlerResponseServerSrv',
+  moduleservice.factory('HandlerResponseServerSrv',
       ['$rootScope', 'toolservices', function ($rootScope, toolservices) {
 
         var dataToProcess, selector, mensOk, mensError, addPromises;
@@ -78,4 +78,20 @@ define(['angular', 'application-commonservices'], function (angular) {
         };
 
       }]);
+
+      moduleservice.factory('HandlerNotification',
+        ['$rootScope', function ($rootScope, toolservices) {
+        var service = {};
+        var sendmessage = function(mssage){
+          $rootScope.$broadcast('ChangeTextAlertMessage', [mssage]);
+        };
+
+        service = {
+          sendinfo: sendmessage
+        };
+
+        return service;
+      }]);
+
+      return moduleservice;
 });

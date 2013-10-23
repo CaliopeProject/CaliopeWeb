@@ -3,16 +3,21 @@
   <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
   <!-- ALERT END-->
 </div>
-
+<script type="text/javascript" charset="utf-8">
+  sse = new EventSource('/event_from_server');
+  sse.onmessage = function(message) {
+    $('#output').html(message.data);
+  };
+</script>
 <div class="navbar-inner">
   <div class="row-fluid" >
-    <div class="span2">
+    <div class="span3">
       <ul class="nav ace-nav">
         <li class="light-orange" ng-show="isAuthenticated()" >
         <a data-toggle="dropdown" ng-click='changeMenu()' class="dropdown-toggle" href="#">
           <i ng-class="{'icon-chevron-down': !showMenu}"></i>
           <i ng-class="{'icon-chevron-up': showMenu}"></i>
-          Menu 
+          Menu
         </a>
         </li>
         <li class="dark">
@@ -20,19 +25,8 @@
         </li>
       </ul><!--/.w8-nav-->
     </div>
-    <div class="span10">
-        <!-- NAV-SEARCH INIT-->
-        <div id="nav-search" ng-show="isAuthenticated()">
-          <form class="form-search">
-            <span class="input-icon">
-              <input type="text" placeholder="Busca algo divertido ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
-              <i class="icon-search" id="nav-search-icon"></i>
-            </span>
-          </form>
-        </div>
-        <!-- NAV-SEARCH END-->
+    <div class="span9">
       <ul class="nav ace-nav pull-right">
-
         <li id="loadingSpin" ng-show="hasPendingRequests() && isAuthenticated()">
         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
           <div class="spinner">
@@ -48,6 +42,70 @@
             <div class="spin-line sl10"></div>
           </div>
         </a>
+        </li>
+
+        <li class="purple open">
+        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+          <i class="icon-bell-alt icon-only"></i>
+          <span class="badge badge-important">8</span>
+        </a>
+
+        <ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
+          <li class="nav-header">
+          <i class="icon-warning-sign"></i>
+          8 Notifications
+          </li>
+
+          <li>
+          <a href="#">
+            <div class="clearfix">
+              <span class="pull-left">
+                <i class="btn btn-mini no-hover btn-pink icon-comment"></i>
+                New Comments
+              </span>
+              <span class="pull-right badge badge-info">+12</span>
+            </div>
+          </a>
+          </li>
+
+          <li>
+          <a href="#">
+            <i class="btn btn-mini btn-primary icon-user"></i>
+            Bob just signed up as an editor ...
+          </a>
+          </li>
+
+          <li>
+          <a href="#">
+            <div class="clearfix">
+              <span class="pull-left">
+                <i class="btn btn-mini no-hover btn-success icon-shopping-cart"></i>
+                New Orders
+              </span>
+              <span class="pull-right badge badge-success">+8</span>
+            </div>
+          </a>
+          </li>
+
+          <li>
+          <a href="#">
+            <div class="clearfix">
+              <span class="pull-left">
+                <i class="btn btn-mini no-hover btn-info icon-twitter"></i>
+                Followers
+              </span>
+              <span class="pull-right badge badge-info">+11</span>
+            </div>
+          </a>
+          </li>
+
+          <li>
+          <a href="#">
+            See all notifications
+            <i class="icon-arrow-right"></i>
+          </a>
+          </li>
+        </ul>
         </li>
 
         <li class="grey" ng-show="isAuthenticated()" >
