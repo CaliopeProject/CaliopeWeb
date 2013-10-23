@@ -1037,6 +1037,54 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 
       }
     }
+  }
+
+
+  /**
+   * Add
+   *
+   * @function
+   * @memberOf CaliopeWebFormSpecificDecorator
+   * @param {array} elementsTemplate Elements Field config in the template.
+   */
+  function completeTypeForm(elementsTemplate) {
+    var i;
+    var TYPE_FORM = 'form';
+    var TYPE_CWFORM = "cw-form-inner"
+    var ATT_OPTIONSFORM = "options-form";
+    var VARNAME_TEMPLATE = ""
+    var ATT_FROM_ROUTEPARAMS = "from-routeparams";
+    var ATT_NG_INIT = "ng-init"
+
+    jQuery.each(elementsTemplate, function(kElement, vElement){
+
+      if( vElement.type === TYPE_FORM) {
+
+        if( !vElement.hasOwnProperty(ATT_OPTIONSFORM) ) {
+          var msg =  "";
+          throw Error( 'Obligatory attribute '.concat(ATT_OPTIONSFORM).
+              concat(' for element ').concat(vElement) );
+        }
+
+        vElement.typeo = TYPE_FORM;
+        vElement.type = TYPE_CWFORM;
+        vElement[ATT_FROM_ROUTEPARAMS] = "false";
+        vElement.entity = vElement[ATT_OPTIONSFORM].formId;
+        vElement.generic = vElement[ATT_OPTIONSFORM].generic;
+        //TODO Mirar como manejar el modo.
+
+        /*
+        vElement[ATT_NG_INIT] = "init(".
+            concat("'").concat(vElement[ATT_OPTIONSFORM].formId).concat("',").
+            concat("'").concat('create').concat("',").
+            concat("'").concat("',").
+            concat("'").concat(vElement[ATT_OPTIONSFORM].generic).concat("')");
+         */
+
+        delete vElement['ng-model'];
+        delete vElement[ATT_OPTIONSFORM];
+      }
+    });
 
   }
 
@@ -1194,7 +1242,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeExecuteTask(elementsTemplate, data);
         completeTypeCwGrid(elementsTemplate);
         completeTypeRadioButtonsCheckBoxess(elementsTemplate);
-
+        completeTypeForm(elementsTemplate);
         return structureInit;
       };
     }
