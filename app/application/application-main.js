@@ -3,22 +3,24 @@
 
 require.config({
   waitSeconds: 0,
-  //urlArgs: "bust=" +  (new Date()).getTime(),
   paths: {
     'jquery'                         : 'libs-js-thirdparty/jquery/jquery',
-    'dform'                          : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
     'angular'                        : 'libs-js-thirdparty/angular-unstable/angular',
+    'dform'                          : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
+    'onResourceLoad'                 : 'application/onResourceLoad',
     'angular-route-unstable'         : 'libs-js-thirdparty/angular-route-unstable/angular-route',
     'angular-ui-bootstrap-bower'     : 'libs-js-thirdparty/angular-ui-bootstrap-bower/ui-bootstrap-tpls',
     'angular-ui-ng-grid'             : 'libs-js-thirdparty/ng-grid/ng-grid-2.0.7.debug',
     'uuid'                           : 'libs-js-thirdparty/uuid-js/lib/uuid',
     'Crypto'                         : 'libs-js-thirdparty/cryptojs/lib/Crypto',
     'CryptoSHA256'                   : 'libs-js-thirdparty/cryptojs/lib/SHA256',
+
+    'jquery-ui'                      : 'libs-js-thirdparty/jquery-ui/ui/jquery-ui',
+    'angular-dragdrop'               : 'libs-js-thirdparty/angular-dragdrop/src/angular-dragdrop',
+
     'jquery.fileupload'              : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload',
-    'jquery.ui.widget'               : 'libs-js-thirdparty/jquery-file-upload/js/vendor/jquery.ui.widget',
-    'jquery.fileupload-ui'           : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-ui',
-    'jquery.fileupload-process'      : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-process',
-    'jquery.fileupload-angular'      : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload-angular',
+    'jquery-ui-widget'               : 'libs-js-thirdparty/jquery-file-upload/js/vendor/jquery.ui.widget',
+
     'files-uploader-controller'      : 'tools-files-uploader/files-uploader-controller',
     'files-uploader-directives'      : 'tools-files-uploader/files-uploader-directives',
 
@@ -77,10 +79,7 @@ require.config({
     'task-directives'                : 'task/task-directives',
 
     'read-rss-services'              : 'read-rss/read-rss-services',
-    'read-rss-controllers'           : 'read-rss/read-rss-controllers',
-
-    'jquery-ui'                      : 'libs-js-thirdparty/jquery-ui/ui/jquery-ui',
-    'angular-dragdrop'               : 'libs-js-thirdparty/angular-dragdrop/src/angular-dragdrop'
+    'read-rss-controllers'           : 'read-rss/read-rss-controllers'
   },
   baseUrl: '/',
   shim: {
@@ -98,28 +97,14 @@ require.config({
     ,'application-servicesWebSocket'  : {'exports' : 'webSocket', 'deps': ['notificationsService','uuid']}
     ,'notificationsService'           : {'deps'    : ['application-commonservices']}
     ,'jquery-ui'                      : {'deps'    : ['jquery']}
+    ,'jquery.fileupload-angular'      : {'deps'    : ['jquery', 'angular', 'jquery.ui.widget']}
+
     ,'angular-dragdrop'               : {'deps'    : ['angular', 'jquery-ui']}
     ,'application-event'              : {'deps'    : ['jquery']}
 
     ,'CryptoSHA256'                   : {'deps'    : ['Crypto']}
 
     ,'wysiwyg-editor-directive'       : {'deps'    : ['jquery','angular','ckeditor']}
-    ,'jquery.fileupload-angular'      : {'deps'    : [
-                                          'jquery'
-                                          ,'angular'
-                                          ,'jquery.ui.widget'
-                                          ,'jquery.fileupload'
-                                          ,'jquery.fileupload-process'
-                                          //'load-image.min',
-                                          //'canvas-to-blob.min',
-                                          //'blueimp-gallery',
-                                          //'jquery.blueimp-gallery',
-                                          //'jquery.iframe-transport',
-                                          //'jquery.fileupload-image',
-                                          //'jquery.fileupload-audio',
-                                          //'jquery.fileupload-video',
-                                          //'jquery.fileupload-validate'
-                                        ]}
 
     ,'dform'                          : {'deps'      : ['jquery']}
 
@@ -133,24 +118,28 @@ require.config({
     ,'angularMocks'                   : {'deps'      : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
-    "angular"
+     "onResourceLoad"
   ]
 });
 
-require([
-   'jquery'
-  ,'angular'
-  ,'application-app'
-  ,'application-routes'
-], function(jQuery, angular, app, routes) {
-  'use strict';
-  $(document).ready(function () {
-    var $html = $('html');
-    angular.bootstrap($html, [app.name]);
-    // Because of RequireJS we need to bootstrap the app app manually
-    // and Angular Scenario runner won't be able to communicate with our app
-    // unless we explicitely mark the container as app holder
-    // More info: https://groups.google.com/forum/#!msg/angular/yslVnZh9Yjk/MLi3VGXZLeMJ
-    $html.addClass('ng-app');
+
+//show de
+require(['onResourceLoad'], function () {
+  require([
+    'jquery'
+    ,'angular'
+    ,'application-app'
+    ,'application-routes'
+  ], function(jQuery, angular, app, routes) {
+    'use strict';
+    $(document).ready(function () {
+      var $html = $('html');
+      angular.bootstrap($html, [app.name]);
+      // Because of RequireJS we need to bootstrap the app app manually
+      // and Angular Scenario runner won't be able to communicate with our app
+      // unless we explicitely mark the container as app holder
+      // More info: https://groups.google.com/forum/#!msg/angular/yslVnZh9Yjk/MLi3VGXZLeMJ
+      $html.addClass('ng-app');
+    });
   });
 });

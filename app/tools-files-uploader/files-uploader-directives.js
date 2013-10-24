@@ -1,7 +1,7 @@
 /*jslint browser: true*/
 /*global define, console, $*/
 
-define(['angular','jquery.fileupload'], function (angular) {
+define(['angular','jquery.fileupload','jquery.ui.widget'], function (angular) {
   'use strict';
 
 var dirmodule = angular.module('fileuploaderDirectives', ['login-security-services']);
