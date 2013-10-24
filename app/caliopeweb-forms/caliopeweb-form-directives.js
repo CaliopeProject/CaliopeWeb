@@ -211,7 +211,11 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
 
 
           try {
+            /*
+            Compile the element with cw-dform tag to apply the new contents
+             */
             $compile($element.contents())($scope);
+
           } catch (exCom) {
             console.log('Error compiling form-inner' +  exCom.message);
           }
