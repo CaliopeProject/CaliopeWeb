@@ -131,10 +131,18 @@ var CaliopeWebForm = (function() {
 
   /**
    * Indicate if the CWForm is a generic form
-   * @member {object} isGeneric
+   * @member {object} genericForm
    * @memberOf CaliopeWebForm
    */
     var genericForm;
+
+    /**
+     * Indicate if the CWForm is a inner form
+     * @member {object} innerForm
+     * @memberOf CaliopeWebForm
+     */
+    var innerForm;
+
 
   /**
    * This function search all the elements that are presents in the form structure. This function
@@ -232,6 +240,8 @@ var CaliopeWebForm = (function() {
       this.entityModel = entityModel;
       this.mode = mode;
       this.modelUUID = uuid;
+      this.genericForm = false;
+      this.innerForm = false;
     };
 
     function dataToViewData(elements, dataFromServer) {
@@ -543,7 +553,7 @@ var CaliopeWebForm = (function() {
       },
 
     /**
-     * Get the elements (input) contains in the structure
+     * Get the  entity model of form
      * @function
      * @memberOf CaliopeWebForm
      *
@@ -551,6 +561,29 @@ var CaliopeWebForm = (function() {
      */
       getEntityModel : function() {
         return this.entityModel;
+      },
+
+    /**
+     * Indicate if form is a generic form or not
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {boolean}
+     */
+      getGenericForm : function() {
+        return this.genericForm;
+      },
+
+
+    /**
+     * Indicate if form is a inner form
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {boolean}
+     */
+      getInnerForm : function() {
+        return this.innerForm;
       },
 
     /**
@@ -654,6 +687,22 @@ var CaliopeWebForm = (function() {
      */
     setEntityModel : function(entityModel) {
       this.entityModel = entityModel;
+    },
+
+    /**
+     * Set the value that indicate if form is a generic form
+     * @param genericForm
+     */
+    setGenericForm : function(genericForm) {
+      this.genericForm = genericForm;
+    },
+
+    /**
+     * Set the value that indicate if form is a inner form
+     * @param genericForm
+     */
+    setInnerForm : function(innerForm) {
+      this.innerForm = innerForm;
     },
 
     /**
@@ -1386,7 +1435,9 @@ var CaliopeWebFormActionsDecorator = ( function() {
         objID = '';
       }
       caliopeWebForm.createStructureToRender = function() {
-        completeActions(structureInit, structureAction, actionsToShow, formName, modelUUID, objID);
+        if( caliopeWebForm.getInnerForm() === false ) {
+          completeActions(structureInit, structureAction, actionsToShow, formName, modelUUID, objID);
+        }
         return structureInit;
       };
     }
