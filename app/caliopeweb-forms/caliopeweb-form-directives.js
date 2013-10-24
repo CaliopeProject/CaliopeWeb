@@ -76,7 +76,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
         var mode = $attrs['mode'];
         var uuid = $attrs['uuid'];
         var name = $attrs['name'];
-
+        var generic = $attrs['generic'];
+        var inner = $attrs['inner'];
 
         if( $attrs['fromRouteparams'] !== undefined &&
             $attrs['fromRouteparams'] === "true") {
@@ -98,6 +99,12 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           }
         }
         var cwForm = cwFormService.createForm(entity, mode, uuid);
+        if( generic === true || generic === "true") {
+          cwForm.setGenericForm(true);
+        }
+        if( inner === true || inner === "true") {
+          cwForm.setInnerForm(true);
+        }
         $scope['cwForm-name'] = 'cwForm-'.concat(name);
         $scope[$scope['cwForm-name']] = cwForm;
       },
@@ -199,7 +206,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           var generic = $attrs['generic'];
           var jsonTemVarName = 'jsonTemplate_'.concat(name);
 
-          var cwFormDef = '<cw-dform name="{{name}}" entity="{{entity}}" mode="{{mode}}" cw-dform="{{jsonTemVarName}}" uuid="{{uuid}}" from-routeparams="false" enc-uuid="false" ng-init="init({{generic}})"></cw-dform>'
+          var cwFormDef = '<cw-dform cw-dform="{{jsonTemVarName}}" name="{{name}}" entity="{{entity}}" mode="{{mode}}" uuid="{{uuid}}" generic="{{generic}}" inner="true" from-routeparams="false" enc-uuid="false" ng-init="init()"></cw-dform>'
           cwFormDef = cwFormDef.replace('{{name}}', name);
           cwFormDef = cwFormDef.replace('{{jsonTemVarName}}', jsonTemVarName);
           cwFormDef = cwFormDef.replace('{{entity}}', entity);

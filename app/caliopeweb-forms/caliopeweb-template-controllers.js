@@ -82,7 +82,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload-angul
           return cwForm;
         };
 
-        $scope.init = function(generic) {
+        $scope.init = function() {
 
           var cwForm = getForm();
           var params = {};
@@ -92,7 +92,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload-angul
             $scope.showWidgetTask=true;
           }
 
-          if( generic === true || generic === "true" ) {
+          if( cwForm.getGenericForm() === true || cwForm.getGenericForm() === "true" ) {
             processGenericForm(cwForm, params, cwForm.getEntityModel());
 
           }
@@ -101,7 +101,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload-angul
 
           calwebTemSrv.loadForm(cwForm, params).then(function(result) {
             processResultLoadForm(result, $scope);
-            if( generic === true ) {
+            if( cwForm.getGenericForm() === true ) {
               $scope.entityModel = params.formId;
             }
           });
