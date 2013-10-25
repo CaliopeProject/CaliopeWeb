@@ -1,15 +1,16 @@
 <div class="cw-inner-form" ng-controller="CaliopeWebTemplateCtrl">
   <div name="container-title">
-    <button name="btn-add" class="btn btn-mini btn-title" type="button" ng-disabled="disabledAdd" ng-click="renderForm()">Agregar</button>
+    <button name="btn-add" class="btn btn-mini btn-title" type="button" ng-disabled="disabledAdd" ng-click="renderInnerForm()">Agregar</button>
   </div>
 
-  <div name="container-set" ng-show="showSet">
+  <div name="container-table" ng-show="showTable">
+    Tabla
   </div>
 
-  <div name="container-form">
+  <div name="container-form" ng-show="showForm">
   </div>
 
-  <div name="container-btn" class="modal-footer" ng-show="showContainerBtn">
+  <div name="container-btns" class="modal-footer" ng-show="showBtns">
     <button name="btn-cancel" class="btn btn-mini btn-title" type="button" ng-click="cancel()">Cancelar</button>
     <button name="btn-terminate" class="btn btn-mini btn-title" type="button" ng-click="terminate()">Terminar</button>
   </div>
