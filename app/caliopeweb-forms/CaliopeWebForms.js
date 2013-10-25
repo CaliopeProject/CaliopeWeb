@@ -910,6 +910,73 @@ var CaliopeWebFormSpecificDecorator = ( function() {
   }
 
   /**
+   * This function process the elements of type radiobuttons, checkboxes and checkbox.
+   * For radiobuttons and checkboxes the process is performance over option attribute.
+   * @function
+   * @memberOf CaliopeWebFormSpecificDecorator
+   * @param{array} elementsInputs Elements Field config in the template.
+   */
+  function completeTypeRadioButtonsCheckBoxess(elementsInputs) {
+
+    /*
+     * Verificar que existan elementos
+     */
+    if( elementsInputs !== undefined && elementsInputs.length > 0) {
+
+      var TYPE_RADIO = 'radio';
+      var TYPE_CHECK = 'checkbox';
+      var VALUE_TRUE = 'True';
+      var VALUE_FALSE = 'False';
+
+      var radioContainer = {
+        "type" : "",
+        "ng-model" : "",
+        "value" : "",
+        "html" : ""
+      }
+
+      /*
+       Para cada elemento del tipo (type) radiobuttons y/o checkboxes agregar a los options el ng-model,
+       el caption y el value. Quitar del principal el ng-model
+       */
+      jQuery.each(elementsInputs, function(kElement, vElement){
+        var options = [];
+        if( vElement.type === 'radiobuttons' || vElement.type === 'checkboxes') {
+          var ngmodel = vElement['ng-model'];
+          delete vElement['ng-model'];
+
+          jQuery.each(vElement.options, function(kOption, vOptions){
+            var option = {};
+            jQuery.extend(true, option, radioContainer);
+            if(vElement.type === 'radiobuttons') {
+              option.type = TYPE_RADIO;
+              option['ng-model'] = ngmodel;
+              option.value = kOption;
+            } else if(vElement.type === 'checkboxes') {
+              option.type = TYPE_CHECK;
+              option['ng-model'] = ngmodel.concat('.').concat(kOption);
+              option['ng-true-value'] = VALUE_TRUE;
+              option['ng-false-value'] = VALUE_FALSE;
+            }
+            delete option.name;
+            options.push(option);
+            option.caption = vOptions;
+          });
+          delete vElement.options;
+          vElement.html = [];
+          vElement.html = vElement.html.concat(options);
+        }
+
+        if( vElement.type === 'checkbox' ) {
+          vElement['ng-true-value'] = VALUE_TRUE;
+          vElement['ng-false-value'] = VALUE_FALSE;
+        }
+
+      });
+    }
+  }
+
+  /**
    * Add datepicker angular directive to the structure for each elements in the structure with
    * the type datepicker defined in json structure form.
    *
@@ -970,6 +1037,54 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 
       }
     }
+  }
+
+
+  /**
+   * Add
+   *
+   * @function
+   * @memberOf CaliopeWebFormSpecificDecorator
+   * @param {array} elementsTemplate Elements Field config in the template.
+   */
+  function completeTypeForm(elementsTemplate) {
+    var i;
+    var TYPE_FORM = 'form';
+    var TYPE_CWFORM = "cw-form-inner"
+    var ATT_OPTIONSFORM = "options-form";
+    var VARNAME_TEMPLATE = ""
+    var ATT_FROM_ROUTEPARAMS = "from-routeparams";
+    var ATT_NG_INIT = "ng-init"
+
+    jQuery.each(elementsTemplate, function(kElement, vElement){
+
+      if( vElement.type === TYPE_FORM) {
+
+        if( !vElement.hasOwnProperty(ATT_OPTIONSFORM) ) {
+          var msg =  "";
+          throw Error( 'Obligatory attribute '.concat(ATT_OPTIONSFORM).
+              concat(' for element ').concat(vElement) );
+        }
+
+        vElement.typeo = TYPE_FORM;
+        vElement.type = TYPE_CWFORM;
+        vElement[ATT_FROM_ROUTEPARAMS] = "false";
+        vElement.entity = vElement[ATT_OPTIONSFORM].formId;
+        vElement.generic = vElement[ATT_OPTIONSFORM].generic;
+        //TODO Mirar como manejar el modo.
+
+        /*
+        vElement[ATT_NG_INIT] = "init(".
+            concat("'").concat(vElement[ATT_OPTIONSFORM].formId).concat("',").
+            concat("'").concat('create').concat("',").
+            concat("'").concat("',").
+            concat("'").concat(vElement[ATT_OPTIONSFORM].generic).concat("')");
+         */
+
+        delete vElement['ng-model'];
+        delete vElement[ATT_OPTIONSFORM];
+      }
+    });
 
   }
 
@@ -1126,7 +1241,8 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeMultiChoices(elementsTemplate,data);
         completeTypeExecuteTask(elementsTemplate, data);
         completeTypeCwGrid(elementsTemplate);
-
+        completeTypeRadioButtonsCheckBoxess(elementsTemplate);
+        completeTypeForm(elementsTemplate);
         return structureInit;
       };
     }

@@ -26,7 +26,11 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload'], fu
     if( result !== undefined && result.error === undefined) {
       if( result !== undefined ) {
         if( result.structureToRender !== undefined ) {
-          $scope.jsonPlantillaAngular = result.structureToRender;
+          var varTemplate = 'jsonPlantillaAngular';
+          if($scope['cwForm-varTemplate'] !== undefined) {
+            varTemplate = $scope['cwForm-varTemplate'];
+          }
+          $scope[varTemplate] = result.structureToRender;
         }
         if( result.elements !== undefined ) {
           $scope.elementsFormTemplate = result.elements;
@@ -59,19 +63,47 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload'], fu
       function (calwebTemSrv, $scope, $routeParams) {
 
 
-        $scope.init = function(template, mode, uuid) {
-          var calwebtem = calwebTemSrv.caliopeForm;
-          calwebtem.id     = template;
-          calwebtem.mode   = mode;
-          calwebtem.uuid   = uuid;
+        $scope.showFormInner = function() {
+          console.log('showFormInner', $scope.showForm_propietario);
+          console.log('jsonPlantillaAngularPropietario', $scope.jsonPlantillaAngularPropietario);
+          $scope.showForm_propietario=true;
+        };
 
-          if(uuid !== undefined && uuid.length > 0) {
+        function processGenericForm(cwForm, params, entity) {
+            params.formId = entity;
+            cwForm.setEntityModel('form');
+            $scope.entityModel = entity;
+        };
+
+        function getForm() {
+          var cwFormName = $scope['cwForm-name'];
+          var cwForm = $scope[cwFormName];
+
+          return cwForm;
+        };
+
+        $scope.init = function(generic) {
+
+          var cwForm = getForm();
+          var params = {};
+
+
+          if(cwForm.getModelUUID() !== undefined && cwForm.getModelUUID().length > 0) {
             $scope.showWidgetTask=true;
           }
 
-          $scope.caliopeForm   = calwebTemSrv.caliopeForm;
-          calwebTemSrv.loadTemplateData().then(function(result) {
+          if( generic === true || generic === "true" ) {
+            processGenericForm(cwForm, params, cwForm.getEntityModel());
+
+          }
+
+          $scope.caliopeForm   = cwForm;
+
+          calwebTemSrv.loadForm(cwForm, params).then(function(result) {
             processResultLoadForm(result, $scope);
+            if( generic === true ) {
+              $scope.entityModel = params.formId;
+            }
           });
         };
 
@@ -83,14 +115,13 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload'], fu
           if($routeParams.uuid !== undefined && $routeParams.uuid.length > 0) {
             $scope.showWidgetTask=true;
           }
-
-          if( generic === true ) {
-            params.formId = $routeParams.entity;
-            cwForm.setEntityModel('form');
+          if( generic === true || generic === "true") {
+            processGenericForm(cwForm, params, $routeParams.entity);
             $scope.entityModel = $routeParams.entity;
+          } else {
+
           }
           $scope.actionsToShow = actionsToShow;
-
           $scope.caliopeForm   = cwForm;
 
           calwebTemSrv.loadForm(cwForm,params).then(function(result) {
