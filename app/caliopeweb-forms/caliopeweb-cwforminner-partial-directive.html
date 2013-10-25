@@ -1,3 +1,17 @@
 <div class="cw-inner-form" ng-controller="CaliopeWebTemplateCtrl">
-  <button class="btn btn-mini btn-title" type="button" >Agregar</button>
+  <div name="container-title">
+    <button name="btn-add" class="btn btn-mini btn-title" type="button" ng-disabled="disabledAdd">Agregar</button>
+  </div>
+
+  <div name="container-set" ng-show="showSet">
+  </div>
+
+  <div name="container-form">
+  </div>
+
+  <div name="container-btn" class="modal-footer" ng-show="showContainerBtn">
+    <button class="btn btn-mini btn-title" type="button" ng-click="cancel()">Cancelar</button>
+    <button class="btn btn-mini btn-title" type="button" ng-click="terminate()">Terminar</button>
+  </div>
+  <br/>
 </div>

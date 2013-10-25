@@ -122,6 +122,11 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
 
         scope['cwForm-varTemplate'] = attrs.cwDform;
 
+        scope.$on('requiereCWForm', function(event, params){
+          var cwForm = scope[scope['cwForm-name']];
+          angular.copy(cwForm, params[0]);
+        });
+
         /**
          * Function that render the form with Jquery dForm. Also compile the DOM generate by
          * dForm in order to angularjs note the directives includes in the DOM
@@ -214,7 +219,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           cwFormDef = cwFormDef.replace('{{uuid}}', uuid);
           cwFormDef = cwFormDef.replace('{{generic}}', generic);
 
-          $element.append(cwFormDef);
+          $element.find('[name="container-form"]').append(cwFormDef);
 
 
           try {
@@ -222,14 +227,39 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
             Compile the element with cw-dform tag to apply the new contents
              */
             $compile($element.contents())($scope);
-
           } catch (exCom) {
             console.log('Error compiling form-inner' +  exCom.message);
           }
-
+          $scope.disabledAdd = true;
+          $scope.showContainerBtn = true;
         }
 
-        var elemBtn = $element.find('button');
+        function initInnerForm() {
+          $scope.disabledAdd = false;
+          $scope.showContainerBtn = false;
+          $element.find('[name="container-form"]').find('[name="'.concat($attrs['name']).concat('"]')).remove();
+          var jsonTemVarName = 'jsonTemplate_'.concat($attrs['name']);
+          delete $scope[jsonTemVarName];
+        }
+
+        $scope.cancel = function() {
+          initInnerForm();
+        };
+
+        $scope.terminate = function() {
+          var elemCwForm = $element.find('[name="container-form"]').find('[name="'.concat($attrs['name']).concat('"]'));
+          var cwForm = elemCwForm.scope()[elemCwForm.scope()['cwForm-name']];
+          var scopeForm = $element.find('[name="container-form"]').find('[name="'.concat(cwForm.getFormName()).concat('"]')).scope();
+          var dataObj = cwForm.dataToServerData(scopeForm);
+          $scope.dataSet.push(dataObj);
+          initInnerForm();
+        };
+
+        $scope.disabledAdd = false;
+        $scope.showContainerBtn = false;
+        $scope.dataSet = [];
+
+        var elemBtn = $element.find("[name='btn-add']");
         var valNgClick = "renderForm('{{name}}','{{entity}}','{{mode}}', '{{uuid}}', '{{from-route-params}}')";
         valNgClick = valNgClick.replace('{{name}}', $attrs.name);
         valNgClick = valNgClick.replace('{{entity}}', $attrs.entity);
