@@ -10,17 +10,18 @@
 /**
 * Define the module angular in RequireJS
 */
-define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload'], function (angular) {
+define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload', 'caliopeweb-formDirectives'], function (angular) {
   'use strict';
 
   /**
   * Define the module controllers for CaliopeWebTemplates
   */
-  var moduleControllers = angular.module('CaliopeWebTemplateControllers', []);
+  var moduleControllers = angular.module('CaliopeWebTemplateControllers', ['CaliopeWebFormDirectives']);
 
   /**
    *
    * @param result
+   * @param $scope
    */
   function processResultLoadForm(result, $scope) {
     if( result !== undefined && result.error === undefined) {
@@ -63,24 +64,16 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload'], fu
       function (calwebTemSrv, $scope, $routeParams) {
 
 
-        $scope.showFormInner = function() {
-          console.log('showFormInner', $scope.showForm_propietario);
-          console.log('jsonPlantillaAngularPropietario', $scope.jsonPlantillaAngularPropietario);
-          $scope.showForm_propietario=true;
-        };
-
         function processGenericForm(cwForm, params, entity) {
             params.formId = entity;
             cwForm.setEntityModel('form');
             $scope.entityModel = entity;
-        };
+        }
 
         function getForm() {
           var cwFormName = $scope['cwForm-name'];
-          var cwForm = $scope[cwFormName];
-
-          return cwForm;
-        };
+          return $scope[cwFormName];
+        }
 
         $scope.init = function() {
 
@@ -92,7 +85,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload'], fu
             $scope.showWidgetTask=true;
           }
 
-          if( cwForm.getGenericForm() === true || cwForm.getGenericForm() === "true" ) {
+          if( cwForm.getGenericForm() === true ) {
             processGenericForm(cwForm, params, cwForm.getEntityModel());
 
           }
@@ -154,8 +147,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload'], fu
   ]);
 
   moduleControllers.controller('CaliopeWebTemplateCtrlDialog',
-    ['caliopewebTemplateSrv', 'dialog', '$scope', 'action', 'taskService',
-      function (calwebTemSrv, dialog, $scope, action, taskService) {
+    ['caliopewebTemplateSrv', 'dialog', '$scope', 'action',
+      function (calwebTemSrv, dialog, $scope, action) {
 
         $scope.init = function() {
           var calwebtem = calwebTemSrv.caliopeForm;
@@ -204,8 +197,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload'], fu
   ]);
 
   moduleControllers.controller('SIMMFormCtrl',
-    ['caliopewebTemplateSrv', 'global_constants', '$scope', '$filter',
-      function (caliopewebTemplateSrv, GConst, $scope, $filter) {
+    ['caliopewebTemplateSrv', 'global_constants', '$scope',
+      function (caliopewebTemplateSrv, GConst, $scope) {
 
         $scope.sendAction = function(form, formTemplateName, actionMethod, modelUUID, objID, paramsToSend) {
 
@@ -245,10 +238,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload'], fu
             var actionsToShow = actionsConf[0];
             var actionsToHide = actionsConf[1];
 
-            angular.forEach(actionsToShow, function(v,k){
+            angular.forEach(actionsToShow, function(v){
               $scope.$eval('showAct_'.concat(v).concat('= true'));
             });
-            angular.forEach(actionsToHide, function(v,k){
+            angular.forEach(actionsToHide, function(v){
               $scope.$eval('showAct_'.concat(v).concat('= false'));
             });
 
@@ -260,8 +253,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload'], fu
   );
 
   moduleControllers.controller('SIMMGridCtrl',
-      ['caliopewebGridSrv', '$scope', '$routeParams',
-        function (cwGridService, $scope, $routeParams) {
+      ['caliopewebGridSrv', '$scope',
+        function (cwGridService, $scope) {
 
 
         function loadDataGrid() {
