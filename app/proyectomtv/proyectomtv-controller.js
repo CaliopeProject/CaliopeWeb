@@ -1,4 +1,4 @@
-define(['angular','caliopeWebForms'], function(angular) {
+define(['angular','caliopeWebForms','caliopeweb-formDirectives'], function(angular) {
   'use strict';
 
   var moduleControllers = angular.module('ProyectoControllers', ['CaliopeWebFormDirectives', 'wysiwygEditorDirective', 'fileuploaderDirectives']);

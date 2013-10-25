@@ -17,6 +17,7 @@ var dependencies = [
   ,'gis-view-ctrl'
   ,'files-uploader-controller'
   ,'wysiwyg-editor-controller'
+  ,'proyectomtv-controller'
 
 ];
 
@@ -34,6 +35,7 @@ var modulesAngular = [
   ,'GisViewerController'
   ,'fileuploaderCtrl'
   ,'wysiwygEditorCtrl'
+  ,'ProyectoControllers'
 ];
 
 define(dependencies, function (angular) {
