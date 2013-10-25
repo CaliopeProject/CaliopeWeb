@@ -1,14 +1,14 @@
 /*jslint browser: true*/
 /*global define, console, $*/
 
-define(['angular','jquery.fileupload'], function (angular) {
-  'use strict';  
-  
-var dirmodule = angular.module('fileuploaderCtrl', []);
+define(['angular','files-uploader-directives'], function (angular) {
+  'use strict';
 
-dirmodule.controller("fileuploaderCtrl", function($scope) {
+var dirmodule = angular.module('fileuploaderCtrl', ['fileuploaderDirectives']);
+
+dirmodule.controller("fileuploaderCtrl", function($scope){
     $scope.myModel = {};
 });
-  
+
 });
 

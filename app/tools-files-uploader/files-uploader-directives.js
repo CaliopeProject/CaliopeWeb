@@ -4,9 +4,9 @@
 define(['angular','jquery.fileupload'], function (angular) {
   'use strict';
 
-var dirmodule = angular.module('fileuploaderDirectives', ['login-security-services']);
+var dirmodule = angular.module('fileuploaderDirectives', []);
 
-dirmodule.directive('ngFileuploader', ['SessionSrv','global_constants',  function(security,global_constants) {
+dirmodule.directive('ngFileuploader', [function(security,global_constants) {
     return {
         templateUrl: 'tools-files-uploader/files-uploader-directives.html',
         replace: true,
@@ -55,12 +55,12 @@ dirmodule.directive('ngFileuploader', ['SessionSrv','global_constants',  functio
                 },
 
                 done: function(e, data) {
-
+                    var i;
                     var filelist = scope.filelist;
-                    if (filelist === undefined)
+                    if (filelist === undefined){
                         filelist = [];
-
-                    for (var i = 0; i < data.result.length; i++) {
+                    }
+                    for (i = 0; i < data.result.length; i++) {
                         filelist.push(data.result[i]);
 //                         console.log(data.result[i]);
                     }
@@ -71,7 +71,7 @@ dirmodule.directive('ngFileuploader', ['SessionSrv','global_constants',  functio
             });
         }
 
-    }
+    };
 }]);
 
 });

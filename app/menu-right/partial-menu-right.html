@@ -2,12 +2,18 @@
 <div id="sidebar-shortcuts">
   <!--MENU ICON SHORTCUTS-LARGE INIT-->
   <div id="sidebar-shortcuts-large">
-    <a ng-repeat="short in shortcuts" ng-click='closeMenu()' href='{{short.url}}'><button ng-class="'btn btn-small btn-' + short.btn" tooltip='{{short.ttip}}'><i ng-class="'icon-' + short.icon"></i></button></a>
+    <a ng-repeat="short in shortcuts" ng-click='closeMenu()' href='{{short.url}}'>
+      <button ng-class="'btn btn-small btn-' + short.btn" tooltip='{{short.ttip}}'>
+        <i ng-class="'icon-' + short.icon"></i>
+      </button>
+    </a>
   </div>
   <!--MENU ICON SHORTCUTS-LARGE END-->
   <!--MENU ICON SHORTCUTS-MINI INIT-->
   <div id="sidebar-shortcuts-mini">
-    <a ng-repeat="short in shortcuts" href='{{short.url}}'><span ng-class="'btn btn-' + short.btn" ng-click='closeMenu()'></span></a>
+    <a ng-repeat="short in shortcuts" href='{{short.url}}'>
+      <span ng-class="'btn btn-' + short.btn" ng-click='closeMenu()'></span>
+    </a>
   </div>
 
   <!--MENU ICON SHORTCUTS-MINI END-->
@@ -31,7 +37,7 @@
       </li>
     </ul>
   </li>
-  
+
   <li>
     <a href="#" ng-init="show=false" class="dropdown-toggle" ng-click='show = !show'>
       <i class="icon-list-ul"></i>
@@ -135,19 +141,13 @@
       </li>
     </ul>
   </li>
-  
+
   <li>
     <a href="#/form-proyectomtv/projects/create" ng-click='closeMenu()'>
       <i class="icon-calendar"></i>
       <span>Crear Proyecto</span>
     </a>
   </li>
-<!--  <li>
-    <a href="#/form/predialcards/create/" ng-click='closeMenu()'>
-      <i class="icon-calendar"></i>
-      <span>Ficha Predial</span>
-    </a>
-  </li>-->
   <li>
     <a href="#/list-proyectomtv" g-click='closeMenu()'>
       <i class="icon-calendar"></i>
@@ -160,11 +160,5 @@
       <span>Resumen del Proyecto</span>
     </a>
   </li>
-<!--  <li>
-    <a href="#/caliopeweb-grids/project" ng-click='closeMenu()'>
-      <i class="icon-th"></i>
-      <span>Grid Test</span>
-    </a>
-  </li>-->
 </ul>
 <!--MENU INIT-->
