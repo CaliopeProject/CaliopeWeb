@@ -8,6 +8,15 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
   dirmodule.controller("kanbanBoardCtrl", ["$scope",'taskService',
     function($scope, taskService) {
 
+      //Put task when other user create
+      $scope.$on('createTask', function (event, data) {
+        taskService.addTask(data);
+        $scope.$apply(function () {
+          $scope.data = taskService.getTask();
+        });
+      });
+
+
       $scope.data = taskService.getTask();
       $scope.showSubtasks = false;
 

@@ -121,7 +121,7 @@ define(['angular', 'notificationsService', 'uuid'], function(angular) {
                 send(request);
               },200);
             } else {
-              console.log('Sending request application-servicesWebsocket 105', (request));
+              console.log('Service web socketSending request application-servicesWebsocket 124', (request));
               ws.send(JSON.stringify(request));
             }
           }
@@ -196,13 +196,14 @@ define(['angular', 'notificationsService', 'uuid'], function(angular) {
                 delete callbacks[callvalue[callbackAttName]];
               }else{
                 if(!angular.isUndefined(messageObj.method)){
-                  HandlerNotification.sendinfo(messageObj.params);
+                  //Process in notifiactionsServices.HandlerNotification
+                  HandlerNotification.sendinfo(messageObj);
                 }
               }
             };
-            console.log("Received data from websocket 177: ", messageObj);
+            console.log("Service web socketReceived data from websocket 203: ", messageObj);
             // If an object exists with callback_id in our callbacks object, resolve it
-            // console.log("messageObj.data:", messageObj.data);
+            // console.log("Service web socket messageObj.data:", messageObj.data);
             if(angular.isArray(messageObj)){
               angular.forEach(messageObj, function(value){
                 procces(value);
@@ -221,7 +222,7 @@ define(['angular', 'notificationsService', 'uuid'], function(angular) {
           * Override the method of WebSocket object when the connection is established
           */
           ws.onopen = function() {
-            console.log("Socket has been opened! ", ws.url);
+            console.log("Service web socketSocket has been opened! 223 ", ws.url);
             $rootScope.openWebSocket = true;
             $rootScope.$broadcast('openWebSocket', []);
           };
@@ -247,11 +248,11 @@ define(['angular', 'notificationsService', 'uuid'], function(angular) {
           * @param errorEvent
           */
           ws.onerror = function(errorEvent) {
-            console.log("Error en ws! ", errorEvent);
+            console.log("Service web socketError en ws! 250", errorEvent);
           };
 
           ws.onclose = function(event) {
-            console.log("Socket has been closed! ");
+            console.log("Service web socketSocket has been closed! 254");
             $rootScope.$broadcast('closeWebSocket', []);
             initWebSockets();
           };

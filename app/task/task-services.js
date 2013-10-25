@@ -231,6 +231,23 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             opentaskDialog(DIALOG_NAME_FORM_TASK);
           },
 
+          addTask:  function(loadTask){
+            var category;
+            var uuid = loginSecurity.currentUser.user_uuid;
+            if(!angular.isUndefined(loadTask)){
+              angular.forEach(loadTask.holders.target, function(vtarget){
+                if (vtarget.entity_data.uuid === uuid){
+                  category = vtarget.properties.category;
+                }
+              });
+              angular.forEach(ALLTASK, function(value, key){
+                if(value.category === category){
+                  ALLTASK[key].tasks.push(loadTask);
+                }
+              });
+            }
+          },
+
           archiveTask: function(item) {
             opts.templateUrl = './task/partial-task-dialog-acction.html';
 
