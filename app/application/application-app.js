@@ -2,6 +2,7 @@
 /*global define*/
 'use strict';
 
+//only controllers from requirejs
 var dependencies = [
    'angular'
   ,'angular-route-unstable'
@@ -14,8 +15,12 @@ var dependencies = [
   ,'proyectomtv-summary-controller'
   ,'caliopeweb-templateControllers'
   ,'gis-view-ctrl'
+  ,'files-uploader-controller'
+  ,'wysiwyg-editor-controller'
+
 ];
 
+//only controllers name modules
 var modulesAngular = [
    'ngRoute'
   ,'webSocket'
@@ -27,6 +32,8 @@ var modulesAngular = [
   ,'ProyectoSummary'
   ,'CaliopeWebTemplateControllers'
   ,'GisViewerController'
+  ,'fileuploaderCtrl'
+  ,'wysiwygEditorCtrl'
 ];
 
 define(dependencies, function (angular) {

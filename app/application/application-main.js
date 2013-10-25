@@ -19,7 +19,7 @@ require.config({
     'angular-dragdrop'               : 'libs-js-thirdparty/angular-dragdrop/src/angular-dragdrop',
 
     'jquery.fileupload'              : 'libs-js-thirdparty/jquery-file-upload/js/jquery.fileupload',
-    'jquery-ui-widget'               : 'libs-js-thirdparty/jquery-file-upload/js/vendor/jquery.ui.widget',
+    'jquery.ui.widget'               : 'libs-js-thirdparty/jquery-file-upload/js/vendor/jquery.ui.widget',
 
     'files-uploader-controller'      : 'tools-files-uploader/files-uploader-controller',
     'files-uploader-directives'      : 'tools-files-uploader/files-uploader-directives',
@@ -44,7 +44,6 @@ require.config({
     'application-routes'             : 'application/application-routes',
     'notificationsService'           : 'application/notificationsService',
     'httpRequestTrackerService'      : 'application/httpRequestTrackerService',
-    'breadcrumbsService'             : 'application/breadcrumbsService',
     'application-event'              : 'application/application-event',
 
     'caliopeWebForms'                : 'caliopeweb-forms/CaliopeWebForms',
