@@ -201,15 +201,26 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
       controller: 'CaliopeWebTemplateCtrl',
       link: function ($scope, $element, $attrs) {
 
-        $scope.renderForm = function(name, entity, mode, uuid, fromRouteParams ) {
-          console.log('Render CWForm', name, entity, mode);
+        /*
+         Var definition
+         */
+        var name = $attrs['name'];
+        var entity = $attrs['entity'];
+        var mode = 'create';
+        var uuid = $attrs['uuid'];
+        var generic = $attrs['generic'];
+        var jsonTemVarName = 'jsonTemplate_'.concat(name);
 
-          var name = $attrs['name'];
-          var entity = $attrs['entity'];
-          var mode = 'create';
-          var uuid = $attrs['uuid'];
-          var generic = $attrs['generic'];
-          var jsonTemVarName = 'jsonTemplate_'.concat(name);
+        /**
+         * This function serve the event of button add (name='btn-add') defined in templateUrl
+         * @param name Name of inner form
+         * @param entity Entity of inner form
+         * @param mode Mode of form
+         * @param uuid UUID data of form
+         * @param fromRouteParams Indicate if form is loaded with routing params.
+         */
+        $scope.renderForm = function() {
+
 
           var cwFormDef = '<cw-dform cw-dform="{{jsonTemVarName}}" name="{{name}}" entity="{{entity}}" mode="{{mode}}" uuid="{{uuid}}" generic="{{generic}}" inner="true" from-routeparams="false" enc-uuid="false" ng-init="init()"></cw-dform>'
           cwFormDef = cwFormDef.replace('{{name}}', name);
@@ -219,9 +230,14 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           cwFormDef = cwFormDef.replace('{{uuid}}', uuid);
           cwFormDef = cwFormDef.replace('{{generic}}', generic);
 
+          /*
+          Find the element in template with name "container-form" and add the new tag cw-dform, this load the form to render
+           */
           $element.find('[name="container-form"]').append(cwFormDef);
 
-
+          /**
+           * Compile the element with the new tag cw-dform, this is to render the form.
+           */
           try {
             /*
             Compile the element with cw-dform tag to apply the new contents
@@ -230,10 +246,16 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           } catch (exCom) {
             console.log('Error compiling form-inner' +  exCom.message);
           }
+          /*
+            Update the state of buttons.
+           */
           $scope.disabledAdd = true;
           $scope.showContainerBtn = true;
         }
 
+        /**
+         * This function init the inner form to render
+         */
         function initInnerForm() {
           $scope.disabledAdd = false;
           $scope.showContainerBtn = false;
@@ -242,10 +264,16 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           delete $scope[jsonTemVarName];
         }
 
+        /**
+         * This function serve the event of button cancel (name='btn-cancel') defined in templateUrl
+         */
         $scope.cancel = function() {
           initInnerForm();
         };
 
+        /**
+         * This function serve the event of button cancel (name='btn-cancel') defined in templateUrl
+         */
         $scope.terminate = function() {
           var elemCwForm = $element.find('[name="container-form"]').find('[name="'.concat($attrs['name']).concat('"]'));
           var cwForm = elemCwForm.scope()[elemCwForm.scope()['cwForm-name']];
@@ -255,28 +283,27 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           initInnerForm();
         };
 
+        /*
+          Code associate to link function directive.
+         */
+
+        /*
+          Init the state of buttons
+        */
         $scope.disabledAdd = false;
         $scope.showContainerBtn = false;
         $scope.dataSet = [];
 
+        /*
+          Find the button 'btn-add'
+        */
         var elemBtn = $element.find("[name='btn-add']");
-        var valNgClick = "renderForm('{{name}}','{{entity}}','{{mode}}', '{{uuid}}', '{{from-route-params}}')";
-        valNgClick = valNgClick.replace('{{name}}', $attrs.name);
-        valNgClick = valNgClick.replace('{{entity}}', $attrs.entity);
-        valNgClick = valNgClick.replace('{{mode}}', 'create');
-        valNgClick = valNgClick.replace('{{uuid}}', $attrs.uuid);
-        valNgClick = valNgClick.replace('{{from-route-params}}', $attrs.fromRouteparams);
-
-        elemBtn.attr('ng-click', valNgClick);
+        /*
+          Find the element with tag label in parent and move to container  'container-title' before of 'btn-add'
+         */
         var eleLab = $element.parent().find('label');
         elemBtn.after(eleLab);
         eleLab.append(elemBtn);
-
-        try {
-          $compile($element.contents())($scope);
-        } catch (exCom) {
-          console.log('Error compiling form-inner' +  exCom.message);
-        }
 
       }
     };
