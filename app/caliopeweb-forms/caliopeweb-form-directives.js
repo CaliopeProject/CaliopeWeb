@@ -71,7 +71,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
     var directiveDefinitionObject = {
 
       controller : function($scope, $attrs, $element) {
-
+        /*
         var entity = $attrs['entity'];
         var mode = $attrs['mode'];
         var uuid = $attrs['uuid'];
@@ -107,25 +107,57 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
         }
         $scope['cwForm-name'] = 'cwForm-'.concat(name);
         $scope[$scope['cwForm-name']] = cwForm;
+        */
       },
 
       /**
-       * Link function of the directive. This get the directive element and call the
+       * Link function of the directive. This get the directive $element and call the
        * Jquery Dform library to render the form.
        * @function link
        * @memberOf Directive:cwDform
-       * @param {object} scope AngularJS scope of the directive
-       * @param {object} element Element that contains the directive definition
-       * @param {object} attrs Attributes in tag that contains the directive.
+       * @param {object} $scope AngularJS $scope of the directive
+       * @param {object} $element Element that contains the directive definition
+       * @param {object} $attrs Attributes in tag that contains the directive.
        */
-      link: function (scope, element, attrs) {
+      link: function ($scope, $element, $attrs) {
 
-        scope['cwForm-varTemplate'] = attrs.cwDform;
+        console.log('scope id in cwform directive', $scope.$id);
 
-        scope.$on('requiereCWForm', function(event, params){
-          var cwForm = scope[scope['cwForm-name']];
-          angular.copy(cwForm, params[0]);
-        });
+
+        /*
+        Assign attributes values to vars
+         */
+        var entity = $attrs['entity'];
+        var mode = $attrs['mode'];
+        var uuid = $attrs['uuid'];
+        var name = $attrs['name'];
+        var generic = $attrs['generic'];
+        var inner = $attrs['inner'];
+        var initForm = $attrs['init'];
+        var preLoadFunction = $attrs['preLoadFunction'];
+        var postLoadFunction = $attrs['preLoadFunction'];
+
+        /**
+         * Return the form storage in the scope.
+         * @returns {CaliopeWebForm}
+         */
+        function getForm() {
+          var cwFormName = $scope['cwForm-name'];
+          return $scope[cwFormName];
+        }
+
+        /**
+         * Process additional if is a generic form
+         * //TODO: Change this to CaliopeWebForms
+         * @param cwForm Caliope Web Forms
+         * @param params params
+         * @param entity Entity
+         */
+        function processGenericForm(cwForm, params, entity) {
+          params.formId = entity;
+          cwForm.setEntityModel('form');
+          $scope.entityModel = entity;
+        }
 
         /**
          * Function that render the form with Jquery dForm. Also compile the DOM generate by
@@ -140,15 +172,124 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           var plantilla = templateData;
           try {
             $.dform.options.prefix = null;
-            $(element).dform(plantilla);
+            $($element).dform(plantilla);
           } catch (exDform) {
             console.log('Error generating the dynamic form with dForm' +  exDform.message + exDform );
           }
           try {
-            $compile(element.contents())(scope);
+            $compile($element.contents())($scope);
           } catch (exCom) {
             console.log('Error compiling form generated' +  exCom.message);
           }
+        }
+
+        /**
+         * Process the response of the request of get form template.
+         * @param result
+         * @param $scope
+         */
+        function processResultLoadForm(result, $scope) {
+          if( result !== undefined && result.error === undefined) {
+            if( result !== undefined ) {
+              if( result.structureToRender !== undefined ) {
+                var varTemplate = 'jsonPlantillaAngular';
+                if($scope['cwForm-varTemplate'] !== undefined) {
+                  varTemplate = $scope['cwForm-varTemplate'];
+                }
+                $scope[varTemplate] = result.structureToRender;
+              }
+              if( result.elements !== undefined ) {
+                $scope.elementsFormTemplate = result.elements;
+              }
+              $scope.modelUUID = result.modelUUID;
+              $scope.entityModel = result.entityModel;
+
+              /*
+               Add data to scope
+               */
+              if (result.data !== undefined) {
+                var varname;
+                for (varname in result.data) {
+                  if(result.data.hasOwnProperty(varname)) {
+                    $scope[varname] = result.data[varname];
+                  }
+                }
+              }
+
+            }
+          }
+        }
+
+        /**
+         *  Call the service cwForm to retrieve the form from request.
+         */
+        function init (preLoadFunction) {
+          var cwForm = getForm();
+          var params = {};
+
+          if(cwForm.getModelUUID() !== undefined && cwForm.getModelUUID().length > 0) {
+            $scope.showWidgetTask=true;
+          }
+
+          if( cwForm.getGenericForm() === true ) {
+            processGenericForm(cwForm, params, cwForm.getEntityModel());
+
+          }
+
+          $scope.caliopeForm   = cwForm;
+          if( preLoadFunction !== undefined ) {
+            preLoadFunction(cwForm);
+          }
+
+          cwFormService.loadForm(cwForm, params).then(function(result) {
+            processResultLoadForm(result, $scope);
+            if( cwForm.getGenericForm() === true ) {
+              $scope.entityModel = params.formId;
+            }
+          });
+        }
+
+        /**
+         * If the attribute fromRouteparams is true then replace variables with values from routing.
+         */
+        if( $attrs['fromRouteparams'] !== undefined &&
+            $attrs['fromRouteparams'] === "true") {
+          entity = $routeParams.entity;
+          mode = $routeParams.mode;
+          uuid = $routeParams.uuid;
+        }
+
+
+        /*
+        Create the form of type CaliopeWebForm
+         */
+        var cwForm = cwFormService.createForm(entity, mode, uuid);
+
+        if( generic === true || generic === "true") {
+          cwForm.setGenericForm(true);
+        } else {
+          cwForm.setGenericForm(false);
+        }
+        if( inner === true || inner === "true") {
+          cwForm.setInnerForm(true);
+        } else {
+          cwForm.setInnerForm(false);
+        }
+
+        $scope['cwForm-name'] = 'cwForm-'.concat(name);
+        $scope['cwForm-varTemplate'] = $attrs.cwDform;
+        $scope[$scope['cwForm-name']] = cwForm;
+
+        if(preLoadFunction !== undefined && preLoadFunction.length > 0) {
+          preLoadFunction = $scope[preLoadFunction];
+        }
+
+        $scope.init = function() {
+          init(preLoadFunction);
+        };
+
+        if( initForm === true || initForm === "true" ) {
+          init(preLoadFunction);
         }
 
         /**
@@ -158,12 +299,25 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
          * @callback Directive:cwDform
          * @inner
          */
-        scope.$watch(attrs.cwDform, function (value) {
-          if (value !== undefined && attrs.ngShow !== "false" ) {
-            console.log("Json to render " + attrs.cwDform, value);
+        $scope.$watch($attrs.cwDform, function (value) {
+          if (value !== undefined && $attrs.ngShow !== "false" ) {
+            console.log("Json to render " + $attrs.cwDform, value);
             renderDForm(value);
           }
         });
+
+
+
+
+        /**
+         *
+        $scope.$on('requiereCWForm', function(event, params){
+          var cwForm = $scope[$scope['cwForm-name']];
+          angular.copy(cwForm, params[0]);
+        });
+         */
+
+
 
       }
     };
@@ -197,6 +351,9 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
       controller: 'CaliopeWebTemplateCtrl',
       link: function ($scope, $element, $attrs) {
 
+        $scope.innerForms = [];
+
+
         /*
          Var definition
          */
@@ -204,12 +361,31 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
         var entity = $attrs['entity'];
         var mode = 'create';
         var uuid = $attrs['uuid'];
-        var generic = $attrs['generic'];
+        var generic = $attrs['generic'] === "true" ? true : $attrs['generic'];
         var jsonTemVarName = 'jsonTemplate_'.concat(name);
 
         var formLoaded = false;
         var tableLoaded = false;
         var varNameData = 'data_'.concat(name);
+
+
+        function createInnerForm(name, uuid) {
+          var innerForm = {
+            name : name,
+            entity : entity,
+            mode : mode,
+            uuid : uuid,
+            generic : generic,
+            templateName : 'jsonTemplate_'.concat(name)
+          }
+          return innerForm;
+        }
+
+        $scope.addInnerForm = function() {
+          var nameIF = name.concat($scope.innerForms.length);
+          var innerForm = createInnerForm(nameIF, undefined);
+          $scope.innerForms.push(innerForm);
+        }
 
         /**
          * This function serve the event of button add (name='btn-add') defined in templateUrl
@@ -256,8 +432,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           /*
             Update the state of buttons.
            */
-          $scope.disabledAdd = true;
-          $scope.showBtns = true;
+          $scope.disabledAdd = false;
+          $scope.showBtns = false;
         }
 
         /**
@@ -335,8 +511,12 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
         */
         $scope.disabledAdd = false;
         $scope.showBtns = false;
-        $scope.showForm = false;
+        $scope.showForm = true;
         $scope[varNameData] = [];
+        //$scope.renderInnerForm();
+        //name = name.concat($scope.innerForms.length);
+        $scope.addInnerForm();
+
 
         /*
           Find the button 'btn-add'
