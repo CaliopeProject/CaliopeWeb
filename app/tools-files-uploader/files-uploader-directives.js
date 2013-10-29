@@ -1,12 +1,12 @@
 /*jslint browser: true*/
 /*global define, console, $*/
 
-define(['angular','jquery.fileupload'], function (angular) {
+define(['angular', 'application-constant', 'jquery.fileupload', 'login-security-services'], function (angular, $caliope_constant) {
   'use strict';
 
-var dirmodule = angular.module('fileuploaderDirectives', []);
+var dirmodule = angular.module('fileuploaderDirectives', ['login-security-services']);
 
-dirmodule.directive('ngFileuploader', [function(security,global_constants) {
+dirmodule.directive('ngFileuploader', ['SessionSrv', function(security) {
     return {
         templateUrl: 'tools-files-uploader/files-uploader-directives.html',
         replace: true,
@@ -17,21 +17,20 @@ dirmodule.directive('ngFileuploader', [function(security,global_constants) {
 
         link: function(scope, elm, attrs) {
             var nid = 'progres' + Math.floor((Math.random()*100)+1);
-            console.log(nid);
             $(elm).find('#progress').attr('id', nid);
             $(elm).fileupload({
                 method : 'POST',
-                url     : global_constants.hyperion_server_address + '/upload/',
+                url     : $caliope_constant.hyperion_server_address ,
                 dataType: 'json',
                 paramName: 'files[]',
                 sequentialUploads: true,
                 formData : {
                    id: 'parent',//attrs['formuuid'],
                    session_uuid: security.getIdSession()
-//                  field: attrs['fieldattch']
+                  //field: attrs['fieldattch']
                 },
                 //TODO: to check
-                //          https://github.com/blueimp/jQuery-File-Upload/wiki/Options
+                //https://github.com/blueimp/jQuery-File-Upload/wiki/Options
                 add: function (e, data) {
                     scope.$apply(function() {
                         $('#progress .bar').css(
@@ -62,7 +61,6 @@ dirmodule.directive('ngFileuploader', [function(security,global_constants) {
                     }
                     for (i = 0; i < data.result.length; i++) {
                         filelist.push(data.result[i]);
-//                         console.log(data.result[i]);
                     }
 
                     scope.filelist = filelist;

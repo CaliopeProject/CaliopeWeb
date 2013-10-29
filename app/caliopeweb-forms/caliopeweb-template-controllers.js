@@ -204,8 +204,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload'], fu
   ]);
 
   moduleControllers.controller('SIMMFormCtrl',
-    ['caliopewebTemplateSrv', 'global_constants', '$scope', '$filter',
-      function (caliopewebTemplateSrv, GConst, $scope, $filter) {
+    ['caliopewebTemplateSrv',  '$scope', '$filter',
+      function (caliopewebTemplateSrv, $scope, $filter) {
 
         $scope.sendAction = function(form, formTemplateName, actionMethod, modelUUID, objID, paramsToSend) {
 

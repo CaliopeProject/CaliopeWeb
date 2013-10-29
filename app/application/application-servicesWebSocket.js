@@ -1,7 +1,7 @@
 /*jslint browser: true*/
 /*global UUIDjs, WebSocket, WebSocketCaliope*/
 
-define(['angular', 'notificationsService', 'uuid'], function(angular) {
+define(['angular', 'application-constant', 'uuid', 'notificationsService'], function(angular, $caliope_constant) {
   'use strict';
 
   var moduleWebSocket = angular.module('webSocket', ['NotificationsServices']);
@@ -20,7 +20,6 @@ define(['angular', 'notificationsService', 'uuid'], function(angular) {
      '$q'
     ,'$rootScope'
     ,'JsonRpcConst'
-    ,'global_constants'
     ,'HandlerResponseServerSrv'
     ,'$timeout'
     ,'HandlerNotification'
@@ -29,7 +28,6 @@ define(['angular', 'notificationsService', 'uuid'], function(angular) {
         $q
       , $rootScope
       , jsonRpcConst
-      , global_constants
       , handlerResponseSrv
       , $timeout
       , HandlerNotification){
@@ -42,7 +40,7 @@ define(['angular', 'notificationsService', 'uuid'], function(angular) {
         */
         function initWebSockets() {
           var wsTemplates = new WebSocketCaliope(
-            'ws://' + document.domain + ':' + location.port + '/api/ws'
+            $caliope_constant.caliope_server_address
             //'ws://' + '192.168.0.11' + ':' + location.port + '/api/ws'
             //'ws://' + '192.168.50.57' + ':' + location.port + '/api/ws'
           );

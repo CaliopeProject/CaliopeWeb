@@ -37,6 +37,7 @@ require.config({
     'gis-geoext'                     : 'libs-js-thirdparty/compiled-gis/GeoExt',
     'gis-openlayers'                 : 'libs-js-thirdparty/compiled-gis/OpenLayers',
 
+    'application-constant'           : 'application/application-constant',
     'application-app'                : 'application/application-app',
     'application-servicesWebSocket'  : 'application/application-servicesWebSocket',
     'application-commonservices'     : 'application/application-commonservices',
@@ -82,39 +83,40 @@ require.config({
   },
   baseUrl: '/',
   shim: {
-    'jquery'                      : {'exports' : 'jquery'}
-    ,'angular'                    : {'exports' : 'angular'}
-    ,'angular-ui-bootstrap-bower' : {'exports' : 'ui-bootstrap', 'deps' : ['angular']}
-    ,'angular-route-unstable'     : {'deps'    : ['angular']}
-    ,'application-app'            : {'exports' : 'app'}
-    ,'caliopeWebForms'                : {'exports' : 'cwForm'}
-    ,'angular-ui-ng-grid'             : {'exports' : 'ui-ng-grid', 'deps': ['jquery']}
-    ,'application-controller'         : {'exports' : 'appcontroller'}
-    ,'application-commonservices'     : {'exports' : 'appcommonservices'}
-    ,'application-routes'             : {'exports' : 'routes'}
-    ,'uuid'                           : {'exports' : 'UUIDjs'}
-    ,'application-servicesWebSocket'  : {'exports' : 'webSocket', 'deps': ['notificationsService','uuid']}
-    ,'notificationsService'           : {'deps'    : ['application-commonservices']}
-    ,'jquery-ui'                      : {'deps'    : ['jquery']}
-    ,'jquery.fileupload-angular'      : {'deps'    : ['jquery', 'angular', 'jquery.ui.widget']}
+    'jquery'                         : {'exports' : 'jquery'}
+    ,'angular'                       : {'exports' : 'angular'}
+    ,'angular-ui-bootstrap-bower'    : {'exports' : 'ui-bootstrap', 'deps' : ['angular']}
+    ,'angular-route-unstable'        : {'deps'    : ['angular']}
+    ,'application-constant'          : {'exports' : '$caliope_constant', 'deps' : ['angular']}
+    ,'application-app'               : {'exports' : 'app', 'deps' : ['angular', 'application-constant']}
+    ,'caliopeWebForms'               : {'exports' : 'cwForm'}
+    ,'angular-ui-ng-grid'            : {'exports' : 'ui-ng-grid', 'deps' : ['jquery']}
+    ,'application-controller'        : {'exports' : 'appcontroller'}
+    ,'application-commonservices'    : {'exports' : 'appcommonservices'}
+    ,'application-routes'            : {'exports' : 'routes'}
+    ,'uuid'                          : {'exports' : 'UUIDjs'}
+    ,'application-servicesWebSocket' : {'exports' : 'webSocket', 'deps' : ['notificationsService','uuid']}
+    ,'notificationsService'          : {'deps'    : ['application-commonservices']}
+    ,'jquery-ui'                     : {'deps'    : ['jquery']}
+    ,'jquery.fileupload-angular'     : {'deps'    : ['jquery', 'angular', 'jquery.ui.widget']}
 
-    ,'angular-dragdrop'               : {'deps'    : ['angular', 'jquery-ui']}
-    ,'application-event'              : {'deps'    : ['jquery']}
+    ,'angular-dragdrop'              : {'deps'    : ['angular', 'jquery-ui']}
+    ,'application-event'             : {'deps'    : ['jquery']}
 
-    ,'CryptoSHA256'                   : {'deps'    : ['Crypto']}
+    ,'CryptoSHA256'                  : {'deps'    : ['Crypto']}
 
-    ,'wysiwyg-editor-directive'       : {'deps'    : ['jquery','angular','ckeditor']}
+    ,'wysiwyg-editor-directive'      : {'deps'    : ['jquery','angular','ckeditor']}
 
-    ,'dform'                          : {'deps'      : ['jquery']}
+    ,'dform'                         : {'deps'    : ['jquery']}
 
-    ,'gis-ext-all'                    : {'deps'      : ['gis-ext-base']}
-    ,'gis-geoext'                     : {'deps'      : ['gis-ext-all','gis-openlayers']}
-    ,'gis-init'                       : {'deps'      : ['gis-geoext','gis-ext-all']}
-    ,'gis-heron'                      : {'deps'      : ['gis-init']}
-    ,'gis-view-ctrl'                  : {'deps'      : ['gis-heron']}
-    ,'seeinmap-services'              : {'deps'      : ['angular', 'jquery-ui']}
+    ,'gis-ext-all'                   : {'deps'    : ['gis-ext-base']}
+    ,'gis-geoext'                    : {'deps'    : ['gis-ext-all','gis-openlayers']}
+    ,'gis-init'                      : {'deps'    : ['gis-geoext','gis-ext-all']}
+    ,'gis-heron'                     : {'deps'    : ['gis-init']}
+    ,'gis-view-ctrl'                 : {'deps'    : ['gis-heron']}
+    ,'seeinmap-services'             : {'deps'    : ['angular', 'jquery-ui']}
 
-    ,'angularMocks'                   : {'deps'      : ['angular'], 'exports' : 'angular.mock'}
+    ,'angularMocks'                  : {'deps'    : ['angular'], 'exports' : 'angular.mock'}
   },
   priority: [
      "onResourceLoad"
