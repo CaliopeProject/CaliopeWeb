@@ -268,6 +268,14 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
 
   }]);
 
+
+  moduleServices.factory('caliopeWebFormNotification',
+    ['$q', '$rootScope', '$http', 'webSocket',
+      function ($q, $rootScope, $http, webSocket) {
+
+      }
+    ])
+
   /**
    * Define the module for service caliope web grid
    * @module caliopewebGridSrv
