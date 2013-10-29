@@ -4,39 +4,6 @@ define(['angular','caliopeWebForms','caliopeweb-formDirectives'], function(angul
   var moduleControllers = angular.module('ProyectoControllers', ['CaliopeWebFormDirectives', 'wysiwygEditorDirective', 'fileuploaderDirectives']);
 
 
-  /**
-   *
-   * @param result
-   */
-  function processResultLoadForm(result, $scope) {
-    if( result !== undefined && result.error === undefined) {
-      if( result !== undefined ) {
-        if( result.structureToRender !== undefined ) {
-          $scope.jsonPlantillaAngular = result.structureToRender;
-        }
-        if( result.elements !== undefined ) {
-          $scope.elementsFormTemplate = result.elements;
-        }
-        $scope.modelUUID = result.modelUUID;
-        $scope.entityModel = result.entityModel;
-        /*
-        if (result.data !== undefined) {
-          var varname;
-          for (varname in result.data) {
-            if(result.data.hasOwnProperty(varname)) {
-              $scope[varname] = result.data[varname];
-            }
-          }
-        }
-        */
-      }
-    } else if(result.error !== undefined) {
-      throw new Error('Error load form from server.' + result.error.message);
-    } else {
-      throw new Error('Error load form from server. Form is empty');
-    }
-  }
-
   moduleControllers.controller('ProyectomtvCtrl',
     ['caliopewebTemplateSrv', 'caliopewebGridSrv', '$scope', '$routeParams',
     function (cwFormService, cwGridService, $scope, $routeParams) {
@@ -61,31 +28,6 @@ define(['angular','caliopeWebForms','caliopeweb-formDirectives'], function(angul
         cwGrid.setDecorators([CaliopeWebGridDataDecorator, CWGridColumnsDefNgGridDecorator])
       };
 
-      /*
-      function loadForm(cwForm) {
-
-        cwFormService.loadForm(cwForm, {}).then( function(result) {
-          processResultLoadForm(result, $scope);
-          $scope.showWidgetTask=false;
-
-          if( result !== undefined && result.data !== undefined ) {
-            var dataToView = cwForm.dataToViewData();
-            if( dataToView !== undefined ) {
-              angular.forEach(dataToView, function(value, key){
-                $scope[key] = value;
-              });
-            }
-          }
-
-        });
-      };
-      */
-
-      $scope.initForm = function() {
-        console.log('scope id in proyecto controller', $scope.$id);
-
-
-      };
 
       $scope.preLoadForm = function(cwForm) {
         $scope.showWidgetTask=false;
