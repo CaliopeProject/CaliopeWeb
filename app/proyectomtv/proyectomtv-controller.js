@@ -79,10 +79,15 @@ define(['angular','caliopeWebForms','caliopeweb-formDirectives'], function(angul
       };
 
       $scope.initForm = function() {
-        var cwForm = $scope['cwForm-project'];
-        var methodSupport = cwForm.getEntityModel().concat('.').concat(cwForm.getMode());
-        cwForm.setActionsMethodToShow([methodSupport]);
-        loadForm(cwForm);
+        console.log('scope id in proyecto controller', $scope.$id);
+
+        $scope.preLoad = function(cwForm) {
+          var methodSupport = cwForm.getEntityModel().concat('.').concat(cwForm.getMode());
+          cwForm.setActionsMethodToShow([methodSupport]);
+        };
+
+
+
       };
 
       $scope.$on('actionComplete', function(event, result) {
