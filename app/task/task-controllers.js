@@ -5,28 +5,6 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
   'use strict';
 
   var module = angular.module('task-controllers', ['CaliopeWebFormDirectives']);
-  /**
-   *
-   * @param result
-   */
-  /*
-  TODO: Revisar como se puede dejar genérico en el servicio de caliope web template
-   */
-  function processResultLoadForm(result, $scope) {
-    if( result !== undefined && result.error === undefined) {
-      if( result !== undefined ) {
-        if( result.structureToRender !== undefined ) {
-          $scope.jsonPlantillaAngular = result.structureToRender;
-        }
-        if( result.elements !== undefined ) {
-          $scope.elementsFormTemplate = result.elements;
-        }
-        $scope.modelUUID = result.modelUUID;
-        $scope.entityModel = result.entityModel;
-
-      }
-    }
-  }
 
   module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv','action',
     function($scope, $location, cwFormService, action) {
