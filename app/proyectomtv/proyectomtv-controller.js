@@ -61,7 +61,9 @@ define(['angular','caliopeWebForms','caliopeweb-formDirectives'], function(angul
         cwGrid.setDecorators([CaliopeWebGridDataDecorator, CWGridColumnsDefNgGridDecorator])
       };
 
+      /*
       function loadForm(cwForm) {
+
         cwFormService.loadForm(cwForm, {}).then( function(result) {
           processResultLoadForm(result, $scope);
           $scope.showWidgetTask=false;
@@ -77,17 +79,21 @@ define(['angular','caliopeWebForms','caliopeweb-formDirectives'], function(angul
 
         });
       };
+      */
 
       $scope.initForm = function() {
         console.log('scope id in proyecto controller', $scope.$id);
 
-        $scope.preLoad = function(cwForm) {
-          var methodSupport = cwForm.getEntityModel().concat('.').concat(cwForm.getMode());
-          cwForm.setActionsMethodToShow([methodSupport]);
-        };
 
+      };
 
+      $scope.preLoadForm = function(cwForm) {
+        $scope.showWidgetTask=false;
+        var methodSupport = cwForm.getEntityModel().concat('.').concat(cwForm.getMode());
+        cwForm.setActionsMethodToShow([methodSupport]);
+      };
 
+      $scope.postLoadForm = function(cwForm, result) {
       };
 
       $scope.$on('actionComplete', function(event, result) {
