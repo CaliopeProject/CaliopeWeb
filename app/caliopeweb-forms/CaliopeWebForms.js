@@ -246,8 +246,7 @@ var CaliopeWebForm = (function() {
 
     function dataToViewData(elements, dataFromServer) {
       /*
-      - Si la data proveniente del servidor es nula entonces se retorna un objeto con el nombre
-      de todas las propiedades y el valor en undefined
+      - Si la data proveniente del servidor es nula entonces no se asocia el elemento a la data a devolver
       - Si los elementos son nulos entonces se retorna undefined
        */
 
@@ -257,11 +256,12 @@ var CaliopeWebForm = (function() {
         data = {};
         jQuery.each(elements, function(kElement, vElement) {
           if( vElement.hasOwnProperty('name') ) {
-            data[vElement.name] = dataFromServer[vElement.name];
-
-            if( vElement.hasOwnProperty('relation') ) {
-              if(dataFromServer[vElement.name] === undefined) {
-                data[vElement.name] = vElement.relation;
+            if( dataFromServer !== undefined && dataFromServer[vElement.name] !== undefined ) {
+              data[vElement.name] = dataFromServer[vElement.name];
+              if( vElement.hasOwnProperty('relation') ) {
+                if(dataFromServer[vElement.name] === undefined) {
+                  data[vElement.name] = vElement.relation;
+                }
               }
             }
           };
