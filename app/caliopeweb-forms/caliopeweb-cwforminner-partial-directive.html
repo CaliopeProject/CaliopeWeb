@@ -1,3 +1,27 @@
-<div class="cw-inner-form" ng-controller="CaliopeWebTemplateCtrl">
-  <button class="btn btn-mini" type="button">Agregar</button>
+<div class="cw-inner-form">
+
+
+  <div name="container-title">
+    <button name="btn-add" class="btn btn-mini btn-title" type="button" ng-disabled="disabledAdd" ng-click="addInnerForm()">Agregar</button>
+  </div>
+  <!--
+  <cw-dform cw-dform="jsonTemplate_propietario" name="propietario0" mode="create" entity="Person" uuid="" generic="true" inner="true" from-routeparams="false" enc-uuid="false" ng-init="init()"></cw-dform>
+  -->
+  <div ng-repeat="form in innerForms" >
+    <div name="container-form" >
+      <cw-dform name="{{form.name}}" cw-dform="{{form.templateName}}"  mode="{{form.mode}}" entity="{{form.entity}}" uuid="{{form.uuid}}" generic="{{form.generic}}" inner="true" from-routeparams="false" enc-uuid="false" init="true"></cw-dform>
+    </div>
+    <!--
+    <cw-dform name="form.name" cw-dform="form.templateName"  mode="form.mode" entity="form.entity" uuid="form.uuid" generic="form.generic" inner="true" from-routeparams="false" enc-uuid="false" ng-init="init()"></cw-dform>
+    -->
+  </div>
+
+
+  <!--
+  <div name="container-btns" class="modal-footer" ng-show="showBtns">
+    <button name="btn-cancel" class="btn btn-mini btn-title" type="button" ng-click="cancel()">Cancelar</button>
+    <button name="btn-terminate" class="btn btn-mini btn-title" type="button" ng-click="terminate()">Terminar</button>
+  </div>
+  -->
+  <br/>
 </div>

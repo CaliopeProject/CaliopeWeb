@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
  * Bootstrap v2.3.2
  *
@@ -33348,6 +33349,14 @@ grid .height-10 {
 /* line 763, ../caliopeweb-forms/caliopeweb.scss */
 .ngFooterTotalItems {
   padding: 2px;
+}
+
+/**
+Styles for inner form
+*/
+/* line 771, ../caliopeweb-forms/caliopeweb.scss */
+.cw-inner-form .btn-title {
+  margin-left: 10px;
 }
 
 /* line 3, ../read-rss/read-rss.scss */
