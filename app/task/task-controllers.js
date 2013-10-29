@@ -43,48 +43,38 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
       $scope.fromDialog   = true;
     };
 
-    $scope.initFormDialog = function() {
-
-
-      $scope.fromDialog = true;
-
-      var cwForm = $scope['cwForm-task'];
+    $scope.preLoadForm = function(cwForm) {
       var methodSupport = cwForm.getEntityModel().concat('.').concat(action.mode);
       cwForm.setActionsMethodToShow([methodSupport]);
       cwForm.setMode(action.mode);
       cwForm.setModelUUID(action.uuid);
+    }
 
-
-      $scope.$on('actionComplete', function(event, result) {
-        if( result[1] === true ) {
-          cwForm.addData(result[2]);
-          cwForm.dataToViewData($scope);
+    $scope.postLoadForm = function(cwForm, result) {
+      if( result !== undefined && result.data !== undefined ) {
+        putActionDataInScope();
+        if( action.targetTask !== undefined && action.targetTask.hasOwnProperty('entity')) {
+          $scope.formtask = action.targetTask.entity;
         }
-      });
-
-
-      cwFormService.loadForm(cwForm, {}).then(function(result){
-        var inputs = result.elements;
-        processResultLoadForm(result, $scope);
-        if( result !== undefined && result.data !== undefined ) {
-          var dataToView = cwForm.dataToViewData();
-          if( dataToView !== undefined ) {
-            angular.forEach(dataToView, function(value, key){
-              $scope[key] = value;
-            });
+        if( action.targetTask !== undefined && action.targetTask.hasOwnProperty('uuid')) {
+          if($scope.target === undefined) {
+            $scope.target = {};
           }
-          putActionDataInScope();
-          if( action.targetTask !== undefined && action.targetTask.hasOwnProperty('entity')) {
-            $scope.formtask = action.targetTask.entity;
-          }
-          if( action.targetTask !== undefined && action.targetTask.hasOwnProperty('uuid')) {
-            if($scope.target === undefined) {
-              $scope.target = {};
-            }
-            $scope.target.uuid = action.targetTask.uuid;
-          }
+          $scope.target.uuid = action.targetTask.uuid;
         }
-      });
+      }
+    }
+
+    $scope.$on('actionComplete', function(event, result) {
+      if( result[1] === true ) {
+        var cwForm = $scope['cwForm-task'];
+        cwForm.addData(result[2]);
+        cwForm.dataToViewData($scope);
+      }
+    });
+
+    $scope.initFormDialog = function() {
+      $scope.fromDialog = true;
     };
 
     $scope.closeDialog = function (dialogName) {
