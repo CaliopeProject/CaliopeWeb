@@ -121,8 +121,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
        */
       link: function ($scope, $element, $attrs) {
 
-        console.log('scope id in cwform directive', $scope.$id);
-
+        console.log('scope id in cwform directive', $attrs.name, $scope.$id);
 
         /*
         Assign attributes values to vars
@@ -214,7 +213,9 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
                 });
               }
             }
-            postLoadFunction(cwForm, result);
+            if( postLoadFunction !== undefined) {
+              postLoadFunction(cwForm, result);
+            }
           } else if(result.error !== undefined) {
             throw new Error('Error load form from server.' + result.error.message);
           } else {
@@ -308,6 +309,20 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           if (value !== undefined && $attrs.ngShow !== "false" ) {
             console.log("Json to render " + $attrs.cwDform, value);
             renderDForm(value);
+            if($scope.elementsFormTemplate !== undefined) {
+              var scopeForm = $element.find('form').scope();
+              angular.forEach($scope.elementsFormTemplate, function(val, key) {
+                if( val.name !== undefined ) {
+                  scopeForm.$watch(''.concat(val.name), function(newValue, oldValue, scope){
+                    if( newValue !== oldValue ) {
+                      console.log('Cambiado form', cwForm.getEntityModel(), cwForm.getModelUUID(), val.name);
+                      console.log('Cambiado valor de campo', newValue, oldValue);
+
+                    }
+                  })
+                }
+              });
+            }
           }
         });
 
@@ -381,8 +396,10 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
             mode : mode,
             uuid : uuid,
             generic : generic,
-            templateName : 'jsonTemplate_'.concat(name)
+            templateName : 'jsonTemplate_'.concat(name),
+            data : {}
           }
+          console.log('$scope add InnerForm', name, $scope.$id);
           return innerForm;
         }
 
@@ -392,53 +409,8 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           $scope.innerForms.push(innerForm);
         }
 
-        /**
-         * This function serve the event of button add (name='btn-add') defined in templateUrl
-         * @param name Name of inner form
-         * @param entity Entity of inner form
-         * @param mode Mode of form
-         * @param uuid UUID data of form
-         * @param fromRouteParams Indicate if form is loaded with routing params.
-         */
-        $scope.renderInnerForm = function() {
-
-          if( formLoaded === false ) {
-            var cwFormDef = '<cw-dform cw-dform="{{jsonTemVarName}}" name="{{name}}" ' +
-                'entity="{{entity}}" mode="{{mode}}" uuid="{{uuid}}" generic="{{generic}}" ' +
-                'inner="true" from-routeparams="false" enc-uuid="false" ng-init="init()">' +
-                '</cw-dform>'
-
-            cwFormDef = cwFormDef.replace('{{name}}', name);
-            cwFormDef = cwFormDef.replace('{{jsonTemVarName}}', jsonTemVarName);
-            cwFormDef = cwFormDef.replace('{{entity}}', entity);
-            cwFormDef = cwFormDef.replace('{{mode}}', mode);
-            cwFormDef = cwFormDef.replace('{{uuid}}', uuid);
-            cwFormDef = cwFormDef.replace('{{generic}}', generic);
-
-            /*
-            Find the element in template with name "container-form" and add the new tag cw-dform, this load the form to render
-             */
-            $element.find('[name="container-form"]').append(cwFormDef);
-
-            /**
-             * Compile the element with the new tag cw-dform, this is to render the form.
-             */
-            try {
-              /*
-              Compile the element with cw-dform tag to apply the new contents
-               */
-              $compile($element.contents())($scope);
-            } catch (exCom) {
-              console.log('Error compiling form-inner' +  exCom.message);
-            }
-            formLoaded = true;
-          }
-          $scope.showForm = true;
-          /*
-            Update the state of buttons.
-           */
-          $scope.disabledAdd = false;
-          $scope.showBtns = false;
+        $scope.addIdScope = function(index, idScope) {
+          console.log('addIdScope', index, idScope);
         }
 
         /**
