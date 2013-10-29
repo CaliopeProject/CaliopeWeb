@@ -135,7 +135,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
         var inner = $attrs['inner'];
         var initForm = $attrs['init'];
         var preLoadFunction = $attrs['preLoadFunction'];
-        var postLoadFunction = $attrs['preLoadFunction'];
+        var postLoadFunction = $attrs['postLoadFunction'];
 
         /**
          * Return the form storage in the scope.
@@ -188,7 +188,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
          * @param result
          * @param $scope
          */
-        function processResultLoadForm(result, $scope) {
+        function processResultLoadForm(cwForm, result, $scope, postLoadFunction) {
           if( result !== undefined && result.error === undefined) {
             if( result !== undefined ) {
               if( result.structureToRender !== undefined ) {
@@ -207,16 +207,18 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
               /*
                Add data to scope
                */
-              if (result.data !== undefined) {
-                var varname;
-                for (varname in result.data) {
-                  if(result.data.hasOwnProperty(varname)) {
-                    $scope[varname] = result.data[varname];
-                  }
-                }
+              var dataToView = cwForm.dataToViewData();
+              if( dataToView !== undefined ) {
+                angular.forEach(dataToView, function(value, key){
+                  $scope[key] = value;
+                });
               }
-
             }
+            postLoadFunction(cwForm, result);
+          } else if(result.error !== undefined) {
+            throw new Error('Error load form from server.' + result.error.message);
+          } else {
+            throw new Error('Error load form from server. Form is empty');
           }
         }
 
@@ -242,7 +244,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
           }
 
           cwFormService.loadForm(cwForm, params).then(function(result) {
-            processResultLoadForm(result, $scope);
+            processResultLoadForm(cwForm, result, $scope, postLoadFunction);
             if( cwForm.getGenericForm() === true ) {
               $scope.entityModel = params.formId;
             }
@@ -282,6 +284,9 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
 
         if(preLoadFunction !== undefined && preLoadFunction.length > 0) {
           preLoadFunction = $scope[preLoadFunction];
+        }
+        if(postLoadFunction !== undefined && postLoadFunction.length > 0) {
+          postLoadFunction = $scope[postLoadFunction];
         }
 
         $scope.init = function() {
