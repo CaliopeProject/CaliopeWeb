@@ -1,12 +1,21 @@
 /*jslint browser: true*/
 /*global define, console, $*/
 
-define(['angular', 'angular-dragdrop', 'task-directives'], function (angular) {
+define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], function (angular) {
   'use strict';
-  var dirmodule = angular.module('kanbanBoardCtrl', ['ngDragDrop', 'ui.bootstrap', 'task-directives']);
+  var dirmodule = angular.module('kanbanBoardCtrl', ['ngDragDrop', 'ui.bootstrap', 'task-controllers','task-directives']);
 
   dirmodule.controller("kanbanBoardCtrl", ["$scope",'taskService',
     function($scope, taskService) {
+
+      //Put task when other user create
+      $scope.$on('createTask', function (event, data) {
+        taskService.addTask(data);
+        $scope.$apply(function () {
+          $scope.data = taskService.getTask();
+        });
+      });
+
 
       $scope.data = taskService.getTask();
       $scope.showSubtasks = false;

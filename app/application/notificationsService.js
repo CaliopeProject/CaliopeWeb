@@ -80,10 +80,25 @@ define(['angular', 'application-commonservices'], function (angular) {
       }]);
 
       moduleservice.factory('HandlerNotification',
-        ['$rootScope', function ($rootScope, toolservices) {
+        ['$rootScope', 'toolservices'
+        ,function ($rootScope,  toolservices){
+
         var service = {};
+        var actions = {
+          'createTask': function(data){
+            //send notification to kanbanBoardCtrl
+            console.log("notifications Services createTask", data);
+            $rootScope.$broadcast('createTask', data);
+          }
+        };
+
         var sendmessage = function(mssage){
-          $rootScope.$broadcast('ChangeTextAlertMessage', [mssage]);
+          var jobToDo =  actions[mssage.method];
+          if(!angular.isUndefined(jobToDo)){
+            jobToDo(toolservices.rmValue(mssage.params));
+          }else{
+            console.log("notifications Services Error dont be set", mssage);
+          }
         };
 
         service = {
