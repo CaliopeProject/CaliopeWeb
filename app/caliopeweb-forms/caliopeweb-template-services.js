@@ -270,9 +270,22 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
 
 
   moduleServices.factory('caliopeWebFormNotification',
-    ['$q', '$rootScope', '$http', 'webSocket',
-      function ($q, $rootScope, $http, webSocket) {
+    ['webSocket',
+      function (webSocket) {
+          var webSockets  = webSocket.WebSockets();
+          var method      = "form.updateField";
+          var promiseMode = {};
 
+          return {
+            sendChange: function(uuidForm, field, value){
+                var params = {
+                  "uuid"  : uuidForm,
+                  "field" : field,
+                  "value" : value,
+                };
+                promiseMode = webSockets.serversimm.sendRequest(method, params);
+            }
+          }
       }
     ])
 

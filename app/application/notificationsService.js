@@ -77,36 +77,43 @@ define(['angular', 'application-commonservices'], function (angular) {
           }
         };
 
-      }]);
+  }]);
 
-      moduleservice.factory('HandlerNotification',
-        ['$rootScope', 'toolservices'
-        ,function ($rootScope,  toolservices){
+  moduleservice.factory('HandlerNotification', ['$rootScope', 'toolservices'
+    ,function ($rootScope,  toolservices){
 
-        var service = {};
-        var actions = {
-          'createTask': function(data){
-            //send notification to kanbanBoardCtrl
-            console.log("notifications Services createTask", data);
-            $rootScope.$broadcast('createTask', data);
-          }
-        };
+    var service = {};
+    var actions = {
 
-        var sendmessage = function(mssage){
-          var jobToDo =  actions[mssage.method];
-          if(!angular.isUndefined(jobToDo)){
-            jobToDo(toolservices.rmValue(mssage.params));
-          }else{
-            console.log("notifications Services Error dont be set", mssage);
-          }
-        };
+      'createTask': function(data){
+        //send notification to kanbanBoardCtrl
+        console.log("notifications Services createTask 90", data);
+        $rootScope.$broadcast('createTask', data);
+      }
 
-        service = {
-          sendinfo: sendmessage
-        };
+      'updateFormField': function(data){
+        //send notification to kanbanBoardCtrl
+        console.log("notifications Services updateFormFild 96 ", data);
+        $rootScope.$broadcast('updateFormField', data);
+      }
 
-        return service;
-      }]);
+    };
 
-      return moduleservice;
+    var sendmessage = function(mssage){
+      var jobToDo =  actions[mssage.method];
+      if(!angular.isUndefined(jobToDo)){
+        jobToDo(toolservices.rmValue(mssage.params));
+      }else{
+        console.log("notifications Services Error dont be set", mssage);
+      }
+    };
+
+    service = {
+      sendinfo: sendmessage
+    };
+
+    return service;
+  }]);
+
+  return moduleservice;
 });

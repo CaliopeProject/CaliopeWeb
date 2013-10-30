@@ -30,7 +30,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-define(['angular', 'dform', 'Crypto'], function (angular) {
+define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificationsService'], function (angular) {
   'use strict';
 
   /**
@@ -38,7 +38,7 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
    * @memberOf CaliopeWebFormDirectives
    * @type {module}
    */
-  var moduleDirectives = angular.module('CaliopeWebFormDirectives', ['CaliopeWebTemplatesServices','commonServices' ]);
+  var moduleDirectives = angular.module('CaliopeWebFormDirectives', ['CaliopeWebTemplatesServices','commonServices', 'NotificationsServices']);
 
   /**
    * Define the directive for cw-dform. This print a html form using the
@@ -54,8 +54,11 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
    * @namespace Directive:cwDform
    *
   */
-  moduleDirectives.directive('cwDform',['$compile','$routeParams','caliopewebTemplateSrv',
-    function ($compile, $routeParams, cwFormService) {
+  moduleDirectives.directive('cwDform',['$compile'
+                                        ,'$routeParams'
+                                        ,'caliopewebTemplateSrv'
+                                        ,'caliopeWebFormNotification'
+    ,function ($compile, $routeParams, cwFormService, cwFormNotif) {
 
     /**
      * Define the properties of directive. This define:<br/>
@@ -307,17 +310,23 @@ define(['angular', 'dform', 'Crypto'], function (angular) {
          */
         $scope.$watch($attrs.cwDform, function (value) {
           if (value !== undefined && $attrs.ngShow !== "false" ) {
-            console.log("Json to render " + $attrs.cwDform, value);
+            console.log(" caliopeweb-form-directives 310 Json to render " + $attrs.cwDform, value);
             renderDForm(value);
             if($scope.elementsFormTemplate !== undefined) {
               var scopeForm = $element.find('form').scope();
+
+              //Put data when other user create it
+              $scope.$on('updateFormField', function (event, data) {
+                $scope.$apply(function () {
+                  scopeForm;
+                });
+              });
+
               angular.forEach($scope.elementsFormTemplate, function(val, key) {
                 if( val.name !== undefined ) {
                   scopeForm.$watch(''.concat(val.name), function(newValue, oldValue, scope){
-                    if( newValue !== oldValue ) {
-                      console.log('Cambiado form', cwForm.getEntityModel(), cwForm.getModelUUID(), val.name);
-                      console.log('Cambiado valor de campo', newValue, oldValue);
-
+                    if( (newValue !== oldValue) && (newValue.length > 2) ) {
+                      cwFormNotif.sendChange(cwForm.getModelUUID(), val.name, newValue);
                     }
                   })
                 }
