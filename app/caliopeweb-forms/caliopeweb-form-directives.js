@@ -129,15 +129,16 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         /*
         Assign attributes values to vars
          */
-        var entity = $attrs['entity'];
-        var mode = $attrs['mode'];
-        var uuid = $attrs['uuid'];
-        var name = $attrs['name'];
-        var generic = $attrs['generic'];
-        var inner = $attrs['inner'];
-        var initForm = $attrs['init'];
-        var preLoadFunction = $attrs['preLoadFunction'];
+        var entity           = $attrs['entity'];
+        var mode             = $attrs['mode'];
+        var uuid             = $attrs['uuid'];
+        var name             = $attrs['name'];
+        var generic          = $attrs['generic'];
+        var inner            = $attrs['inner'];
+        var initForm         = $attrs['init'];
+        var preLoadFunction  = $attrs['preLoadFunction'];
         var postLoadFunction = $attrs['postLoadFunction'];
+        var timerTransaccion = 3000; 
 
         /**
          * Return the form storage in the scope.
@@ -318,8 +319,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
               //Put data when other user create it
               $scope.$on('updateFormField', function (event, data) {
                 $scope.$apply(function () {
-                  console.log('scope a cazar ', scopeForm);
-                  console.log('data to put ', data);
+                  scopeForm[data.field] = data.value;
                 });
               });
               scopeForm.change = function change(name) {
