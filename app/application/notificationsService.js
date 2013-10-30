@@ -91,7 +91,7 @@ define(['angular', 'application-commonservices'], function (angular) {
         $rootScope.$broadcast('createTask', data);
       },
 
-      'updateFormField': function(data){
+      'updateField': function(data){
         //send notification to kanbanBoardCtrl
         console.log("notifications Services updateFormFild 96 ", data);
         $rootScope.$broadcast('updateFormField', data);

@@ -318,7 +318,8 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
               //Put data when other user create it
               $scope.$on('updateFormField', function (event, data) {
                 $scope.$apply(function () {
-                  scopeForm;
+                  console.log('scope a cazar ', scopeForm;
+                  console.log('data to put ', data;
                 });
               });
 
