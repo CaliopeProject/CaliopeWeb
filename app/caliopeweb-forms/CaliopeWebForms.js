@@ -1132,6 +1132,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
          */
 
         delete vElement['ng-model'];
+        delete vElement['ng-change'];
         delete vElement[ATT_OPTIONSFORM];
       }
     });
