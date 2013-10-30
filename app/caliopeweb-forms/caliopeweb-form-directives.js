@@ -334,20 +334,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             }
           }
         });
-
-
-
-
-        /**
-         *
-        $scope.$on('requiereCWForm', function(event, params){
-          var cwForm = $scope[$scope['cwForm-name']];
-          angular.copy(cwForm, params[0]);
-        });
-         */
-
-
-
       }
     };
 

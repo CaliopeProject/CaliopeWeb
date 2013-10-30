@@ -89,7 +89,7 @@ define(['angular', 'application-commonservices'], function (angular) {
         //send notification to kanbanBoardCtrl
         console.log("notifications Services createTask 90", data);
         $rootScope.$broadcast('createTask', data);
-      }
+      },
 
       'updateFormField': function(data){
         //send notification to kanbanBoardCtrl

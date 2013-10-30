@@ -269,6 +269,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
   }]);
 
 
+  /**
+   * Define the module for service caliope  Notification 
+   * @module caliopeWebFormNotification
+   */
   moduleServices.factory('caliopeWebFormNotification',
     ['webSocket',
       function (webSocket) {
