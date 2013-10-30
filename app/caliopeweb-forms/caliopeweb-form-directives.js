@@ -322,16 +322,9 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                   console.log('data to put ', data);
                 });
               });
-
-              angular.forEach($scope.elementsFormTemplate, function(val, key) {
-                if( val.name !== undefined ) {
-                  scopeForm.$watch(''.concat(val.name), function(newValue, oldValue, scope){
-                    if( (newValue !== oldValue) && (newValue.length > 2) ) {
-                      cwFormNotif.sendChange(cwForm.getModelUUID(), val.name, newValue);
-                    }
-                  })
-                }
-              });
+              scopeForm.change = function change(name) {
+                cwFormNotif.sendChange(cwForm.getModelUUID(), name, scopeForm[name]);
+              };
             }
           }
         });

@@ -890,6 +890,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
     }
     if( element.type !== 'div' ) {
       element['ng-model'] = valueNgModel;
+      element['ng-change'] = "change(".concat("'").concat(name).concat("')")
     }
   }
 
