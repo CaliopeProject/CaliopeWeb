@@ -6,7 +6,7 @@ define(
     var urlws      = '/api/ws';
     var http       = 'http://';
     var domainname = document.domain;
-    var pruebaPrue = '192.168.50.57';
+    var pruebaPrue = '192.168.50.32';
     var localport  = location.port ;
 
     //filie uploader
@@ -14,8 +14,8 @@ define(
     var url1       = '/upload/';
 
     return {
-      'caliope_server_address'   : ws    + domainname + ':' + localport + urlws,
       //'caliope_server_address'   : ws    + domainname + ':' + localport + urlws,
+      'caliope_server_address'   : ws    + pruebaPrue + ':' + localport + urlws,
       'hyperion_server_address'  : http  + domainname + ':' +  port1 + url1
     }
   }())
