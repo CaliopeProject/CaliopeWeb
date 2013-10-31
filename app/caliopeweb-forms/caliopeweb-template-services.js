@@ -129,7 +129,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
       * @param objID Identified of the data
       * @returns {{}}
       */
-      Service.sendDataForm = function(formTemplateName, actionMethod, object, modelUUID, objID ) {
+      Service.sendDataForm = function(formTemplateName, actionMethod, object, modelUUID, objID, encapsulateInData) {
 
         var params = {};
         var method = actionMethod;
@@ -141,12 +141,17 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
           object.uuid = objID;
         }
 
-        params = {
-          "formId" : formTemplateName
-          //"formUUID" : modelUUID
-        };
-        params.data = {};
-        jQuery.extend(params.data, object);
+
+        if( encapsulateInData === true || encapsulateInData === "true" ) {
+          params.data = {};
+          jQuery.extend(params.data, object);
+          params = {
+            "formId" : formTemplateName
+            //"formUUID" : modelUUID
+          };
+        } else {
+          jQuery.extend(params, object);
+        }
         var promise = {};
 
         var webSockets = webSocket.WebSockets();
@@ -285,7 +290,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
                 var params = {
                   "uuid"  : uuidForm,
                   "field" : field,
-                  "value" : value,
+                  "value" : value
                 };
                 promiseMode = webSockets.serversimm.sendRequest(method, params);
             }

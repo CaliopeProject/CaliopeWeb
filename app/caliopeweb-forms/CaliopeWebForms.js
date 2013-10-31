@@ -271,7 +271,7 @@ var CaliopeWebForm = (function() {
       return data;
     };
 
-    function dataToServerData(elements, dataFromView) {
+    function dataToServerData(elements, dataFromView, paramsToSend) {
 
       /*
         Si el parámetro dataFromView es undefined entonces se crea una estructura de datos
@@ -285,14 +285,12 @@ var CaliopeWebForm = (function() {
       if( elements !== undefined ) {
         data = {};
         //TODO: Verificar si aún se va a utilizar params to send.
-        var paramsToSend = [];
-        /*
          if( paramsToSend === undefined || paramsToSend === '' ) {
-         paramsToSend = [];
+          paramsToSend = [];
          } else {
-         paramsToSend = paramsToSend.split(',');
+          paramsToSend = paramsToSend.split(',');
          }
-         */
+
 
         for (i = 0; i < elements.length; i++) {
           if( paramsToSend.length === 0 || paramsToSend.indexOf(elements[i]) >= 0 ) {
@@ -504,8 +502,8 @@ var CaliopeWebForm = (function() {
      * @param dataFromView
      * @returns {*}
      */
-    dataToServerData : function(dataFromView) {
-      return dataToServerData(this.elementsForm, dataFromView);
+    dataToServerData : function(dataFromView, paramsToSend) {
+      return dataToServerData(this.elementsForm, dataFromView, paramsToSend);
     },
 
     /**
@@ -1361,7 +1359,12 @@ var CaliopeWebFormActionsDecorator = ( function() {
       var NAME_METHOD_CONTROLLER = 'sendAction';
       var NAME_CLASS_ACTIONS = 'modal-footer';
       var NAME_CLASS_BUTTON_DEFAULT = "btn";
-      var VAR_NAME_PARAMS_TO_SEND = "params";
+      var VAR_NAME_PARAMS_TO_SEND = "params-to-send";
+      /*
+      Indicate if the data to send to server must be encapsulated in data attribute. data : {...}
+      By default is true
+       */
+      var VAR_NAME_ENCAPSULTA_INDATA = "encapsulate-in-data";
 
       var buttonContainer = {
         type : "div",
@@ -1388,6 +1391,11 @@ var CaliopeWebFormActionsDecorator = ( function() {
         if( paramsToSend === undefined ) {
           paramsToSend = "";
         }
+
+        if( structureActions[i][VAR_NAME_ENCAPSULTA_INDATA] !== "false" ) {
+          structureActions[i][VAR_NAME_ENCAPSULTA_INDATA] = true;
+        }
+
         action.type = TYPE_ACTION;
         /*
           create ng-click: sendAction(form, 'formName', 'method', 'modelUUID', 'objID', 'params_to_send_to_server');
@@ -1398,7 +1406,8 @@ var CaliopeWebFormActionsDecorator = ( function() {
             concat("'").concat(actionMethod).concat("', ").
             concat("'").concat(modelUUID).concat("', ").
             concat("'").concat(objID).concat("', ").
-            concat("'").concat(paramsToSend).concat("'").
+            concat("'").concat(paramsToSend).concat("',").
+            concat("'").concat(structureActions[i][VAR_NAME_ENCAPSULTA_INDATA]).concat("'").
             concat(")");
         action[DIRECTIVE_DISABLED] = formName.concat('.$invalid');
         action[DIRECTIVE_SHOW] = show;
