@@ -282,14 +282,20 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
     ['webSocket',
       function (webSocket) {
           var webSockets  = webSocket.WebSockets();
-          var method      = "form.updateField";
           var promiseMode = {};
 
           return {
-            sendChange: function(uuidForm, field, value){
+            sendChange: function(cwForm, field, value){
+                var uuidForm = cwForm.getModelUUID();
+                var method      = "updateField";
+                if( cwForm.getGenericForm() === true ) {
+                  method = 'form.'.concat(method);
+                } else {
+                  method = cwForm.getEntityModel().concat('.').concat(method);
+                }
                 var params = {
                   "uuid"  : uuidForm,
-                  "field" : field,
+                  "field_name" : field,
                   "value" : value
                 };
                 promiseMode = webSockets.serversimm.sendRequest(method, params);

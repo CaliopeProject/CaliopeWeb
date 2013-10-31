@@ -323,7 +323,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                 });
               });
               scopeForm.change = function change(name) {
-                cwFormNotif.sendChange(cwForm.getModelUUID(), name, scopeForm[name]);
+                cwFormNotif.sendChange(cwForm, name, scopeForm[name]);
               };
             }
           }
