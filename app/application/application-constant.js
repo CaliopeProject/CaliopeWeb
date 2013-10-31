@@ -14,8 +14,8 @@ define(
     var url1       = '/upload/';
 
     return {
-      //'caliope_server_address'   : ws    + domainname + ':' + localport + urlws,
-      'caliope_server_address'   : ws    + pruebaPrue + ':' + localport + urlws,
+      'caliope_server_address'   : ws    + domainname + ':' + localport + urlws,
+      //'caliope_server_address'   : ws    + pruebaPrue + ':' + localport + urlws,
       'hyperion_server_address'  : http  + domainname + ':' +  port1 + url1
     }
   }())
