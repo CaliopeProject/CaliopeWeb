@@ -6,7 +6,7 @@ define(['angular', 'application-commonservices'], function (angular) {
 
   var  moduleservice = angular.module('NotificationsServices', ['commonServices']);
 
-  return moduleservice.factory('HandlerResponseServerSrv',
+  moduleservice.factory('HandlerResponseServerSrv',
       ['$rootScope', 'toolservices', function ($rootScope, toolservices) {
 
         var dataToProcess, selector, mensOk, mensError, addPromises;
@@ -77,5 +77,43 @@ define(['angular', 'application-commonservices'], function (angular) {
           }
         };
 
-      }]);
+  }]);
+
+  moduleservice.factory('HandlerNotification', ['$rootScope', 'toolservices'
+    ,function ($rootScope,  toolservices){
+
+    var service = {};
+    var actions = {
+
+      'createTask': function(data){
+        //send notification to kanbanBoardCtrl
+        console.log("notifications Services createTask 90", data);
+        $rootScope.$broadcast('createTask', data);
+      },
+
+      'updateField': function(data){
+        //send notification to kanbanBoardCtrl
+        console.log("notifications Services updateFormFild 96 ", data);
+        $rootScope.$broadcast('updateFormField', data);
+      }
+
+    };
+
+    var sendmessage = function(mssage){
+      var jobToDo =  actions[mssage.method];
+      if(!angular.isUndefined(jobToDo)){
+        jobToDo(toolservices.rmValue(mssage.params));
+      }else{
+        console.log("notifications Services Error dont be set", mssage);
+      }
+    };
+
+    service = {
+      sendinfo: sendmessage
+    };
+
+    return service;
+  }]);
+
+  return moduleservice;
 });

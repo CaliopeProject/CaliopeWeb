@@ -4,5 +4,17 @@
       <widget-task category="'ToDo'" target-uuid="modelUUID" target-entity="entityModel"></widget-task>
     </div>
   </div>
-  <cw-dform name="SIIMForm" cw-dform="jsonPlantillaAngular" from-routeparams="true" ng-init="initWithRouteParams([],true)" enc-uuid="true"></cw-dform>
+  <cw-dform name="SIIMForm" cw-dform="jsonPlantillaAngular" from-routeparams="true" enc-uuid="true" generic="true" init="true"></cw-dform>
+
+
+  <!--
+    <button type="button" data-ng-click="renderForm()">Agregar</button>
+
+    <label>Propietario</label>
+    <div ng-init="showForm_propietario=false" ng-show="{{showForm_propietario}}">
+      <label>Forma ....{{showForm_propietario}}</label>
+
+      <cw-dform cw-dform="jsonPlantillaAngularPropietario" ng-show="{{showForm_propietario}}" name="propietario" entity="FichaPredial" mode="create" from-routeparams="false" ng-init="init('FichaPredial', 'create', '', 'false')"></cw-dform>
+    </div>
+  -->
 </div>

@@ -1,9 +1,9 @@
 /*jslint browser: true*/
 /*global localStorage, Crypto, $scope*/
-define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
+define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'], function(angular){
   'use strict';
 
-  var moduleServices = angular.module('task-services', ['ui.bootstrap.dialog']);
+  var moduleServices = angular.module('task-services', ['CaliopeWebTemplatesServices', 'ui.bootstrap.dialog']);
 
   moduleServices.factory('taskService',
     ['SessionSrv', 'loginSecurity', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv', 'toolservices'
@@ -229,6 +229,23 @@ define(['angular', 'angular-ui-bootstrap-bower'], function(angular) {
               }
             };
             opentaskDialog(DIALOG_NAME_FORM_TASK);
+          },
+
+          addTask:  function(loadTask){
+            var category;
+            var uuid = loginSecurity.currentUser.user_uuid;
+            if(!angular.isUndefined(loadTask)){
+              angular.forEach(loadTask.holders.target, function(vtarget){
+                if (vtarget.entity_data.uuid === uuid){
+                  category = vtarget.properties.category;
+                }
+              });
+              angular.forEach(ALLTASK, function(value, key){
+                if(value.category === category){
+                  ALLTASK[key].tasks.push(loadTask);
+                }
+              });
+            }
           },
 
           archiveTask: function(item) {

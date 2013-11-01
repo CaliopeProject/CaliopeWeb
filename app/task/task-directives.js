@@ -23,11 +23,13 @@ define(['angular'], function(angular) {
             $scope.category = value;
           });
         }
+
         if($attrs.hasOwnProperty('targetUuid')) {
           $scope.$watch($attrs.targetUuid, function(value){
             $scope.targetTask.uuid = value;
           });
         }
+
         if($attrs.hasOwnProperty('targetEntity')) {
           $scope.$watch($attrs.targetEntity, function(value){
             $scope.targetTask.entity = value;

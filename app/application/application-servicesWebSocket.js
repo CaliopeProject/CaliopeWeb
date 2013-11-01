@@ -1,7 +1,7 @@
 /*jslint browser: true*/
 /*global UUIDjs, WebSocket, WebSocketCaliope*/
 
-define(['angular', 'uuid'], function(angular) {
+define(['angular', 'application-constant', 'uuid', 'notificationsService'], function(angular, $caliope_constant) {
   'use strict';
 
   var moduleWebSocket = angular.module('webSocket', ['NotificationsServices']);
@@ -16,9 +16,21 @@ define(['angular', 'uuid'], function(angular) {
     'error-att-name'    : 'error'
   });
 
-  moduleWebSocket.factory('webSocket',
-    ['$q', '$rootScope', 'JsonRpcConst','global_constants', 'HandlerResponseServerSrv', '$timeout',
-      function($q, $rootScope, jsonRpcConst, global_constants, handlerResponseSrv, $timeout) {
+  moduleWebSocket.factory('webSocket',[
+     '$q'
+    ,'$rootScope'
+    ,'JsonRpcConst'
+    ,'HandlerResponseServerSrv'
+    ,'$timeout'
+    ,'HandlerNotification'
+
+    ,function(
+        $q
+      , $rootScope
+      , jsonRpcConst
+      , handlerResponseSrv
+      , $timeout
+      , HandlerNotification){
 
         var Service = {};
         var webSockets = {};
@@ -28,7 +40,7 @@ define(['angular', 'uuid'], function(angular) {
         */
         function initWebSockets() {
           var wsTemplates = new WebSocketCaliope(
-            'ws://' + document.domain + ':' + location.port + '/api/ws'
+            $caliope_constant.caliope_server_address
             //'ws://' + '192.168.0.11' + ':' + location.port + '/api/ws'
             //'ws://' + '192.168.50.57' + ':' + location.port + '/api/ws'
           );
@@ -107,7 +119,7 @@ define(['angular', 'uuid'], function(angular) {
                 send(request);
               },200);
             } else {
-              console.log('Sending request application-servicesWebsocket 105', (request));
+              console.log('Service web socketSending request application-servicesWebsocket 124', (request));
               ws.send(JSON.stringify(request));
             }
           }
@@ -174,25 +186,28 @@ define(['angular', 'uuid'], function(angular) {
           */
           var listener = function (data) {
             var messageObj = data;
-            console.log("Received data from websocket 109: ", messageObj);
+            var procces    = function (callvalue){
+              if(callbacks.hasOwnProperty(callvalue[callbackAttName])) {
+                $rootScope.$apply(
+                  callbacks[callvalue[callbackAttName]].cb.resolve(callvalue)
+                );
+                delete callbacks[callvalue[callbackAttName]];
+              }else{
+                if(!angular.isUndefined(messageObj.method)){
+                  //Process in notifiactionsServices.HandlerNotification
+                  HandlerNotification.sendinfo(messageObj);
+                }
+              }
+            };
+            console.log("Service web socketReceived data from websocket 203: ", messageObj);
             // If an object exists with callback_id in our callbacks object, resolve it
-            // console.log("messageObj.data:", messageObj.data);
+            // console.log("Service web socket messageObj.data:", messageObj.data);
             if(angular.isArray(messageObj)){
               angular.forEach(messageObj, function(value){
-                if(callbacks.hasOwnProperty(value[callbackAttName])) {
-                  $rootScope.$apply(
-                    callbacks[value[callbackAttName]].cb.resolve(value)
-                  );
-                  delete callbacks[value[callbackAttName]];
-                }
+                procces(value);
               });
             }else{
-              if(callbacks.hasOwnProperty(messageObj[callbackAttName])) {
-                $rootScope.$apply(
-                  callbacks[messageObj[callbackAttName]].cb.resolve(messageObj)
-                );
-                delete callbacks[messageObj[callbackAttName]];
-              }
+              procces(messageObj);
             }
           };
 
@@ -205,7 +220,7 @@ define(['angular', 'uuid'], function(angular) {
           * Override the method of WebSocket object when the connection is established
           */
           ws.onopen = function() {
-            console.log("Socket has been opened! ", ws.url);
+            console.log("Service web socketSocket has been opened! 223 ", ws.url);
             $rootScope.openWebSocket = true;
             $rootScope.$broadcast('openWebSocket', []);
           };
@@ -231,11 +246,11 @@ define(['angular', 'uuid'], function(angular) {
           * @param errorEvent
           */
           ws.onerror = function(errorEvent) {
-            console.log("Error en ws! ", errorEvent);
+            console.log("Service web socketError en ws! 250", errorEvent);
           };
 
           ws.onclose = function(event) {
-            console.log("Socket has been closed! ");
+            console.log("Service web socketSocket has been closed! 254");
             $rootScope.$broadcast('closeWebSocket', []);
             initWebSockets();
           };

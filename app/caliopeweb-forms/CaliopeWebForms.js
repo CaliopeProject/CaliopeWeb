@@ -131,10 +131,18 @@ var CaliopeWebForm = (function() {
 
   /**
    * Indicate if the CWForm is a generic form
-   * @member {object} isGeneric
+   * @member {object} genericForm
    * @memberOf CaliopeWebForm
    */
     var genericForm;
+
+    /**
+     * Indicate if the CWForm is a inner form
+     * @member {object} innerForm
+     * @memberOf CaliopeWebForm
+     */
+    var innerForm;
+
 
   /**
    * This function search all the elements that are presents in the form structure. This function
@@ -232,12 +240,13 @@ var CaliopeWebForm = (function() {
       this.entityModel = entityModel;
       this.mode = mode;
       this.modelUUID = uuid;
+      this.genericForm = false;
+      this.innerForm = false;
     };
 
     function dataToViewData(elements, dataFromServer) {
       /*
-      - Si la data proveniente del servidor es nula entonces se retorna un objeto con el nombre
-      de todas las propiedades y el valor en undefined
+      - Si la data proveniente del servidor es nula entonces no se asocia el elemento a la data a devolver
       - Si los elementos son nulos entonces se retorna undefined
        */
 
@@ -247,11 +256,12 @@ var CaliopeWebForm = (function() {
         data = {};
         jQuery.each(elements, function(kElement, vElement) {
           if( vElement.hasOwnProperty('name') ) {
-            data[vElement.name] = dataFromServer[vElement.name];
-
-            if( vElement.hasOwnProperty('relation') ) {
-              if(dataFromServer[vElement.name] === undefined) {
-                data[vElement.name] = vElement.relation;
+            if( dataFromServer !== undefined && dataFromServer[vElement.name] !== undefined ) {
+              data[vElement.name] = dataFromServer[vElement.name];
+              if( vElement.hasOwnProperty('relation') ) {
+                if(dataFromServer[vElement.name] === undefined) {
+                  data[vElement.name] = vElement.relation;
+                }
               }
             }
           };
@@ -261,7 +271,7 @@ var CaliopeWebForm = (function() {
       return data;
     };
 
-    function dataToServerData(elements, dataFromView) {
+    function dataToServerData(elements, dataFromView, paramsToSend) {
 
       /*
         Si el parámetro dataFromView es undefined entonces se crea una estructura de datos
@@ -275,14 +285,12 @@ var CaliopeWebForm = (function() {
       if( elements !== undefined ) {
         data = {};
         //TODO: Verificar si aún se va a utilizar params to send.
-        var paramsToSend = [];
-        /*
          if( paramsToSend === undefined || paramsToSend === '' ) {
-         paramsToSend = [];
+          paramsToSend = [];
          } else {
-         paramsToSend = paramsToSend.split(',');
+          paramsToSend = paramsToSend.split(',');
          }
-         */
+
 
         for (i = 0; i < elements.length; i++) {
           if( paramsToSend.length === 0 || paramsToSend.indexOf(elements[i]) >= 0 ) {
@@ -494,8 +502,8 @@ var CaliopeWebForm = (function() {
      * @param dataFromView
      * @returns {*}
      */
-    dataToServerData : function(dataFromView) {
-      return dataToServerData(this.elementsForm, dataFromView);
+    dataToServerData : function(dataFromView, paramsToSend) {
+      return dataToServerData(this.elementsForm, dataFromView, paramsToSend);
     },
 
     /**
@@ -543,7 +551,7 @@ var CaliopeWebForm = (function() {
       },
 
     /**
-     * Get the elements (input) contains in the structure
+     * Get the  entity model of form
      * @function
      * @memberOf CaliopeWebForm
      *
@@ -551,6 +559,29 @@ var CaliopeWebForm = (function() {
      */
       getEntityModel : function() {
         return this.entityModel;
+      },
+
+    /**
+     * Indicate if form is a generic form or not
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {boolean}
+     */
+      getGenericForm : function() {
+        return this.genericForm;
+      },
+
+
+    /**
+     * Indicate if form is a inner form
+     * @function
+     * @memberOf CaliopeWebForm
+     *
+     * @returns {boolean}
+     */
+      getInnerForm : function() {
+        return this.innerForm;
       },
 
     /**
@@ -654,6 +685,22 @@ var CaliopeWebForm = (function() {
      */
     setEntityModel : function(entityModel) {
       this.entityModel = entityModel;
+    },
+
+    /**
+     * Set the value that indicate if form is a generic form
+     * @param genericForm
+     */
+    setGenericForm : function(genericForm) {
+      this.genericForm = genericForm;
+    },
+
+    /**
+     * Set the value that indicate if form is a inner form
+     * @param genericForm
+     */
+    setInnerForm : function(innerForm) {
+      this.innerForm = innerForm;
     },
 
     /**
@@ -841,6 +888,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
     }
     if( element.type !== 'div' ) {
       element['ng-model'] = valueNgModel;
+      element['ng-change'] = "change(".concat("'").concat(name).concat("')")
     }
   }
 
@@ -910,6 +958,73 @@ var CaliopeWebFormSpecificDecorator = ( function() {
   }
 
   /**
+   * This function process the elements of type radiobuttons, checkboxes and checkbox.
+   * For radiobuttons and checkboxes the process is performance over option attribute.
+   * @function
+   * @memberOf CaliopeWebFormSpecificDecorator
+   * @param{array} elementsInputs Elements Field config in the template.
+   */
+  function completeTypeRadioButtonsCheckBoxess(elementsInputs) {
+
+    /*
+     * Verificar que existan elementos
+     */
+    if( elementsInputs !== undefined && elementsInputs.length > 0) {
+
+      var TYPE_RADIO = 'radio';
+      var TYPE_CHECK = 'checkbox';
+      var VALUE_TRUE = 'True';
+      var VALUE_FALSE = 'False';
+
+      var radioContainer = {
+        "type" : "",
+        "ng-model" : "",
+        "value" : "",
+        "html" : ""
+      }
+
+      /*
+       Para cada elemento del tipo (type) radiobuttons y/o checkboxes agregar a los options el ng-model,
+       el caption y el value. Quitar del principal el ng-model
+       */
+      jQuery.each(elementsInputs, function(kElement, vElement){
+        var options = [];
+        if( vElement.type === 'radiobuttons' || vElement.type === 'checkboxes') {
+          var ngmodel = vElement['ng-model'];
+          delete vElement['ng-model'];
+
+          jQuery.each(vElement.options, function(kOption, vOptions){
+            var option = {};
+            jQuery.extend(true, option, radioContainer);
+            if(vElement.type === 'radiobuttons') {
+              option.type = TYPE_RADIO;
+              option['ng-model'] = ngmodel;
+              option.value = kOption;
+            } else if(vElement.type === 'checkboxes') {
+              option.type = TYPE_CHECK;
+              option['ng-model'] = ngmodel.concat('.').concat(kOption);
+              option['ng-true-value'] = VALUE_TRUE;
+              option['ng-false-value'] = VALUE_FALSE;
+            }
+            delete option.name;
+            options.push(option);
+            option.caption = vOptions;
+          });
+          delete vElement.options;
+          vElement.html = [];
+          vElement.html = vElement.html.concat(options);
+        }
+
+        if( vElement.type === 'checkbox' ) {
+          vElement['ng-true-value'] = VALUE_TRUE;
+          vElement['ng-false-value'] = VALUE_FALSE;
+        }
+
+      });
+    }
+  }
+
+  /**
    * Add datepicker angular directive to the structure for each elements in the structure with
    * the type datepicker defined in json structure form.
    *
@@ -970,6 +1085,55 @@ var CaliopeWebFormSpecificDecorator = ( function() {
 
       }
     }
+  }
+
+
+  /**
+   * Add
+   *
+   * @function
+   * @memberOf CaliopeWebFormSpecificDecorator
+   * @param {array} elementsTemplate Elements Field config in the template.
+   */
+  function completeTypeForm(elementsTemplate) {
+    var i;
+    var TYPE_FORM = 'form';
+    var TYPE_CWFORM = "cw-form-inner"
+    var ATT_OPTIONSFORM = "options-form";
+    var VARNAME_TEMPLATE = ""
+    var ATT_FROM_ROUTEPARAMS = "from-routeparams";
+    var ATT_NG_INIT = "ng-init"
+
+    jQuery.each(elementsTemplate, function(kElement, vElement){
+
+      if( vElement.type === TYPE_FORM) {
+
+        if( !vElement.hasOwnProperty(ATT_OPTIONSFORM) ) {
+          var msg =  "";
+          throw Error( 'Obligatory attribute '.concat(ATT_OPTIONSFORM).
+              concat(' for element ').concat(vElement) );
+        }
+
+        vElement.typeo = TYPE_FORM;
+        vElement.type = TYPE_CWFORM;
+        vElement[ATT_FROM_ROUTEPARAMS] = "false";
+        vElement.entity = vElement[ATT_OPTIONSFORM].formId;
+        vElement.generic = vElement[ATT_OPTIONSFORM].generic;
+        //TODO Mirar como manejar el modo.
+
+        /*
+        vElement[ATT_NG_INIT] = "init(".
+            concat("'").concat(vElement[ATT_OPTIONSFORM].formId).concat("',").
+            concat("'").concat('create').concat("',").
+            concat("'").concat("',").
+            concat("'").concat(vElement[ATT_OPTIONSFORM].generic).concat("')");
+         */
+
+        delete vElement['ng-model'];
+        delete vElement['ng-change'];
+        delete vElement[ATT_OPTIONSFORM];
+      }
+    });
 
   }
 
@@ -1126,7 +1290,8 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeMultiChoices(elementsTemplate,data);
         completeTypeExecuteTask(elementsTemplate, data);
         completeTypeCwGrid(elementsTemplate);
-
+        completeTypeRadioButtonsCheckBoxess(elementsTemplate);
+        completeTypeForm(elementsTemplate);
         return structureInit;
       };
     }
@@ -1194,7 +1359,12 @@ var CaliopeWebFormActionsDecorator = ( function() {
       var NAME_METHOD_CONTROLLER = 'sendAction';
       var NAME_CLASS_ACTIONS = 'modal-footer';
       var NAME_CLASS_BUTTON_DEFAULT = "btn";
-      var VAR_NAME_PARAMS_TO_SEND = "params";
+      var VAR_NAME_PARAMS_TO_SEND = "params-to-send";
+      /*
+      Indicate if the data to send to server must be encapsulated in data attribute. data : {...}
+      By default is true
+       */
+      var VAR_NAME_ENCAPSULTA_INDATA = "encapsulate-in-data";
 
       var buttonContainer = {
         type : "div",
@@ -1221,6 +1391,11 @@ var CaliopeWebFormActionsDecorator = ( function() {
         if( paramsToSend === undefined ) {
           paramsToSend = "";
         }
+
+        if( structureActions[i][VAR_NAME_ENCAPSULTA_INDATA] !== "false" ) {
+          structureActions[i][VAR_NAME_ENCAPSULTA_INDATA] = true;
+        }
+
         action.type = TYPE_ACTION;
         /*
           create ng-click: sendAction(form, 'formName', 'method', 'modelUUID', 'objID', 'params_to_send_to_server');
@@ -1231,7 +1406,8 @@ var CaliopeWebFormActionsDecorator = ( function() {
             concat("'").concat(actionMethod).concat("', ").
             concat("'").concat(modelUUID).concat("', ").
             concat("'").concat(objID).concat("', ").
-            concat("'").concat(paramsToSend).concat("'").
+            concat("'").concat(paramsToSend).concat("',").
+            concat("'").concat(structureActions[i][VAR_NAME_ENCAPSULTA_INDATA]).concat("'").
             concat(")");
         action[DIRECTIVE_DISABLED] = formName.concat('.$invalid');
         action[DIRECTIVE_SHOW] = show;
@@ -1270,7 +1446,9 @@ var CaliopeWebFormActionsDecorator = ( function() {
         objID = '';
       }
       caliopeWebForm.createStructureToRender = function() {
-        completeActions(structureInit, structureAction, actionsToShow, formName, modelUUID, objID);
+        if( caliopeWebForm.getInnerForm() === false ) {
+          completeActions(structureInit, structureAction, actionsToShow, formName, modelUUID, objID);
+        }
         return structureInit;
       };
     }

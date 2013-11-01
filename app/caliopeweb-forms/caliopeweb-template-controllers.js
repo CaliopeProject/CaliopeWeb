@@ -10,23 +10,28 @@
 /**
 * Define the module angular in RequireJS
 */
-define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
+define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload', 'caliopeweb-formDirectives'], function (angular) {
   'use strict';
 
   /**
   * Define the module controllers for CaliopeWebTemplates
   */
-  var moduleControllers = angular.module('CaliopeWebTemplateControllers', []);
+  var moduleControllers = angular.module('CaliopeWebTemplateControllers', ['CaliopeWebFormDirectives']);
 
   /**
    *
    * @param result
+   * @param $scope
    */
   function processResultLoadForm(result, $scope) {
     if( result !== undefined && result.error === undefined) {
       if( result !== undefined ) {
         if( result.structureToRender !== undefined ) {
-          $scope.jsonPlantillaAngular = result.structureToRender;
+          var varTemplate = 'jsonPlantillaAngular';
+          if($scope['cwForm-varTemplate'] !== undefined) {
+            varTemplate = $scope['cwForm-varTemplate'];
+          }
+          $scope[varTemplate] = result.structureToRender;
         }
         if( result.elements !== undefined ) {
           $scope.elementsFormTemplate = result.elements;
@@ -59,19 +64,39 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
       function (calwebTemSrv, $scope, $routeParams) {
 
 
-        $scope.init = function(template, mode, uuid) {
-          var calwebtem = calwebTemSrv.caliopeForm;
-          calwebtem.id     = template;
-          calwebtem.mode   = mode;
-          calwebtem.uuid   = uuid;
+        function processGenericForm(cwForm, params, entity) {
+            params.formId = entity;
+            cwForm.setEntityModel('form');
+            $scope.entityModel = entity;
+        }
 
-          if(uuid !== undefined && uuid.length > 0) {
+        function getForm() {
+          var cwFormName = $scope['cwForm-name'];
+          return $scope[cwFormName];
+        }
+
+        $scope.init = function() {
+
+          var cwForm = getForm();
+          var params = {};
+
+
+          if(cwForm.getModelUUID() !== undefined && cwForm.getModelUUID().length > 0) {
             $scope.showWidgetTask=true;
           }
 
-          $scope.caliopeForm   = calwebTemSrv.caliopeForm;
-          calwebTemSrv.loadTemplateData().then(function(result) {
+          if( cwForm.getGenericForm() === true ) {
+            processGenericForm(cwForm, params, cwForm.getEntityModel());
+
+          }
+
+          $scope.caliopeForm   = cwForm;
+
+          calwebTemSrv.loadForm(cwForm, params).then(function(result) {
             processResultLoadForm(result, $scope);
+            if( cwForm.getGenericForm() === true ) {
+              $scope.entityModel = params.formId;
+            }
           });
         };
 
@@ -83,14 +108,13 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
           if($routeParams.uuid !== undefined && $routeParams.uuid.length > 0) {
             $scope.showWidgetTask=true;
           }
-
-          if( generic === true ) {
-            params.formId = $routeParams.entity;
-            cwForm.setEntityModel('form');
+          if( generic === true || generic === "true") {
+            processGenericForm(cwForm, params, $routeParams.entity);
             $scope.entityModel = $routeParams.entity;
+          } else {
+
           }
           $scope.actionsToShow = actionsToShow;
-
           $scope.caliopeForm   = cwForm;
 
           calwebTemSrv.loadForm(cwForm,params).then(function(result) {
@@ -123,8 +147,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   ]);
 
   moduleControllers.controller('CaliopeWebTemplateCtrlDialog',
-    ['caliopewebTemplateSrv', 'dialog', '$scope', 'action', 'taskService',
-      function (calwebTemSrv, dialog, $scope, action, taskService) {
+    ['caliopewebTemplateSrv', 'dialog', '$scope', 'action',
+      function (calwebTemSrv, dialog, $scope, action) {
 
         $scope.init = function() {
           var calwebtem = calwebTemSrv.caliopeForm;
@@ -173,17 +197,17 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   ]);
 
   moduleControllers.controller('SIMMFormCtrl',
-    ['caliopewebTemplateSrv', 'global_constants', '$scope', '$filter',
-      function (caliopewebTemplateSrv, GConst, $scope, $filter) {
+    ['caliopewebTemplateSrv',  '$scope', '$filter',
+      function (caliopewebTemplateSrv, $scope, $filter) {
 
-        $scope.sendAction = function(form, formTemplateName, actionMethod, modelUUID, objID, paramsToSend) {
+        $scope.sendAction = function(form, formTemplateName, actionMethod, modelUUID, objID, paramsToSend, encapsulateInData) {
 
           var cwFormName = $scope['cwForm-name'];
 
           var cwForm = $scope[cwFormName];
           var data = {};
           if( cwForm !== undefined ) {
-            data = cwForm.dataToServerData($scope);
+            data = cwForm.dataToServerData($scope, paramsToSend);
             if( cwForm.getModelUUID() !== undefined ) {
               modelUUID = cwForm.getModelUUID();
               objID = cwForm.getModelUUID();
@@ -191,7 +215,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
 
           }
           caliopewebTemplateSrv.sendDataForm(formTemplateName,
-              actionMethod, data, modelUUID, objID).then( function(value) {
+              actionMethod, data, modelUUID, objID, encapsulateInData).then( function(value) {
 
               if (value !== undefined && value !== null) {
 
@@ -214,10 +238,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
             var actionsToShow = actionsConf[0];
             var actionsToHide = actionsConf[1];
 
-            angular.forEach(actionsToShow, function(v,k){
+            angular.forEach(actionsToShow, function(v){
               $scope.$eval('showAct_'.concat(v).concat('= true'));
             });
-            angular.forEach(actionsToHide, function(v,k){
+            angular.forEach(actionsToHide, function(v){
               $scope.$eval('showAct_'.concat(v).concat('= false'));
             });
 
@@ -229,8 +253,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function (angular) {
   );
 
   moduleControllers.controller('SIMMGridCtrl',
-      ['caliopewebGridSrv', '$scope', '$routeParams',
-        function (cwGridService, $scope, $routeParams) {
+      ['caliopewebGridSrv', '$scope',
+        function (cwGridService, $scope) {
 
 
         function loadDataGrid() {

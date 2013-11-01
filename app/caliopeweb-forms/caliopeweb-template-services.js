@@ -7,7 +7,7 @@
  CaliopeWebFormLayoutDecorator,
  CaliopeWebForm,define
  */
-define(['angular'], function(angular) {
+define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
   'use strict';
 
   var moduleServices = angular.module('CaliopeWebTemplatesServices', []);
@@ -42,7 +42,7 @@ define(['angular'], function(angular) {
         if( cwForm !== undefined ) {
           var method = {};
           var promiseMode = {};
-          var webSockets = webSocket.WebSockets()
+          var webSockets = webSocket.WebSockets();
           var mode = cwForm.getMode();
           var model = cwForm.getEntityModel();
 
@@ -62,7 +62,7 @@ define(['angular'], function(angular) {
           if (mode === 'toCreate' || mode==='create' ) {
             method = model.concat('.getModel');
             promiseMode = webSockets.serversimm.sendRequest(method, params);
-            promiseMode.then(resolveResult)
+            promiseMode.then(resolveResult);
 
           } else if (mode === 'toEdit' || mode==='edit') {
             var modelUUID = cwForm.getModelUUID();
@@ -95,7 +95,7 @@ define(['angular'], function(angular) {
         }
 
         return promise;
-      };
+      }
 
       /**
       * Load the json template that define the form with fields.
@@ -129,7 +129,7 @@ define(['angular'], function(angular) {
       * @param objID Identified of the data
       * @returns {{}}
       */
-      Service.sendDataForm = function(formTemplateName, actionMethod, object, modelUUID, objID ) {
+      Service.sendDataForm = function(formTemplateName, actionMethod, object, modelUUID, objID, encapsulateInData) {
 
         var params = {};
         var method = actionMethod;
@@ -141,12 +141,17 @@ define(['angular'], function(angular) {
           object.uuid = objID;
         }
 
-        params = {
-          "formId" : formTemplateName
-          //"formUUID" : modelUUID
-        };
-        params.data = {};
-        jQuery.extend(params.data, object);
+
+        if( encapsulateInData === true || encapsulateInData === "true" ) {
+          params.data = {};
+          jQuery.extend(params.data, object);
+          params = {
+            "formId" : formTemplateName
+            //"formUUID" : modelUUID
+          };
+        } else {
+          jQuery.extend(params, object);
+        }
         var promise = {};
 
         var webSockets = webSocket.WebSockets();
@@ -230,9 +235,9 @@ define(['angular'], function(angular) {
 
             //cwForm.putDataToContext(context, result.elements);
           } else if(templateFromServer.error !== undefined) {
-            result.error = templateFromServer.error
+            result.error = templateFromServer.error;
           } else if(templateFromServer === undefined || templateFromServer.form === undefined ) {
-            result.error = 'Form load from server is empty'
+            result.error = 'Form load from server is empty';
           }
           return result;
       };
@@ -268,6 +273,37 @@ define(['angular'], function(angular) {
 
   }]);
 
+
+  /**
+   * Define the module for service caliope  Notification 
+   * @module caliopeWebFormNotification
+   */
+  moduleServices.factory('caliopeWebFormNotification',
+    ['webSocket',
+      function (webSocket) {
+          var webSockets  = webSocket.WebSockets();
+          var promiseMode = {};
+
+          return {
+            sendChange: function(cwForm, field, value){
+                var uuidForm = cwForm.getModelUUID();
+                var method      = "updateField";
+                if( cwForm.getGenericForm() === true ) {
+                  method = 'form.'.concat(method);
+                } else {
+                  method = cwForm.getEntityModel().concat('.').concat(method);
+                }
+                var params = {
+                  "uuid"  : uuidForm,
+                  "field_name" : field,
+                  "value" : value
+                };
+                promiseMode = webSockets.serversimm.sendRequest(method, params);
+            }
+          }
+      }
+    ])
+
   /**
    * Define the module for service caliope web grid
    * @module caliopewebGridSrv
@@ -280,7 +316,7 @@ define(['angular'], function(angular) {
       var webSockets = webSocket.WebSockets();
 
       function load(dataGrid) {
-        var structureToRender = undefined;
+        var structureToRender;
         var error = false;
 
         if( dataGrid !== undefined && dataGrid !== null) {
