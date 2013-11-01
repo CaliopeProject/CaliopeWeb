@@ -9,7 +9,14 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
           var maxFeatures = 10;
           var sizeWindows = {};
           var timeoutId;
+          var featureSearch;
           var idContent = '#siim_mapdiv';
+          var layersJSONObject = {"layers": [
+              {"name": "", "id": "", "layer": "","isBaseLayer": ""},
+              {"name": "", "id": "", "layer": "","isBaseLayer": ""},
+              {"name": "", "id": "", "layer": "","isBaseLayer": ""}
+          ]
+          };
           sizeWindows.heightcontent = jQuery(idContent).height();
           sizeWindows.widthcontent  = jQuery(idContent).width();
 
@@ -120,6 +127,19 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                       {
                           isBaseLayer:false
                       }
+                  ),
+                  new OpenLayers.Layer.WMS("Predios proyectos",
+                      "http://" + document.domain + ":" + location.port + "/gis_proxy/wms",
+                      {
+                          id: 'capaPrediosMTV',
+                          layers: "mtv_gis:predios_metrovivienda",
+                          format: "image/png",
+                          transparent: true,
+                          visibility: false
+                      },
+                      {
+                          isBaseLayer:false
+                      }
                   )
               ];
 
@@ -142,7 +162,83 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   height: 150,
                   renderTo: "siim_mapdiv",
                   constrain: true,
-                  closeAction: 'hide'
+                  closeAction: 'hide',
+                  x: 10,
+                  y:500
+              });
+
+              var arrayIdentify = [];
+
+              var storeIdentify;
+              function setStoreIdentify(featureIdentify){
+                  var arrayFieldsIdentify = [];
+                  console.log("featureIdentify.data",featureIdentify.data);
+                  storeIdentify = new Ext.data.ArrayStore({
+                      // store configs
+                      autoDestroy: true,
+                      storeId: 'storeIdentify',
+                      idProperty: 'proyecto',
+                      fields: [
+                          'proyecto',
+                          'id',
+                          'estado']
+                  });
+              }
+              var gridIdentify = new Ext.grid.GridPanel({
+                  store: storeProyectos,
+                  columns: [
+
+                      {
+                          id       :'id',
+                          header   : 'Id',
+                          width    : 30,
+                          sortable : true,
+                          dataIndex: 'id'
+                      },{
+                          id       :'proyecto',
+                          header   : 'Proyecto',
+                          width    : 160,
+                          sortable : true,
+                          dataIndex: 'proyecto'
+                      },
+                      {
+                          id       :'estado',
+                          header   : 'Estado',
+                          width    : 90,
+                          sortable : true,
+                          dataIndex: 'estado'
+                      },
+                      {
+                          xtype: 'actioncolumn',
+                          width: 30,
+                          items: [{
+                              icon   : '/tools-gis-viewer/images/heron/silk/magnifier_zoom_in.png',  // Use a URL in the icon config
+                              tooltip: 'Ver en mapa',
+                              handler: function(grid, rowIndex, colIndex) {
+                                  var rec = storeProyectos.getAt(rowIndex);
+                                  findByFeature("proyectos_mtv","mtv_gis","the_geom",rec.get('proyecto'),"proyecto",true);
+                              }
+                          }]
+                      },
+                      {
+                          xtype: 'actioncolumn',
+                          width: 30,
+                          items: [{
+                              icon   : '/tools-gis-viewer/images/heron/silk/information.png',  // Use a URL in the icon config
+                              tooltip: 'Ver información',
+                              handler: function(grid, rowIndex, colIndex) {
+                                  var rec = storeProyectos.getAt(rowIndex);
+                                  findByFeature("proyectos_mtv","mtv_gis","the_geom",rec.get('id'),"id",false);
+                              }
+                          }]
+                      }
+                  ],
+                  stripeRows: true,
+                  height: 350,
+                  width: 600,
+                  title: 'Resultado búsqueda de Proyectos',
+                  stateful: true,
+                  stateId: 'gridProyectos'
               });
 
               var toolPanelDisplayAction;
@@ -230,7 +326,7 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   idProperty: 'proyecto',
                   fields: [
                       'proyecto',
-                      {name: 'id', type: 'float'},
+                      'id',
                       'estado']
               });
 
@@ -254,19 +350,32 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                       {
                           id       :'estado',
                           header   : 'Estado',
-                          width    : 60,
+                          width    : 90,
                           sortable : true,
                           dataIndex: 'estado'
                       },
                       {
                           xtype: 'actioncolumn',
-                          width: 50,
+                          width: 30,
                           items: [{
                               icon   : '/tools-gis-viewer/images/heron/silk/magnifier_zoom_in.png',  // Use a URL in the icon config
                               tooltip: 'Ver en mapa',
                               handler: function(grid, rowIndex, colIndex) {
                                   var rec = storeProyectos.getAt(rowIndex);
                                   findByFeature("proyectos_mtv","mtv_gis","the_geom",rec.get('proyecto'),"proyecto",true);
+                              }
+                          }]
+                      },
+                      {
+                          xtype: 'actioncolumn',
+                          width: 30,
+                          items: [{
+                              icon   : '/tools-gis-viewer/images/heron/silk/information.png',  // Use a URL in the icon config
+                              tooltip: 'Ver información',
+                              handler: function(grid, rowIndex, colIndex) {
+                                  var rec = storeProyectos.getAt(rowIndex);
+                                  console.log("get id",rec.get('id'));
+                                  findByFeature("proyectos_mtv","mtv_gis","the_geom",rec.get('id'),"id",true);
                               }
                           }]
                       }
@@ -288,18 +397,113 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   handler: showVersionProyecto,
                   scope: formPanelSearchProyectos
               });
+              //------------------------------------------------
+
+              var campoPredio = new Ext.form.TextField({
+                  name: 'campoProyectos',
+                  fieldLabel: 'Buscar en predios'
+              });
+
+              var arrayPredios = [];
+
+              var storePredios = new Ext.data.ArrayStore({
+                  // store configs
+                  autoDestroy: true,
+                  storeId: 'storePredios',
+                  idProperty: 'barmanpre',
+                  fields: [
+                      'barmanpre',
+                      'chip',
+                      'matricula',
+                      'direccion']
+              });
+
+              var gridPredios = new Ext.grid.GridPanel({
+                  store: storePredios,
+                  columns: [
+
+                      {
+                          id       :'barmanpre',
+                          header   : 'Barmanpre',
+                          width    : 30,
+                          sortable : true,
+                          dataIndex: 'barmanpre'
+                      },{
+                          id       :'chip',
+                          header   : 'Chip',
+                          width    : 160,
+                          sortable : true,
+                          dataIndex: 'chip'
+                      },
+                      {
+                          id       :'matricula',
+                          header   : 'Matrícula',
+                          width    : 90,
+                          sortable : true,
+                          dataIndex: 'matricula'
+                      },
+                      {
+                          id       :'direccion',
+                          header   : 'Dirección',
+                          width    : 90,
+                          sortable : true,
+                          dataIndex: 'direccion'
+                      },
+                      {
+                          xtype: 'actioncolumn',
+                          width: 30,
+                          items: [{
+                              icon   : '/tools-gis-viewer/images/heron/silk/magnifier_zoom_in.png',  // Use a URL in the icon config
+                              tooltip: 'Ver en mapa',
+                              handler: function(grid, rowIndex, colIndex) {
+                                  var rec = storePredios.getAt(rowIndex);
+                                  findByFeature("predios_metrovivienda","mtv_gis","the_geom",rec.get('chip'),"chip",true);
+                              }
+                          }]
+                      },
+                      {
+                          xtype: 'actioncolumn',
+                          width: 30,
+                          items: [{
+                              icon   : '/tools-gis-viewer/images/heron/silk/information.png',  // Use a URL in the icon config
+                              tooltip: 'Ver información',
+                              handler: function(grid, rowIndex, colIndex) {
+                                  var rec = storePredios.getAt(rowIndex);
+                                  findByFeature("predios_metrovivienda","mtv_gis","the_geom",rec.get('chip'),"chip",true);
+                              }
+                          }]
+                      }
+                  ],
+                  stripeRows: true,
+                  height: 350,
+                  width: 600,
+                  title: 'Resultado búsqueda de Predios',
+                  stateful: true,
+                  stateId: 'gridPredios'
+              });
+
+              var formPanelSearchPredios = new GeoExt.form.FormPanel({
+                  items: [campoPredio]
+              });
+
+              formPanelSearchPredios.addButton({
+                  text: "Buscar",
+                  handler: showPredios,
+                  scope: formPanelSearchPredios
+              });
+
+              function showPredios(){
+                  findPredios("predios_metrovivienda","mtv_gis","the_geom",campoPredio.getValue(),false);
+              }
+
+              //-------------------------------------
 
               var protocol;
               var response;
 
-              function request(value, options) {
-                  console.log("value",value);
+              function requestSearch(value, options) {
                   options = options || {};
-                  var filter = new OpenLayers.Filter.Comparison({
-                      type: OpenLayers.Filter.Comparison.LIKE,
-                      property: options.property,
-                      value: "*"+value.toUpperCase()+"*"
-                  });
+                  var filter = options.filter;
                   // Set the cursor to "wait" to tell the user we're working.
                   OpenLayers.Element.addClass(Heron.App.map.viewPortDiv, "olCursorWait");
                   response = protocol.read({
@@ -308,22 +512,22 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                       callback: function(result) {
 
                           if(result.success()) {
-                              console.log("result.features.length",result.features.length);
                               if(result.features.length) {
                                   if(options.single == true) {
-                                      var featureSearch = response.features[0];
+                                      featureSearch = response.features[0];
+                                      setStoreIdentify(featureSearch);
+                                      identifyDialog.show();
                                       Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
                                   } else {
                                       storeProyectos.removeAll();
                                       arrayProyectos = [];
                                       for (var i=0;i<result.features.length;i++)
                                       {
-                                          var featureSearch = response.features[i];
+                                          featureSearch = response.features[i];
                                           var arrayProyecto = [featureSearch.data['proyecto'],featureSearch.data['id'],featureSearch.data['estado']];
                                           arrayProyectos.push(arrayProyecto);
                                       }
                                       storeProyectos.loadData(arrayProyectos);
-                                      //Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
                                   }
                               } else if(options.hover) {
                                   console.log("trata de hacer hover? :(");
@@ -350,7 +554,95 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                       featureNS: featurename,
                       geometryName: geometryname
                   });
-                  request(value, {single: single,property: propertyName});
+                  var filter = new OpenLayers.Filter.Comparison({
+                      type: OpenLayers.Filter.Comparison.LIKE,
+                      property: propertyName,
+                      value: "*"+value.toUpperCase()+"*"
+                  });
+                  requestSearch(value, {single: single,property: propertyName, filter: filter});
+              }
+
+              function requestSearchPredios(value, options) {
+                  options = options || {};
+                  var filter = options.filter;
+                  // Set the cursor to "wait" to tell the user we're working.
+                  OpenLayers.Element.addClass(Heron.App.map.viewPortDiv, "olCursorWait");
+                  response = protocol.read({
+                      maxFeatures:10,
+                      filter: filter,
+                      callback: function(result) {
+
+                          if(result.success()) {
+                              if(result.features.length) {
+                                  if(options.single == true) {
+                                      featureSearch = response.features[0];
+                                      setStoreIdentify(featureSearch);
+                                      identifyDialog.show();
+                                      Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
+                                  } else {
+                                      storePredios.removeAll();
+                                      arrayPredios = [];
+                                      console.log("result.features.length", result.features.length);
+                                      for (var i=0;i<result.features.length;i++)
+                                      {
+                                          featureSearch = response.features[i];
+                                          var arrayPredio = [featureSearch.data['barmanpre'],featureSearch.data['chip'],featureSearch.data['matricula'],featureSearch.data['direccion']];
+
+                                          arrayPredios.push(arrayPredio);
+                                      }
+                                      storePredios.loadData(arrayPredios);
+                                  }
+                              } else if(options.hover) {
+                                  console.log("trata de hacer hover? :(");
+                              } else {
+                                  alert("No hay registros");
+                              }
+                          }
+                          // Reset the cursor.
+
+                          OpenLayers.Element.removeClass(Heron.App.map.viewPortDiv, "olCursorWait");
+                      },
+                      scope: this
+                  });
+                  if(options.hover == true) {
+                      this.hoverResponse = response;
+                  }
+              }
+
+              function findPredios(feature,featurename,geometryname,value,single) {
+                  protocol = new OpenLayers.Protocol.WFS({
+                      url:  'http://' + document.domain + ':' + location.port + '/gis_proxy/wfs',
+                      srsName: "EPSG:100000",
+                      featureType: feature,
+                      featureNS: featurename,
+                      geometryName: geometryname
+                  });
+                  var filter = new OpenLayers.Filter.Logical({
+                      type: OpenLayers.Filter.Logical.OR,
+                      filters: [
+                          new OpenLayers.Filter.Comparison({
+                              type: OpenLayers.Filter.Comparison.LIKE,
+                              property: 'barmanpre',
+                              value: "*"+value.toUpperCase()+"*"
+                          }),
+                          new OpenLayers.Filter.Comparison({
+                              type: OpenLayers.Filter.Comparison.LIKE,
+                              property: 'chip',
+                              value: "*"+value.toUpperCase()+"*"
+                          }),
+                          new OpenLayers.Filter.Comparison({
+                              type: OpenLayers.Filter.Comparison.LIKE,
+                              property: 'matricula',
+                              value: "*"+value.toUpperCase()+"*"
+                          }),
+                          new OpenLayers.Filter.Comparison({
+                              type: OpenLayers.Filter.Comparison.LIKE,
+                              property: 'direccion',
+                              value: "*"+value.toUpperCase()+"*"
+                          })
+                      ]
+                  });
+                  requestSearchPredios(value, {single: single,filter: filter});
               }
 
               function showVersionProyecto(){
@@ -386,11 +678,17 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   cls: 'empty'
               });
 
+              var toolPanelSearchPredios = new Ext.Panel({
+                  title: 'Por predios',
+                  items:[formPanelSearchPredios,gridPredios],
+                  cls: 'empty'
+              });
+
               var accordionToolPanelSearchs = new Ext.Panel({
                   region:'west',
                   split:true,
                   layout:'accordion',
-                  items: [toolPanelSearchProyectos, toolPanelSearchPorDivision]
+                  items: [toolPanelSearchPredios, toolPanelSearchProyectos, toolPanelSearchPorDivision]
               });
 
               var tabTools = new Ext.TabPanel({
@@ -420,17 +718,6 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   closeAction: 'hide',
                   items: tabTools,
                   x: 10
-              });
-
-              var filt = new OpenLayers.Filter.Logical({
-                  type: OpenLayers.Filter.Logical.OR,
-                  filters: [
-                      new OpenLayers.Filter.Comparison({
-                          type: OpenLayers.Filter.Comparison.LIKE,
-                          property: "TYPE",
-                          value: "highway"
-                      })
-                  ]
               });
 
               var proyectoSearchAction;
@@ -482,8 +769,8 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   {type: "zoomprevious"},
                   {type: "zoomnext"},
                   {type: "-"},
-                  {type: "measurelength", options: {geodesic: true}},
-                  {type: "measurearea", options: {geodesic: true}},
+                  {type: "measurelength", options: {geodesic: false}},
+                  {type: "measurearea", options: {geodesic: false}},
                   {type: "-"},
                   {
                       create: function(mapPanel, options){
@@ -503,8 +790,11 @@ define(['angular', 'gis-ext-base','gis-heron'], function(angular) {
                   {
                       create: function(mapPanel, options){
                           options.handler = function(){
-                              $scope.showGrillaPredios = true;
-                              $scope.$apply();
+                              /*
+                               $scope.showGrillaPredios = true;
+                               $scope.$apply();
+                               */
+                              identifyDialog.show();
                               featureInfoControl.activate();
                           };
                           featureInfoAction = new Ext.Action(options);
