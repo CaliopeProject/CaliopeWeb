@@ -7,3 +7,6 @@ scripts/typescript
 scripts/node_modules/
 /.settings
 .idea/
+scripts/bower.log
+scripts/nodepackages.log
+

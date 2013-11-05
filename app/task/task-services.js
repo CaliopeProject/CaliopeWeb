@@ -415,31 +415,17 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
 
           changeCategory: function(taskDrag, category){
             if(!angular.isUndefined(taskDrag)){
-              taskDrag.category = category;
-              var holderRelOld = {};
-              angular.forEach(taskDrag.holders.target, function(vtarget){
-                var user   = vtarget.entity_data.uuid;
-                var category = vtarget.properties.category;
-                holderRelOld[user] = category;
-              });
-
-              var data =  tempServices.getDataToServer(MODEL_TASK, taskDrag);
+              var data = {new_properties: {'category': category},
+                          rel_name:'holders',
+                          target_uuid: loginSecurity.currentUser.user_uuid
+                        };
               var user = loginSecurity.currentUser;
-
-              if(data.target !== undefined) {
-                angular.forEach(data.holders.target, function(vHolder, kHolder) {
-                  if(vHolder.entity_data.uuid === user.user_uuid) {
-                    vHolder.properties.category = category;
-                  } else {
-                    vHolder.properties.category = holderRelOld[vHolder.entity_data.uuid];
-                  }
-                });
-              }
-
-              sendData('tasks', 'tasks.edit', data, taskDrag.uuid);
+              sendData('tasks', 'tasks.updateRelationship', data, taskDrag.uuid);
+              sendData('tasks', 'tasks.commit', {} , taskDrag.uuid);
+              loadTask();
             }
-            loadTask();
           }
+
         };
 
         return service;
