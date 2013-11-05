@@ -60,9 +60,13 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload', 'ca
   * templates of caliope framework
   */
   moduleControllers.controller('CaliopeWebTemplateCtrl',
-    ['caliopewebTemplateSrv', '$scope', '$routeParams',
-      function (calwebTemSrv, $scope, $routeParams) {
+    ['caliopewebTemplateSrv', '$scope', '$routeParams', 'caliopeWebFormNotification',
+      function (calwebTemSrv, $scope, $routeParams, cwFormNotif) {
 
+
+        $scope.change = function(cwForm, scopeForm, name) {
+          cwFormNotif.sendChange(cwForm, scopeForm, name);
+        };
 
         function processGenericForm(cwForm, params, entity) {
             params.formId = entity;

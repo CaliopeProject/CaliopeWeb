@@ -283,22 +283,159 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
       function (webSocket) {
           var webSockets  = webSocket.WebSockets();
           var promiseMode = {};
+          var METHOD_NOTIF = {
+            UPDATE_FIELD : 'updateField',
+            UPDATE_RELATION : 'updateRelationship'
+          }
+
+          /*
+          TODO: Este código también se encuentra en CaliopeWebForms, es necesario crear una nueva librería
+           de integración de CaliopeWebForm con Caliope Backend donde se ponga toda la lógica necesaria
+           para trabajar como está ahora el backend como las relaciones
+           */
+          function getVarNameScopeFromFormRep(formRep) {
+            return formRep.replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_inrep),"").
+                replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_firep),"")
+          }
+
+          function isRepresentationFormRep(val) {
+            var patt = new RegExp(CaliopeWebFormConstants.rexp_value_in_form);
+            return patt.test(val);
+          }
+
+          function getMethod(cwForm, initMethod) {
+            var method;
+            /*
+             * If form is generic form then the method to invoke the server is form.method, otherwise is
+             * entity.method.
+             */
+            if( cwForm.getGenericForm() === true ) {
+              method = 'form.'.concat(initMethod);
+            } else {
+              method = cwForm.getEntityModel().concat('.').concat(initMethod);
+            }
+
+            return method;
+
+          }
+
+          function updateField(cwForm, data, elementModified) {
+
+            var uuidForm = cwForm.getModelUUID();
+            var modifications = [];
+            var params = {
+              "uuid"  : uuidForm,
+              "field_name" : elementModified.name,
+              "value" : scopeData[elementModified.name]
+            };
+            var method =  getMethod(cwForm, METHOD_NOTIF.UPDATE_FIELD);
+
+
+            modifications[0] = {
+              method : method,
+              params : params
+            }
+
+            return modifications;
+
+          };
+
+          function updateRelationShip(cwForm, data, elementModified)  {
+
+            /*
+            "relation": [
+              {
+                "name" : "holder",
+                "class": "CaliopeUser",
+                "target" : "{{holders}}",
+                "properties" : {
+                  "category" : "{{category}}"
+                }
+              }
+            ]
+            */
+            var modifications = [];
+
+            if(elementModified.hasOwnProperty('relation')) {
+              var uuidForm = cwForm.getModelUUID();
+
+              var params = {
+                "uuid"  : uuidForm,
+                "rel_name" : '',
+                "target_uuid" : '',
+                "new_properties" : {}
+              };
+              var method =  getMethod(cwForm, METHOD_NOTIF.UPDATE_RELATION);
+
+              //TODO: Posiblemente este código se puede poner en CaliopeWebForm o en la nueva libreria para integracion con backend
+              jQuery.each(elementModified.relation, function(keyRel, valRel) {
+
+                var cParams = {};
+                jQuery.extend(cParams, params);
+                /*
+                Asociar el nombre de la relacion
+                 */
+                cParams.rel_name = valRel.rel_name;
+                /*
+                Asociar los valores para target
+                 */
+                var valTarget = [];
+                if(isRepresentationFormRep(valRel.target)) {
+                  var nameVarData = getVarNameScopeFromFormRep(valRel.target);
+                  valTarget =  data[nameVarData];
+                } else {
+                  valTarget.push(valRel.target);
+                }
+
+                /*
+                 Asociar valor para properties
+                 */
+                var valProperties = {};
+                jQuery.each(valRel.properties, function(keyProp, valProp){
+                  if( isRepresentationFormRep(valProp) ) {
+                    var nameVarData = getVarNameScopeFromFormRep(valProp);
+                    valProp = data[nameVarData];
+                  }
+                  valProperties[keyProp] = valProp;
+                });
+
+                /*
+                Crear las modificaciones que se deben enviar al srv.
+                 */
+                jQuery.each(valTarget, function(keyTarget, valTarget) {
+
+                  cParams.target_uuid = valTarget.uuid;
+                  jQuery.extend(cParams.new_properties, valProperties);
+
+                  var modification = {
+                    'method' : method,
+                    'params' : cParams
+                  }
+                  modifications.push(modification)
+                });
+
+              });
+            }
+
+            return modifications;
+          }
 
           return {
-            sendChange: function(cwForm, field, value){
-                var uuidForm = cwForm.getModelUUID();
-                var method      = "updateField";
-                if( cwForm.getGenericForm() === true ) {
-                  method = 'form.'.concat(method);
-                } else {
-                  method = cwForm.getEntityModel().concat('.').concat(method);
-                }
-                var params = {
-                  "uuid"  : uuidForm,
-                  "field_name" : field,
-                  "value" : value
-                };
-                promiseMode = webSockets.serversimm.sendRequest(method, params);
+            sendChange: function(cwForm, scopeData, fieldModified){
+
+              var element = cwForm.getElement(fieldModified);
+              var modifications = undefined;
+              if( element.hasOwnProperty('relation') ) {
+                modifications = updateRelationShip(cwForm, scopeData, element);
+              } else {
+                modifications = updateField(cwForm, scopeData, element)
+              }
+
+              //TODO: Change to send batch
+              jQuery.each(modifications, function(kMod, vMod) {
+                promiseMode = webSockets.serversimm.sendRequest(vMod.method, vMod.params);
+              });
+
             }
           }
       }

@@ -551,6 +551,25 @@ var CaliopeWebForm = (function() {
       },
 
     /**
+     * Search a element for name attribute.
+     * @param elementName Value of name attribute
+     * @returns {undefined}
+     */
+      getElement : function(elementName) {
+        var element = undefined;
+        if( this.elementsForm !== undefined ) {
+          var i = 0;
+          for( i ; i < this.elementsForm.length; i++ ) {
+            if( this.elementsForm[i].name === elementName ) {
+              element = this.elementsForm[i];
+              break;
+            }
+          }
+        }
+        return element;
+      },
+
+    /**
      * Get the  entity model of form
      * @function
      * @memberOf CaliopeWebForm
