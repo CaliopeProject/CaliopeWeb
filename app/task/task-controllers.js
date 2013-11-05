@@ -6,14 +6,23 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
 
   var module = angular.module('task-controllers', ['CaliopeWebFormDirectives']);
 
-  module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv','action',
-    function($scope, $location, cwFormService, action) {
+  module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv', 'caliopeWebFormNotification', 'action',
+    function($scope, $location, cwFormService, cwFormNotif, action) {
 
       function putActionDataInScope() {
         angular.forEach(action, function(value, key){
           $scope[key] = value;
         });
       }
+
+
+    $scope.change = function(cwForm, scopeForm, name) {
+
+      angular.forEach(scopeForm.holders, function(vHolder){
+        vHolder.uuid = vHolder.value.uuid;
+      });
+      cwFormNotif.sendChange(cwForm, scopeForm, name);
+    };
 
     $scope.initFromDialogAction = function() {
       putActionDataInScope();
