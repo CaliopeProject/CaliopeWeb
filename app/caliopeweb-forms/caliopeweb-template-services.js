@@ -326,7 +326,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
             var params = {
               "uuid"  : uuidForm,
               "field_name" : elementModified.name,
-              "value" : scopeData[elementModified.name]
+              "value" : data[elementModified.name]
             };
             var method =  getMethod(cwForm, METHOD_NOTIF.UPDATE_FIELD);
 
