@@ -259,8 +259,28 @@ var CaliopeWebForm = (function() {
             if( dataFromServer !== undefined && dataFromServer[vElement.name] !== undefined ) {
               data[vElement.name] = dataFromServer[vElement.name];
               if( vElement.hasOwnProperty('relation') ) {
-                if(dataFromServer[vElement.name] === undefined) {
-                  data[vElement.name] = vElement.relation;
+                var valuesRelation = [];
+                /*
+                Si el nombre del elemento es igual al nombre de la relación, indica que
+                el elemento es el target_uuid
+                 */
+                if( vElement.name === vElement.relation.rel_name ) {
+                  /*
+                  Construir los valores para la vista de la forma:
+                    {uuid:'', properties: {}}
+                    donde el valor de cada uuid se obtiene del key devuelto por el srv
+                    y properties es el valor del key
+                  */
+                  jQuery.each(dataFromServer[vElement.name], function(kRel, vRel){
+                    var value = {
+                      uuid : kRel,
+                      properties : vRel
+                    }
+                    valuesRelation.push(value);
+                  });
+                  data[vElement.name] = valuesRelation;
+                } else {
+                  data[vElement.name] = dataFromServer[vElement.name];
                 }
               }
             }

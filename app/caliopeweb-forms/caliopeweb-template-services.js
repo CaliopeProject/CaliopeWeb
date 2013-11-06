@@ -368,53 +368,54 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
               var method =  getMethod(cwForm, METHOD_NOTIF.UPDATE_RELATION);
 
               //TODO: Posiblemente este código se puede poner en CaliopeWebForm o en la nueva libreria para integracion con backend
-              jQuery.each(elementModified.relation, function(keyRel, valRel) {
 
-                var cParams = {};
-                jQuery.extend(cParams, params);
-                /*
-                Asociar el nombre de la relacion
-                 */
-                cParams.rel_name = valRel.rel_name;
-                /*
-                Asociar los valores para target
-                 */
-                var valTarget = [];
-                if(isRepresentationFormRep(valRel.target)) {
-                  var nameVarData = getVarNameScopeFromFormRep(valRel.target);
-                  valTarget =  data[nameVarData];
-                } else {
-                  valTarget.push(valRel.target);
+              var relation =  elementModified.relation;
+
+              var cParams = {};
+              jQuery.extend(cParams, params);
+              /*
+              Asociar el nombre de la relacion
+               */
+              cParams.rel_name = relation.rel_name;
+              /*
+              Asociar los valores para target
+               */
+              var valTarget = [];
+              if(isRepresentationFormRep(relation.target)) {
+                var nameVarData = getVarNameScopeFromFormRep(relation.target);
+                valTarget =  data[nameVarData];
+              } else {
+                valTarget.push(relation.target);
+              }
+
+              /*
+               Asociar valor para properties
+               */
+              var valProperties = {};
+              jQuery.each(relation.properties, function(keyProp, valProp){
+                if( isRepresentationFormRep(valProp) ) {
+                  var nameVarData = getVarNameScopeFromFormRep(valProp);
+                  valProp = data[nameVarData];
                 }
-
-                /*
-                 Asociar valor para properties
-                 */
-                var valProperties = {};
-                jQuery.each(valRel.properties, function(keyProp, valProp){
-                  if( isRepresentationFormRep(valProp) ) {
-                    var nameVarData = getVarNameScopeFromFormRep(valProp);
-                    valProp = data[nameVarData];
-                  }
-                  valProperties[keyProp] = valProp;
-                });
-
-                /*
-                Crear las modificaciones que se deben enviar al srv.
-                 */
-                jQuery.each(valTarget, function(keyTarget, valTarget) {
-
-                  cParams.target_uuid = valTarget.uuid;
-                  jQuery.extend(cParams.new_properties, valProperties);
-
-                  var modification = {
-                    'method' : method,
-                    'params' : cParams
-                  }
-                  modifications.push(modification)
-                });
-
+                valProperties[keyProp] = valProp;
               });
+
+              /*
+              Crear las modificaciones que se deben enviar al srv.
+               */
+              jQuery.each(valTarget, function(keyTarget, valTarget) {
+
+                cParams.target_uuid = valTarget.uuid;
+                jQuery.extend(cParams.new_properties, valProperties);
+
+                var modification = {
+                  'method' : method,
+                  'params' : cParams
+                }
+                modifications.push(modification)
+              });
+
+
             }
 
             return modifications;
