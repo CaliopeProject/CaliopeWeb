@@ -665,6 +665,9 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             if(!$attrs.single ){
               $scope._selectedChoices.push(choice);
               $scope._choices.splice($scope._choices.indexOf(choice), 1);
+              if( $scope.change !== undefined && typeof $scope.change === 'function') {
+                $scope.change($attrs.name);
+              }
               // do not 'close' on choice click
             }else if ($attrs.single && ($scope._selectedChoices.length < 1)){
               $scope._selectedChoices.push(choice);
