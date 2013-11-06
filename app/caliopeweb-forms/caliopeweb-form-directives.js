@@ -322,12 +322,16 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                   scopeForm[data.field] = data.value;
                 });
               });
-              scopeForm.change = function change(name) {
+              scopeForm.changeInput = function change(name) {
+                console.log('change', $scope.$id, name);
                 /*
                 Delegate the change to the scope container of cw-form.
                  */
-                //Todo: Verificar si es necesario preguntar primero si existe el método change asociado al scope, si no exite entonces ejecutar desde este punto la noficiación, si existe llamar al del scope
-                $scope.change(cwForm, scopeForm, name);
+                if($scope.change !== undefined && typeof $scope.change === 'function') {
+                  $scope.change(cwForm, scopeForm, name);
+                } else {
+                  cwFormNotif.sendChange(cwForm, scopeForm, name);
+                }
               };
             }
           }
