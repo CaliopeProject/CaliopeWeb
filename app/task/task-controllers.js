@@ -6,8 +6,8 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
 
   var module = angular.module('task-controllers', ['CaliopeWebFormDirectives']);
 
-  module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv', 'caliopeWebFormNotification', 'action',
-    function($scope, $location, cwFormService, cwFormNotif, action) {
+  module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv', 'caliopeWebFormNotification', 'loginSecurity', 'action',
+    function($scope, $location, cwFormService, cwFormNotif, loginSecurity, action) {
 
       function putActionDataInScope() {
         angular.forEach(action, function(value, key){
@@ -18,10 +18,34 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
 
     $scope.change = function(cwForm, scopeForm, name) {
 
-      angular.forEach(scopeForm.holders, function(vHolder){
-        vHolder.uuid = vHolder.value.uuid;
-      });
+      var oHolders = undefined;
+      if( name === 'category' ) {
+        var uuidUser = loginSecurity.currentUser.user_uuid;
+        var holders = angular.copy(scopeForm.holders);
+        oHolders = angular.copy(scopeForm.holders);
+        if( holders !== undefined && holders.length > 0) {
+          var i;
+          for( i = 0; i < scopeForm.holders.length; i++ ) {
+              var vHolder = scopeForm.holders[i];
+              if( vHolder.value.uuid !== uuidUser ) {
+                holders.splice(i,1);
+              } else {
+                holders[i].uuid =  vHolder.value.uuid;
+              }
+          }
+          scopeForm.holders = holders;
+        } else {
+          holders = [];
+          holders.push({uuid : uuidUser});
+        }
+      }
+
       cwFormNotif.sendChange(cwForm, scopeForm, name);
+
+      if(oHolders !== undefined) {
+        scopeForm.holders = oHolders;
+      }
+
     };
 
     $scope.initFromDialogAction = function() {
