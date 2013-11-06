@@ -371,12 +371,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
 
               var relation =  elementModified.relation;
 
-              var cParams = {};
-              jQuery.extend(cParams, params);
-              /*
-              Asociar el nombre de la relacion
-               */
-              cParams.rel_name = relation.rel_name;
+
               /*
               Asociar los valores para target
                */
@@ -404,7 +399,12 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
               Crear las modificaciones que se deben enviar al srv.
                */
               jQuery.each(valTarget, function(keyTarget, valTarget) {
-
+                var cParams = {};
+                jQuery.extend(cParams, params);
+                /*
+                 Asociar el nombre de la relacion
+                 */
+                cParams.rel_name = relation.rel_name;
                 cParams.target_uuid = valTarget.uuid;
                 jQuery.extend(cParams.new_properties, valProperties);
 

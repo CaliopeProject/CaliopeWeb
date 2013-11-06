@@ -40,6 +40,12 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
         }
       }
 
+      if( name === 'holders' ) {
+        angular.forEach(scopeForm.holders, function(vHolder){
+          vHolder.uuid = vHolder.value.uuid;
+        });
+      }
+
       cwFormNotif.sendChange(cwForm, scopeForm, name);
 
       if(oHolders !== undefined) {
