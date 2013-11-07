@@ -82,12 +82,13 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
       };
 
       $scope.getTargetUUID = function(target) {
+        var varName = undefined;
         if( target !== undefined ) {
-          var varName = undefined;
           for( varName in target ) {
-            return varName;
+            break;
           }
         }
+        return varName;
       };
 
   }]);
