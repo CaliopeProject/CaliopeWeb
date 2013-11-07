@@ -1,8 +1,19 @@
 /*jslint browser: true*/
 /*global require, $*/
 
+var tests = [];
+for (var file in window.__karma__.files) {
+  if (window.__karma__.files.hasOwnProperty(file)) {
+    if (/Test\.js$/.test(file)) {
+      tests.push(file);
+    }
+  }
+}
+
 require.config({
-  waitSeconds: 0,
+
+  baseUrl: '../app/',
+
   paths: {
     'jquery'                         : 'libs-js-thirdparty/jquery/jquery',
     'angular'                        : 'libs-js-thirdparty/angular-unstable/angular',
@@ -80,10 +91,11 @@ require.config({
 
     'read-rss-services'              : 'read-rss/read-rss-services',
     'read-rss-controllers'           : 'read-rss/read-rss-controllers'
+
   },
-  baseUrl: '/',
+
   shim: {
-    'jquery'                         : {'exports' : 'jquery'}
+     'jquery'                        : {'exports' : 'jquery'}
     ,'angular'                       : {'exports' : 'angular'}
     ,'angular-ui-bootstrap-bower'    : {'exports' : 'ui-bootstrap', 'deps' : ['angular']}
     ,'angular-route-unstable'        : {'deps'    : ['angular']}
@@ -115,30 +127,17 @@ require.config({
     ,'gis-heron'                     : {'deps'    : ['gis-init']}
     ,'gis-view-ctrl'                 : {'deps'    : ['gis-heron']}
     ,'seeinmap-services'             : {'deps'    : ['angular', 'jquery-ui']}
+    ,'angularMocks'                  : {'deps'    : ['angular'], 'exports' : 'angular.mock'}
+
   },
+
+  //ask Require.js to load these files (all our tests)
+  deps: tests,
+
   priority: [
-     "onResourceLoad"
-  ]
-});
+     "angular"
+  ],
 
-
-//show de
-require(['onResourceLoad'], function () {
-  require([
-    'jquery'
-    ,'angular'
-    ,'application-app'
-    ,'application-routes'
-  ], function(jQuery, angular, app, routes) {
-    'use strict';
-    $(document).ready(function () {
-      var $html = $('html');
-      angular.bootstrap($html, [app.name]);
-      // Because of RequireJS we need to bootstrap the app app manually
-      // and Angular Scenario runner won't be able to communicate with our app
-      // unless we explicitely mark the container as app holder
-      // More info: https://groups.google.com/forum/#!msg/angular/yslVnZh9Yjk/MLi3VGXZLeMJ
-      $html.addClass('ng-app');
-    });
-  });
+  // start test run, once Require.js is done
+  callback: window.__karma__.start
 });
