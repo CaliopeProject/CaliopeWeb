@@ -371,12 +371,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
 
               var relation =  elementModified.relation;
 
-              var cParams = {};
-              jQuery.extend(cParams, params);
-              /*
-              Asociar el nombre de la relacion
-               */
-              cParams.rel_name = relation.rel_name;
+
               /*
               Asociar los valores para target
                */
@@ -404,7 +399,12 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
               Crear las modificaciones que se deben enviar al srv.
                */
               jQuery.each(valTarget, function(keyTarget, valTarget) {
-
+                var cParams = {};
+                jQuery.extend(cParams, params);
+                /*
+                 Asociar el nombre de la relacion
+                 */
+                cParams.rel_name = relation.rel_name;
                 cParams.target_uuid = valTarget.uuid;
                 jQuery.extend(cParams.new_properties, valProperties);
 
@@ -425,18 +425,19 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
             sendChange: function(cwForm, scopeData, fieldModified){
 
               var element = cwForm.getElement(fieldModified);
-              var modifications = undefined;
-              if( element.hasOwnProperty('relation') ) {
-                modifications = updateRelationShip(cwForm, scopeData, element);
-              } else {
-                modifications = updateField(cwForm, scopeData, element)
+              if( element !== undefined ) {
+                var modifications = undefined;
+                if( element.hasOwnProperty('relation') ) {
+                  modifications = updateRelationShip(cwForm, scopeData, element);
+                } else {
+                  modifications = updateField(cwForm, scopeData, element)
+                }
+
+                //TODO: Change to send batch
+                jQuery.each(modifications, function(kMod, vMod) {
+                  promiseMode = webSockets.serversimm.sendRequest(vMod.method, vMod.params);
+                });
               }
-
-              //TODO: Change to send batch
-              jQuery.each(modifications, function(kMod, vMod) {
-                promiseMode = webSockets.serversimm.sendRequest(vMod.method, vMod.params);
-              });
-
             }
           }
       }

@@ -64,10 +64,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload', 'ca
       function (calwebTemSrv, $scope, $routeParams, cwFormNotif) {
 
 
-        $scope.change = function(cwForm, scopeForm, name) {
-          cwFormNotif.sendChange(cwForm, scopeForm, name);
-        };
-
         function processGenericForm(cwForm, params, entity) {
             params.formId = entity;
             cwForm.setEntityModel('form');

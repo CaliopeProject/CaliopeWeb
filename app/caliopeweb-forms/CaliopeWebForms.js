@@ -317,11 +317,11 @@ var CaliopeWebForm = (function() {
             var nameVarScope = elements[i].name;
             var valueToServer = undefined;
             if( dataFromView[nameVarScope] !== undefined ) {
-              if(elements[i].type === 'div' && elements[i].type1 === 'datepicker') {
+              if(elements[i].type === 'div' && elements[i].typeo === 'datepicker') {
                 valueToServer = (dataFromView[nameVarScope] instanceof Date )? dataFromView[nameVarScope].toJSON() : dataFromView[nameVarScope] ;
               } else if(elements[i].type === 'select') {
                 valueToServer = dataFromView[nameVarScope];
-              } else if(elements[i].type === 'ui-mcombo-choices' && elements[i].type1 === 'multi-choices') {
+              } else if(elements[i].type === 'ui-mcombo-choices' && elements[i].typeo === 'multi-choices') {
                 if(elements[i].hasOwnProperty('single') && elements[i].single === "true" &&
                     dataFromView[nameVarScope] !== undefined && dataFromView[nameVarScope][0] !== undefined) {
                   valueToServer = dataFromView[nameVarScope][0].value
@@ -927,7 +927,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
     }
     if( element.type !== 'div' ) {
       element['ng-model'] = valueNgModel;
-      element['ng-change'] = "change(".concat("'").concat(name).concat("')")
+      element['ng-change'] = "changeInput(".concat("'").concat(name).concat("')")
     }
   }
 
@@ -1086,13 +1086,14 @@ var CaliopeWebFormSpecificDecorator = ( function() {
               class : "calendar",
               html  : [],
               name : elementsTemplate[i].name,
-              type1 : "datepicker"
+              typeo : "datepicker"
             };
 
 
             elementsTemplate[i].type = "text";
-            elementsTemplate[i].type1 = TYPE_DATEPICKER;
+            elementsTemplate[i].typeo = TYPE_DATEPICKER;
             elementsTemplate[i][DIRECTIVE_DATEPICKER] = elementsTemplate[i][VARNAME_DATEFORMAT];
+
             //elementsTemplate[i].name =  elementsTemplate[i].name;
 
             elementDivCalendar.html.push(elementsTemplate[i]);
@@ -1196,7 +1197,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
             elementsTemplate[i].type === TYPE_EXCUTETASK)  {
 
           elementsTemplate[i].type = DIRECTIVE_EXCUTETASK;
-          elementsTemplate[i].type1 = TYPE_EXCUTETASK;
+          elementsTemplate[i].typeo = TYPE_EXCUTETASK;
           var attUUID = elementsTemplate[i].options[NAME_DATA_TARGET_UUID_VAL];
           var attEntity = elementsTemplate[i].options[NAME_DATA_TARGET_ENTITY_VAL];
           elementsTemplate[i]['target-uuid'] = getValueAttInObject(data, attUUID, '.');
@@ -1246,7 +1247,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         var NAME_DIRECTIVE_MCOMBO = 'ui-mcombo-choices';
 
 
-        element.type1 = element.type;
+        element.typeo = element.type;
         element.type = NAME_DIRECTIVE_MCOMBO;
 
         if( element.hasOwnProperty(VARNAME_LOAD_OPT_SRV) ) {
