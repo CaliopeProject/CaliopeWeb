@@ -367,19 +367,28 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
           },
 
 
-
           addSubtask : function(parentTask, description, category) {
             var idsubtask = Date.now().toString();
             var data = {};
+            var subta= { 'description'   : description
+                          ,'complete'    : false
+                          ,'uuid_user'   : loginSecurity.currentUser.user_uuid
+                          ,'uuid_subtask': idsubtask
+                       };
             data = {
                field_name    : "subtasks"
-              ,subfield_id   :  idsubtask
-              ,value         : { 'description' : description
-                                 ,complete     : false
-                                 ,uuid         : loginSecurity.currentUser.user_uuid
-                                 ,pos          : 'None'
-                               }
+              ,subfield_id   : -1
+              ,value         : subta
             };
+
+            if( parentTask.subtasks === undefined) {
+              parentTask.subtasks = [];
+            }
+
+            parentTask.subtasks.push({ 'description' : description
+                                 ,'complete'   : false
+                                 ,'uuid_user'  : loginSecurity.currentUser.user_uuid
+                               });
 
             sendData('tasks', 'tasks.updateField', data, parentTask.uuid);
             sendData('tasks', 'tasks.commit', {} , parentTask.uuid);
