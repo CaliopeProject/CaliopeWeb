@@ -366,20 +366,32 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             sendData('tasks', 'tasks.edit', task, task.uuid);
           },
 
+
           addSubtask : function(parentTask, description, category) {
-            var subTask = {
-              description : description,
-              complete : false
+            var idsubtask = Date.now().toString();
+            var data = {};
+            var subta= { 'description'   : description
+                          ,'complete'    : false
+                          ,'uuid_user'   : loginSecurity.currentUser.user_uuid
+                          ,'uuid_subtask': idsubtask
+                       };
+            data = {
+               field_name    : "subtasks"
+              ,subfield_id   : -1
+              ,value         : subta
             };
 
             if( parentTask.subtasks === undefined) {
               parentTask.subtasks = [];
             }
 
-            parentTask.subtasks.push(subTask);
-            parentTask.category = category;
+            parentTask.subtasks.push({ 'description' : description
+                                 ,'complete'   : false
+                                 ,'uuid_user'  : loginSecurity.currentUser.user_uuid
+                               });
 
-            sendData('tasks', 'tasks.edit', parentTask, parentTask.uuid);
+            sendData('tasks', 'tasks.updateField', data, parentTask.uuid);
+            sendData('tasks', 'tasks.commit', {} , parentTask.uuid);
           },
 
           countSubtask : function(task) {
@@ -419,7 +431,6 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                           rel_name:'holders',
                           target_uuid: loginSecurity.currentUser.user_uuid
                         };
-              var user = loginSecurity.currentUser;
               sendData('tasks', 'tasks.updateRelationship', data, taskDrag.uuid);
               sendData('tasks', 'tasks.commit', {} , taskDrag.uuid);
               loadTask();
