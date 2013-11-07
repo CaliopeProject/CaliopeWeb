@@ -366,20 +366,23 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             sendData('tasks', 'tasks.edit', task, task.uuid);
           },
 
+
+
           addSubtask : function(parentTask, description, category) {
-            var subTask = {
-              description : description,
-              complete : false
+            var idsubtask = Date.now();
+            var data = {};
+            data = {
+               field_name    : "subtasks"
+              ,subfield_id   : idsubtask
+              ,value         : { 'description' : description
+                                 ,complete     : false
+                                 ,uuid         : loginSecurity.currentUser.user_uuid
+                                 ,pos          : 'None'
+                               }
             };
 
-            if( parentTask.subtasks === undefined) {
-              parentTask.subtasks = [];
-            }
-
-            parentTask.subtasks.push(subTask);
-            parentTask.category = category;
-
-            sendData('tasks', 'tasks.edit', parentTask, parentTask.uuid);
+            sendData('tasks', 'tasks.updateField', data, parentTask.uuid);
+            sendData('tasks', 'tasks.commit', {} , parentTask.uuid);
           },
 
           countSubtask : function(task) {
@@ -419,7 +422,6 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                           rel_name:'holders',
                           target_uuid: loginSecurity.currentUser.user_uuid
                         };
-              var user = loginSecurity.currentUser;
               sendData('tasks', 'tasks.updateRelationship', data, taskDrag.uuid);
               sendData('tasks', 'tasks.commit', {} , taskDrag.uuid);
               loadTask();
