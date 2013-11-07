@@ -16,7 +16,6 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
         });
       });
 
-
       $scope.data = taskService.getTask();
       $scope.showSubtasks = false;
 
@@ -80,6 +79,15 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
 
       $scope.addComment   = function (parentTask, text, category){
         taskService.addComment(parentTask, text, category);
+      };
+
+      $scope.getTargetUUID = function(target) {
+        if( target !== undefined ) {
+          var varName = undefined;
+          for( varName in target ) {
+            return varName;
+          }
+        }
       };
 
   }]);
