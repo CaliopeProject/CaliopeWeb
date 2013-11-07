@@ -1,11 +1,11 @@
 // Karma configuration
-// Generated on Tue Nov 05 2013 17:20:26 GMT-0500 (COT)
+// Generated on Wed Nov 06 2013 18:42:27 GMT-0500 (COT)
 
 module.exports = function(config) {
   config.set({
 
     // base path, that will be used to resolve files and exclude
-    //basePath: '../../',
+    basePath: '',
 
 
     // frameworks to use
@@ -14,12 +14,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        //JASMINE
-      //, JASMINE_ADAPTER
-      //,{pattern: 'test/**/*Test.js', included: false}
-      //,{pattern: 'app/**/*.js' , included: false}
-      //,{pattern: 'app/*.js'    , included: false}
-      //,'test/test-main.js'
+      '../test/test-main.js',
+      {pattern: '../app/**/*.js', included: false},
+      {pattern: '../test/*Test.js', included: false},
+      {pattern: '../test/**/*Test.js', included: false}
     ],
 
 
@@ -37,8 +35,6 @@ module.exports = function(config) {
 
     // web server port
     port: 9876,
-
-    runnerPort:9100,
 
 
     // enable / disable colors in the output (reporters and logs)
