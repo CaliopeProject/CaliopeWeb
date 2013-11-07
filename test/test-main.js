@@ -10,7 +10,6 @@ for (var file in window.__karma__.files) {
   }
 }
 
-
 require.config({
 
   baseUrl: '../app/',
@@ -137,14 +136,8 @@ require.config({
 
   priority: [
      "angular"
-  ]
-  ,
-  require([
-    'jquery'
-  ],function(jQuery) {
-    'use strict';
-    $(document).ready(function () {
-      window.__karma__.start();
-    });
-  });
+  ],
+
+  // start test run, once Require.js is done
+  callback: window.__karma__.start
 });
