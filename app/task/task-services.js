@@ -369,11 +369,11 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
 
 
           addSubtask : function(parentTask, description, category) {
-            var idsubtask = Date.now();
+            var idsubtask = Date.now().toString();
             var data = {};
             data = {
                field_name    : "subtasks"
-              ,subfield_id   : idsubtask
+              ,subfield_id   :  idsubtask
               ,value         : { 'description' : description
                                  ,complete     : false
                                  ,uuid         : loginSecurity.currentUser.user_uuid
