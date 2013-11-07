@@ -266,7 +266,13 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           uuid = $routeParams.uuid;
         }
 
-
+        if($attrs['encUuid']==="true") {
+          //TODO: Create centralized function to encode and decode uuid
+          if( uuid !== undefined ) {
+            var bytesUUID = Crypto.util.base64ToBytes(uuid);
+            uuid = Crypto.charenc.Binary.bytesToString(bytesUUID);
+          }
+        }
         /*
         Create the form of type CaliopeWebForm
          */
