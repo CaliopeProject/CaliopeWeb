@@ -1184,7 +1184,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    * @memberOf CaliopeWebFormSpecificDecorator
    * @param {array} elementsTemplate Elements Field config in the template.
    */
-  function completeTypeExecuteTask(elementsTemplate, data) {
+  function completeTypeExecuteTask(elementsTemplate, data, cwForm) {
     if( elementsTemplate !== undefined ) {
       var i;
       var TYPE_EXCUTETASK = 'execute-task';
@@ -1200,7 +1200,16 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           elementsTemplate[i].typeo = TYPE_EXCUTETASK;
           var attUUID = elementsTemplate[i].options[NAME_DATA_TARGET_UUID_VAL];
           var attEntity = elementsTemplate[i].options[NAME_DATA_TARGET_ENTITY_VAL];
-          elementsTemplate[i]['target-uuid'] = getValueAttInObject(data, attUUID, '.');
+          if( cwForm.getElement(attUUID).hasOwnProperty('relation') ) {
+            var target = getValueAttInObject(data, attUUID, '.');
+            var varName = undefined;
+            for( varName in target) {
+              elementsTemplate[i]['target-uuid'] = varName;
+              break;
+            }
+          } else {
+            elementsTemplate[i]['target-uuid'] = getValueAttInObject(data, attUUID, '.');
+          }
           elementsTemplate[i]['target-entity'] = getValueAttInObject(data, attEntity, '.');
 
           var element =  {};
@@ -1328,7 +1337,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeSelect(elementsTemplate);
         completeTypeDatePicker(elementsTemplate);
         completeTypeMultiChoices(elementsTemplate,data);
-        completeTypeExecuteTask(elementsTemplate, data);
+        completeTypeExecuteTask(elementsTemplate, data, caliopeWebForm);
         completeTypeCwGrid(elementsTemplate);
         completeTypeRadioButtonsCheckBoxess(elementsTemplate);
         completeTypeForm(elementsTemplate);

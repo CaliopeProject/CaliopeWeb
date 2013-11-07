@@ -28,7 +28,7 @@
               <div class="lbl widget-toolbar-kanban no-border" >
 
                 <span >
-                  <cw-task-execute target-uuid="{{item.target.target.0.entity_data.uuid}}" target-entity="{{item.target.target.0.entity}}"></cw-task-execute>
+                  <cw-task-execute target-uuid="{{getTargetUUID(item.target)}}" target-entity="{{item.formtask}}"></cw-task-execute>
                 </span>
 
                 <span class="text-info" ng-click="showSubtasks=!showSubtasks">
