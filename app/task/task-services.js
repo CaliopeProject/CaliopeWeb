@@ -1,16 +1,16 @@
 /*jslint browser: true*/
-/*global localStorage, Crypto, $scope*/
+/*global localStorage, define, Crypto, $scope*/
 define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'], function(angular){
   'use strict';
 
   var moduleServices = angular.module('task-services', ['CaliopeWebTemplatesServices', 'ui.bootstrap.dialog']);
 
   moduleServices.factory('taskService',
-    ['SessionSrv', 'loginSecurity', '$log','$http', '$q', '$location', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv', 'toolservices'
-      , function(security, loginSecurity,   $log,  $http,   $q,   $location,   $dialog,   $rootScope,   webSocket, tempServices, tools) {
+    ['loginSecurity', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv'
+      , function(loginSecurity,  $dialog,   $rootScope,   webSocket, tempServices) {
 
         var NAME_MODEL_TASK = 'tasks';
-        var MODEL_TASK;
+        //var MODEL_TASK;
         var opts = {
           backdrop      : false,
           keyboard      : true,
@@ -18,23 +18,16 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
           controller    : 'TaskFormCtrl'
         };
 
-        var ALLTASK, MODEL;
+        var ALLTASK;
         var DIALOG_NAME_CONF_DELETE = 'dialogConfirmDeleteTask';
         var DIALOG_NAME_CONF_ARCHIV = 'dialogConfirmArchivTask';
         var DIALOG_NAME_FORM_TASK   = 'dialogFormTask';
         var WEBSOCKETS              = webSocket.WebSockets();
-        var UUIDSESSION             = security.getIdSession();
         // task form dialog stuff
         var TASKDIALOG = null;
         var MESSAGE_TASK_DELETE = '¿Está seguro que desea eliminar la información?';
         var MESSAGE_TASK_ARCHIV = '¿Está seguro que desea archivar la información?';
 
-
-        // Redirect to the given url (defaults to '/')
-        function redirect(url) {
-          url = url || '/';
-          $location.path(url);
-        }
 
         function getUserTask(tasktoprocess){
           var alluser = [];
@@ -101,7 +94,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                             angular.forEach(value2.comments, function(value3, key3){
                               var tempUser = {};
                               tempUser.uuid = value3.user;
-                              angular.forEach(data, function(valUser, key4User){
+                              angular.forEach(data, function(valUser){
                                 if (valUser.uuid === value3.user) {
                                   tempUser.face = valUser.image;
                                   tempUser.name = valUser.name;
@@ -118,11 +111,11 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                   $rootScope.$broadcast('taskServiceNewTask');
                 });
               }
-              if(keyII === 1){
-                if( valueII !== undefined ) {
-                  MODEL_TASK = valueII.form;
-                }
-              }
+              //if(keyII === 1){
+                //if( valueII !== undefined ) {
+                  //MODEL_TASK = valueII.form;
+                //}
+              //}
             });
           });
 
@@ -197,16 +190,6 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             TASKDIALOG.close(success);
           }
         }
-
-        function findCateg(array, value) {
-          var i, items;
-          for(i = 0; i<array.length; i++) {
-            if(array[i].uuid === value){
-              return array[i].categ;
-            }
-          }
-        }
-
 
         // The public API of the service
         var service =  {
@@ -323,7 +306,6 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             var alltask = 0;
             var pend    = 0;
             var subt    = 0;
-            var porc    = 0;
 
             angular.forEach(ALLTASK, function(key){
               if(key.category !== 'Done'){
@@ -367,7 +349,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
           },
 
 
-          addSubtask : function(parentTask, description, category) {
+          addSubtask : function(parentTask, description) {
             var idsubtask = Date.now().toString();
             var data = {};
             var subta= { 'description'   : description
@@ -396,7 +378,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
 
           countSubtask : function(task) {
             var remaining = 0;
-            angular.forEach(task, function(value, key){
+            angular.forEach(task, function(value){
               if(value.complete === false){
                 remaining++;
               }
@@ -404,25 +386,32 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             return remaining;
           },
 
-          addComment : function(parentTask, text, category) {
-            var timeall = new Date();
-            var user    = loginSecurity.currentUser.user;
-            var uuid    = loginSecurity.currentUser.user_uuid;
-            var face    = loginSecurity.currentUser.image;
+          addComment : function(parentTask, text) {
+            var timeall   = new Date();
+            var data;
+            var idcomme   = Date.now().toString();
+            var uuid_user = loginSecurity.currentUser.user_uuid;
+            var face      = loginSecurity.currentUser.image;
+
             var commentext = {
-              text : text,
-              user : {uuid: uuid, face: face},
-              time : timeall
+               text : text
+              ,user : {uuid: uuid_user, face: face}
+              ,time : timeall
+              ,uuid_comment : idcomme
             };
 
+            data = {
+               field_name    : "comments"
+              ,subfield_id   : -1
+              ,value         : commentext
+            };
             if( parentTask.comments === undefined) {
               parentTask.comments = [];
             }
 
             parentTask.comments.push(commentext);
-            parentTask.category = category;
-
-            sendData('tasks', 'tasks.edit', parentTask, parentTask.uuid);
+            sendData('tasks', 'tasks.updateField', data, parentTask.uuid);
+            sendData('tasks', 'tasks.commit', {} , parentTask.uuid);
           },
 
           changeCategory: function(taskDrag, category){
