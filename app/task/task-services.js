@@ -395,7 +395,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
 
             var commentext = {
                text : text
-              ,user : {uuid: uuid_user, face: face}
+              ,user : uuid_user
               ,time : timeall
               ,uuid_comment : idcomme
             };
@@ -405,13 +405,15 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
               ,subfield_id   : -1
               ,value         : commentext
             };
+            sendData('tasks', 'tasks.updateField', data, parentTask.uuid);
+            sendData('tasks', 'tasks.commit', {} , parentTask.uuid);
+
+            commentext.user = {uuid: uuid_user, face: face};
+            //after to send data, put the complete content to show
             if( parentTask.comments === undefined) {
               parentTask.comments = [];
             }
-
             parentTask.comments.push(commentext);
-            sendData('tasks', 'tasks.updateField', data, parentTask.uuid);
-            sendData('tasks', 'tasks.commit', {} , parentTask.uuid);
           },
 
           changeCategory: function(taskDrag, category){
