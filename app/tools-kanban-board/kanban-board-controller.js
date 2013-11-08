@@ -32,10 +32,6 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
       $scope.getSubTasks  = taskService.getSubTasks;
 
       $scope.dropCallback = function(event, ui) {
-
-      };
-
-      $scope.dropCallback = function(event, ui) {
         var uuidtask = ui.draggable.attr("uuid");
         var changetask, category;
         angular.forEach($scope.data, function(value1, key1){
@@ -71,18 +67,12 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
         $scope.showSubtasks = false;
       };
 
+      $scope.addSubtask   = taskService.addSubtask;
 
-
-      $scope.addSubtask   = function (parentTask, description, category){
-        taskService.addSubtask(parentTask, description, category);
-      };
-
-      $scope.addComment   = function (parentTask, text, category){
-        taskService.addComment(parentTask, text, category);
-      };
+      $scope.addComment   = taskService.addComment;
 
       $scope.getTargetUUID = function(target) {
-        var varName = undefined;
+        var varName;
         if( target !== undefined ) {
           for( varName in target ) {
             break;
@@ -97,12 +87,12 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
   dirmodule.controller("kanbanItemDataCtrl", ["$scope", 'taskService',
     function($scope, taskService) {
 
-      $scope.addSubtask   = function (parentTask, description, category){
-        taskService.addSubtask(parentTask, description, category);
+      $scope.addSubtask   = function (parentTask, description){
+        taskService.addSubtask(parentTask, description);
         $scope.description = '';
       };
 
-      $scope.addComment   = function (parentTask, text, category){
+      $scope.addComment   = function (parentTask, text){
         console.log($scope.$id);
         taskService.addComment(parentTask, text, category);
         $scope.text = '';

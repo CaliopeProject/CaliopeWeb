@@ -1,7 +1,7 @@
 
 <div class="page-header position-relative">
   <h1>
-    Administrador de tareas 
+    Administrador de tareas
   </h1>
 </div>
 <div class="row-fluid fillallheight" ng-controller="kanbanBoardCtrl">
@@ -57,11 +57,11 @@
                     <ul class="item-list ui-sortable">
                       <li class="item-orange scrollbar16" ng-class="{'selected': subtask.complete}">
                       <label class="inline">
-                        <input type="checkbox"  ng-model='subtask.complete'  ng:click="checkSubtask(item,obj.category)">
+                        <input type="checkbox"  ng-model='subtask.complete'  ng:click="checkSubtask(item, subtask.uuid_subtask, subtask.complete)">
                         <span class="lbl"> {{subtask.description}}</span>
                       </label>
                       <div class="task-header">
-                        <span ng-click="removeSubtask(item,obj.category,$index)">
+                        <span ng-click="removeSubtask(item, subtask.uuid_subtask, $index)">
                           <i class="icon-trash"></i>
                         </span>
                       </div>
@@ -69,7 +69,7 @@
                     </ul>
                   </div>
 
-                  <form ng-controller="kanbanItemDataCtrl"class="form-inline"  ng-submit="addSubtask(item,description,obj.category)">
+                  <form ng-controller="kanbanItemDataCtrl"class="form-inline"  ng-submit="addSubtask(item,description)">
                     <input type="text" name="description" placeholder="Subtarea..." class="input-medium" ng-model="description"/>
                     <button type="submit" class="btn btn-mini">Enviar</button>
                   </form>
