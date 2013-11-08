@@ -239,7 +239,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
           archiveTask: function(item) {
             opts.templateUrl = './task/partial-task-dialog-acction.html';
             item.category = 'archived';
-
+            MODEL_TASK.setModelUUID(item.uuid);
             var data = {
               message       : MESSAGE_TASK_ARCHIV,
               dialogName    : DIALOG_NAME_CONF_ARCHIV,
@@ -260,7 +260,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
           deleteTask: function(item) {
             opts.templateUrl = './task/partial-task-dialog-acction.html';
             item.category = 'deleted';
-
+            MODEL_TASK.setModelUUID(item.uuid);
             var data = {
               message         : MESSAGE_TASK_DELETE,
               dialogName      : DIALOG_NAME_CONF_DELETE,
