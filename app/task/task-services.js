@@ -343,15 +343,31 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
 
           },
 
-          checkSubtask : function(task, category){
-            task.category = category;
-            sendData('tasks', 'tasks.edit', task, task.uuid);
+          checkSubtask : function(task, uuidsub, complete){
+            var subta= { 'complete'    : complete
+                        ,'uuid_subtask':uuidsub
+
+                       };
+            var data = {
+               field_name    : "subtasks"
+              ,subfield_id   : 1
+              ,value         : subta
+            };
+            sendData('tasks', 'tasks.updateField', data, task.uuid);
+            sendData('tasks', 'tasks.commit', {} , task.uuid);
           },
 
-          removeSubtask: function(task, category, index){
-            task.category = category;
+
+          removeSubtask: function(task, uuidsub ,index){
+            var subta= {'uuid_subtask': uuidsub};
+            var data = {
+               field_name    : "subtasks"
+              ,subfield_id   : 1
+              ,value         : subta
+            };
+            sendData('tasks', 'tasks.updateField', data, task.uuid);
+            sendData('tasks', 'tasks.commit', {} , task.uuid);
             task.subtasks.splice(index,1);
-            sendData('tasks', 'tasks.edit', task, task.uuid);
           },
 
 
@@ -401,7 +417,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
 
             var commentext = {
                text : text
-              ,user : {uuid: uuid_user, face: face}
+              ,user : uuid_user
               ,time : timeall
               ,uuid_comment : idcomme
             };
@@ -411,13 +427,15 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
               ,subfield_id   : -1
               ,value         : commentext
             };
+            sendData('tasks', 'tasks.updateField', data, parentTask.uuid);
+            sendData('tasks', 'tasks.commit', {} , parentTask.uuid);
+
+            commentext.user = {uuid: uuid_user, face: face};
+            //after to send data, put the complete content to show
             if( parentTask.comments === undefined) {
               parentTask.comments = [];
             }
-
             parentTask.comments.push(commentext);
-            sendData('tasks', 'tasks.updateField', data, parentTask.uuid);
-            sendData('tasks', 'tasks.commit', {} , parentTask.uuid);
           },
 
           changeCategory: function(taskDrag, category){
