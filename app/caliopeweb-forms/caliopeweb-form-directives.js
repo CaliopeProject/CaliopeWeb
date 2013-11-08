@@ -362,11 +362,13 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
               angular.forEach(cwForm.getElements(), function(vElement, kElement){
                 if( vElement.type === 'datepicker' || vElement.typeo === 'datepicker') {
                   scopeForm.$watch(vElement.name, function(newValue, oldValue, scope){
-                    if(scopeForm.changeInInput[vElement.name] !== true && scopeForm.changeInNotSrv[vElement.name] !== true) {
-                      completeChange(scopeForm, vElement.name);
-                    } else {
-                      delete scopeForm.changeInInput[vElement.name];
-                      delete scopeForm.changeInNotSrv[vElement.name];
+                    if( newValue !== undefined ) {
+                      if(scopeForm.changeInInput[vElement.name] !== true && scopeForm.changeInNotSrv[vElement.name] !== true) {
+                        completeChange(scopeForm, vElement.name);
+                      } else {
+                        delete scopeForm.changeInInput[vElement.name];
+                        delete scopeForm.changeInNotSrv[vElement.name];
+                      }
                     }
                   });
                 }

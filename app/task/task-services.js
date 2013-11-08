@@ -6,11 +6,11 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
   var moduleServices = angular.module('task-services', ['CaliopeWebTemplatesServices', 'ui.bootstrap.dialog']);
 
   moduleServices.factory('taskService',
-    ['loginSecurity', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv'
-      , function(loginSecurity,  $dialog,   $rootScope,   webSocket, tempServices) {
+    ['loginSecurity', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv', 'caliopeWebFormNotification'
+      , function(loginSecurity,  $dialog,   $rootScope,   webSocket, tempServices, cwFormNotif) {
 
         var NAME_MODEL_TASK = 'tasks';
-        //var MODEL_TASK;
+        var MODEL_TASK;
         var opts = {
           backdrop      : false,
           keyboard      : true,
@@ -111,13 +111,18 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                   $rootScope.$broadcast('taskServiceNewTask');
                 });
               }
-              //if(keyII === 1){
-                //if( valueII !== undefined ) {
-                  //MODEL_TASK = valueII.form;
-                //}
-              //}
+              /*
+              if(keyII === 1){
+                if( valueII !== undefined ) {
+                  MODEL_TASK = valueII.form;
+                }
+              }
+              */
             });
           });
+
+          MODEL_TASK = tempServices.createForm(NAME_MODEL_TASK, 'create', '');
+          tempServices.loadForm(MODEL_TASK, {});
 
         }
 
@@ -233,13 +238,14 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
 
           archiveTask: function(item) {
             opts.templateUrl = './task/partial-task-dialog-acction.html';
-
+            item.category = 'archived';
+            MODEL_TASK.setModelUUID(item.uuid);
             var data = {
               message       : MESSAGE_TASK_ARCHIV,
-              template      : NAME_MODEL_TASK,
-              actionMethod  : 'tasks.archive',
-              uuid          : item.uuid,
-              dialogName    : DIALOG_NAME_CONF_ARCHIV
+              dialogName    : DIALOG_NAME_CONF_ARCHIV,
+              cwForm          : MODEL_TASK,
+              nameFieldChange : 'category',
+              scopeData       : item
             };
 
             opts.resolve = {
@@ -253,15 +259,15 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
 
           deleteTask: function(item) {
             opts.templateUrl = './task/partial-task-dialog-acction.html';
-
+            item.category = 'deleted';
+            MODEL_TASK.setModelUUID(item.uuid);
             var data = {
-              message       : MESSAGE_TASK_DELETE,
-              template      : NAME_MODEL_TASK,
-              actionMethod  : 'tasks.delete',
-              uuid          : item.uuid,
-              dialogName    : DIALOG_NAME_CONF_DELETE
+              message         : MESSAGE_TASK_DELETE,
+              dialogName      : DIALOG_NAME_CONF_DELETE,
+              cwForm          : MODEL_TASK,
+              nameFieldChange : 'category',
+              scopeData       : item
             };
-
             opts.resolve = {
               action : function(){
                 return angular.copy(data);
