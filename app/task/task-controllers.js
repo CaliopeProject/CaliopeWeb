@@ -100,11 +100,11 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
         $scope.fromDialog = true;
       };
 
-      $scope.closeDialog = function (dialogName) {
+      $scope.closeDialog = function (dialogName, success) {
 
         if( dialogName !== undefined ) {
           if($scope[dialogName] !== undefined) {
-            $scope[dialogName].close([false, dialogName]);
+            $scope[dialogName].close([success, dialogName]);
             $scope.fromDialog = false;
           }
         }
@@ -115,7 +115,7 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
         sendChange(cwForm, scopeData, nameFieldChange);
         sendCommit(cwForm).then( function(response) {
           if( !response.hasOwnProperty('error') ) {
-            $scope.closeDialog($scope.dialogName);
+            $scope.closeDialog($scope.dialogName, true);
           }
         });
       };
