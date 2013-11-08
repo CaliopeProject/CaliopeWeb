@@ -285,7 +285,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
           var promiseMode = {};
           var METHOD_NOTIF = {
             UPDATE_FIELD : 'updateField',
-            UPDATE_RELATION : 'updateRelationship'
+            UPDATE_RELATION : 'updateRelationship',
+            COMMIT : 'commit'
           }
 
           /*
@@ -438,6 +439,14 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
                   promiseMode = webSockets.serversimm.sendRequest(vMod.method, vMod.params);
                 });
               }
+            },
+
+            sendCommit : function(cwForm) {
+              var params = {
+                uuid : cwForm.getModelUUID()
+              }
+              var method = getMethod(cwForm, METHOD_NOTIF.COMMIT);
+              return webSockets.serversimm.sendRequest(method, params);
             }
           }
       }
