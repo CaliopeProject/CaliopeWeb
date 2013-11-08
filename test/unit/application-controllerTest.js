@@ -17,6 +17,7 @@ define([], function() {
   });
 
   describe("The 'toBe' matcher compares with ===", function() {
+
     it("and has a positive case ", function() {
       expect(true).toBe(true);
     });
@@ -24,5 +25,6 @@ define([], function() {
     it("and can have a negative case", function() {
       expect(false).not.toBe(true);
     });
+
   })
 });

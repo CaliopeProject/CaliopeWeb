@@ -4,6 +4,7 @@
    "dependencies": {
     "jquery"                     : "~2.0.2",
     "angular-unstable"           : "f73e0f9171ef205d28fd0451f4c15d35c9ea331a",
+    "angular-mocks"              : "~1.2.0",
     "angular-ui-bootstrap-bower" : "~0.5.0",
     "requirejs"                  : "~2.1.6",
     "jquery.dform"               : "~1.1.0",

@@ -17,6 +17,7 @@ require.config({
   paths: {
     'jquery'                         : 'libs-js-thirdparty/jquery/jquery',
     'angular'                        : 'libs-js-thirdparty/angular-unstable/angular',
+    'angular-mocks'                  : 'libs-js-thirdparty/angular-mocks/angular-mocks'
     'dform'                          : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
     'onResourceLoad'                 : 'application/onResourceLoad',
     'angular-route-unstable'         : 'libs-js-thirdparty/angular-route-unstable/angular-route',
@@ -127,7 +128,7 @@ require.config({
     ,'gis-heron'                     : {'deps'    : ['gis-init']}
     ,'gis-view-ctrl'                 : {'deps'    : ['gis-heron']}
     ,'seeinmap-services'             : {'deps'    : ['angular', 'jquery-ui']}
-    ,'angularMocks'                  : {'deps'    : ['angular'], 'exports' : 'angular.mock'}
+    ,'angular-mocks'                 : {'deps'    : ['angular']}
 
   },
 
