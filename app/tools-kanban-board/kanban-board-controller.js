@@ -94,7 +94,7 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
 
       $scope.addComment   = function (parentTask, text){
         console.log($scope.$id);
-        taskService.addComment(parentTask, text, category);
+        taskService.addComment(parentTask, text);
         $scope.text = '';
       };
 

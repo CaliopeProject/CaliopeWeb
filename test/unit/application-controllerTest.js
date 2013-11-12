@@ -1,4 +1,15 @@
-define(['angular-mocks'], function() {
+define(['angular-mocks', 'application-controller'], function() {
+
+  beforeEach(module('CaliopeController'));
+
+  beforeEach(function(){
+    module('angular-table');
+    module('events');
+  });
+
+  module(function ($provide) {
+    $provide.value('yourService', serviceMock);
+  });
 
   describe("A suite", function() {
     it("contains spec with an expectation", function() {
