@@ -339,7 +339,9 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
              */
             if( cwForm.getInnerForm() ) {
               var elementTitle = $element.find('form').find("[name='title']").children();
-              var elementBtnDelete = ' <span ng-click="removeInnerForm()"><i tooltip="Eliminar" tooltip-placement="right" class="icon-remove"></i></button>'
+              var elementBtnDelete = ' <span ng-click="removeInnerForm('.
+                  concat($attrs.index).concat(')"').
+                  concat('><i tooltip="Eliminar" tooltip-placement="right" class="icon-remove"></i></button>');
               //var elementBtnDelete = '<button name="btn-remove" class="btn btn-mini btn-title" type="button" ng-disabled="disabledAdd" ng-click="removeInnerForm()">Eliminar</button>'
               elementTitle.append(elementBtnDelete);
               $compile(elementTitle.contents())($scope);
@@ -443,6 +445,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         function createInnerForm(name, uuid) {
           var innerForm = {
             name : name,
+            index : $scope.innerForms.length,
             entity : entity,
             mode : mode,
             uuid : uuid,
@@ -473,8 +476,10 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           $scope.showForm = false;
         }
 
-        $scope.removeInnerForm = function() {
-          console.log('remove inner form', $scope.innerForms);
+        $scope.removeInnerForm = function(index) {
+          console.log('remove inner form', index, $scope.innerForms[index]);
+          $scope.innerForms = $scope.innerForms.splice(index, 1);
+          console.log('remove inner form', index, $scope.innerForms);
         }
 
 
