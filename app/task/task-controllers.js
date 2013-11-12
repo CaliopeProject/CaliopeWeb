@@ -15,28 +15,16 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
         });
       }
 
+
       function sendChange(cwForm, scopeForm, name) {
 
         var oHolders = undefined;
         if( name === 'category' ) {
           var uuidUser = loginSecurity.currentUser.user_uuid;
-          var holders = angular.copy(scopeForm.holders);
+          var holdersToSend = [];
           oHolders = angular.copy(scopeForm.holders);
-          if( holders !== undefined && holders.length > 0) {
-            var i;
-            for( i = 0; i < scopeForm.holders.length; i++ ) {
-              var vHolder = scopeForm.holders[i];
-              if( vHolder.value.uuid !== uuidUser ) {
-                holders.splice(i,1);
-              } else {
-                holders[i].uuid =  vHolder.value.uuid;
-              }
-            }
-          } else {
-            holders = [];
-            holders.push({uuid : uuidUser});
-          }
-          scopeForm.holders = holders;
+          holdersToSend.push({uuid : uuidUser});
+          scopeForm.holders = holdersToSend;
         }
 
         if( name === 'holders' ) {
@@ -85,6 +73,8 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
             }
             $scope.target.uuid = action.targetTask.uuid;
           }
+
+          sendChange(cwForm, $scope, 'category');
         }
       }
 

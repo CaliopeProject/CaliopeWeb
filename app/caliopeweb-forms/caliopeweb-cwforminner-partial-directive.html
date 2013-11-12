@@ -9,7 +9,7 @@
   -->
   <div ng-repeat="form in innerForms" >
     <div name="container-form" >
-      <cw-dform name="{{form.name}}" cw-dform="{{form.templateName}}"  mode="{{form.mode}}" entity="{{form.entity}}" uuid="{{form.uuid}}" generic="{{form.generic}}" inner="true" from-routeparams="false" enc-uuid="false" init="true"></cw-dform>
+      <cw-dform index="{{form.index}}" name="{{form.name}}" cw-dform="{{form.templateName}}"  mode="{{form.mode}}" entity="{{form.entity}}" uuid="{{form.uuid}}" generic="{{form.generic}}" inner="true" from-routeparams="false" enc-uuid="false" init="true"></cw-dform>
     </div>
     <!--
     <cw-dform name="form.name" cw-dform="form.templateName"  mode="form.mode" entity="form.entity" uuid="form.uuid" generic="form.generic" inner="true" from-routeparams="false" enc-uuid="false" ng-init="init()"></cw-dform>

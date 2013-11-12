@@ -330,8 +330,22 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
          */
         $scope.$watch($attrs.cwDform, function (value) {
           if (value !== undefined && $attrs.ngShow !== "false" ) {
+
             console.log(" caliopeweb-form-directives 310 Json to render " + $attrs.cwDform, value);
             renderDForm(value);
+
+            /**
+             * Add the button remove. If cwForm is inner form then
+             */
+            if( cwForm.getInnerForm() ) {
+              var elementTitle = $element.find('form').find("[name='title']").children();
+              var elementBtnDelete = ' <span ng-click="removeInnerForm('.
+                  concat($attrs.index).concat(')"').
+                  concat('><i tooltip="Eliminar" tooltip-placement="right" class="icon-remove"></i></button>');
+              //var elementBtnDelete = '<button name="btn-remove" class="btn btn-mini btn-title" type="button" ng-disabled="disabledAdd" ng-click="removeInnerForm()">Eliminar</button>'
+              elementTitle.append(elementBtnDelete);
+              $compile(elementTitle.contents())($scope);
+            }
 
             if($scope.elementsFormTemplate !== undefined) {
               var scopeForm = $element.find('form').scope();
@@ -344,6 +358,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                   scopeForm[data.field] = data.value;
                 });
               });
+
 
 
               scopeForm.changeInInput = {};
@@ -430,6 +445,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         function createInnerForm(name, uuid) {
           var innerForm = {
             name : name,
+            index : $scope.innerForms.length,
             entity : entity,
             mode : mode,
             uuid : uuid,
@@ -458,64 +474,14 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           $scope.disabledAdd = false;
           $scope.showBtns = false;
           $scope.showForm = false;
-          //$element.find('[name="container-form"]').find('[name="'.concat($attrs['name']).concat('"]')).remove();
-          //var jsonTemVarName = 'jsonTemplate_'.concat($attrs['name']);
-          //delete $scope[jsonTemVarName];
         }
 
-        /**
-         * This function serve the event of button cancel (name='btn-cancel') defined in templateUrl
-         */
-        $scope.cancel = function() {
-          console.log('$scope', $scope.$id);
-          initInnerForm();
-          //delete scope;
-        };
+        $scope.removeInnerForm = function(index) {
+          console.log('remove inner form', index, $scope.innerForms[index]);
+          $scope.innerForms = $scope.innerForms.splice(index, 1);
+          console.log('remove inner form', index, $scope.innerForms);
+        }
 
-        /**
-         * This function serve the event of button cancel (name='btn-cancel') defined in templateUrl
-         */
-        $scope.terminate = function() {
-          console.log('$scope', $scope.$id);
-          var elemCwForm = $element.find('[name="container-form"]').find('[name="'.concat($attrs['name']).concat('"]'));
-          var cwForm = elemCwForm.scope()[elemCwForm.scope()['cwForm-name']];
-          var scopeForm = $element.find('[name="container-form"]').find('[name="'.concat(cwForm.getFormName()).concat('"]')).scope();
-          var dataObj = cwForm.dataToServerData(scopeForm);
-          $scope[varNameData].push(dataObj);
-          $scope.showTable = true;
-
-
-          if(tableLoaded === false) {
-            var cwGridInForm = '<cw-grid-in-form name="{{name}}" columns="{{columns}}"></cw-grid-in-form>';
-            var columns = [];
-            angular.forEach(dataObj, function(v,k) {
-              var column = {
-                'name' : k,
-                'caption' : k
-              }
-              columns.push(column);
-            });
-            cwGridInForm = cwGridInForm.replace('{{columns}}', JSON.stringify(columns));
-            cwGridInForm = cwGridInForm.replace('{{name}}', name);
-
-            var elementContainerTable = $element.find('[name="container-table"]');
-            elementContainerTable.append(cwGridInForm);
-            /**
-             * Compile the element with the new tag cw-dform, this is to render the form.
-             */
-            try {
-              /*
-               Compile the element with cw-dform tag to apply the new contents
-               */
-              $compile(elementContainerTable.contents())($scope);
-            } catch (exCom) {
-              console.log('Error compiling form-inner' +  exCom.message);
-            }
-            tableLoaded = true;
-          }
-
-          initInnerForm();
-        };
 
         /*
           Code associate to link function directive.
@@ -528,8 +494,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         $scope.showBtns = false;
         $scope.showForm = true;
         $scope[varNameData] = [];
-        //$scope.renderInnerForm();
-        //name = name.concat($scope.innerForms.length);
         $scope.addInnerForm();
 
 
@@ -710,8 +674,10 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             if(!$attrs.single ){
               $scope._selectedChoices.push(choice);
               $scope._choices.splice($scope._choices.indexOf(choice), 1);
+
               if( $scope.change !== undefined && typeof $scope.change === 'function') {
-                $scope.change($attrs.name);
+                var cwFormName = $scope.$parent.$parent['cwForm-name'];
+                $scope.change($scope.$parent.$parent[cwFormName], $scope.$parent, $attrs.name);
               }
               // do not 'close' on choice click
             }else if ($attrs.single && ($scope._selectedChoices.length < 1)){
