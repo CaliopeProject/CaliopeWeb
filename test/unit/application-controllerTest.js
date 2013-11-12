@@ -1,6 +1,15 @@
-'use strict';
+define(['angular-mocks', 'application-controller'], function() {
 
-define([], function() {
+  beforeEach(module('CaliopeController'));
+
+  beforeEach(function(){
+    module('angular-table');
+    module('events');
+  });
+
+  module(function ($provide) {
+    $provide.value('yourService', serviceMock);
+  });
 
   describe("A suite", function() {
     it("contains spec with an expectation", function() {
@@ -17,6 +26,7 @@ define([], function() {
   });
 
   describe("The 'toBe' matcher compares with ===", function() {
+
     it("and has a positive case ", function() {
       expect(true).toBe(true);
     });
@@ -24,5 +34,6 @@ define([], function() {
     it("and can have a negative case", function() {
       expect(false).not.toBe(true);
     });
+
   })
 });

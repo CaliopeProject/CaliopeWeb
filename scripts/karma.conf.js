@@ -22,8 +22,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-       'app/application/application-main.js'
-      ,'app/libs-js-thirdparty/**/*.js'
+      'app/application/application-main.js'
     ],
 
 
