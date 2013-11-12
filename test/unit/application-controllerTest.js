@@ -1,6 +1,4 @@
-'use strict';
-
-define([], function() {
+define(['angular-mocks'], function() {
 
   describe("A suite", function() {
     it("contains spec with an expectation", function() {
