@@ -20,7 +20,7 @@
               <div class="blockInline-subtask">
                 <span class="green" ng-click="showSubtasks=!showSubtasks">
                   <i tooltip="Estado Sub-tareas" class="icon-list-ul"></i>
-                  ({{item.subtasks.length || 0 }} - <span class="text-error"> {{countSubtask(item.subtasks)}})</span>
+                  <span class="text-error"> {{countSubtask(item.subtasks)}} </span>
                 </span>
                 {{item.name}}
               </div>
@@ -61,7 +61,7 @@
                         <span class="lbl"> {{subtask.description}}</span>
                       </label>
                       <div class="task-header">
-                        <span ng-click="removeSubtask(item, subtask.uuid_subtask, $index)">
+                        <span ng-click="removeSubtask(item, subtask.uuid_subtask)">
                           <i class="icon-trash"></i>
                         </span>
                       </div>

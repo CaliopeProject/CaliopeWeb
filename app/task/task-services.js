@@ -6,8 +6,8 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
   var moduleServices = angular.module('task-services', ['CaliopeWebTemplatesServices', 'ui.bootstrap.dialog']);
 
   moduleServices.factory('taskService',
-    ['loginSecurity', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv', 'caliopeWebFormNotification'
-      , function(loginSecurity,  $dialog,   $rootScope,   webSocket, tempServices, cwFormNotif) {
+    ['loginSecurity', '$dialog', '$rootScope', 'webSocket', 'caliopewebTemplateSrv'
+      , function(loginSecurity,  $dialog,   $rootScope,   webSocket, tempServices) {
 
         var NAME_MODEL_TASK = 'tasks';
         var MODEL_TASK;
@@ -344,59 +344,58 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
           },
 
           checkSubtask : function(task, uuidsub, complete){
-            var subta= { 'complete'    : complete
-                        ,'uuid_subtask':uuidsub
 
-                       };
             var data = {
-               field_name    : "subtasks"
-              ,subfield_id   : 1
-              ,value         : subta
+               field_name   : "subtasks"
+              ,subfield_id  : uuidsub
+              ,value        : complete
+              ,pos          : 'complete'
             };
+
             sendData('tasks', 'tasks.updateField', data, task.uuid);
             sendData('tasks', 'tasks.commit', {} , task.uuid);
           },
 
 
-          removeSubtask: function(task, uuidsub ,index){
-            var subta= {'uuid_subtask': uuidsub};
+          removeSubtask: function(task, uuidsub){
             var data = {
                field_name    : "subtasks"
-              ,subfield_id   : 1
-              ,value         : subta
+              ,subfield_id   : uuidsub
             };
-            sendData('tasks', 'tasks.updateField', data, task.uuid);
+            sendData('tasks', 'tasks.clearField', data, task.uuid);
             sendData('tasks', 'tasks.commit', {} , task.uuid);
-            task.subtasks.splice(index,1);
+            delete task.subtasks[uuidsub];
           },
 
 
           addSubtask : function(parentTask, description) {
             var idsubtask = Date.now().toString();
             var data = {};
-            var subta= { 'description'   : description
-                          ,'complete'    : false
-                          ,'uuid_user'   : loginSecurity.currentUser.user_uuid
-                          ,'uuid_subtask': idsubtask
+            var subta= {   'description'  : description
+                          ,'complete'     : false
+                          ,'uuid_user'    : loginSecurity.currentUser.user_uuid
+                          ,'uuid_subtask' : idsubtask
                        };
             data = {
                field_name    : "subtasks"
-              ,subfield_id   : -1
+              ,subfield_id   : idsubtask
               ,value         : subta
             };
 
             if( parentTask.subtasks === undefined) {
-              parentTask.subtasks = [];
+              parentTask.subtasks = {};
             }
-
-            parentTask.subtasks.push({ 'description' : description
+            parentTask.subtasks[idsubtask] = {};
+            parentTask.subtasks[idsubtask] ={ 'description' : description
                                  ,'complete'   : false
                                  ,'uuid_user'  : loginSecurity.currentUser.user_uuid
-                               });
+                               };
 
             sendData('tasks', 'tasks.updateField', data, parentTask.uuid);
             sendData('tasks', 'tasks.commit', {} , parentTask.uuid);
           },
+
+
 
           countSubtask : function(task) {
             var remaining = 0;

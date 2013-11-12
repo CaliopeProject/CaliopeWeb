@@ -2,11 +2,6 @@ define(['angular-mocks', 'application-controller'], function() {
 
   beforeEach(module('CaliopeController'));
 
-  beforeEach(function(){
-    module('angular-table');
-    module('events');
-  });
-
   module(function ($provide) {
     $provide.value('yourService', serviceMock);
   });
