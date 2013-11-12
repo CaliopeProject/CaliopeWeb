@@ -23,7 +23,6 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
           var uuidUser = loginSecurity.currentUser.user_uuid;
           var holdersToSend = [];
           oHolders = angular.copy(scopeForm.holders);
-          holdersToSend = [];
           holdersToSend.push({uuid : uuidUser});
           scopeForm.holders = holdersToSend;
         }
