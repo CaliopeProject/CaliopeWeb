@@ -477,9 +477,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         }
 
         $scope.removeInnerForm = function(index) {
-          console.log('remove inner form', index, $scope.innerForms[index]);
-          $scope.innerForms = $scope.innerForms.splice(index, 1);
-          console.log('remove inner form', index, $scope.innerForms);
+          $scope.innerForms.splice(index, 1);
         }
 
 
