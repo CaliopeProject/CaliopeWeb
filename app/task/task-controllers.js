@@ -16,9 +16,10 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
       }
 
 
-      function sendChange(cwForm, scopeForm, name) {
+      function sendChange(cwForm, scopeForm, name, newValue) {
 
         var oHolders = undefined;
+        var oCategory = undefined;
         if( name === 'category' ) {
           var uuidUser = loginSecurity.currentUser.user_uuid;
           var holdersToSend = [];
@@ -28,9 +29,23 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
         }
 
         if( name === 'holders' ) {
+          /*
           angular.forEach(scopeForm.holders, function(vHolder){
             vHolder.uuid = vHolder.value.uuid;
           });
+          */
+          var uuidUser = loginSecurity.currentUser.user_uuid;
+          var holdersToSend = [];
+          var holderToSend = newValue;
+          var categoryToSend = 'ToDo';
+          holderToSend.uuid = holderToSend.value.uuid;
+          if( uuidUser !== holderToSend.uuid ) {
+            oCategory = scopeForm.category;
+            scopeForm.category = categoryToSend;
+          }
+          holdersToSend.push(holderToSend);
+          scopeForm.holders = holdersToSend;
+
         }
 
         cwFormNotif.sendChange(cwForm, scopeForm, name);
@@ -38,14 +53,17 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
         if(oHolders !== undefined) {
           scopeForm.holders = oHolders;
         }
+        if(oCategory !== undefined) {
+          scopeForm.category = oCategory;
+        }
       }
 
       function sendCommit(cwForm) {
         return cwFormNotif.sendCommit(cwForm);
       };
 
-      $scope.change = function(cwForm, scopeForm, name) {
-        sendChange(cwForm, scopeForm, name);
+      $scope.change = function(cwForm, scopeForm, name, newValue) {
+        sendChange(cwForm, scopeForm, name, newValue);
       };
 
       $scope.initFromDialogAction = function() {
@@ -74,7 +92,16 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
             $scope.target.uuid = action.targetTask.uuid;
           }
 
+          /**
+           * Se envía la notificación de la categoria seleccionada
+           */
           sendChange(cwForm, $scope, 'category');
+
+          /**
+           * Se guarda la categoría inicial.
+           */
+          $scope.initCategory = $scope.category;
+
         }
       }
 
