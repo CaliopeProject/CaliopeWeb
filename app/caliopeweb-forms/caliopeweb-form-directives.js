@@ -338,6 +338,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
              * Add the button remove. If cwForm is inner form then
              */
             if( cwForm.getInnerForm() ) {
+
               var elementTitle = $element.find('form').find("[name='title']").children();
               var elementBtnDelete = ' <span ng-click="removeInnerForm('.
                   concat($attrs.index).concat(')"').
@@ -345,7 +346,24 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
               //var elementBtnDelete = '<button name="btn-remove" class="btn btn-mini btn-title" type="button" ng-disabled="disabledAdd" ng-click="removeInnerForm()">Eliminar</button>'
               elementTitle.append(elementBtnDelete);
               $compile(elementTitle.contents())($scope);
+
+              /*
+              Add cwForm to innerForm and call create relation parent
+               */
+              if($scope.$parent.innerForms !== undefined) {
+                var i = 0;
+                for(i; i < $scope.$parent.innerForms.length; i++ ) {
+                  if( $scope.$parent.innerForms[i].templateName === $attrs.cwDform ) {
+                    $scope.$parent.innerForms[i].cwForm = cwForm;
+                    var cwFormParentName = $scope.$parent.$parent['cwForm-name'];
+                    $scope.$parent.innerForms[i].createRelationParent($scope.$parent.$parent[cwFormParentName], cwForm);
+                    break;
+                  }
+                }
+              }
+
             }
+
 
             if($scope.elementsFormTemplate !== undefined) {
               var scopeForm = $element.find('form').scope();
@@ -412,7 +430,8 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
    *
    *
    */
-  moduleDirectives.directive('cwFormInner',['$compile', function ($compile) {
+  moduleDirectives.directive('cwFormInner',['$compile', 'caliopeWebFormNotification',
+    function ($compile, cwFormNotif) {
 
     /**
      * Define the function for link the directive to AngularJS Context.
@@ -441,6 +460,11 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         var tableLoaded = false;
         var varNameData = 'data_'.concat(name);
 
+        var createRelationParent = function (cwFormParent, cwFormInner) {
+          var data = {};
+          data[$attrs.name] = [{'uuid' : cwFormInner.getModelUUID()}];
+          cwFormNotif.sendChange(cwFormParent, data, $attrs.name)
+        }
 
         function createInnerForm(name, uuid) {
           var innerForm = {
@@ -451,9 +475,12 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             uuid : uuid,
             generic : generic,
             templateName : 'jsonTemplate_'.concat(name),
-            data : {}
+            cwForm : {},
+            data : {},
+            createRelationParent: createRelationParent
           }
           console.log('$scope add InnerForm', name, $scope.$id);
+
           return innerForm;
         }
 
