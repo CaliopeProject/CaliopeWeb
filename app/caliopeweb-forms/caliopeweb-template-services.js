@@ -286,6 +286,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
           var METHOD_NOTIF = {
             UPDATE_FIELD : 'updateField',
             UPDATE_RELATION : 'updateRelationship',
+            DELETE_RELATION : 'deleteRelationship',
             COMMIT : 'commit'
           }
 
@@ -343,18 +344,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
 
           function updateRelationShip(cwForm, data, elementModified)  {
 
-            /*
-            "relation": [
-              {
-                "name" : "holder",
-                "class": "CaliopeUser",
-                "target" : "{{holders}}",
-                "properties" : {
-                  "category" : "{{category}}"
-                }
-              }
-            ]
-            */
             var modifications = [];
 
             if(elementModified.hasOwnProperty('relation')) {
@@ -422,16 +411,70 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
             return modifications;
           }
 
+        function deleteRelationShip(cwForm, data, elementModified)  {
+
+          var modifications = [];
+
+          if(elementModified.hasOwnProperty('relation')) {
+            var uuidForm = cwForm.getModelUUID();
+
+            var params = {
+              "uuid"  : uuidForm,
+              "rel_name" : '',
+              "target_uuid" : ''
+            };
+            var method =  getMethod(cwForm, METHOD_NOTIF.DELETE_RELATION);
+
+            //TODO: Posiblemente este código se puede poner en CaliopeWebForm o en la nueva libreria para integracion con backend
+
+            var relation =  elementModified.relation;
+
+            /*
+             Asociar los valores para target
+             */
+            var valTarget = [];
+            if(isRepresentationFormRep(relation.target)) {
+              var nameVarData = getVarNameScopeFromFormRep(relation.target);
+              valTarget =  data[nameVarData];
+            } else {
+              valTarget.push(relation.target);
+            }
+
+            /*
+             Crear las modificaciones que se deben enviar al srv.
+             */
+            jQuery.each(valTarget, function(keyTarget, valTarget) {
+              var cParams = {};
+              jQuery.extend(cParams, params);
+              /*
+               Asociar el nombre de la relacion
+               */
+              cParams.rel_name = relation.rel_name;
+              cParams.target_uuid = valTarget.uuid;
+
+              var modification = {
+                'method' : method,
+                'params' : cParams
+              }
+              modifications.push(modification)
+            });
+
+
+          }
+
+          return modifications;
+        }
+
           return {
-            sendChange: function(cwForm, scopeData, fieldModified){
+            sendChange: function(cwForm, data, fieldModified){
 
               var element = cwForm.getElement(fieldModified);
               if( element !== undefined ) {
                 var modifications = undefined;
                 if( element.hasOwnProperty('relation') ) {
-                  modifications = updateRelationShip(cwForm, scopeData, element);
+                  modifications = updateRelationShip(cwForm, data, element);
                 } else {
-                  modifications = updateField(cwForm, scopeData, element)
+                  modifications = updateField(cwForm, data, element)
                 }
 
                 //TODO: Change to send batch
@@ -447,6 +490,23 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
               }
               var method = getMethod(cwForm, METHOD_NOTIF.COMMIT);
               return webSockets.serversimm.sendRequest(method, params);
+            },
+
+            sendDelete : function(cwForm, data, fieldModified) {
+              var element = cwForm.getElement(fieldModified);
+              if( element !== undefined ) {
+                var modifications = undefined;
+                if( element.hasOwnProperty('relation') ) {
+                  modifications = deleteRelationShip(cwForm, data, element);
+                } else {
+                  //modifications = deleteField(cwForm, data, element)
+                }
+
+                //TODO: Change to send batch
+                jQuery.each(modifications, function(kMod, vMod) {
+                  promiseMode = webSockets.serversimm.sendRequest(vMod.method, vMod.params);
+                });
+              }
             }
           }
       }

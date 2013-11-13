@@ -674,7 +674,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
               $scope._choices.splice($scope._choices.indexOf(choice), 1);
 
               /**
-               * Send notification
+               * Send notification change
                * If exist change function in scope then use this function, else, send the change
                * from this point
                */
@@ -682,10 +682,10 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                 var cwFormName = $scope.$parent.$parent['cwForm-name'];
                 $scope.change($scope.$parent.$parent[cwFormName], $scope.$parent, $attrs.name, choice);
               } else {
-                //TODO Change
+                //TODO Send Change
               }
               // do not 'close' on choice click
-            }else if ($attrs.single && ($scope._selectedChoices.length < 1)){
+            } else if ($attrs.single && ($scope._selectedChoices.length < 1)){
               $scope._selectedChoices.push(choice);
               $scope._choices.splice($scope._choices.indexOf(choice), 1);
             }
@@ -698,8 +698,19 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           $scope.removeFromSelected = function(choice) {
             $scope._choices.push(choice);
             $scope._selectedChoices.splice($scope._selectedChoices.indexOf(choice), 1);
-
             $scope._searchElem.focus();
+
+            /**
+             * Send notification remove
+             * If exist change function in scope then use this function, else, send the change
+             * from this point
+             */
+            if( $scope.sendDelete !== undefined && typeof $scope.sendDelete === 'function') {
+              var cwFormName = $scope.$parent.$parent['cwForm-name'];
+              $scope.sendDelete($scope.$parent.$parent[cwFormName], $scope.$parent, $attrs.name, choice);
+            } else {
+              //TODO Send Delete
+            }
           };
 
           /**
