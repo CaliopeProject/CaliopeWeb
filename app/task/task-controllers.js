@@ -58,12 +58,34 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
         }
       }
 
+      function sendDelete(cwForm, scopeForm, name, deletedValue) {
+
+        var oHolders = undefined;
+
+        if( name === "holders" ) {
+          var holders = [];
+          holders.push({'uuid': deletedValue.uuid})
+          var data = {
+            holders : holders
+          };
+
+          cwFormNotif.sendDelete(cwForm, data, name);
+        }
+        if(oHolders !== undefined) {
+          scopeForm.holders = oHolders;
+        }
+      }
+
       function sendCommit(cwForm) {
         return cwFormNotif.sendCommit(cwForm);
       };
 
       $scope.change = function(cwForm, scopeForm, name, newValue) {
         sendChange(cwForm, scopeForm, name, newValue);
+      };
+
+      $scope.sendDelete = function(cwForm, scopeForm, name, deletedValue) {
+        sendDelete(cwForm, scopeForm, name, deletedValue);
       };
 
       $scope.initFromDialogAction = function() {
