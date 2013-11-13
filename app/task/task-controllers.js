@@ -115,14 +115,12 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
           }
 
           /**
-           * Se envía la notificación de la categoria seleccionada
+           * Se envía la notificación de la categoria seleccionada si es un formulario para
+           * crear una nueva tarea
            */
-          sendChange(cwForm, $scope, 'category');
-
-          /**
-           * Se guarda la categoría inicial.
-           */
-          $scope.initCategory = $scope.category;
+          if( cwForm.getMode() === 'create' ) {
+            sendChange(cwForm, $scope, 'category');
+          }
 
         }
       }
