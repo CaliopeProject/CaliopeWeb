@@ -377,17 +377,20 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
                Asociar valor para properties
                */
               var valProperties = {};
-              jQuery.each(relation.properties, function(keyProp, valProp){
-                if( isRepresentationFormRep(valProp) ) {
-                  var nameVarData = getVarNameScopeFromFormRep(valProp);
-                  valProp = data[nameVarData];
-                }
-                valProperties[keyProp] = valProp;
-              });
+              if( relation.hasOwnProperty('properties') ) {
+                jQuery.each(relation.properties, function(keyProp, valProp){
+                  if( isRepresentationFormRep(valProp) ) {
+                    var nameVarData = getVarNameScopeFromFormRep(valProp);
+                    valProp = data[nameVarData];
+                  }
+                  valProperties[keyProp] = valProp;
+                });
+              }
 
               /*
               Crear las modificaciones que se deben enviar al srv.
                */
+              if( valTarget !== undefined)
               jQuery.each(valTarget, function(keyTarget, valTarget) {
                 var cParams = {};
                 jQuery.extend(cParams, params);
