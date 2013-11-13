@@ -1,34 +1,47 @@
-define(['angular-mocks', 'application-controller'], function() {
+/*jslint browser: true*/
+/*global define, describe, beforeEach, it, expect, inject, angular */
+define(['angular', 'angular-mocks', 'application-app', 'application-controller'], function() {
 
-  beforeEach(module('CaliopeController'));
+  describe("moduleCaliopeController ...", function(){
 
-  module(function ($provide) {
-    $provide.value('yourService', serviceMock);
-  });
+    beforeEach(function(){
+      this.addMatchers({
+        toEqualData: function(expected) {
+          return angular.equals(this.actual, expected);
+        }
+      });
+    });
 
-  describe("A suite", function() {
-    it("contains spec with an expectation", function() {
-      expect(true).toBe(true);
+
+    beforeEach(module('caliope'));
+    beforeEach(module('CaliopeController'));
+
+    describe("CaliopeController ...", function(){
+
+      var scope, ctrl;
+
+      it('init controller', inject(function($rootScope, $controller){
+        scope = $rootScope.$new();
+        ctrl = $controller('CaliopeController', {$scope: scope});
+        expect(ctrl).toBeDefined();
+      }));
+
+      it("init menu hiden", function() {
+        expect(scope.showMenu).toBe(false);
+      });
+
+      it("user is not authenticated", function() {
+        expect(scope.isAuthenticated()).toBe(false);
+      });
+
+      it("exist alert message format", function() {
+        expect(scope.alerts).toEqualData([]);
+      });
+
+      it("have no pending requests", function() {
+        expect(scope.hasPendingRequests()).toBe(false);
+      });
+
     });
   });
-
-  describe("A suite is just a function", function() {
-    var a;
-    it("and so is a spec", function() {
-      a = true;
-      expect(a).toBe(true);
-    });
-  });
-
-  describe("The 'toBe' matcher compares with ===", function() {
-
-    it("and has a positive case ", function() {
-      expect(true).toBe(true);
-    });
-
-    it("and can have a negative case", function() {
-      expect(false).not.toBe(true);
-    });
-
-  })
 });
