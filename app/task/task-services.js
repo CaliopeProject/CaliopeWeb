@@ -223,11 +223,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             var category;
             var uuid = loginSecurity.currentUser.user_uuid;
             if(!angular.isUndefined(loadTask)){
-              angular.forEach(loadTask.holders.target, function(vtarget){
-                if (vtarget.entity_data.uuid === uuid){
-                  category = vtarget.properties.category;
-                }
-              });
+              category = loadTask.holders[uuid].category;
               angular.forEach(ALLTASK, function(value, key){
                 if(value.category === category){
                   ALLTASK[key].tasks.push(loadTask);
