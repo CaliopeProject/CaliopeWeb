@@ -60,18 +60,8 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                                         ,'caliopeWebFormNotification'
     ,function ($compile, $routeParams, cwFormService, cwFormNotif) {
 
-    /**
-     * Define the properties of directive. This define:<br/>
-     * <ul>
-     *  <li>The scope not is override</li>
-     *  <li>Link function</li>
-     * </ul>
-     *
-     * @member  directiveDefinitionObject
-     * @memberOf Directive:cwDform
-     *
-    */
-    var directiveDefinitionObject = {
+
+    return {
 
       controller : function($scope, $attrs, $element) {
         /*
@@ -117,14 +107,11 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
        * Link function of the directive. This get the directive $element and call the
        * Jquery Dform library to render the form.
        * @function link
-       * @memberOf Directive:cwDform
        * @param {object} $scope AngularJS $scope of the directive
        * @param {object} $element Element that contains the directive definition
        * @param {object} $attrs Attributes in tag that contains the directive.
        */
       link: function ($scope, $element, $attrs) {
-
-        console.log('scope id in cwform directive', $attrs.name, $scope.$id);
 
         /*
         Assign attributes values to vars
@@ -138,7 +125,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         var initForm         = $attrs['init'];
         var preLoadFunction  = $attrs['preLoadFunction'];
         var postLoadFunction = $attrs['postLoadFunction'];
-        var timerTransaccion = 3000; 
 
         /**
          * Return the form storage in the scope.
@@ -167,15 +153,12 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
          * dForm in order to angularjs note the directives includes in the DOM
          * @function
          * @param {object} templateData Json Template to render. The Json must be in dForm syntax.
-         * @memberOf Directive:cwDform
          * @inner
          */
         function renderDForm(templateData) {
-          //var plantilla = JSON.parse(templateData);
-          var plantilla = templateData;
           try {
             $.dform.options.prefix = null;
-            $($element).dform(plantilla);
+            $($element).dform(templateData);
           } catch (exDform) {
             console.log('Error generating the dynamic form with dForm' +  exDform.message + exDform );
           }
@@ -187,9 +170,11 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         }
 
         /**
-         * Process the response of the request of get form template.
+         *  Process the response of the request of get form template.
+         * @param cwForm
          * @param result
          * @param $scope
+         * @param postLoadFunction
          */
         function processResultLoadForm(cwForm, result, $scope, postLoadFunction) {
           if( result !== undefined && result.error === undefined) {
@@ -341,7 +326,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
               var elementTitle = $element.find('form').find("[name='title']").children();
               var elementBtnDelete = ' <span ng-click="removeInnerForm('.
-                  concat($attrs.index).concat(')"').
+                  concat("'").concat($attrs.name).concat("'").concat(')"').
                   concat('><i tooltip="Eliminar" tooltip-placement="right" class="icon-remove"></i></button>');
               //var elementBtnDelete = '<button name="btn-remove" class="btn btn-mini btn-title" type="button" ng-disabled="disabledAdd" ng-click="removeInnerForm()">Eliminar</button>'
               elementTitle.append(elementBtnDelete);
@@ -350,16 +335,15 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
               /*
               Add cwForm to innerForm and call create relation parent
                */
-              if($scope.$parent.innerForms !== undefined) {
-                var i = 0;
-                for(i; i < $scope.$parent.innerForms.length; i++ ) {
-                  if( $scope.$parent.innerForms[i].templateName === $attrs.cwDform ) {
-                    $scope.$parent.innerForms[i].cwForm = cwForm;
-                    var cwFormParentName = $scope.$parent.$parent['cwForm-name'];
-                    $scope.$parent.innerForms[i].createRelationParent($scope.$parent.$parent[cwFormParentName], cwForm);
-                    break;
-                  }
+              if ( $scope.$parent.innerForms !== undefined ) {
+                var i = $attrs.name;
+                if ($scope.$parent.innerForms[i].templateName === $attrs.cwDform) {
+                  $scope.$parent.innerForms[i].cwForm = cwForm;
+                  var cwFormParentName = $scope.$parent.$parent['cwForm-name'];
+                  $scope.$parent.innerForms[i].cwFormParent = $scope.$parent.$parent[cwFormParentName];
+                  $scope.$parent.innerForms[i].createRelationParent($scope.$parent.$parent[cwFormParentName], cwForm);
                 }
+
               }
 
             }
@@ -413,7 +397,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
       }
     };
 
-    return directiveDefinitionObject;
 
   }]);
 
@@ -443,7 +426,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
       controller: 'CaliopeWebTemplateCtrl',
       link: function ($scope, $element, $attrs) {
 
-        $scope.innerForms = [];
+        $scope.innerForms = {};
 
 
         /*
@@ -466,33 +449,44 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           cwFormNotif.sendChange(cwFormParent, data, $attrs.name)
         }
 
-        function createInnerForm(name, uuid) {
+        var deleteRelationParent = function(cwFormParent, cwFormInner) {
+          var data = {};
+          data[$attrs.name] = [{'uuid' : cwFormInner.getModelUUID()}];
+          cwFormNotif.sendDelete(cwFormParent, data, $attrs.name)
+        }
+
+        function createInnerForm(name, index) {
           var innerForm = {
             name : name,
-            index : $scope.innerForms.length,
+            index : index,
             entity : entity,
             mode : mode,
-            uuid : uuid,
+            uuid : '',
             generic : generic,
             templateName : 'jsonTemplate_'.concat(name),
             cwForm : {},
-            data : {},
+            cwFormParent : {},
             createRelationParent: createRelationParent
           }
-          console.log('$scope add InnerForm', name, $scope.$id);
 
           return innerForm;
         }
 
         $scope.addInnerForm = function() {
-          var nameIF = name.concat($scope.innerForms.length);
-          var innerForm = createInnerForm(nameIF, undefined);
-          $scope.innerForms.push(innerForm);
-        }
+          if($scope.indexInnerForm === undefined) {
+            $scope.indexInnerForm = 0;
+          } else {
+            $scope.indexInnerForm++;
+          }
+          var index = $scope.indexInnerForm;
+          var nameIF = name.concat(index);
+          var innerForm = createInnerForm(nameIF, index);
+          $scope.innerForms[innerForm.name] = innerForm;
+        };
 
         $scope.addIdScope = function(index, idScope) {
           console.log('addIdScope', index, idScope);
-        }
+        };
 
         /**
          * This function init the inner form to render
@@ -503,9 +497,10 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           $scope.showForm = false;
         }
 
-        $scope.removeInnerForm = function(index) {
-          $scope.innerForms.splice(index, 1);
-        }
+        $scope.removeInnerForm = function(name) {
+          deleteRelationParent($scope.innerForms[name].cwFormParent, $scope.innerForms[name].cwForm);
+          delete $scope.innerForms[name];
+        };
 
 
         /*
