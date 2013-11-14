@@ -353,7 +353,9 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                   $scope.$parent.innerForms[i].cwForm = cwForm;
                   var cwFormParentName = $scope.$parent.$parent['cwForm-name'];
                   $scope.$parent.innerForms[i].cwFormParent = $scope.$parent.$parent[cwFormParentName];
-                  $scope.$parent.innerForms[i].createRelationParent($scope.$parent.$parent[cwFormParentName], cwForm);
+                  if( mode === 'create' ) {
+                    $scope.$parent.innerForms[i].createRelationParent($scope.$parent.$parent[cwFormParentName], cwForm);
+                  }
                 }
 
               }
