@@ -219,6 +219,18 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           var cwForm = getForm();
           var params = {};
 
+          /**
+           * If is a innerForm then the innerForm is in $scope.$parent[name]
+           */
+          if( cwForm.getInnerForm() ) {
+            var uuidsInnerForm = $scope.$parent[ $scope.$parent.innerForms[name].nameField ];
+            if( uuidsInnerForm !== undefined && uuidsInnerForm.length > 0 ) {
+              var index = 0; //$scope.$parent.innerForms[name].index;
+              cwForm.setModelUUID(uuidsInnerForm[index].uuid);
+              uuidsInnerForm.splice(0,1);
+            }
+          }
+
           if(cwForm.getModelUUID() !== undefined && cwForm.getModelUUID().length > 0) {
             $scope.showWidgetTask=true;
           }
@@ -434,14 +446,13 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
          */
         var name = $attrs['name'];
         var entity = $attrs['entity'];
-        var mode = 'create';
+        var modeParent = $scope.$parent[$scope.$parent['cwForm-name']].getMode();
         var uuid = $attrs['uuid'];
         var generic = $attrs['generic'] === "true" ? true : $attrs['generic'];
         var jsonTemVarName = 'jsonTemplate_'.concat(name);
 
         var formLoaded = false;
         var tableLoaded = false;
-        var varNameData = 'data_'.concat(name);
 
         var createRelationParent = function (cwFormParent, cwFormInner) {
           var data = {};
@@ -455,9 +466,10 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           cwFormNotif.sendDelete(cwFormParent, data, $attrs.name)
         }
 
-        function createInnerForm(name, index) {
+        function createInnerForm(name, index, mode) {
           var innerForm = {
             name : name,
+            nameField : $attrs['name'],
             index : index,
             entity : entity,
             mode : mode,
@@ -472,7 +484,12 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           return innerForm;
         }
 
-        $scope.addInnerForm = function() {
+        $scope.addInnerForm = function(mode) {
+
+          if( mode === undefined ) {
+            mode = modeParent;
+          }
+
           if($scope.indexInnerForm === undefined) {
             $scope.indexInnerForm = 0;
           } else {
@@ -480,7 +497,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           }
           var index = $scope.indexInnerForm;
           var nameIF = name.concat(index);
-          var innerForm = createInnerForm(nameIF, index);
+          var innerForm = createInnerForm(nameIF, index, mode);
           $scope.innerForms[innerForm.name] = innerForm;
         };
 
@@ -513,8 +530,15 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         $scope.disabledAdd = false;
         $scope.showBtns = false;
         $scope.showForm = true;
-        $scope[varNameData] = [];
-        $scope.addInnerForm();
+
+        var innerFormData = $scope.$parent[name];
+        if( innerFormData !== undefined && innerFormData.length > 0 ) {
+          angular.forEach(innerFormData, function(vData, kData) {
+            $scope.addInnerForm();
+          });
+        } else {
+          $scope.addInnerForm();
+        }
 
 
         /*
