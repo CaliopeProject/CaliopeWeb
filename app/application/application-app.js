@@ -18,7 +18,7 @@ var dependencies = [
   ,'files-uploader-controller'
   ,'wysiwyg-editor-controller'
   ,'proyectomtv-controller'
-
+  ,'admin-users-controller'
 ];
 
 //only controllers name modules
@@ -36,6 +36,7 @@ var modulesAngular = [
   ,'fileuploaderCtrl'
   ,'wysiwygEditorCtrl'
   ,'ProyectoControllers'
+  ,'AdminUsersController'
 ];
 
 define(dependencies, function (angular) {

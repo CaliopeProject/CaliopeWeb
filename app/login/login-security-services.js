@@ -1,5 +1,5 @@
 /*jslint browser: true*/
-/*global localStorage, Crypto, $scope*/
+/*global define, localStorage, Crypto, $scope*/
 define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angular) {
   'use strict';
 
@@ -191,7 +191,20 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
           }
         });
       },
-
+      
+      //brings information to the user custom groups
+      groups: function(){
+        var webSockets = webSocket.WebSockets();
+        var params = {};
+        var method = "getGroupsOfUser";
+        params = {
+          "user_name" : service.currentUser.user,
+        };
+        var request    = webSockets.serversimm.sendRequest(method, params);
+        return request.then(function(data) {
+          return data;
+        });
+      },
 
       // Give up trying to login and clear the retry queue
       cancelLogin: function() {
@@ -225,6 +238,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         return LoginSrv.currentAuthenticate(uuidLocalStorage).then(function(data) {
           if(data.user !== undefined){
             service.currentUser = data;
+            $rootScope.$broadcast('login-service-user');
           }else{
             service.currentUser = null;
           }
