@@ -86,26 +86,32 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             zoom: 0
                         };
 
-                        var personalStyles = new OpenLayers.StyleMap({
+                        var findStyle = new OpenLayers.StyleMap({
                             "default": new OpenLayers.Style({
                                 fillColor: "#ffcc66",
                                 strokeColor: "#ff9933",
                                 strokeWidth: 2,
                                 graphicZIndex: 1
-                            }),
-                            "select": new OpenLayers.Style({
+                            })
+                        });
+
+                        var selectedStyle = new OpenLayers.StyleMap({
+                            "default": new OpenLayers.Style({
                                 fillColor: "#66ccff",
                                 strokeColor: "#3399ff",
                                 graphicZIndex: 2
                             })
                         });
 
-                        var featuresSelected = new OpenLayers.Layer.Vector("Elementos encontrados", {
-                            styleMap: personalStyles,
+                        var featuresFinded = new OpenLayers.Layer.Vector("Elementos encontrados", {
+                            styleMap: findStyle,
                             rendererOptions: {zIndexing: true}
                         });
 
-                        var hoverAction = new OpenLayers.Control.SelectFeature(featuresSelected, {hover: true});
+                        var featuresSelected = new OpenLayers.Layer.Vector("Elementos seleccionados", {
+                            styleMap: selectedStyle,
+                            rendererOptions: {zIndexing: true}
+                        });
 
                         Heron.options.map.layers = [
                             new OpenLayers.Layer.WMS("Sector Catastral",
@@ -439,6 +445,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
 
                         var gridPredios = new Ext.grid.GridPanel({
                             store: storePredios,
+                            sm: new Ext.grid.RowSelectionModel({singleSelect: true}),
                             columns: [
 
                                 {
@@ -501,6 +508,17 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             stateId: 'gridPredios'
                         });
 
+                        gridPredios.getSelectionModel().on('rowselect', function(sm, rowIdx, r) {
+                            var rec = storePredios.getAt(rowIdx);
+                            var featureToShow = featuresFinded.features[rowIdx];
+                            Heron.App.map.removeLayer(featuresSelected);
+                            Heron.App.map.removeLayer(featuresFinded);
+                            featuresSelected.removeAllFeatures();
+                            featuresSelected.addFeatures(featureToShow);
+                            Heron.App.map.addLayers([featuresFinded,featuresSelected]);
+                            Heron.App.map.zoomToExtent(featureToShow.geometry.getBounds(),true);
+                        });
+
                         var formPanelSearchPredios = new GeoExt.form.FormPanel({
                             items: [campoPredio]
                         });
@@ -535,7 +553,6 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                             if(options.single == true) {
                                                 featureSearch = response.features[0];
                                                 setStoreIdentify(featureSearch);
-                                                Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
                                             } else {
                                                 storeProyectos.removeAll();
                                                 arrayProyectos = [];
@@ -597,8 +614,10 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                                 setStoreIdentify(featureSearch);
                                                 identifyDialog.show();
                                                 Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
+                                                return featureSearch;
                                             } else {
-                                                Heron.App.map.removeLayer(featuresSelected);
+                                                Heron.App.map.removeLayer(featuresFinded);
+                                                featuresFinded.removeAllFeatures();
                                                 storePredios.removeAll();
                                                 arrayPredios = [];
                                                 console.log("result.features.length", result.features.length);
@@ -610,8 +629,8 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                                     arrayPredios.push(arrayPredio);
                                                 }
                                                 storePredios.loadData(arrayPredios);
-                                                featuresSelected.addFeatures(result.features);
-                                                Heron.App.map.addLayers([featuresSelected]);
+                                                featuresFinded.addFeatures(result.features);
+                                                Heron.App.map.addLayers([featuresFinded]);
                                             }
                                         } else if(options.hover) {
                                             console.log("trata de hacer hover? :(");
@@ -796,9 +815,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             {
                                 create: function(mapPanel, options){
                                     options.handler = function () {
-                                        layerTreeDialog.add({
-                                            xtype: 'hr_layertreepanel'
-                                        });
+                                        layerTreeDialog.add(layerTree);
                                         layerTreeDialog.show();
                                     };
                                     layerTreeAction = new Ext.Action(options);
@@ -862,8 +879,41 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                         };
 
                         Heron.App.create();
+
+                        var layerList = new GeoExt.tree.LayerContainer({
+                            text: 'Capas',
+                            leaf: false,
+                            expanded: true,
+                            loader: {
+                                baseAttrs: {
+                                    radioGroup: "active"
+                                },
+                                filter: function(record) {
+                                    console.log("record",record);
+                                    return record.get("layer").name.indexOf("Elementos") == -1
+                                }
+                            }
+                        });
+                        var registerRadio = function(node){
+                            if(!node.hasListener("radiochange")) {
+                                node.on("radiochange", function(node){
+                                    /* set your active layer here */
+                                    console.log("node",node);
+                                });
+                            }
+                        }
+
+                        var layerTree = new Ext.tree.TreePanel({
+                            title: 'Capas',
+                            root: layerList,
+                            listeners: {
+                                append: registerRadio,
+                                insert: registerRadio
+                            }
+                        });
+
                         Heron.App.map.addControl(featureInfoControl);
-                        Heron.App.map.addLayers([featuresSelected]);
+                        Heron.App.map.addLayers([featuresFinded,featuresSelected]);
                         Heron.App.show();
                     }
 
