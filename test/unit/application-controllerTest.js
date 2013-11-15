@@ -1,6 +1,6 @@
 /*jslint browser: true*/
 /*global define, describe, beforeEach, it, expect, inject, angular */
-define(['angular', 'angular-mocks', 'application-app', 'application-controller'], function() {
+define(['angular-mocks', 'application-app', 'application-controller'], function() {
 
   describe("moduleCaliopeController ...", function(){
 

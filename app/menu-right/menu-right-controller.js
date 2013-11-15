@@ -1,5 +1,5 @@
 /*jslint browser: true*/
-/*global $scope, angular */
+/*global define, $scope, angular */
 define(['angular','angular-ui-bootstrap-bower'], function(angular) {
   'use strict';
   var moduleControllers = angular.module('menu-right-controller', ['ui.bootstrap']);
@@ -12,7 +12,7 @@ define(['angular','angular-ui-bootstrap-bower'], function(angular) {
         { btn  : 'warning', icon  : 'cogs'  , url : '#/kanban', ttip : 'Kanban'},
         { btn  : 'error',   icon  : 'globe' , url : '#/gis'   , ttip : 'Gis'},
         { btn  : 'inverse', icon  : 'heart' , url : '#/tools/upload/files', ttip : 'Cargar archivos'},
-        { btn  : 'danger',  icon  : 'book' , url : '#/crear-proyectomtv/proyectomtv/create'   , ttip : 'Gis'},
+        { btn  : 'danger',  icon  : 'book' , url : '#/adminUser'   , ttip : 'AdminUser'},
         { btn  : 'inverse',  icon  : 'comments' , url : '#/caliopeweb-forms/SIIMForm/create'   , ttip : 'Gis'},
         { btn  : 'success',  icon  : 'coffee' , url : '#/caliopeweb-grids/SIIMForm' , ttip : 'Gis'}
       ];

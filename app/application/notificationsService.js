@@ -15,7 +15,7 @@ define(['angular', 'application-commonservices'], function (angular) {
           return data;
         };
 
-        mensOk = function (data){
+        mensOk = function (){
           var d = new Date();
           return d + 'Tx Exitosa';
         };
@@ -65,7 +65,6 @@ define(['angular', 'application-commonservices'], function (angular) {
 
           message : function(){
             if (dataToProcess !== undefined) {
-              var msgSelector = selector();
               return selector();
             }
             return '';

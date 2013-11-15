@@ -1,5 +1,5 @@
 /*jslint browser: true*/
-/*global UUIDjs, WebSocket, WebSocketCaliope*/
+/*global UUIDjs,define, WebSocket, WebSocketCaliope*/
 
 define(['angular', 'application-constant', 'uuid', 'notificationsService'], function(angular, $caliope_constant) {
   'use strict';
@@ -45,6 +45,7 @@ define(['angular', 'application-constant', 'uuid', 'notificationsService'], func
             //'ws://' + '192.168.50.57' + ':' + location.port + '/api/ws'
           );
           webSockets.serversimm = wsTemplates;
+          return wsTemplates;
         }
 
         function WebSocketCaliope(Url) {
@@ -263,7 +264,7 @@ define(['angular', 'application-constant', 'uuid', 'notificationsService'], func
         };
 
         Service.initWebSockets = function() {
-          initWebSockets();
+           return initWebSockets();
         };
 
         return Service;

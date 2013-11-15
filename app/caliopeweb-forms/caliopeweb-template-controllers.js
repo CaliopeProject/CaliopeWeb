@@ -127,12 +127,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload', 'ca
 
         $scope.$on('actionComplete', function(event, result) {
           if( result[1] === true ) {
-            $scope.targetTask.uuid = result[2].uuid;
-            $scope.showWidgetTask = true;
             var cwFormName = $scope['cwForm-name'];
             var cwForm = $scope[cwFormName];
-            cwForm.setModelUUID(result[2].uuid);
-            //$scope.$broadcast('changeActions', [['projects.edit'],['projects.create']]);
+            $scope.targetTask.uuid = cwForm.getModelUUID();
+            $scope.showWidgetTask = true;
           }
         });
 

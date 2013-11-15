@@ -430,6 +430,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
   moduleDirectives.directive('cwFormInner',['$compile', 'caliopeWebFormNotification',
     function ($compile, cwFormNotif) {
 
+
     /**
      * Define the function for link the directive to AngularJS Context.
      */
@@ -441,7 +442,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
       link: function ($scope, $element, $attrs) {
 
         $scope.innerForms = {};
-
+        var totalIF = 0;
 
         /*
          Var definition
@@ -451,10 +452,15 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         var modeParent = $scope.$parent[$scope.$parent['cwForm-name']].getMode();
         var uuid = $attrs['uuid'];
         var generic = $attrs['generic'] === "true" ? true : $attrs['generic'];
-        var jsonTemVarName = 'jsonTemplate_'.concat(name);
 
-        var formLoaded = false;
-        var tableLoaded = false;
+        var cardinality = $attrs['cardinality'];
+        if( cardinality === '*' ) {
+          cardinality = Infinity
+        } else if(parseInt(cardinality) >= 0) {
+          cardinality = parseInt(cardinality);
+        } else {
+          cardinality = 0;
+        }
 
         var createRelationParent = function (cwFormParent, cwFormInner) {
           var data = {};
@@ -488,23 +494,21 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
         $scope.addInnerForm = function(mode) {
 
-          if( mode === undefined ) {
-            mode = modeParent;
-          }
+          if( totalIF < cardinality || cardinality === 0 ) {
+            if( mode === undefined ) {
+              mode = modeParent;
+            }
 
-          if($scope.indexInnerForm === undefined) {
-            $scope.indexInnerForm = 0;
+            var index = totalIF;
+            var nameIF = name.concat(index);
+            var innerForm = createInnerForm(nameIF, index, mode);
+            $scope.innerForms[innerForm.name] = innerForm;
+            totalIF++;
+            console.log('name total', name, totalIF);
           } else {
-            $scope.indexInnerForm++;
+            //TODO: Crear una notificación de mensaje para el usuario
+            console.log('No se pueden crear más formularios para ' + name + '. Máximo posible:' + cardinality);
           }
-          var index = $scope.indexInnerForm;
-          var nameIF = name.concat(index);
-          var innerForm = createInnerForm(nameIF, index, mode);
-          $scope.innerForms[innerForm.name] = innerForm;
-        };
-
-        $scope.addIdScope = function(index, idScope) {
-          console.log('addIdScope', index, idScope);
         };
 
         /**
@@ -519,6 +523,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         $scope.removeInnerForm = function(name) {
           deleteRelationParent($scope.innerForms[name].cwFormParent, $scope.innerForms[name].cwForm);
           delete $scope.innerForms[name];
+          totalIF--;
         };
 
 
@@ -539,7 +544,9 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             $scope.addInnerForm();
           });
         } else {
-          $scope.addInnerForm('create');
+          if( cardinality > 0 ) {
+            $scope.addInnerForm('create');
+          }
         }
 
 

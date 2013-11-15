@@ -4,9 +4,6 @@
   <div name="container-title">
     <button name="btn-add" class="btn btn-mini btn-title" type="button" ng-disabled="disabledAdd" ng-click="addInnerForm('create')">Agregar</button>
   </div>
-  <!--
-  <cw-dform cw-dform="jsonTemplate_propietario" name="propietario0" mode="create" entity="Person" uuid="" generic="true" inner="true" from-routeparams="false" enc-uuid="false" ng-init="init()"></cw-dform>
-  -->
   <div ng-repeat="form in innerForms">
     <div name="container-form" >
       <cw-dform index="{{form.index}}" name="{{form.name}}" cw-dform="{{form.templateName}}"  mode="{{form.mode}}" entity="{{form.entity}}" uuid="{{form.uuid}}" generic="{{form.generic}}" inner="true" from-routeparams="false" enc-uuid="false" init="true"></cw-dform>
