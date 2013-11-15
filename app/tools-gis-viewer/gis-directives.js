@@ -85,6 +85,28 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             minResolution: 1,
                             zoom: 0
                         };
+
+                        var personalStyles = new OpenLayers.StyleMap({
+                            "default": new OpenLayers.Style({
+                                fillColor: "#ffcc66",
+                                strokeColor: "#ff9933",
+                                strokeWidth: 2,
+                                graphicZIndex: 1
+                            }),
+                            "select": new OpenLayers.Style({
+                                fillColor: "#66ccff",
+                                strokeColor: "#3399ff",
+                                graphicZIndex: 2
+                            })
+                        });
+
+                        var featuresSelected = new OpenLayers.Layer.Vector("Elementos encontrados", {
+                            styleMap: personalStyles,
+                            rendererOptions: {zIndexing: true}
+                        });
+
+                        var hoverAction = new OpenLayers.Control.SelectFeature(featuresSelected, {hover: true});
+
                         Heron.options.map.layers = [
                             new OpenLayers.Layer.WMS("Sector Catastral",
                                 "http://" + document.domain + ":" + location.port + "/gis_proxy/wms",
@@ -407,12 +429,12 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             // store configs
                             autoDestroy: true,
                             storeId: 'storePredios',
-                            idProperty: 'barmanpre',
+                            idProperty: 'BARMANPRE',
                             fields: [
-                                'barmanpre',
-                                'chip',
-                                'matricula',
-                                'direccion']
+                                'BARMANPRE',
+                                'CHIP',
+                                'MATINM',
+                                'DIRE']
                         });
 
                         var gridPredios = new Ext.grid.GridPanel({
@@ -420,31 +442,31 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             columns: [
 
                                 {
-                                    id       :'barmanpre',
+                                    id       :'BARMANPRE',
                                     header   : 'Barmanpre',
                                     width    : 30,
                                     sortable : true,
-                                    dataIndex: 'barmanpre'
+                                    dataIndex: 'BARMANPRE'
                                 },{
-                                    id       :'chip',
+                                    id       :'CHIP',
                                     header   : 'Chip',
                                     width    : 160,
                                     sortable : true,
-                                    dataIndex: 'chip'
+                                    dataIndex: 'CHIP'
                                 },
                                 {
-                                    id       :'matricula',
+                                    id       :'MATINM',
                                     header   : 'Matrícula',
                                     width    : 90,
                                     sortable : true,
-                                    dataIndex: 'matricula'
+                                    dataIndex: 'MATINM'
                                 },
                                 {
-                                    id       :'direccion',
+                                    id       :'DIRE',
                                     header   : 'Dirección',
                                     width    : 90,
                                     sortable : true,
-                                    dataIndex: 'direccion'
+                                    dataIndex: 'DIRE'
                                 },
                                 {
                                     xtype: 'actioncolumn',
@@ -454,7 +476,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                         tooltip: 'Ver en mapa',
                                         handler: function(grid, rowIndex, colIndex) {
                                             var rec = storePredios.getAt(rowIndex);
-                                            findByFeature("predios_metrovivienda","mtv_gis","the_geom",rec.get('chip'),"chip",true);
+                                            findByFeature("loteo","mtv_gis","the_geom",rec.get('CHIP'),"CHIP",true);
                                         }
                                     }]
                                 },
@@ -490,7 +512,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                         });
 
                         function showPredios(){
-                            findPredios("predios_metrovivienda","mtv_gis","the_geom",campoPredio.getValue(),false);
+                            findPredios("loteo","mtv_gis","the_geom",campoPredio.getValue(),false);
                         }
 
                         //-------------------------------------
@@ -513,7 +535,6 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                             if(options.single == true) {
                                                 featureSearch = response.features[0];
                                                 setStoreIdentify(featureSearch);
-                                                identifyDialog.show();
                                                 Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
                                             } else {
                                                 storeProyectos.removeAll();
@@ -577,17 +598,20 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                                 identifyDialog.show();
                                                 Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
                                             } else {
+                                                Heron.App.map.removeLayer(featuresSelected);
                                                 storePredios.removeAll();
                                                 arrayPredios = [];
                                                 console.log("result.features.length", result.features.length);
                                                 for (var i=0;i<result.features.length;i++)
                                                 {
                                                     featureSearch = response.features[i];
-                                                    var arrayPredio = [featureSearch.data['barmanpre'],featureSearch.data['chip'],featureSearch.data['matricula'],featureSearch.data['direccion']];
+                                                    var arrayPredio = [featureSearch.data['BARMANPRE'],featureSearch.data['CHIP'],featureSearch.data['MATINM'],featureSearch.data['DIRE']];
 
                                                     arrayPredios.push(arrayPredio);
                                                 }
                                                 storePredios.loadData(arrayPredios);
+                                                featuresSelected.addFeatures(result.features);
+                                                Heron.App.map.addLayers([featuresSelected]);
                                             }
                                         } else if(options.hover) {
                                             console.log("trata de hacer hover? :(");
@@ -619,22 +643,22 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                 filters: [
                                     new OpenLayers.Filter.Comparison({
                                         type: OpenLayers.Filter.Comparison.LIKE,
-                                        property: 'barmanpre',
+                                        property: 'BARMANPRE',
                                         value: "*"+value.toUpperCase()+"*"
                                     }),
                                     new OpenLayers.Filter.Comparison({
                                         type: OpenLayers.Filter.Comparison.LIKE,
-                                        property: 'chip',
+                                        property: 'CHIP',
                                         value: "*"+value.toUpperCase()+"*"
                                     }),
                                     new OpenLayers.Filter.Comparison({
                                         type: OpenLayers.Filter.Comparison.LIKE,
-                                        property: 'matricula',
+                                        property: 'MATINM',
                                         value: "*"+value.toUpperCase()+"*"
                                     }),
                                     new OpenLayers.Filter.Comparison({
                                         type: OpenLayers.Filter.Comparison.LIKE,
-                                        property: 'direccion',
+                                        property: 'DIRE',
                                         value: "*"+value.toUpperCase()+"*"
                                     })
                                 ]
@@ -839,6 +863,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
 
                         Heron.App.create();
                         Heron.App.map.addControl(featureInfoControl);
+                        Heron.App.map.addLayers([featuresSelected]);
                         Heron.App.show();
                     }
 

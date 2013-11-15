@@ -1,47 +1,42 @@
 /*jslint browser: true*/
-/*global define, describe, beforeEach, it, expect, inject, angular */
-define(['angular', 'angular-mocks', 'application-app', 'application-controller'], function() {
+/*global  jasmine, define, describe, beforeEach, it, expect, inject, angular */
+define(['angular-mocks', 'notificationsService'], function() {
 
-  describe("moduleCaliopeController ...", function(){
+  describe("module_NotificationServices... ", function(){
 
-    beforeEach(function(){
-      this.addMatchers({
-        toEqualData: function(expected) {
-          return angular.equals(this.actual, expected);
-        }
-      });
-    });
+    beforeEach(module('NotificationsServices'));
 
+    describe("service_HandlerResponseServerSrv...", function(){
 
-    beforeEach(module('caliope'));
-    beforeEach(module('CaliopeController'));
+      it('service HandlerResponseServerSrv', inject(function(HandlerResponseServerSrv, $q, $rootScope){
+        var deferred = $q.defer();
+        var promise  = deferred.promise;
+        var resolvedValue;
 
-    describe("CaliopeController ...", function(){
-
-      var scope, ctrl;
-
-      it('init controller', inject(function($rootScope, $controller){
-        scope = $rootScope.$new();
-        ctrl = $controller('CaliopeController', {$scope: scope});
-        expect(ctrl).toBeDefined();
+        var resul =  HandlerResponseServerSrv.addPromisesHandlerRespNotif(promise);
+        resul.then(function(value){ resolvedValue = value;});
+        deferred.resolve({result: {dato : {value : 123}}});
+        // Simulate resolving of promise
+        // Note that the 'then' function does not get called synchronously.
+        // This is because we want the promise API to always be async, whether or not
+        // it got called synchronously or asynchronously.
+        // Propagate promise resolution to 'then' functions using $apply().
+        $rootScope.$apply();
+        expect(resolvedValue).toEqual({dato : 123});
       }));
 
-      it("init menu hiden", function() {
-        expect(scope.showMenu).toBe(false);
-      });
-
-      it("user is not authenticated", function() {
-        expect(scope.isAuthenticated()).toBe(false);
-      });
-
-      it("exist alert message format", function() {
-        expect(scope.alerts).toEqualData([]);
-      });
-
-      it("have no pending requests", function() {
-        expect(scope.hasPendingRequests()).toBe(false);
-      });
-
     });
+
+    describe("service_HandlerNotification..", function(){
+      var handler;
+      it('service HandlerNotification', inject(function(HandlerNotification){
+        handler = jasmine.createSpyObj('HandlerNotification', ['sendmessage']);
+        handler.sendmessage('Message');
+        expect(handler.sendmessage).toHaveBeenCalled();
+        expect(handler.sendmessage).toHaveBeenCalledWith('Message');
+        expect(HandlerNotification.sendinfo).toBeDefined();
+      }));
+    });
+
   });
 });
