@@ -1,5 +1,5 @@
 /*jslint browser: true*/
-/*global window*/
+/*global define, window*/
 define(['angular', 'application-app'], function(angular, app) {
   'use strict';
 
@@ -66,6 +66,9 @@ define(['angular', 'application-app'], function(angular, app) {
         return pagesRoute[routeParams.entity];
       }
     })
+
+    .when('/adminUser', {
+      templateUrl: 'admin-users/admin-users-partial.html'})
 
     .when('/summary-proyectomtv', {
       templateUrl: '/proyectomtv/proyectomtv-summary-partial.html'
