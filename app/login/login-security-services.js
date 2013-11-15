@@ -196,9 +196,10 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
       groups: function(){
         var webSockets = webSocket.WebSockets();
         var params = {};
-        var method = "getGroupsOfUser";
+        var user = service.currentUser.user;
+        var method = "ac.getGroupsOfUser";
         params = {
-          "user_name" : service.currentUser.user,
+          user: user
         };
         var request    = webSockets.serversimm.sendRequest(method, params);
         return request.then(function(data) {
