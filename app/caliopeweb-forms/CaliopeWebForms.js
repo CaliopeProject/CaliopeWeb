@@ -927,7 +927,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
     }
     if( element.type !== 'div' ) {
       element['ng-model'] = valueNgModel;
-      element['ng-change'] = "changeInput(".concat("'").concat(name).concat("')")
+      element['ng-change'] = "changeInput(".concat("'").concat(name).concat("')");
     }
   }
 
@@ -1031,6 +1031,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         if( vElement.type === 'radiobuttons' || vElement.type === 'checkboxes') {
           var ngmodel = vElement['ng-model'];
           delete vElement['ng-model'];
+          delete vElement['ng-change'];
 
           jQuery.each(vElement.options, function(kOption, vOptions){
             var option = {};
@@ -1038,6 +1039,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
             if(vElement.type === 'radiobuttons') {
               option.type = TYPE_RADIO;
               option['ng-model'] = ngmodel;
+              option['ng-change'] = "changeInput(".concat("'").concat(vElement.name).concat("')");
               option.value = kOption;
             } else if(vElement.type === 'checkboxes') {
               option.type = TYPE_CHECK;
