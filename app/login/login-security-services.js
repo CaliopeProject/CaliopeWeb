@@ -6,8 +6,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
   var moduleServices = angular.module('login-security-services', ['ui.bootstrap.dialog']);
 
   moduleServices.factory('SessionSrv',
-    ['$q', '$rootScope', '$http', 'webSocket',
-      function($q, $rootScope, $http, webSocket) {
+          function() {
 
         var keyIdSession = 'caliope_uuid_session';
         var keyUserSession = 'caliope_user_session';
@@ -32,14 +31,13 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         };
 
         return Services;
-
       }
-    ]
+
   );
 
   moduleServices.factory('LoginSrv',
-    ['$q', '$rootScope', '$http', 'webSocket',
-      function($q, $rootScope, $http, webSocket) {
+    ['webSocket',
+      function(webSocket) {
 
         var Services = {};
 
@@ -84,19 +82,14 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
   );
 
   moduleServices.factory('loginSecurity', [
-  '$http',
   '$rootScope',
-  '$q',
-  '$location',
   'loginRetryQueue',
   '$dialog',
   'LoginSrv',
   'SessionSrv',
   'webSocket',
-  function($http,
+  function(
   $rootScope,
-  $q,
-  $location,
   queue,
   $dialog,
   LoginSrv,
@@ -228,7 +221,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         redirect(redirectTo);
 
         var webSockets = webSocket.WebSockets();
-        var request = webSockets.serversimm.sendRequest(method, params);
+        webSockets.serversimm.sendRequest(method, params);
       },
 
       // Ask the backend to see if a user is already authenticated - this may be from a previous session.
@@ -270,7 +263,7 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
     };
 
     // Register a handler for when an item is added to the retry queue
-    queue.onItemAddedCallbacks.push(function(retryItem) {
+    queue.onItemAddedCallbacks.push(function() {
       if ( queue.hasMore() ) {
         service.showLogin();
       }

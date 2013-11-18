@@ -111,13 +111,6 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                   $rootScope.$broadcast('taskServiceNewTask');
                 });
               }
-              /*
-              if(keyII === 1){
-                if( valueII !== undefined ) {
-                  MODEL_TASK = valueII.form;
-                }
-              }
-              */
             });
           });
 
@@ -232,6 +225,29 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             }
           },
 
+          updateTask:  function(updateTask){
+            if(!angular.isUndefined(updateTask)){
+              angular.forEach(ALLTASK, function(value){
+                angular.forEach(value.tasks, function(value) {
+                  if (value.uuid === updateTask.uuid) {
+                    if(angular.isUndefined(value.subtasks)){
+                      value.subtasks ={};
+                    }
+                    if(!angular.isUndefined(value.subtasks[updateTask.subfield_id])){
+                      if (angular.isUndefined(updateTask.delete)){
+                        value.subtask[updateTask.uuid] = updateTask;
+                      }else{
+                        value.subtask[updateTask.uuid] = updateTask;
+                      }
+                    }else{
+                      value.subtasks[updateTask.subfield_id] = updateTask.value;
+                    }
+                  }
+                });
+              });
+            }
+          },
+
           archiveTask: function(item) {
             opts.templateUrl = './task/partial-task-dialog-acction.html';
             item.category = 'archived';
@@ -310,24 +326,23 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             var subt    = 0;
 
             angular.forEach(ALLTASK, function(key){
+              alltask = alltask + key.tasks.length;
+
               if(key.category !== 'Done'){
                 pend = pend + key.tasks.length;
               }
 
               angular.forEach(key.tasks, function(valuetask){
-
-                angular.forEach(valuetask.subtasks, function(valuesubtask){
-                  if(valuesubtask.complete){
-                    subt++;
-                  }
-                });
-
-                if(!angular.isUndefined(valuetask.subtasks)){
-                  allSubtask = allSubtask + valuetask.subtasks.length;
+                if(angular.isObject(valuetask.subtasks)){
+                  angular.forEach(valuetask.subtasks, function(valuesubtask){
+                    allSubtask++;
+                    if(valuesubtask.complete){
+                      subt++;
+                    }
+                  });
                 }
-
               });
-              alltask = alltask + key.tasks.length;
+
             });
 
             taskNot.porcTask    = 100 - ((pend * 100)/alltask);
@@ -395,12 +410,15 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
 
           countSubtask : function(task) {
             var remaining = 0;
-            angular.forEach(task, function(value){
-              if(value.complete === false){
-                remaining++;
-              }
-            });
-            return remaining;
+            if (angular.isObject(task)){
+              angular.forEach(task, function(value){
+                if(value.complete === false){
+                  remaining++;
+                }
+              });
+              return remaining;
+            }
+            return 0;
           },
 
           addComment : function(parentTask, text) {
