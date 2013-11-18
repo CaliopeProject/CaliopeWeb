@@ -369,10 +369,12 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
               //Put data when other user create it
               scopeForm.changeInNotSrv = {};
               $scope.$on('updateFormField', function (event, data) {
-                scopeForm.changeInNotSrv[data.field] = true;
-                $scope.$apply(function () {
-                  scopeForm[data.field] = data.value;
-                });
+                if( data.uuid === $scope.modelUUID ) {
+                  scopeForm.changeInNotSrv[data.field] = true;
+                  $scope.$apply(function () {
+                    scopeForm[data.field] = data.value;
+                  });
+                }
               });
 
 
