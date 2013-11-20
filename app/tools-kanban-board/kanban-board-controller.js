@@ -1,4 +1,4 @@
-/*jslint browser: true*/
+/*jslint browser: true,  unparam: true*/
 /*global define, console, $*/
 
 define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], function (angular) {
@@ -11,6 +11,14 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
       //Put task when other user create
       $scope.$on('createTask', function (event, data) {
         taskService.addTask(data);
+        $scope.$apply(function () {
+          $scope.data = taskService.getTask();
+        });
+      });
+
+      //Put data in task when other user edit
+      $scope.$on('updateTask', function (event, data) {
+        taskService.updateTask(data);
         $scope.$apply(function () {
           $scope.data = taskService.getTask();
         });
