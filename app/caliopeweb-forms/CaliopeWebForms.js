@@ -321,7 +321,7 @@ var CaliopeWebForm = (function() {
 
 
         for (i = 0; i < elements.length; i++) {
-          if( paramsToSend.length === 0 || paramsToSend.indexOf(elements[i]) >= 0 ) {
+          if( paramsToSend.length === 0 || paramsToSend.indexOf(elements[i].name) >= 0 ) {
             var nameVarScope = elements[i].name;
             var valueToServer = undefined;
             if( dataFromView[nameVarScope] !== undefined ) {
