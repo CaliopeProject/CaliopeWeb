@@ -20,7 +20,7 @@ define(['angular', 'application-app'], function(angular, app) {
       webSocket.WebSockets().serversimm.sendRequest(method, params).then( function processLoadForms(result) {
         angular.forEach(result, function(vForm, kForm){
           if( !pagesRoute.hasOwnProperty(vForm.formId) ) {
-            pageRoute['vForm.formId'] = PAGE_GENERIC_PARTIAL;
+            pagesRoute['vForm.formId'] = PAGE_GENERIC_PARTIAL;
           }
         });
       });
