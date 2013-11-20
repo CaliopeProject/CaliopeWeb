@@ -74,13 +74,12 @@
                     <button type="submit" class="btn btn-mini">Enviar</button>
                   </form>
                 </accordion-group>
-
                 <accordion-group heading="Comentarios">
                 <div ng-repeat="comment in item.comments">
                   <div class="dialogs">
                     <div class="itemdiv dialogdiv">
                       <div class="user hidden-phone">
-                        <img class="nav-user-photo " ng-src="data:image/png;base64,{{comment.user.face}}">
+                        <img class="nav-user-photo " ng-src="data:image/png;base64,{{comment.user.image}}">
                       </div>
 
                       <div class="body scrollbar16">

@@ -1,11 +1,11 @@
 /*jslint browser: true*/
-/*global $scope, angular */
+/*global define, $scope, angular */
 define(['angular', 'login-security-services'], function(angular) {
   'use strict';
   var moduleControllers = angular.module('login-controllers-form', []);
 
-  moduleControllers.controller('login-controllers-form',['$scope','loginSecurity',
-    function($scope, security){
+  moduleControllers.controller('login-controllers-form',['$scope','loginSecurity','taskService'
+    ,function($scope, security, taskService){
       // The model for this form
       $scope.user = {};
 
@@ -31,10 +31,12 @@ define(['angular', 'login-security-services'], function(angular) {
           if ( !loggedIn ) {
             // If we get here then the login failed due to bad credentials
             $scope.authError = 'Credenciales invalidas';
+          }else{
+              taskService.loadData();
           }
         }, function(x) {
           // If we get here then there was a problem with the login request to the server
-          $scope.authError = 'servidor no responde';
+          $scope.authError = 'servidor no responde ' + x;
         });
       };
 

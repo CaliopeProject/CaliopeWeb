@@ -204,14 +204,15 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload', 'ca
 
           var cwForm = $scope[cwFormName];
           var data = {};
+
           if( cwForm !== undefined ) {
             data = cwForm.dataToServerData($scope, paramsToSend);
             if( cwForm.getModelUUID() !== undefined ) {
               modelUUID = cwForm.getModelUUID();
               objID = cwForm.getModelUUID();
             }
-
           }
+
           caliopewebTemplateSrv.sendDataForm(formTemplateName,
               actionMethod, data, modelUUID, objID, encapsulateInData).then( function(value) {
 

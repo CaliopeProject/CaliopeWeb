@@ -82,16 +82,16 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
   );
 
   moduleServices.factory('loginSecurity', [
-  '$rootScope',
   'loginRetryQueue',
   '$dialog',
+  '$location',
   'LoginSrv',
   'SessionSrv',
   'webSocket',
   function(
-  $rootScope,
   queue,
   $dialog,
+  $location,
   LoginSrv,
   SessionSrv,
   webSocket) {
@@ -174,7 +174,6 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
           if(data.user !== undefined){
             service.currentUser = data;
             SessionSrv.createSession(data.session_uuid, data.user);
-            $rootScope.$broadcast('login-service-user');
           }else{
             service.currentUser = null;
           }
@@ -182,9 +181,10 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
           if ( service.isAuthenticated() ) {
             closeLoginDialog(true);
           }
+          return data;
         });
       },
-      
+
       //brings information to the user custom groups
       groups: function(){
         var webSockets = webSocket.WebSockets();
@@ -232,7 +232,6 @@ define(['angular', 'CryptoSHA256', 'angular-ui-bootstrap-bower'], function(angul
         return LoginSrv.currentAuthenticate(uuidLocalStorage).then(function(data) {
           if(data.user !== undefined){
             service.currentUser = data;
-            $rootScope.$broadcast('login-service-user');
           }else{
             service.currentUser = null;
           }
