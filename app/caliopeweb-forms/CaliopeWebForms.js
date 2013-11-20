@@ -792,15 +792,18 @@ var CaliopeWebForm = (function() {
           jQuery.each(element.validations.restrictions, function(kRestriction, vRestriction){
             var resultEval = evalRestriction(vRestriction.evaluation, vRestriction.then, data);
             if( resultEval !== undefined ) {
-              /*
-              if( vRestriction["key-message-true"] !== undefined && vRestriction["key-message-true"] > 0)  {
 
-              }
-                 */
               var result = {}
               result[vRestriction.name] = {};
               result[vRestriction.name].result = resultEval;
-              result[vRestriction.name].msg = vRestriction["key-message-".concat(resultEval)];
+
+              if( vRestriction["key-message-true"] !== undefined && vRestriction["key-message-true"].length > 0 && resultEval === true)  {
+                result[vRestriction.name].msg = vRestriction["key-message-".concat(resultEval)];
+              }
+              if( vRestriction["key-message-false"] !== undefined && vRestriction["key-message-false"].length > 0 && resultEval === false)  {
+                result[vRestriction.name].msg = vRestriction["key-message-".concat(resultEval)];
+              }
+
               results.push(result[vRestriction.name]);
             }
           });

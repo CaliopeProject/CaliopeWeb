@@ -373,9 +373,20 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                * @param name Name of the input changed. Directive was defined with changeInInput(elementName)
                */
               scopeForm.changeInput = function change(name) {
-                cwForm.validateElementRestrictions(name, scopeForm);
-                scopeForm.changeInInput[name] = true;
-                completeChange(scopeForm, name);
+                var results = cwForm.validateElementRestrictions(name, scopeForm);
+                var errors = false;
+                angular.forEach(results, function(vResultRestr, kResultRest){
+                  if( vResultRestr.result === false ) {
+                    errors = true;
+                    console.log('Error en restricciones:', vResultRestr.msg);
+                  }
+                });
+                if( errors === false ) {
+                  scopeForm.changeInInput[name] = true;
+                  completeChange(scopeForm, name);
+                } else {
+                  //Todo: indicar que el campo es invalid, al igual que la forma
+                }
               };
 
               /*
