@@ -96,7 +96,9 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
 
       $scope.preLoadForm = function(cwForm) {
         var methodSupport = cwForm.getEntityModel().concat('.').concat("commit");
-        cwForm.setActionsMethodToShow([methodSupport]);
+        var methodSupport1 = cwForm.getEntityModel().concat('.').concat("discardDraft");
+
+        cwForm.setActionsMethodToShow([methodSupport, methodSupport1]);
         cwForm.setMode(action.mode);
         cwForm.setModelUUID(action.uuid);
       };
