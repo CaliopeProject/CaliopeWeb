@@ -378,14 +378,16 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                 angular.forEach(results, function(vResultRestr, kResultRest){
                   if( vResultRestr.result === false ) {
                     errors = true;
-                    console.log('Error en restricciones:', vResultRestr.msg);
+                    scopeForm[cwForm.getFormName()][name].$setValidity(vResultRestr.validationType, false);
+                    scopeForm[cwForm.getFormName()].$setValidity(vResultRestr.validationType, false);
+                  } else {
+                    scopeForm[cwForm.getFormName()][name].$setValidity(vResultRestr.validationType, true);
+                    scopeForm[cwForm.getFormName()].$setValidity(vResultRestr.validationType, true);
                   }
                 });
                 if( errors === false ) {
                   scopeForm.changeInInput[name] = true;
                   completeChange(scopeForm, name);
-                } else {
-                  //Todo: indicar que el campo es invalid, al igual que la forma
                 }
               };
 
@@ -454,7 +456,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
   /**
    * @ngdoc directive
-   * @name cw.directive:cwValidationMess
+   * @name cw.directive:cwFormInner
    * @restrict E
    * @replace true
    *
@@ -628,6 +630,9 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
       templateUrl : 'caliopeweb-forms/caliopeweb-valmess-partial.html',
       link: function (scope, element, attrs) {
         scope.validationType = attrs.validationType;
+        if( attrs.restriction === 'true' ) {
+          scope.validationType = 'restriction'
+        }
         $compile(element.contents())(scope);
         var stParams = attrs.params;
         if( stParams !== undefined ) {

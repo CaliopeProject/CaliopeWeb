@@ -4,4 +4,5 @@
     <span ng-show="{{validationType==='maxlength'}}">El número de caracteres ingresados debe ser menor de {{param0}}</span>
     <span ng-show="{{validationType==='min'}}">El valor debe ser mayor o igual {{param0}}</span>
     <span ng-show="{{validationType==='max'}}">El valor debe ser menor o igual a {{param0}}</span>
+    <span ng-show="{{validationType === 'restriction'}}">Error en restricción {{msg}}</span>
 </div>

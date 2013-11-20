@@ -793,18 +793,19 @@ var CaliopeWebForm = (function() {
             var resultEval = evalRestriction(vRestriction.evaluation, vRestriction.then, data);
             if( resultEval !== undefined ) {
 
-              var result = {}
-              result[vRestriction.name] = {};
-              result[vRestriction.name].result = resultEval;
+              var result = {};
+              result.name = vRestriction.name;
+              result.result = resultEval;
+              result.validationType = 'restriction_'.concat(kRestriction);
 
               if( vRestriction["key-message-true"] !== undefined && vRestriction["key-message-true"].length > 0 && resultEval === true)  {
-                result[vRestriction.name].msg = vRestriction["key-message-".concat(resultEval)];
+                result.msg = vRestriction["key-message-".concat(resultEval)];
               }
               if( vRestriction["key-message-false"] !== undefined && vRestriction["key-message-false"].length > 0 && resultEval === false)  {
-                result[vRestriction.name].msg = vRestriction["key-message-".concat(resultEval)];
+                result.msg = vRestriction["key-message-".concat(resultEval)];
               }
 
-              results.push(result[vRestriction.name]);
+              results.push(result);
             }
           });
 
@@ -1941,19 +1942,19 @@ var CaliopeWebFormValidDecorator = ( function() {
         if( validations !== undefined ) {
           var varName;
           for( varName in validations) {
-            var validationType = varName;
+            var validationType = undefined;
             var params=[];
             /*
             Logic for required validation
             */
-            if( validationType === REQUIRE_ATT_NAME ) {
+            if( varName === REQUIRE_ATT_NAME ) {
               elementsInputs[i].required = validations[REQUIRE_ATT_NAME];
               validationType = 'required';
             }
             /*
             Logic for minlegth validation
              */
-            if( validationType === MINLENGTH_ATT_NAME  ) {
+            if( varName === MINLENGTH_ATT_NAME  ) {
               elementsInputs[i]['ng-minlength'] = validations[MINLENGTH_ATT_NAME];
               validationType = 'minlength';
               params[0] = validations[MINLENGTH_ATT_NAME];
@@ -1961,7 +1962,7 @@ var CaliopeWebFormValidDecorator = ( function() {
             /*
             Logic for maxlength validation
              */
-            if( validationType === MAXLENGTH_ATT_NAME  ) {
+            if( varName === MAXLENGTH_ATT_NAME  ) {
               elementsInputs[i]['ng-maxlength'] = validations[MAXLENGTH_ATT_NAME];
               validationType = 'maxlength';
               params[0] = validations[MAXLENGTH_ATT_NAME];
@@ -1969,7 +1970,7 @@ var CaliopeWebFormValidDecorator = ( function() {
             /*
             Logic for min value validation
              */
-            if( validationType === MIN_NUMBER_ATT_NAME  ) {
+            if( varName === MIN_NUMBER_ATT_NAME  ) {
               elementsInputs[i].min = validations[MIN_NUMBER_ATT_NAME];
               validationType = 'min';
               params[0] = validations[MIN_NUMBER_ATT_NAME];
@@ -1977,29 +1978,31 @@ var CaliopeWebFormValidDecorator = ( function() {
             /*
             Logic for max value validation
              */
-            if( validationType === MAX_NUMBER_ATT_NAME  ) {
+            if( varName === MAX_NUMBER_ATT_NAME  ) {
               elementsInputs[i].max = validations[MAX_NUMBER_ATT_NAME];
               params[0] = 'max';
             }
 
-            /*
-            Search continer form input.
-             */
-            var container = searchContainer(htmlElements,elementsInputs[i]);
-            /*
-            Add element message to element and create a new container for two elements.
-             */
-            if( container !== undefined && container) {
-              var index = container.indexOf(elementsInputs[i]);
-              if( index >= 0 ) {
-                var containerIni = container.slice(0, index + 1);
-                var containerFin = container.slice(index+1);
+            if( validationType !== undefined) {
+              /*
+              Search continer form input.
+               */
+              var container = searchContainer(htmlElements,elementsInputs[i]);
+              /*
+              Add element message to element and create a new container for two elements.
+               */
+              if( container !== undefined && container) {
+                var index = container.indexOf(elementsInputs[i]);
+                if( index >= 0 ) {
+                  var containerIni = container.slice(0, index + 1);
+                  var containerFin = container.slice(index+1);
 
-                var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName, params);
-                var containerNew = containerIni.concat(elementMsgVal).concat(containerFin);
-                htmlElements = replaceContainer(htmlElements, elementsInputs[i], containerNew);
-                if(htmlElements.hasOwnProperty('replace')) {
-                  htmlElements = htmlElements.replace
+                  var elementMsgVal = getElementMsgVal(validationType, elementsInputs[i], formName, params);
+                  var containerNew = containerIni.concat(elementMsgVal).concat(containerFin);
+                  htmlElements = replaceContainer(htmlElements, elementsInputs[i], containerNew);
+                  if(htmlElements.hasOwnProperty('replace')) {
+                    htmlElements = htmlElements.replace
+                  }
                 }
               }
             }
@@ -2012,7 +2015,7 @@ var CaliopeWebFormValidDecorator = ( function() {
           };
 
           /*
-          Process for restrictions.
+          Code for process restrictions.
            */
           var restrictions = elementsInputs[i][VALIDATIONS_ATT_NAME][RESTRICTIONS_ATT_NAME];
           if( restrictions !== undefined ) {
@@ -2034,6 +2037,29 @@ var CaliopeWebFormValidDecorator = ( function() {
                 vRestriction.dependencies =  dependencies;
                 vRestriction.evaluation = replaceVarsInCode(vRestriction.evaluation);
                 vRestriction.then = replaceVarsInCode(vRestriction.then);
+                vRestriction.validationType = 'restriction_'.concat(kRestriction);
+                /*
+                 Search continer form input.
+                 */
+                var container = searchContainer(htmlElements,elementsInputs[i]);
+                /*
+                 Add element message to element and create a new container for two elements.
+                 */
+                if( container !== undefined && container) {
+                  var index = container.indexOf(elementsInputs[i]);
+                  if( index >= 0 ) {
+                    var containerIni = container.slice(0, index + 1);
+                    var containerFin = container.slice(index+1);
+
+                    var elementMsgVal = getElementMsgVal(vRestriction.validationType, elementsInputs[i], formName, params);
+                    elementMsgVal.restriction = true;
+                    var containerNew = containerIni.concat(elementMsgVal).concat(containerFin);
+                    htmlElements = replaceContainer(htmlElements, elementsInputs[i], containerNew);
+                    if(htmlElements.hasOwnProperty('replace')) {
+                      htmlElements = htmlElements.replace
+                    }
+                  }
+                }
 
               }
 
