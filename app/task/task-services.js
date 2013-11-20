@@ -19,6 +19,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
         };
 
         var ALLTASK;
+        var INFOUSERPUBLIC = [];
         var DIALOG_NAME_CONF_DELETE = 'dialogConfirmDeleteTask';
         var DIALOG_NAME_CONF_ARCHIV = 'dialogConfirmArchivTask';
         var DIALOG_NAME_FORM_TASK   = 'dialogFormTask';
@@ -85,6 +86,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                 getuser.users = getUserTask();
                 tempServices.loadData('accounts.getPublicInfo',getuser)
                 .then(function(data){
+                  INFOUSERPUBLIC = data;
                   if(!angular.isUndefined(data)){
                     angular.forEach(ALLTASK, function(value1, key1){
                       if(!angular.isUndefined(value1.tasks)){
@@ -94,9 +96,9 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                               var tempUser = {};
                               angular.forEach(data, function(valUser){
                                 if (valUser.uuid === value3.user) {
-                                  tempUser.face = valUser.image;
-                                  tempUser.uuid = valUser.uuid;
-                                  tempUser.name = valUser.name;
+                                  tempUser.image = valUser.image;
+                                  tempUser.uuid  = valUser.uuid;
+                                  tempUser.name  = valUser.name;
                                 }
                               });
                               ALLTASK[key1].tasks[key2].comments[key3].user = tempUser;
@@ -194,11 +196,12 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
           createTask: function(targetTask, category) {
             opts.templateUrl = './task/partial-task-dialog.html';
             var data = {
-              template: NAME_MODEL_TASK,
-              mode  : 'create',
-              targetTask: targetTask,
-              category: category,
-              dialogName : DIALOG_NAME_FORM_TASK
+              template              : NAME_MODEL_TASK,
+              mode                  : 'create',
+              targetTask            : targetTask,
+              category              : category,
+              dialogName            : DIALOG_NAME_FORM_TASK,
+              loopback_notification : true
             };
             opts.resolve = {
               action : function(){
@@ -241,15 +244,24 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                       }
                     }else{
                       vTasks[updateTask.field][updateTask.subfield_id] = updateTask.value;
+                      var exist = false;
                       if (updateTask.field === 'comments') {
-                        tempServices.loadData('accounts.getPublicInfo', [updateTask.value.user])
-                          .then(function(data){
-                            ALLTASK[kAlltask].tasks[kTasks][updateTask.field][updateTask.subfield_id] = data.image;
-                          }
-                        );
+                         angular.forEach(INFOUSERPUBLIC, function(vInfo) {
+                           if (vInfo.uuid === updateTask.value.user){
+                             exist = true;
+                             ALLTASK[kAlltask].tasks[kTasks][updateTask.field][updateTask.subfield_id].user = vInfo;
+                           }
+                         });
+                         if(!exist){
+                           tempServices.loadData('accounts.getPublicInfo', [updateTask.value.user]).then(
+                             function(data){
+                               ALLTASK[kAlltask].tasks[kTasks][updateTask.field][updateTask.subfield_id].user = data;
+                             }
+                           );
+                         }
                       }
                     }
-                    updateTask();
+                    infoUpdate();
                   }
                 });
               });
@@ -443,7 +455,8 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             var timeall   = new Date();
             var idcomme   = Date.now().toString();
             var uuid_user = loginSecurity.currentUser.user_uuid;
-            var face      = loginSecurity.currentUser.image;
+            var image     = loginSecurity.currentUser.image;
+            var name      = loginSecurity.currentUser.name;
 
             var commentext = {
                text         : text
@@ -463,7 +476,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             sendData('tasks', 'tasks.commit', {} , parentTask.uuid);
 
             //after to send data, put the complete content to show
-            commentext.user = {uuid: uuid_user, face: face};
+            commentext.user = {uuid: uuid_user, image: image, name: name};
 
             if( parentTask.comments === undefined) {
               parentTask.comments = {};

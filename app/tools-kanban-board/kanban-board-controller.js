@@ -18,7 +18,9 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
 
       //Put data in task when other user edit
       $scope.$on('updateTask', function (event, data) {
-        taskService.updateTask(data);
+        $scope.$apply(function () {
+          taskService.updateTask(data);
+        });
       });
 
       //$scope.data = taskService.getTask();
