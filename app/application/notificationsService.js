@@ -94,16 +94,15 @@ define(['angular', 'application-commonservices'], function (angular) {
         //send notification to kanbanBoardCtrl
         console.log("notifications Services updateFormFild 96 ", data);
 
-        switch(data.field){
+        switch(data.metadata){
 
-          case 'subtasks':
+          case 'kanban':
             $rootScope.$broadcast('updateTask', data);
             break;
 
           default:
             $rootScope.$broadcast('updateFormField', data);
         }
-
       }
     };
 

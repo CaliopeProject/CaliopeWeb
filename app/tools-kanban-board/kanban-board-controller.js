@@ -19,12 +19,9 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
       //Put data in task when other user edit
       $scope.$on('updateTask', function (event, data) {
         taskService.updateTask(data);
-        $scope.$apply(function () {
-          $scope.data = taskService.getTask();
-        });
       });
 
-      $scope.data = taskService.getTask();
+      //$scope.data = taskService.getTask();
       $scope.showSubtasks = false;
 
       $scope.$on('taskServiceNewTask', function (event, data) {
@@ -75,10 +72,6 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
         $scope.showSubtasks = false;
       };
 
-      $scope.addSubtask   = taskService.addSubtask;
-
-      $scope.addComment   = taskService.addComment;
-
       $scope.getTargetUUID = function(target) {
         var varName;
         if( target !== undefined ) {
@@ -88,7 +81,6 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
         }
         return varName;
       };
-
   }]);
 
 
@@ -101,7 +93,6 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
       };
 
       $scope.addComment   = function (parentTask, text){
-        console.log($scope.$id);
         taskService.addComment(parentTask, text);
         $scope.text = '';
       };

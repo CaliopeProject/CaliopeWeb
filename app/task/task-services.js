@@ -68,20 +68,19 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
           return alluser;
         }
 
+        function infoUpdate(){
+          $rootScope.$broadcast('taskServiceNewTask');
+        }
+
         function loadTask(){
 
           var data1    = {};
-          var data2    = {};
-          data1.params = data2.params = {};
+          data1.params = {};
           data1.method = "tasks.getCurrentUserKanban";
-          data2.method = "tasks.getModel";
 
-          WEBSOCKETS.serversimm.sendRequestBatch(data1, data2).
-          then(function (returnValues){
-            angular.forEach(returnValues, function(valueII, keyII){
-              if(keyII === 0){
-                ALLTASK = valueII;
-                var tempALLTASK = angular.copy(ALLTASK);
+          WEBSOCKETS.serversimm.sendRequest(data1.method, data1.params).
+          then(function (valueData){
+                ALLTASK = valueData;
                 var getuser = {};
                 getuser.users = getUserTask();
                 tempServices.loadData('accounts.getPublicInfo',getuser)
@@ -93,30 +92,25 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                           if(!angular.isUndefined(value2.comments)){
                             angular.forEach(value2.comments, function(value3, key3){
                               var tempUser = {};
-                              tempUser.uuid = value3.user;
                               angular.forEach(data, function(valUser){
                                 if (valUser.uuid === value3.user) {
                                   tempUser.face = valUser.image;
+                                  tempUser.uuid = valUser.uuid;
                                   tempUser.name = valUser.name;
                                 }
                               });
-                              tempALLTASK[key1].tasks[key2].comments[key3].user = tempUser;
+                              ALLTASK[key1].tasks[key2].comments[key3].user = tempUser;
                             });
                           }
                         });
                       }
                     });
                   }
-                  ALLTASK = tempALLTASK;
-                  $rootScope.$broadcast('taskServiceNewTask');
+                  infoUpdate();
                 });
-              }
             });
-          });
-
           MODEL_TASK = tempServices.createForm(NAME_MODEL_TASK, 'create', '');
           tempServices.loadForm(MODEL_TASK, {});
-
         }
 
         function getAllTask(){
@@ -170,7 +164,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             }
           }
           if(success === true) {
-            loadTask();
+            infoUpdate();
           }
         }
 
@@ -194,6 +188,8 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
 
           loadData: loadTask,
 
+          getAll: getAllTask,
+
           // Show the modal task dialog
           createTask: function(targetTask, category) {
             opts.templateUrl = './task/partial-task-dialog.html';
@@ -212,41 +208,54 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             opentaskDialog(DIALOG_NAME_FORM_TASK);
           },
 
-          addTask:  function(loadTask){
+
+          addTask:  function(loadTaskd){
             var category;
             var uuid = loginSecurity.currentUser.user_uuid;
-            if(!angular.isUndefined(loadTask)){
-              category = loadTask.holders[uuid].category;
+            if(!angular.isUndefined(loadTaskd)){
+              category = loadTaskd.holders[uuid].category;
               angular.forEach(ALLTASK, function(value, key){
                 if(value.category === category){
-                  ALLTASK[key].tasks.push(loadTask);
+                  ALLTASK[key].tasks.push(loadTaskd);
                 }
               });
             }
           },
 
+
           updateTask:  function(updateTask){
             if(!angular.isUndefined(updateTask)){
-              angular.forEach(ALLTASK, function(value){
-                angular.forEach(value.tasks, function(value) {
-                  if (value.uuid === updateTask.uuid) {
-                    if(angular.isUndefined(value.subtasks)){
-                      value.subtasks ={};
+              angular.forEach(ALLTASK, function(vAlltask,kAlltask){
+                angular.forEach(vAlltask.tasks, function(vTasks, kTasks) {
+                  if (vTasks.uuid === updateTask.uuid) {
+                    if(angular.isUndefined(vTasks[updateTask.field])){
+                      vTasks[updateTask.field] ={};
                     }
-                    if(!angular.isUndefined(value.subtasks[updateTask.subfield_id])){
-                      if (angular.isUndefined(updateTask.delete)){
-                        value.subtask[updateTask.uuid] = updateTask;
+                    if(!angular.isUndefined(vTasks[updateTask.field][updateTask.subfield_id])){
+                      if(updateTask.delete === true){
+                        delete vTasks[updateTask.field][updateTask.subfield_id];
                       }else{
-                        value.subtask[updateTask.uuid] = updateTask;
+                        angular.forEach(updateTask.value, function(vNewSubtask, kNewSubtask) {
+                          vTasks[updateTask.field][updateTask.subfield_id][kNewSubtask] = vNewSubtask;
+                        });
                       }
                     }else{
-                      value.subtasks[updateTask.subfield_id] = updateTask.value;
+                      vTasks[updateTask.field][updateTask.subfield_id] = updateTask.value;
+                      if (updateTask.field === 'comments') {
+                        tempServices.loadData('accounts.getPublicInfo', [updateTask.value.user])
+                          .then(function(data){
+                            ALLTASK[kAlltask].tasks[kTasks][updateTask.field][updateTask.subfield_id] = data.image;
+                          }
+                        );
+                      }
                     }
+                    updateTask();
                   }
                 });
               });
             }
           },
+
 
           archiveTask: function(item) {
             opts.templateUrl = './task/partial-task-dialog-acction.html';
@@ -266,8 +275,9 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
               }
             };
             opentaskDialog(DIALOG_NAME_CONF_ARCHIV);
-            loadTask();
+            infoUpdate();
           },
+
 
           deleteTask: function(item) {
             opts.templateUrl = './task/partial-task-dialog-acction.html';
@@ -286,8 +296,9 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
               }
             };
             opentaskDialog(DIALOG_NAME_CONF_DELETE);
-            loadTask();
+            infoUpdate();
           },
+
 
           editTask: function(numuuid, category) {
             opts.templateUrl = './task/partial-task-dialog.html';
@@ -304,18 +315,19 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
               }
             };
             opentaskDialog(DIALOG_NAME_FORM_TASK);
-            loadTask();
+            infoUpdate();
           },
+
 
           cancelTask: function() {
             closetaskDialog(false);
           },
 
+
           getTask: function(){
             return ALLTASK;
           },
 
-          getAll: getAllTask,
 
 
           getTaskpend: function(){
@@ -354,13 +366,18 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
 
           },
 
+
           checkSubtask : function(task, uuidsub, complete){
+
+            var subData =  {
+              complete     : complete
+            };
 
             var data = {
                field_name   : "subtasks"
               ,subfield_id  : uuidsub
-              ,value        : complete
-              ,pos          : 'complete'
+              ,value        : subData
+              ,metadata     : 'kanban'
             };
 
             sendData('tasks', 'tasks.updateField', data, task.uuid);
@@ -372,6 +389,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             var data = {
                field_name    : "subtasks"
               ,subfield_id   : uuidsub
+              ,metadata      : 'kanban'
             };
             sendData('tasks', 'tasks.clearField', data, task.uuid);
             sendData('tasks', 'tasks.commit', {} , task.uuid);
@@ -391,21 +409,19 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                field_name    : "subtasks"
               ,subfield_id   : idsubtask
               ,value         : subta
+              ,metadata      : 'kanban'
             };
 
             if( parentTask.subtasks === undefined) {
               parentTask.subtasks = {};
             }
-            parentTask.subtasks[idsubtask] = {};
-            parentTask.subtasks[idsubtask] ={ 'description' : description
-                                 ,'complete'   : false
-                                 ,'uuid_user'  : loginSecurity.currentUser.user_uuid
-                               };
 
             sendData('tasks', 'tasks.updateField', data, parentTask.uuid);
             sendData('tasks', 'tasks.commit', {} , parentTask.uuid);
-          },
 
+            parentTask.subtasks[idsubtask] = {};
+            parentTask.subtasks[idsubtask] = subta;
+          },
 
 
           countSubtask : function(task) {
@@ -421,34 +437,40 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             return 0;
           },
 
+
           addComment : function(parentTask, text) {
-            var timeall   = new Date();
             var data;
+            var timeall   = new Date();
             var idcomme   = Date.now().toString();
             var uuid_user = loginSecurity.currentUser.user_uuid;
             var face      = loginSecurity.currentUser.image;
 
             var commentext = {
-               text : text
-              ,user : uuid_user
-              ,time : timeall
+               text         : text
+              ,user         : uuid_user
+              ,time         : timeall
               ,uuid_comment : idcomme
             };
 
             data = {
                field_name    : "comments"
-              ,subfield_id   : -1
+              ,subfield_id   : idcomme
               ,value         : commentext
+              ,metadata      : 'kanban'
             };
+
             sendData('tasks', 'tasks.updateField', data, parentTask.uuid);
             sendData('tasks', 'tasks.commit', {} , parentTask.uuid);
 
-            commentext.user = {uuid: uuid_user, face: face};
             //after to send data, put the complete content to show
+            commentext.user = {uuid: uuid_user, face: face};
+
             if( parentTask.comments === undefined) {
-              parentTask.comments = [];
+              parentTask.comments = {};
             }
-            parentTask.comments.push(commentext);
+
+            parentTask.comments[idcomme] = commentext;
+
           },
 
           changeCategory: function(taskDrag, category){
@@ -459,7 +481,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                         };
               sendData('tasks', 'tasks.updateRelationship', data, taskDrag.uuid);
               sendData('tasks', 'tasks.commit', {} , taskDrag.uuid);
-              loadTask();
+              infoUpdate();
             }
           }
 

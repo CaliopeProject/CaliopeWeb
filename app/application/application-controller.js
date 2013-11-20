@@ -1,22 +1,24 @@
+/*jslint browser: true*/
+/*global define*/
+
 define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower','login-retryQueue','login-security-services','task-services', 'login-directives','httpRequestTrackerService'], function(angular) {
   'use strict';
 
   var module = angular.module('CaliopeController', ['ui.bootstrap','login-retryQueue','login-security-services', 'task-services', 'login-directives', 'httpRequestTrackerService']);
 
   module.controller('CaliopeController',
-    ['loginSecurity'
+    [  'loginSecurity'
       ,'SessionSrv'
       ,'$scope'
       ,'$timeout'
-      ,'HandlerResponseServerSrv'
       ,'httpRequestTrackerService'
       ,'taskService'
 
-      ,function(security,
+      ,function(
+        security,
         sessionUuid,
         $scope,
         $timeout,
-        handlerResServerSrv,
         httpRequestTrackerService,
         taskService
       ){
@@ -68,10 +70,6 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
             }
           });
 
-          //this metodo is the same that method in login_controller.
-          $scope.$on('login-service-user', function (event, data) {
-              taskService.loadData();
-          });
 
           $scope.closeAlert = function(index) {
             $scope.alerts.splice(index, 1);
