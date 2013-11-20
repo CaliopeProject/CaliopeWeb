@@ -331,7 +331,9 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
               "value" : data[elementModified.name]
             };
             var method =  getMethod(cwForm, METHOD_NOTIF.UPDATE_FIELD);
-
+            if( params.value === undefined ) {
+              params.value = '';
+            }
 
             modifications[0] = {
               method : method,
