@@ -331,43 +331,17 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             console.log(" caliopeweb-form-directives 310 Json to render " + $attrs.cwDform, value);
             renderDForm(value);
 
-            /**
-             * Add the button remove. If cwForm is inner form then
-             */
-            if( cwForm.getInnerForm() ) {
-
-              var elementTitle = $element.find('form').find("[name='title']").children();
-              var elementBtnDelete = ' <span ng-click="removeInnerForm('.
-                  concat("'").concat($attrs.name).concat("'").concat(')"').
-                  concat('><i tooltip="Eliminar" tooltip-placement="right" class="icon-remove"></i></button>');
-              //var elementBtnDelete = '<button name="btn-remove" class="btn btn-mini btn-title" type="button" ng-disabled="disabledAdd" ng-click="removeInnerForm()">Eliminar</button>'
-              elementTitle.append(elementBtnDelete);
-              $compile(elementTitle.contents())($scope);
-
-              /*
-              Add cwForm to innerForm and call create relation parent
-               */
-              if ( $scope.$parent.innerForms !== undefined ) {
-                var i = $attrs.name;
-                if ($scope.$parent.innerForms[i].templateName === $attrs.cwDform) {
-                  $scope.$parent.innerForms[i].cwForm = cwForm;
-                  var cwFormParentName = $scope.$parent.$parent['cwForm-name'];
-                  $scope.$parent.innerForms[i].cwFormParent = $scope.$parent.$parent[cwFormParentName];
-                  if( mode === 'create' ) {
-                    $scope.$parent.innerForms[i].createRelationParent($scope.$parent.$parent[cwFormParentName], cwForm);
-                  }
-                }
-
-              }
-
-            }
-
 
             if($scope.elementsFormTemplate !== undefined) {
               var scopeForm = $element.find('form').scope();
 
-              //Put data when other user create it
+
               scopeForm.changeInNotSrv = {};
+
+              /*
+               Event function for onUpdateFormField. This is invoked when the server send a
+               notification and the service notification propagate the notification from rootScope to children's scope
+               */
               $scope.$on('updateFormField', function (event, data) {
                 if( data.uuid === $scope.modelUUID ) {
                   scopeForm.changeInNotSrv[data.field] = true;
@@ -377,14 +351,29 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                 }
               });
 
+              /*
+                Event function for onUpdateFormRelation. This is invoked when the server send a
+                notification and the service notification propagate the notification from rootScope to children's scope
+               */
+              $scope.$on('updateFormRelation', function (event, data) {
+                if( data.uuid === $scope.modelUUID ) {
+                  var scopeInnerForm = $element.find("[name='".concat(data.rel_name).concat("']")).scope();
+                  if( scopeInnerForm !== undefined ) {
+                    scopeInnerForm.addInnerForm('edit', data.target_uuid);
+                    scopeInnerForm.$apply();
+                  }
+                }
+              });
 
 
               scopeForm.changeInInput = {};
+
               /**
-               * Function to process when the input change.
-               * @param name Name of the input changed
+               * Function to process the event changeInput define with ng-change directive.
+               * @param name Name of the input changed. Directive was defined with changeInInput(elementName)
                */
               scopeForm.changeInput = function change(name) {
+                cwForm.validateElementRestrictions(name, scopeForm);
                 scopeForm.changeInInput[name] = true;
                 completeChange(scopeForm, name);
               };
@@ -406,6 +395,41 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                   });
                 }
               });
+
+            }
+
+
+            /**
+             * Aditional process for inner forms
+             */
+            if( cwForm.getInnerForm() ) {
+
+              /**
+               * Add the button remove. If cwForm is inner form then
+               */
+              var elementTitle = $element.find('form').find("[name='title']").children();
+              var elementBtnDelete = ' <span ng-click="removeInnerForm('.
+                  concat("'").concat($attrs.name).concat("'").concat(')"').
+                  concat('><i tooltip="Eliminar" tooltip-placement="right" class="icon-remove"></i></button>');
+              //var elementBtnDelete = '<button name="btn-remove" class="btn btn-mini btn-title" type="button" ng-disabled="disabledAdd" ng-click="removeInnerForm()">Eliminar</button>'
+              elementTitle.append(elementBtnDelete);
+              $compile(elementTitle.contents())($scope);
+
+              /*
+               Add cwForm to innerForm and call create relation with parent
+               */
+              if ( $scope.$parent.innerForms !== undefined ) {
+                var i = $attrs.name;
+                if ($scope.$parent.innerForms[i].templateName === $attrs.cwDform) {
+                  $scope.$parent.innerForms[i].cwForm = cwForm;
+                  var cwFormParentName = $scope.$parent.$parent['cwForm-name'];
+                  $scope.$parent.innerForms[i].cwFormParent = $scope.$parent.$parent[cwFormParentName];
+                  if( mode === 'create' ) {
+                    $scope.$parent.innerForms[i].createRelationParent($scope.$parent.$parent[cwFormParentName], cwForm);
+                  }
+                }
+
+              }
 
             }
           }
@@ -476,14 +500,14 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           cwFormNotif.sendDelete(cwFormParent, data, $attrs.name)
         }
 
-        function createInnerForm(name, index, mode) {
+        function createInnerForm(name, index, mode, uuid) {
           var innerForm = {
             name : name,
             nameField : $attrs['name'],
             index : index,
             entity : entity,
             mode : mode,
-            uuid : '',
+            uuid : uuid,
             generic : generic,
             templateName : 'jsonTemplate_'.concat(name),
             cwForm : {},
@@ -494,7 +518,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           return innerForm;
         }
 
-        $scope.addInnerForm = function(mode) {
+        $scope.addInnerForm = function(mode, uuid) {
 
           if( totalIF < cardinality || cardinality === 0 ) {
             if( mode === undefined ) {
@@ -503,7 +527,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
             var index = totalIF;
             var nameIF = name.concat(index);
-            var innerForm = createInnerForm(nameIF, index, mode);
+            var innerForm = createInnerForm(nameIF, index, mode, uuid);
             $scope.innerForms[innerForm.name] = innerForm;
             totalIF++;
             console.log('name total', name, totalIF);

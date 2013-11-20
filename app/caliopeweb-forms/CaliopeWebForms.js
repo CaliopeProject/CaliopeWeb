@@ -1,8 +1,11 @@
 
 var CaliopeWebFormConstants = {
   'rexp_value_in_form' : "^{{2}[^{].*[^}]}{2}$",
+  'rexp_value_in_form_code' : "{{2}[^{]*[^}]}{2}",
   'rexp_value_in_form_inrep' : "^{{2}",
   'rexp_value_in_form_firep' : "}{2}$",
+  'rexp_value_in_form_inrep_code' : "{{2}",
+  'rexp_value_in_form_firep_code' : "}{2}",
   'formsWithOwnController' : {
     //Ej: 'Tasks' : 'task-controllers'
   }
@@ -226,10 +229,11 @@ var CaliopeWebForm = (function() {
       };
     }
 
-  function getVarNameScopeFromFormRep(formRep) {
+  //TODO: Document
+  var getVarNameScopeFromFormRep =   function(formRep) {
     return formRep.replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_inrep),"").
-        replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_firep),"")
-  }
+        replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_firep),"");
+  };
 
   /**
    * Constructor of CaliopeWebForm module
@@ -244,6 +248,9 @@ var CaliopeWebForm = (function() {
       this.innerForm = false;
     };
 
+    CaliopeWebForm.getVarNameScopeFromFormRep = getVarNameScopeFromFormRep;
+
+  //TODO: Document
     function dataToViewData(elements, dataFromServer) {
       /*
       - Si la data proveniente del servidor es nula entonces no se asocia el elemento a la data a devolver
@@ -291,6 +298,7 @@ var CaliopeWebForm = (function() {
       return data;
     };
 
+//TODO: Document
     function dataToServerData(elements, dataFromView, paramsToSend) {
 
       /*
@@ -763,13 +771,43 @@ var CaliopeWebForm = (function() {
     },
 
     /**
-     * Validate the form according to the validations presents in elements and validations structure.
+     * Validate a element according to the validations presents in element validations.restrictions
      * @function
      * @memberOf CaliopeWebForm
-     * @todo Is necessary to be implement
      */
-      validate :function() {
-        //TODO: Determinar como se puede realizar la validación de la forma.
+      validateElementRestrictions :function(elementName, data) {
+
+        var evalRestriction = function (evaluation, then, data) {
+          var toEval = "var fEvalRestriction = function(data){".concat(evaluation).concat('{').concat('return ').concat(then).concat(';}}');
+          jQuery.globalEval(toEval);
+
+          return fEvalRestriction(data);
+        }
+
+        var element = this.getElement(elementName);
+        var results = [];
+        if( element !== undefined && element.hasOwnProperty('validations') &&
+            element.validations.hasOwnProperty('restrictions')) {
+
+          jQuery.each(element.validations.restrictions, function(kRestriction, vRestriction){
+            var resultEval = evalRestriction(vRestriction.evaluation, vRestriction.then, data);
+            if( resultEval !== undefined ) {
+              /*
+              if( vRestriction["key-message-true"] !== undefined && vRestriction["key-message-true"] > 0)  {
+
+              }
+                 */
+              var result = {}
+              result[vRestriction.name] = {};
+              result[vRestriction.name].result = resultEval;
+              result[vRestriction.name].msg = vRestriction["key-message-".concat(resultEval)];
+              results.push(result[vRestriction.name]);
+            }
+          });
+
+        }
+
+        return results;
       }
 
     };
@@ -1877,6 +1915,7 @@ var CaliopeWebFormValidDecorator = ( function() {
   function completeValidation(elementsInputs, structureInit, formName) {
 
     var VALIDATIONS_ATT_NAME = 'validations';
+    var RESTRICTIONS_ATT_NAME = 'restrictions';
     var REQUIRE_ATT_NAME = 'required';
     var MAXLENGTH_ATT_NAME = 'maxlength';
     var MINLENGTH_ATT_NAME = 'minlength';
@@ -1902,33 +1941,51 @@ var CaliopeWebFormValidDecorator = ( function() {
             var validationType = varName;
             var params=[];
             /*
-              Logic for validation required
+            Logic for required validation
             */
             if( validationType === REQUIRE_ATT_NAME ) {
               elementsInputs[i].required = validations[REQUIRE_ATT_NAME];
               validationType = 'required';
             }
+            /*
+            Logic for minlegth validation
+             */
             if( validationType === MINLENGTH_ATT_NAME  ) {
               elementsInputs[i]['ng-minlength'] = validations[MINLENGTH_ATT_NAME];
               validationType = 'minlength';
               params[0] = validations[MINLENGTH_ATT_NAME];
             }
+            /*
+            Logic for maxlength validation
+             */
             if( validationType === MAXLENGTH_ATT_NAME  ) {
               elementsInputs[i]['ng-maxlength'] = validations[MAXLENGTH_ATT_NAME];
               validationType = 'maxlength';
               params[0] = validations[MAXLENGTH_ATT_NAME];
             }
+            /*
+            Logic for min value validation
+             */
             if( validationType === MIN_NUMBER_ATT_NAME  ) {
               elementsInputs[i].min = validations[MIN_NUMBER_ATT_NAME];
               validationType = 'min';
               params[0] = validations[MIN_NUMBER_ATT_NAME];
             }
+            /*
+            Logic for max value validation
+             */
             if( validationType === MAX_NUMBER_ATT_NAME  ) {
               elementsInputs[i].max = validations[MAX_NUMBER_ATT_NAME];
               params[0] = 'max';
             }
 
+            /*
+            Search continer form input.
+             */
             var container = searchContainer(htmlElements,elementsInputs[i]);
+            /*
+            Add element message to element and create a new container for two elements.
+             */
             if( container !== undefined && container) {
               var index = container.indexOf(elementsInputs[i]);
               if( index >= 0 ) {
@@ -1944,6 +2001,49 @@ var CaliopeWebFormValidDecorator = ( function() {
               }
             }
           }
+
+
+          function replaceVarsInCode(code, replaceWith)  {
+            return code.replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_inrep_code, "g"),"data.").
+                replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_firep_code, "g"),"");
+          };
+
+          /*
+          Process for restrictions.
+           */
+          var restrictions = elementsInputs[i][VALIDATIONS_ATT_NAME][RESTRICTIONS_ATT_NAME];
+          if( restrictions !== undefined ) {
+
+            jQuery.each(restrictions, function(kRestriction, vRestriction) {
+
+              if( vRestriction.evaluation !== undefined && vRestriction.evaluation.length > 0 &&
+                  vRestriction.then !== undefined && vRestriction.then.length > 0) {
+
+                var patt = new RegExp(CaliopeWebFormConstants.rexp_value_in_form_code, "g");
+                var dependencies = vRestriction.evaluation.match(patt);
+                if( dependencies !== undefined ) {
+                  jQuery.each(dependencies, function(kDep, vDep){
+                    dependencies[kDep] = CaliopeWebForm.getVarNameScopeFromFormRep(vDep);
+                  });
+                }
+
+                vRestriction.name = elementsInputs[i].name.concat(kRestriction);
+                vRestriction.dependencies =  dependencies;
+                vRestriction.evaluation = replaceVarsInCode(vRestriction.evaluation);
+                vRestriction.then = replaceVarsInCode(vRestriction.then);
+
+              }
+
+
+              /*
+              form.restrictions = {
+                'element_name' : [restriction]
+              }
+              */
+
+            });
+          };
+
         }
       }
     }
