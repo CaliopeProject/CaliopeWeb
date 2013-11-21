@@ -310,15 +310,17 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
               }
             };
             opentaskDialog(DIALOG_NAME_CONF_DELETE);
+            infoUpdate();
+          },
 
+          deleteUpdateTask: function(uuidtask) {
             angular.forEach(ALLTASK, function(vAlltask, kAlltask){
               angular.forEach(vAlltask.tasks, function(vTasks, kTasks){
-                if (vTasks.uuid === item.uuid) {
+                if (vTasks.uuid === uuidtask) {
                   delete ALLTASK[kAlltask].tasks[kTasks];
                 }
               });
             });
-
             infoUpdate();
           },
 

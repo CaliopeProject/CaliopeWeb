@@ -25,9 +25,9 @@ dirmodule.directive('ngFileuploader', ['SessionSrv', function(security) {
                 paramName: 'files[]',
                 sequentialUploads: true,
                 formData : {
-                   id           : attrs.formuuid,
+                   uuid         : attrs.modeluuid,
                    session_uuid : security.getIdSession(),
-                   field        : attrs.fieldattch
+                   field        : attrs.fieldattch,
                 },
                 //TODO: to check
                 add: function (e, data) {

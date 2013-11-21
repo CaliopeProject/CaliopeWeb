@@ -1,13 +1,13 @@
 /*jslint browser: true*/
 /*global define, console, $*/
 
-define(['angular', 'caliopeweb-formDirectives'], function (angular) {
+define(['angular', 'caliopeweb-formDirectives', 'task-services'], function (angular) {
   'use strict';
 
-  var module = angular.module('task-controllers', ['CaliopeWebFormDirectives']);
+  var module = angular.module('task-controllers', ['CaliopeWebFormDirectives', 'task-services']);
 
-  module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv', 'caliopeWebFormNotification', 'loginSecurity', 'action',
-    function($scope, $location, cwFormService, cwFormNotif, loginSecurity, action) {
+  module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv', 'caliopeWebFormNotification', 'loginSecurity', 'action', 'taskService',
+    function($scope, $location, cwFormService, cwFormNotif, loginSecurity, action, taskServices) {
 
       function putActionDataInScope() {
         angular.forEach(action, function(value, key){
@@ -18,11 +18,13 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
 
       function sendChange(cwForm, scopeForm, name, newValue) {
 
-        var oHolders = undefined;
-        var oCategory = undefined;
+        var oHolders;
+        var oCategory;
+        var uuidUser;
+        var holdersToSend = [];
+
         if( name === 'category' ) {
-          var uuidUser = loginSecurity.currentUser.user_uuid;
-          var holdersToSend = [];
+          uuidUser = loginSecurity.currentUser.user_uuid;
           oHolders = angular.copy(scopeForm.holders);
           holdersToSend.push({uuid : uuidUser});
           scopeForm.holders = holdersToSend;
@@ -34,10 +36,9 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
             vHolder.uuid = vHolder.value.uuid;
           });
           */
-          var uuidUser = loginSecurity.currentUser.user_uuid;
-          var holdersToSend = [];
           var holderToSend = newValue;
           var categoryToSend = 'ToDo';
+          uuidUser = loginSecurity.currentUser.user_uuid;
           holderToSend.uuid = holderToSend.value.uuid;
           if( uuidUser !== holderToSend.uuid ) {
             oCategory = scopeForm.category;
@@ -60,11 +61,11 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
 
       function sendDelete(cwForm, scopeForm, name, deletedValue) {
 
-        var oHolders = undefined;
+        var oHolders;
 
         if( name === "holders" ) {
           var holders = [];
-          holders.push({'uuid': deletedValue.uuid})
+          holders.push({'uuid': deletedValue.uuid});
           var data = {
             holders : holders
           };
@@ -155,6 +156,7 @@ define(['angular', 'caliopeweb-formDirectives'], function (angular) {
         sendCommit(cwForm).then( function(response) {
           if( !response.hasOwnProperty('error') ) {
             $scope.closeDialog($scope.dialogName, true);
+            taskServices.deleteUpdateTask(scopeData.uuid);
           }
         });
       };
