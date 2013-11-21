@@ -477,7 +477,8 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
       restrict : 'E',
       replace : false,
       templateUrl: 'caliopeweb-forms/caliopeweb-cwforminner-partial-directive.html',
-      controller: 'CaliopeWebTemplateCtrl',
+      //controller: 'CaliopeWebTemplateCtrl',
+      scope: true,
       link: function ($scope, $element, $attrs) {
 
         $scope.innerForms = {};
