@@ -373,15 +373,26 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                * @param name Name of the input changed. Directive was defined with changeInInput(elementName)
                */
               scopeForm.changeInput = function change(name) {
-                var results = cwForm.validateElementRestrictions(name, scopeForm);
+                var results = cwForm.validateElementRestrictions(name, scopeForm, cwForm);
                 var errors = false;
                 angular.forEach(results, function(vResultRestr, kResultRest){
                   if( vResultRestr.result === false ) {
                     errors = true;
                     scopeForm[cwForm.getFormName()][name].$setValidity(vResultRestr.validationType, false);
                     scopeForm[cwForm.getFormName()].$setValidity(vResultRestr.validationType, false);
+                    var elementDivMsg = $element.find(
+                          "[name='".concat(name).concat("'] +").
+                          concat("[validation-type='").concat(vResultRestr.validationType).concat("']")
+                      );
+                    if(elementDivMsg !== undefined) {
+                      var eleMsg = elementDivMsg.find("[ng-show=true]");
+                      if( eleMsg !== undefined ) {
+                        eleMsg.empty();
+                        eleMsg.append(vResultRestr.msg);
+                      }
+                    }
                   } else {
-                    scopeForm[cwForm.getFormName()][name].$setValidity(vResultRestr.validationType, true);
+                    scopeForm[cwForm.getFormName()][vResultRestr.nameElement].$setValidity(vResultRestr.validationType, true);
                     scopeForm[cwForm.getFormName()].$setValidity(vResultRestr.validationType, true);
                   }
                 });

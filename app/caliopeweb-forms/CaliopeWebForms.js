@@ -146,6 +146,13 @@ var CaliopeWebForm = (function() {
      */
     var innerForm;
 
+    /**
+     * Store the dependencies between restrictions.
+     * @member {object} innerForm
+     * @memberOf CaliopeWebForm*
+     */
+    var validationDependencies;
+
 
   /**
    * This function search all the elements that are presents in the form structure. This function
@@ -770,46 +777,66 @@ var CaliopeWebForm = (function() {
       this.modelUUID = modelUUID;
     },
 
+    setValidationDependencies : function(validationDependencies) {
+      this.validationDependencies = validationDependencies;
+    },
+
     /**
      * Validate a element according to the validations presents in element validations.restrictions
      * @function
      * @memberOf CaliopeWebForm
      */
-      validateElementRestrictions :function(elementName, data) {
+      validateElementRestrictions :function(elementName, data, cwForm) {
+
+
+        var results = [];
 
         var evalRestriction = function (evaluation, then, data) {
           var toEval = "var fEvalRestriction = function(data){".concat(evaluation).concat('{').concat('return ').concat(then).concat(';}}');
           jQuery.globalEval(toEval);
 
           return fEvalRestriction(data);
+        };
+
+        function evalRestrictionsElement(element) {
+          if( element !== undefined && element.hasOwnProperty('validations') &&
+              element.validations.hasOwnProperty('restrictions')) {
+
+            jQuery.each(element.validations.restrictions, function(kRestriction, vRestriction) {
+              var resultEval = evalRestriction(vRestriction.evaluation, vRestriction.then, data);
+              if( resultEval !== undefined ) {
+
+                var result = {};
+                result.name = vRestriction.name;
+                result.result = resultEval;
+                result.validationType = 'restriction_'.concat(kRestriction);
+                result.nameElement = vRestriction.nameElement;
+
+                if( vRestriction["key-message-true"] !== undefined && vRestriction["key-message-true"].length > 0 && resultEval === true)  {
+                  result.msg = vRestriction["key-message-".concat(resultEval)];
+                }
+                if( vRestriction["key-message-false"] !== undefined && vRestriction["key-message-false"].length > 0 && resultEval === false)  {
+                  result.msg = vRestriction["key-message-".concat(resultEval)];
+                }
+
+                results.push(result);
+              }
+            });
+
+          }
         }
-
         var element = this.getElement(elementName);
-        var results = [];
-        if( element !== undefined && element.hasOwnProperty('validations') &&
-            element.validations.hasOwnProperty('restrictions')) {
+        evalRestrictionsElement(element);
+        /*
+        if( this.validationDependencies !== undefined && this.validationDependencies.hasOwnProperty(elementName) ) {
 
-          jQuery.each(element.validations.restrictions, function(kRestriction, vRestriction){
-            var resultEval = evalRestriction(vRestriction.evaluation, vRestriction.then, data);
-            if( resultEval !== undefined ) {
-
-              var result = {};
-              result.name = vRestriction.name;
-              result.result = resultEval;
-              result.validationType = 'restriction_'.concat(kRestriction);
-
-              if( vRestriction["key-message-true"] !== undefined && vRestriction["key-message-true"].length > 0 && resultEval === true)  {
-                result.msg = vRestriction["key-message-".concat(resultEval)];
-              }
-              if( vRestriction["key-message-false"] !== undefined && vRestriction["key-message-false"].length > 0 && resultEval === false)  {
-                result.msg = vRestriction["key-message-".concat(resultEval)];
-              }
-
-              results.push(result);
-            }
+          jQuery.each(this.validationDependencies[elementName], function(kRestriction, vRestriction) {
+            var element = cwForm.getElement(vRestriction);
+            evalRestrictionsElement(element);
           });
 
         }
+        */
 
         return results;
       }
@@ -1926,6 +1953,7 @@ var CaliopeWebFormValidDecorator = ( function() {
     var MIN_NUMBER_ATT_NAME = "min";
     var MAX_NUMBER_ATT_NAME = "max";
     var htmlElements = structureInit.html;
+    var generalDependencies = {};
 
     if( elementsInputs !== undefined ) {
       var i;
@@ -1950,6 +1978,9 @@ var CaliopeWebFormValidDecorator = ( function() {
             if( varName === REQUIRE_ATT_NAME ) {
               elementsInputs[i].required = validations[REQUIRE_ATT_NAME];
               validationType = 'required';
+              if(elementsInputs[i].hasOwnProperty('caption')) {
+                elementsInputs[i].caption = elementsInputs[i].caption.concat(' *');
+              }
             }
             /*
             Logic for minlegth validation
@@ -1980,7 +2011,8 @@ var CaliopeWebFormValidDecorator = ( function() {
              */
             if( varName === MAX_NUMBER_ATT_NAME  ) {
               elementsInputs[i].max = validations[MAX_NUMBER_ATT_NAME];
-              params[0] = 'max';
+              validationType = 'max';
+              params[0] = validations[MAX_NUMBER_ATT_NAME];
             }
 
             if( validationType !== undefined) {
@@ -2034,6 +2066,7 @@ var CaliopeWebFormValidDecorator = ( function() {
                 }
 
                 vRestriction.name = elementsInputs[i].name.concat(kRestriction);
+                vRestriction.nameElement = elementsInputs[i].name;
                 vRestriction.dependencies =  dependencies;
                 vRestriction.evaluation = replaceVarsInCode(vRestriction.evaluation);
                 vRestriction.then = replaceVarsInCode(vRestriction.then);
@@ -2061,22 +2094,25 @@ var CaliopeWebFormValidDecorator = ( function() {
                   }
                 }
 
+                jQuery.each(vRestriction.dependencies, function(kDep, vDep) {
+                  if( !generalDependencies.hasOwnProperty(vDep) ) {
+                    generalDependencies[vDep] = [];
+                  }
+                  if( generalDependencies[vDep].indexOf(elementsInputs[i].name) < 0 ) {
+                    generalDependencies[vDep].push(elementsInputs[i].name);
+                  }
+                });
+
               }
-
-
-              /*
-              form.restrictions = {
-                'element_name' : [restriction]
-              }
-              */
-
             });
           };
 
         }
       }
     }
+
     structureInit.html = htmlElements;
+    return generalDependencies;
   }
 
   return {
@@ -2093,8 +2129,8 @@ var CaliopeWebFormValidDecorator = ( function() {
       var formName = caliopeWebForm.getFormName();
       caliopeWebForm.createStructureToRender = function() {
 
-        completeValidation(caliopeWebForm.getElements(), structureInit, formName);
-
+        var validationDependencies = completeValidation(caliopeWebForm.getElements(), structureInit, formName);
+        caliopeWebForm.setValidationDependencies(validationDependencies);
         return structureInit;
       };
     }
