@@ -215,6 +215,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
           addTask:  function(loadTaskd){
             var category;
             var uuid = loginSecurity.currentUser.user_uuid;
+            loadTaskd.notification = 'notification';
             if(!angular.isUndefined(loadTaskd)){
               category = loadTaskd.holders[uuid].category;
               angular.forEach(ALLTASK, function(value, key){
@@ -230,6 +231,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             if(!angular.isUndefined(updateTask)){
               angular.forEach(ALLTASK, function(vAlltask,kAlltask){
                 angular.forEach(vAlltask.tasks, function(vTasks, kTasks) {
+                  vAlltask.tasks[kTasks].notification = 'notification';
                   if (vTasks.uuid === updateTask.uuid) {
                     if(angular.isUndefined(vTasks[updateTask.field])){
                       vTasks[updateTask.field] ={};
@@ -308,6 +310,15 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
               }
             };
             opentaskDialog(DIALOG_NAME_CONF_DELETE);
+
+            angular.forEach(ALLTASK, function(vAlltask, kAlltask){
+              angular.forEach(vAlltask.tasks, function(vTasks, kTasks){
+                if (vTasks.uuid === item.uuid) {
+                  delete ALLTASK[kAlltask].tasks[kTasks];
+                }
+              });
+            });
+
             infoUpdate();
           },
 

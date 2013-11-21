@@ -67,6 +67,10 @@ $borKanba: 12px;
   }
 }
 
+.notification {
+  background-color: rgb(225, 255, 147)!important;
+}
+
 .widget-header-small-kanban {
   min-height: 25px;
   padding: 10px 23px 5px 23px;
@@ -146,7 +150,6 @@ $borKanba: 12px;
   .task-header-kanban & {
     position: absolute;
     right: 7px;
-    background-color: white;
     padding: 0px;
     margin: 0px;
 

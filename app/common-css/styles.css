@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*
  * Bootstrap v2.3.2
  *
@@ -32182,12 +32181,17 @@ a.olControlZoomOut {
 }
 
 /* line 70, ../tools-kanban-board/kanban-board.scss */
+.notification {
+  background-color: #e1ff93 !important;
+}
+
+/* line 74, ../tools-kanban-board/kanban-board.scss */
 .widget-header-small-kanban {
   min-height: 25px;
   padding: 10px 23px 5px 23px;
 }
 
-/* line 75, ../tools-kanban-board/kanban-board.scss */
+/* line 79, ../tools-kanban-board/kanban-board.scss */
 .widget-body-kanban {
   -moz-border-radius-bottomleft: 12px;
   -webkit-border-bottom-left-radius: 12px;
@@ -32201,7 +32205,7 @@ a.olControlZoomOut {
   margin-bottom: -42px;
 }
 
-/* line 83, ../tools-kanban-board/kanban-board.scss */
+/* line 87, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -32219,33 +32223,33 @@ a.olControlZoomOut {
   padding: 0px 11px 7px 11px;
   font-size: small;
 }
-/* line 93, ../tools-kanban-board/kanban-board.scss */
+/* line 97, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban > :hover {
   cursor: move;
 }
-/* line 95, ../tools-kanban-board/kanban-board.scss */
+/* line 99, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .nav-user-photo {
   margin: -4px 10px 0 0;
   border-radius: 24px;
   border: 2px solid #FFF;
   max-width: 24px !important;
 }
-/* line 100, ../tools-kanban-board/kanban-board.scss */
+/* line 104, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .nav-user-photo:hover {
   border-radius: 50px;
   z-index: 1;
   max-width: 50px !important;
 }
-/* line 107, ../tools-kanban-board/kanban-board.scss */
+/* line 111, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban li {
   text-align: left;
 }
-/* line 109, ../tools-kanban-board/kanban-board.scss */
+/* line 113, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban li label {
   font-size: small;
   font-weight: normal;
 }
-/* line 115, ../tools-kanban-board/kanban-board.scss */
+/* line 119, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban > :first-child {
   line-height: 33px;
   max-height: 36px;
@@ -32257,16 +32261,16 @@ a.olControlZoomOut {
   text-align: left;
   overflow: hidden;
 }
-/* line 127, ../tools-kanban-board/kanban-board.scss */
+/* line 131, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .input-prepend {
   text-align: right;
 }
-/* line 130, ../tools-kanban-board/kanban-board.scss */
+/* line 134, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban form input[type="text"] {
   margin-bottom: 0px;
 }
 
-/* line 135, ../tools-kanban-board/kanban-board.scss */
+/* line 139, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban, .widget-toolbar-kanban-form {
   display: inline-block;
   padding: 0 6px;
@@ -32274,69 +32278,68 @@ a.olControlZoomOut {
   text-align: left;
   margin-top: 6px;
 }
-/* line 142, ../tools-kanban-board/kanban-board.scss */
+/* line 146, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban [class*=" icon-"], .widget-toolbar-kanban-form [class*=" icon-"], .widget-toolbar-kanban [class^="icon-"], .widget-toolbar-kanban-form [class^="icon-"] {
   padding-left: 6px;
 }
-/* line 146, ../tools-kanban-board/kanban-board.scss */
+/* line 150, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .widget-toolbar-kanban, .task-header-kanban .widget-toolbar-kanban-form {
   position: absolute;
   right: 7px;
-  background-color: white;
   padding: 0px;
   margin: 0px;
 }
-/* line 153, ../tools-kanban-board/kanban-board.scss */
+/* line 156, ../tools-kanban-board/kanban-board.scss */
 .task-header-kanban .widget-toolbar-kanban [class*=" icon-"], .task-header-kanban .widget-toolbar-kanban-form [class*=" icon-"], .task-header-kanban .widget-toolbar-kanban [class^="icon-"], .task-header-kanban .widget-toolbar-kanban-form [class^="icon-"] {
   padding-left: 5px;
   padding-top: 9px;
   padding-right: 5px;
   padding-bottom: 9px;
 }
-/* line 161, ../tools-kanban-board/kanban-board.scss */
+/* line 164, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban span, .widget-toolbar-kanban-form span {
   margin: 3px;
   padding: 3px;
 }
-/* line 164, ../tools-kanban-board/kanban-board.scss */
+/* line 167, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban span:last-child, .widget-toolbar-kanban-form span:last-child {
   padding-right: 0px;
 }
-/* line 168, ../tools-kanban-board/kanban-board.scss */
+/* line 171, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban .input-append, .widget-toolbar-kanban-form .input-append {
   overflow: hidden;
 }
 
-/* line 173, ../tools-kanban-board/kanban-board.scss */
+/* line 176, ../tools-kanban-board/kanban-board.scss */
 .widget-toolbar-kanban-form {
   display: compact;
   text-align: right;
   margin-right: 30px;
 }
 
-/* line 180, ../tools-kanban-board/kanban-board.scss */
+/* line 183, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask {
   display: inline;
 }
-/* line 183, ../tools-kanban-board/kanban-board.scss */
+/* line 186, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span {
   display: inline;
 }
-/* line 185, ../tools-kanban-board/kanban-board.scss */
+/* line 188, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span i {
   display: inline;
 }
-/* line 188, ../tools-kanban-board/kanban-board.scss */
+/* line 191, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask span h5 {
   display: inline;
 }
-/* line 193, ../tools-kanban-board/kanban-board.scss */
+/* line 196, ../tools-kanban-board/kanban-board.scss */
 .blockInline-subtask h6 {
   margin-top: 6px;
   display: inline;
 }
 
-/* line 199, ../tools-kanban-board/kanban-board.scss */
+/* line 202, ../tools-kanban-board/kanban-board.scss */
 .task-header {
   position: absolute;
   right: 8px;
@@ -32344,7 +32347,7 @@ a.olControlZoomOut {
   z-index: 100;
 }
 
-/* line 206, ../tools-kanban-board/kanban-board.scss */
+/* line 209, ../tools-kanban-board/kanban-board.scss */
 .tab-content-kanban {
   display: block;
   margin-top: 5px;

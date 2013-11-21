@@ -10,9 +10,8 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
 
       //Put task when other user create
       $scope.$on('createTask', function (event, data) {
-        taskService.addTask(data);
         $scope.$apply(function () {
-          $scope.data = taskService.getTask();
+          taskService.addTask(data);
         });
       });
 

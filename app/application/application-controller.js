@@ -23,7 +23,6 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         taskService
       ){
         var timerMessage;
-        var initMessage = {type: 'success', msg: 'Bienvenidos al SIIM' };
 
         $scope.showMenu = false;
         $scope.toggle   = false;
@@ -56,10 +55,8 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
 
         $scope.init = function () {
 
-          timerMessage(initMessage);
-
           $scope.$on('ChangeTextAlertMessage', function (event, data) {
-            timerMessage({msg: data[0]});
+            timerMessage({msg: data.msg, type: data.type});
           });
 
           $scope.$on('taskServiceNewTask', function (event, data) {
