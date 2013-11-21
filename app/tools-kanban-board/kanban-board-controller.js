@@ -23,7 +23,7 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], fu
         });
       });
 
-      //$scope.data = taskService.getTask();
+      $scope.data = taskService.getTask();
       $scope.showSubtasks = false;
 
       $scope.$on('taskServiceNewTask', function (event, data) {
