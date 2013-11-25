@@ -804,13 +804,14 @@ var CaliopeWebForm = (function() {
 
             jQuery.each(element.validations.restrictions, function(kRestriction, vRestriction) {
               var resultEval = evalRestriction(vRestriction.evaluation, vRestriction.then, data);
-              if( resultEval !== undefined ) {
 
-                var result = {};
-                result.name = vRestriction.name;
-                result.result = resultEval;
-                result.validationType = 'restriction_'.concat(kRestriction);
-                result.nameElement = vRestriction.nameElement;
+              var result = {};
+              result.name = vRestriction.name;
+              result.result = resultEval;
+              result.validationType = 'restriction_'.concat(kRestriction);
+              result.nameElement = vRestriction.nameElement;
+
+              if( resultEval !== undefined ) {
 
                 if( vRestriction["key-message-true"] !== undefined && vRestriction["key-message-true"].length > 0 && resultEval === true)  {
                   result.msg = vRestriction["key-message-".concat(resultEval)];
@@ -818,16 +819,18 @@ var CaliopeWebForm = (function() {
                 if( vRestriction["key-message-false"] !== undefined && vRestriction["key-message-false"].length > 0 && resultEval === false)  {
                   result.msg = vRestriction["key-message-".concat(resultEval)];
                 }
-
-                results.push(result);
+              } else {
+                result.result = true;
               }
+              results.push(result);
             });
 
           }
         }
+
         var element = this.getElement(elementName);
         evalRestrictionsElement(element);
-        /*
+
         if( this.validationDependencies !== undefined && this.validationDependencies.hasOwnProperty(elementName) ) {
 
           jQuery.each(this.validationDependencies[elementName], function(kRestriction, vRestriction) {
@@ -836,7 +839,7 @@ var CaliopeWebForm = (function() {
           });
 
         }
-        */
+
 
         return results;
       }

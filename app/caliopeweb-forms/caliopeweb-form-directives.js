@@ -378,22 +378,25 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                 angular.forEach(results, function(vResultRestr, kResultRest){
                   if( vResultRestr.result === false ) {
                     errors = true;
-                    scopeForm[cwForm.getFormName()][name].$setValidity(vResultRestr.validationType, false);
+                    scopeForm[cwForm.getFormName()][vResultRestr.nameElement].$setValidity(vResultRestr.validationType, false);
                     scopeForm[cwForm.getFormName()].$setValidity(vResultRestr.validationType, false);
-                    var elementDivMsg = $element.find(
-                          "[name='".concat(name).concat("'] +").
-                          concat("[validation-type='").concat(vResultRestr.validationType).concat("']")
-                      );
-                    if(elementDivMsg !== undefined) {
-                      var eleMsg = elementDivMsg.find("[ng-show=true]");
-                      if( eleMsg !== undefined ) {
-                        eleMsg.empty();
-                        eleMsg.append(vResultRestr.msg);
-                      }
-                    }
                   } else {
                     scopeForm[cwForm.getFormName()][vResultRestr.nameElement].$setValidity(vResultRestr.validationType, true);
                     scopeForm[cwForm.getFormName()].$setValidity(vResultRestr.validationType, true);
+                  }
+                  /*
+                  Select the container (div) of errors messages
+                   */
+                  var elementDivMsg = $element.find(
+                      "[name='".concat(vResultRestr.nameElement).concat("'] ~").
+                          concat("[validation-type='").concat(vResultRestr.validationType).concat("']")
+                  );
+                  if(elementDivMsg !== undefined) {
+                    var eleMsg = elementDivMsg.find("[ng-show=true]");
+                    if( eleMsg !== undefined ) {
+                      eleMsg.empty();
+                      eleMsg.append(vResultRestr.msg);
+                    }
                   }
                 });
                 if( errors === false ) {
@@ -538,7 +541,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             cwForm : {},
             cwFormParent : {},
             createRelationParent: createRelationParent
-          }
+          };
 
           return innerForm;
         }
