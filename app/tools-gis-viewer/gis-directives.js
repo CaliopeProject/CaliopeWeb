@@ -157,10 +157,10 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                 "http://" + document.domain + ":" + location.port + "/gis_proxy/wms",
                                 {
                                     id: 'capaPrediosMTV',
-                                    layers: "mtv_gis:predios_metrovivienda",
+                                    layers: "mtv_gis:prediacion_metrovivienda",
                                     format: "image/png",
                                     transparent: true,
-                                    visibility: false
+                                    visibility: true
                                 },
                                 {
                                     isBaseLayer:false
@@ -182,6 +182,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                         var identifyAction;
 
                         var identifyDialog = new Ext.Window({
+                            id:'identifyDialog',
                             layout: "fit",
                             width: 350,
                             height: 150,
@@ -237,20 +238,8 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                     xtype: 'actioncolumn',
                                     width: 30,
                                     items: [{
-                                        icon   : '/tools-gis-viewer/images/heron/silk/magnifier_zoom_in.png',  // Use a URL in the icon config
-                                        tooltip: 'Ver en mapa',
-                                        handler: function(grid, rowIndex, colIndex) {
-                                            var rec = storeProyectos.getAt(rowIndex);
-                                            findByFeature("proyectos_mtv","mtv_gis","the_geom",rec.get('proyecto'),"proyecto",true);
-                                        }
-                                    }]
-                                },
-                                {
-                                    xtype: 'actioncolumn',
-                                    width: 30,
-                                    items: [{
                                         icon   : '/tools-gis-viewer/images/heron/silk/information.png',  // Use a URL in the icon config
-                                        tooltip: 'Ver información',
+                                        tooltip: 'Ver informaci&oacuten',
                                         handler: function(grid, rowIndex, colIndex) {
                                             var rec = storeProyectos.getAt(rowIndex);
                                             findByFeature("proyectos_mtv","mtv_gis","the_geom",rec.get('id'),"id",false);
@@ -261,17 +250,29 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             stripeRows: true,
                             height: 350,
                             width: 600,
-                            title: 'Resultado búsqueda de Proyectos',
+                            title: 'Resultado b&uacute;squeda de Proyectos',
                             stateful: true,
                             stateId: 'gridProyectos'
                         });
+
+                        function showInfoProyectos(e){ // e is not a standard event object, it is a Ext.EventObject
+                            //setStoreIdentify(featureSearch);
+                            storeProyectos.removeAll();
+                            arrayProyectos = [];
+                            for (var i=0;i<featureSearch.length;i++)
+                            {
+                                var arrayProyecto = [featureSearch[i].data['proyecto'],featureSearch[i].data['id'],featureSearch[i].data['estado']];
+                                arrayProyectos.push(arrayProyecto);
+                            }
+                            storeProyectos.loadData(arrayProyectos);
+                        }
 
                         var toolPanelDisplayAction;
 
                         var datosProyectos = [
                             ['--',0],
                             ['USME 1',1],
-                            ['LA VíA LÁCTEA',2]
+                            ['LA VIA LACTEA',2]
                         ];
 
                         var datosVersiones = [
@@ -327,7 +328,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             mode: 'local',
                             forceSelection: true,
                             triggerAction: 'all',
-                            emptyText:'Seleccione una Versión',
+                            emptyText:'Seleccione una Versi&oacuten',
                             selectOnFocus:true,
                             fieldLabel: 'Versiones',
                             disabled : true
@@ -387,7 +388,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                         tooltip: 'Ver en mapa',
                                         handler: function(grid, rowIndex, colIndex) {
                                             var rec = storeProyectos.getAt(rowIndex);
-                                            findByFeature("proyectos_mtv","mtv_gis","the_geom",rec.get('proyecto'),"proyecto",true);
+                                            findByFeature("proyectos_mtv","mtv_gis","the_geom",rec.get('proyecto'),"proyecto",true,'zoomToFeature');
                                         }
                                     }]
                                 },
@@ -396,7 +397,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                     width: 30,
                                     items: [{
                                         icon   : '/tools-gis-viewer/images/heron/silk/information.png',  // Use a URL in the icon config
-                                        tooltip: 'Ver información',
+                                        tooltip: 'Ver informaci&oacuten',
                                         handler: function(grid, rowIndex, colIndex) {
                                             var rec = storeProyectos.getAt(rowIndex);
                                             console.log("get id",rec.get('id'));
@@ -408,9 +409,10 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             stripeRows: true,
                             height: 350,
                             width: 600,
-                            title: 'Resultado búsqueda de Proyectos',
+                            title: 'Resultado b&uacute;squeda de Proyectos',
                             stateful: true,
-                            stateId: 'gridProyectos'
+                            stateId: 'gridProyectos',
+                            layout: 'fit'
                         });
 
                         var formPanelSearchProyectos = new GeoExt.form.FormPanel({
@@ -422,6 +424,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             handler: showVersionProyecto,
                             scope: formPanelSearchProyectos
                         });
+
                         //------------------------------------------------
 
                         var campoPredio = new Ext.form.TextField({
@@ -443,6 +446,42 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                 'DIRE']
                         });
 
+                        // WFS actions
+
+                        var saveStrategy = new OpenLayers.Strategy.Save();
+
+                        saveStrategy.events.on({
+                            'success': function(event) {
+                                console.log("esto trae el evento: ",event);
+                                alert('Se han guardado los cambios');
+                                infoPrediosDialog.hide();
+                            },
+                            'fail': function(event) {
+                                alert('No se han guardado los cambios');
+                                infoPrediosDialog.hide();
+                            },
+                            scope: this
+                        });
+
+                        var wfsPrediosMTV = new OpenLayers.Layer.Vector("Elementos Predios Metrovivienda", {
+                            strategies: [new OpenLayers.Strategy.BBOX(), saveStrategy],
+                            projection: "EPSG:100000",
+                            visibility: false,
+                            protocol: new OpenLayers.Protocol.WFS({
+                                version: "1.1.0",
+                                srsName: "EPSG:100000",
+                                url:  'http://' + document.domain + ':' + location.port + '/gis_proxy/wfs',
+                                featureNS :  "mtv_gis",
+                                featureType: "prediacion_metrovivienda",
+                                geometryName: "the_geom",
+                                schema: 'http://' + document.domain + ':' + location.port + '/gis_proxy/wfs/'+"DescribeFeatureType?version=1.1.0&typename=mtv_gis:prediacion_metrovivienda"
+                            })
+                        });
+
+                        // end WFS actions
+
+                        var featureSelected;
+
                         var gridPredios = new Ext.grid.GridPanel({
                             store: storePredios,
                             sm: new Ext.grid.RowSelectionModel({singleSelect: true}),
@@ -463,14 +502,14 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                 },
                                 {
                                     id       :'MATINM',
-                                    header   : 'Matrícula',
+                                    header   : 'Matr&iacute;cula',
                                     width    : 90,
                                     sortable : true,
                                     dataIndex: 'MATINM'
                                 },
                                 {
                                     id       :'DIRE',
-                                    header   : 'Dirección',
+                                    header   : 'Direcci&oacuten',
                                     width    : 90,
                                     sortable : true,
                                     dataIndex: 'DIRE'
@@ -479,31 +518,21 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                     xtype: 'actioncolumn',
                                     width: 30,
                                     items: [{
-                                        icon   : '/tools-gis-viewer/images/heron/silk/magnifier_zoom_in.png',  // Use a URL in the icon config
-                                        tooltip: 'Ver en mapa',
-                                        handler: function(grid, rowIndex, colIndex) {
-                                            var rec = storePredios.getAt(rowIndex);
-                                            findByFeature("loteo","mtv_gis","the_geom",rec.get('CHIP'),"CHIP",true);
-                                        }
-                                    }]
-                                },
-                                {
-                                    xtype: 'actioncolumn',
-                                    width: 30,
-                                    items: [{
                                         icon   : '/tools-gis-viewer/images/heron/silk/information.png',  // Use a URL in the icon config
-                                        tooltip: 'Ver información',
+                                        tooltip: 'Ver informaci&oacuten',
                                         handler: function(grid, rowIndex, colIndex) {
                                             var rec = storePredios.getAt(rowIndex);
-                                            findByFeature("predios_metrovivienda","mtv_gis","the_geom",rec.get('chip'),"chip",true);
+                                           // findByFeature("predios_metrovivienda","mtv_gis","the_geom",rec.get('chip'),"chip",true);
+                                            featureSelected = featuresFinded.features[rowIndex];
+                                            findByFeature("prediacion_metrovivienda","mtv_gis","the_geom",rec.get('CHIP'),"CHIP",true,'showInfoPredios');
+                                            //featureInfoPredio(featureSelected);
                                         }
                                     }]
                                 }
                             ],
                             stripeRows: true,
                             height: 350,
-                            width: 600,
-                            title: 'Resultado búsqueda de Predios',
+                            title: 'Resultado b&uacute;squeda de Predios',
                             stateful: true,
                             stateId: 'gridPredios'
                         });
@@ -519,6 +548,163 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             Heron.App.map.zoomToExtent(featureToShow.geometry.getBounds(),true);
                         });
 
+                        var formPanelInfoPredio = new GeoExt.form.FormPanel({
+                            title: 'Informaci&oacute;n del Predio',
+                            id:'formPanelInfoPredio',
+                            autoScroll: true,
+                            items: [{
+                                xtype: 'textfield',
+                                fieldLabel: 'Barmanpre',
+                                name: 'barmanpre',
+                                readOnly: true
+                            }, {
+                                xtype: 'textfield',
+                                fieldLabel: 'Chip',
+                                name: 'chip',
+                                readOnly: true
+                            }, {
+                                xtype: 'textfield',
+                                fieldLabel: 'Matr&iacute;cula Inmobiliaria',
+                                name: 'matinm',
+                                readOnly: true
+                            }, {
+                                xtype: 'textfield',
+                                fieldLabel: 'Direcci&oacuten',
+                                name: 'dire',
+                                readOnly: true
+                            }, {
+                                xtype: 'textfield',
+                                fieldLabel: 'Nombre propietario',
+                                name: 'nompropie'
+                            }, {
+                                xtype: 'textfield',
+                                fieldLabel: 'Tipo identificaci&oacuten',
+                                name: 'tipoiden'
+                            }, comboProyectos,
+                            {
+                                xtype: 'textfield',
+                                fieldLabel: 'Observaci&oacuten',
+                                name: 'observa'
+                            }, {
+                                xtype: 'textfield',
+                                fieldLabel: 'Área m2',
+                                name: 'aream2',
+                                readOnly: true
+                            }, {
+                                xtype: 'textfield',
+                                fieldLabel: 'Área Ha',
+                                name: 'areaha',
+                                readOnly: true
+                            }, {
+                                xtype: 'textfield',
+                                fieldLabel: 'Observaci&oacuten 1',
+                                name: 'observa1'
+                            }]
+                        });
+
+                        formPanelInfoPredio.addButton({
+                            text: "Guardar",
+                            handler: savePredio,
+                            scope: formPanelInfoPredio
+                        });
+
+                        var infoPrediosDialog = new Ext.Window({
+                            layout: "fit",
+                            width: 400,
+                            height: 350,
+                            autoScroll:true,
+                            renderTo: "siim_mapdiv",
+                            constrain: true,
+                            closeAction: 'hide',
+                            x: 10,
+                            y:500,
+                            items:[formPanelInfoPredio]
+                        });
+
+
+                        var newFeatureState;
+
+                        function featureInfoPredio(){
+                            console.log('entra al featureInfoPredio con',featureSearch);
+                            if(featureSearch!=null){
+                                console.log('pasa por aca');
+                                newFeatureState = OpenLayers.State.UPDATE;
+                                console.log('0');
+                                comboProyectos.setValue(featureSearch.attributes['PROYECTO']);
+                                console.log('1');
+                                formPanelInfoPredio.getForm().setValues({
+                                    barmanpre: featureSearch.attributes['BARMANPRE'],
+                                    chip: featureSearch.attributes['CHIP'],
+                                    matinm: featureSearch.attributes['MATRICULA'],
+                                    dire: featureSearch.attributes['DIRECCION'],
+                                    aream2: featureSearch.geometry.components[0].getArea(),
+                                    areaha: (featureSearch.geometry.components[0].getArea()/10000),
+                                    nompropie: featureSearch.attributes['NOM_PROPIE'],
+                                    tipoiden: featureSearch.attributes['TIPO_IDEN'],
+                                    observa:featureSearch.attributes['OBSERVA'],
+                                    observa1: featureSearch.attributes['OBSERVA_1']
+                                });
+                                console.log('2');
+                                console.log('termina de pasar');
+                            }else{
+                                newFeatureState = OpenLayers.State.INSERT;
+                                comboProyectos.setValue('');
+                                formPanelInfoPredio.getForm().setValues({
+                                    barmanpre: featureSelected.attributes['BARMANPRE'],
+                                    chip: featureSelected.attributes['CHIP'],
+                                    matinm: featureSelected.attributes['MATINM'],
+                                    dire: featureSelected.attributes['DIRE'],
+                                    aream2: featureSelected.geometry.components[0].getArea(),
+                                    areaha: (featureSelected.geometry.components[0].getArea()/10000),
+                                    nompropie: '',
+                                    tipoiden: '',
+                                    observa: '',
+                                    observa1: ''
+                                });
+                            }
+                            infoPrediosDialog.show();
+                        }
+
+                        function savePredio(){
+                            wfsPrediosMTV.removeAllFeatures();
+                            var attributes = {
+                                BARMANPRE: formPanelInfoPredio.getForm().findField('barmanpre').getValue(),
+                                CHIP: formPanelInfoPredio.getForm().findField('chip').getValue(),
+                                MATRICULA: formPanelInfoPredio.getForm().findField('matinm').getValue(),
+                                DIRECCION: formPanelInfoPredio.getForm().findField('dire').getValue(),
+                                NOM_PROPIE: formPanelInfoPredio.getForm().findField('nompropie').getValue(),
+                                TIPO_IDEN: formPanelInfoPredio.getForm().findField('tipoiden').getValue(),
+                                NUM_IDEN: 0,
+                                NUM_PROP: 0,
+                                PROYECTO: comboProyectos.getValue(),
+                                OBSERVA: formPanelInfoPredio.getForm().findField('observa').getValue(),
+                                AREA_m2: formPanelInfoPredio.getForm().findField('aream2').getValue(),
+                                AREA_Ha: formPanelInfoPredio.getForm().findField('areaha').getValue(),
+                                OBSERVA_1: formPanelInfoPredio.getForm().findField('observa1').getValue()
+                            };
+
+                            if(newFeatureState == OpenLayers.State.INSERT){
+                                var newFeature;
+                                newFeature = new OpenLayers.Feature.Vector(featureSelected.geometry,attributes);
+                                newFeature.state = newFeatureState;
+                                wfsPrediosMTV.addFeatures([newFeature]);
+                            }else{
+                                featureSearch.state = newFeatureState;
+                                featureSearch.attributes['BARMANPRE'] = attributes['BARMANPRE'];
+                                featureSearch.attributes['CHIP'] = attributes['CHIP'];
+                                featureSearch.attributes['MATRICULA'] = attributes['MATRICULA'];
+                                featureSearch.attributes['DIRECCION'] = attributes['DIRECCION'];
+                                featureSearch.attributes['AREA_m2'] = attributes['AREA_m2'];
+                                featureSearch.attributes['AREA_Ha'] = attributes['AREA_Ha'];;
+                                featureSearch.attributes['NOM_PROPIE'] = attributes['NOM_PROPIE'];
+                                featureSearch.attributes['TIPO_IDEN'] = attributes['TIPO_IDEN'];
+                                featureSearch.attributes['OBSERVA'] = attributes['OBSERVA'];
+                                featureSearch.attributes['OBSERVA_1'] = attributes['OBSERVA_1'];
+                                wfsPrediosMTV.addFeatures([featureSearch]);
+                            }
+                            saveStrategy.save();
+                        }
+
                         var formPanelSearchPredios = new GeoExt.form.FormPanel({
                             items: [campoPredio]
                         });
@@ -531,6 +717,19 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
 
                         function showPredios(){
                             findPredios("loteo","mtv_gis","the_geom",campoPredio.getValue(),false);
+                        }
+
+                        formPanelSearchPredios.addButton({
+                            text: "Limpiar",
+                            handler: clearSearchPredios,
+                            scope: formPanelSearchPredios
+                        });
+
+                        function clearSearchPredios(){
+                            featuresFinded.removeAllFeatures();
+                            storePredios.removeAll();
+                            Heron.App.map.removeLayer(featuresFinded);
+                            campoPredio.setValue('');
                         }
 
                         //-------------------------------------
@@ -547,32 +746,27 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                 maxFeatures:10,
                                 filter: filter,
                                 callback: function(result) {
-
                                     if(result.success()) {
+                                        featureSearch = null;
                                         if(result.features.length) {
                                             if(options.single == true) {
                                                 featureSearch = response.features[0];
-                                                setStoreIdentify(featureSearch);
+                                                toolPanelDialog.fireEvent(options.eventToFire);
                                             } else {
-                                                storeProyectos.removeAll();
-                                                arrayProyectos = [];
-                                                for (var i=0;i<result.features.length;i++)
-                                                {
-                                                    featureSearch = response.features[i];
-                                                    var arrayProyecto = [featureSearch.data['proyecto'],featureSearch.data['id'],featureSearch.data['estado']];
-                                                    arrayProyectos.push(arrayProyecto);
-                                                }
-                                                storeProyectos.loadData(arrayProyectos);
+                                                featureSearch = response.features;
                                             }
                                         } else if(options.hover) {
                                             console.log("trata de hacer hover? :(");
                                         } else {
-                                            alert("No hay registros");
+                                            if(options.eventToFire){
+                                                toolPanelDialog.fireEvent(options.eventToFire);
+                                            }else{
+                                                alert("No hay registros");
+                                            }
                                         }
-                                    }
-                                    // Reset the cursor.
-
+                                    }// Reset the cursor.
                                     OpenLayers.Element.removeClass(Heron.App.map.viewPortDiv, "olCursorWait");
+
                                 },
                                 scope: this
                             });
@@ -581,7 +775,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             }
                         }
 
-                        function findByFeature(feature,featurename,geometryname,value,propertyName,single) {
+                        function findByFeature(feature,featurename,geometryname,value,propertyName,single,eventToFire) {
                             protocol = new OpenLayers.Protocol.WFS({
                                 url:  'http://' + document.domain + ':' + location.port + '/gis_proxy/wfs',
                                 srsName: "EPSG:100000",
@@ -594,7 +788,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                 property: propertyName,
                                 value: "*"+value.toUpperCase()+"*"
                             });
-                            requestSearch(value, {single: single,property: propertyName, filter: filter});
+                            requestSearch(value, {single: single,property: propertyName, filter: filter,eventToFire:eventToFire});
                         }
 
                         function requestSearchPredios(value, options) {
@@ -616,7 +810,6 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                                 Heron.App.map.zoomToExtent(featureSearch.geometry.getBounds(),true);
                                                 return featureSearch;
                                             } else {
-                                                Heron.App.map.removeLayer(featuresFinded);
                                                 featuresFinded.removeAllFeatures();
                                                 storePredios.removeAll();
                                                 arrayPredios = [];
@@ -631,6 +824,9 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                                                 storePredios.loadData(arrayPredios);
                                                 featuresFinded.addFeatures(result.features);
                                                 Heron.App.map.addLayers([featuresFinded]);
+                                                Heron.App.map.zoomToExtent(featuresFinded.getDataExtent());
+                                                console.log('si funcionó?');
+                                                //identifyDialog.fireEvent('showInfoProyecto');
                                             }
                                         } else if(options.hover) {
                                             console.log("trata de hacer hover? :(");
@@ -686,24 +882,7 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                         }
 
                         function showVersionProyecto(){
-                            /*
-                             var newWMS = new OpenLayers.Layer.WMS("Proyecto "+campoProyectos.getValue(),
-                             "http://" + document.domain + ":" + location.port + "/gis_proxy/wms",
-                             {
-                             layers: "mtv_gis:proyectos_mtv",
-                             format: "image/png",
-                             transparent: true,
-                             visibility: false,
-                             cql_filter: 'PROYECTO LIKE \''+comboProyectos.getValue()+'\' AND VERSION LIKE \''+comboVersiones.getValue()+'\''
-                             },
-                             {
-                             isBaseLayer:false
-                             }
-                             );
-                             Heron.App.map.addLayer(newWMS);
-                             * */
-
-                            findByFeature("proyectos_mtv","mtv_gis","the_geom",campoProyectos.getValue(),"proyecto",false);
+                           findByFeature("proyectos_mtv","mtv_gis","the_geom",campoProyectos.getValue(),"proyecto",false);
                         }
 
                         var toolPanelSearchProyectos = new Ext.Panel({
@@ -713,21 +892,27 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                         });
 
                         var toolPanelSearchPorDivision = new Ext.Panel({
-                            title: 'Por organización',
+                            title: 'Por organizaci&oacuten',
                             html: 'aquí van las búsquedas por oranización administrativa',
                             cls: 'empty'
                         });
 
+                        var toolPanelGridPredios = new Ext.FormPanel({
+                            items:[gridPredios],
+                            layout: 'fit'
+                        });
+
                         var toolPanelSearchPredios = new Ext.Panel({
                             title: 'Por predios',
-                            items:[formPanelSearchPredios,gridPredios],
+                            items:[formPanelSearchPredios,toolPanelGridPredios],
                             cls: 'empty'
                         });
 
-                        var accordionToolPanelSearchs = new Ext.Panel({
+                        var tabToolPanelSearchs = new Ext.TabPanel({
                             region:'west',
                             split:true,
-                            layout:'accordion',
+                            activeTab: 0,
+                            frame:true,
                             items: [toolPanelSearchPredios, toolPanelSearchProyectos, toolPanelSearchPorDivision]
                         });
 
@@ -738,8 +923,8 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                             frame:true,
                             items:[
                                 {
-                                    title: 'Búsquedas',
-                                    items: accordionToolPanelSearchs
+                                    title: 'B&uacute;squedas',
+                                    items: tabToolPanelSearchs
                                 },
                                 {
                                     title: 'Exportar',
@@ -913,7 +1098,9 @@ define(['angular', 'jquery','gis-ext-all','caliopeweb-template-services' ,'gis-e
                         });
 
                         Heron.App.map.addControl(featureInfoControl);
-                        Heron.App.map.addLayers([featuresFinded,featuresSelected]);
+                        Heron.App.map.addLayers([featuresFinded,featuresSelected,wfsPrediosMTV]);
+                        toolPanelDialog.addEvents('showInfoPredios');
+                        toolPanelDialog.on('showInfoPredios',featureInfoPredio,this);
                         Heron.App.show();
                     }
 

@@ -9,23 +9,17 @@ define(['angular', 'application-commonservices'], function (angular) {
   moduleservice.factory('HandlerResponseServerSrv',
       ['$rootScope', 'toolservices', function ($rootScope, toolservices) {
 
-        var dataToProcess, selector, mensOk, mensError, addPromises;
+        var dataToProcess, selector, addPromises;
 
-        mensError = function (data){
-          return data;
-        };
-
-        mensOk = function (){
-          var d = new Date();
-          return d + 'Tx Exitosa';
-        };
 
         selector = function (){
           var resultError = dataToProcess.error;
           if(resultError !== undefined){
-            return mensError(resultError.message + '-' + resultError.code);
+            var errortoshow = resultError.message + '-' + resultError.code;
+            var data = {msg: errortoshow, type: 'error'};
+            $rootScope.$broadcast('ChangeTextAlertMessage', data);
+            return errortoshow;
           }
-          return mensOk();
         };
 
         addPromises = function(promise) {
@@ -37,8 +31,6 @@ define(['angular', 'application-commonservices'], function (angular) {
               if(dataResponse !== undefined) {
 
                 dataToProcess =  dataResponse;
-                var msgSelector = selector();
-                $rootScope.$broadcast('ChangeTextAlertMessage', [msgSelector]);
 
                 var result =  dataResponse.result;
                 var error = dataResponse.error;
@@ -84,16 +76,15 @@ define(['angular', 'application-commonservices'], function (angular) {
     var service = {};
     var actions = {
 
+      'message': function(data){
+        $rootScope.$broadcast('ChangeTextAlertMessage', data);
+      },
+
       'createTask': function(data){
-        //send notification to kanbanBoardCtrl
-        console.log("notifications Services createTask 90", data);
         $rootScope.$broadcast('createTask', data);
       },
 
       'updateField': function(data){
-        //send notification to kanbanBoardCtrl
-        console.log("notifications Services updateFormFild 96 ", data);
-
         switch(data.metadata){
 
           case 'kanban':

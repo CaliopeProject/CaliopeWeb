@@ -25,12 +25,11 @@ dirmodule.directive('ngFileuploader', ['SessionSrv', function(security) {
                 paramName: 'files[]',
                 sequentialUploads: true,
                 formData : {
-                   id: 'parent',//attrs['formuuid'],
-                   session_uuid: security.getIdSession()
-                  //field: attrs['fieldattch']
+                   uuid         : attrs.modeluuid,
+                   session_uuid : security.getIdSession(),
+                   field        : attrs.fieldattch,
                 },
                 //TODO: to check
-                //https://github.com/blueimp/jQuery-File-Upload/wiki/Options
                 add: function (e, data) {
                     scope.$apply(function() {
                         $('#progress .bar').css(

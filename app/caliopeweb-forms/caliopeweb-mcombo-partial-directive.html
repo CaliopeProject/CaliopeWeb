@@ -14,7 +14,7 @@
   <div class="mcombo-drop">
     <ul class="choices">
       <li class="item" ng-repeat="choice in filteredChoices()" ng-click="moveToSelected(choice, $event)">
-      <img ng-src="data:image/png;base64,{{choice.image}}" class="msg-photo" alt="{{choice.text}}">
+      <img ng-src="data:image/png;base64, {{choice.image || 'R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='}}"" class="msg-photo" alt="{{choice.text}}">
       <span class="msg-body">
         {{choice.text}}
       </span>
