@@ -1,5 +1,5 @@
 /*jslint browser: true*/
-/*global define, console, $*/
+/*global define, console$*/
 
 /**
  *
@@ -375,7 +375,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
               scopeForm.changeInput = function change(name) {
                 var results = cwForm.validateElementRestrictions(name, scopeForm, cwForm);
                 var errors = false;
-                angular.forEach(results, function(vResultRestr, kResultRest){
+                angular.forEach(results, function(vResultRestr){
                   if( vResultRestr.result === false ) {
                     errors = true;
                     scopeForm[cwForm.getFormName()][vResultRestr.nameElement].$setValidity(vResultRestr.validationType, false);
@@ -408,9 +408,9 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
               /*
               Create the watch for element that not support the ng-change directive
                */
-              angular.forEach(cwForm.getElements(), function(vElement, kElement){
+              angular.forEach(cwForm.getElements(), function(vElement){
                 if( vElement.type === 'datepicker' || vElement.typeo === 'datepicker') {
-                  scopeForm.$watch(vElement.name, function(newValue, oldValue, scope){
+                  scopeForm.$watch(vElement.name, function(newValue){
                     if( newValue !== undefined ) {
                       if(scopeForm.changeInInput[vElement.name] !== true && scopeForm.changeInNotSrv[vElement.name] !== true) {
                         completeChange(scopeForm, vElement.name);
@@ -520,16 +520,16 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           var data = {};
           data[$attrs.name] = [{'uuid' : cwFormInner.getModelUUID()}];
           cwFormNotif.sendChange(cwFormParent, data, $attrs.name)
-        }
+        };
 
         var deleteRelationParent = function(cwFormParent, cwFormInner) {
           var data = {};
           data[$attrs.name] = [{'uuid' : cwFormInner.getModelUUID()}];
           cwFormNotif.sendDelete(cwFormParent, data, $attrs.name)
-        }
+        };
 
         function createInnerForm(name, index, mode, uuid) {
-          var innerForm = {
+          return {
             name : name,
             nameField : $attrs['name'],
             index : index,
@@ -542,8 +542,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             cwFormParent : {},
             createRelationParent: createRelationParent
           };
-
-          return innerForm;
         }
 
         $scope.addInnerForm = function(mode, uuid) {
@@ -565,21 +563,11 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           }
         };
 
-        /**
-         * This function init the inner form to render
-         */
-        function initInnerForm() {
-          $scope.disabledAdd = false;
-          $scope.showBtns = false;
-          $scope.showForm = false;
-        }
-
         $scope.removeInnerForm = function(name) {
           deleteRelationParent($scope.innerForms[name].cwFormParent, $scope.innerForms[name].cwForm);
           delete $scope.innerForms[name];
           totalIF--;
         };
-
 
         /*
           Code associate to link function directive.
@@ -594,7 +582,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
         var innerFormData = $scope.$parent[name];
         if( innerFormData !== undefined && innerFormData.length > 0 ) {
-          angular.forEach(innerFormData, function(vData, kData) {
+          angular.forEach(innerFormData, function() {
             $scope.addInnerForm();
           });
         } else {
@@ -654,7 +642,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           var params = stParams.split("|");
           var i;
           for( i=0; i<params.length; i++) {
-            scope['param'.concat(i)] = params[i];
+            scope['param'.concat(i.toString())] = params[i];
           }
         }
       }
@@ -747,7 +735,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                 var option = {
                   value : k,
                   label : v
-                }
+                };
                 $scope[scopeOptionsName].push(option);
               });
             }
@@ -790,7 +778,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                * If exist change function in scope then use this function, else, send the change
                * from this point
                */
-              if( $scope.change !== undefined && typeof $scope.change === 'function') {
+              if( typeof $scope.change === 'function') {
                 var cwFormName = $scope.$parent.$parent['cwForm-name'];
                 $scope.change($scope.$parent.$parent[cwFormName], $scope.$parent, $attrs.name, choice);
               } else {
@@ -817,7 +805,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
              * If exist change function in scope then use this function, else, send the change
              * from this point
              */
-            if( $scope.sendDelete !== undefined && typeof $scope.sendDelete === 'function') {
+            if( typeof $scope.sendDelete === 'function') {
               var cwFormName = $scope.$parent.$parent['cwForm-name'];
               $scope.sendDelete($scope.$parent.$parent[cwFormName], $scope.$parent, $attrs.name, choice);
             } else {
@@ -950,7 +938,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                     selectedChoices.target.length > 0) {
 
                   var selectedChoicesInTaget = [];
-                  angular.forEach(selectedChoices.target, function(vSelChoicesTarget, kSelChoicesTarget){
+                  angular.forEach(selectedChoices.target, function(vSelChoicesTarget){
                     selectedChoicesInTaget.push(vSelChoicesTarget.entity_data);
                   });
                   selectedChoices = selectedChoicesInTaget;
@@ -1011,6 +999,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
        *
        * @param $scope
        * @param $attrs
+       * @param $element
        */
       controller : function($scope, $attrs, $element) {
 
@@ -1043,7 +1032,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         if($attrs.hasOwnProperty('columns')){
           try {
             var colsDefs = JSON.parse($attrs.columns);
-            var reg={};
 
             $scope['data'.concat(gridName)] = [];
             $scope['columnDefs'.concat(gridName)] = colsDefs;
@@ -1091,7 +1079,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           $scope[dataGridNameSrv] = $scope[gridName].loadDataFromServer();
         }
 
-        var gridOptionsName = gridName.concat('options');
         $scope.$watch(''.concat(dataGridNameSrv), function(dataGrid) {
           if( dataGrid !== undefined ) {
             $scope[gridName].addData(dataGrid);
@@ -1133,7 +1120,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
    *
    *
    */
-  moduleDirectives.directive('cwGridInForm',['caliopewebGridSrv', '$compile', function (cwGridService, $compile) {
+  moduleDirectives.directive('cwGridInForm',[function () {
 
     /**
      * Define the function for link the directive to AngularJS Context.
@@ -1146,6 +1133,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
        *
        * @param $scope
        * @param $attrs
+       * @param $element
        */
       controller : function($scope, $attrs, $element) {
         var eCwGrid = $element.find('cw-grid');
@@ -1155,22 +1143,26 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             try {
               var columns = JSON.parse($attrs.columns);
               var colsDef = [];
-              angular.forEach(columns, function(v,k){
+              angular.forEach(columns, function(v){
                 var colDef = {
                   'field'               : v.name,
                   'displayName'         : v.caption,
                   "cellClass"           : "cell-center",
                   'cellTempalte'        : v.cellTempalte,
                   'headerCellTemplate'  : v.headerCellTemplate
-                }
+                };
                 colsDef.push(colDef);
               });
               if(colsDef.length > 0) {
                 colsDef.push({
                   "name"                : 'Acciones',
                   "cellClass"           : "cell-center",
-                  "headerCellTemplate"  : '<span ng-click="addRow()"><i tooltip="Agregar Fila" tooltip-placement="right" class="icon-plus"></i></button>',
-                  "cellTemplate"        : '<span ng-click="removeRow(row)"><i tooltip="Eliminar Fila" tooltip-placement="right"  class="icon-remove"></i></button>',
+                  "headerCellTemplate"  : '<span ng-click="addRow()">' +
+                      '<i tooltip="Agregar Fila" tooltip-placement="right" class="icon-plus"></i>' +
+                      '</span>',
+                  "cellTemplate"        : '<span ng-click="removeRow(row)">' +
+                      '<i tooltip="Eliminar Fila" tooltip-placement="right"  class="icon-remove"></i>' +
+                      '</span>',
                   "enableCellEdit"      : false
                 });
                 $attrs.$set('columns', JSON.stringify(colsDef));
@@ -1204,12 +1196,11 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
    *
    *
    */
-  moduleDirectives.directive('cwAction',['$compile', function ($compile) {
-
+  moduleDirectives.directive('cwAction',[function () {
     /**
      * Define the function for link the directive to AngularJS Context.
      */
-    var directiveDefinitionObject = {
+    return {
       restrict : 'E',
       replace : true,
       template : '<button type="button"></button>',
@@ -1226,8 +1217,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
     };
 
-    return directiveDefinitionObject;
   }]);
 
 });
-
