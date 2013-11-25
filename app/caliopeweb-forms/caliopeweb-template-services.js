@@ -233,7 +233,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
             result.elementsName      = cwForm.getElementsName();
             result.entityModel       = cwForm.getEntityModel();
 
-            //cwForm.putDataToContext(context, result.elements);
           } else if(templateFromServer.error !== undefined) {
             result.error = templateFromServer.error;
           } else if(templateFromServer === undefined || templateFromServer.form === undefined ) {

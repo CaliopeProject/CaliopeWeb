@@ -533,8 +533,6 @@ var CaliopeWebForm = (function() {
         jQuery.each(data, function(key, value) {
           viewData[key] = value;
         });
-      } else {
-        return data;
       }
     },
 
@@ -650,7 +648,6 @@ var CaliopeWebForm = (function() {
      * @function
      * @memberOf CaliopeWebForm
      *
-     * @param {object} Layout
      */
       getlayout : function() {
          return this.layout;
@@ -695,27 +692,6 @@ var CaliopeWebForm = (function() {
       getMode : function() {
         return this.mode;
       },
-    /**
-     * Put the data represented for data structure in a specific context.  The allocation
-     * is made according to name of attributes presents in data attribute.
-     *
-     * @function
-     * @memberOf CaliopeWebForm
-     * @param context {object} Context to put the data
-     * @param elements {object} Elements (inputs) in the structure
-     */
-      putDataToContext : function(context, elements) {
-
-        if (this.data !== undefined) {
-          var varname;
-          for (varname in this.data) {
-            if(this.data.hasOwnProperty(varname)) {
-              context[varname] = this.data[varname];
-            }
-          }
-        }
-      },
-
 
     /**
      * Render the form using dForm in a element from HTML DOM
@@ -1626,7 +1602,7 @@ var CaliopeWebFormDataDecorator = ( function() {
      * @memberOf CaliopeWebFormDataDecorator
      * @param {CaliopeWebForm} caliopeWebForm CaliopeWebForm to apply the decoration
      * @todo To implement, because to associate the data to the form in Angularjs is necessary put the data in
-     * the scope. Actually the method CaliopeWebForm.putDataToContext makes this work.
+     * the scope.
      */
     createStructureToRender : function(caliopeWebForm) {
       var structureInit = caliopeWebForm.createStructureToRender();
