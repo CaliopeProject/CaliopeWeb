@@ -60,7 +60,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                                         ,'caliopeWebFormNotification'
     ,function ($compile, $routeParams, cwFormService, cwFormNotif) {
 
-
     return {
 
       controller : function($scope, $attrs, $element) {

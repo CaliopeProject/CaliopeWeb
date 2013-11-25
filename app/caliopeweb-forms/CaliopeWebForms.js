@@ -734,7 +734,7 @@ var CaliopeWebForm = (function() {
 
     /**
      * Set the value that indicate if form is a inner form
-     * @param genericForm
+     * @param innerForm
      */
     setInnerForm : function(innerForm) {
       this.innerForm = innerForm;
@@ -852,7 +852,6 @@ var CaliopeWebForm = (function() {
  *
  * Return "NAME USER"
  *
- * @memberOf commonServices
  * @param {object} obj Object with the data
  * @param {string} attName String that represent the attribute final to return value.
  * @param {string} charSplitAttName A character that indicate the separation of attributes in attName,
@@ -1075,7 +1074,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         "ng-model" : "",
         "value" : "",
         "html" : ""
-      }
+      };
 
       /*
        Para cada elemento del tipo (type) radiobuttons y/o checkboxes agregar a los options el ng-model,
@@ -1193,20 +1192,16 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    * @param {array} elementsTemplate Elements Field config in the template.
    */
   function completeTypeForm(elementsTemplate) {
-    var i;
     var TYPE_FORM = 'form';
-    var TYPE_CWFORM = "cw-form-inner"
+    var TYPE_CWFORM = "cw-form-inner";
     var ATT_OPTIONSFORM = "options-form";
-    var VARNAME_TEMPLATE = ""
     var ATT_FROM_ROUTEPARAMS = "from-routeparams";
-    var ATT_NG_INIT = "ng-init"
 
     jQuery.each(elementsTemplate, function(kElement, vElement){
 
       if( vElement.type === TYPE_FORM) {
 
         if( !vElement.hasOwnProperty(ATT_OPTIONSFORM) ) {
-          var msg =  "";
           throw Error( 'Obligatory attribute '.concat(ATT_OPTIONSFORM).
               concat(' for element ').concat(vElement) );
         }
@@ -1216,15 +1211,6 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         vElement[ATT_FROM_ROUTEPARAMS] = "false";
         vElement.entity = vElement[ATT_OPTIONSFORM].formId;
         vElement.generic = vElement[ATT_OPTIONSFORM].generic;
-        //TODO Mirar como manejar el modo.
-
-        /*
-        vElement[ATT_NG_INIT] = "init(".
-            concat("'").concat(vElement[ATT_OPTIONSFORM].formId).concat("',").
-            concat("'").concat('create').concat("',").
-            concat("'").concat("',").
-            concat("'").concat(vElement[ATT_OPTIONSFORM].generic).concat("')");
-         */
 
         delete vElement['ng-model'];
         delete vElement['ng-change'];
@@ -1240,6 +1226,8 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    * @function
    * @memberOf CaliopeWebFormSpecificDecorator
    * @param {array} elementsTemplate Elements Field config in the template.
+   * @param {object} data Elements Field config in the template.
+   * @param {CaliopeWebForm} cwForm Elements Field config in the template.*
    */
   function completeTypeExecuteTask(elementsTemplate, data, cwForm) {
     if( elementsTemplate !== undefined ) {
@@ -1324,7 +1312,6 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           var VARNAME_FORMID = 'formid';
           var VARNAME_DATALIST = 'field-data-list';
           var VARNAME_LOADREMOTE = 'load-remote';
-          var VARNAME_SELECTEDCHOICES = 'selected-choices';
 
 
           element.fromserver = true;
@@ -1346,26 +1333,6 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           }
           element[VARNAME_LOADREMOTE] = true;
           element[NAME_DIRECTIVE_MCOMBO] = "mc-".concat(element.name);
-
-          /*
-           Get choices selected and put in attribute define in var VARNAME_SELECTEDCHOICES
-          element[VARNAME_SELECTEDCHOICES] = "";
-
-          if( data !== undefined ) {
-            var selectedChoices = data[element.name];
-            if( selectedChoices !== undefined ) {
-              if( selectedChoices instanceof Array ) {
-                var i = 0;
-                for( i=0; i < selectedChoices.length; i++ ) {
-                  element[VARNAME_SELECTEDCHOICES] = element[VARNAME_SELECTEDCHOICES].
-                    concat(selectedChoices[i]).concat(",");
-                }
-              } else if( selectedChoices instanceof String ) {
-                element[VARNAME_SELECTEDCHOICES] = "'".concat(selectedChoices).concat("'");
-              }
-            }
-          }
-           */
 
         }
       });
@@ -1444,6 +1411,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
    * @memberOf CaliopeWebFormActionsDecorator
    * @param {object} structureInit Original form structure of the form
    * @param {object} structureActions Representations of the actions.
+   * @param {array} actionsToShow Action to shown in form
    * @param {string} formName Name of the form
    * @param {string} modelUUID Data Identifier.
    * @param {string} objID Data Identifier
@@ -1800,7 +1768,7 @@ var CaliopeWebFormValidDecorator = ( function() {
    * @param element {object} Element that contains the validations
    * @param formName {string} Name of the form.
    * @param params {array} Parameter to show in the message
-   * @returns {{type: string, name: string, ng-show: Array, validation-type: *, params: string}}
+   * @returns {object}
    * type: Is the name of directive to use.
    * name: Is the name of the <cw-validation-mess> html element
    * ng-show: Is the angular expression to be using for show or not the validation message.
@@ -2030,7 +1998,7 @@ var CaliopeWebFormValidDecorator = ( function() {
           function replaceVarsInCode(code)  {
             return code.replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_inrep_code, "g"),"data.").
                 replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_firep_code, "g"),"");
-          };
+          }
 
           /*
           Code for process restrictions.
@@ -2091,7 +2059,7 @@ var CaliopeWebFormValidDecorator = ( function() {
 
               }
             });
-          };
+          }
 
         }
       }
@@ -2166,12 +2134,14 @@ var CaliopeWebFormLayoutDecorator = ( function() {
    */
   function searchElement(name, elements) {
     var m;
+    var element = undefined;
     for(m=0;m < elements.length ;m++){
       if(name === elements[m].name){
-       return elements[m];
+        element = elements[m];
+        break;
       }
     }
-    console.log('Error calipeWebForms no se encontro parametro ' +  name);
+    return element;
   }
 
   /**
@@ -2181,10 +2151,9 @@ var CaliopeWebFormLayoutDecorator = ( function() {
    * @memberOf CaliopeWebFormLayoutDecorator
    * @param {array} columnContainer Column container defined in layout
    * @param {array} elementsInputs Element in the form
-   * @param {string} columnIndex Index of the column
    * @returns {object} New column container with elements (inputs)
    */
-  function getColumnContainer(columnContainer, elementsInputs, columnIndex) {
+  function getColumnContainer(columnContainer, elementsInputs) {
 
     var containerColumns = {
       type : "div",
@@ -2221,7 +2190,7 @@ var CaliopeWebFormLayoutDecorator = ( function() {
     var j;
 
     for(j=0; j < cont.columns.length;j++) {
-      var columnContainer = getColumnContainer(cont.columns[j], elementsInputs, j);
+      var columnContainer = getColumnContainer(cont.columns[j], elementsInputs);
       container.html.push(columnContainer);
     }
 
