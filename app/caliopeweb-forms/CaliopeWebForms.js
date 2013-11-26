@@ -146,6 +146,13 @@ var CaliopeWebForm = (function() {
      */
     var innerForm;
 
+    /**
+     * Store the dependencies between restrictions.
+     * @member {object} innerForm
+     * @memberOf CaliopeWebForm*
+     */
+    var validationDependencies;
+
 
   /**
    * This function search all the elements that are presents in the form structure. This function
@@ -282,7 +289,7 @@ var CaliopeWebForm = (function() {
                     var value = {
                       uuid : kRel,
                       properties : vRel
-                    }
+                    };
                     valuesRelation.push(value);
                   });
                   data[vElement.name] = valuesRelation;
@@ -291,14 +298,20 @@ var CaliopeWebForm = (function() {
                 }
               }
             }
-          };
+          }
         });
       }
 
       return data;
-    };
+    }
 
-//TODO: Document
+  /**
+   * Todo: documentation
+   * @param elements
+   * @param dataFromView
+   * @param paramsToSend
+   * @returns {*}
+   */
     function dataToServerData(elements, dataFromView, paramsToSend) {
 
       /*
@@ -355,7 +368,7 @@ var CaliopeWebForm = (function() {
                  */
                 if(valueToServer.hasOwnProperty('direction') && valueToServer.hasOwnProperty('target')) {
                   if( valueToServer.target.hasOwnProperty('length') ) {
-                    var cValue = {}
+                    var cValue = {};
                     jQuery.extend(true, cValue, valueToServer);
                     valueToServer = [];
                     jQuery.each(cValue.target, function(k,v) {
@@ -428,7 +441,7 @@ var CaliopeWebForm = (function() {
 
       return data;
 
-    };
+    }
 
   /**
    * Prototype of CaliopeWebForms module
@@ -520,14 +533,13 @@ var CaliopeWebForm = (function() {
         jQuery.each(data, function(key, value) {
           viewData[key] = value;
         });
-      } else {
-        return data;
       }
     },
 
     /**
      *
      * @param dataFromView
+     * @param paramsToSend
      * @returns {*}
      */
     dataToServerData : function(dataFromView, paramsToSend) {
@@ -636,7 +648,6 @@ var CaliopeWebForm = (function() {
      * @function
      * @memberOf CaliopeWebForm
      *
-     * @param {object} Layout
      */
       getlayout : function() {
          return this.layout;
@@ -681,27 +692,6 @@ var CaliopeWebForm = (function() {
       getMode : function() {
         return this.mode;
       },
-    /**
-     * Put the data represented for data structure in a specific context.  The allocation
-     * is made according to name of attributes presents in data attribute.
-     *
-     * @function
-     * @memberOf CaliopeWebForm
-     * @param context {object} Context to put the data
-     * @param elements {object} Elements (inputs) in the structure
-     */
-      putDataToContext : function(context, elements) {
-
-        if (this.data !== undefined) {
-          var varname;
-          for (varname in this.data) {
-            if(this.data.hasOwnProperty(varname)) {
-              context[varname] = this.data[varname];
-            }
-          }
-        }
-      },
-
 
     /**
      * Render the form using dForm in a element from HTML DOM
@@ -744,7 +734,7 @@ var CaliopeWebForm = (function() {
 
     /**
      * Set the value that indicate if form is a inner form
-     * @param genericForm
+     * @param innerForm
      */
     setInnerForm : function(innerForm) {
       this.innerForm = innerForm;
@@ -770,46 +760,69 @@ var CaliopeWebForm = (function() {
       this.modelUUID = modelUUID;
     },
 
+    setValidationDependencies : function(validationDependencies) {
+      this.validationDependencies = validationDependencies;
+    },
+
     /**
      * Validate a element according to the validations presents in element validations.restrictions
      * @function
      * @memberOf CaliopeWebForm
      */
-      validateElementRestrictions :function(elementName, data) {
+      validateElementRestrictions :function(elementName, data, cwForm) {
+
+
+        var results = [];
 
         var evalRestriction = function (evaluation, then, data) {
           var toEval = "var fEvalRestriction = function(data){".concat(evaluation).concat('{').concat('return ').concat(then).concat(';}}');
           jQuery.globalEval(toEval);
 
           return fEvalRestriction(data);
-        }
+        };
 
-        var element = this.getElement(elementName);
-        var results = [];
-        if( element !== undefined && element.hasOwnProperty('validations') &&
-            element.validations.hasOwnProperty('restrictions')) {
+        function evalRestrictionsElement(element) {
+          if( element !== undefined && element.hasOwnProperty('validations') &&
+              element.validations.hasOwnProperty('restrictions')) {
 
-          jQuery.each(element.validations.restrictions, function(kRestriction, vRestriction){
-            var resultEval = evalRestriction(vRestriction.evaluation, vRestriction.then, data);
-            if( resultEval !== undefined ) {
+            jQuery.each(element.validations.restrictions, function(kRestriction, vRestriction) {
+              var resultEval = evalRestriction(vRestriction.evaluation, vRestriction.then, data);
 
               var result = {};
               result.name = vRestriction.name;
               result.result = resultEval;
               result.validationType = 'restriction_'.concat(kRestriction);
+              result.nameElement = vRestriction.nameElement;
 
-              if( vRestriction["key-message-true"] !== undefined && vRestriction["key-message-true"].length > 0 && resultEval === true)  {
-                result.msg = vRestriction["key-message-".concat(resultEval)];
-              }
-              if( vRestriction["key-message-false"] !== undefined && vRestriction["key-message-false"].length > 0 && resultEval === false)  {
-                result.msg = vRestriction["key-message-".concat(resultEval)];
-              }
+              if( resultEval !== undefined ) {
 
+                if( vRestriction["key-message-true"] !== undefined && vRestriction["key-message-true"].length > 0 && resultEval === true)  {
+                  result.msg = vRestriction["key-message-".concat(resultEval)];
+                }
+                if( vRestriction["key-message-false"] !== undefined && vRestriction["key-message-false"].length > 0 && resultEval === false)  {
+                  result.msg = vRestriction["key-message-".concat(resultEval)];
+                }
+              } else {
+                result.result = true;
+              }
               results.push(result);
-            }
+            });
+
+          }
+        }
+
+        var element = this.getElement(elementName);
+        evalRestrictionsElement(element);
+
+        if( this.validationDependencies !== undefined && this.validationDependencies.hasOwnProperty(elementName) ) {
+
+          jQuery.each(this.validationDependencies[elementName], function(kRestriction, vRestriction) {
+            var element = cwForm.getElement(vRestriction);
+            evalRestrictionsElement(element);
           });
 
         }
+
 
         return results;
       }
@@ -839,7 +852,6 @@ var CaliopeWebForm = (function() {
  *
  * Return "NAME USER"
  *
- * @memberOf commonServices
  * @param {object} obj Object with the data
  * @param {string} attName String that represent the attribute final to return value.
  * @param {string} charSplitAttName A character that indicate the separation of attributes in attName,
@@ -1062,7 +1074,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         "ng-model" : "",
         "value" : "",
         "html" : ""
-      }
+      };
 
       /*
        Para cada elemento del tipo (type) radiobuttons y/o checkboxes agregar a los options el ng-model,
@@ -1180,20 +1192,16 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    * @param {array} elementsTemplate Elements Field config in the template.
    */
   function completeTypeForm(elementsTemplate) {
-    var i;
     var TYPE_FORM = 'form';
-    var TYPE_CWFORM = "cw-form-inner"
+    var TYPE_CWFORM = "cw-form-inner";
     var ATT_OPTIONSFORM = "options-form";
-    var VARNAME_TEMPLATE = ""
     var ATT_FROM_ROUTEPARAMS = "from-routeparams";
-    var ATT_NG_INIT = "ng-init"
 
     jQuery.each(elementsTemplate, function(kElement, vElement){
 
       if( vElement.type === TYPE_FORM) {
 
         if( !vElement.hasOwnProperty(ATT_OPTIONSFORM) ) {
-          var msg =  "";
           throw Error( 'Obligatory attribute '.concat(ATT_OPTIONSFORM).
               concat(' for element ').concat(vElement) );
         }
@@ -1203,15 +1211,6 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         vElement[ATT_FROM_ROUTEPARAMS] = "false";
         vElement.entity = vElement[ATT_OPTIONSFORM].formId;
         vElement.generic = vElement[ATT_OPTIONSFORM].generic;
-        //TODO Mirar como manejar el modo.
-
-        /*
-        vElement[ATT_NG_INIT] = "init(".
-            concat("'").concat(vElement[ATT_OPTIONSFORM].formId).concat("',").
-            concat("'").concat('create').concat("',").
-            concat("'").concat("',").
-            concat("'").concat(vElement[ATT_OPTIONSFORM].generic).concat("')");
-         */
 
         delete vElement['ng-model'];
         delete vElement['ng-change'];
@@ -1227,6 +1226,8 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    * @function
    * @memberOf CaliopeWebFormSpecificDecorator
    * @param {array} elementsTemplate Elements Field config in the template.
+   * @param {object} data Elements Field config in the template.
+   * @param {CaliopeWebForm} cwForm Elements Field config in the template.*
    */
   function completeTypeExecuteTask(elementsTemplate, data, cwForm) {
     if( elementsTemplate !== undefined ) {
@@ -1311,7 +1312,6 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           var VARNAME_FORMID = 'formid';
           var VARNAME_DATALIST = 'field-data-list';
           var VARNAME_LOADREMOTE = 'load-remote';
-          var VARNAME_SELECTEDCHOICES = 'selected-choices';
 
 
           element.fromserver = true;
@@ -1333,26 +1333,6 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           }
           element[VARNAME_LOADREMOTE] = true;
           element[NAME_DIRECTIVE_MCOMBO] = "mc-".concat(element.name);
-
-          /*
-           Get choices selected and put in attribute define in var VARNAME_SELECTEDCHOICES
-          element[VARNAME_SELECTEDCHOICES] = "";
-
-          if( data !== undefined ) {
-            var selectedChoices = data[element.name];
-            if( selectedChoices !== undefined ) {
-              if( selectedChoices instanceof Array ) {
-                var i = 0;
-                for( i=0; i < selectedChoices.length; i++ ) {
-                  element[VARNAME_SELECTEDCHOICES] = element[VARNAME_SELECTEDCHOICES].
-                    concat(selectedChoices[i]).concat(",");
-                }
-              } else if( selectedChoices instanceof String ) {
-                element[VARNAME_SELECTEDCHOICES] = "'".concat(selectedChoices).concat("'");
-              }
-            }
-          }
-           */
 
         }
       });
@@ -1431,6 +1411,7 @@ var CaliopeWebFormActionsDecorator = ( function() {
    * @memberOf CaliopeWebFormActionsDecorator
    * @param {object} structureInit Original form structure of the form
    * @param {object} structureActions Representations of the actions.
+   * @param {array} actionsToShow Action to shown in form
    * @param {string} formName Name of the form
    * @param {string} modelUUID Data Identifier.
    * @param {string} objID Data Identifier
@@ -1589,7 +1570,7 @@ var CaliopeWebFormDataDecorator = ( function() {
      * @memberOf CaliopeWebFormDataDecorator
      * @param {CaliopeWebForm} caliopeWebForm CaliopeWebForm to apply the decoration
      * @todo To implement, because to associate the data to the form in Angularjs is necessary put the data in
-     * the scope. Actually the method CaliopeWebForm.putDataToContext makes this work.
+     * the scope.
      */
     createStructureToRender : function(caliopeWebForm) {
       var structureInit = caliopeWebForm.createStructureToRender();
@@ -1787,7 +1768,7 @@ var CaliopeWebFormValidDecorator = ( function() {
    * @param element {object} Element that contains the validations
    * @param formName {string} Name of the form.
    * @param params {array} Parameter to show in the message
-   * @returns {{type: string, name: string, ng-show: Array, validation-type: *, params: string}}
+   * @returns {object}
    * type: Is the name of directive to use.
    * name: Is the name of the <cw-validation-mess> html element
    * ng-show: Is the angular expression to be using for show or not the validation message.
@@ -1926,6 +1907,7 @@ var CaliopeWebFormValidDecorator = ( function() {
     var MIN_NUMBER_ATT_NAME = "min";
     var MAX_NUMBER_ATT_NAME = "max";
     var htmlElements = structureInit.html;
+    var generalDependencies = {};
 
     if( elementsInputs !== undefined ) {
       var i;
@@ -1950,6 +1932,9 @@ var CaliopeWebFormValidDecorator = ( function() {
             if( varName === REQUIRE_ATT_NAME ) {
               elementsInputs[i].required = validations[REQUIRE_ATT_NAME];
               validationType = 'required';
+              if(elementsInputs[i].hasOwnProperty('caption')) {
+                elementsInputs[i].caption = elementsInputs[i].caption.concat(' *');
+              }
             }
             /*
             Logic for minlegth validation
@@ -1980,7 +1965,8 @@ var CaliopeWebFormValidDecorator = ( function() {
              */
             if( varName === MAX_NUMBER_ATT_NAME  ) {
               elementsInputs[i].max = validations[MAX_NUMBER_ATT_NAME];
-              params[0] = 'max';
+              validationType = 'max';
+              params[0] = validations[MAX_NUMBER_ATT_NAME];
             }
 
             if( validationType !== undefined) {
@@ -2009,10 +1995,10 @@ var CaliopeWebFormValidDecorator = ( function() {
           }
 
 
-          function replaceVarsInCode(code, replaceWith)  {
+          function replaceVarsInCode(code)  {
             return code.replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_inrep_code, "g"),"data.").
                 replace(new RegExp(CaliopeWebFormConstants.rexp_value_in_form_firep_code, "g"),"");
-          };
+          }
 
           /*
           Code for process restrictions.
@@ -2034,6 +2020,7 @@ var CaliopeWebFormValidDecorator = ( function() {
                 }
 
                 vRestriction.name = elementsInputs[i].name.concat(kRestriction);
+                vRestriction.nameElement = elementsInputs[i].name;
                 vRestriction.dependencies =  dependencies;
                 vRestriction.evaluation = replaceVarsInCode(vRestriction.evaluation);
                 vRestriction.then = replaceVarsInCode(vRestriction.then);
@@ -2061,22 +2048,25 @@ var CaliopeWebFormValidDecorator = ( function() {
                   }
                 }
 
+                jQuery.each(vRestriction.dependencies, function(kDep, vDep) {
+                  if( !generalDependencies.hasOwnProperty(vDep) ) {
+                    generalDependencies[vDep] = [];
+                  }
+                  if( generalDependencies[vDep].indexOf(elementsInputs[i].name) < 0 ) {
+                    generalDependencies[vDep].push(elementsInputs[i].name);
+                  }
+                });
+
               }
-
-
-              /*
-              form.restrictions = {
-                'element_name' : [restriction]
-              }
-              */
-
             });
-          };
+          }
 
         }
       }
     }
+
     structureInit.html = htmlElements;
+    return generalDependencies;
   }
 
   return {
@@ -2093,8 +2083,8 @@ var CaliopeWebFormValidDecorator = ( function() {
       var formName = caliopeWebForm.getFormName();
       caliopeWebForm.createStructureToRender = function() {
 
-        completeValidation(caliopeWebForm.getElements(), structureInit, formName);
-
+        var validationDependencies = completeValidation(caliopeWebForm.getElements(), structureInit, formName);
+        caliopeWebForm.setValidationDependencies(validationDependencies);
         return structureInit;
       };
     }
@@ -2144,12 +2134,14 @@ var CaliopeWebFormLayoutDecorator = ( function() {
    */
   function searchElement(name, elements) {
     var m;
+    var element = undefined;
     for(m=0;m < elements.length ;m++){
       if(name === elements[m].name){
-       return elements[m];
+        element = elements[m];
+        break;
       }
     }
-    console.log('Error calipeWebForms no se encontro parametro ' +  name);
+    return element;
   }
 
   /**
@@ -2159,10 +2151,9 @@ var CaliopeWebFormLayoutDecorator = ( function() {
    * @memberOf CaliopeWebFormLayoutDecorator
    * @param {array} columnContainer Column container defined in layout
    * @param {array} elementsInputs Element in the form
-   * @param {string} columnIndex Index of the column
    * @returns {object} New column container with elements (inputs)
    */
-  function getColumnContainer(columnContainer, elementsInputs, columnIndex) {
+  function getColumnContainer(columnContainer, elementsInputs) {
 
     var containerColumns = {
       type : "div",
@@ -2199,7 +2190,7 @@ var CaliopeWebFormLayoutDecorator = ( function() {
     var j;
 
     for(j=0; j < cont.columns.length;j++) {
-      var columnContainer = getColumnContainer(cont.columns[j], elementsInputs, j);
+      var columnContainer = getColumnContainer(cont.columns[j], elementsInputs);
       container.html.push(columnContainer);
     }
 
