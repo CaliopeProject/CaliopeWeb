@@ -534,6 +534,7 @@ var CaliopeWebForm = (function() {
           viewData[key] = value;
         });
       }
+      return data;
     },
 
     /**
