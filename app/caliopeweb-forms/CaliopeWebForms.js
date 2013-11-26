@@ -1907,7 +1907,7 @@ var CaliopeWebFormValidDecorator = ( function() {
     var MIN_NUMBER_ATT_NAME = "min";
     var MAX_NUMBER_ATT_NAME = "max";
     var htmlElements = structureInit.html;
-    var generalDependencies = {};
+    var globalDependencies = {};
 
     if( elementsInputs !== undefined ) {
       var i;
@@ -2014,7 +2014,7 @@ var CaliopeWebFormValidDecorator = ( function() {
                 var patt = new RegExp(CaliopeWebFormConstants.rexp_value_in_form_code, "g");
                 var dependencies = vRestriction.evaluation.match(patt);
                 if( dependencies !== undefined ) {
-                  jQuery.each(dependencies, function(kDep, vDep){
+                  jQuery.each(dependencies, function(kDep, vDep) {
                     dependencies[kDep] = CaliopeWebForm.getVarNameScopeFromFormRep(vDep);
                   });
                 }
@@ -2049,11 +2049,12 @@ var CaliopeWebFormValidDecorator = ( function() {
                 }
 
                 jQuery.each(vRestriction.dependencies, function(kDep, vDep) {
-                  if( !generalDependencies.hasOwnProperty(vDep) ) {
-                    generalDependencies[vDep] = [];
+                  if( !globalDependencies.hasOwnProperty(vDep) ) {
+                    globalDependencies[vDep] = [];
                   }
-                  if( generalDependencies[vDep].indexOf(elementsInputs[i].name) < 0 ) {
-                    generalDependencies[vDep].push(elementsInputs[i].name);
+                  if( vDep !== elementsInputs[i].name &&
+                      globalDependencies[vDep].indexOf(elementsInputs[i].name) < 0 ) {
+                    globalDependencies[vDep].push(elementsInputs[i].name);
                   }
                 });
 
@@ -2066,7 +2067,7 @@ var CaliopeWebFormValidDecorator = ( function() {
     }
 
     structureInit.html = htmlElements;
-    return generalDependencies;
+    return globalDependencies;
   }
 
   return {
