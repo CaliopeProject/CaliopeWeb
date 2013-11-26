@@ -25,12 +25,17 @@
 // Kanban board theme
 @import "../tools-kanban-board/kanban-board";
 
+//animation for icon and divs
+@import "../libs-js-thirdparty/animate.scss/scss/animate";
+
 // Include CaliopeWeb themes
 @import "../caliopeweb-forms/caliopeweb";
 
 // Include read-rss
 @import "../read-rss/read-rss";
+
 // Include theme w8-responsive
 @import "w8-responsive";
+
 // Include error
 @import "error";

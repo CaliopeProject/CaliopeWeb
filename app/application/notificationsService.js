@@ -73,6 +73,11 @@ define(['angular', 'application-commonservices'], function (angular) {
   moduleservice.factory('HandlerNotification', ['$rootScope', 'toolservices'
     ,function ($rootScope,  toolservices){
 
+    var textmessage = [
+      'Tienes una nueva tarea en el kanban',
+      'Se ha actulizado una tarea'
+    ];
+
     var service = {};
     var actions = {
 
@@ -81,14 +86,22 @@ define(['angular', 'application-commonservices'], function (angular) {
       },
 
       'createTask': function(data){
+        var msinfo    = {};
         $rootScope.$broadcast('createTask', data);
+        msinfo.msg  = textmessage[1];
+        msinfo.type = 'info';
+        actions.message(msinfo);
       },
 
       'updateField': function(data){
         switch(data.metadata){
 
           case 'kanban':
+            var msinfo    = {};
             $rootScope.$broadcast('updateTask', data);
+            msinfo.msg  = textmessage[1];
+            msinfo.type = 'info';
+            actions.message(msinfo);
             break;
 
           default:
