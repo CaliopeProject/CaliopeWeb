@@ -6,6 +6,7 @@ require.config({
   paths: {
     'jquery'                         : 'libs-js-thirdparty/jquery/jquery',
     'jquery-ui'                      : 'libs-js-thirdparty/jquery-ui/ui/jquery-ui',
+    'jquery.ui.widget'               : 'libs-js-thirdparty/jquery-ui/ui/jquery.ui.widget',
     'angular'                        : 'libs-js-thirdparty/angular-unstable/angular',
     'dform'                          : 'libs-js-thirdparty/jquery.dform/dist/jquery.dform-1.1.0',
     'onResourceLoad'                 : 'application/onResourceLoad',
@@ -97,7 +98,7 @@ require.config({
     ,'application-servicesWebSocket' : {'exports' : 'webSocket', 'deps' : ['notificationsService','uuid']}
     ,'notificationsService'          : {'deps'    : ['application-commonservices']}
     ,'jquery-ui'                     : {'deps'    : ['jquery']}
-    ,'jquery.fileupload-angular'     : {'deps'    : ['jquery', 'angular', 'jquery.ui.widget']}
+    ,'jquery.fileupload-angular'     : {'deps'    : ['jquery', 'angular', 'jquery-ui']}
 
     ,'angular-dragdrop'              : {'deps'    : ['angular', 'jquery-ui']}
     ,'application-event'             : {'deps'    : ['jquery']}
@@ -120,7 +121,6 @@ require.config({
   ]
 });
 
-
 //show de
 require(['onResourceLoad'], function () {
   require([
@@ -128,7 +128,7 @@ require(['onResourceLoad'], function () {
     ,'angular'
     ,'application-app'
     ,'application-routes'
-  ], function(jQuery, angular, app, routes) {
+  ], function(jQuery, angular, app) {
     'use strict';
     $(document).ready(function () {
       var $html = $('html');
