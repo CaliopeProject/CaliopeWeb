@@ -374,14 +374,25 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
               scopeForm.changeInput = function change(name) {
                 var results = cwForm.validateElementRestrictions(name, scopeForm, cwForm);
                 var errors = false;
+                var elementsDependentsChange = {};
                 angular.forEach(results, function(vResultRestr){
                   if( vResultRestr.result === false ) {
-                    errors = true;
+
+                    if( name === vResultRestr.nameElement ) {
+                      errors = true;
+                    }
                     scopeForm[cwForm.getFormName()][vResultRestr.nameElement].$setValidity(vResultRestr.validationType, false);
                     scopeForm[cwForm.getFormName()].$setValidity(vResultRestr.validationType, false);
+                    if( vResultRestr.nameElement !== name ) {
+                      elementsDependentsChange[vResultRestr.nameElement] = false;
+                    }
                   } else {
                     scopeForm[cwForm.getFormName()][vResultRestr.nameElement].$setValidity(vResultRestr.validationType, true);
                     scopeForm[cwForm.getFormName()].$setValidity(vResultRestr.validationType, true);
+                    if( elementsDependentsChange[vResultRestr.nameElement] !== false &&
+                        vResultRestr.nameElement !== name ) {
+                      elementsDependentsChange[vResultRestr.nameElement] = true;
+                    }
                   }
                   /*
                   Select the container (div) of errors messages
@@ -398,10 +409,24 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                     }
                   }
                 });
+
+                /**
+                 * Send change for element change
+                 */
                 if( errors === false ) {
                   scopeForm.changeInInput[name] = true;
                   completeChange(scopeForm, name);
                 }
+
+                /**
+                 * Send change for elements dependents
+                 */
+                angular.forEach(elementsDependentsChange, function(vElementChange, kElementChange){
+                  if( vElementChange === true &&
+                      scopeForm[cwForm.getFormName()][kElementChange].$dirty === true ) {
+                    completeChange(scopeForm, kElementChange);
+                  }
+                });
               };
 
               /*
