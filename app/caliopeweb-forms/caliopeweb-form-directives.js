@@ -387,12 +387,16 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                       elementsDependentsChange[vResultRestr.nameElement] = false;
                     }
                   } else {
+                    if( elementsDependentsChange[vResultRestr.nameElement] !== false &&
+                        scopeForm[cwForm.getFormName()][vResultRestr.nameElement].$dirty === true &&
+                        scopeForm[cwForm.getFormName()][vResultRestr.nameElement].$error[vResultRestr.validationType] === true &&
+                        vResultRestr.nameElement !== name ) {
+
+                      elementsDependentsChange[vResultRestr.nameElement] = true;
+
+                    }
                     scopeForm[cwForm.getFormName()][vResultRestr.nameElement].$setValidity(vResultRestr.validationType, true);
                     scopeForm[cwForm.getFormName()].$setValidity(vResultRestr.validationType, true);
-                    if( elementsDependentsChange[vResultRestr.nameElement] !== false &&
-                        vResultRestr.nameElement !== name ) {
-                      elementsDependentsChange[vResultRestr.nameElement] = true;
-                    }
                   }
                   /*
                   Select the container (div) of errors messages
@@ -422,8 +426,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                  * Send change for elements dependents
                  */
                 angular.forEach(elementsDependentsChange, function(vElementChange, kElementChange){
-                  if( vElementChange === true &&
-                      scopeForm[cwForm.getFormName()][kElementChange].$dirty === true ) {
+                  if( vElementChange === true ) {
                     completeChange(scopeForm, kElementChange);
                   }
                 });
