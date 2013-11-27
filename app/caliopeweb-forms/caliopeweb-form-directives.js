@@ -30,7 +30,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificationsService'], function (angular) {
+define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificationsService', 'angular-ui-ng-grid'], function (angular) {
   'use strict';
 
   /**
@@ -946,10 +946,20 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                 scope[scopeMultiComboSelected] = [];
                 for(i=0; i<dataResponse.length; i++) {
                   var option = {value : {}};
-                  option.value[attrFieldValue] = tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.');
-                  option[attrFieldValue] = option.value[attrFieldValue];
-                  option.text = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
-                  option.image = tools.getValueAttInObject(dataResponse[i], attrFieldImage, '.');
+                  if( attrFieldValue !== undefined ) {
+                    option.value[attrFieldValue] = tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.');
+                    option[attrFieldValue] = option.value[attrFieldValue];
+                  } else {
+                    throw new Error("Field value in multi-combo-choices element with name " + attrs['name'] + ", wasn't specific.");
+                  }
+                  if( attrFieldDesc !== undefined) {
+                    option.text = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
+                  } else {
+                    throw new Error("Field description in multi-combo-choices element with name " + attrs['name'] + ", wasn't specific.");
+                  }
+                  if( attrFieldImage !== undefined) {
+                    option.image = tools.getValueAttInObject(dataResponse[i], attrFieldImage, '.');
+                  }
                   scope[scopeMultiComboChoices].push(option);
                 }
               }
