@@ -462,6 +462,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                * Add the button remove. If cwForm is inner form then
                */
               var elementTitle = $element.find('form').find("[name='title']").children();
+              elementTitle.empty();
               var elementBtnDelete = ' <span ng-click="removeInnerForm('.
                   concat("'").concat($attrs.name).concat("'").concat(')"').
                   concat('><i tooltip="Eliminar" tooltip-placement="right" class="icon-remove"></i></button>');
@@ -627,9 +628,9 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           Find the element with tag label in parent and move to container  'container-title' before of 'btn-add'
          */
         var eleLab = $element.parent().find('label');
-        elemBtn.after(eleLab);
-        eleLab.append(elemBtn);
-
+        elemBtn.append('+ ');
+        elemBtn.append(eleLab.contents());
+        eleLab(elemBtn);
       }
     };
 
