@@ -16,8 +16,9 @@
       <div class="widget-body-kanban fillallheight" >
         <div class="widget-main fillallheight">
           <div class="boxDrop fillallheight" >
-            <div ng-controller="kanbanItemCtrl" class="task-header-kanban" ng-init="showSubtasks=false" category="{{obj.category}}"  uuid="{{item.uuid}}" ng-show='item.uuid' ng-class={{item.notification}} ng-repeat="item in obj.tasks track by $index" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false, onStart:'startDragCallback', onStop:'stopDragCallback'}">
+            <div ng-controller="kanbanItemCtrl"  ng-init="showSubtasks=false" category="{{obj.category}}"  uuid="{{item.uuid}}" ng-show='item.uuid' class='task-header-kanban' ng-repeat="item in obj.tasks track by $index" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false, onStart:'startDragCallback', onStop:'stopDragCallback'}">
               <div class="blockInline-subtask">
+                <i ng-if="item.notification" tooltip="Tarea nueva" class="animated swing infianime icon-bell-alt text-info"></i>
                 <span class="green" ng-click="showSubtasks=!showSubtasks">
                   <i tooltip="Estado Sub-tareas" class="icon-list-ul"></i>
                   <span class="text-error"> {{countSubtask(item.subtasks)}} </span>

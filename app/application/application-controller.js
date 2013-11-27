@@ -31,11 +31,13 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         $scope.alerts      = [];
 
         timerMessage = function(data){
-          $scope.alerts.push(data);
+          $scope.$apply(function () {
+            $scope.alerts.push(data);
+          });
           if ($scope.alerts.length > 0){
             $timeout(function(){
               $scope.alerts.pop();
-            }, 3000);
+            }, 9000);
           }
         };
 

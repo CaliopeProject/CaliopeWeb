@@ -8,6 +8,14 @@
   left:-9999px;
 }
 
+//animation infinita
+.infianime{
+  @include transition-duration(40s);
+  @include transition-delay(39s);
+  $animation-support: webkit, moz, o, ms, not khtml;
+  @include experimental('animation-iteration-count', infinite, $animation-support);
+}
+
 .sticky-note {
   border: 1px solid #ffb366;
   background: #FFFFCC;
