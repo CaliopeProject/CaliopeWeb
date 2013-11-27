@@ -36,3 +36,10 @@ $borEditor: 6px;
   padding-left: 12px;
   text-align: left;
 }
+
+.cke_editable {
+  overflow-y: auto;
+  max-height: 206px;
+  min-height: 206px;
+  height: 206px;
+}
