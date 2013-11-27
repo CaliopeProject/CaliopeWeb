@@ -30,7 +30,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificationsService'], function (angular) {
+define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificationsService', 'angular-ui-ng-grid'], function (angular) {
   'use strict';
 
   /**

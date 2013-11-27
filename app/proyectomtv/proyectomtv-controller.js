@@ -1,12 +1,14 @@
-define(['angular','caliopeWebForms','caliopeweb-formDirectives'], function(angular) {
+define(['angular','caliopeWebForms','caliopeweb-formDirectives', 'angular-ui-ng-grid'], function(angular) {
   'use strict';
 
-  var moduleControllers = angular.module('ProyectoControllers', ['CaliopeWebFormDirectives', 'wysiwygEditorDirective', 'fileuploaderDirectives']);
+  var moduleControllers = angular.module('ProyectoControllers',
+      ['CaliopeWebFormDirectives', 'wysiwygEditorDirective', 'fileuploaderDirectives', 'ngGrid' ]);
 
 
   moduleControllers.controller('ProyectomtvCtrl',
     ['caliopewebTemplateSrv', 'caliopewebGridSrv', '$scope', '$routeParams',
     function (cwFormService, cwGridService, $scope, $routeParams) {
+
 
       $scope.initGrid = function() {
         /*
