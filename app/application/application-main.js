@@ -79,7 +79,9 @@ require.config({
     'task-directives'                : 'task/task-directives',
 
     'read-rss-services'              : 'read-rss/read-rss-services',
-    'read-rss-controllers'           : 'read-rss/read-rss-controllers'
+    'read-rss-controllers'           : 'read-rss/read-rss-controllers',
+
+    'context-services'               : 'context/context-services'
   },
   baseUrl: '/',
   shim: {
