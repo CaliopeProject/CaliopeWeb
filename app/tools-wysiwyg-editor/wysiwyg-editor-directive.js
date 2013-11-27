@@ -97,18 +97,25 @@ dirmodule.directive('ckedit', function ($parse) {
                   editor.ui.addButton('Save', { label: 'Save', command: 'save', toolbar: 'document' });
               }
           };
-          var options = {
+          var options = {};
+          /*
               toolbar : [
-                          { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
+                          { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
                           { name: 'insert', items: [ 'Image','Link' ] },
-                          { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] }
-                        ],
-              toolbarGroups: [
-                          { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                          { name: 'insert' },
-                          { name: 'clipboard', groups: [ 'clipboard', 'undo' ] }
-                      ]
+                          { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] }
+                        ]
               };
+          */
+
+          if( attrs.toolbar !== undefined ) {
+            try {
+              options.toolbar = JSON.parse(attrs.toolbar);
+            } catch (ex) {
+              options.toolbar = [
+                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] }
+              ]
+            }
+          }
 
           options.removePlugins = 'sourcearea';
           CKEDITOR.inline(element[0], options);

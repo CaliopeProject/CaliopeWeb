@@ -1169,6 +1169,42 @@ var CaliopeWebFormSpecificDecorator = ( function() {
    * @memberOf CaliopeWebFormSpecificDecorator
    * @param {array} elementsTemplate Elements Field config in the template.
    */
+  function completeTypeWysiwyg(elementsTemplate) {
+    if( elementsTemplate !== undefined ) {
+      var i;
+      var TYPE_WYSIWYG = 'wysiwyg';
+      var DIRECTIVE_WYSIWYG = 'ckedit';
+      var VARNAME_DATEFORMAT = 'format';
+
+      for(i=0; i < elementsTemplate.length; i++) {
+        if( elementsTemplate[i] !== undefined && elementsTemplate[i].type !== undefined &&
+            elementsTemplate[i].type === TYPE_WYSIWYG)  {
+
+          elementsTemplate[i].typeo = elementsTemplate[i].type;
+          elementsTemplate[i].type = DIRECTIVE_WYSIWYG;
+          if( elementsTemplate[i].hasOwnProperty('wysiwyg-options') ) {
+            if( elementsTemplate[i]['wysiwyg-options'].hasOwnProperty('toolbars') ) {
+              elementsTemplate[i].toolbar=elementsTemplate[i]['wysiwyg-options']['toolbars'];
+            } else {
+              elementsTemplate[i].toolbar = [{ "name" : "basicstyles", "items" : ["Bold", "Italic", "Strike", "-", "RemoveFormat"]}];
+            }
+          }
+          elementsTemplate[i].toolbar = JSON.stringify(elementsTemplate[i].toolbar);
+
+          delete elementsTemplate[i]['wysiwyg-options'];
+        }
+      }
+    }
+  }
+
+  /**
+   * Add datepicker angular directive to the structure for each elements in the structure with
+   * the type datepicker defined in json structure form.
+   *
+   * @function
+   * @memberOf CaliopeWebFormSpecificDecorator
+   * @param {array} elementsTemplate Elements Field config in the template.
+   */
   function completeTypeCwGrid(elementsTemplate) {
     var i;
     var TYPE_CWGRID = 'cw-grid-in-form';
@@ -1366,6 +1402,7 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         completeTypeCwGrid(elementsTemplate);
         completeTypeRadioButtonsCheckBoxess(elementsTemplate);
         completeTypeForm(elementsTemplate);
+        completeTypeWysiwyg(elementsTemplate);
         return structureInit;
       };
     }
