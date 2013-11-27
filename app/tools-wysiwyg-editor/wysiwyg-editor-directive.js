@@ -107,14 +107,20 @@ dirmodule.directive('ckedit', function ($parse) {
               };
           */
 
+          function getToolbarByDefault() {
+            return [
+              { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] }
+            ]
+          }
+
           if( attrs.toolbar !== undefined ) {
             try {
               options.toolbar = JSON.parse(attrs.toolbar);
             } catch (ex) {
-              options.toolbar = [
-                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] }
-              ]
+              options.toolbar = getToolbarByDefault();
             }
+          } else {
+            options.toolbar = getToolbarByDefault();
           }
 
           options.removePlugins = 'sourcearea';
