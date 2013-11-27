@@ -945,9 +945,17 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                 scope[scopeMultiComboSelected] = [];
                 for(i=0; i<dataResponse.length; i++) {
                   var option = {value : {}};
-                  option.value[attrFieldValue] = tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.');
-                  option[attrFieldValue] = option.value[attrFieldValue];
-                  option.text = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
+                  if( attrFieldValue !== undefined ) {
+                    option.value[attrFieldValue] = tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.');
+                    option[attrFieldValue] = option.value[attrFieldValue];
+                  } else {
+                    throw new Error("Field value in multi-combo-choices element with name " + attrs['name'] + ", wasn't specific.");
+                  }
+                  if( attrFieldDesc !== undefined) {
+                    option.text = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
+                  } else {
+                    throw new Error("Field description in multi-combo-choices element with name " + attrs['name'] + ", wasn't specific.");
+                  }
                   if( attrFieldImage !== undefined) {
                     option.image = tools.getValueAttInObject(dataResponse[i], attrFieldImage, '.');
                   }
