@@ -73,10 +73,12 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
           $rootScope.$broadcast('taskServiceNewTask');
         }
 
-        function loadTask(){
+        function loadTask(context){
 
           var data1    = {};
-          data1.params = {};
+          data1.params = {
+            context : context
+          };
           data1.method = "tasks.getCurrentUserKanban";
 
           WEBSOCKETS.serversimm.sendRequest(data1.method, data1.params).
