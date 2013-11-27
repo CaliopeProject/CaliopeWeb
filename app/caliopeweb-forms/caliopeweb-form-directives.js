@@ -948,7 +948,9 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                   option.value[attrFieldValue] = tools.getValueAttInObject(dataResponse[i], attrFieldValue, '.');
                   option[attrFieldValue] = option.value[attrFieldValue];
                   option.text = tools.getValueAttInObject(dataResponse[i], attrFieldDesc, '.');
-                  option.image = tools.getValueAttInObject(dataResponse[i], attrFieldImage, '.');
+                  if( attrFieldImage !== undefined) {
+                    option.image = tools.getValueAttInObject(dataResponse[i], attrFieldImage, '.');
+                  }
                   scope[scopeMultiComboChoices].push(option);
                 }
               }
