@@ -1,10 +1,10 @@
 /*jslint browser: true*/
 /*global define*/
 
-define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower','login-retryQueue','login-security-services','task-services', 'login-directives','httpRequestTrackerService'], function(angular) {
+define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower','login-retryQueue','login-security-services','task-services', 'login-directives','httpRequestTrackerService', 'context-services'], function(angular) {
   'use strict';
 
-  var module = angular.module('CaliopeController', ['ui.bootstrap','login-retryQueue','login-security-services', 'task-services', 'login-directives', 'httpRequestTrackerService']);
+  var module = angular.module('CaliopeController', ['ui.bootstrap','login-retryQueue','login-security-services', 'task-services', 'login-directives', 'httpRequestTrackerService', 'ContextServices']);
 
   module.controller('CaliopeController',
     [  'loginSecurity'
@@ -13,6 +13,7 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
       ,'$timeout'
       ,'httpRequestTrackerService'
       ,'taskService'
+      ,'contextService'
 
       ,function(
         security,
@@ -20,7 +21,8 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         $scope,
         $timeout,
         httpRequestTrackerService,
-        taskService
+        taskService,
+        contextService
       ){
         var timerMessage;
 
@@ -45,7 +47,15 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
           var uuid = sessionUuid.getIdSession();
           security.requestCurrentUser(uuid).then(function(){
             if(!!security.currentUser){
-              taskService.loadData();
+              contextService.loadUserContexts().then(
+                  function( configContext ) {
+                    if( configContext !== undefined && configContext.hasOwnProperty('defaultContext') ) {
+                      taskService.loadData( configContext.defaultContext.uuid );
+                    }
+
+                    $scope.$broadcast('loadContexts');
+                  }
+              );
             }
           });
         });
