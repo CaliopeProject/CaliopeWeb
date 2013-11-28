@@ -53,6 +53,7 @@ input.ng-valid.ng-dirty {
 .cwdform{
   & .modal-footer{
     background: inherit;
+    margin-top: 30px;
   };
 
   label{
@@ -60,9 +61,25 @@ input.ng-valid.ng-dirty {
   }
 
   & .cw-inner-form{
-    @include border-radius(25px);
-    border: thin solid darkblue 1px;
-    padding: 15px;
+    @include border-radius(15px);
+    border: thin solid lightgrey;
+    padding: 13px;
+    position: relative;
+
+    & .containertitle{
+      margin-bottom: 5px;
+    }
+
+    & .page-header:first-child{
+     right: 7px;
+     position: absolute;
+     top: 5px;
+     border: initial!important;
+     & h1{
+       color: black!important;
+       font-size: 20px!important;
+     }
+    }
   };
 }
 

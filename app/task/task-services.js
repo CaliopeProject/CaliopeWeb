@@ -201,7 +201,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
               targetTask            : targetTask,
               category              : category,
               dialogName            : DIALOG_NAME_FORM_TASK,
-              loopback_notification : true
+              loopback_notification : false
             };
             opts.resolve = {
               action : function(){
