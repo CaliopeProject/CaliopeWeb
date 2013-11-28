@@ -798,23 +798,24 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             if(!$attrs.single ){
               $scope._selectedChoices.push(choice);
               $scope._choices.splice($scope._choices.indexOf(choice), 1);
-
-              /**
-               * Send notification change
-               * If exist change function in scope then use this function, else, send the change
-               * from this point
-               */
-              if( typeof $scope.change === 'function') {
-                var cwFormName = $scope.$parent.$parent['cwForm-name'];
-                $scope.change($scope.$parent.$parent[cwFormName], $scope.$parent, $attrs.name, choice);
-              } else {
-                //TODO Send Change
-              }
               // do not 'close' on choice click
             } else if ($attrs.single && ($scope._selectedChoices.length < 1)){
               $scope._selectedChoices.push(choice);
               $scope._choices.splice($scope._choices.indexOf(choice), 1);
             }
+
+            /**
+             * Send notification change
+             * If exist change function in scope then use this function, else, send the change
+             * from this point
+             */
+            if( typeof $scope.change === 'function') {
+              var cwFormName = $scope.$parent.$parent['cwForm-name'];
+              $scope.change($scope.$parent.$parent[cwFormName], $scope.$parent, $attrs.name, choice);
+            } else {
+              //TODO Send Change
+            }
+
             $scope._search='';
             $scope._searchElem.focus();
             $event.preventDefault();
