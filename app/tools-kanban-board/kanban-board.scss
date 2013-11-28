@@ -184,8 +184,9 @@ $borKanba: 12px;
 .widget-toolbar-kanban-form {
   @extend .widget-toolbar-kanban;
   display: compact;
-  text-align: right;
-  margin-right: 30px;
+  position: absolute;
+  right: 5px;
+  font-size: 1.6em;
 }
 
 .blockInline-subtask {
