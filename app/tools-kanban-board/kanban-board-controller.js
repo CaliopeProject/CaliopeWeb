@@ -22,10 +22,20 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
       $scope.data =[];
 
       //Put task when other user create
-      $scope.$on('createTask', function (event, data){
-        $scope.$apply(function () {
-          taskService.addTask(data);
-        });
+      $scope.$on('createTask', function (event, data) {
+        if( data !== undefined && data.hasOwnProperty('contexts') ) {
+          var contextNewTask = undefined;
+          var varName = undefined;
+          for( varName in data.contexts ) {
+            contextNewTask = varName;
+            break;
+          }
+          if( $scope.context.uuid == contextNewTask ) {
+            $scope.$apply(function () {
+              taskService.addTask(data);
+            });
+          }
+        }
       });
 
       //Put data in task when other user edit
