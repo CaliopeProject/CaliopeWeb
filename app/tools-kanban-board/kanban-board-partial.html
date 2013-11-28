@@ -68,7 +68,7 @@
                       <ul class="item-list ui-sortable">
                         <li class="item-orange scrollbar16" ng-class="{'selected': subtask.complete}">
                         <label class="inline">
-                          <input type="checkbox"  ng-model='subtask.complete'  ng:click="checkSubtask(item, subtask.uuid_subtask, subtask.complete)">
+                          <input type="checkbox"  ng-model='subtask.complete'  ng-click="checkSubtask(item, subtask.uuid_subtask, subtask.complete)">
                           <span class="lbl"> {{subtask.description}}</span>
                         </label>
                         <div class="task-header">
