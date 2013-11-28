@@ -125,6 +125,13 @@ define(['angular', 'caliopeweb-formDirectives', 'task-services'], function (angu
             sendChange(cwForm, $scope, 'category');
           }
 
+          if( $scope.formtask !== undefined ) {
+            sendChange(cwForm, $scope, 'formtask');
+          }
+          if( $scope.target !== undefined ) {
+            sendChange(cwForm, $scope, 'target');
+          }
+
         }
       }
 
