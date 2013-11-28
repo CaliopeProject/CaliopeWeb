@@ -5,119 +5,124 @@
   </h1>
 </div>
 
-<div class="span12 center" ng-controller="kanbanBoardCtrl" ng-init="loadUserContexts()">
-  <h5>Contexto</h5>
-  <select ng-model="context" ng-change="changeContext()" ng-options="ctx.name for ctx in userContexts"></select>
-</div>
 
-<div class="row-fluid fillallheight" ng-controller="kanbanBoardCtrl">
+<div ng-controller="kanbanBoardCtrl">
 
-  <div class="span4 fillallheight" ng-repeat="obj in data" ng-model="obj.tasks" data-drop="true" jqyoui-droppable="{onDrop:'dropCallback'}">
-    <div class="widget-box-kanban fillallheight">
-      <div class="widget-header-kanban widget-header-small-kanban">
-        <h5>{{obj.category}}</h5>
-        <div class="widget-toolbar-kanban no-border">
-          <widget-task title="" category="obj.category"></widget-task>
+  <div class="span12 center" ng-init="loadUserContexts()">
+    <h5>Contexto</h5>
+    <select ng-model="context" ng-change="changeContext()" ng-options="ctx.name for ctx in userContexts"></select>
+  </div>
+
+  <div class="row-fluid fillallheight">
+    <div class="span4 fillallheight" ng-repeat="obj in data" ng-model="obj.tasks" data-drop="true" jqyoui-droppable="{onDrop:'dropCallback'}">
+      <div class="widget-box-kanban fillallheight">
+        <div class="widget-header-kanban widget-header-small-kanban">
+          <h5>{{obj.category}}</h5>
+          <div class="widget-toolbar-kanban no-border">
+            <widget-task title="" category="obj.category"></widget-task>
+          </div>
         </div>
-      </div>
-      <div class="widget-body-kanban fillallheight" >
-        <div class="widget-main fillallheight">
-          <div class="boxDrop fillallheight" >
-            <div ng-controller="kanbanItemCtrl"  ng-init="showSubtasks=false" category="{{obj.category}}"  uuid="{{item.uuid}}" ng-show='item.uuid' class='task-header-kanban' ng-repeat="item in obj.tasks track by $index" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false, onStart:'startDragCallback', onStop:'stopDragCallback'}">
+        <div class="widget-body-kanban fillallheight" >
+          <div class="widget-main fillallheight">
+            <div class="boxDrop fillallheight" >
+              <div ng-controller="kanbanItemCtrl"  ng-init="showSubtasks=false" category="{{obj.category}}"  uuid="{{item.uuid}}" ng-show='item.uuid' class='task-header-kanban' ng-repeat="item in obj.tasks track by $index" data-drag="true" ng-init="log=false" ng-mouseover="log=true" ng-mouseleave="log=false" data-jqyoui-options="{revert: 'invalid'}"  ng-model='obj.tasks' jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false, onStart:'startDragCallback', onStop:'stopDragCallback'}">
 
-              <div class="blockInline-subtask" ng-click="closeNotification(item.uuid)" >
-                <i ng-if="item.notification" tooltip="Tarea nueva" class="animated swing infianime icon-bell-alt text-info"></i>
-                <span class="green" ng-click="showSubtasks=!showSubtasks">
-                  <i tooltip="Estado Sub-tareas" class="icon-list-ul"></i>
-                  <span class="text-error"> {{countSubtask(item.subtasks)}} </span>
-                </span>
-                {{item.name}}
-              </div>
+                <div class="blockInline-subtask" ng-click="closeNotification(item.uuid)" >
+                  <i ng-if="item.notification" tooltip="Tarea nueva" class="animated swing infianime icon-bell-alt text-info"></i>
+                  <span class="green" ng-click="showSubtasks=!showSubtasks">
+                    <i tooltip="Estado Sub-tareas" class="icon-list-ul"></i>
+                    <span class="text-error"> {{countSubtask(item.subtasks)}} </span>
+                  </span>
+                  {{item.name}}
+                </div>
 
-              <div class="lbl widget-toolbar-kanban no-border" >
+                <div class="lbl widget-toolbar-kanban no-border" >
 
-                <span >
-                  <cw-task-execute target-uuid="{{getTargetUUID(item.target)}}" target-entity="{{item.formtask}}"></cw-task-execute>
-                </span>
+                  <span >
+                    <cw-task-execute target-uuid="{{getTargetUUID(item.target)}}" target-entity="{{item.formtask}}"></cw-task-execute>
+                  </span>
 
-                <span class="text-info" ng-click="showSubtasks=!showSubtasks">
-                  <i class="icon-double-angle-down" tooltip="Mostrar" ng-show="showSubtasks==false" ></i>
-                  <i class="icon-double-angle-up" tooltip="Ocultar" ng-show="showSubtasks==true"></i>
-                </span>
+                  <span class="text-info" ng-click="showSubtasks=!showSubtasks">
+                    <i class="icon-double-angle-down" tooltip="Mostrar" ng-show="showSubtasks==false" ></i>
+                    <i class="icon-double-angle-up" tooltip="Ocultar" ng-show="showSubtasks==true"></i>
+                  </span>
 
-                <span class="text-warning" ng-click="editTask(item.uuid, obj.category)">
-                  <i tooltip="Editar" class="icon-edit"></i>
-                </span>
+                  <span class="text-warning" ng-click="editTask(item.uuid, obj.category)">
+                    <i tooltip="Editar" class="icon-edit"></i>
+                  </span>
 
-                <span ng-if="obj.category == 'Done'" class="text-info" ng-click="archiveTask(item)">
-                  <i tooltip="Archivar" class="icon-archive"></i>
-                </span>
+                  <span ng-if="obj.category == 'Done'" class="text-info" ng-click="archiveTask(item)">
+                    <i tooltip="Archivar" class="icon-archive"></i>
+                  </span>
 
-                <span ng-click="deleteTask(item)">
-                  <i tooltip="Eliminar" class="icon-trash"></i>
-                </span>
+                  <span ng-click="deleteTask(item)">
+                    <i tooltip="Eliminar" class="icon-trash"></i>
+                  </span>
 
-              </div>
-              <div ng-init="log2=false" class='inline row-fluid' ng-show='showSubtasks'>
-              {{item.descripcion}}
-              <accordion close-others="true">
-                <accordion-group heading="Subtareas">
-                  <div ng-repeat="subtask in item.subtasks">
-                    <ul class="item-list ui-sortable">
-                      <li class="item-orange scrollbar16" ng-class="{'selected': subtask.complete}">
-                      <label class="inline">
-                        <input type="checkbox"  ng-model='subtask.complete'  ng:click="checkSubtask(item, subtask.uuid_subtask, subtask.complete)">
-                        <span class="lbl"> {{subtask.description}}</span>
-                      </label>
-                      <div class="task-header">
-                        <span ng-click="removeSubtask(item, subtask.uuid_subtask)">
-                          <i class="icon-trash"></i>
-                        </span>
-                      </div>
-                      </li>
-                    </ul>
-                  </div>
+                </div>
+                <div ng-init="log2=false" class='inline row-fluid' ng-show='showSubtasks'>
+                {{item.descripcion}}
+                <accordion close-others="true">
+                  <accordion-group heading="Subtareas">
+                    <div ng-repeat="subtask in item.subtasks">
+                      <ul class="item-list ui-sortable">
+                        <li class="item-orange scrollbar16" ng-class="{'selected': subtask.complete}">
+                        <label class="inline">
+                          <input type="checkbox"  ng-model='subtask.complete'  ng:click="checkSubtask(item, subtask.uuid_subtask, subtask.complete)">
+                          <span class="lbl"> {{subtask.description}}</span>
+                        </label>
+                        <div class="task-header">
+                          <span ng-click="removeSubtask(item, subtask.uuid_subtask)">
+                            <i class="icon-trash"></i>
+                          </span>
+                        </div>
+                        </li>
+                      </ul>
+                    </div>
 
-                  <form ng-controller="kanbanItemDataCtrl"class="form-inline"  ng-submit="addSubtask(item,description)">
-                    <input type="text" name="description" placeholder="Subtarea..." class="input-medium" ng-model="description"/>
-                    <button type="submit" class="btn btn-mini">Enviar</button>
-                  </form>
-                </accordion-group>
-                <accordion-group heading="Comentarios">
-                <div ng-repeat="comment in item.comments">
-                  <div class="dialogs">
-                    <div class="itemdiv dialogdiv">
-                      <div class="user hidden-phone">
-                        <img class="nav-user-photo " ng-src="data:image/png;base64,{{comment.user.image}}">
-                      </div>
-
-                      <div class="body scrollbar16">
-                        <div class="time">
-                          <i class="icon-time"></i>
-                          <span class="green name">{{comment.time | date:'short'}}</span>
+                    <form ng-controller="kanbanItemDataCtrl"class="form-inline"  ng-submit="addSubtask(item,description)">
+                      <input type="text" name="description" placeholder="Subtarea..." class="input-medium" ng-model="description"/>
+                      <button type="submit" class="btn btn-mini">Enviar</button>
+                    </form>
+                  </accordion-group>
+                  <accordion-group heading="Comentarios">
+                  <div ng-repeat="comment in item.comments">
+                    <div class="dialogs">
+                      <div class="itemdiv dialogdiv">
+                        <div class="user hidden-phone">
+                          <img class="nav-user-photo " ng-src="data:image/png;base64,{{comment.user.image}}">
                         </div>
 
-                        <div class="name">
-                          <span href="#">{{comment.user.name}}</span>
-                        </div>
+                        <div class="body scrollbar16">
+                          <div class="time">
+                            <i class="icon-time"></i>
+                            <span class="green name">{{comment.time | date:'short'}}</span>
+                          </div>
 
-                        <div class="text ">{{comment.text}}</div>
+                          <div class="name">
+                            <span href="#">{{comment.user.name}}</span>
+                          </div>
+
+                          <div class="text ">{{comment.text}}</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <form ng-controller="kanbanItemDataCtrl" class="form-inline" ng-submit="addComment(item,text,obj.category)">
-                  <input type="text" name="text" placeholder="Comentario..." class="input-medium" ng-model="text"/>
-                  <button type="submit" class="btn btn-mini">Enviar</button>
-                </form>
-                </accordion-group>
-              </accordion>
+                  <form ng-controller="kanbanItemDataCtrl" class="form-inline" ng-submit="addComment(item,text,obj.category)">
+                    <input type="text" name="text" placeholder="Comentario..." class="input-medium" ng-model="text"/>
+                    <button type="submit" class="btn btn-mini">Enviar</button>
+                  </form>
+                  </accordion-group>
+                </accordion>
 
+              </div>
             </div>
           </div>
-        </div>
 
+        </div>
+      </div>
       </div>
     </div>
   </div>
+</div>
