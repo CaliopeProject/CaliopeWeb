@@ -31,8 +31,8 @@ define(['angular', 'login-security-services'], function(angular) {
           if ( !loggedIn ) {
             // If we get here then the login failed due to bad credentials
             $scope.authError = 'Credenciales invalidas';
-          }else{
-              taskService.loadData();
+          } else {
+            $scope.$parent.$broadcast('userAuthenticated');
           }
         }, function(x) {
           // If we get here then there was a problem with the login request to the server

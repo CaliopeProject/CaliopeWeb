@@ -25,7 +25,7 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         contextService
       ){
         var timerMessage;
-
+        console.log('$id Scope appcontroller', $scope.$id);
         $scope.showMenu = false;
         $scope.toggle   = false;
         $scope.isAuthenticated = security.isAuthenticated;
@@ -45,19 +45,23 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
 
         $scope.$on('openWebSocket', function(event, data) {
           var uuid = sessionUuid.getIdSession();
-          security.requestCurrentUser(uuid).then(function(){
+          security.requestCurrentUser(uuid).then( function(){
             if(!!security.currentUser){
-              contextService.loadUserContexts().then(
-                  function( configContext ) {
-                    if( configContext !== undefined && configContext.hasOwnProperty('defaultContext') ) {
-                      taskService.loadData( configContext.defaultContext.uuid );
-                    }
-
-                    $scope.$broadcast('loadContexts');
-                  }
-              );
+              $scope.$broadcast('userAuthenticated');
             }
           });
+        });
+
+        $scope.$on('userAuthenticated', function() {
+          contextService.loadUserContexts().then(
+              function( configContext ) {
+                if( configContext !== undefined && configContext.hasOwnProperty('defaultContext') ) {
+                  taskService.loadData( configContext.defaultContext.uuid );
+                }
+
+                $scope.$broadcast('loadContexts');
+              }
+          );
         });
 
 
