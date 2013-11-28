@@ -374,6 +374,14 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
                 valTarget.push(relation.target);
               }
 
+              if( !angular.isArray(valTarget) ) {
+                var uniqueObj = {
+                  uuid : valTarget.uuid
+                }
+                valTarget = [];
+                valTarget.push(uniqueObj);
+              }
+
               /*
                Asociar valor para properties
                */
