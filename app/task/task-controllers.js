@@ -46,7 +46,6 @@ define(['angular', 'caliopeweb-formDirectives', 'task-services'], function (angu
           }
           holdersToSend.push(holderToSend);
           scopeForm.holders = holdersToSend;
-
         }
 
         cwFormNotif.sendChange(cwForm, scopeForm, name);
@@ -112,9 +111,11 @@ define(['angular', 'caliopeweb-formDirectives', 'task-services'], function (angu
           }
           if( action.targetTask !== undefined && action.targetTask.hasOwnProperty('uuid')) {
             if($scope.target === undefined) {
-              $scope.target = {};
+              $scope.target = [];
             }
-            $scope.target.uuid = action.targetTask.uuid;
+            $scope.target[0] = {
+              uuid : action.targetTask.uuid
+            };
           }
 
           /**
