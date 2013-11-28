@@ -25,7 +25,6 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         contextService
       ){
         var timerMessage;
-        console.log('$id Scope appcontroller', $scope.$id);
         $scope.showMenu = false;
         $scope.toggle   = false;
         $scope.isAuthenticated = security.isAuthenticated;

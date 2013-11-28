@@ -11,13 +11,14 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
 
       $scope.$on('loadContexts', function() {
         $scope.userContexts = contextService.getUserContexts();
-        $scope.context = contextService.getDefaultContext();
+        $scope.context      = contextService.getDefaultContext();
       });
 
       $scope.changeContext = function() {
         taskService.loadData($scope.context.uuid);
-      }
+      };
 
+      //close notification
       $scope.data =[];
 
       //Put task when other user create
@@ -41,13 +42,15 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
         $scope.data = taskService.getTask();
       });
 
-      $scope.editTask     = taskService.editTask;
+      $scope.closeNotification = taskService.closeNotification;
 
-      $scope.deleteTask   = taskService.deleteTask;
+      $scope.editTask          = taskService.editTask;
 
-      $scope.archiveTask  = taskService.archiveTask;
+      $scope.deleteTask        = taskService.deleteTask;
 
-      $scope.getSubTasks  = taskService.getSubTasks;
+      $scope.archiveTask       = taskService.archiveTask;
+
+      $scope.getSubTasks       = taskService.getSubTasks;
 
       $scope.dropCallback = function(event, ui) {
         var uuidtask = ui.draggable.attr("uuid");
@@ -77,9 +80,9 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
   dirmodule.controller("kanbanItemCtrl", ["$scope", 'taskService',
     function($scope, taskService) {
 
-      $scope.countSubtask = taskService.countSubtask;
-      $scope.checkSubtask = taskService.checkSubtask;
-      $scope.removeSubtask= taskService.removeSubtask;
+      $scope.countSubtask      = taskService.countSubtask;
+      $scope.checkSubtask      = taskService.checkSubtask;
+      $scope.removeSubtask     = taskService.removeSubtask;
 
       $scope.stopDragCallback = function(event, ui) {
         $scope.showSubtasks = false;
