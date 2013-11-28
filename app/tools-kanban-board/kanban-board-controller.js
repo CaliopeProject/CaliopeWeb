@@ -1,12 +1,22 @@
 /*jslint browser: true,  unparam: true*/
 /*global define, console, $*/
 
-define(['angular', 'angular-dragdrop', 'task-controllers','task-directives'], function (angular) {
+define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'context-services'], function (angular) {
   'use strict';
-  var dirmodule = angular.module('kanbanBoardCtrl', ['ngDragDrop', 'ui.bootstrap', 'task-controllers','task-directives']);
+  var dirmodule = angular.module('kanbanBoardCtrl', ['ngDragDrop', 'ui.bootstrap', 'task-controllers','task-directives', 'ContextServices']);
 
-  dirmodule.controller("kanbanBoardCtrl", ["$scope",'taskService',
-    function($scope, taskService) {
+  dirmodule.controller("kanbanBoardCtrl", ["$scope",'taskService', 'contextService', 'loginSecurity',
+    function($scope, taskService, contextService, loginSecurity) {
+
+
+      $scope.$on('loadContexts', function() {
+        $scope.userContexts = contextService.getUserContexts();
+        $scope.context = contextService.getDefaultContext();
+      });
+
+      $scope.changeContext = function() {
+        taskService.loadData($scope.context.uuid);
+      }
 
       $scope.data =[];
 
