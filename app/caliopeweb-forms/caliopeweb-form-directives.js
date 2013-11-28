@@ -584,7 +584,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             var innerForm = createInnerForm(nameIF, index, mode, uuid);
             $scope.innerForms[innerForm.name] = innerForm;
             totalIF++;
-            console.log('name total', name, totalIF);
           } else {
             //TODO: Crear una notificación de mensaje para el usuario
             console.log('No se pueden crear más formularios para ' + name + '. Máximo posible:' + cardinality);
