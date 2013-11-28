@@ -202,8 +202,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
               mode                  : 'create',
               targetTask            : targetTask,
               category              : category,
-              dialogName            : DIALOG_NAME_FORM_TASK,
-              loopback_notification : false
+              dialogName            : DIALOG_NAME_FORM_TASK
             };
             opts.resolve = {
               action : function(){
@@ -228,6 +227,15 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             }
           },
 
+          closeNotification: function(loadTaskd){
+            angular.forEach(ALLTASK, function(vAlltask,kAlltask){
+              angular.forEach(vAlltask.tasks, function(vTasks, kTasks) {
+                if (vTasks.uuid === loadTaskd) {
+                  delete  ALLTASK[kAlltask].tasks[kTasks].notification;
+                }
+              });
+            });
+          },
 
           updateTask:  function(updateTask){
             if(!angular.isUndefined(updateTask)){
@@ -410,6 +418,8 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             sendData('tasks', 'tasks.updateField', data, task.uuid);
             sendData('tasks', 'tasks.commit', {} , task.uuid);
           },
+
+
 
 
           removeSubtask: function(task, uuidsub){
