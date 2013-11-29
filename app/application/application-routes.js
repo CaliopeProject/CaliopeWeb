@@ -4,27 +4,33 @@ define(['angular', 'application-app'], function(angular, app) {
   'use strict';
 
   var ERROR_FORMTEMP_NOTFOUND = "FormTemplateNotFoundError";
+  var ERROR_FORMTEMP_NOTLOADED  = "FormTemplateNotLoadedError";
   var PAGE_GENERIC_PARTIAL = '/caliopeweb-forms/caliopeweb-form-generic-partial.html';
 
   var pagesRoute = {
     'projects'                 : '/proyectomtv/form-proyectomtv-partial.html'
   };
 
+  var loadedForms = false;
+
   /**
    * Load the forms defined in server to pagesRoutes.
    */
-  app.run(['$rootScope', 'webSocket', function($rootScope, webSocket){
+  app.run(['$rootScope', '$timeout', 'webSocket', function($rootScope, $timeout, webSocket) {
+
     $rootScope.$on('openWebSocket', function(event) {
       var method = "form.getForms";
       var params = {};
       webSocket.WebSockets().serversimm.sendRequest(method, params).then( function processLoadForms(result) {
-        angular.forEach(result, function(vForm, kForm){
+        angular.forEach(result, function(vForm, kForm) {
           if( !pagesRoute.hasOwnProperty(vForm.formId) ) {
             pagesRoute[vForm.formId] = PAGE_GENERIC_PARTIAL;
           }
         });
+        loadedForms = true;
       });
     });
+
   }]);
 
   app.config(['$routeProvider','$locationProvider'
@@ -62,12 +68,20 @@ define(['angular', 'application-app'], function(angular, app) {
     $routeProvider.when('/form/:entity/:mode/:uuid',{
       templateUrl : function(routeParams) {
         console.log('/form/:entity/:mode/:uuid', routeParams);
-        if( pagesRoute.hasOwnProperty(routeParams.entity) === false ) {
-          var error = new Error("No route page find in configuration for entity " + routeParams.entity);
-          error.name = ERROR_FORMTEMP_NOTFOUND;
+
+        if( loadedForms === false ) {
+          var error = new Error("Forms no loaded ");
+          error.name = ERROR_FORMTEMP_NOTLOADED;
           throw error;
+        } else {
+          if( pagesRoute.hasOwnProperty(routeParams.entity) === false ) {
+            var error = new Error("No route page find in configuration for entity " + routeParams.entity);
+            error.name = ERROR_FORMTEMP_NOTFOUND;
+            throw error;
+          }
+
+          return pagesRoute[routeParams.entity];
         }
-        return pagesRoute[routeParams.entity];
       }
     })
 
@@ -123,11 +137,36 @@ define(['angular', 'application-app'], function(angular, app) {
 
   app.run(['$route', angular.noop]);
 
-  app.run(['$rootScope','$route',function($rootScope, $route) {
+  app.run(['$rootScope','$route', '$timeout', '$location', function($rootScope, $route, $timeout, $location) {
     $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
       if( rejection !== undefined && rejection.name === ERROR_FORMTEMP_NOTFOUND ) {
         window.history.back();
       }
+      var attempts = 0;
+      var MAXATTEMPTS = 5;
+
+
+      function reload() {
+        attempts++;
+        if( attempts >= MAXATTEMPTS ) {
+          window.history.back();
+        }
+        if( loadedForms === false) {
+          var promiseTO = $timeout(function() {
+            reload();
+          },200);
+        } else {
+          if (promiseTO !== undefined) {
+            $timeout.cancel(promiseTO);
+          }
+          $location.path($location.$$path + "/");
+        }
+      }
+
+      if( rejection !== undefined && rejection.name === ERROR_FORMTEMP_NOTLOADED ) {
+        reload();
+      }
+
     });
   }]);
 
