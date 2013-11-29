@@ -13,6 +13,7 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
       $scope.$on('loadContexts', function() {
         $scope.userContexts = contextService.getUserContexts();
         $scope.contexts     = contextService.getDefaultContext();
+        taskService.loadData($scope.contexts.uuid);
       });
 
       //Put task when other user create
@@ -43,27 +44,25 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
         });
       });
 
-      $scope.userContexts = contextService.getUserContexts();
-      $scope.contexts     = contextService.getDefaultContext();
+      $scope.userContexts         = contextService.getUserContexts();
 
-      $scope.data = taskService.getTask();
-      $scope.showSubtasks = false;
+      $scope.contexts             = contextService.getDefaultContext();
 
+      $scope.data                 = taskService.getTask();
 
-      $scope.closeNotification = taskService.closeNotification;
+      $scope.showSubtasks         = false;
 
-      $scope.editTask          = taskService.editTask;
+      $scope.closeNotification    = taskService.closeNotification;
 
-      $scope.deleteTask        = taskService.deleteTask;
+      $scope.editTask             = taskService.editTask;
 
-      $scope.archiveTask       = taskService.archiveTask;
+      $scope.deleteTask           = taskService.deleteTask;
 
-      $scope.getSubTasks       = taskService.getSubTasks;
+      $scope.archiveTask          = taskService.archiveTask;
 
-      $scope.changeContext     = function(context){
-        $scope.context = context;
-        taskService.loadData(context.uuid);
-      };
+      $scope.getSubTasks          = taskService.getSubTasks;
+
+      $scope.changeCurrentContext = contextService.changeCurrentContext;
 
       $scope.dropCallback = function(event, ui) {
         var uuidtask = ui.draggable.attr("uuid");

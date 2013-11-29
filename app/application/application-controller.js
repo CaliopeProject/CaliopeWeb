@@ -52,17 +52,8 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         });
 
         $scope.$on('userAuthenticated', function() {
-          contextService.loadUserContexts().then(
-              function( configContext ) {
-                if( configContext !== undefined && configContext.hasOwnProperty('defaultContext') ) {
-                  taskService.loadData( configContext.defaultContext.uuid );
-                }
-
-                $scope.$broadcast('loadContexts');
-              }
-          );
+          contextService.loadUserContexts();
         });
-
 
         $scope.$on('closeWebSocket', function(event, data) {
           security.resetAuthentication();
