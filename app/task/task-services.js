@@ -151,7 +151,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             });
           }
 
-          tempServices.sendDataForm(entidad,metodo,sendDato,uuidEntidad,uuidEntidad);
+          tempServices.sendDataForm(entidad,metodo,sendDato,uuidEntidad);
         }
 
 

@@ -17,8 +17,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
   });
 
   moduleServices.factory('caliopewebTemplateSrv',
-    ['$q', '$rootScope', '$http', 'webSocket',
-    function ($q, $rootScope, $http, webSocket) {
+    ['$q', 'webSocket',
+    function ($q, webSocket) {
 
       //We return this object to anything injecting our service
       var Service     = {};
@@ -61,6 +61,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
 
           if (mode === 'toCreate' || mode==='create' ) {
             method = model.concat('.getModel');
+            params.data = 'false';
             promiseMode = webSockets.serversimm.sendRequest(method, params);
             promiseMode.then(resolveResult);
 
@@ -69,11 +70,13 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
             //promise = deferred.promise;
 
             method = model.concat('.getModel');
+            params.data = 'false';
             var promiseGetModel = webSockets.serversimm.sendRequest(method, params);
 
             promiseGetModel.then(function(resultModel) {
               method = model.concat('.getData');
               params.uuid = modelUUID;
+              delete params.data;
               var promiseGetData = webSockets.serversimm.sendRequest(method, params);
               promiseGetData.then(function(resultData) {
                 if( resultData !== undefined && resultData.error === undefined &&
@@ -129,7 +132,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
       * @param objID Identified of the data
       * @returns {{}}
       */
-      Service.sendDataForm = function(formTemplateName, actionMethod, object, modelUUID, objID, encapsulateInData) {
+      Service.sendDataForm = function(formTemplateName, actionMethod, object,  objID, encapsulateInData) {
 
         var params = {};
         var method = actionMethod;
@@ -147,7 +150,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
           jQuery.extend(params.data, object);
           params = {
             "formId" : formTemplateName
-            //"formUUID" : modelUUID
           };
         } else {
           jQuery.extend(params, object);
@@ -206,7 +208,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
        */
       Service.load = function (value , cwForm) {
 
-          var context = {};
           var templateFromServer = value;
           var result = {};
 

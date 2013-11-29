@@ -1,4 +1,4 @@
-/*jslint browser: true*/
+/*jslint browser: true, unparam: true*/
 /*global define,CaliopeWebForm,
  CaliopeWebFormSpecificDecorator,
  CaliopeWebFormActionsDecorator,
@@ -113,9 +113,8 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload',
           if( generic === true || generic === "true") {
             processGenericForm(cwForm, params, $routeParams.entity);
             $scope.entityModel = $routeParams.entity;
-          } else {
-
           }
+
           $scope.actionsToShow = actionsToShow;
           $scope.caliopeForm   = cwForm;
 
@@ -162,9 +161,10 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload',
           $scope.caliopeForm   = calwebTemSrv.caliopeForm;
           calwebTemSrv.loadTemplateData().then(function(result) {
             var i;
+            var nameVarScope;
             var inputs = result.elements;
             for (i = 0; i < inputs.length; i++) {
-              var nameVarScope = inputs[i].name;
+              nameVarScope = inputs[i].name;
               if( action[nameVarScope] !== undefined) {
                 $scope[nameVarScope] = action[nameVarScope];
               }
@@ -216,7 +216,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload',
           }
 
           caliopewebTemplateSrv.sendDataForm(formTemplateName,
-              actionMethod, data, modelUUID, objID, encapsulateInData).then( function(value) {
+              actionMethod, data, objID, encapsulateInData).then( function(value) {
 
               if (value !== undefined && value !== null) {
 
