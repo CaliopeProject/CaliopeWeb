@@ -33,7 +33,7 @@ dirmodule.directive('ngFileuploader', ['SessionSrv', function(security) {
               formData : {
                  uuid         : $attrs.modeluuid,
                  session_uuid : security.getIdSession(),
-                 field        : $attrs.fieldattch,
+                 field        : $attrs.fieldattch
               },
               //TODO: to check
               add: function (e, data) {
