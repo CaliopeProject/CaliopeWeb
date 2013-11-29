@@ -25,7 +25,7 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
             contextNewTask = varName;
             break;
           }
-          if( $scope.context.uuid === contextNewTask ) {
+          if( $scope.contexts.uuid === contextNewTask ) {
             $scope.$apply(function () {
               taskService.addTask(data);
             });
