@@ -60,7 +60,10 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
 
       $scope.getSubTasks       = taskService.getSubTasks;
 
-      $scope.changeContext     = taskService.loadData;
+      $scope.changeContext     = function(context){
+        $scope.context = context;
+        taskService.loadData(context.uuid);
+      };
 
       $scope.dropCallback = function(event, ui) {
         var uuidtask = ui.draggable.attr("uuid");
