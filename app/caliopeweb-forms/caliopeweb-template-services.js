@@ -70,7 +70,6 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
             //promise = deferred.promise;
 
             method = model.concat('.getModel');
-            params.data = false;
             var promiseGetModel = webSockets.serversimm.sendRequest(method, params);
 
             promiseGetModel.then(function(resultModel) {
