@@ -15,57 +15,63 @@ dirmodule.directive('ngFileuploader', ['SessionSrv', function(security) {
             filename: '=ngModel'
         },
 
-        link: function(scope, elm, attrs) {
-            var nid = 'progres' + Math.floor((Math.random()*100)+1);
-            $(elm).find('#progress').attr('id', nid);
-            $(elm).fileupload({
-                method : 'POST',
-                url     : $caliope_constant.hyperion_server_address ,
-                dataType: 'json',
-                paramName: 'files[]',
-                sequentialUploads: true,
-                formData : {
-                   uuid         : attrs.modeluuid,
-                   session_uuid : security.getIdSession(),
-                   field        : attrs.fieldattch,
-                },
-                //TODO: to check
-                add: function (e, data) {
-                    scope.$apply(function() {
-                        $('#progress .bar').css(
-                                'width','0%'
-                        );
-                    });
-                  data.submit();
-                },
-                progress: function(e, data) {
-                    var progress = parseInt(data.loaded / data.total * 100, 10);
-                },
-                progressall: function(e, data) {
-                    var progress = parseInt(data.loaded / data.total * 100, 10);
+        link: function($scope, $element, $attrs) {
 
-                    scope.$apply(function() {
-                        $('#' + nid +' .bar').css(
-                                'width',
-                                progress + '%'
-                        );
-                    });
-                },
+          var scopeData = $element.scope().$parent;
+          if( scopeData !== undefined ) {
+            $scope.filelist = scopeData[$attrs.name];
+          }
 
-                done: function(e, data) {
-                    var i;
-                    var filelist = scope.filelist;
-                    if (filelist === undefined){
-                        filelist = [];
-                    }
-                    for (i = 0; i < data.result.length; i++) {
-                        filelist.push(data.result[i]);
-                    }
+          var nid = 'progres' + Math.floor((Math.random()*100)+1);
+          $($element).find('#progress').attr('id', nid);
+          $($element).fileupload({
+              method : 'POST',
+              url     : $caliope_constant.hyperion_server_address ,
+              dataType: 'json',
+              paramName: 'files[]',
+              sequentialUploads: true,
+              formData : {
+                 uuid         : $attrs.modeluuid,
+                 session_uuid : security.getIdSession(),
+                 field        : $attrs.fieldattch,
+              },
+              //TODO: to check
+              add: function (e, data) {
+                  $scope.$apply(function() {
+                      $('#progress .bar').css(
+                              'width','0%'
+                      );
+                  });
+                data.submit();
+              },
+              progress: function(e, data) {
+                  var progress = parseInt(data.loaded / data.total * 100, 10);
+              },
+              progressall: function(e, data) {
+                  var progress = parseInt(data.loaded / data.total * 100, 10);
 
-                    scope.filelist = filelist;
-                    scope.$apply();
-                }
-            });
+                  $scope.$apply(function() {
+                      $('#' + nid +' .bar').css(
+                              'width',
+                              progress + '%'
+                      );
+                  });
+              },
+
+              done: function(e, data) {
+                  var i;
+                  var filelist = $scope.filelist;
+                  if (filelist === undefined){
+                      filelist = [];
+                  }
+                  for (i = 0; i < data.result.length; i++) {
+                      filelist.push(data.result[i]);
+                  }
+
+                  $scope.filelist = filelist;
+                  $scope.$apply();
+              }
+          });
         }
 
     };
