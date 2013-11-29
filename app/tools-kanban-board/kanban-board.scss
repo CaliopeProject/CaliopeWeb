@@ -16,6 +16,13 @@
   @include experimental('animation-iteration-count', infinite, $animation-support);
 }
 
+.proyecFilter {
+  position   : absolute;
+  text-align : right;
+  right      : 0px;
+  top        : 0px;
+}
+
 .sticky-note {
   border: 1px solid #ffb366;
   background: #FFFFCC;

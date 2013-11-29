@@ -22,7 +22,7 @@
     "angular-route-unstable"     : "4d596260ca4674700eccbe11769b7d157fb89cad",
     "jquery-ui-bootstrap"        : "~0.2.5",
     "angular-dragdrop"           : "~1.0.2",
-    "animate.scss"               : "62aebcf7c8",
+    "animate.scss"               : "62aebcf7c8bf617dcaea25fc8f3f44d558f2b43e",
     "ckeditor"                   : "0b243e1c3a292c728442f47f47d8e5da8fab649b"
   }
 }

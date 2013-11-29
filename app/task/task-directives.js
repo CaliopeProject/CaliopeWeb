@@ -1,5 +1,5 @@
 /*jslint browser: true*/
-/*global $scope, angular, Crypto*/
+/*global define, $scope, angular, Crypto*/
 
 
 define(['angular'], function(angular) {
@@ -36,10 +36,8 @@ define(['angular'], function(angular) {
           });
         }
 
+        $scope.createTask  = taskService.createTask;
 
-        $scope.createTask  = function (category, targetTask){
-          taskService.createTask(targetTask, category);
-        };
       }
     };
 

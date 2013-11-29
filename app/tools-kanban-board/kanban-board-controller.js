@@ -8,34 +8,32 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
   dirmodule.controller("kanbanBoardCtrl", ["$scope",'taskService', 'contextService', 'loginSecurity',
     function($scope, taskService, contextService, loginSecurity) {
 
+      $scope.data =[];
 
       $scope.$on('loadContexts', function() {
         $scope.userContexts = contextService.getUserContexts();
-        $scope.context      = contextService.getDefaultContext();
+        $scope.contexts     = contextService.getDefaultContext();
       });
-
-      $scope.changeContext = function() {
-        taskService.loadData($scope.context.uuid);
-      };
-
-      //close notification
-      $scope.data =[];
 
       //Put task when other user create
       $scope.$on('createTask', function (event, data) {
         if( data !== undefined && data.hasOwnProperty('contexts') ) {
-          var contextNewTask = undefined;
-          var varName = undefined;
+          var contextNewTask;
+          var varName;
           for( varName in data.contexts ) {
             contextNewTask = varName;
             break;
           }
-          if( $scope.context.uuid == contextNewTask ) {
+          if( $scope.context.uuid === contextNewTask ) {
             $scope.$apply(function () {
               taskService.addTask(data);
             });
           }
         }
+      });
+
+      $scope.$on('taskServiceNewTask', function (event, data) {
+        $scope.data = taskService.getTask();
       });
 
       //Put data in task when other user edit
@@ -45,12 +43,12 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
         });
       });
 
+      $scope.userContexts = contextService.getUserContexts();
+      $scope.contexts     = contextService.getDefaultContext();
+
       $scope.data = taskService.getTask();
       $scope.showSubtasks = false;
 
-      $scope.$on('taskServiceNewTask', function (event, data) {
-        $scope.data = taskService.getTask();
-      });
 
       $scope.closeNotification = taskService.closeNotification;
 
@@ -61,6 +59,11 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
       $scope.archiveTask       = taskService.archiveTask;
 
       $scope.getSubTasks       = taskService.getSubTasks;
+
+      $scope.changeContext     = function(context){
+        $scope.context = context;
+        taskService.loadData(context.uuid);
+      };
 
       $scope.dropCallback = function(event, ui) {
         var uuidtask = ui.draggable.attr("uuid");

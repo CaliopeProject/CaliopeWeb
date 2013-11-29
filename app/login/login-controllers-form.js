@@ -4,8 +4,8 @@ define(['angular', 'login-security-services'], function(angular) {
   'use strict';
   var moduleControllers = angular.module('login-controllers-form', []);
 
-  moduleControllers.controller('login-controllers-form',['$scope','loginSecurity','taskService'
-    ,function($scope, security, taskService){
+  moduleControllers.controller('login-controllers-form',['$scope','loginSecurity'
+    ,function($scope, security){
       // The model for this form
       $scope.user = {};
 

@@ -1,4 +1,4 @@
-/*jslint browser: true*/
+/*jslint browser: true, unparam: true*/
 /*global define*/
 
 define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower','login-retryQueue','login-security-services','task-services', 'login-directives','httpRequestTrackerService', 'context-services'], function(angular) {
