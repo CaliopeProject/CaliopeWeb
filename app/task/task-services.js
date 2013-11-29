@@ -113,7 +113,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                   infoUpdate();
                 });
             });
-          MODEL_TASK = tempServices.createForm(NAME_MODEL_TASK, 'create', '');
+          MODEL_TASK = tempServices.createForm(NAME_MODEL_TASK, 'search', '');
           tempServices.loadForm(MODEL_TASK, {});
         }
 

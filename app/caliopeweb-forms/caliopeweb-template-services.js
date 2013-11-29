@@ -64,8 +64,11 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
             params.data = true;
             promiseMode = webSockets.serversimm.sendRequest(method, params);
             promiseMode.then(resolveResult);
-
-          } else if (mode === 'toEdit' || mode==='edit') {
+          }else if(mode==='search'){
+            method = model.concat('.getModel');
+            promiseMode = webSockets.serversimm.sendRequest(method, params);
+            promiseMode.then(resolveResult);
+          }else if (mode === 'toEdit' || mode==='edit') {
             var modelUUID = cwForm.getModelUUID();
             //promise = deferred.promise;
 
