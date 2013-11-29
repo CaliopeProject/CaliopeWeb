@@ -81,7 +81,9 @@ require.config({
     'read-rss-services'              : 'read-rss/read-rss-services',
     'read-rss-controllers'           : 'read-rss/read-rss-controllers',
 
-    'context-services'               : 'context/context-services'
+    'context-services'               : 'context/context-services',
+
+    'd3'                             : 'libs-js-thirdparty/d3/d3'
   },
   baseUrl: '/',
   shim: {
