@@ -139,9 +139,7 @@ define(['angular', 'application-app'], function(angular, app) {
 
   app.run(['$rootScope','$route', '$timeout', '$location', function($rootScope, $route, $timeout, $location) {
     $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
-      if( rejection !== undefined && rejection.name === ERROR_FORMTEMP_NOTFOUND ) {
-        window.history.back();
-      }
+
       var attempts = 0;
       var MAXATTEMPTS = 5;
 
@@ -163,6 +161,17 @@ define(['angular', 'application-app'], function(angular, app) {
         }
       }
 
+
+      /**
+       * If error is because the entity not exist in pagesRoute
+       */
+      if( rejection !== undefined && rejection.name === ERROR_FORMTEMP_NOTFOUND ) {
+        window.history.back();
+      }
+
+      /**
+       * If error is because pagesRoute or loadForm is not loaded
+       */
       if( rejection !== undefined && rejection.name === ERROR_FORMTEMP_NOTLOADED ) {
         reload();
       }
