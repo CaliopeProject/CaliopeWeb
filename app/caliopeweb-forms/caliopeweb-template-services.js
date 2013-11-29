@@ -61,7 +61,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
 
           if (mode === 'toCreate' || mode==='create' ) {
             method = model.concat('.getModel');
-            params.data = 'false';
+            params.data = false;
             promiseMode = webSockets.serversimm.sendRequest(method, params);
             promiseMode.then(resolveResult);
 
@@ -70,7 +70,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
             //promise = deferred.promise;
 
             method = model.concat('.getModel');
-            params.data = 'false';
+            params.data = false;
             var promiseGetModel = webSockets.serversimm.sendRequest(method, params);
 
             promiseGetModel.then(function(resultModel) {
