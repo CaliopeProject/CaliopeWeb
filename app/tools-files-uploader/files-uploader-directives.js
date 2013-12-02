@@ -45,7 +45,7 @@ dirmodule.directive('ngFileuploader', ['SessionSrv', function(security) {
                 data.submit();
               },
               progress: function(e, data) {
-                  var progress = parseInt(data.loaded / data.total * 100, 10);
+
               },
               progressall: function(e, data) {
                   var progress = parseInt(data.loaded / data.total * 100, 10);
