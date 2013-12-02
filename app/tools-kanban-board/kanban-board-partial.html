@@ -1,11 +1,13 @@
 <div ng-controller="kanbanBoardCtrl" class="row-fluid fillallheight">
 
-  <div class="page-header position-relative">
-    <h1>
-      Administrador de tareas
-    </h1>
-    <div class="proyecFilter">
-      <div class="input-append">
+  <div class="page-header span12">
+    <div class="span6">
+      <h1>
+        Administrador de tareas
+      </h1>
+    </div>
+    <div class="span6">
+      <div class="input-append proyecFilter">
         <div class="btn-group">
           <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
             {{contexts.name}}
@@ -16,10 +18,19 @@
           </ul>
         </div>
         <input class="input-large" ng-model="filterTask.tasks" type="text">
+        <a href="#/tree">
+          <button class="btn btn-info btn-small " tooltip="Arbol del proyecto">
+            <i class="icon-sitemap"></i>
+          </button>
+        </a>
+        <a href="">
+          <button class="btn btn-small" tooltip="Estadisticas">
+            <i class="icon-bar-chart"></i>
+          </button>
+        </a>
       </div>
     </div>
   </div>
-
 
   <div class="row-fluid fillallheight">
     <div class="span4 fillallheight" ng-repeat="obj in data | filter:filterTask:strict" ng-model="obj.tasks" data-drop="true" jqyoui-droppable="{onDrop:'dropCallback'}">

@@ -19,6 +19,7 @@ var dependencies = [
   ,'wysiwyg-editor-controller'
   ,'proyectomtv-controller'
   ,'admin-users-controller'
+  ,'tree-project-controller'
 ];
 
 //only controllers name modules
@@ -37,6 +38,7 @@ var modulesAngular = [
   ,'wysiwygEditorCtrl'
   ,'ProyectoControllers'
   ,'AdminUsersController'
+  ,'treeController'
 ];
 
 define(dependencies, function (angular) {
