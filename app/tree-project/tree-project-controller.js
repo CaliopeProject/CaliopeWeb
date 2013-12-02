@@ -11,7 +11,7 @@ define(['angular', 'context-services'], function (angular) {
     ,function($scope, contextService, webSocket) {
         var WEBSOCKETS = webSocket.WebSockets();
         var params     = {};
-        var method     = "forms.getAll";
+        var method     = "form.getAll";
         WEBSOCKETS.serversimm.sendRequest(method, params).then( function( responseContexts) {
           $scope.text = responseContexts;
         });
