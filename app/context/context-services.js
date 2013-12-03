@@ -22,13 +22,11 @@ define(['angular'], function(angular) {
        * Load CONTEXTS from server.
        * @returns {promise}
        */
-
-
       services.loadUserContexts = function () {
         var method = "tasks.getCurrentUserContexts";
         var params = {};
 
-        WEBSOCKETS.serversimm.sendRequest(method, params).then( function( responseContexts) {
+        var promise = WEBSOCKETS.serversimm.sendRequest(method, params).then( function( responseContexts) {
           if( !responseContexts.hasOwnProperty('error') ) {
             CONTEXTS = responseContexts;
             if( angular.isArray(CONTEXTS) && CONTEXTS.length > 0 ) {
@@ -37,6 +35,8 @@ define(['angular'], function(angular) {
             }
           }
         });
+
+        return promise;
       };
 
       /**
@@ -65,6 +65,7 @@ define(['angular'], function(angular) {
           defaultContext = context;
           infoUpdate();
         }
+        return defaultContext;
       };
 
       return services;
