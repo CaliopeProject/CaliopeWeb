@@ -10,11 +10,16 @@ define(['angular', 'application-servicesWebSocket', 'context-services', 'context
 
     ,function($scope, webSocket, contextService) {
         var WEBSOCKETS = webSocket.WebSockets();
-        var params     = {};
         var method     = "form.getAll";
-        WEBSOCKETS.serversimm.sendRequest(method, params).then( function( responseContexts) {
-          $scope.data = responseContexts;
-        });
+
+      $scope.$watch(function(){return contextService.getDefaultContext();}, function(value){
+        if(!angular.isUndefined(value)){
+          var params     = {context: value.uuid};
+          WEBSOCKETS.serversimm.sendRequest(method, params).then( function(responseContexts){
+            $scope.data = responseContexts;
+          });
+        }
+      });
     }
   ]);
 });
