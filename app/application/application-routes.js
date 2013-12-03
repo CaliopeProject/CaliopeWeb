@@ -61,7 +61,6 @@ define(['angular', 'application-app'], function(angular, app) {
     $routeProvider.when('/siim2_forms/:entity/:mode/:uuid', {
       templateUrl: '/caliopeweb-forms/siim2-form-generic-partial.html'});
 
-
     /*
       Dynamic route
      */
@@ -97,7 +96,7 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl: '/tools-gis-viewer/partial-gis-init.html'})
 
     .when('/tree', {
-      templateUrl: '/tree-project/tree-project-partial.html'})
+      templateUrl: '/tree-project/partial-tree-project.html'})
 
     .when('/admin-users', {
       templateUrl :function(routeParams, $rootScope) {

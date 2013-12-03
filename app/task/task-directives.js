@@ -2,7 +2,7 @@
 /*global define, $scope, angular, Crypto*/
 
 
-define(['angular'], function(angular) {
+define(['angular', 'task-services'], function(angular) {
   'use strict';
 
   var moduleDirectives = angular.module('task-directives',['task-services']);
@@ -13,7 +13,7 @@ define(['angular'], function(angular) {
       templateUrl: 'task/partial-task-widget-task.html',
       restrict: 'E',
       replace: true,
-      link: function($scope, $element, $attrs, $controller) {
+      link: function($scope, $element, $attrs) {
 
         $scope.title = $attrs.title;
         $scope.targetTask = {};

@@ -1,10 +1,10 @@
 /*jslint browser: true,  unparam: true*/
 /*global define, console, $*/
 
-define(['angular'], function(angular) {
+define(['angular', 'application-servicesWebSocket'], function(angular) {
   'use strict';
 
-  var moduleServices = angular.module('ContextServices', []);
+  var moduleServices = angular.module('ContextServices', ['webSocket']);
 
   moduleServices.factory('contextService', ['webSocket','$rootScope',
     function(websocketSrv, $rootScope) {
@@ -22,7 +22,6 @@ define(['angular'], function(angular) {
        * Load CONTEXTS from server.
        * @returns {promise}
        */
-
 
       services.loadUserContexts = function () {
         var method = "tasks.getCurrentUserContexts";

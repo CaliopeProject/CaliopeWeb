@@ -7,28 +7,7 @@
       </h1>
     </div>
     <div class="span6">
-      <div class="input-append proyecFilter">
-        <div class="btn-group">
-          <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
-            {{contexts.name}}
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li ng-click="changeCurrentContext(ctx)"  ng-repeat="ctx in userContexts">{{ctx.name}}</li>
-          </ul>
-        </div>
-        <input class="input-large" ng-model="filterTask.tasks" type="text">
-        <a href="#/tree">
-          <button class="btn btn-info btn-small " tooltip="Arbol del proyecto">
-            <i class="icon-sitemap"></i>
-          </button>
-        </a>
-        <a href="">
-          <button class="btn btn-small" tooltip="Estadisticas">
-            <i class="icon-bar-chart"></i>
-          </button>
-        </a>
-      </div>
+      <widget-Context></widget-Context>
     </div>
   </div>
 
