@@ -15,8 +15,13 @@
     </div>
 
     <ul class="item-list">
-      <li ng-repeat="data in filelist">
+      <li ng-repeat="data in filelist track by $index">
         <img ng-src="data:image/png;base64, {{data.thumbnail.data}}"></img> {{data.name}} - {{data.size}}
+        <div class="no-border animated pulse widget-toolbar-attachment">
+          <span ng-click="deleteFile(data)">
+            <i tooltip="Eliminar" class="icon-trash"></i>
+          </span>
+        </div>
       </li>
     </ul>
 

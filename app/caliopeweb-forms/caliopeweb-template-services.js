@@ -180,6 +180,18 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
 
       };
 
+      Service.deleteAttachment = function(uuidForm, uuidFile) {
+
+        var method = "document.delete";
+        var params = {
+          uuidForm : uuidForm,
+          uuidFile : uuidFile
+        };
+
+        return webSocket.WebSockets().serversimm.sendRequest(method, params)
+
+      };
+
 
       /**
        *
