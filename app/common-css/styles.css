@@ -32131,10 +32131,11 @@ a.olControlZoomOut {
 
 /* line 19, ../tools-kanban-board/kanban-board.scss */
 .proyecFilter {
-  position: absolute;
-  text-align: right;
-  right: 0px;
-  top: 0px;
+  float: right;
+}
+/* line 21, ../tools-kanban-board/kanban-board.scss */
+.proyecFilter button {
+  height: 30px;
 }
 
 /* line 26, ../tools-kanban-board/kanban-board.scss */

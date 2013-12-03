@@ -17,10 +17,10 @@
 }
 
 .proyecFilter {
-  position   : absolute;
-  text-align : right;
-  right      : 0px;
-  top        : 0px;
+  float: right;
+  & button {
+    height: 30px;
+  }
 }
 
 .sticky-note {

@@ -1,4 +1,4 @@
-/*jslint browser: true*/
+/*jslint browser: true,  unparam: true*/
 /*global define, window*/
 define(['angular', 'application-app'], function(angular, app) {
   'use strict';
@@ -61,7 +61,6 @@ define(['angular', 'application-app'], function(angular, app) {
     $routeProvider.when('/siim2_forms/:entity/:mode/:uuid', {
       templateUrl: '/caliopeweb-forms/siim2-form-generic-partial.html'});
 
-
     /*
       Dynamic route
      */
@@ -69,19 +68,20 @@ define(['angular', 'application-app'], function(angular, app) {
       templateUrl : function(routeParams) {
         console.log('/form/:entity/:mode/:uuid', routeParams);
 
+        var error;
+
         if( loadedForms === false ) {
-          var error = new Error("Forms no loaded ");
+          error = new Error("Forms no loaded ");
           error.name = ERROR_FORMTEMP_NOTLOADED;
           throw error;
-        } else {
+        }
           if( pagesRoute.hasOwnProperty(routeParams.entity) === false ) {
-            var error = new Error("No route page find in configuration for entity " + routeParams.entity);
+            error = new Error("No route page find in configuration for entity " + routeParams.entity);
             error.name = ERROR_FORMTEMP_NOTFOUND;
             throw error;
           }
 
           return pagesRoute[routeParams.entity];
-        }
       }
     })
 
@@ -94,6 +94,9 @@ define(['angular', 'application-app'], function(angular, app) {
 
     .when('/gis', {
       templateUrl: '/tools-gis-viewer/partial-gis-init.html'})
+
+    .when('/tree', {
+      templateUrl: '/tree-project/partial-tree-project.html'})
 
     .when('/admin-users', {
       templateUrl :function(routeParams, $rootScope) {
@@ -146,14 +149,15 @@ define(['angular', 'application-app'], function(angular, app) {
 
       function reload() {
         attempts++;
+        var promiseTO;
         if( attempts >= MAXATTEMPTS ) {
           window.history.back();
         }
         if( loadedForms === false) {
-          var promiseTO = $timeout(function() {
+          promiseTO = $timeout(function() {
             reload();
           },200);
-        } else {
+        } else{
           if (promiseTO !== undefined) {
             $timeout.cancel(promiseTO);
           }

@@ -82,6 +82,9 @@ require.config({
     'read-rss-controllers'           : 'read-rss/read-rss-controllers',
 
     'context-services'               : 'context/context-services',
+    'context-directives'             : 'context/context-directives',
+
+    'tree-project-controller'        : 'tree-project/tree-project-controller',
 
     'd3'                             : 'libs-js-thirdparty/d3/d3'
   },

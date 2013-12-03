@@ -1,10 +1,10 @@
 /*jslint browser: true,  unparam: true*/
 /*global define, console, $*/
 
-define(['angular'], function(angular) {
+define(['angular', 'application-servicesWebSocket'], function(angular) {
   'use strict';
 
-  var moduleServices = angular.module('ContextServices', []);
+  var moduleServices = angular.module('ContextServices', ['webSocket']);
 
   moduleServices.factory('contextService', ['webSocket','$rootScope',
     function(websocketSrv, $rootScope) {

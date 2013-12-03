@@ -1,20 +1,14 @@
 /*jslint browser: true,  unparam: true*/
 /*global define, console, $*/
 
-define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'context-services'], function (angular) {
+define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'context-services', 'context-directives'], function (angular) {
   'use strict';
-  var dirmodule = angular.module('kanbanBoardCtrl', ['ngDragDrop', 'ui.bootstrap', 'task-controllers','task-directives', 'ContextServices']);
+  var dirmodule = angular.module('kanbanBoardCtrl', ['ngDragDrop', 'ui.bootstrap', 'task-controllers','task-directives', 'ContextServices', 'context-directives']);
 
   dirmodule.controller("kanbanBoardCtrl", ["$scope",'taskService', 'contextService', 'loginSecurity',
     function($scope, taskService, contextService, loginSecurity) {
 
       $scope.data =[];
-
-      $scope.$on('loadContexts', function() {
-        $scope.userContexts = contextService.getUserContexts();
-        $scope.contexts     = contextService.getDefaultContext();
-        taskService.loadData($scope.contexts.uuid);
-      });
 
       //Put task when other user create
       $scope.$on('createTask', function (event, data) {
@@ -31,6 +25,12 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
             });
           }
         }
+      });
+
+      $scope.$on('loadContexts', function() {
+        $scope.userContexts = contextService.getUserContexts();
+        $scope.contexts     = contextService.getDefaultContext();
+        $scope.data         = taskService.loadData($scope.contexts.uuid);
       });
 
       $scope.$on('taskServiceNewTask', function (event, data) {
@@ -62,7 +62,6 @@ define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'co
 
       $scope.getSubTasks          = taskService.getSubTasks;
 
-      $scope.changeCurrentContext = contextService.changeCurrentContext;
 
       $scope.dropCallback = function(event, ui) {
         var uuidtask = ui.draggable.attr("uuid");
