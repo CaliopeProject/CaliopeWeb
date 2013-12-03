@@ -1,10 +1,10 @@
 /*jslint browser: true,  unparam: true*/
 /*global define, console, $*/
 
-define(['angular', 'application-servicesWebSocket', 'context-services', 'context-directives'], function (angular) {
+define(['angular', 'application-servicesWebSocket', 'context-services', 'context-directives', 'angular-ui-bootstrap-bower'], function (angular) {
   'use strict';
 
-  var treemodule = angular.module('treeController', ['webSocket', 'ContextServices', 'context-directives']);
+  var treemodule = angular.module('treeController', ['webSocket', 'ContextServices', 'context-directives', 'ui.bootstrap']);
 
   treemodule.controller("treeCtrl", ["$scope", 'webSocket', 'contextService'
 
@@ -13,7 +13,7 @@ define(['angular', 'application-servicesWebSocket', 'context-services', 'context
         var params     = {};
         var method     = "form.getAll";
         WEBSOCKETS.serversimm.sendRequest(method, params).then( function( responseContexts) {
-          $scope.text = responseContexts;
+          $scope.data = responseContexts;
         });
     }
   ]);

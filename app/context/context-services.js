@@ -6,8 +6,8 @@ define(['angular', 'application-servicesWebSocket'], function(angular) {
 
   var moduleServices = angular.module('ContextServices', ['webSocket']);
 
-  moduleServices.factory('contextService', ['webSocket','$rootScope',
-    function(websocketSrv, $rootScope) {
+  moduleServices.factory('contextService', ['$q','webSocket','$rootScope',
+    function($q, websocketSrv, $rootScope) {
 
       var services = {};
       var CONTEXTS ;
@@ -27,6 +27,9 @@ define(['angular', 'application-servicesWebSocket'], function(angular) {
         var method = "tasks.getCurrentUserContexts";
         var params = {};
 
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
         WEBSOCKETS.serversimm.sendRequest(method, params).then( function( responseContexts) {
           if( !responseContexts.hasOwnProperty('error') ) {
             CONTEXTS = responseContexts;
@@ -34,8 +37,16 @@ define(['angular', 'application-servicesWebSocket'], function(angular) {
               defaultContext = CONTEXTS[0];
               infoUpdate();
             }
+
+            deferred.resolve( {
+              defaultContext : defaultContext
+            });
+
           }
         });
+
+        return promise;
+
       };
 
       /**

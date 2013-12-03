@@ -52,7 +52,14 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         });
 
         $scope.$on('userAuthenticated', function() {
-          contextService.loadUserContexts();
+          contextService.loadUserContexts().then(
+            function( defaultContext ){
+              if( defaultContext !== undefined) {
+                taskService.loadData( defaultContext.defaultContext.uuid  );
+              }
+              $scope.$broadcast('loadContexts');
+            }
+          );
         });
 
         $scope.$on('closeWebSocket', function(event, data) {
@@ -66,11 +73,7 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
           });
 
           $scope.$on('taskServiceNewTask', function (event, data) {
-            try{
               $scope.taskpend = taskService.getTaskpend();
-            }catch(err){
-              console.log("No existen tareas pendientes");
-            }
           });
 
 

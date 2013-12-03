@@ -1,7 +1,7 @@
 /*jslint browser: true,  unparam: true*/
 /*global define, console, $*/
 
-define(['angular', 'angular-dragdrop', 'task-controllers','task-directives', 'context-services', 'context-directives'], function (angular) {
+define(['angular', 'angular-dragdrop', 'task-controllers', 'angular-ui-bootstrap-bower','task-directives', 'context-services', 'context-directives'], function (angular) {
   'use strict';
   var dirmodule = angular.module('kanbanBoardCtrl', ['ngDragDrop', 'ui.bootstrap', 'task-controllers','task-directives', 'ContextServices', 'context-directives']);
 
