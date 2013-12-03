@@ -22,7 +22,6 @@ define(['angular', 'application-servicesWebSocket'], function(angular) {
        * Load CONTEXTS from server.
        * @returns {promise}
        */
-
       services.loadUserContexts = function () {
         var method = "tasks.getCurrentUserContexts";
         var params = {};
@@ -46,7 +45,6 @@ define(['angular', 'application-servicesWebSocket'], function(angular) {
         });
 
         return promise;
-
       };
 
       /**
@@ -75,6 +73,7 @@ define(['angular', 'application-servicesWebSocket'], function(angular) {
           defaultContext = context;
           infoUpdate();
         }
+        return defaultContext;
       };
 
       return services;
