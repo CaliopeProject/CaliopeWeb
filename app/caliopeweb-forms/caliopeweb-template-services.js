@@ -164,6 +164,22 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
         return promise;
       };
 
+      /**
+       *
+       * @param attachments
+       */
+      Service.loadAttachments = function(uuidsFiles) {
+
+        var method = "document.getData";
+        var params = {
+          uuids : uuidsFiles
+        };
+
+        return webSocket.WebSockets().serversimm.sendRequest(method, params);
+
+
+      };
+
 
       /**
        *
