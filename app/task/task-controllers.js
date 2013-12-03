@@ -6,8 +6,10 @@ define(['angular', 'caliopeweb-formDirectives', 'task-services'], function (angu
 
   var module = angular.module('task-controllers', ['CaliopeWebFormDirectives', 'task-services']);
 
-  module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv', 'caliopeWebFormNotification', 'loginSecurity', 'action', 'taskService',
-    function($scope, $location, cwFormService, cwFormNotif, loginSecurity, action, taskServices) {
+  module.controller("TaskFormCtrl", ['$scope', '$location', 'caliopewebTemplateSrv',
+    'caliopeWebFormNotification', 'loginSecurity', 'action', 'taskService', 'contextService',
+    function($scope, $location, cwFormService, cwFormNotif, loginSecurity, action,
+             taskServices, contextService) {
 
       function putActionDataInScope() {
         angular.forEach(action, function(value, key){
@@ -60,7 +62,7 @@ define(['angular', 'caliopeweb-formDirectives', 'task-services'], function (angu
 
       function sendDelete(cwForm, scopeForm, name, deletedValue) {
 
-        var oHolders;
+        var oHolders = undefined;
 
         if( name === "holders" ) {
           var holders = [];
@@ -78,7 +80,7 @@ define(['angular', 'caliopeweb-formDirectives', 'task-services'], function (angu
 
       function sendCommit(cwForm) {
         return cwFormNotif.sendCommit(cwForm);
-      };
+      }
 
       $scope.change = function(cwForm, scopeForm, name, newValue) {
         sendChange(cwForm, scopeForm, name, newValue);
@@ -134,13 +136,22 @@ define(['angular', 'caliopeweb-formDirectives', 'task-services'], function (angu
           }
 
         }
-      }
+      };
 
       $scope.$on('actionComplete', function(event, result) {
-        if( result[1] === true ) {
-          var cwForm = $scope['cwForm-task'];
-          cwForm.addData(result[2]);
-          cwForm.dataToViewData($scope);
+        if( result[1] === true && result[2].hasOwnProperty('uuid') ) {
+
+          /*
+           * Logic for call taskService to delete or update task before action is completed.
+          */
+          if( contextService.getDefaultContext() !== undefined &&
+              event.targetScope.contexts[0].uuid != undefined &&
+              contextService.getDefaultContext().uuid !== event.targetScope.contexts[0].uuid ) {
+
+            taskServices.deleteUpdateTask(result[2].uuid);
+
+          }
+
         }
       });
 
