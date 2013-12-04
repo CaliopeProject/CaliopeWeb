@@ -120,7 +120,7 @@ define(['angular', 'application-constant', 'uuid', 'notificationsService'], func
                 send(request);
               },200);
             } else {
-              console.log('Service web socketSending request application-servicesWebsocket 124', (request));
+              console.log('Service web socket - Sending REQUEST application-servicesWebsocket 123', (request));
               ws.send(JSON.stringify(request));
             }
           }
@@ -169,7 +169,8 @@ define(['angular', 'application-constant', 'uuid', 'notificationsService'], func
               request.push(createRequest(value.method, value.params, callbackId));
               callbacks[callbackId] = {
                 time: new Date(),
-                cb:defer
+                cb:defer,
+                method: value.method
               };
               promise.push(handlerResponseSrv.addPromisesHandlerRespNotif(defer.promise));
             });
@@ -187,8 +188,11 @@ define(['angular', 'application-constant', 'uuid', 'notificationsService'], func
           */
           var listener = function (data) {
             var messageObj = data;
+
             var procces    = function (callvalue){
+              var timeElapsed = 0;
               if(callbacks.hasOwnProperty(callvalue[callbackAttName])) {
+                timeElapsed = new Date() - callbacks[callvalue[callbackAttName]].time;
                 $rootScope.$apply(
                   callbacks[callvalue[callbackAttName]].cb.resolve(callvalue)
                 );
@@ -199,8 +203,9 @@ define(['angular', 'application-constant', 'uuid', 'notificationsService'], func
                   HandlerNotification.sendinfo(messageObj);
                 }
               }
+              console.log("Service web socket - RECEIVED data from websocket 203 (" + (timeElapsed) + "ms ):", messageObj);
             };
-            console.log("Service web socketReceived data from websocket 203: ", messageObj);
+
             // If an object exists with callback_id in our callbacks object, resolve it
             // console.log("Service web socket messageObj.data:", messageObj.data);
             if(angular.isArray(messageObj)){
