@@ -126,30 +126,46 @@ define(['angular', 'caliopeweb-formDirectives', 'task-services'], function (angu
            */
           if( cwForm.getMode() === 'create' ) {
             sendChange(cwForm, $scope, 'category');
+            if( $scope.formtask !== undefined ) {
+              sendChange(cwForm, $scope, 'formtask');
+            }
+            if( $scope.target !== undefined ) {
+              sendChange(cwForm, $scope, 'target');
+            }
           }
-
-          if( $scope.formtask !== undefined ) {
-            sendChange(cwForm, $scope, 'formtask');
-          }
-          if( $scope.target !== undefined ) {
-            sendChange(cwForm, $scope, 'target');
-          }
-
         }
       };
 
       $scope.$on('actionComplete', function(event, result) {
+        /*
+        result[0] -> Method sent to server
+        result[1] -> Status of call to server (true or false)
+        result[2] -> response from server
+        result[3] -> cwform processed
+         */
         if( result[1] === true && result[2].hasOwnProperty('uuid') ) {
 
           /*
            * Logic for call taskService to delete or update task before action is completed.
           */
-          if( contextService.getDefaultContext() !== undefined &&
-              event.targetScope.contexts[0].uuid != undefined &&
-              contextService.getDefaultContext().uuid !== event.targetScope.contexts[0].uuid ) {
+          if( contextService.getDefaultContext() !== undefined && event.targetScope.contexts[0].uuid != undefined) {
+            if( contextService.getDefaultContext().uuid !== event.targetScope.contexts[0].uuid ) {
 
-            taskServices.deleteUpdateTask(result[2].uuid);
+              /*
+              Delete task
+               */
+              taskServices.deleteUpdateTask(result[2].uuid);
 
+            } else {
+              /*
+               Update Task
+               */
+              if( result[3] !== undefined ) {
+                var task = result[3].getData();
+                task.uuid = result[3].getModelUUID();
+                taskServices.deleteUpdateTask( result[2].uuid, true, task );
+              }
+            }
           }
 
         }

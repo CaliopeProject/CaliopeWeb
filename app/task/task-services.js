@@ -324,11 +324,17 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
             infoUpdate();
           },
 
-          deleteUpdateTask: function(uuidtask) {
+          deleteUpdateTask: function(uuidtask, update, task) {
             angular.forEach(ALLTASK, function(vAlltask, kAlltask){
               angular.forEach(vAlltask.tasks, function(vTasks, kTasks){
                 if (vTasks.uuid === uuidtask) {
-                  delete ALLTASK[kAlltask].tasks[kTasks];
+                  if( update !== true ) {
+                    delete ALLTASK[kAlltask].tasks[kTasks];
+                  } else {
+                    if( task !== undefined ) {
+                      ALLTASK[kAlltask].tasks[kTasks] = task;
+                    }
+                  }
                 }
               });
             });

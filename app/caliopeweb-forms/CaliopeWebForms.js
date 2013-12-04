@@ -306,6 +306,84 @@ var CaliopeWebForm = (function() {
     }
 
   /**
+   *
+   * @param valueToServer
+   * @param element
+   */
+    function processRelation(valueToServer, element) {
+      /*
+       Evaluate if valueToServer is a relation. True then create valueToServer with only valueToServer of
+       entity_data in relation
+       */
+      if(valueToServer.hasOwnProperty('direction') && valueToServer.hasOwnProperty('target')) {
+        if( valueToServer.target.hasOwnProperty('length') ) {
+          var cValue = {};
+          jQuery.extend(true, cValue, valueToServer);
+          valueToServer = [];
+          jQuery.each(cValue.target, function(k,v) {
+            if(v.hasOwnProperty('entity_data')) {
+              valueToServer.push(v.entity_data);
+            }
+          });
+        }
+      }
+
+      var patt = new RegExp(CaliopeWebFormConstants.rexp_value_in_form);
+      var relation = element.relation;
+      var oTarget = element.relation.target;
+      if( oTarget !== undefined ) {
+        //var ownRelation = elements[i].name;
+        var target = [];
+
+        if( valueToServer !== undefined) {
+          if( valueToServer instanceof Array) {
+          } else {
+            valueToServer = [valueToServer];
+          }
+        }
+
+        jQuery.each(valueToServer, function(kRel, vRel){
+          var cTarget = {};
+          jQuery.extend(true, cTarget, oTarget);
+          if(patt.test(oTarget.entity)) {
+            var vPropScope = getVarNameScopeFromFormRep(oTarget.entity);
+            cTarget.entity = dataFromView[vPropScope];
+          }
+          jQuery.each(oTarget.properties, function(kProp, vProp){
+            if(patt.test(vProp)) {
+              var vPropScope = getVarNameScopeFromFormRep(vProp);
+              if(vPropScope === elements[i].name ) {
+                cTarget.properties[kProp] = vRel;
+              } else {
+                cTarget.properties[kProp] = dataFromView[vPropScope];
+              }
+            }
+          });
+          jQuery.each(oTarget['entity_data'], function(kProp, vProp){
+            if(patt.test(vProp)) {
+              var vPropScope = getVarNameScopeFromFormRep(vProp);
+              if(vPropScope === elements[i].name ) {
+                cTarget['entity_data'][kProp] = vRel[kProp];
+              } else {
+                cTarget['entity_data'][kProp] = getValueAttInObject(dataFromView, vPropScope, '.');
+                /*
+                 if(dataFromView[vPropScope] instanceof Object) {
+                 cTarget['entity_data'][kProp] = getValueAttInObject(dataFromView, vPropScope, '.');
+                 } else if(dataFromView[vPropScope] instanceof Array) {
+                 cTarget['entity_data'][kProp] = getValueAttInObject(dataFromView, vPropScope, '.')[kProp];
+                 }
+                 */
+              }
+            }
+          });
+          target.push(cTarget);
+        });
+        relation.target = target;
+        valueToServer = relation;
+      }
+    }
+
+  /**
    * Todo: documentation
    * @param elements
    * @param dataFromView
@@ -361,82 +439,23 @@ var CaliopeWebForm = (function() {
               else {
                 valueToServer = dataFromView[nameVarScope];
               }
+
+              /*
+               * Process for elements with relation
+               */
               if(elements[i].hasOwnProperty('relation')) {
-                /*
-                  Evaluate if valueToServer is a relation. True then create valueToServer with only valueToServer of
-                  entity_data in relation
-                 */
-                if(valueToServer.hasOwnProperty('direction') && valueToServer.hasOwnProperty('target')) {
-                  if( valueToServer.target.hasOwnProperty('length') ) {
-                    var cValue = {};
-                    jQuery.extend(true, cValue, valueToServer);
-                    valueToServer = [];
-                    jQuery.each(cValue.target, function(k,v) {
-                      if(v.hasOwnProperty('entity_data')) {
-                        valueToServer.push(v.entity_data);
-                      }
-                    });
-                  }
-                }
-
-                var patt = new RegExp(CaliopeWebFormConstants.rexp_value_in_form);
-                var relation = elements[i].relation;
-                var oTarget = elements[i].relation.target;
-                if( oTarget !== undefined ) {
-                  //var ownRelation = elements[i].name;
-                  var target = [];
-
-                  if( valueToServer !== undefined) {
-                    if( valueToServer instanceof Array) {
-                    } else {
-                      valueToServer = [valueToServer];
-                    }
-                  }
-
-                  jQuery.each(valueToServer, function(kRel, vRel){
-                    var cTarget = {};
-                    jQuery.extend(true, cTarget, oTarget);
-                    if(patt.test(oTarget.entity)) {
-                      var vPropScope = getVarNameScopeFromFormRep(oTarget.entity);
-                      cTarget.entity = dataFromView[vPropScope];
-                    }
-                    jQuery.each(oTarget.properties, function(kProp, vProp){
-                      if(patt.test(vProp)) {
-                        var vPropScope = getVarNameScopeFromFormRep(vProp);
-                        if(vPropScope === elements[i].name ) {
-                          cTarget.properties[kProp] = vRel;
-                        } else {
-                          cTarget.properties[kProp] = dataFromView[vPropScope];
-                        }
-                      }
-                    });
-                    jQuery.each(oTarget['entity_data'], function(kProp, vProp){
-                      if(patt.test(vProp)) {
-                        var vPropScope = getVarNameScopeFromFormRep(vProp);
-                        if(vPropScope === elements[i].name ) {
-                          cTarget['entity_data'][kProp] = vRel[kProp];
-                        } else {
-                          cTarget['entity_data'][kProp] = getValueAttInObject(dataFromView, vPropScope, '.');
-                          /*
-                          if(dataFromView[vPropScope] instanceof Object) {
-                            cTarget['entity_data'][kProp] = getValueAttInObject(dataFromView, vPropScope, '.');
-                          } else if(dataFromView[vPropScope] instanceof Array) {
-                            cTarget['entity_data'][kProp] = getValueAttInObject(dataFromView, vPropScope, '.')[kProp];
-                          }
-                          */
-                        }
-                      }
-                    });
-                    target.push(cTarget);
-                  });
-                  relation.target = target;
-                  valueToServer = relation;
-                }
+                //processRelation(valueToServer, element[i] );
               }
+
               data[nameVarScope] = valueToServer;
             }
           }
         }
+
+        if( dataFromView.hasOwnProperty('uuid') && !data.hasOwnProperty('uuid') ) {
+          data[uuid] =  dataFromView.uuid;
+        }
+
       }
 
       return data;
@@ -544,6 +563,7 @@ var CaliopeWebForm = (function() {
      * @returns {*}
      */
     dataToServerData : function(dataFromView, paramsToSend) {
+      this.data = dataToServerData(this.elementsForm, dataFromView, undefined);
       return dataToServerData(this.elementsForm, dataFromView, paramsToSend);
     },
 

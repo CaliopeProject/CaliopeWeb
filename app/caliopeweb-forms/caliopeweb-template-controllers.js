@@ -227,9 +227,9 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload',
                     }
                   }
 
-                  $scope.$emit('actionComplete', [actionMethod, true, value]);
+                  $scope.$emit('actionComplete', [actionMethod, true, value, cwForm]);
                 } else {
-                  $scope.$emit('actionComplete', [actionMethod, false, value]);
+                  $scope.$emit('actionComplete', [actionMethod, false, value, cwForm]);
                   console.log('Server error response', value.error);
                 }
               }
