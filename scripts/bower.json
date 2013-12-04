@@ -24,6 +24,7 @@
     "angular-dragdrop"           : "~1.0.2",
     "animate.scss"               : "62aebcf7c8bf617dcaea25fc8f3f44d558f2b43e",
     "d3"                         : "~3.3.10",
+    "ng-pdfviewer"               : "~0.2.1",
     "ckeditor"                   : "0b243e1c3a292c728442f47f47d8e5da8fab649b"
   }
 }
