@@ -95,15 +95,18 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                         angular.forEach(value1.tasks, function(value2, key2){
                           if(!angular.isUndefined(value2.comments)){
                             angular.forEach(value2.comments, function(value3, key3){
-                              var tempUser = {};
+                              var tempUser = undefined;
                               angular.forEach(data, function(valUser){
                                 if (valUser.uuid === value3.user) {
+                                  tempUser = {};
                                   tempUser.image = valUser.image;
                                   tempUser.uuid  = valUser.uuid;
                                   tempUser.name  = valUser.name;
                                 }
                               });
-                              ALLTASK[key1].tasks[key2].comments[key3].user = tempUser;
+                              if( tempUser !== undefined ) {
+                                ALLTASK[key1].tasks[key2].comments[key3].user = tempUser;
+                              }
                             });
                           }
                         });
