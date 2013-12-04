@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
  * Bootstrap v2.3.2
  *
@@ -38250,6 +38251,17 @@ Styles for inner form
 /* line 794, ../caliopeweb-forms/caliopeweb.scss */
 .cw-inner-form .btn-title {
   margin-left: 10px;
+}
+
+/* line 799, ../caliopeweb-forms/caliopeweb.scss */
+.widget-toolbar-attachment {
+  display: inline;
+  padding: 0 6px;
+  position: relative;
+}
+/* line 804, ../caliopeweb-forms/caliopeweb.scss */
+.widget-toolbar-attachment [class*=" icon-"], .widget-toolbar-attachment [class^="icon-"] {
+  padding-left: 6px;
 }
 
 /* line 3, ../read-rss/read-rss.scss */

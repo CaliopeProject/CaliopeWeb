@@ -795,13 +795,20 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           };
 
           $scope.moveToSelected = function(choice, $event) {
-            if(!$attrs.single ){
+            if( !$attrs.single ){
               $scope._selectedChoices.push(choice);
               $scope._choices.splice($scope._choices.indexOf(choice), 1);
               // do not 'close' on choice click
-            } else if ($attrs.single && ($scope._selectedChoices.length < 1)){
+            } else if ( $attrs.single ) {
+
+              if( ($scope._selectedChoices.length = 1) ) {
+                $scope._choices.push($scope._selectedChoices[0]);
+                $scope._selectedChoices.pop();
+              }
               $scope._selectedChoices.push(choice);
               $scope._choices.splice($scope._choices.indexOf(choice), 1);
+
+
             }
 
             /**

@@ -20,6 +20,7 @@ define(['angular', 'application-constant', 'jquery.fileupload', 'login-security-
 
             link: function($scope, $element, $attrs) {
 
+
               var scopeData = $element.scope().$parent;
               if( scopeData !== undefined ) {
 
@@ -36,6 +37,24 @@ define(['angular', 'application-constant', 'jquery.fileupload', 'login-security-
                   );
                 }
               }
+
+              $scope.deleteFile = function(data) {
+
+                if( data.hasOwnProperty('id') ) {
+                  var promise = cwFormService.deleteAttachment(scopeData.modelUUID, data.id);
+                  if( promise !== undefined ) {
+                    promise.then( function (responseDelete) {
+                      if( !responseDelete.hasOwnProperty('error') ) {
+                        var index = $scope.filelist.indexOf(data);
+                        if( index > 0 ) {
+                          $scope.filelist.splice(index,1)
+                        }
+                      }
+                    });
+                  }
+                }
+
+              };
 
 
               var nid = 'progres' + Math.floor((Math.random()*100)+1);

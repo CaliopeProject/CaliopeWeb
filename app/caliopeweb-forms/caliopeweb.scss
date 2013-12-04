@@ -795,3 +795,13 @@ Styles for inner form
     margin-left: 10px;
   }
 }
+
+.widget-toolbar-attachment {
+  display: inline;
+  padding: 0 6px;
+  position: relative;
+
+  [class*=" icon-"], [class^="icon-"] {
+    padding-left: 6px;
+  }
+}
