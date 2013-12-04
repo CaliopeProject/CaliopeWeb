@@ -6,8 +6,8 @@ define(['angular', 'application-servicesWebSocket'], function(angular) {
 
   var moduleServices = angular.module('ContextServices', ['webSocket']);
 
-  moduleServices.factory('contextService', ['$q','webSocket','$rootScope',
-    function($q, websocketSrv, $rootScope) {
+  moduleServices.factory('contextService', ['$q','webSocket','$rootScope', 'taskService',
+    function($q, websocketSrv, $rootScope, taskService) {
 
       var services = {};
       var CONTEXTS ;
@@ -15,7 +15,7 @@ define(['angular', 'application-servicesWebSocket'], function(angular) {
       var WEBSOCKETS = websocketSrv.WebSockets();
 
       function infoUpdate(){
-        $rootScope.$broadcast('loadContexts');
+        $rootScope.$broadcast('loadedContexts');
       }
 
       /**
@@ -68,7 +68,10 @@ define(['angular', 'application-servicesWebSocket'], function(angular) {
        * Change the current context
        * @returns {object}
        */
-      services.changeCurrentContext = function(context){
+      services.changeCurrentContext = function(context) {
+
+        taskService.loadData(context.uuid);
+
         if(defaultContext !== context){
           defaultContext = context;
           infoUpdate();

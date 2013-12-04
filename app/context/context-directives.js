@@ -16,7 +16,7 @@ define(['angular', 'context-services'], function(angular) {
         $scope.contexts             = contserv.getDefaultContext();
         $scope.changeCurrentContext = contserv.changeCurrentContext;
 
-        $scope.$on('loadContexts', function() {
+        $scope.$on('loadedContexts', function() {
           $scope.contexts     = contserv.getDefaultContext();
           $scope.userContexts = contserv.getUserContexts();
         });

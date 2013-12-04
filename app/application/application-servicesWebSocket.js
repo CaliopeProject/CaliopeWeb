@@ -120,7 +120,7 @@ define(['angular', 'application-constant', 'uuid', 'notificationsService'], func
                 send(request);
               },200);
             } else {
-              console.log('Service web socket - Sending REQUEST application-servicesWebsocket 123', (request));
+              console.log('Service web socket - REQUEST method to server 123', (request));
               ws.send(JSON.stringify(request));
             }
           }
@@ -203,7 +203,7 @@ define(['angular', 'application-constant', 'uuid', 'notificationsService'], func
                   HandlerNotification.sendinfo(messageObj);
                 }
               }
-              console.log("Service web socket - RECEIVED data from websocket 203 (" + (timeElapsed) + "ms ):", messageObj);
+              console.log("Service web socket - RECEIVED data from server 203 (" + (timeElapsed) + "ms):", messageObj);
             };
 
             // If an object exists with callback_id in our callbacks object, resolve it

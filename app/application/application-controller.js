@@ -52,12 +52,15 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         });
 
         $scope.$on('userAuthenticated', function() {
+
+          /*
+          When user is authenticated then load contexts and before load user kanban
+           */
           contextService.loadUserContexts().then(
             function( defaultContext ){
               if( defaultContext !== undefined) {
-                taskService.loadData( defaultContext.defaultContext.uuid  );
+                taskService.loadData( defaultContext.defaultContext.uuid );
               }
-              $scope.$broadcast('loadContexts');
             }
           );
         });
