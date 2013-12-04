@@ -23,14 +23,24 @@ define(['angular', 'angular-dragdrop', 'task-controllers', 'angular-ui-bootstrap
             $scope.$apply(function () {
               taskService.addTask(data);
             });
+          } else {
+            /**
+             * If task is created by other user then compare the holders
+             */
+            angular.forEach( data.holders, function(vHolder, kHolder) {
+              if( $scope.contexts.uuid === kHolder ) {
+                taskService.addTask(data);
+              }
+            });
+
           }
         }
       });
 
-      $scope.$on('loadContexts', function() {
+      $scope.$on('loadedContexts', function() {
         $scope.userContexts = contextService.getUserContexts();
         $scope.contexts     = contextService.getDefaultContext();
-        $scope.data         = taskService.loadData($scope.contexts.uuid);
+        //$scope.data         = taskService.loadData($scope.contexts.uuid);
       });
 
       $scope.$on('taskServiceNewTask', function (event, data) {
