@@ -10,14 +10,30 @@
     </div>
   </div>
   <div class="span12">
-    <div class="span8">
+    <div class="span6">
       <accordion close-others="true">
         <accordion-group heading="{{project.classname}}" ng-repeat="project in data">
           {{project.data}}
         </accordion-group>
       </accordion>
     </div>
-    <div class="span4">
+    <div class="span6">
+
+      <div class="row">
+        <div class="btn-group">
+          <button class="btn btn-small" ng-click="gotoPage(1)">|&lt;</button>
+          <button class="btn btn-small" ng-click="prevPage()">&lt;</button>
+          <button class="btn btn-small" ng-click="nextPage()">&gt;</button>
+          <button class="btn btn-small" ng-click="gotoPage(totalPages)">&gt;|</button>
+        </div>
+      </div>
+      <div class="row">
+        <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>
+      </div>
+      <div class="row">
+        <pdfviewer ng-src="{{pdfURL}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
+      </div>
+
     </div>
   </div>
   {{text}}

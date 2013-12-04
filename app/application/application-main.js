@@ -86,7 +86,13 @@ require.config({
 
     'tree-project-controller'        : 'tree-project/tree-project-controller',
 
+    'compatibility'                  : 'libs-js-thirdparty/ng-pdfviewer/lib/compatibility',
+    'pdf'                            : 'libs-js-thirdparty/ng-pdfviewer/lib/pdf',
+    'ng-pdfviewer'                   : 'libs-js-thirdparty/ng-pdfviewer/ng-pdfviewer',
+    'pdf.worker'                     : 'libs-js-thirdparty/ng-pdfviewer/lib/pdf.worker',
+
     'd3'                             : 'libs-js-thirdparty/d3/d3'
+
   },
   baseUrl: '/',
   shim: {
@@ -102,6 +108,7 @@ require.config({
     ,'application-commonservices'    : {'exports' : 'appcommonservices'}
     ,'application-routes'            : {'exports' : 'routes'}
     ,'uuid'                          : {'exports' : 'UUIDjs'}
+    ,'pdf'                           : {'exports' : 'PDFJS'}
     ,'application-servicesWebSocket' : {'exports' : 'webSocket', 'deps' : ['notificationsService','uuid']}
     ,'notificationsService'          : {'deps'    : ['application-commonservices']}
     ,'jquery-ui'                     : {'deps'    : ['jquery']}
@@ -122,6 +129,10 @@ require.config({
     ,'gis-heron'                     : {'deps'    : ['gis-init']}
     ,'gis-view-ctrl'                 : {'deps'    : ['gis-heron']}
     ,'seeinmap-services'             : {'deps'    : ['angular', 'jquery-ui']}
+    ,'ng-pdfviewer'                  : {'deps'    : ['angular', 'pdf', 'compatibility'],
+                                        'init'    : function(){
+                                                     window.PDFJS.workerSrc = 'libs-js-thirdparty/ng-pdfviewer/lib/pdf.worker.js';
+                                         }}
   },
   priority: [
      "onResourceLoad"
@@ -139,7 +150,7 @@ require(['onResourceLoad'], function () {
     'use strict';
     $(document).ready(function () {
       var $html = $('html');
-      window.jQuery = jQuery;
+      window.jQuery   = jQuery;
       angular.bootstrap($html, [app.name]);
       // Because of RequireJS we need to bootstrap the app app manually
       // and Angular Scenario runner won't be able to communicate with our app
