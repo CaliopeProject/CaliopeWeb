@@ -13,27 +13,49 @@
     <div class="span6">
       <accordion close-others="true">
         <accordion-group heading="{{project.classname}}" ng-repeat="project in data">
+          <a ng-click="showLink('form', $index)" class="btn btn-minier btn-info">
+            Ver contenido <i class="icon-only icon-share-alt"></i>
+          </a>
           {{project.data}}
         </accordion-group>
       </accordion>
     </div>
     <div class="span6">
 
-      <div class="row">
-        <div class="btn-group">
-          <button class="btn btn-small" ng-click="gotoPage(1)">|&lt;</button>
-          <button class="btn btn-small" ng-click="prevPage()">&lt;</button>
-          <button class="btn btn-small" ng-click="nextPage()">&gt;</button>
-          <button class="btn btn-small" ng-click="gotoPage(totalPages)">&gt;|</button>
+      <div ng-switch="itemattach">
+        <!--IMG -->
+        <div ng-switch-when="img">
+
+        </div>
+        <!--IMG -->
+        <div ng-switch-when="pdf">
+
+          <div class="row">
+            <div class="btn-group">
+              <button class="btn btn-small" ng-click="gotoPage(1)">|&lt;</button>
+              <button class="btn btn-small" ng-click="prevPage()">&lt;</button>
+              <button class="btn btn-small" ng-click="nextPage()">&gt;</button>
+              <button class="btn btn-small" ng-click="gotoPage(totalPages)">&gt;|</button>
+            </div>
+          </div>
+          <div class="row">
+            <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>
+          </div>
+          <div class="row">
+            <pdfviewer src="{{pdfURL}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
+          </div>
+
+        </div>
+        <div ng-switch-when="form">
+          <cw-dform class="cwdform" name="{{form.name}}" cw-dform="{{form.templateName}}"  mode="{{form.mode}}" entity="{{form.entity}}" uuid="{{form.uuid}}" generic="{{form.generic}}" inner="false" from-routeparams="false" enc-uuid="false" init="false"></cw-dform>
+        </div>
+        <div ng-switch-default>
+
         </div>
       </div>
-      <div class="row">
-        <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>
-      </div>
-      <div class="row">
-        
-        <pdfviewer src="{{pdfURL}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
-      </div>
+
+
+
 
     </div>
   </div>

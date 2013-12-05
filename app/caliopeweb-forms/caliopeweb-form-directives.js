@@ -115,6 +115,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         /*
         Assign attributes values to vars
          */
+        var cwForm;
         var entity           = $attrs['entity'];
         var mode             = $attrs['mode'];
         var uuid             = $attrs['uuid'];
@@ -252,6 +253,42 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           });
         }
 
+
+        /*
+        Create the form of type CaliopeWebForm
+         */
+        function createForm () {
+
+          cwForm = cwFormService.createForm(entity, mode, uuid);
+
+          if( generic === true || generic === "true") {
+            cwForm.setGenericForm(true);
+          } else {
+            cwForm.setGenericForm(false);
+          }
+          if( inner === true || inner === "true") {
+            cwForm.setInnerForm(true);
+          } else {
+            cwForm.setInnerForm(false);
+          }
+
+          $scope['cwForm-name'] = 'cwForm-'.concat(name);
+          $scope['cwForm-varTemplate'] = $attrs.cwDform;
+          $scope[$scope['cwForm-name']] = cwForm;
+
+          if(preLoadFunction !== undefined && preLoadFunction.length > 0) {
+            preLoadFunction = $scope[preLoadFunction];
+          }
+          if(postLoadFunction !== undefined && postLoadFunction.length > 0) {
+            postLoadFunction = $scope[postLoadFunction];
+          }
+
+          $scope.init = function() {
+            init(preLoadFunction);
+          };
+
+        }
+
         /**
          * If the attribute fromRouteparams is true then replace variables with values from routing.
          */
@@ -269,36 +306,23 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             uuid = Crypto.charenc.Binary.bytesToString(bytesUUID);
           }
         }
-        /*
-        Create the form of type CaliopeWebForm
-         */
-        var cwForm = cwFormService.createForm(entity, mode, uuid);
 
-        if( generic === true || generic === "true") {
-          cwForm.setGenericForm(true);
-        } else {
-          cwForm.setGenericForm(false);
-        }
-        if( inner === true || inner === "true") {
-          cwForm.setInnerForm(true);
-        } else {
-          cwForm.setInnerForm(false);
-        }
+        createForm();
 
-        $scope['cwForm-name'] = 'cwForm-'.concat(name);
-        $scope['cwForm-varTemplate'] = $attrs.cwDform;
-        $scope[$scope['cwForm-name']] = cwForm;
-
-        if(preLoadFunction !== undefined && preLoadFunction.length > 0) {
-          preLoadFunction = $scope[preLoadFunction];
-        }
-        if(postLoadFunction !== undefined && postLoadFunction.length > 0) {
-          postLoadFunction = $scope[postLoadFunction];
-        }
-
-        $scope.init = function() {
+        $scope.$watch(function(){return $attrs.uuid;}, function(value){
+          entity           = $attrs.entity;
+          mode             = $attrs.mode;
+          uuid             = $attrs.uuid;
+          name             = $attrs.name;
+          generic          = $attrs.generic;
+          inner            = $attrs.inner;
+          initForm         = $attrs.init;
+          preLoadFunction  = $attrs.preLoadFunction;
+          postLoadFunction = $attrs.postLoadFunction;
+          createForm();
+          $element.find('form').empty();
           init(preLoadFunction);
-        };
+        });
 
         if( initForm === true || initForm === "true" ) {
           init(preLoadFunction);
@@ -965,6 +989,10 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                   }
                   if( attrFieldImage !== undefined) {
                     option.image = tools.getValueAttInObject(dataResponse[i], attrFieldImage, '.');
+                    if(!option.image){
+                       option.image = 'R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';
+                    }
+
                   }
                   scope[scopeMultiComboChoices].push(option);
                 }
