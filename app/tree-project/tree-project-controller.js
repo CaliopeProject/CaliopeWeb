@@ -6,6 +6,10 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
 
   var treemodule = angular.module('treeController', ['webSocket', 'ContextServices', 'context-directives', 'ui.bootstrap', 'ngPDFViewer' ]);
 
+  treemodule.config(function($sceDelegateProvider){
+    $sceDelegateProvider.resourceUrlWhitelist(['^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?$', 'self']);
+  });
+
   treemodule.controller("treeCtrl", ["$scope", 'webSocket', 'contextService', 'PDFViewerService'
 
     ,function($scope, webSocket, contextService, pdf) {
@@ -23,7 +27,7 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
         });
 
         //$scope.pdfURL = "../../context/test.pdf";
-        $scope.pdfURL = serverFile + "ece79476-ee33-4592-ad7e-0174cc1a4c6b";
+        $scope.pdfURL   = serverFile + "ece79476-ee33-4592-ad7e-0174cc1a4c6b";
 
         $scope.instance = pdf.Instance("viewer");
 
