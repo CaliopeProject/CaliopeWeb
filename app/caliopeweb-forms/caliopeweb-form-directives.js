@@ -122,11 +122,11 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         var name             = $attrs['name'];
         var generic          = $attrs['generic'];
         var inner            = $attrs['inner'];
-        var initForm         = $attrs['init'];
+        var initForm         = $attrs['init'] === "true"? true : false;
         var preLoadFunction  = $attrs['preLoadFunction'];
         var postLoadFunction = $attrs['postLoadFunction'];
 
-        /**
+                /**
          * Return the form storage in the scope.
          * @returns {CaliopeWebForm}
          */
@@ -310,21 +310,24 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         createForm();
 
         $scope.$watch(function(){return $attrs.uuid;}, function(value){
-          entity           = $attrs.entity;
-          mode             = $attrs.mode;
-          uuid             = $attrs.uuid;
-          name             = $attrs.name;
-          generic          = $attrs.generic;
-          inner            = $attrs.inner;
-          initForm         = $attrs.init;
-          preLoadFunction  = $attrs.preLoadFunction;
-          postLoadFunction = $attrs.postLoadFunction;
-          createForm();
-          $element.find('form').empty();
-          init(preLoadFunction);
+          if( value !== undefined && value.length > 0 &&
+              (initForm !== true) ) {
+            entity           = $attrs.entity;
+            mode             = $attrs.mode;
+            uuid             = $attrs.uuid;
+            name             = $attrs.name;
+            generic          = $attrs.generic;
+            inner            = $attrs.inner;
+            initForm         = $attrs['init'] === "true"? true : false;
+            preLoadFunction  = $attrs.preLoadFunction;
+            postLoadFunction = $attrs.postLoadFunction;
+            createForm();
+            $element.find('form').empty();
+            init(preLoadFunction);
+          }
         });
 
-        if( initForm === true || initForm === "true" ) {
+        if( initForm === true ) {
           init(preLoadFunction);
         }
 

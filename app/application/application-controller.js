@@ -69,6 +69,33 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
           security.resetAuthentication();
         });
 
+        //Put task when other user create
+        $scope.$on('createTask', function (event, data) {
+          if( data !== undefined && data.hasOwnProperty('contexts') ) {
+            var contextNewTask;
+            var varName;
+            for( varName in data.contexts ) {
+              contextNewTask = varName;
+              break;
+            }
+            if( contextService.getDefaultContext().uuid === contextNewTask ) {
+              $scope.$apply(function () {
+                taskService.addTask(data);
+              });
+            } else {
+              /**
+               * If task is created by other user then compare the holders
+               */
+              angular.forEach( data.holders, function(vHolder, kHolder) {
+                if( contextService.getDefaultContext().uuid === kHolder ) {
+                  taskService.addTask(data);
+                }
+              });
+
+            }
+          }
+        });
+
         $scope.init = function () {
 
           $scope.$on('ChangeTextAlertMessage', function (event, data) {
@@ -76,7 +103,7 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
           });
 
           $scope.$on('taskServiceNewTask', function (event, data) {
-              $scope.taskpend = taskService.getTaskpend();
+            $scope.taskpend = taskService.getTaskpend();
           });
 
 
@@ -101,6 +128,7 @@ define(['angular', 'application-servicesWebSocket', 'angular-ui-bootstrap-bower'
         $scope.$on('closemenu', function(event, data) {
           $scope.showMenu = false;
         });
+
      }]
   );
 });
