@@ -12,7 +12,8 @@
   <div class="row-flow">
     <div class="span4">
       <accordion close-others="true">
-      <accordion-group heading="{{$index}} - {{project.classname}}" ng-repeat="project in data">
+      <accordion-group ng-repeat="project in data">
+        <accordion-heading>{{$index}} - {{project.classname}}</accordion-heading>
               <button class="btn btn-mini btn-info" ng-click="showLink('form', $index)"> Contenido</button>
               <button class="btn btn-mini btn-warning" ng-click="showHistory($index)"> Historico</button>
               <button class="btn btn-mini btn-inverse" ng-click="showAttach($index)">  Adjuntos </button>

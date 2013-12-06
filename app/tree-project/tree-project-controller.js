@@ -35,11 +35,23 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
             WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
               ALLFORM     = responseContexts[0].instances;
               ALLMODEL    = responseContexts[1].models;
-              $scope.data = responseContexts[0].instances;
-              /*
-              angular.forEach(responseContexts[0], function(vAllTFORM){
-                if(!angular.isUndefined(valueAllTask.tasks)){};
-              }); **/
+
+              angular.forEach(ALLFORM, function(vAllFORM, kALLFORM){
+                angular.forEach(ALLMODEL, function(vAllMODEL, kALLFORM){
+                  if(vAllMODEL.classname === vAllMODEL.form.name){
+                    if(!angular.isUndefined(vAllMODEL.layout)){
+                      angular.forEach(vAllMODEL.layout.columns, function(vcolumns){
+                        angular.forEach(vcolumns.elements, function(velements){
+                          console.log(ALLFORM[kALLFORM].data);
+                        });
+                      });
+                    }
+                  }
+                });
+              });
+
+              $scope.data = ALLFORM ;
+
             });
           }
         });
