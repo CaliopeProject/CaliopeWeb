@@ -531,6 +531,28 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
               sendData('tasks', 'tasks.commit', {} , taskDrag.uuid);
               infoUpdate();
             }
+          },
+
+          /**
+           * Search a task in ALLTask
+           * @param category category task
+           * @param uuid uuid Task
+           */
+          searchTask : function( category, uuid ) {
+            var task = undefined;
+            angular.forEach(ALLTASK, function(vCategory, kCategory){
+              if( vCategory.category == category ) {
+                angular.forEach(vCategory.tasks, function(vTask, kTask) {
+                  if( vTask.uuid == uuid ) {
+                    task = vTask;
+                    return true;
+                  }
+                });
+              } else {
+                return true;
+              }
+            });
+            return task;
           }
 
         };
