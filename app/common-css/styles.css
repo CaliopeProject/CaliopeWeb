@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*
  * Bootstrap v2.3.2
  *
@@ -38958,4 +38957,95 @@ footer:before {
   background-size: cover;
   background-image: url('/common-img/errorpage.png');
   background-repeat: no-repeat;
+}
+
+/* line 3, ../tree-project/tree-project.scss */
+.preview {
+  position: relative;
+  padding: 30px;
+}
+
+/* line 8, ../tree-project/tree-project.scss */
+#tree-shadow {
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  -moz-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: gray 0px 1px 16px;
+  -moz-box-shadow: gray 0px 1px 16px;
+  box-shadow: gray 0px 1px 16px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 16px;
+  position: absolute;
+}
+
+/* line 19, ../tree-project/tree-project.scss */
+#tree-top, #tree-bottom, #tree-left, #tree-right {
+  background: #ecebeb;
+  position: absolute;
+}
+
+/* line 24, ../tree-project/tree-project.scss */
+#tree-left, #tree-right {
+  top: 0;
+  bottom: 0;
+  width: 17px;
+}
+
+/* line 29, ../tree-project/tree-project.scss */
+#tree-left {
+  left: 0;
+}
+
+/* line 30, ../tree-project/tree-project.scss */
+#tree-right {
+  right: 0;
+}
+
+/* line 32, ../tree-project/tree-project.scss */
+#tree-top, #tree-bottom {
+  left: 0;
+  right: 0;
+  height: 17px;
+}
+
+/* line 37, ../tree-project/tree-project.scss */
+#tree-top {
+  top: 0;
+}
+
+/* line 38, ../tree-project/tree-project.scss */
+#tree-bottom {
+  bottom: 0;
+}
+
+/* line 40, ../tree-project/tree-project.scss */
+.previewselect {
+  position: relative;
+}
+
+/* line 44, ../tree-project/tree-project.scss */
+#preview {
+  background-image: url('/common-img/../common-img/fondopreview.png');
+  background-position: top left;
+  background--webkit-background-size: cover;
+  background--moz-background-size: cover;
+  background--o-background-size: cover;
+  background-background-size: cover;
+  margin: -14px;
+  height: 750px;
+}
+
+/* line 54, ../tree-project/tree-project.scss */
+#previewfilldiv {
+  text-align: center;
+  padding-top: 30%;
+}
+
+/* line 59, ../tree-project/tree-project.scss */
+#previewText {
+  font-size: medium;
+  color: lightslategrey;
 }

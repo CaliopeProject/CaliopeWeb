@@ -1,4 +1,4 @@
-<div ng-controller="treeCtrl" class="row-fluid fillallheight">
+<div ng-controller="treeCtrl" class="row-fluid">
   <div class="page-header span12">
     <div class="span6">
       <h1>
@@ -9,20 +9,24 @@
       <widget-Context></widget-Context>
     </div>
   </div>
-  <div class="span12">
-    <div class="span6">
+  <div class="row-flow">
+    <div class="span4">
       <accordion close-others="true">
-        <accordion-group heading="{{project.classname}}" ng-repeat="project in data">
-          <a ng-click="showLink('form', $index)" class="btn btn-minier btn-info">
-            Ver contenido <i class="icon-only icon-share-alt"></i>
-          </a>
-          {{project.data}}
+      <accordion-group heading="{{$index}} - {{project.classname}}" ng-repeat="project in data">
+              <button class="btn btn-mini btn-info" ng-click="showLink('form', $index)"> Contenido</button>
+              <button class="btn btn-mini btn-warning" ng-click="showHistory($index)"> Historico</button>
+              <button class="btn btn-mini btn-inverse" ng-click="showAttach($index)">  Adjuntos </button>
         </accordion-group>
       </accordion>
     </div>
-    <div class="span6">
+    <div class="span8 preview">
+      <div id="tree-left"></div>
+      <div id="tree-right"></div>
+      <div id="tree-top"></div>
+      <div id="tree-bottom"></div>
+      <div id="tree-shadow"></div>
 
-      <div ng-switch="itemattach">
+      <div class='previewselect' ng-switch="itemattach">
         <!--IMG -->
         <div ng-switch-when="img">
 
@@ -32,10 +36,10 @@
 
           <div class="row">
             <div class="btn-group">
-              <button class="btn btn-small" ng-click="gotoPage(1)">|&lt;</button>
-              <button class="btn btn-small" ng-click="prevPage()">&lt;</button>
-              <button class="btn btn-small" ng-click="nextPage()">&gt;</button>
-              <button class="btn btn-small" ng-click="gotoPage(totalPages)">&gt;|</button>
+              <button class="btn btn-mini" ng-click="gotoPage(1)">|&lt;</button>
+              <button class="btn btn-mini" ng-click="prevPage()">&lt;</button>
+              <button class="btn btn-mini" ng-click="nextPage()">&gt;</button>
+              <button class="btn btn-mini" ng-click="gotoPage(totalPages)">&gt;|</button>
             </div>
           </div>
           <div class="row">
@@ -49,15 +53,17 @@
         <div ng-switch-when="form">
           <cw-dform class="cwdform" name="{{form.name}}" cw-dform="{{form.templateName}}"  mode="{{form.mode}}" entity="{{form.entity}}" uuid="{{form.uuid}}" generic="{{form.generic}}" inner="false" from-routeparams="false" enc-uuid="false" init="false"></cw-dform>
         </div>
-        <div ng-switch-default>
 
+        <div ng-switch-default>
+          <div id='preview'>
+            <div id="previewfilldiv">
+              <img src='../common-img/caliope.png'>
+              <div id='previewText'> Preview </div>
+            </div>
+          </div>
         </div>
       </div>
 
-
-
-
     </div>
   </div>
-  {{text}}
 </div>

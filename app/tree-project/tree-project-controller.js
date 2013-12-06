@@ -15,7 +15,6 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
     ,function($scope, webSocket, contextService, pdf, ctempSrv) {
         var ALLFORM;
         var WEBSOCKETS         = webSocket.WebSockets();
-        var method             = "form.getAll";
         var serverFile         = $caliope_constant.hyperion_server_address_d;
         $scope.form = {};
 
@@ -35,6 +34,7 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
 
         $scope.$watch(function(){return contextService.getDefaultContext();}, function(value){
           if(!angular.isUndefined(value)){
+            var method     = "form.getAll";
             var params     = {context: value.uuid};
             WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
               ALLFORM     = responseContexts;
@@ -45,17 +45,32 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
         });
 
 
+        /*show history*/
+        $scope.showHistory = function(number) {
+          var method     = "form.getHistory";
+          var dataform   = $scope.data[number];
+          var params     = {uuid: dataform.uuid};
+
+          WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
+            $scope.history = responseContexts;
+          });
+        }
+
+        /*show attachment*/
+        $scope.showAttach = function(number) {
+          var dataform        = $scope.data[number];
+        }
+
         /* Manage the form link */
         $scope.showLink = function (type, number) {
-          var dataform = $scope.data[number];
-          $scope.itemattach        = type;
-          $scope.form.name         = dataform.classname;
-          $scope.form.mode         = 'edit';
-          $scope.form.entity       = dataform.classname;
-          $scope.form.uuid         = dataform.uuid;
-          $scope.form.generic      = true;
+          var dataform        = $scope.data[number];
+          $scope.itemattach   = type;
+          $scope.form.name    = dataform.classname;
+          $scope.form.mode    = 'edit';
+          $scope.form.entity  = dataform.classname;
+          $scope.form.uuid    = dataform.uuid;
+          $scope.form.generic = true;
           $scope.form.templateName = 'jsonTemplate';
-
         };
 
 

@@ -1,0 +1,62 @@
+@import "compass/css3";
+
+.preview {
+  position: relative;
+  padding: 30px;
+}
+
+#tree-shadow{
+  @include single-box-shadow;
+  @include box-shadow(gray 0px 1px 16px);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 16px;
+  position: absolute;
+}
+
+#tree-top, #tree-bottom, #tree-left, #tree-right {
+  background: #ecebeb;
+  position: absolute;
+}
+
+#tree-left, #tree-right {
+  top: 0; bottom: 0;
+  width: 17px;
+}
+
+#tree-left { left: 0;  }
+#tree-right { right: 0;  }
+
+#tree-top, #tree-bottom {
+  left: 0; right: 0;
+  height: 17px;
+}
+
+#tree-top { top: 0;  }
+#tree-bottom { bottom: 0;  }
+
+.previewselect{
+  position: relative;
+}
+
+#preview {
+  background: {
+    image    : image-url("../common-img/fondopreview.png");
+    position : top left;
+    @include background-size(cover);
+  };
+  margin: -14px;
+  height: 750px;
+}
+
+#previewfilldiv{
+  text-align: center;
+  padding-top: 30%;
+}
+
+#previewText{
+  font-size: medium;
+  color: lightslategrey;
+}
