@@ -14,6 +14,7 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
 
     ,function($scope, webSocket, contextService, pdf, ctempSrv) {
         var ALLFORM;
+        var ALLMODEL;
         var WEBSOCKETS         = webSocket.WebSockets();
         var serverFile         = $caliope_constant.hyperion_server_address_d;
         $scope.form = {};
@@ -22,11 +23,6 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
           //var attachment = [];
           //angular.forEach(dataToProcess, function(vAllattach){
             //angular.forEach(vAllattach.attachment, function(vattach){
-              //if(!angular.isUndefined(valueTask.holders.target)){
-                //angular.forEach(valueTask.holders.target, function(valueHolders){
-                  //adduser(valueHolders.entity_data.uuid);
-                //});
-              //};
             //});
           //});
           //return alluser;
@@ -34,12 +30,16 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
 
         $scope.$watch(function(){return contextService.getDefaultContext();}, function(value){
           if(!angular.isUndefined(value)){
-            var method     = "form.getAll";
+            var method     = "form.getAllWithThumbnails";
             var params     = {context: value.uuid};
             WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
-              ALLFORM     = responseContexts;
+              ALLFORM     = responseContexts[0].instances;
+              ALLMODEL    = responseContexts[1].models;
               $scope.data = responseContexts[0].instances;
-              //ctempSrv.loadAttachments(getAttachmentInfo($scope.data));
+              /*
+              angular.forEach(responseContexts[0], function(vAllTFORM){
+                if(!angular.isUndefined(valueAllTask.tasks)){};
+              }); **/
             });
           }
         });
@@ -52,14 +52,15 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
           var params     = {uuid: dataform.uuid};
 
           WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
-            $scope.history = responseContexts;
+                $scope.history = responseContexts;
           });
-        }
+        };
 
         /*show attachment*/
         $scope.showAttach = function(number) {
           var dataform        = $scope.data[number];
-        }
+          ctempSrv.loadAttachments(getAttachmentInfo(dataform));
+        };
 
         /* Manage the form link */
         $scope.showLink = function (type, number) {

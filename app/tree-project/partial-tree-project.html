@@ -16,6 +16,8 @@
               <button class="btn btn-mini btn-info" ng-click="showLink('form', $index)"> Contenido</button>
               <button class="btn btn-mini btn-warning" ng-click="showHistory($index)"> Historico</button>
               <button class="btn btn-mini btn-inverse" ng-click="showAttach($index)">  Adjuntos </button>
+              <br/>
+              <pre>{{history}}</pre>
         </accordion-group>
       </accordion>
     </div>
@@ -25,6 +27,7 @@
       <div id="tree-top"></div>
       <div id="tree-bottom"></div>
       <div id="tree-shadow"></div>
+      <div id="tree-shadow2"></div>
 
       <div class='previewselect' ng-switch="itemattach">
         <!--IMG -->
@@ -41,6 +44,7 @@
               <button class="btn btn-mini" ng-click="nextPage()">&gt;</button>
               <button class="btn btn-mini" ng-click="gotoPage(totalPages)">&gt;|</button>
             </div>
+
           </div>
           <div class="row">
             <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>
