@@ -163,6 +163,11 @@ define(['angular', 'caliopeweb-formDirectives', 'task-services'], function (angu
               if( result[3] !== undefined ) {
                 var task = result[3].getData();
                 task.uuid = result[3].getModelUUID();
+                var taskInKanban = taskServices.searchTask(task.category, task.uuid);
+                if( taskInKanban !== undefined && taskInKanban.target !== undefined &&
+                    task.target.length !== undefined && task.target.length <= 0 ) {
+                  task.target = taskInKanban.target;
+                }
                 taskServices.deleteUpdateTask( result[2].uuid, true, task );
               }
             }
