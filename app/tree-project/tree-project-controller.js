@@ -29,28 +29,44 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
         //}
 
         $scope.$watch(function(){return contextService.getDefaultContext();}, function(value){
+
           if(!angular.isUndefined(value)){
             var method     = "form.getAllWithThumbnails";
             var params     = {context: value.uuid};
-            WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
-              ALLFORM     = responseContexts[0].instances;
-              ALLMODEL    = responseContexts[1].models;
 
-              angular.forEach(ALLFORM, function(vAllFORM, kALLFORM){
-                angular.forEach(ALLMODEL, function(vAllMODEL, kALLFORM){
-                  if(vAllMODEL.classname === vAllMODEL.form.name){
-                    if(!angular.isUndefined(vAllMODEL.layout)){
-                      angular.forEach(vAllMODEL.layout.columns, function(vcolumns){
-                        angular.forEach(vcolumns.elements, function(velements){
-                          console.log(ALLFORM[kALLFORM].data);
+            WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
+              var tempALLFORM  = ALLFORM  = responseContexts[0].instances;
+              var tempALLMODEL = ALLMODEL = responseContexts[1].models;
+
+              angular.forEach(tempALLFORM, function(vAllFORM, kALLFORM){
+                var showinfo = [];
+                if(vAllFORM.browsable){
+                  angular.forEach(tempALLMODEL, function(vAllMODEL){
+                    if(vAllFORM.classname === vAllMODEL.form.name){
+                      if(!angular.isUndefined(vAllMODEL.layout)){
+                        angular.forEach(vAllMODEL.layout.columns, function(vcolumns){
+                          angular.forEach(vcolumns.elements, function(velements){
+                            angular.forEach(vAllMODEL.form.html, function(vhtml){
+                              if(vhtml.name === velements){
+                                showinfo.push({
+                                  name    : vhtml.caption
+                                  ,content : tempALLFORM[kALLFORM].data[velements]
+                                });
+                              }
+                            });
+
+                          });
                         });
-                      });
+                      }
                     }
-                  }
-                });
+                  });
+                  tempALLFORM[kALLFORM].filter = showinfo;
+                }else{
+                  delete tempALLFORM[kALLFORM];
+                }
               });
 
-              $scope.data = ALLFORM ;
+              $scope.data = tempALLFORM ;
 
             });
           }
