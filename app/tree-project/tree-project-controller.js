@@ -1,10 +1,10 @@
 /*jslint browser: true,  unparam: true*/
 /*global define, console, $*/
 
-define(['angular', 'application-constant', 'application-servicesWebSocket', 'context-services', 'context-directives', 'angular-ui-bootstrap-bower', 'ng-pdfviewer', 'caliopeweb-template-services','caliopeweb-formDirectives'], function (angular, $caliope_constant) {
+define(['angular', 'application-constant', 'application-servicesWebSocket', 'context-services', 'context-directives', 'angular-ui-bootstrap-bower', 'ng-pdfviewer', 'caliopeweb-template-services','caliopeweb-formDirectives', 'application-commonservices'], function (angular, $caliope_constant) {
   'use strict';
 
-  var treemodule = angular.module('treeController', ['webSocket', 'ContextServices', 'context-directives', 'ui.bootstrap', 'ngPDFViewer', 'CaliopeWebTemplatesServices', 'CaliopeWebFormDirectives']);
+  var treemodule = angular.module('treeController', ['webSocket', 'ContextServices', 'context-directives', 'ui.bootstrap', 'ngPDFViewer', 'CaliopeWebTemplatesServices', 'CaliopeWebFormDirectives', 'commonServices']);
 
   treemodule.config(function($sceDelegateProvider){
     $sceDelegateProvider.resourceUrlWhitelist(['^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?$', 'self']);
@@ -28,7 +28,9 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
           //return alluser;
         //}
 
-        $scope.$watch(function(){return contextService.getDefaultContext();}, function(value){
+        $scope.$watch(function(){
+          return contextService.getDefaultContext();
+        }, function(value){
 
           if(!angular.isUndefined(value)){
             var method     = "form.getAllWithThumbnails";
@@ -48,21 +50,25 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
                           angular.forEach(vcolumns.elements, function(velements){
                             angular.forEach(vAllMODEL.form.html, function(vhtml){
                               if(vhtml.name === velements){
-                                showinfo.push({
-                                  name    : vhtml.caption
-                                  ,content : tempALLFORM[kALLFORM].data[velements]
-                                });
+                                var datafi = tempALLFORM[kALLFORM].data[velements];
+                                if(!angular.isUndefined(datafi)){
+                                  showinfo.push({
+                                     name    : vhtml.caption
+                                    ,content : datafi
+                                  });
+                                };
                               }
                             });
-
                           });
                         });
                       }
                     }
                   });
-                  tempALLFORM[kALLFORM].filter = showinfo;
+                  if(showinfo.length > 0){
+                    tempALLFORM[kALLFORM].filter = showinfo;
+                  }
                 }else{
-                  delete tempALLFORM[kALLFORM];
+                  tempALLFORM.splice(kALLFORM, 1);
                 }
               });
 
@@ -80,8 +86,11 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
           var params     = {uuid: dataform.uuid};
 
           WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
-                $scope.history = responseContexts;
+            if(!angular.isUndefined(responseContexts)){
+              $scope.data[number].history = responseContexts;
+            }
           });
+
         };
 
         /*show attachment*/

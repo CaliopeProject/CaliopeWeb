@@ -11,14 +11,25 @@
   </div>
   <div class="row-flow">
     <div class="span4">
-      <accordion close-others="true">
-      <accordion-group ng-repeat="project in data">
-        <accordion-heading>{{$index}} - {{project.classname}}</accordion-heading>
-              <button class="btn btn-mini btn-info" ng-click="showLink('form', $index)"> Contenido</button>
-              <button class="btn btn-mini btn-warning" ng-click="showHistory($index)"> Historico</button>
-              <button class="btn btn-mini btn-inverse" ng-click="showAttach($index)">  Adjuntos </button>
-              <br/>
-              <pre>{{history}}</pre>
+      <accordion class='boderaccordion' close-others="true">
+        <accordion-group ng-repeat="project in data">
+          <accordion-heading>
+            {{$index}}
+            <span class="badge badge-info">
+              {{project.classname}}
+            </span>
+            <div class='inline' ng-if="project.filter">
+              <span tooltip="{{newtags.name}}"  class="badge" tooltip-placement="right"
+                ng-repeat="newtags in project.filter">
+                {{newtags.content | htmlToPlaintext}}
+              </span>
+            </div>
+          </accordion-heading>
+          <button class="btn btn-link btn-primary" ng-click="showLink('form', $index)"> Contenido</button>
+          <button class="btn btn-link btn-inverse" ng-click="showHistory($index)" ng-if="!project.history"> Historico </button>
+          <button class="btn btn-link btn-info" ng-click="showLink('form', $index)" > Adjunto </button>
+          <div> {{project.history}} </div>
+          <br/>
         </accordion-group>
       </accordion>
     </div>

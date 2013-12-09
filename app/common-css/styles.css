@@ -39057,3 +39057,14 @@ footer:before {
   font-size: medium;
   color: lightslategrey;
 }
+
+/* line 69, ../tree-project/tree-project.scss */
+.badge {
+  margin-left: 3px;
+}
+
+/* line 74, ../tree-project/tree-project.scss */
+.boderaccordion .accordion-heading {
+  padding-top: 9px;
+  padding-bottom: 10px;
+}
