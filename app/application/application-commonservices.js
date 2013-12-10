@@ -1,9 +1,15 @@
-/*jslint browser: true*/
-/*global $scope*/
+/*jslint browser: true, unparam: true*/
+/*global $scope, define*/
 define(['angular'], function(angular) {
   'use strict';
 
   var moduleServices = angular.module('commonServices', []);
+
+  moduleServices.filter('htmlToPlaintext', function() {
+    return function(text) {
+      return String(text).replace(/<(?:.|\n)*?>/gm, '');
+    };
+  });
 
   moduleServices.service('toolservices', ['$rootScope', function($rootScope) {
 

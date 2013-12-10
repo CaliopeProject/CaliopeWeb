@@ -5,7 +5,7 @@
   padding: 30px;
 }
 
-#tree-shadow{
+#tree-shadow, #tree-shadow2{
   @include single-box-shadow;
   @include box-shadow(gray 0px 1px 16px);
   top: 0;
@@ -14,6 +14,11 @@
   right: 0;
   margin: 16px;
   position: absolute;
+}
+
+#tree-shadow2{
+  @include box-shadow(#cececc -1px 4px 5px);
+  margin: 1px;
 }
 
 #tree-top, #tree-bottom, #tree-left, #tree-right {
@@ -59,4 +64,15 @@
 #previewText{
   font-size: medium;
   color: lightslategrey;
+}
+
+.badge{
+  margin-left: 3px;
+}
+
+.boderaccordion{
+  & .accordion-heading{
+    padding-top: 9px;
+    padding-bottom: 10px;
+  }
 }

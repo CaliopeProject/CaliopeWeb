@@ -11,11 +11,25 @@
   </div>
   <div class="row-flow">
     <div class="span4">
-      <accordion close-others="true">
-      <accordion-group heading="{{$index}} - {{project.classname}}" ng-repeat="project in data">
-              <button class="btn btn-mini btn-info" ng-click="showLink('form', $index)"> Contenido</button>
-              <button class="btn btn-mini btn-warning" ng-click="showHistory($index)"> Historico</button>
-              <button class="btn btn-mini btn-inverse" ng-click="showAttach($index)">  Adjuntos </button>
+      <accordion class='boderaccordion' close-others="true">
+        <accordion-group ng-repeat="project in data">
+          <accordion-heading>
+            {{$index}}
+            <span class="badge badge-info">
+              {{project.classname}}
+            </span>
+            <div class='inline' ng-if="project.filter">
+              <span tooltip="{{newtags.name}}"  class="badge" tooltip-placement="right"
+                ng-repeat="newtags in project.filter">
+                {{newtags.content | htmlToPlaintext}}
+              </span>
+            </div>
+          </accordion-heading>
+          <button class="btn btn-link btn-primary" ng-click="showLink('form', $index)"> Contenido</button>
+          <button class="btn btn-link btn-inverse" ng-click="showHistory($index)" ng-if="!project.history"> Historico </button>
+          <button class="btn btn-link btn-info" ng-click="showLink('form', $index)" > Adjunto </button>
+          <div> {{project.history}} </div>
+          <br/>
         </accordion-group>
       </accordion>
     </div>
@@ -25,6 +39,7 @@
       <div id="tree-top"></div>
       <div id="tree-bottom"></div>
       <div id="tree-shadow"></div>
+      <div id="tree-shadow2"></div>
 
       <div class='previewselect' ng-switch="itemattach">
         <!--IMG -->
@@ -41,6 +56,7 @@
               <button class="btn btn-mini" ng-click="nextPage()">&gt;</button>
               <button class="btn btn-mini" ng-click="gotoPage(totalPages)">&gt;|</button>
             </div>
+
           </div>
           <div class="row">
             <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>

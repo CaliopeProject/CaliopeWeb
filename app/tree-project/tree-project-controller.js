@@ -1,10 +1,10 @@
 /*jslint browser: true,  unparam: true*/
 /*global define, console, $*/
 
-define(['angular', 'application-constant', 'application-servicesWebSocket', 'context-services', 'context-directives', 'angular-ui-bootstrap-bower', 'ng-pdfviewer', 'caliopeweb-template-services','caliopeweb-formDirectives'], function (angular, $caliope_constant) {
+define(['angular', 'application-constant', 'application-servicesWebSocket', 'context-services', 'context-directives', 'angular-ui-bootstrap-bower', 'ng-pdfviewer', 'caliopeweb-template-services','caliopeweb-formDirectives', 'application-commonservices'], function (angular, $caliope_constant) {
   'use strict';
 
-  var treemodule = angular.module('treeController', ['webSocket', 'ContextServices', 'context-directives', 'ui.bootstrap', 'ngPDFViewer', 'CaliopeWebTemplatesServices', 'CaliopeWebFormDirectives']);
+  var treemodule = angular.module('treeController', ['webSocket', 'ContextServices', 'context-directives', 'ui.bootstrap', 'ngPDFViewer', 'CaliopeWebTemplatesServices', 'CaliopeWebFormDirectives', 'commonServices']);
 
   treemodule.config(function($sceDelegateProvider){
     $sceDelegateProvider.resourceUrlWhitelist(['^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?$', 'self']);
@@ -14,6 +14,7 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
 
     ,function($scope, webSocket, contextService, pdf, ctempSrv) {
         var ALLFORM;
+        var ALLMODEL;
         var WEBSOCKETS         = webSocket.WebSockets();
         var serverFile         = $caliope_constant.hyperion_server_address_d;
         $scope.form = {};
@@ -22,24 +23,57 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
           //var attachment = [];
           //angular.forEach(dataToProcess, function(vAllattach){
             //angular.forEach(vAllattach.attachment, function(vattach){
-              //if(!angular.isUndefined(valueTask.holders.target)){
-                //angular.forEach(valueTask.holders.target, function(valueHolders){
-                  //adduser(valueHolders.entity_data.uuid);
-                //});
-              //};
             //});
           //});
           //return alluser;
         //}
 
-        $scope.$watch(function(){return contextService.getDefaultContext();}, function(value){
+        $scope.$watch(function(){
+          return contextService.getDefaultContext();
+        }, function(value){
+
           if(!angular.isUndefined(value)){
-            var method     = "form.getAll";
+            var method     = "form.getAllWithThumbnails";
             var params     = {context: value.uuid};
+
             WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
-              ALLFORM     = responseContexts;
-              $scope.data = responseContexts[0].instances;
-              //ctempSrv.loadAttachments(getAttachmentInfo($scope.data));
+              var tempALLFORM  = ALLFORM  = responseContexts[0].instances;
+              var tempALLMODEL = ALLMODEL = responseContexts[1].models;
+
+              angular.forEach(tempALLFORM, function(vAllFORM, kALLFORM){
+                var showinfo = [];
+                if(vAllFORM.browsable){
+                  angular.forEach(tempALLMODEL, function(vAllMODEL){
+                    if(vAllFORM.classname === vAllMODEL.form.name){
+                      if(!angular.isUndefined(vAllMODEL.layout)){
+                        angular.forEach(vAllMODEL.layout.columns, function(vcolumns){
+                          angular.forEach(vcolumns.elements, function(velements){
+                            angular.forEach(vAllMODEL.form.html, function(vhtml){
+                              if(vhtml.name === velements){
+                                var datafi = tempALLFORM[kALLFORM].data[velements];
+                                if(!angular.isUndefined(datafi)){
+                                  showinfo.push({
+                                     name    : vhtml.caption
+                                    ,content : datafi
+                                  });
+                                };
+                              }
+                            });
+                          });
+                        });
+                      }
+                    }
+                  });
+                  if(showinfo.length > 0){
+                    tempALLFORM[kALLFORM].filter = showinfo;
+                  }
+                }else{
+                  tempALLFORM.splice(kALLFORM, 1);
+                }
+              });
+
+              $scope.data = tempALLFORM ;
+
             });
           }
         });
@@ -52,14 +86,18 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
           var params     = {uuid: dataform.uuid};
 
           WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
-            $scope.history = responseContexts;
+            if(!angular.isUndefined(responseContexts)){
+              $scope.data[number].history = responseContexts;
+            }
           });
-        }
+
+        };
 
         /*show attachment*/
         $scope.showAttach = function(number) {
           var dataform        = $scope.data[number];
-        }
+          ctempSrv.loadAttachments(getAttachmentInfo(dataform));
+        };
 
         /* Manage the form link */
         $scope.showLink = function (type, number) {

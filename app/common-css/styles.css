@@ -38983,7 +38983,7 @@ footer:before {
 }
 
 /* line 8, ../tree-project/tree-project.scss */
-#tree-shadow {
+#tree-shadow, #tree-shadow2 {
   -webkit-box-shadow: 0px 0px 5px #333333;
   -moz-box-shadow: 0px 0px 5px #333333;
   box-shadow: 0px 0px 5px #333333;
@@ -38999,51 +38999,59 @@ footer:before {
 }
 
 /* line 19, ../tree-project/tree-project.scss */
+#tree-shadow2 {
+  -webkit-box-shadow: #cececc -1px 4px 5px;
+  -moz-box-shadow: #cececc -1px 4px 5px;
+  box-shadow: #cececc -1px 4px 5px;
+  margin: 1px;
+}
+
+/* line 24, ../tree-project/tree-project.scss */
 #tree-top, #tree-bottom, #tree-left, #tree-right {
   background: #ecebeb;
   position: absolute;
 }
 
-/* line 24, ../tree-project/tree-project.scss */
+/* line 29, ../tree-project/tree-project.scss */
 #tree-left, #tree-right {
   top: 0;
   bottom: 0;
   width: 17px;
 }
 
-/* line 29, ../tree-project/tree-project.scss */
+/* line 34, ../tree-project/tree-project.scss */
 #tree-left {
   left: 0;
 }
 
-/* line 30, ../tree-project/tree-project.scss */
+/* line 35, ../tree-project/tree-project.scss */
 #tree-right {
   right: 0;
 }
 
-/* line 32, ../tree-project/tree-project.scss */
+/* line 37, ../tree-project/tree-project.scss */
 #tree-top, #tree-bottom {
   left: 0;
   right: 0;
   height: 17px;
 }
 
-/* line 37, ../tree-project/tree-project.scss */
+/* line 42, ../tree-project/tree-project.scss */
 #tree-top {
   top: 0;
 }
 
-/* line 38, ../tree-project/tree-project.scss */
+/* line 43, ../tree-project/tree-project.scss */
 #tree-bottom {
   bottom: 0;
 }
 
-/* line 40, ../tree-project/tree-project.scss */
+/* line 45, ../tree-project/tree-project.scss */
 .previewselect {
   position: relative;
 }
 
-/* line 44, ../tree-project/tree-project.scss */
+/* line 49, ../tree-project/tree-project.scss */
 #preview {
   background-image: url('/common-img/../common-img/fondopreview.png');
   background-position: top left;
@@ -39055,14 +39063,25 @@ footer:before {
   height: 750px;
 }
 
-/* line 54, ../tree-project/tree-project.scss */
+/* line 59, ../tree-project/tree-project.scss */
 #previewfilldiv {
   text-align: center;
   padding-top: 30%;
 }
 
-/* line 59, ../tree-project/tree-project.scss */
+/* line 64, ../tree-project/tree-project.scss */
 #previewText {
   font-size: medium;
   color: lightslategrey;
+}
+
+/* line 69, ../tree-project/tree-project.scss */
+.badge {
+  margin-left: 3px;
+}
+
+/* line 74, ../tree-project/tree-project.scss */
+.boderaccordion .accordion-heading {
+  padding-top: 9px;
+  padding-bottom: 10px;
 }
