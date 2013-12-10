@@ -13,20 +13,18 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
   treemodule.controller("treeCtrl", ["$scope", 'webSocket', 'contextService', 'PDFViewerService','caliopewebTemplateSrv'
 
     ,function($scope, webSocket, contextService, pdf, ctempSrv) {
-        var ALLFORM;
-        var ALLMODEL;
         var WEBSOCKETS         = webSocket.WebSockets();
         var serverFile         = $caliope_constant.hyperion_server_address_d;
         $scope.form = {};
 
-        //function getAttachmentInfo(dataToProcess){
-          //var attachment = [];
-          //angular.forEach(dataToProcess, function(vAllattach){
-            //angular.forEach(vAllattach.attachment, function(vattach){
-            //});
-          //});
-          //return alluser;
-        //}
+
+        $scope.$watch('bigCurrentPage + itemsPerPage', function() {
+          if(!angular.isUndefined($scope.data)){
+            var begin = (($scope.bigCurrentPage - 1) * $scope.itemsPerPage)
+            ,end = begin + $scope.itemsPerPage;
+            $scope.data.slice(begin, end);
+          }
+        });
 
         $scope.$watch(function(){
           return contextService.getDefaultContext();
@@ -37,8 +35,8 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
             var params     = {context: value.uuid};
 
             WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
-              var tempALLFORM  = ALLFORM  = responseContexts[0].instances;
-              var tempALLMODEL = ALLMODEL = responseContexts[1].models;
+              var tempALLFORM  = responseContexts[0].instances;
+              var tempALLMODEL = responseContexts[1].models;
 
               angular.forEach(tempALLFORM, function(vAllFORM, kALLFORM){
                 var showinfo = [];
@@ -56,11 +54,18 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
                                      name    : vhtml.caption
                                     ,content : datafi
                                   });
-                                };
+                                }
                               }
                             });
                           });
                         });
+                      }
+                    }
+                    if(!angular.isUndefined(vAllFORM.attachments)){
+                      if(vAllFORM.attachments.length > 0){
+                        tempALLFORM[kALLFORM].attachments.show = false;
+                      }else{
+                        delete tempALLFORM[kALLFORM].attachments;
                       }
                     }
                   });
@@ -71,9 +76,7 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
                   tempALLFORM.splice(kALLFORM, 1);
                 }
               });
-
-              $scope.data = tempALLFORM ;
-
+              $scope.data = tempALLFORM;
             });
           }
         });
@@ -82,21 +85,35 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
         /*show history*/
         $scope.showHistory = function(number) {
           var method     = "form.getHistory";
-          var dataform   = $scope.data[number];
-          var params     = {uuid: dataform.uuid};
+          var params     = {uuid: $scope.data[number].uuid};
 
           WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
             if(!angular.isUndefined(responseContexts)){
               $scope.data[number].history = responseContexts;
             }
           });
-
         };
 
         /*show attachment*/
         $scope.showAttach = function(number) {
-          var dataform        = $scope.data[number];
-          ctempSrv.loadAttachments(getAttachmentInfo(dataform));
+          var dataform  = $scope.data[number].attachments;
+          var params    = [];
+
+          angular.forEach(dataform, function(vDATA, kDATA){
+            params.push(vDATA.uuid);
+          });
+
+          dataform.show = true;
+
+          ctempSrv.loadAttachments(params).then(function(resthumbs){
+            angular.forEach(dataform, function(vDATA2, kDATA2){
+              angular.forEach(resthumbs, function(vTHUMB, kTHUMB){
+                if(vDATA2.uuid === vTHUMB.id){
+                  $scope.data[number].attachments[kDATA2] = vTHUMB;
+                }
+              });
+            });
+          });
         };
 
         /* Manage the form link */

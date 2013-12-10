@@ -39068,3 +39068,10 @@ footer:before {
   padding-top: 9px;
   padding-bottom: 10px;
 }
+
+/* line 81, ../tree-project/tree-project.scss */
+.thumbnail p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
