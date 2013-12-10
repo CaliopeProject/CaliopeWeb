@@ -1200,6 +1200,18 @@ var CaliopeWebFormSpecificDecorator = ( function() {
         vElement.entity = vElement[ATT_OPTIONSFORM].formId;
         vElement.generic = vElement[ATT_OPTIONSFORM].generic;
 
+        if( vElement[ATT_OPTIONSFORM].hasOwnProperty('autocomplete') ) {
+          vElement['cwautocomplete'] = true;
+          vElement['find-method'] = vElement[ATT_OPTIONSFORM]['autocomplete'].method;
+          vElement['find-formId'] = vElement[ATT_OPTIONSFORM]['formId'];
+          vElement['find-load-init'] = vElement[ATT_OPTIONSFORM]['autocomplete']['load-init'];
+          vElement['find-load-on-type'] = vElement[ATT_OPTIONSFORM]['autocomplete']['load-on-type'];
+          vElement['find-show-fields'] = JSON.stringify( vElement[ATT_OPTIONSFORM]['autocomplete']['show-fields'] );
+          vElement['find-find-fields'] = JSON.stringify( vElement[ATT_OPTIONSFORM]['autocomplete']['find-fields'] );
+        } else {
+          vElement['cwautocomplete'] = false;
+        }
+
         delete vElement['ng-model'];
         delete vElement['ng-change'];
         delete vElement[ATT_OPTIONSFORM];

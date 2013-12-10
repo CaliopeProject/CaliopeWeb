@@ -231,6 +231,27 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
 
       /**
        *
+       * @param met
+       * @param formId
+       * @param paramsSearch
+       * @returns {*}
+       */
+      Service.findData = function(met, formId, filters) {
+        var method = met;
+        var params = {
+          'formId' : formId,
+          'filter' : {}
+        };
+
+        if( filters !== undefined ) {
+          jQuery.extend(params.filters, filters);
+        }
+
+        return webSocket.WebSockets().serversimm.sendRequest(method, params);
+      }
+
+      /**
+       *
        * @param value
        * @param context
        * @param actionsToShow

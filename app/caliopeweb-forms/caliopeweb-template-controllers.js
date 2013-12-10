@@ -11,14 +11,14 @@
 * Define the module angular in RequireJS
 */
 define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload',
-  'caliopeweb-formDirectives', 'angular-ui-ng-grid'], function (angular) {
+  'caliopeweb-formDirectives', 'angular-ui-ng-grid', 'angular-ui-bootstrap-bower'], function (angular) {
   'use strict';
 
   /**
   * Define the module controllers for CaliopeWebTemplates
   */
   var moduleControllers = angular.module('CaliopeWebTemplateControllers',
-      ['CaliopeWebFormDirectives', 'ngGrid']);
+      ['CaliopeWebFormDirectives', 'ngGrid', 'ui.bootstrap']);
 
   /**
    *
@@ -64,6 +64,15 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload',
   moduleControllers.controller('CaliopeWebTemplateCtrl',
     ['caliopewebTemplateSrv', '$scope', '$routeParams', 'caliopeWebFormNotification',
       function (calwebTemSrv, $scope, $routeParams, cwFormNotif) {
+
+
+        $scope.persons = [
+          {name:'Daniel', surname:'Ochoa'},
+          {name:'Jorge', surname:'Tellez'},
+          {name:'Monica', surname:'Fernandez'},
+          {name:'Geronimo', surname:'Sanchez'},
+          {name:'Maria', surname:'Perez'}
+        ];
 
 
         function processGenericForm(cwForm, params, entity) {
@@ -311,3 +320,4 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload',
       }]
   );
 });
+

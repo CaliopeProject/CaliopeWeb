@@ -1,6 +1,19 @@
 <div class="cw-inner-form">
   <div name="container-title" class="containertitle">
     <button name="btn-add" class="btn btn-mini btn-success" type="button" ng-disabled="disabledAdd" ng-click="addInnerForm('create')"></button>
+    <div name="container-autocomplete" class="container-autocomplete input-append">
+      <div name="container-autocomplete-input" class="container-autocomplete-input">
+      </div>
+      <div name="container-autocomplete-btn-group" class="container-autocomplete-btn-groupt btn-group">
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+          Acción
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <a ng-click="addInnerForm('edit', itemSelectedUuid)">Adicionar</a>
+        </ul>
+      </div>
+    </div>
   </div>
   <div ng-repeat="form in innerForms">
     <div name="container-form" class='innerborderform' >
