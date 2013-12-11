@@ -535,8 +535,8 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
    *
    *
    */
-  moduleDirectives.directive('cwFormInner',['$compile', 'caliopeWebFormNotification', 'caliopewebTemplateSrv',
-    function ($compile, cwFormNotif, cwTemplateService) {
+  moduleDirectives.directive('cwFormInner',['$compile', 'caliopeWebFormNotification', 'caliopewebTemplateSrv', 'HandlerMessagesClientSrv',
+    function ($compile, cwFormNotif, cwTemplateService, handlerMessagesClientService) {
 
 
     /**
@@ -606,7 +606,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             if( mode === undefined ) {
               mode = modeParent;
             }
-
             var index = totalIF;
             var nameIF = name.concat(index);
             var innerForm = createInnerForm(nameIF, index, mode, uuid);
@@ -615,6 +614,14 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           } else {
             //TODO: Crear una notificación de mensaje para el usuario
             console.log('No se pueden crear más formularios para ' + name + '. Máximo posible:' + cardinality);
+          }
+        };
+
+        $scope.addInnerFormFromAC = function(mode, uuid) {
+          if( mode === 'edit' && (uuid === undefined || uuid.length === 0 )) {
+            handlerMessagesClientService.addMessageError('Debe seleccionar una opción para adicionar el formulario y los datos');
+          } else {
+            $scope.addInnerForm(mode, uuid);
           }
         };
 
@@ -689,6 +696,8 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
         if( autocomplete === true ) {
 
+          $scope.showContainerAutocomplete = true;
+
           var method = $attrs.findMethod;
           var formId = $attrs.findFormid;
           var loadInit = $attrs.findLoadInit === "true" ? true : false;
@@ -710,12 +719,13 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           autoCompleteEl.attr("ng-model","autoCompleteEl_" + name);
           autoCompleteEl.attr("typeahead", "acOption.label for acOption in " +  "options" + " | filter:$viewValue");
           autoCompleteEl.attr("typeahead-on-select", "selectTypeahead($item, $model)");
-          autoCompleteEl.attr("ng-change", "changeTypeahead");
+          autoCompleteEl.attr("ng-change", "changeTypeahead(" + "autoCompleteEl_" + name + ")");
 
           $element.find("[name='container-autocomplete-input']").append( autoCompleteEl );
 
           try {
-            $compile($element.contents())($scope);
+            $compile( autoCompleteEl )($scope);
+            //$element.find("[name='container-autocomplete']").contents()
           } catch (exCom) {
             console.log('Error compiling autocomplete inner form' +  exCom.message);
           }
@@ -730,6 +740,13 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           $scope.selectTypeahead = function(item, label) {
             console.log('selectTypeahead scope general', item, label);
             $scope.itemSelectedUuid = item.uuid;
+          };
+
+          $scope.changeTypeahead = function(value) {
+            if( value === undefined || value.length === 0 ) {
+              $scope.itemSelectedUuid = undefined;
+            }
+
           };
 
 
