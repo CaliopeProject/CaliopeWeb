@@ -535,8 +535,8 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
    *
    *
    */
-  moduleDirectives.directive('cwFormInner',['$compile', 'caliopeWebFormNotification',
-    function ($compile, cwFormNotif) {
+  moduleDirectives.directive('cwFormInner',['$compile', 'caliopeWebFormNotification', 'caliopewebTemplateSrv', 'HandlerMessagesClientSrv',
+    function ($compile, cwFormNotif, cwTemplateService, handlerMessagesClientService) {
 
 
     /**
@@ -561,6 +561,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         var modeParent = $scope.$parent[$scope.$parent['cwForm-name']].getMode();
         var uuid = $attrs['uuid'];
         var generic = $attrs['generic'] === "true" ? true : $attrs['generic'];
+        var autocomplete = $attrs['cwautocomplete'] === "true" ? true : $attrs['cwautocomplete'];
 
         var cardinality = $attrs['cardinality'];
         if( cardinality === '*' ) {
@@ -605,7 +606,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             if( mode === undefined ) {
               mode = modeParent;
             }
-
             var index = totalIF;
             var nameIF = name.concat(index);
             var innerForm = createInnerForm(nameIF, index, mode, uuid);
@@ -617,11 +617,22 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           }
         };
 
+        $scope.addInnerFormFromAC = function(mode, uuid) {
+          if( mode === 'edit' && (uuid === undefined || uuid.length === 0 )) {
+            handlerMessagesClientService.addMessageError('Debe seleccionar una opción para adicionar el formulario y los datos');
+          } else {
+            $scope.addInnerForm(mode, uuid);
+          }
+        };
+
         $scope.removeInnerForm = function(name) {
           deleteRelationParent($scope.innerForms[name].cwFormParent, $scope.innerForms[name].cwForm);
           delete $scope.innerForms[name];
           totalIF--;
         };
+
+
+
 
         /*
           Code associate to link function directive.
@@ -640,7 +651,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             $scope.addInnerForm();
           });
         } else {
-          if( cardinality > 0 ) {
+          if( cardinality > 0 && autocomplete === false) {
             $scope.addInnerForm('create');
           }
         }
@@ -656,6 +667,90 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         var eleLab = $element.prev();
         elemBtn.append('+ ');
         elemBtn.append(eleLab.contents());
+
+        /*
+         Code when cwautocomplete attribute is true
+         */
+
+        function getOptionsAutoComplete(method, formId, filters, attsLabel, attsSearch)  {
+
+          cwTemplateService.findData(method, formId, filters).then( function( options ) {
+            if( !options.hasOwnProperty('error') ) {
+
+              angular.forEach(options, function(vOption, kOption ){
+                var label = '';
+                angular.forEach(attsLabel, function(vLabel, kLabel) {
+                  if( vOption[vLabel] !== undefined ) {
+                    label = label.concat( vOption[vLabel] ).concat(' ');
+                  }
+                });
+                vOption.label = label;
+              });
+
+              $scope.options = options;
+            }
+          });
+
+
+        }
+
+        if( autocomplete === true ) {
+
+          $scope.showContainerAutocomplete = true;
+
+          var method = $attrs.findMethod;
+          var formId = $attrs.findFormid;
+          var loadInit = $attrs.findLoadInit === "true" ? true : false;
+          var loadOnType = $attrs.findLoadOnType === "true" ? true : false;
+          var labelAtts = JSON.parse( $attrs.findShowFields );
+          var findAtts = JSON.parse( $attrs.findFindFields );
+
+          var filters = {}
+
+          var autoCompleteEl = undefined;
+
+          $scope.getOptions = function() {
+            return getOptionsAutoComplete(method, formId, filters, labelAtts, findAtts);
+          }
+
+
+          autoCompleteEl = angular.element('<input type="text" class="span2">');
+          autoCompleteEl.attr("typeahead-template-url", "caliopeweb-forms/caliopeweb-autocomplete-template.html");
+          autoCompleteEl.attr("ng-model","autoCompleteEl_" + name);
+          autoCompleteEl.attr("typeahead", "acOption.label for acOption in " +  "options" + " | filter:$viewValue");
+          autoCompleteEl.attr("typeahead-on-select", "selectTypeahead($item, $model)");
+          autoCompleteEl.attr("ng-change", "changeTypeahead(" + "autoCompleteEl_" + name + ")");
+
+          $element.find("[name='container-autocomplete-input']").append( autoCompleteEl );
+
+          try {
+            $compile( autoCompleteEl )($scope);
+            //$element.find("[name='container-autocomplete']").contents()
+          } catch (exCom) {
+            console.log('Error compiling autocomplete inner form' +  exCom.message);
+          }
+
+
+          if(loadInit) {
+            getOptionsAutoComplete(method, formId, filters, labelAtts, findAtts);
+          }
+
+          var scopeAutoCompleteEl = autoCompleteEl.scope();
+
+          $scope.selectTypeahead = function(item, label) {
+            console.log('selectTypeahead scope general', item, label);
+            $scope.itemSelectedUuid = item.uuid;
+          };
+
+          $scope.changeTypeahead = function(value) {
+            if( value === undefined || value.length === 0 ) {
+              $scope.itemSelectedUuid = undefined;
+            }
+
+          };
+
+
+        }
       }
     };
 
@@ -1295,3 +1390,4 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
   }]);
 
 });
+

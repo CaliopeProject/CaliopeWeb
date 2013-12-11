@@ -5,6 +5,10 @@ define(['angular', 'application-commonservices'], function (angular) {
   'use strict';
 
   var  moduleservice = angular.module('NotificationsServices', ['commonServices']);
+  var MSG_LEVEL = {
+    ERROR : "error",
+    INFO  : "info"
+  };
 
   moduleservice.factory('HandlerResponseServerSrv',
       ['$rootScope', 'toolservices', function ($rootScope, toolservices) {
@@ -125,6 +129,33 @@ define(['angular', 'application-commonservices'], function (angular) {
 
     return service;
   }]);
+
+  moduleservice.factory(
+      'HandlerMessagesClientSrv',
+      ['$rootScope', 'toolservices',
+        function ($rootScope) {
+          var services = {};
+
+
+          function addMessage(message, level) {
+            var mess = { msg: message, type: level }
+            $rootScope.$broadcast('ChangeTextAlertMessage', mess);
+          }
+
+          services.addMessageError = function (message) {
+            addMessage(message, MSG_LEVEL.ERROR);
+          };
+          services.addMessageInfo = function (message) {
+            addMessage(message, MSG_LEVEL.INFO);
+          };
+
+          return services;
+        }
+      ]
+  );
+
+
+
 
   return moduleservice;
 });

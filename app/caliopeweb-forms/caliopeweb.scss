@@ -68,6 +68,20 @@ input.ng-valid.ng-dirty {
 
     & .containertitle{
       margin-bottom: 5px;
+
+      & .container-autocomplete{
+        display: inline;
+        & .container-autocomplete-input {
+          display: inline;
+          & input[type=text] {
+            line-height: 22px;
+          }
+        }
+        & .container-autocomplete-btn-group {
+          display: inline;
+        }
+      }
+
     }
 
     & .page-header:first-child{
