@@ -13,9 +13,9 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
   treemodule.controller("treeCtrl", ["$scope", 'webSocket', 'contextService', 'PDFViewerService','caliopewebTemplateSrv'
 
     ,function($scope, webSocket, contextService, pdf, ctempSrv) {
-        var WEBSOCKETS         = webSocket.WebSockets();
-        var serverFile         = $caliope_constant.hyperion_server_address_d;
-        $scope.form = {};
+        var WEBSOCKETS  = webSocket.WebSockets();
+        var serverFile  = $caliope_constant.hyperion_server_address_d;
+        $scope.form     = {};
 
 
         $scope.$watch('bigCurrentPage + itemsPerPage', function() {
@@ -117,24 +117,48 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
         };
 
         /* Manage the form link */
-        $scope.showLink = function (type, number) {
-          var dataform        = $scope.data[number];
-          $scope.itemattach   = type;
-          $scope.form.name    = dataform.classname;
-          $scope.form.mode    = 'edit';
-          $scope.form.entity  = dataform.classname;
-          $scope.form.uuid    = dataform.uuid;
-          $scope.form.generic = true;
-          $scope.form.templateName = 'jsonTemplate';
+        $scope.showLink = function (type, obform, index) {
+
+          if(type === 'form'){
+              $scope.form.name         = obform.classname;
+              $scope.form.mode         = 'edit';
+              $scope.form.entity       = obform.classname;
+              $scope.form.uuid         = obform.uuid;
+              $scope.form.generic      = true;
+              $scope.form.templateName = 'jsonTemplate';
+              $scope.itemattach = 'form';
+          }else{
+            var i;
+            var mime       = obform.attachments[index].mime;
+            var filesmime  = ['text', 'image', 'pdf'];
+            var filteratta;
+            for (i = 0; i < filesmime.length; i++){
+              var patt1      = "[^\n]*" + filesmime[i] + "/[^\n]*($|\n)";
+              var patt2      = "." + filesmime[i] + "$";
+              var re         = new RegExp(patt1);
+              if(mime.match(re)){
+                filteratta =  filesmime[i];
+              }
+              var re         = new RegExp(patt2);
+              if(mime.match(re)){
+                filteratta =  filesmime[i];
+                break;
+              }
+            };
+
+            switch(filteratta) {
+              case 'image':
+                $scope.itemattach = 'image';
+                $scope.imgdata    = obform.attachments[index].thumbnail.data;
+                break;
+              case 'pdf':
+                $scope.itemattach = 'pdf';
+                $scope.pdfURL     = serverFile + obform.attachments[index].id;
+                $scope.instance   = pdf.Instance("viewer");
+                break;
+            }
+          }
         };
-
-
-        /* Manage the pdf link */
-
-        //$scope.pdfURL = "../../context/test.pdf";
-        $scope.pdfURL   = serverFile + "ece79476-ee33-4592-ad7e-0174cc1a4c6b";
-
-        $scope.instance = pdf.Instance("viewer");
 
         $scope.nextPage = function() {
           $scope.instance.nextPage();

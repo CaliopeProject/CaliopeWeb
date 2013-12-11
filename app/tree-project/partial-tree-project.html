@@ -34,24 +34,19 @@
               </span>
             </div>
           </accordion-heading>
-          <button class="btn btn-link btn-primary" ng-click="showLink('form', $index)"> Contenido</button>
+          <button class="btn btn-link btn-primary" ng-click="showLink('form', project, $index)"> Contenido </button>
           <button class="btn btn-link btn-inverse" ng-click="showHistory($index)" ng-if="!project.history"> Historico </button>
           <button class="btn btn-link btn-info" ng-click="showAttach($index)" ng-if="project.attachments && !project.attachments.show" > Adjunto </button>
 
-          <ul class="thumbnails" ng-if="project.attachments.show">
-            <li class="span3" ng-repeat="attach in project.attachments">
-            <div class="thumbnail">
-              <div ng-if="!attach.thumbnail.data">
-                <img src="../common-img/caliope.png" alt="">
-              </div>
-              <div ng-if="attach.thumbnail.data">
-                <img ng-src="data:image/png;base64,{{attach.thumbnail.data}}" alt="">
-              </div>
-              <p><button class="btn btn-link">{{attach.name}}<br />{{attach.size}}</button></p>
-            </div>
+          <ul class="item-list" ng-if="project.attachments.show">
+            <li ng-click="showLink('attach', project, $index)" ng-repeat="attach in project.attachments">
+              <img ng-if="!attach.thumbnail.data" src="../common-img/caliopethumbs.png" alt="">
+              <img ng-if ="attach.thumbnail.data" ng-src="data:image/png;base64,{{attach.thumbnail.data}}" alt="">
+              <a  href="">{{attach.name}} - {{attach.size}}</a>
+            </li>
           </ul>
 
-          <div> {{project.history}} </div>
+          <div>{{project.history}}</div>
 
           <br/>
         </accordion-group>
@@ -70,30 +65,25 @@
       <div id="tree-shadow2"></div>
 
       <div class='previewselect' ng-switch="itemattach">
-        <!--IMG -->
-        <div ng-switch-when="img">
 
+        <!--IMG -->
+        <div ng-switch-when="image">
+          <img ng-src="data:image/png;base64,{{imgdata}}">
         </div>
+
         <!--IMG -->
         <div ng-switch-when="pdf">
-
-          <div class="row">
             <div class="btn-group">
               <button class="btn btn-mini" ng-click="gotoPage(1)">|&lt;</button>
               <button class="btn btn-mini" ng-click="prevPage()">&lt;</button>
               <button class="btn btn-mini" ng-click="nextPage()">&gt;</button>
               <button class="btn btn-mini" ng-click="gotoPage(totalPages)">&gt;|</button>
             </div>
-
-          </div>
-          <div class="row">
             <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>
-          </div>
-          <div class="row">
             <pdfviewer src="{{pdfURL}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
-          </div>
 
         </div>
+
         <div ng-switch-when="form">
           <cw-dform class="cwdform" name="{{form.name}}" cw-dform="{{form.templateName}}"  mode="{{form.mode}}" entity="{{form.entity}}" uuid="{{form.uuid}}" generic="{{form.generic}}" inner="false" from-routeparams="false" enc-uuid="false" init="false"></cw-dform>
         </div>
