@@ -52,9 +52,8 @@ $borKanba: 12px;
 
 .widget-box-kanban {
   @include border-radius($borKanba);
-  @include background-image(linear-gradient(white, rgba(247, 247, 247, 0.6)));
+  @include background-image(linear-gradient(#F4F4F4, rgba(247, 247, 247, 0.6)));
   margin: 3px 0;
-  border-bottom: 1px solid #CCC;
   padding-bottom: 42px ;
 
 }
@@ -64,7 +63,7 @@ $borKanba: 12px;
   @include border-top-right-radius($borKanba);
   position: relative;
   min-height: 38px;
-  border: solid #CCC;
+  border: solid #FFF;
   border-bottom: 0px;
   border-width: 1px 1px 0 1px;
   padding-left: 12px;
@@ -93,7 +92,7 @@ $borKanba: 12px;
 
 .widget-body-kanban {
   @include border-bottom-radius($borKanba);
-  border: 1px solid #CCC;
+  border: 1px solid #FFF;
   border-top: 0;
   border-bottom: 0;
   margin-bottom: -42px;

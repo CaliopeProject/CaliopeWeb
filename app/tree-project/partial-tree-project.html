@@ -90,22 +90,22 @@
           <div class="widget-main no-padding">
             <div class="dialogs">
 
-              <div class="itemdiv dialogdiv" ng-repeat="hist in history">
+              <div class="itemdiv dialogdiv" ng-repeat="hist in history | orderObjectBy:'datess':true">
                 <div class="user">
                   <img alt="{{hist.change_info.username}}" ng-src="data:image/png;base64, {{hist.change_info.image || 'R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='}}">
                 </div>
                 <div class="body">
                   <div class="time">
                     <i class="icon-time"></i>
-                    <span class="green">{{hist.date | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+                    <span class="green">{{hist.datess | date:'medium'}}</span>
                   </div>
                   <div class="name">
                     <a href="#">{{hist.change_info.name}}</a>
                   </div>
                   <div class="text">
-                    <table class="table table-hover">
+                    <table class="table table-hover table-bordered">
                       <tbody>
-                        <tr ng-if='$first'>
+                        <tr>
                           <th>Removed</th>
                           <th>Changed</th>
                           <th>added</th>
@@ -113,7 +113,7 @@
                         <tr>
                           <td >
                             <ul class="list-inline">
-                              <li ng-repeat="(kremo,vremo) in hist.changed.removed">
+                              <li ng-repeat="(kremo,vremo) in hist.removed">
                                 <b>{{kremo}}</b>: {{vremo}}
                               </li>
                             </ul>
@@ -121,7 +121,7 @@
 
                           <td >
                             <ul class="list-inline">
-                              <li ng-repeat="(kremo,vremo) in hist.changed.added">
+                              <li ng-repeat="(kremo,vremo) in hist.changed">
                                 <b>{{kremo}}</b>: {{vremo}}
                               </li>
                             </ul>
@@ -129,7 +129,7 @@
 
                           <td >
                             <ul class="list-inline">
-                              <li ng-repeat="(kremo,vremo) in hist.changed.changed">
+                              <li ng-repeat="(kremo,vremo) in hist.add">
                                 <b>{{kremo}}</b>: {{vremo}}
                               </li>
                             </ul>

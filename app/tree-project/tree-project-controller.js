@@ -96,7 +96,7 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
                 var exist = false;
 
                 var datenew = new Date(vResp.changed.timestamp);
-                responseContexts[kResp].date = datenew;
+                responseContexts[kResp].datess = datenew.getTime();
 
                 angular.forEach(taskService.getSerpublic, function(vInfo) {
                   if (vInfo.uuid === vResp.change_info){
