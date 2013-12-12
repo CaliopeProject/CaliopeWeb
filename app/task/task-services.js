@@ -95,7 +95,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                         angular.forEach(value1.tasks, function(value2, key2){
                           if(!angular.isUndefined(value2.comments)){
                             angular.forEach(value2.comments, function(value3, key3){
-                              var tempUser = undefined;
+                              var tempUser = false;
                               angular.forEach(data, function(valUser){
                                 if (valUser.uuid === value3.user) {
                                   tempUser = {};
@@ -104,7 +104,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                                   tempUser.name  = valUser.name;
                                 }
                               });
-                              if( tempUser !== undefined ) {
+                              if(!tempUser){
                                 ALLTASK[key1].tasks[key2].comments[key3].user = tempUser;
                               }
                             });
@@ -193,9 +193,15 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
         // The public API of the service
         var service =  {
 
-          loadData: loadTask,
+          loadData     : loadTask,
 
-          getAll: getAllTask,
+          getAll       : getAllTask,
+
+          getSerpublic : INFOUSERPUBLIC,
+
+          setSerpublic : function(newUser){
+            INFOUSERPUBLIC.push(newUser);
+          },
 
           // Show the modal task dialog
           createTask: function(targetTask, category) {
@@ -272,6 +278,7 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
                            tempServices.loadData('accounts.getPublicInfo', [updateTask.value.user]).then(
                              function(data){
                                ALLTASK[kAlltask].tasks[kTasks][updateTask.field][updateTask.subfield_id].user = data;
+                               INFOUSERPUBLIC.push(data);
                              }
                            );
                          }
@@ -539,11 +546,11 @@ define(['angular', 'angular-ui-bootstrap-bower','caliopeweb-template-services'],
            * @param uuid uuid Task
            */
           searchTask : function( category, uuid ) {
-            var task = undefined;
-            angular.forEach(ALLTASK, function(vCategory, kCategory){
-              if( vCategory.category == category ) {
-                angular.forEach(vCategory.tasks, function(vTask, kTask) {
-                  if( vTask.uuid == uuid ) {
+            var task;
+            angular.forEach(ALLTASK, function(vCategory){
+              if( vCategory.category === category ) {
+                angular.forEach(vCategory.tasks, function(vTask) {
+                  if( vTask.uuid === uuid ) {
                     task = vTask;
                     return true;
                   }

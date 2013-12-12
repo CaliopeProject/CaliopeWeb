@@ -1,18 +1,18 @@
 /*jslint browser: true,  unparam: true*/
 /*global define, console, $*/
 
-define(['angular', 'application-constant', 'application-servicesWebSocket', 'context-services', 'context-directives', 'angular-ui-bootstrap-bower', 'ng-pdfviewer', 'caliopeweb-template-services','caliopeweb-formDirectives', 'application-commonservices'], function (angular, $caliope_constant) {
+define(['angular', 'application-constant', 'application-servicesWebSocket', 'context-services', 'context-directives', 'angular-ui-bootstrap-bower', 'ng-pdfviewer', 'caliopeweb-template-services','caliopeweb-formDirectives', 'application-commonservices', 'task-services'], function (angular, $caliope_constant) {
   'use strict';
 
-  var treemodule = angular.module('treeController', ['webSocket', 'ContextServices', 'context-directives', 'ui.bootstrap', 'ngPDFViewer', 'CaliopeWebTemplatesServices', 'CaliopeWebFormDirectives', 'commonServices']);
+  var treemodule = angular.module('treeController', ['webSocket', 'ContextServices', 'context-directives', 'ui.bootstrap', 'ngPDFViewer', 'CaliopeWebTemplatesServices', 'CaliopeWebFormDirectives', 'commonServices', 'task-services']);
 
   treemodule.config(function($sceDelegateProvider){
     $sceDelegateProvider.resourceUrlWhitelist(['^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?$', 'self']);
   });
 
-  treemodule.controller("treeCtrl", ["$scope", 'webSocket', 'contextService', 'PDFViewerService','caliopewebTemplateSrv'
+  treemodule.controller("treeCtrl", ["$scope", 'webSocket', 'contextService', 'PDFViewerService', 'caliopewebTemplateSrv', 'taskService'
 
-    ,function($scope, webSocket, contextService, pdf, ctempSrv) {
+    ,function($scope, webSocket, contextService, pdf, ctempSrv, taskService) {
         var WEBSOCKETS  = webSocket.WebSockets();
         var serverFile  = $caliope_constant.hyperion_server_address_d;
         $scope.form     = {};
@@ -89,7 +89,45 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
 
           WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
             if(!angular.isUndefined(responseContexts)){
-              $scope.data[number].history = responseContexts;
+
+              var user = [];
+
+              angular.forEach(responseContexts, function(vResp, kResp) {
+                var exist = false;
+
+                var datenew = new Date(vResp.changed.timestamp);
+                responseContexts[kResp].date = datenew;
+
+                angular.forEach(taskService.getSerpublic, function(vInfo) {
+                  if (vInfo.uuid === vResp.change_info){
+                    responseContexts[kResp].change_info = vInfo;
+                    exist = true;
+                  }
+                });
+                if(!exist){
+                  user.push(responseContexts[kResp].change_info);
+                }
+
+                delete responseContexts[kResp].changed.timestamp;
+                delete responseContexts[kResp].changed.uuid;
+
+              });
+
+              if(user.length > 0){
+                ctempSrv.loadData('accounts.getPublicInfo',[user]).then(function(returnuser){
+                angular.forEach(responseContexts, function(vResp2, kResp2) {
+                    angular.forEach(returnuser, function(vRetuser) {
+                      if (vRetuser.uuid === vResp2.change_info){
+                          responseContexts[kResp2].change_info = vRetuser;
+                          taskService.setSerpublic(vRetuser);
+                      }
+                    });
+                  });
+                });
+              }
+
+              $scope.history    = responseContexts;
+              $scope.itemattach = 'hist';
             }
           });
         };
@@ -129,22 +167,25 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
               $scope.itemattach = 'form';
           }else{
             var i;
+            var patt1;
+            var patt2;
+            var re;
             var mime       = obform.attachments[index].mime;
             var filesmime  = ['text', 'image', 'pdf'];
             var filteratta;
             for (i = 0; i < filesmime.length; i++){
-              var patt1      = "[^\n]*" + filesmime[i] + "/[^\n]*($|\n)";
-              var patt2      = "." + filesmime[i] + "$";
-              var re         = new RegExp(patt1);
+              patt1      = "[^\n]*" + filesmime[i] + "/[^\n]*($|\n)";
+              patt2      = "." + filesmime[i] + "$";
+              re         = new RegExp(patt1);
               if(mime.match(re)){
                 filteratta =  filesmime[i];
               }
-              var re         = new RegExp(patt2);
+              re         = new RegExp(patt2);
               if(mime.match(re)){
                 filteratta =  filesmime[i];
                 break;
               }
-            };
+            }
 
             switch(filteratta) {
               case 'image':

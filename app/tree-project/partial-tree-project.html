@@ -11,7 +11,6 @@
   </div>
   <div class="row-flow">
     <div class="span4">
-
       <fieldset>
         <label>Filtrar documentos</label>
         <div class="controls controls-row">
@@ -19,7 +18,6 @@
           <input class="span6" type="text" placeholder="Todos los campos" ng-model="filterForms.$">
         </div>
       </fieldset>
-
       <accordion class='boderaccordion' close-others="true">
         <accordion-group ng-repeat="project in data | filter:filterForms">
           <accordion-heading>
@@ -35,7 +33,7 @@
             </div>
           </accordion-heading>
           <button class="btn btn-link btn-primary" ng-click="showLink('form', project, $index)"> Contenido </button>
-          <button class="btn btn-link btn-inverse" ng-click="showHistory($index)" ng-if="!project.history"> Historico </button>
+          <button class="btn btn-link btn-inverse" ng-click="showHistory($index)"> Historico </button>
           <button class="btn btn-link btn-info" ng-click="showAttach($index)" ng-if="project.attachments && !project.attachments.show" > Adjunto </button>
 
           <ul class="item-list" ng-if="project.attachments.show">
@@ -51,10 +49,7 @@
           <br/>
         </accordion-group>
       </accordion>
-
     </div>
-
-
 
     <div class="span8 preview">
       <div id="tree-left"></div>
@@ -65,13 +60,13 @@
       <div id="tree-shadow2"></div>
 
       <div class='previewselect' ng-switch="itemattach">
-
         <!--IMG -->
         <div ng-switch-when="image">
           <img ng-src="data:image/png;base64,{{imgdata}}">
         </div>
-
         <!--IMG -->
+
+        <!--PDF -->
         <div ng-switch-when="pdf">
             <div class="btn-group">
               <button class="btn btn-mini" ng-click="gotoPage(1)">|&lt;</button>
@@ -81,13 +76,78 @@
             </div>
             <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>
             <pdfviewer src="{{pdfURL}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
-
         </div>
+        <!--PDF -->
 
+        <!--FORM -->
         <div ng-switch-when="form">
           <cw-dform class="cwdform" name="{{form.name}}" cw-dform="{{form.templateName}}"  mode="{{form.mode}}" entity="{{form.entity}}" uuid="{{form.uuid}}" generic="{{form.generic}}" inner="false" from-routeparams="false" enc-uuid="false" init="false"></cw-dform>
         </div>
+        <!--FORM -->
 
+        <!--HIST -->
+        <div ng-switch-when="hist">
+          <div class="widget-main no-padding">
+            <div class="dialogs">
+
+              <div class="itemdiv dialogdiv" ng-repeat="hist in history">
+                <div class="user">
+                  <img alt="{{hist.change_info.username}}" ng-src="data:image/png;base64, {{hist.change_info.image || 'R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='}}">
+                </div>
+                <div class="body">
+                  <div class="time">
+                    <i class="icon-time"></i>
+                    <span class="green">{{hist.date | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+                  </div>
+                  <div class="name">
+                    <a href="#">{{hist.change_info.name}}</a>
+                  </div>
+                  <div class="text">
+                    <table class="table table-hover">
+                      <tbody>
+                        <tr ng-if='$first'>
+                          <th>Removed</th>
+                          <th>Changed</th>
+                          <th>added</th>
+                        </tr>
+                        <tr>
+                          <td >
+                            <ul class="list-inline">
+                              <li ng-repeat="(kremo,vremo) in hist.changed.removed">
+                                <b>{{kremo}}</b>: {{vremo}}
+                              </li>
+                            </ul>
+                          </td>
+
+                          <td >
+                            <ul class="list-inline">
+                              <li ng-repeat="(kremo,vremo) in hist.changed.added">
+                                <b>{{kremo}}</b>: {{vremo}}
+                              </li>
+                            </ul>
+                          </td>
+
+                          <td >
+                            <ul class="list-inline">
+                              <li ng-repeat="(kremo,vremo) in hist.changed.changed">
+                                <b>{{kremo}}</b>: {{vremo}}
+                              </li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!--HIST -->
+
+        <!--DEFAULT -->
         <div ng-switch-default>
           <div id='preview'>
             <div id="previewfilldiv">
@@ -96,8 +156,8 @@
             </div>
           </div>
         </div>
+        <!--DEFAULT -->
       </div>
-
     </div>
   </div>
 </div>
