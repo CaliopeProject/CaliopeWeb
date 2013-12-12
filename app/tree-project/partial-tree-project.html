@@ -11,8 +11,17 @@
   </div>
   <div class="row-flow">
     <div class="span4">
+
+      <fieldset>
+        <label>Filtrar documentos</label>
+        <div class="controls controls-row">
+          <input class="span6" type="text" placeholder="seleccion de formulario" ng-model="filterForms.classname" >
+          <input class="span6" type="text" placeholder="Todos los campos" ng-model="filterForms.$">
+        </div>
+      </fieldset>
+
       <accordion class='boderaccordion' close-others="true">
-        <accordion-group ng-repeat="project in data">
+        <accordion-group ng-repeat="project in data | filter:filterForms">
           <accordion-heading>
             {{$index}}
             <span class="badge badge-info">
@@ -25,14 +34,28 @@
               </span>
             </div>
           </accordion-heading>
-          <button class="btn btn-link btn-primary" ng-click="showLink('form', $index)"> Contenido</button>
+          <button class="btn btn-link btn-primary" ng-click="showLink('form', project, $index)"> Contenido </button>
           <button class="btn btn-link btn-inverse" ng-click="showHistory($index)" ng-if="!project.history"> Historico </button>
-          <button class="btn btn-link btn-info" ng-click="showLink('form', $index)" > Adjunto </button>
-          <div> {{project.history}} </div>
+          <button class="btn btn-link btn-info" ng-click="showAttach($index)" ng-if="project.attachments && !project.attachments.show" > Adjunto </button>
+
+          <ul class="item-list" ng-if="project.attachments.show">
+            <li ng-click="showLink('attach', project, $index)" ng-repeat="attach in project.attachments">
+              <img ng-if="!attach.thumbnail.data" src="../common-img/caliopethumbs.png" alt="">
+              <img ng-if ="attach.thumbnail.data" ng-src="data:image/png;base64,{{attach.thumbnail.data}}" alt="">
+              <a  href="">{{attach.name}} - {{attach.size}}</a>
+            </li>
+          </ul>
+
+          <div>{{project.history}}</div>
+
           <br/>
         </accordion-group>
       </accordion>
+
     </div>
+
+
+
     <div class="span8 preview">
       <div id="tree-left"></div>
       <div id="tree-right"></div>
@@ -42,30 +65,25 @@
       <div id="tree-shadow2"></div>
 
       <div class='previewselect' ng-switch="itemattach">
-        <!--IMG -->
-        <div ng-switch-when="img">
 
+        <!--IMG -->
+        <div ng-switch-when="image">
+          <img ng-src="data:image/png;base64,{{imgdata}}">
         </div>
+
         <!--IMG -->
         <div ng-switch-when="pdf">
-
-          <div class="row">
             <div class="btn-group">
               <button class="btn btn-mini" ng-click="gotoPage(1)">|&lt;</button>
               <button class="btn btn-mini" ng-click="prevPage()">&lt;</button>
               <button class="btn btn-mini" ng-click="nextPage()">&gt;</button>
               <button class="btn btn-mini" ng-click="gotoPage(totalPages)">&gt;|</button>
             </div>
-
-          </div>
-          <div class="row">
             <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>
-          </div>
-          <div class="row">
             <pdfviewer src="{{pdfURL}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
-          </div>
 
         </div>
+
         <div ng-switch-when="form">
           <cw-dform class="cwdform" name="{{form.name}}" cw-dform="{{form.templateName}}"  mode="{{form.mode}}" entity="{{form.entity}}" uuid="{{form.uuid}}" generic="{{form.generic}}" inner="false" from-routeparams="false" enc-uuid="false" init="false"></cw-dform>
         </div>
