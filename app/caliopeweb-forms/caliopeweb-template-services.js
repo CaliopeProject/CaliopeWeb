@@ -244,7 +244,7 @@ define(['angular', 'caliopeWebForms', 'caliopeWebGrids'], function(angular) {
         };
 
         if( filters !== undefined ) {
-          jQuery.extend(params.filters, filters);
+          jQuery.extend(params.filter, filters);
         }
 
         return webSocket.WebSockets().serversimm.sendRequest(method, params);

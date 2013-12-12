@@ -672,7 +672,12 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
          Code when cwautocomplete attribute is true
          */
 
-        function getOptionsAutoComplete(method, formId, filters, attsLabel, attsSearch)  {
+        function getOptionsAutoComplete(method, formId, dataSearch, attsLabel, attsSearch)  {
+
+          var filters = {};
+          angular.forEach(attsSearch, function(vAttSearch, kAttSearch){
+            filters[vAttSearch] = dataSearch;
+          });
 
           cwTemplateService.findData(method, formId, filters).then( function( options ) {
             if( !options.hasOwnProperty('error') ) {
@@ -695,7 +700,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         }
 
         if( autocomplete === true ) {
-
+          $scope.options = [];
           $scope.showContainerAutocomplete = true;
 
           var method = $attrs.findMethod;
@@ -704,6 +709,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           var loadOnType = $attrs.findLoadOnType === "true" ? true : false;
           var labelAtts = JSON.parse( $attrs.findShowFields );
           var findAtts = JSON.parse( $attrs.findFindFields );
+          var CH_TYPES = 3;
 
           var filters = {}
 
@@ -714,7 +720,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           }
 
 
-          autoCompleteEl = angular.element('<input type="text" class="span2">');
+          autoCompleteEl = angular.element('<input type="text" class="">');
           autoCompleteEl.attr("typeahead-template-url", "caliopeweb-forms/caliopeweb-autocomplete-template.html");
           autoCompleteEl.attr("ng-model","autoCompleteEl_" + name);
           autoCompleteEl.attr("typeahead", "acOption.label for acOption in " +  "options" + " | filter:$viewValue");
@@ -732,7 +738,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
 
           if(loadInit) {
-            getOptionsAutoComplete(method, formId, filters, labelAtts, findAtts);
+            getOptionsAutoComplete(method, formId, "", labelAtts, []);
           }
 
           var scopeAutoCompleteEl = autoCompleteEl.scope();
@@ -745,8 +751,10 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           $scope.changeTypeahead = function(value) {
             if( value === undefined || value.length === 0 ) {
               $scope.itemSelectedUuid = undefined;
+              $scope.options = [];
+            } else if( value.length >= CH_TYPES && loadOnType === true) {
+              getOptionsAutoComplete(method, formId, value, labelAtts, findAtts);
             }
-
           };
 
 
