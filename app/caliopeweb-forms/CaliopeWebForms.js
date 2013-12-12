@@ -1208,6 +1208,9 @@ var CaliopeWebFormSpecificDecorator = ( function() {
           vElement['find-load-on-type'] = vElement[ATT_OPTIONSFORM]['autocomplete']['load-on-type'];
           vElement['find-show-fields'] = JSON.stringify( vElement[ATT_OPTIONSFORM]['autocomplete']['show-fields'] );
           vElement['find-find-fields'] = JSON.stringify( vElement[ATT_OPTIONSFORM]['autocomplete']['find-fields'] );
+          if( vElement[ATT_OPTIONSFORM]['autocomplete'].hasOwnProperty('type-min-length') ) {
+            vElement['find-type-min-length'] = vElement[ATT_OPTIONSFORM]['autocomplete']['type-min-length'];
+          }
         } else {
           vElement['cwautocomplete'] = false;
         }

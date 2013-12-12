@@ -62,46 +62,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
     return {
 
-      controller : function($scope, $attrs, $element) {
-        /*
-        var entity = $attrs['entity'];
-        var mode = $attrs['mode'];
-        var uuid = $attrs['uuid'];
-        var name = $attrs['name'];
-        var generic = $attrs['generic'];
-        var inner = $attrs['inner'];
-
-        if( $attrs['fromRouteparams'] !== undefined &&
-            $attrs['fromRouteparams'] === "true") {
-          entity = $routeParams.entity;
-          mode = $routeParams.mode;
-          uuid = $routeParams.uuid;
-        }
-        if( entity === undefined ) {
-          //TODO: Generar Error, entidad requerida
-        }
-        if( name === undefined ) {
-          //TODO: Generar Error, nombre requerido
-        }
-        if($attrs['encUuid']==="true") {
-          //TODO: Create centralized function to encode and decode uuid
-          if( uuid !== undefined ) {
-            var bytesUUID = Crypto.util.base64ToBytes(uuid);
-            uuid = Crypto.charenc.Binary.bytesToString(bytesUUID);
-          }
-        }
-        var cwForm = cwFormService.createForm(entity, mode, uuid);
-        if( generic === true || generic === "true") {
-          cwForm.setGenericForm(true);
-        }
-        if( inner === true || inner === "true") {
-          cwForm.setInnerForm(true);
-        }
-        $scope['cwForm-name'] = 'cwForm-'.concat(name);
-        $scope[$scope['cwForm-name']] = cwForm;
-        */
-      },
-
       /**
        * Link function of the directive. This get the directive $element and call the
        * Jquery Dform library to render the form.
@@ -122,7 +82,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         var name             = $attrs['name'];
         var generic          = $attrs['generic'];
         var inner            = $attrs['inner'];
-        var initForm         = $attrs['init'] === "true"? true : false;
+        var initForm         = !!($attrs['init'] === "true");
         var preLoadFunction  = $attrs['preLoadFunction'];
         var postLoadFunction = $attrs['postLoadFunction'];
 
@@ -318,7 +278,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             name             = $attrs.name;
             generic          = $attrs.generic;
             inner            = $attrs.inner;
-            initForm         = $attrs['init'] === "true"? true : false;
+            initForm         = !!($attrs['init'] === "true");
             preLoadFunction  = $attrs.preLoadFunction;
             postLoadFunction = $attrs.postLoadFunction;
             createForm();
@@ -506,8 +466,12 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                   $scope.$parent.innerForms[i].cwForm = cwForm;
                   var cwFormParentName = $scope.$parent.$parent['cwForm-name'];
                   $scope.$parent.innerForms[i].cwFormParent = $scope.$parent.$parent[cwFormParentName];
-                  if( mode === 'create' ) {
+
+                  if( mode === 'create' ||
+                     (mode === 'edit' && $scope.$parent.innerForms[i].autocompleted === true) ) {
+
                     $scope.$parent.innerForms[i].createRelationParent($scope.$parent.$parent[cwFormParentName], cwForm);
+
                   }
                 }
 
@@ -611,17 +575,20 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             var innerForm = createInnerForm(nameIF, index, mode, uuid);
             $scope.innerForms[innerForm.name] = innerForm;
             totalIF++;
+            return innerForm;
           } else {
             //TODO: Crear una notificación de mensaje para el usuario
             console.log('No se pueden crear más formularios para ' + name + '. Máximo posible:' + cardinality);
           }
+          return undefined;
         };
 
         $scope.addInnerFormFromAC = function(mode, uuid) {
           if( mode === 'edit' && (uuid === undefined || uuid.length === 0 )) {
             handlerMessagesClientService.addMessageError('Debe seleccionar una opción para adicionar el formulario y los datos');
           } else {
-            $scope.addInnerForm(mode, uuid);
+            var innerForm = $scope.addInnerForm(mode, uuid);
+            innerForm.autocompleted = true;
           }
         };
 
@@ -672,14 +639,19 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
          Code when cwautocomplete attribute is true
          */
 
-        function getOptionsAutoComplete(method, formId, filters, attsLabel, attsSearch)  {
+        function getOptionsAutoComplete(method, formId, dataSearch, attsLabel, attsSearch)  {
+
+          var filters = {};
+          angular.forEach(attsSearch, function(vAttSearch){
+            filters[vAttSearch] = '*' + dataSearch +'*';
+          });
 
           cwTemplateService.findData(method, formId, filters).then( function( options ) {
             if( !options.hasOwnProperty('error') ) {
 
-              angular.forEach(options, function(vOption, kOption ){
+              angular.forEach(options, function(vOption){
                 var label = '';
-                angular.forEach(attsLabel, function(vLabel, kLabel) {
+                angular.forEach(attsLabel, function(vLabel) {
                   if( vOption[vLabel] !== undefined ) {
                     label = label.concat( vOption[vLabel] ).concat(' ');
                   }
@@ -695,26 +667,21 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         }
 
         if( autocomplete === true ) {
-
+          $scope.options = [];
           $scope.showContainerAutocomplete = true;
 
           var method = $attrs.findMethod;
           var formId = $attrs.findFormid;
-          var loadInit = $attrs.findLoadInit === "true" ? true : false;
-          var loadOnType = $attrs.findLoadOnType === "true" ? true : false;
+          var loadInit = !!($attrs.findLoadInit === "true");
+          var loadOnType = !!($attrs.findLoadOnType === "true");
           var labelAtts = JSON.parse( $attrs.findShowFields );
           var findAtts = JSON.parse( $attrs.findFindFields );
+          var CH_TYPES = !Number.isNaN(Number($attrs.findTypeMinLength)) ? $attrs.findTypeMinLength : 3;
+          var filters = {};
 
-          var filters = {}
+          $scope.getOptions = getOptionsAutoComplete(method, formId, filters, labelAtts, findAtts);
 
-          var autoCompleteEl = undefined;
-
-          $scope.getOptions = function() {
-            return getOptionsAutoComplete(method, formId, filters, labelAtts, findAtts);
-          }
-
-
-          autoCompleteEl = angular.element('<input type="text" class="span2">');
+          var autoCompleteEl = angular.element('<input type="text" class="">');
           autoCompleteEl.attr("typeahead-template-url", "caliopeweb-forms/caliopeweb-autocomplete-template.html");
           autoCompleteEl.attr("ng-model","autoCompleteEl_" + name);
           autoCompleteEl.attr("typeahead", "acOption.label for acOption in " +  "options" + " | filter:$viewValue");
@@ -732,10 +699,8 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
 
           if(loadInit) {
-            getOptionsAutoComplete(method, formId, filters, labelAtts, findAtts);
+            getOptionsAutoComplete(method, formId, "", labelAtts, []);
           }
-
-          var scopeAutoCompleteEl = autoCompleteEl.scope();
 
           $scope.selectTypeahead = function(item, label) {
             console.log('selectTypeahead scope general', item, label);
@@ -745,8 +710,10 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           $scope.changeTypeahead = function(value) {
             if( value === undefined || value.length === 0 ) {
               $scope.itemSelectedUuid = undefined;
+              $scope.options = [];
+            } else if( value.length >= CH_TYPES && loadOnType === true) {
+              getOptionsAutoComplete(method, formId, value, labelAtts, findAtts);
             }
-
           };
 
 
@@ -1235,11 +1202,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
         $element.children().addClass($attrs['class']);
         var loadInit = $attrs['loadInit'];
-        if( loadInit === 'true' ) {
-          loadInit = true;
-        } else {
-          loadInit = false;
-        }
+        loadInit = loadInit === 'true';
 
         var dataGridNameSrv = "data_".concat(gridName);
         var dataGridNameGrid = "data".concat(gridName);
