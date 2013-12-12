@@ -82,7 +82,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         var name             = $attrs['name'];
         var generic          = $attrs['generic'];
         var inner            = $attrs['inner'];
-        var initForm         = $attrs['init'] === "true"? true : false;
+        var initForm         = !!($attrs['init'] === "true");
         var preLoadFunction  = $attrs['preLoadFunction'];
         var postLoadFunction = $attrs['postLoadFunction'];
 
@@ -278,7 +278,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             name             = $attrs.name;
             generic          = $attrs.generic;
             inner            = $attrs.inner;
-            initForm         = $attrs['init'] === "true"? true : false;
+            initForm         = !!($attrs['init'] === "true");
             preLoadFunction  = $attrs.preLoadFunction;
             postLoadFunction = $attrs.postLoadFunction;
             createForm();
@@ -642,16 +642,16 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
         function getOptionsAutoComplete(method, formId, dataSearch, attsLabel, attsSearch)  {
 
           var filters = {};
-          angular.forEach(attsSearch, function(vAttSearch, kAttSearch){
+          angular.forEach(attsSearch, function(vAttSearch){
             filters[vAttSearch] = '*' + dataSearch +'*';
           });
 
           cwTemplateService.findData(method, formId, filters).then( function( options ) {
             if( !options.hasOwnProperty('error') ) {
 
-              angular.forEach(options, function(vOption, kOption ){
+              angular.forEach(options, function(vOption){
                 var label = '';
-                angular.forEach(attsLabel, function(vLabel, kLabel) {
+                angular.forEach(attsLabel, function(vLabel) {
                   if( vOption[vLabel] !== undefined ) {
                     label = label.concat( vOption[vLabel] ).concat(' ');
                   }
@@ -672,22 +672,16 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
           var method = $attrs.findMethod;
           var formId = $attrs.findFormid;
-          var loadInit = $attrs.findLoadInit === "true" ? true : false;
-          var loadOnType = $attrs.findLoadOnType === "true" ? true : false;
+          var loadInit = !!($attrs.findLoadInit === "true");
+          var loadOnType = !!($attrs.findLoadOnType === "true");
           var labelAtts = JSON.parse( $attrs.findShowFields );
           var findAtts = JSON.parse( $attrs.findFindFields );
           var CH_TYPES = !Number.isNaN(Number($attrs.findTypeMinLength)) ? $attrs.findTypeMinLength : 3;
-          var filters = {}
+          var filters = {};
 
-          var autoCompleteEl = undefined;
-          if(  undefined && angular.isNumber())
+          $scope.getOptions = getOptionsAutoComplete(method, formId, filters, labelAtts, findAtts);
 
-          $scope.getOptions = function() {
-            return getOptionsAutoComplete(method, formId, filters, labelAtts, findAtts);
-          }
-
-
-          autoCompleteEl = angular.element('<input type="text" class="">');
+          var autoCompleteEl = angular.element('<input type="text" class="">');
           autoCompleteEl.attr("typeahead-template-url", "caliopeweb-forms/caliopeweb-autocomplete-template.html");
           autoCompleteEl.attr("ng-model","autoCompleteEl_" + name);
           autoCompleteEl.attr("typeahead", "acOption.label for acOption in " +  "options" + " | filter:$viewValue");
@@ -707,8 +701,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           if(loadInit) {
             getOptionsAutoComplete(method, formId, "", labelAtts, []);
           }
-
-          var scopeAutoCompleteEl = autoCompleteEl.scope();
 
           $scope.selectTypeahead = function(item, label) {
             console.log('selectTypeahead scope general', item, label);
@@ -1210,11 +1202,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
         $element.children().addClass($attrs['class']);
         var loadInit = $attrs['loadInit'];
-        if( loadInit === 'true' ) {
-          loadInit = true;
-        } else {
-          loadInit = false;
-        }
+        loadInit = loadInit === 'true';
 
         var dataGridNameSrv = "data_".concat(gridName);
         var dataGridNameGrid = "data".concat(gridName);
