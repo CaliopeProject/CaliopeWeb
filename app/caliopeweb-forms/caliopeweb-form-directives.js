@@ -62,46 +62,6 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
     return {
 
-      controller : function($scope, $attrs, $element) {
-        /*
-        var entity = $attrs['entity'];
-        var mode = $attrs['mode'];
-        var uuid = $attrs['uuid'];
-        var name = $attrs['name'];
-        var generic = $attrs['generic'];
-        var inner = $attrs['inner'];
-
-        if( $attrs['fromRouteparams'] !== undefined &&
-            $attrs['fromRouteparams'] === "true") {
-          entity = $routeParams.entity;
-          mode = $routeParams.mode;
-          uuid = $routeParams.uuid;
-        }
-        if( entity === undefined ) {
-          //TODO: Generar Error, entidad requerida
-        }
-        if( name === undefined ) {
-          //TODO: Generar Error, nombre requerido
-        }
-        if($attrs['encUuid']==="true") {
-          //TODO: Create centralized function to encode and decode uuid
-          if( uuid !== undefined ) {
-            var bytesUUID = Crypto.util.base64ToBytes(uuid);
-            uuid = Crypto.charenc.Binary.bytesToString(bytesUUID);
-          }
-        }
-        var cwForm = cwFormService.createForm(entity, mode, uuid);
-        if( generic === true || generic === "true") {
-          cwForm.setGenericForm(true);
-        }
-        if( inner === true || inner === "true") {
-          cwForm.setInnerForm(true);
-        }
-        $scope['cwForm-name'] = 'cwForm-'.concat(name);
-        $scope[$scope['cwForm-name']] = cwForm;
-        */
-      },
-
       /**
        * Link function of the directive. This get the directive $element and call the
        * Jquery Dform library to render the form.
