@@ -506,8 +506,12 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
                   $scope.$parent.innerForms[i].cwForm = cwForm;
                   var cwFormParentName = $scope.$parent.$parent['cwForm-name'];
                   $scope.$parent.innerForms[i].cwFormParent = $scope.$parent.$parent[cwFormParentName];
-                  if( mode === 'create' ) {
+
+                  if( mode === 'create' ||
+                     (mode === 'edit' && $scope.$parent.innerForms[i].autocompleted === true) ) {
+
                     $scope.$parent.innerForms[i].createRelationParent($scope.$parent.$parent[cwFormParentName], cwForm);
+
                   }
                 }
 
@@ -611,17 +615,20 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
             var innerForm = createInnerForm(nameIF, index, mode, uuid);
             $scope.innerForms[innerForm.name] = innerForm;
             totalIF++;
+            return innerForm;
           } else {
             //TODO: Crear una notificación de mensaje para el usuario
             console.log('No se pueden crear más formularios para ' + name + '. Máximo posible:' + cardinality);
           }
+          return undefined;
         };
 
         $scope.addInnerFormFromAC = function(mode, uuid) {
           if( mode === 'edit' && (uuid === undefined || uuid.length === 0 )) {
             handlerMessagesClientService.addMessageError('Debe seleccionar una opción para adicionar el formulario y los datos');
           } else {
-            $scope.addInnerForm(mode, uuid);
+            var innerForm = $scope.addInnerForm(mode, uuid);
+            innerForm.autocompleted = true;
           }
         };
 
