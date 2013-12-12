@@ -676,7 +676,7 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
 
           var filters = {};
           angular.forEach(attsSearch, function(vAttSearch, kAttSearch){
-            filters[vAttSearch] = dataSearch;
+            filters[vAttSearch] = '*' + dataSearch +'*';
           });
 
           cwTemplateService.findData(method, formId, filters).then( function( options ) {
@@ -709,11 +709,11 @@ define(['angular', 'dform', 'Crypto', 'application-commonservices', 'notificatio
           var loadOnType = $attrs.findLoadOnType === "true" ? true : false;
           var labelAtts = JSON.parse( $attrs.findShowFields );
           var findAtts = JSON.parse( $attrs.findFindFields );
-          var CH_TYPES = 3;
-
+          var CH_TYPES = !Number.isNaN(Number($attrs.findTypeMinLength)) ? $attrs.findTypeMinLength : 3;
           var filters = {}
 
           var autoCompleteEl = undefined;
+          if(  undefined && angular.isNumber())
 
           $scope.getOptions = function() {
             return getOptionsAutoComplete(method, formId, filters, labelAtts, findAtts);
