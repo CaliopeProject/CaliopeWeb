@@ -7,7 +7,8 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
   var treemodule = angular.module('treeController', ['webSocket', 'ContextServices', 'context-directives', 'ui.bootstrap', 'ngPDFViewer', 'CaliopeWebTemplatesServices', 'CaliopeWebFormDirectives', 'commonServices', 'task-services']);
 
   treemodule.config(function($sceDelegateProvider){
-    $sceDelegateProvider.resourceUrlWhitelist(['^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?$', 'self']);
+    //$sceDelegateProvider.resourceUrlWhitelist(['^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?$', 'self']);
+    $sceDelegateProvider.resourceUrlWhitelist(['.*', 'self']);
   });
 
   treemodule.controller("treeCtrl", ["$scope", 'webSocket', 'contextService', 'PDFViewerService', 'caliopewebTemplateSrv', 'taskService'
@@ -190,7 +191,7 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
             switch(filteratta) {
               case 'image':
                 $scope.itemattach = 'image';
-                $scope.imgdata    = obform.attachments[index].thumbnail.data;
+                $scope.imgdata    = serverFile + obform.attachments[index].id;
                 break;
               case 'pdf':
                 $scope.itemattach = 'pdf';

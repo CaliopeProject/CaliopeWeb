@@ -62,7 +62,7 @@
       <div class='previewselect' ng-switch="itemattach">
         <!--IMG -->
         <div ng-switch-when="image">
-          <img ng-src="data:image/png;base64,{{imgdata}}">
+          <img ng-src="{{imgdata}}">
         </div>
         <!--IMG -->
 
@@ -105,11 +105,13 @@
                   <div class="text">
                     <table class="table table-hover table-bordered">
                       <tbody>
+
                         <tr>
                           <th>Removed</th>
                           <th>Changed</th>
                           <th>added</th>
                         </tr>
+
                         <tr>
                           <td >
                             <ul class="list-inline">
@@ -119,7 +121,7 @@
                             </ul>
                           </td>
 
-                          <td >
+                          <td>
                             <ul class="list-inline">
                               <li ng-repeat="(kremo,vremo) in hist.changed">
                                 <b>{{kremo}}</b>: {{vremo}}
@@ -127,13 +129,14 @@
                             </ul>
                           </td>
 
-                          <td >
+                          <td>
                             <ul class="list-inline">
                               <li ng-repeat="(kremo,vremo) in hist.add">
                                 <b>{{kremo}}</b>: {{vremo}}
                               </li>
                             </ul>
                           </td>
+
                         </tr>
                       </tbody>
                     </table>
