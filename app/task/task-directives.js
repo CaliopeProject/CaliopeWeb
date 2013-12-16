@@ -9,10 +9,12 @@ define(['angular', 'task-services'], function(angular) {
   // The loginToolbar directive is a reusable widget that can show login or logout buttons
   // and information the current authenticated user
   moduleDirectives.directive('widgetTask', ['taskService', function(taskService) {
+
     var directive = {
       templateUrl: 'task/partial-task-widget-task.html',
       restrict: 'E',
       replace: true,
+
       link: function($scope, $element, $attrs) {
 
         $scope.title = $attrs.title;
@@ -42,6 +44,7 @@ define(['angular', 'task-services'], function(angular) {
     };
 
     return directive;
+
   }]);
 
 

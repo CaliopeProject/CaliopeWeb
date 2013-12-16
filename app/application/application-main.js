@@ -52,6 +52,7 @@ require.config({
     'caliopeweb-template-services'   : 'caliopeweb-forms/caliopeweb-template-services',
     'caliopeweb-templateControllers' : 'caliopeweb-forms/caliopeweb-template-controllers',
     'caliopeweb-formDirectives'      : 'caliopeweb-forms/caliopeweb-form-directives',
+    'caliopeweb-statusDirectives'    : 'caliopeweb-forms/caliopeweb-status-directives',
 
     'admin-users-controller'         : 'admin-users/admin-users-controller',
 

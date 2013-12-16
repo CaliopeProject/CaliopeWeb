@@ -11,14 +11,14 @@
 * Define the module angular in RequireJS
 */
 define(['angular', 'caliopeWebForms', 'caliopeWebGrids','jquery.fileupload',
-  'caliopeweb-formDirectives', 'angular-ui-ng-grid', 'angular-ui-bootstrap-bower'], function (angular) {
+  'caliopeweb-formDirectives', 'angular-ui-ng-grid', 'angular-ui-bootstrap-bower', 'caliopeweb-statusDirectives'], function (angular) {
   'use strict';
 
   /**
   * Define the module controllers for CaliopeWebTemplates
   */
   var moduleControllers = angular.module('CaliopeWebTemplateControllers',
-      ['CaliopeWebFormDirectives', 'ngGrid', 'ui.bootstrap']);
+      ['CaliopeWebFormDirectives', 'ngGrid', 'ui.bootstrap', 'status-directives']);
 
   /**
    *
