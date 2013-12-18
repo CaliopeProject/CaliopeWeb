@@ -2,7 +2,7 @@
   <div class="page-header span12">
     <div class="span6">
       <h1>
-       Arbol del proyecto
+        Arbol del proyecto
       </h1>
     </div>
     <div class="span6">
@@ -19,35 +19,35 @@
         </div>
       </fieldset>
       <accordion class='boderaccordion' close-others="true">
-        <accordion-group ng-repeat="project in data | filter:filterForms">
-          <accordion-heading>
-            {{$index}}
-            <span class="badge badge-info">
-              {{project.classname}}
-            </span>
-            <div class='inline' ng-if="project.filter">
-              <span tooltip="{{newtags.name}}"  class="badge" tooltip-placement="right"
-                ng-repeat="newtags in project.filter">
-                {{newtags.content | htmlToPlaintext}}
-              </span>
-            </div>
-          </accordion-heading>
-          <button class="btn btn-link btn-primary" ng-click="showLink('form', project, $index)"> Contenido </button>
-          <button class="btn btn-link btn-inverse" ng-click="showHistory($index)"> Historico </button>
-          <button class="btn btn-link btn-info" ng-click="showAttach($index)" ng-if="project.attachments && !project.attachments.show" > Adjunto </button>
+      <accordion-group ng-repeat="project in data | filter:filterForms">
+      <accordion-heading>
+      {{$index}}
+      <span class="badge badge-info">
+        {{project.classname}}
+      </span>
+      <div class='inline' ng-if="project.filter">
+        <span tooltip="{{newtags.name}}"  class="badge" tooltip-placement="right"
+          ng-repeat="newtags in project.filter">
+          {{newtags.content | htmlToPlaintext}}
+        </span>
+      </div>
+      </accordion-heading>
+      <button class="btn btn-link btn-primary" ng-click="showLink('form', project, $index)"> Contenido </button>
+      <button class="btn btn-link btn-inverse" ng-click="showHistory($index)"> Historico </button>
+      <button class="btn btn-link btn-info" ng-click="showAttach($index)" ng-if="project.attachments && !project.attachments.show" > Adjunto </button>
 
-          <ul class="item-list" ng-if="project.attachments.show">
-            <li ng-click="showLink('attach', project, $index)" ng-repeat="attach in project.attachments">
-              <img ng-if="!attach.thumbnail.data" src="../common-img/caliopethumbs.png" alt="">
-              <img ng-if ="attach.thumbnail.data" ng-src="data:image/png;base64,{{attach.thumbnail.data}}" alt="">
-              <a  href="">{{attach.name}} - {{attach.size}}</a>
-            </li>
-          </ul>
+      <ul class="item-list" ng-if="project.attachments.show">
+        <li ng-click="showLink('attach', project, $index)" ng-repeat="attach in project.attachments">
+        <img ng-if="!attach.thumbnail.data" src="../common-img/caliopethumbs.png" alt="">
+        <img ng-if ="attach.thumbnail.data" ng-src="data:image/png;base64,{{attach.thumbnail.data}}" alt="">
+        <a  href="">{{attach.name}} - {{attach.size}}</a>
+        </li>
+      </ul>
 
-          <div>{{project.history}}</div>
+      <div>{{project.history}}</div>
 
-          <br/>
-        </accordion-group>
+      <br/>
+      </accordion-group>
       </accordion>
     </div>
 
@@ -68,14 +68,14 @@
 
         <!--PDF -->
         <div ng-switch-when="pdf">
-            <div class="btn-group">
-              <button class="btn btn-mini" ng-click="gotoPage(1)">|&lt;</button>
-              <button class="btn btn-mini" ng-click="prevPage()">&lt;</button>
-              <button class="btn btn-mini" ng-click="nextPage()">&gt;</button>
-              <button class="btn btn-mini" ng-click="gotoPage(totalPages)">&gt;|</button>
-            </div>
-            <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>
-            <pdfviewer src="{{pdfURL}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
+          <div class="btn-group">
+            <button class="btn btn-mini" ng-click="gotoPage(1)">|&lt;</button>
+            <button class="btn btn-mini" ng-click="prevPage()">&lt;</button>
+            <button class="btn btn-mini" ng-click="nextPage()">&gt;</button>
+            <button class="btn btn-mini" ng-click="gotoPage(totalPages)">&gt;|</button>
+          </div>
+          <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>
+          <pdfviewer src="{{pdfURL}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
         </div>
         <!--PDF -->
 
@@ -91,8 +91,8 @@
             <div class="dialogs">
 
               <div class="itemdiv dialogdiv" ng-repeat="hist in history | orderObjectBy:'datess':true">
-                <div class="user">
-                  <img alt="{{hist.change_info.username}}" ng-src="data:image/png;base64, {{hist.change_info.image || 'R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='}}">
+                <div class="user" tooltip="{{hist.change_info.username}}">
+                  <img alt="{{hist.change_info.username}}"   ng-src="data:image/png;base64, {{hist.change_info.image || 'R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='}}">
                 </div>
                 <div class="body">
                   <div class="time">
@@ -100,44 +100,49 @@
                     <span class="green">{{hist.datess | date:'medium'}}</span>
                   </div>
                   <div class="name">
-                    <a href="#">{{hist.change_info.name}}</a>
+                    <a>{{hist.change_info.name}}</a>
                   </div>
                   <div class="text">
                     <table class="table table-hover table-bordered">
                       <tbody>
 
-                        <tr>
-                          <th>Removed</th>
-                          <th>Changed</th>
-                          <th>added</th>
-                        </tr>
+                      <tr ng-if="hist.removed">
+                        <td class="newtd scrollbar16">
+                          <span class="label">removed</span>
+                          <span ng-repeat="tag in hist.tags" class="badge badge-{{tag.label}}">{{tag.name}}</span>
+                          <span class="inline">
+                            <div ng-repeat="(kremo,vremo) in hist.removed" class="inline">
+                              <b class="uppercase-text">{{kremo}}</b>: {{vremo}}
+                            </div>
+                          </span>
 
-                        <tr>
-                          <td >
-                            <ul class="list-inline">
-                              <li ng-repeat="(kremo,vremo) in hist.removed">
-                                <b>{{kremo}}</b>: {{vremo}}
-                              </li>
-                            </ul>
-                          </td>
+                        </td>
+                      </tr>
 
-                          <td>
-                            <ul class="list-inline">
-                              <li ng-repeat="(kremo,vremo) in hist.changed">
-                                <b>{{kremo}}</b>: {{vremo}}
-                              </li>
-                            </ul>
-                          </td>
+                      <tr ng-if="hist.changed">
+                        <td class="newtd scrollbar16">
+                          <span class="label label-info">changed</span>
+                          <span ng-repeat="tag in hist.tags" class="badge badge-{{tag.label}}">{{tag.name}}</span>
+                          <span class="inline">
+                            <div ng-repeat="(kremo,vremo) in hist.changed" class="inline">
+                              <b class="uppercase-text">{{kremo}}</b>: {{vremo}}
+                            </div>
+                          </span>
+                        </td>
+                      </tr>
 
-                          <td>
-                            <ul class="list-inline">
-                              <li ng-repeat="(kremo,vremo) in hist.add">
-                                <b>{{kremo}}</b>: {{vremo}}
-                              </li>
-                            </ul>
-                          </td>
+                      <tr ng-if="hist.added">
+                        <td class="newtd scrollbar16">
+                          <span class="label label-inverse">added</span>
+                          <span ng-repeat="tag in hist.tags" class="badge badge-{{tag.label}}">{{tag.name}}</span>
+                          <span class="inline">
+                            <div ng-repeat="(kremo,vremo) in hist.added" class="inline">
+                              <b class="uppercase-text">{{kremo}}</b>: {{vremo}}
+                            </div>
+                          </span>
+                        </td>
+                      </tr>
 
-                        </tr>
                       </tbody>
                     </table>
 

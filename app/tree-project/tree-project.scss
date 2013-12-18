@@ -47,6 +47,13 @@
   & .itemdiv{
     padding-bottom: 15px;
   }
+  & .newtd{
+    font-weight: normal!important;
+  }
+  & .itemdiv.dialogdiv > .body > .text {
+    overflow-x: auto;
+    width: 100%;
+  }
 }
 
 #preview {
@@ -57,8 +64,6 @@
   };
   margin: -14px;
   height: 750px;
-
-
 }
 
 #previewfilldiv{

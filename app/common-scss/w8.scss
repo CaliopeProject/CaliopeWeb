@@ -7287,7 +7287,7 @@ td.td-actions a.td-action {
       }
     }
     .body {
-      margin-left: 44px;
+      margin-left: 48px;
       padding-left: 0;
       width: auto;
       margin-right: 12px;
@@ -7372,7 +7372,6 @@ td.td-actions a.td-action {
         padding: 3px 7px 7px;
         border-left-width: 2px;
         margin-right: 1px;
-        overflow-x: auto;
         &:before {
           content: "";
           display: block;
@@ -7396,8 +7395,10 @@ td.td-actions a.td-action {
             float: right;
           }
           .text {
-            padding-left: 0;
-            padding-bottom: 0;
+            padding-left   : 0;
+            padding-bottom : 0;
+            overflow-x     : auto;
+            width          : 100%;
             &:after {
               display: none;
             }

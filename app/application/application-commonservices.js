@@ -110,14 +110,49 @@ define(['angular'], function(angular) {
       return objValue;
     }
 
+    //Is empty for object, array and string
+    function validateEmpty(obj){
+      var o;
+      // null and undefined are "empty"
+      if (obj === null){
+        return true;
+      }
+
+      // Assume if it has a length property with a non-zero value
+      // that that property is correct.
+      if (obj.length && obj.length > 0){
+        return false;
+      }
+
+      if (angular.isNumber(obj)){
+        return false;
+      }
+
+      if (obj.length === 0){
+        return true;
+      }
+
+      for (o in obj) {
+        if (obj.hasOwnProperty(o)) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
     // The public API of the service
     return {
+
       rmValue: removeValue,
+
       getValueAttInObject: function (obj, attName, charSplitAttName) {
         return getValueAttInObject(obj, attName, charSplitAttName);
-      }
-    };
+      },
 
+      isEmtpy: validateEmpty
+
+    };
   }]);
 
 });

@@ -11,9 +11,9 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
     $sceDelegateProvider.resourceUrlWhitelist(['.*', 'self']);
   });
 
-  treemodule.controller("treeCtrl", ["$scope", 'webSocket', 'contextService', 'PDFViewerService', 'caliopewebTemplateSrv', 'taskService'
+  treemodule.controller("treeCtrl", ["$scope", 'webSocket', 'contextService', 'PDFViewerService', 'caliopewebTemplateSrv', 'taskService', 'toolservices'
 
-    ,function($scope, webSocket, contextService, pdf, ctempSrv, taskService) {
+    ,function($scope, webSocket, contextService, pdf, ctempSrv, taskService, tool) {
         var WEBSOCKETS  = webSocket.WebSockets();
         var serverFile  = $caliope_constant.hyperion_server_address_d;
         $scope.form     = {};
@@ -85,37 +85,91 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
 
         /*show history*/
         $scope.showHistory = function(number) {
-          var method     = "form.getHistory";
-          var params     = {uuid: $scope.data[number].uuid};
 
-          WEBSOCKETS.serversimm.sendRequest(method, params).then(function(responseContexts){
-            if(!angular.isUndefined(responseContexts)){
+          var METHOD     = "form.getHistory";
+          var PARAMS     = {uuid: $scope.data[number].uuid};
+          var USERLOAD   = taskService.getSerpublic;
+          var USER       = [];
+          var TAGS       = [];
+          $scope.history = [];
 
-              var user = [];
-
-              angular.forEach(responseContexts, function(vResp, kResp) {
+          var itemhistory  = function (histobj){
                 var exist = false;
 
-                var datenew = new Date(vResp.changed.timestamp);
-                responseContexts[kResp].datess = datenew.getTime();
+                var datenew = new Date(histobj.changed.timestamp);
+                histobj.datess = datenew.getTime();
 
-                angular.forEach(taskService.getSerpublic, function(vInfo) {
-                  if (vInfo.uuid === vResp.change_info){
-                    responseContexts[kResp].change_info = vInfo;
+                angular.forEach(USERLOAD, function(vInfo) {
+                  if (vInfo.uuid === histobj.change_info){
+                    histobj.change_info = vInfo;
                     exist = true;
                   }
                 });
+
                 if(!exist){
-                  user.push(responseContexts[kResp].change_info);
+                  USER.push(histobj.change_info);
                 }
 
-                delete responseContexts[kResp].changed.timestamp;
-                delete responseContexts[kResp].changed.uuid;
+                delete histobj.changed.timestamp;
+                delete histobj.changed.uuid;
+                return histobj;
+          };
 
+
+          var recurHistory = function (element, name){
+            var patt1 = '[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}';
+            var reg   = new RegExp(patt1);
+            if(name.match(reg)){
+              var data  = itemhistory(element);
+              data.tags = angular.copy(TAGS);
+              angular.forEach(data, function(vdata, kdata){
+                if(tool.isEmtpy(vdata)){
+                  delete data[kdata];
+                }
+              });
+              $scope.history.push(data);
+            }else{
+              switch(TAGS.length){
+                case 0:
+                  TAGS.push({name: name, label: 'inverse'});
+                  break;
+                case 1:
+                  TAGS.push({name: name, label: 'important'});
+                  break;
+                case 2:
+                  TAGS.push({name: name, label: 'success'});
+                  break;
+                case 3:
+                  TAGS.push({name: name, label: 'warning'});
+                  break;
+                default:
+                  TAGS.push({name: name, label: 'info'});
+              }
+
+              angular.forEach(element, function(velement, kelement) {
+                if(!angular.isUndefined(velement.change_info)){
+                  recurHistory(velement, kelement);
+                }else{
+                  angular.forEach(velement, function(vItem, kItem) {
+                    recurHistory(vItem, kItem);
+                  });
+                  TAGS.pop();
+                }
+              });
+              TAGS.pop();
+            }
+          };
+
+          WEBSOCKETS.serversimm.sendRequest(METHOD, PARAMS).then(function(responseContexts){
+            if(!angular.isUndefined(responseContexts)){
+
+              angular.forEach(responseContexts, function(vResp, kResp) {
+                recurHistory(vResp, kResp);
               });
 
-              if(user.length > 0){
-                ctempSrv.loadData('accounts.getPublicInfo',[user]).then(function(returnuser){
+
+              if(USER.length > 0){
+                ctempSrv.loadData('accounts.getPublicInfo',[USER]).then(function(returnuser){
                 angular.forEach(responseContexts, function(vResp2, kResp2) {
                     angular.forEach(returnuser, function(vRetuser) {
                       if (vRetuser.uuid === vResp2.change_info){
@@ -127,10 +181,10 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
                 });
               }
 
-              $scope.history    = responseContexts;
               $scope.itemattach = 'hist';
             }
           });
+
         };
 
         /*show attachment*/

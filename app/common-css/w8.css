@@ -8298,7 +8298,7 @@ td.td-actions a.td-action:hover {
 }
 /* line 7289, ../common-scss/w8.scss */
 .itemdiv > .body {
-  margin-left: 44px;
+  margin-left: 48px;
   padding-left: 0;
   width: auto;
   margin-right: 12px;
@@ -8391,9 +8391,8 @@ td.td-actions a.td-action:hover {
   padding: 3px 7px 7px;
   border-left-width: 2px;
   margin-right: 1px;
-  overflow-x: auto;
 }
-/* line 7376, ../common-scss/w8.scss */
+/* line 7375, ../common-scss/w8.scss */
 .itemdiv.dialogdiv > .body:before {
   content: "";
   display: block;
@@ -8411,45 +8410,47 @@ td.td-actions a.td-action:hover {
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
-/* line 7394, ../common-scss/w8.scss */
+/* line 7393, ../common-scss/w8.scss */
 .itemdiv.dialogdiv > .body > .time {
   position: static;
   float: right;
 }
-/* line 7398, ../common-scss/w8.scss */
+/* line 7397, ../common-scss/w8.scss */
 .itemdiv.dialogdiv > .body > .text {
   padding-left: 0;
   padding-bottom: 0;
+  overflow-x: auto;
+  width: 100%;
 }
-/* line 7401, ../common-scss/w8.scss */
+/* line 7402, ../common-scss/w8.scss */
 .itemdiv.dialogdiv > .body > .text:after {
   display: none;
 }
-/* line 7408, ../common-scss/w8.scss */
+/* line 7409, ../common-scss/w8.scss */
 .itemdiv.dialogdiv .tooltip > .tooltip-inner {
   word-break: break-all;
 }
-/* line 7412, ../common-scss/w8.scss */
+/* line 7413, ../common-scss/w8.scss */
 .itemdiv.memberdiv {
   padding: 2px;
   margin: 3px 0;
   float: left;
 }
-/* line 7417, ../common-scss/w8.scss */
+/* line 7418, ../common-scss/w8.scss */
 .itemdiv.memberdiv > .user > img {
   border-color: #dce3ed;
 }
-/* line 7421, ../common-scss/w8.scss */
+/* line 7422, ../common-scss/w8.scss */
 .itemdiv.memberdiv > .body > .time {
   position: static;
 }
-/* line 7424, ../common-scss/w8.scss */
+/* line 7425, ../common-scss/w8.scss */
 .itemdiv.memberdiv > .body > .name {
   line-height: 18px;
   height: 18px;
   margin-bottom: 0;
 }
-/* line 7428, ../common-scss/w8.scss */
+/* line 7429, ../common-scss/w8.scss */
 .itemdiv.memberdiv > .body > .name > a {
   display: inline-block;
   max-width: 100px;
@@ -8458,7 +8459,7 @@ td.td-actions a.td-action:hover {
   text-overflow: ellipsis;
   word-break: break-all;
 }
-/* line 7440, ../common-scss/w8.scss */
+/* line 7441, ../common-scss/w8.scss */
 .itemdiv .tools {
   width: 20px;
   position: absolute;
@@ -8466,31 +8467,31 @@ td.td-actions a.td-action:hover {
   bottom: 16px;
   display: none;
 }
-/* line 7446, ../common-scss/w8.scss */
+/* line 7447, ../common-scss/w8.scss */
 .itemdiv .tools .btn {
   border-radius: 36px;
   margin: 1px 0;
 }
-/* line 7451, ../common-scss/w8.scss */
+/* line 7452, ../common-scss/w8.scss */
 .itemdiv .body .tools {
   bottom: 4px;
 }
-/* line 7454, ../common-scss/w8.scss */
+/* line 7455, ../common-scss/w8.scss */
 .itemdiv.commentdiv .tools {
   right: 9px;
 }
-/* line 7457, ../common-scss/w8.scss */
+/* line 7458, ../common-scss/w8.scss */
 .itemdiv:hover .tools {
   display: inline-block;
 }
 
-/* line 7462, ../common-scss/w8.scss */
+/* line 7463, ../common-scss/w8.scss */
 .item-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-/* line 7466, ../common-scss/w8.scss */
+/* line 7467, ../common-scss/w8.scss */
 .item-list > li {
   border: 1px solid #DDD;
   border-left-width: 3px;
@@ -8499,171 +8500,171 @@ td.td-actions a.td-action:hover {
   margin: 7px;
   position: relative;
 }
-/* line 7473, ../common-scss/w8.scss */
+/* line 7474, ../common-scss/w8.scss */
 .item-list > li.selected {
   color: #8090a0;
   background-color: #f4f9fc;
 }
-/* line 7476, ../common-scss/w8.scss */
+/* line 7477, ../common-scss/w8.scss */
 .item-list > li.selected label, .item-list > li.selected .lbl {
   text-decoration: line-through;
   color: #8090a0;
 }
-/* line 7482, ../common-scss/w8.scss */
+/* line 7483, ../common-scss/w8.scss */
 .item-list > li > .checkbox, .item-list > li > label.inline {
   display: inline-block;
 }
-/* line 7487, ../common-scss/w8.scss */
+/* line 7488, ../common-scss/w8.scss */
 .item-list > li label {
   font-size: 13px;
 }
-/* line 7491, ../common-scss/w8.scss */
+/* line 7492, ../common-scss/w8.scss */
 .item-list > li .percentage {
   font-size: 11px;
   font-weight: bold;
   color: #777;
 }
-/* line 7497, ../common-scss/w8.scss */
+/* line 7498, ../common-scss/w8.scss */
 .item-list > li.ui-sortable-helper {
   cursor: move;
 }
-/* line 7501, ../common-scss/w8.scss */
+/* line 7502, ../common-scss/w8.scss */
 .item-list > li.item-orange {
   border-left-color: #eccb71;
 }
-/* line 7504, ../common-scss/w8.scss */
+/* line 7505, ../common-scss/w8.scss */
 .item-list > li.item-red {
   border-left-color: #e05656;
 }
-/* line 7507, ../common-scss/w8.scss */
+/* line 7508, ../common-scss/w8.scss */
 .item-list > li.item-green {
   border-left-color: #9ecf6a;
 }
-/* line 7510, ../common-scss/w8.scss */
+/* line 7511, ../common-scss/w8.scss */
 .item-list > li.item-blue {
   border-left-color: #569add;
 }
-/* line 7513, ../common-scss/w8.scss */
+/* line 7514, ../common-scss/w8.scss */
 .item-list > li.item-pink {
   border-left-color: #dd56c0;
 }
-/* line 7516, ../common-scss/w8.scss */
+/* line 7517, ../common-scss/w8.scss */
 .item-list > li.item-black {
   border-left-color: #505050;
 }
-/* line 7519, ../common-scss/w8.scss */
+/* line 7520, ../common-scss/w8.scss */
 .item-list > li.item-grey {
   border-left-color: #999;
 }
-/* line 7522, ../common-scss/w8.scss */
+/* line 7523, ../common-scss/w8.scss */
 .item-list > li.item-brown {
   border-left-color: brown;
 }
-/* line 7525, ../common-scss/w8.scss */
+/* line 7526, ../common-scss/w8.scss */
 .item-list > li.item-default {
   border-left-color: #abbac3;
 }
 
-/* line 7531, ../common-scss/w8.scss */
+/* line 7532, ../common-scss/w8.scss */
 .ui-sortable-placeholder, .ui-sortable-helper, .ui-sortable-placeholder > a, .ui-sortable-helper > a {
   cursor: move !important;
 }
 
-/* line 7535, ../common-scss/w8.scss */
+/* line 7536, ../common-scss/w8.scss */
 .fc-header-title > h2 {
   font-size: 22px;
   color: #65a0ce;
 }
 
-/* line 7540, ../common-scss/w8.scss */
+/* line 7541, ../common-scss/w8.scss */
 .fc-widget-header, .fc-widget-content {
   border: 1px solid #bcd4e5;
 }
 
-/* line 7544, ../common-scss/w8.scss */
+/* line 7545, ../common-scss/w8.scss */
 .fc-state-highlight {
   background: #FFC;
 }
 
-/* line 7548, ../common-scss/w8.scss */
+/* line 7549, ../common-scss/w8.scss */
 .fc-event-skin {
   border: none !important;
   background-color: #abbac3;
   padding: 0 0 1px 2px;
 }
 
-/* line 7554, ../common-scss/w8.scss */
+/* line 7555, ../common-scss/w8.scss */
 .label-yellow .fc-event-skin {
   color: #963;
 }
 
-/* line 7558, ../common-scss/w8.scss */
+/* line 7559, ../common-scss/w8.scss */
 .label-light .fc-event-skin {
   color: #888;
 }
 
-/* line 7562, ../common-scss/w8.scss */
+/* line 7563, ../common-scss/w8.scss */
 [class*="label-"] > .fc-event-skin {
   background-color: inherit;
 }
-/* line 7564, ../common-scss/w8.scss */
+/* line 7565, ../common-scss/w8.scss */
 [class*="label-"] > .fc-event-skin > .fc-event-skin.fc-event-head {
   background-color: inherit;
 }
 
-/* line 7570, ../common-scss/w8.scss */
+/* line 7571, ../common-scss/w8.scss */
 .fc-event-skin.ui-draggable-dragging {
   cursor: move;
 }
-/* line 7573, ../common-scss/w8.scss */
+/* line 7574, ../common-scss/w8.scss */
 .fc-event-skin.fc-event-vert {
   padding: 0 0 1px;
 }
 
-/* line 7578, ../common-scss/w8.scss */
+/* line 7579, ../common-scss/w8.scss */
 .fc-event-vert > .fc-event-skin {
   padding: 0 0 1px;
 }
 
-/* line 7582, ../common-scss/w8.scss */
+/* line 7583, ../common-scss/w8.scss */
 .fc-grid .fc-day-number {
   color: #2e6589;
 }
 
-/* line 7586, ../common-scss/w8.scss */
+/* line 7587, ../common-scss/w8.scss */
 .fc-widget-header {
   background: #ecf2f7;
   color: #8090a0;
 }
 
-/* line 7591, ../common-scss/w8.scss */
+/* line 7592, ../common-scss/w8.scss */
 .fc-grid th, th.fc-widget-header {
   height: 28px;
   vertical-align: middle !important;
 }
 
-/* line 7596, ../common-scss/w8.scss */
+/* line 7597, ../common-scss/w8.scss */
 .fc-event-hori {
   border-radius: 0 !important;
   border-color: transparent;
 }
 
-/* line 7601, ../common-scss/w8.scss */
+/* line 7602, ../common-scss/w8.scss */
 .fc-event-vert {
   border-radius: 0 !important;
   border-color: transparent;
 }
-/* line 7604, ../common-scss/w8.scss */
+/* line 7605, ../common-scss/w8.scss */
 .fc-event-vert .fc-event-content {
   padding-left: 1px;
   padding-right: 1px;
 }
-/* line 7608, ../common-scss/w8.scss */
+/* line 7609, ../common-scss/w8.scss */
 .fc-event-vert .fc-event-time {
   padding: 0;
 }
 
-/* line 7613, ../common-scss/w8.scss */
+/* line 7614, ../common-scss/w8.scss */
 .fc-state-default {
   border: 0;
   border: 0;
@@ -8675,7 +8676,7 @@ td.td-actions a.td-action:hover {
   border-radius: 0 !important;
   margin-left: 2px;
 }
-/* line 7623, ../common-scss/w8.scss */
+/* line 7624, ../common-scss/w8.scss */
 .fc-state-default .fc-button-inner {
   border: 0;
   background-color: #abbac3;
@@ -8686,45 +8687,45 @@ td.td-actions a.td-action:hover {
   border-radius: 0 !important;
   margin-left: 2px;
 }
-/* line 7633, ../common-scss/w8.scss */
+/* line 7634, ../common-scss/w8.scss */
 .fc-state-default .fc-button-effect {
   display: none;
 }
 
-/* line 7638, ../common-scss/w8.scss */
+/* line 7639, ../common-scss/w8.scss */
 .fc-state-disabled {
   opacity: .75;
   filter: alpha(opacity=75);
   color: #DDD;
 }
-/* line 7642, ../common-scss/w8.scss */
+/* line 7643, ../common-scss/w8.scss */
 .fc-state-disabled .fc-button-inner {
   opacity: .75;
   filter: alpha(opacity=75);
   color: #DDD;
 }
 
-/* line 7649, ../common-scss/w8.scss */
+/* line 7650, ../common-scss/w8.scss */
 .fc-state-active {
   border-color: #4f99c6;
   background-color: #6fb3e0;
 }
-/* line 7652, ../common-scss/w8.scss */
+/* line 7653, ../common-scss/w8.scss */
 .fc-state-active .fc-button-inner {
   border-color: #4f99c6;
   background-color: #6fb3e0;
 }
 
-/* line 7658, ../common-scss/w8.scss */
+/* line 7659, ../common-scss/w8.scss */
 .fc-state-hover {
   background-color: #8b9aa3;
 }
-/* line 7660, ../common-scss/w8.scss */
+/* line 7661, ../common-scss/w8.scss */
 .fc-state-hover .fc-button-inner {
   background-color: #8b9aa3;
 }
 
-/* line 7665, ../common-scss/w8.scss */
+/* line 7666, ../common-scss/w8.scss */
 .external-event {
   margin: 6px 0;
   padding: 0;
@@ -8735,16 +8736,16 @@ td.td-actions a.td-action:hover {
   font-size: 13px;
   line-height: 28px;
 }
-/* line 7674, ../common-scss/w8.scss */
+/* line 7675, ../common-scss/w8.scss */
 .external-event:hover {
   opacity: 1;
   filter: alpha(opacity=100);
 }
-/* line 7678, ../common-scss/w8.scss */
+/* line 7679, ../common-scss/w8.scss */
 .external-event.ui-draggable-dragging {
   cursor: move;
 }
-/* line 7681, ../common-scss/w8.scss */
+/* line 7682, ../common-scss/w8.scss */
 .external-event > [class*="icon-"]:first-child {
   display: inline-block;
   height: 32px;
@@ -8756,42 +8757,42 @@ td.td-actions a.td-action:hover {
   border-right: 1px solid #FFF;
 }
 
-/* line 7694, ../common-scss/w8.scss */
+/* line 7695, ../common-scss/w8.scss */
 .widget-main .fc {
   position: relative;
   top: -40px;
 }
-/* line 7697, ../common-scss/w8.scss */
+/* line 7698, ../common-scss/w8.scss */
 .widget-main .fc > .fc-header {
   position: relative;
   z-index: 10;
 }
-/* line 7701, ../common-scss/w8.scss */
+/* line 7702, ../common-scss/w8.scss */
 .widget-main .fc .fc-header-space {
   padding-left: 2px;
 }
-/* line 7705, ../common-scss/w8.scss */
+/* line 7706, ../common-scss/w8.scss */
 .widget-main .fc-header-title > h2 {
   font-size: 18px;
   line-height: 36px;
 }
-/* line 7709, ../common-scss/w8.scss */
+/* line 7710, ../common-scss/w8.scss */
 .widget-main .fc-content {
   top: -14px;
   z-index: 11;
 }
-/* line 7713, ../common-scss/w8.scss */
+/* line 7714, ../common-scss/w8.scss */
 .widget-main .fc-button-content {
   height: 37px;
   line-height: 36px;
 }
 
-/* line 7719, ../common-scss/w8.scss */
+/* line 7720, ../common-scss/w8.scss */
 .chzn-container + .help-inline {
   vertical-align: middle;
 }
 
-/* line 7723, ../common-scss/w8.scss */
+/* line 7724, ../common-scss/w8.scss */
 .chzn-select {
   display: inline !important;
   visibility: hidden;
@@ -8800,12 +8801,12 @@ td.td-actions a.td-action:hover {
   z-index: -1;
 }
 
-/* line 7731, ../common-scss/w8.scss */
+/* line 7732, ../common-scss/w8.scss */
 .chzn-container, [class*="chzn-container"] {
   vertical-align: middle;
 }
 
-/* line 7735, ../common-scss/w8.scss */
+/* line 7736, ../common-scss/w8.scss */
 .chzn-container > .chzn-single, [class*="chzn-container"] > .chzn-single {
   line-height: 26px;
   height: 26px;
@@ -8813,16 +8814,16 @@ td.td-actions a.td-action:hover {
   background: #fafafa;
 }
 
-/* line 7742, ../common-scss/w8.scss */
+/* line 7743, ../common-scss/w8.scss */
 .chzn-choices {
   box-shadow: none !important;
 }
 
-/* line 7747, ../common-scss/w8.scss */
+/* line 7748, ../common-scss/w8.scss */
 .chzn-container-single .chzn-single abbr {
   background: 0;
 }
-/* line 7749, ../common-scss/w8.scss */
+/* line 7750, ../common-scss/w8.scss */
 .chzn-container-single .chzn-single abbr:after {
   content: "\f00d";
   display: inline-block;
@@ -8833,19 +8834,19 @@ td.td-actions a.td-action:hover {
   right: 0;
   top: -7px;
 }
-/* line 7759, ../common-scss/w8.scss */
+/* line 7760, ../common-scss/w8.scss */
 .chzn-container-single .chzn-single abbr:hover:after {
   color: #464646;
 }
-/* line 7763, ../common-scss/w8.scss */
+/* line 7764, ../common-scss/w8.scss */
 .chzn-container-single.chzn-disabled .chzn-single abbr:hover:after {
   color: #464646;
 }
-/* line 7766, ../common-scss/w8.scss */
+/* line 7767, ../common-scss/w8.scss */
 .chzn-container-single .chzn-single div b {
   background: 0;
 }
-/* line 7768, ../common-scss/w8.scss */
+/* line 7769, ../common-scss/w8.scss */
 .chzn-container-single .chzn-single div b:before {
   content: "\f0d7";
   display: inline-block;
@@ -8856,18 +8857,18 @@ td.td-actions a.td-action:hover {
   top: -1px;
   left: 1px;
 }
-/* line 7779, ../common-scss/w8.scss */
+/* line 7780, ../common-scss/w8.scss */
 .chzn-container-single .chzn-search {
   position: relative;
 }
-/* line 7781, ../common-scss/w8.scss */
+/* line 7782, ../common-scss/w8.scss */
 .chzn-container-single .chzn-search input {
   background: 0;
   border-radius: 0;
   line-height: 28px;
   height: 28px;
 }
-/* line 7787, ../common-scss/w8.scss */
+/* line 7788, ../common-scss/w8.scss */
 .chzn-container-single .chzn-search:after {
   content: "\f002";
   display: inline-block;
@@ -8879,11 +8880,11 @@ td.td-actions a.td-action:hover {
   right: 12px;
 }
 
-/* line 7801, ../common-scss/w8.scss */
+/* line 7802, ../common-scss/w8.scss */
 .chzn-container-multi .chzn-choices .search-choice .search-choice-close {
   background: 0;
 }
-/* line 7803, ../common-scss/w8.scss */
+/* line 7804, ../common-scss/w8.scss */
 .chzn-container-multi .chzn-choices .search-choice .search-choice-close:before {
   content: "\f00d";
   display: inline-block;
@@ -8894,24 +8895,24 @@ td.td-actions a.td-action:hover {
   right: 2px;
   top: -1px;
 }
-/* line 7813, ../common-scss/w8.scss */
+/* line 7814, ../common-scss/w8.scss */
 .chzn-container-multi .chzn-choices .search-choice .search-choice-close:hover {
   text-decoration: none;
 }
-/* line 7815, ../common-scss/w8.scss */
+/* line 7816, ../common-scss/w8.scss */
 .chzn-container-multi .chzn-choices .search-choice .search-choice-close:hover:before {
   color: #464646;
 }
-/* line 7820, ../common-scss/w8.scss */
+/* line 7821, ../common-scss/w8.scss */
 .chzn-container-multi .chzn-choices .search-choice-focus .search-choice-close:before {
   color: #464646;
 }
 
-/* line 7826, ../common-scss/w8.scss */
+/* line 7827, ../common-scss/w8.scss */
 .chzn-container .chzn-results-scroll-down span, .chzn-container .chzn-results-scroll-up span {
   background: 0;
 }
-/* line 7829, ../common-scss/w8.scss */
+/* line 7830, ../common-scss/w8.scss */
 .chzn-container .chzn-results-scroll-down span:before {
   content: "\f0d7";
   display: inline-block;
@@ -8922,7 +8923,7 @@ td.td-actions a.td-action:hover {
   top: -1px;
   left: 1px;
 }
-/* line 7839, ../common-scss/w8.scss */
+/* line 7840, ../common-scss/w8.scss */
 .chzn-container .chzn-results-scroll-up span:before {
   content: "\f0d7";
   display: inline-block;
@@ -8935,21 +8936,21 @@ td.td-actions a.td-action:hover {
   content: "\f0d8";
 }
 
-/* line 7852, ../common-scss/w8.scss */
+/* line 7853, ../common-scss/w8.scss */
 .chzn-container-active .chzn-single-with-drop div b:before {
   content: "\f0d8";
 }
 
-/* line 7857, ../common-scss/w8.scss */
+/* line 7858, ../common-scss/w8.scss */
 .chzn-rtl .chzn-search input {
   background: 0;
 }
-/* line 7860, ../common-scss/w8.scss */
+/* line 7861, ../common-scss/w8.scss */
 .chzn-rtl .chzn-search:after {
   content: "";
   display: none;
 }
-/* line 7864, ../common-scss/w8.scss */
+/* line 7865, ../common-scss/w8.scss */
 .chzn-rtl .chzn-search:before {
   content: "\f002";
   display: inline-block;
@@ -8961,12 +8962,12 @@ td.td-actions a.td-action:hover {
   left: 12px;
 }
 
-/* line 7876, ../common-scss/w8.scss */
+/* line 7877, ../common-scss/w8.scss */
 .chzn-container-single .chzn-single {
   border-radius: 0;
 }
 
-/* line 7880, ../common-scss/w8.scss */
+/* line 7881, ../common-scss/w8.scss */
 .chzn-container .chzn-results .highlighted {
   background: #86bd6f;
   background: #4492c9;
@@ -8974,71 +8975,71 @@ td.td-actions a.td-action:hover {
   color: #FFF;
 }
 
-/* line 7887, ../common-scss/w8.scss */
+/* line 7888, ../common-scss/w8.scss */
 .chzn-container-single .chzn-drop {
   border-radius: 0;
   border-bottom: 3px solid #4492c9;
   border-color: #4492c9;
 }
 
-/* line 7893, ../common-scss/w8.scss */
+/* line 7894, ../common-scss/w8.scss */
 .chzn-single.chzn-single-with-drop, .chzn-container-active .chzn-single {
   border-color: #4492c9;
 }
 
-/* line 7898, ../common-scss/w8.scss */
+/* line 7899, ../common-scss/w8.scss */
 .control-group.error .chzn-single {
   border-color: #f09784 !important;
 }
-/* line 7901, ../common-scss/w8.scss */
+/* line 7902, ../common-scss/w8.scss */
 .control-group.info .chzn-single {
   border-color: #64a6bc !important;
 }
-/* line 7904, ../common-scss/w8.scss */
+/* line 7905, ../common-scss/w8.scss */
 .control-group.warning .chzn-single {
   border-color: #e0c43a !important;
 }
-/* line 7907, ../common-scss/w8.scss */
+/* line 7908, ../common-scss/w8.scss */
 .control-group.success .chzn-single {
   border-color: #92bf65 !important;
 }
 
-/* line 7913, ../common-scss/w8.scss */
+/* line 7914, ../common-scss/w8.scss */
 #colorbox:focus, #colorbox:active {
   outline: 0;
 }
 
-/* line 7918, ../common-scss/w8.scss */
+/* line 7919, ../common-scss/w8.scss */
 #cboxTopLeft, #cboxTopCenter, #cboxTopRight, #cboxMiddleLeft, #cboxMiddleRight, #cboxBottomLeft, #cboxBottomCenter, #cboxBottomRight {
   background: none !important;
   opacity: 0;
 }
 
-/* line 7923, ../common-scss/w8.scss */
+/* line 7924, ../common-scss/w8.scss */
 #cboxContent {
   border: 12px solid #000;
   background-color: #FFF;
   padding: 7px;
 }
 
-/* line 7929, ../common-scss/w8.scss */
+/* line 7930, ../common-scss/w8.scss */
 #cboxOverlay {
   background: rgba(0, 0, 0, 0.95);
   background: #000;
 }
 
-/* line 7934, ../common-scss/w8.scss */
+/* line 7935, ../common-scss/w8.scss */
 #cboxCurrent {
   left: 61px;
   margin-bottom: 5px;
 }
 
-/* line 7939, ../common-scss/w8.scss */
+/* line 7940, ../common-scss/w8.scss */
 #cboxTitle {
   margin-bottom: 4px;
 }
 
-/* line 7943, ../common-scss/w8.scss */
+/* line 7944, ../common-scss/w8.scss */
 #cboxNext, #cboxPrevious, #cboxClose {
   background: 0;
   text-indent: 0;
@@ -9055,18 +9056,18 @@ td.td-actions a.td-action:hover {
   margin-bottom: 7px;
 }
 
-/* line 7959, ../common-scss/w8.scss */
+/* line 7960, ../common-scss/w8.scss */
 #cboxNext:hover, #cboxPrevious:hover {
   color: #333;
   border-color: #666;
 }
 
-/* line 7964, ../common-scss/w8.scss */
+/* line 7965, ../common-scss/w8.scss */
 #cboxContent {
   overflow: visible;
 }
 
-/* line 7968, ../common-scss/w8.scss */
+/* line 7969, ../common-scss/w8.scss */
 #cboxClose {
   background-color: #000;
   color: #fff;
@@ -9081,17 +9082,17 @@ td.td-actions a.td-action:hover {
   margin-left: 0;
 }
 
-/* line 7982, ../common-scss/w8.scss */
+/* line 7983, ../common-scss/w8.scss */
 #cboxLoadingOverlay {
   background: none !important;
 }
 
-/* line 7986, ../common-scss/w8.scss */
+/* line 7987, ../common-scss/w8.scss */
 #cboxLoadingGraphic {
   background: white none !important;
   text-align: center;
 }
-/* line 7989, ../common-scss/w8.scss */
+/* line 7990, ../common-scss/w8.scss */
 #cboxLoadingGraphic > [class*="icon-"] {
   display: inline-block;
   background-color: #FFF;
@@ -9111,15 +9112,15 @@ td.td-actions a.td-action:hover {
   color: #fe7e3e;
 }
 
-/* line 8009, ../common-scss/w8.scss */
+/* line 8010, ../common-scss/w8.scss */
 .ace-spinner {
   display: inline-block;
 }
-/* line 8011, ../common-scss/w8.scss */
+/* line 8012, ../common-scss/w8.scss */
 .ace-spinner .spinner-buttons {
   min-width: 18px;
 }
-/* line 8014, ../common-scss/w8.scss */
+/* line 8015, ../common-scss/w8.scss */
 .ace-spinner .spinner-buttons > .btn {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
@@ -9130,22 +9131,22 @@ td.td-actions a.td-action:hover {
   height: 14px;
   line-height: 14px;
 }
-/* line 8023, ../common-scss/w8.scss */
+/* line 8024, ../common-scss/w8.scss */
 .ace-spinner .spinner-buttons > .btn:first-child {
   margin-top: 0;
 }
-/* line 8026, ../common-scss/w8.scss */
+/* line 8027, ../common-scss/w8.scss */
 .ace-spinner .spinner-buttons > .btn > [class*="icon-"] {
   font-size: 10px;
   margin: 0;
   padding: 0;
 }
-/* line 8032, ../common-scss/w8.scss */
+/* line 8033, ../common-scss/w8.scss */
 .ace-spinner .spinner-buttons > button.btn:active {
   left: auto;
   top: auto;
 }
-/* line 8038, ../common-scss/w8.scss */
+/* line 8039, ../common-scss/w8.scss */
 .ace-spinner .spinner-input {
   text-align: center;
   height: 19px;
@@ -9153,7 +9154,7 @@ td.td-actions a.td-action:hover {
   color: #777;
 }
 
-/* line 8046, ../common-scss/w8.scss */
+/* line 8047, ../common-scss/w8.scss */
 .wizard-steps {
   list-style: none;
   display: block;
@@ -9162,13 +9163,13 @@ td.td-actions a.td-action:hover {
   margin: 12px 0 0;
   position: relative;
 }
-/* line 8053, ../common-scss/w8.scss */
+/* line 8054, ../common-scss/w8.scss */
 .wizard-steps li {
   display: block;
   text-align: center;
   float: left;
 }
-/* line 8057, ../common-scss/w8.scss */
+/* line 8058, ../common-scss/w8.scss */
 .wizard-steps li .step {
   text-align: center;
   border: 5px solid #ced1d6;
@@ -9182,7 +9183,7 @@ td.td-actions a.td-action:hover {
   z-index: 2;
   display: inline;
 }
-/* line 8070, ../common-scss/w8.scss */
+/* line 8071, ../common-scss/w8.scss */
 .wizard-steps li:before {
   display: block;
   content: "";
@@ -9195,25 +9196,25 @@ td.td-actions a.td-action:hover {
   top: 12px;
   z-index: 1;
 }
-/* line 8082, ../common-scss/w8.scss */
+/* line 8083, ../common-scss/w8.scss */
 .wizard-steps li:last-child:before {
   max-width: 50%;
   width: 50%;
 }
-/* line 8086, ../common-scss/w8.scss */
+/* line 8087, ../common-scss/w8.scss */
 .wizard-steps li:first-child:before {
   max-width: 50%;
   left: 50%;
 }
-/* line 8090, ../common-scss/w8.scss */
+/* line 8091, ../common-scss/w8.scss */
 .wizard-steps li.active:before, .wizard-steps li.complete:before, .wizard-steps li.active .step {
   border-color: #5293c4;
 }
-/* line 8093, ../common-scss/w8.scss */
+/* line 8094, ../common-scss/w8.scss */
 .wizard-steps li.complete .step {
   border-color: #5293c4;
 }
-/* line 8095, ../common-scss/w8.scss */
+/* line 8096, ../common-scss/w8.scss */
 .wizard-steps li.complete .step:before {
   display: block;
   position: absolute;
@@ -9230,7 +9231,7 @@ td.td-actions a.td-action:hover {
   font-size: 17px;
   color: #87ba21;
 }
-/* line 8112, ../common-scss/w8.scss */
+/* line 8113, ../common-scss/w8.scss */
 .wizard-steps li .title {
   display: block;
   margin-top: 12px;
@@ -9242,35 +9243,35 @@ td.td-actions a.td-action:hover {
   table-layout: fixed;
   word-wrap: break-word;
 }
-/* line 8123, ../common-scss/w8.scss */
+/* line 8124, ../common-scss/w8.scss */
 .wizard-steps li.complete .title, .wizard-steps li.active .title {
   color: #2b3d53;
 }
 
-/* line 8130, ../common-scss/w8.scss */
+/* line 8131, ../common-scss/w8.scss */
 .step-content .step-pane {
   display: none;
   min-height: 200px;
   padding: 4px 8px 12px;
 }
-/* line 8135, ../common-scss/w8.scss */
+/* line 8136, ../common-scss/w8.scss */
 .step-content .active {
   display: block;
 }
 
-/* line 8140, ../common-scss/w8.scss */
+/* line 8141, ../common-scss/w8.scss */
 .wizard-actions {
   text-align: right;
 }
 
-/* line 8144, ../common-scss/w8.scss */
+/* line 8145, ../common-scss/w8.scss */
 .tree {
   padding-left: 9px;
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
 }
-/* line 8149, ../common-scss/w8.scss */
+/* line 8150, ../common-scss/w8.scss */
 .tree:before {
   display: inline-block;
   content: "";
@@ -9281,48 +9282,48 @@ td.td-actions a.td-action:hover {
   border-left: 1px dotted #67b2dd;
   z-index: 1;
 }
-/* line 8159, ../common-scss/w8.scss */
+/* line 8160, ../common-scss/w8.scss */
 .tree .tree-folder {
   width: auto;
   min-height: 20px;
   cursor: pointer;
 }
-/* line 8163, ../common-scss/w8.scss */
+/* line 8164, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-header {
   position: relative;
   height: 20px;
   line-height: 20px;
 }
-/* line 8167, ../common-scss/w8.scss */
+/* line 8168, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-header:hover {
   background-color: #f0f7fc;
 }
-/* line 8170, ../common-scss/w8.scss */
+/* line 8171, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-header .tree-folder-name {
   display: inline;
   z-index: 2;
 }
-/* line 8176, ../common-scss/w8.scss */
+/* line 8177, ../common-scss/w8.scss */
 .tree .tree-item .tree-item-name {
   display: inline;
   z-index: 2;
 }
-/* line 8180, ../common-scss/w8.scss */
+/* line 8181, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-header > [class*="icon-"]:first-child, .tree .tree-item > [class*="icon-"]:first-child {
   display: inline-block;
   position: relative;
   z-index: 2;
   top: -1px;
 }
-/* line 8188, ../common-scss/w8.scss */
+/* line 8189, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-header .tree-folder-name {
   margin-left: 2px;
 }
-/* line 8191, ../common-scss/w8.scss */
+/* line 8192, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-header > [class*="icon-"]:first-child {
   margin: -2px 0 0 -2px;
 }
-/* line 8195, ../common-scss/w8.scss */
+/* line 8196, ../common-scss/w8.scss */
 .tree .tree-folder:last-child:after {
   display: inline-block;
   content: "";
@@ -9333,12 +9334,12 @@ td.td-actions a.td-action:hover {
   left: -15px;
   border-left: 1px solid #FFF;
 }
-/* line 8205, ../common-scss/w8.scss */
+/* line 8206, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-content {
   margin-left: 23px;
   position: relative;
 }
-/* line 8208, ../common-scss/w8.scss */
+/* line 8209, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-content:before {
   display: inline-block;
   content: "";
@@ -9349,30 +9350,30 @@ td.td-actions a.td-action:hover {
   left: -14px;
   border-left: 1px dotted #67b2dd;
 }
-/* line 8220, ../common-scss/w8.scss */
+/* line 8221, ../common-scss/w8.scss */
 .tree .tree-item {
   position: relative;
   height: 20px;
   line-height: 20px;
   cursor: pointer;
 }
-/* line 8225, ../common-scss/w8.scss */
+/* line 8226, ../common-scss/w8.scss */
 .tree .tree-item:hover {
   background-color: #f0f7fc;
 }
-/* line 8228, ../common-scss/w8.scss */
+/* line 8229, ../common-scss/w8.scss */
 .tree .tree-item .tree-item-name {
   margin-left: 3px;
 }
-/* line 8231, ../common-scss/w8.scss */
+/* line 8232, ../common-scss/w8.scss */
 .tree .tree-item > [class*="icon-"]:first-child {
   margin-top: -1px;
 }
-/* line 8235, ../common-scss/w8.scss */
+/* line 8236, ../common-scss/w8.scss */
 .tree .tree-folder, .tree .tree-item {
   position: relative;
 }
-/* line 8238, ../common-scss/w8.scss */
+/* line 8239, ../common-scss/w8.scss */
 .tree .tree-folder:before, .tree .tree-item:before {
   display: inline-block;
   content: "";
@@ -9384,34 +9385,34 @@ td.td-actions a.td-action:hover {
   border-top: 1px dotted #67b2dd;
   z-index: 1;
 }
-/* line 8249, ../common-scss/w8.scss */
+/* line 8250, ../common-scss/w8.scss */
 .tree .tree-selected {
   background-color: rgba(98, 168, 209, 0.1);
   color: #6398b0;
 }
-/* line 8252, ../common-scss/w8.scss */
+/* line 8253, ../common-scss/w8.scss */
 .tree .tree-selected:hover {
   background-color: rgba(98, 168, 209, 0.1);
 }
-/* line 8256, ../common-scss/w8.scss */
+/* line 8257, ../common-scss/w8.scss */
 .tree .tree-item {
   border: 1px solid #FFF;
 }
-/* line 8259, ../common-scss/w8.scss */
+/* line 8260, ../common-scss/w8.scss */
 .tree .tree-folder {
   border: 1px solid #FFF;
 }
-/* line 8261, ../common-scss/w8.scss */
+/* line 8262, ../common-scss/w8.scss */
 .tree .tree-folder .tree-folder-header {
   border-radius: 0;
 }
-/* line 8265, ../common-scss/w8.scss */
+/* line 8266, ../common-scss/w8.scss */
 .tree .tree-item, .tree .tree-folder .tree-folder-header {
   margin: 0;
   padding: 5px;
   color: #4d6878;
 }
-/* line 8270, ../common-scss/w8.scss */
+/* line 8271, ../common-scss/w8.scss */
 .tree .tree-item > [class*="icon-"]:first-child {
   color: #f9e8ce;
   width: 13px;
@@ -9424,13 +9425,13 @@ td.td-actions a.td-action:hover {
   border: 1px solid #CCC;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-/* line 8282, ../common-scss/w8.scss */
+/* line 8283, ../common-scss/w8.scss */
 .tree .tree-selected > [class*="icon-"]:first-child {
   background-color: #f9a021;
   border-color: #f9a021;
   color: #FFF;
 }
-/* line 8287, ../common-scss/w8.scss */
+/* line 8288, ../common-scss/w8.scss */
 .tree .icon-plus[class*="icon-"]:first-child, .tree .icon-minus[class*="icon-"]:first-child {
   border: 1px solid #DDD;
   vertical-align: middle;
@@ -9443,7 +9444,7 @@ td.td-actions a.td-action:hover {
   position: relative;
   z-index: 1;
 }
-/* line 8299, ../common-scss/w8.scss */
+/* line 8300, ../common-scss/w8.scss */
 .tree .icon-plus[class*="icon-"]:first-child:before {
   content: "+";
   font-family: "Open Sans";
@@ -9451,7 +9452,7 @@ td.td-actions a.td-action:hover {
   position: relative;
   z-index: 1;
 }
-/* line 8306, ../common-scss/w8.scss */
+/* line 8307, ../common-scss/w8.scss */
 .tree .icon-minus[class*="icon-"]:first-child:before {
   content: "\2012";
   font-family: "Open Sans";
@@ -9460,7 +9461,7 @@ td.td-actions a.td-action:hover {
   top: -1px;
   z-index: 1;
 }
-/* line 8314, ../common-scss/w8.scss */
+/* line 8315, ../common-scss/w8.scss */
 .tree .tree-unselectable .tree-item > [class*="icon-"]:first-child {
   color: #5084a0;
   width: 13px;
@@ -9473,92 +9474,92 @@ td.td-actions a.td-action:hover {
   border: 0;
   box-shadow: none;
 }
-/* line 8326, ../common-scss/w8.scss */
+/* line 8327, ../common-scss/w8.scss */
 .tree [class*="icon-"][class*="-down"] {
   transform: rotate(-45deg);
 }
-/* line 8329, ../common-scss/w8.scss */
+/* line 8330, ../common-scss/w8.scss */
 .tree .icon-spin {
   height: auto;
 }
-/* line 8332, ../common-scss/w8.scss */
+/* line 8333, ../common-scss/w8.scss */
 .tree img {
   display: inline;
   veritcal-align: middle;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
-  /* line 8339, ../common-scss/w8.scss */
+  /* line 8340, ../common-scss/w8.scss */
   .tree .icon-minus[class*="icon-"]:first-child:before {
     font-size: 18px;
   }
 }
-/* line 8344, ../common-scss/w8.scss */
+/* line 8345, ../common-scss/w8.scss */
 .gritter-item-wrapper {
   background-image: none !important;
   box-shadow: 0 2px 10px rgba(50, 50, 50, 0.5);
   background: rgba(50, 50, 50, 0.92);
 }
-/* line 8348, ../common-scss/w8.scss */
+/* line 8349, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-info {
   background: rgba(49, 81, 133, 0.92);
 }
-/* line 8351, ../common-scss/w8.scss */
+/* line 8352, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-error {
   background: rgba(153, 40, 18, 0.92);
 }
-/* line 8354, ../common-scss/w8.scss */
+/* line 8355, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-success {
   background: rgba(89, 131, 75, 0.92);
 }
-/* line 8357, ../common-scss/w8.scss */
+/* line 8358, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-warning {
   background: rgba(190, 112, 31, 0.92);
 }
-/* line 8360, ../common-scss/w8.scss */
+/* line 8361, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light {
   background: rgba(245, 245, 245, 0.95);
   border: 1px solid #BBB;
 }
-/* line 8363, ../common-scss/w8.scss */
+/* line 8364, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light.gritter-info {
   background: rgba(232, 242, 255, 0.95);
 }
-/* line 8365, ../common-scss/w8.scss */
+/* line 8366, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light.gritter-info .gritter-item {
   color: #4a577d;
 }
-/* line 8369, ../common-scss/w8.scss */
+/* line 8370, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light.gritter-error {
   background: rgba(255, 235, 235, 0.95);
 }
-/* line 8371, ../common-scss/w8.scss */
+/* line 8372, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light.gritter-error .gritter-item {
   color: #894a38;
 }
-/* line 8375, ../common-scss/w8.scss */
+/* line 8376, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light.gritter-success {
   background: rgba(239, 250, 227, 0.95);
 }
-/* line 8377, ../common-scss/w8.scss */
+/* line 8378, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light.gritter-success .gritter-item {
   color: #416131;
 }
-/* line 8381, ../common-scss/w8.scss */
+/* line 8382, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light.gritter-warning {
   background: rgba(252, 248, 227, 0.95);
 }
-/* line 8383, ../common-scss/w8.scss */
+/* line 8384, ../common-scss/w8.scss */
 .gritter-item-wrapper.gritter-light.gritter-warning .gritter-item {
   color: #946446;
 }
 
-/* line 8390, ../common-scss/w8.scss */
+/* line 8391, ../common-scss/w8.scss */
 .gritter-top, .gritter-bottom, .gritter-item {
   background-image: none;
 }
 
-/* line 8394, ../common-scss/w8.scss */
+/* line 8395, ../common-scss/w8.scss */
 .gritter-close {
   left: auto;
   right: 3px;
@@ -9571,69 +9572,69 @@ td.td-actions a.td-action:hover {
   border-radius: 16px;
   color: #e17b67;
 }
-/* line 8405, ../common-scss/w8.scss */
+/* line 8406, ../common-scss/w8.scss */
 .gritter-close:before {
   font-family: FontAwesome;
   font-size: 16px;
   content: "\f00d";
 }
 
-/* line 8412, ../common-scss/w8.scss */
+/* line 8413, ../common-scss/w8.scss */
 .gritter-info .gritter-close {
   color: #ffa500;
 }
 
-/* line 8416, ../common-scss/w8.scss */
+/* line 8417, ../common-scss/w8.scss */
 .gritter-error .gritter-close, .gritter-success .gritter-close, .gritter-warning .gritter-close {
   color: #ffea07;
 }
 
-/* line 8420, ../common-scss/w8.scss */
+/* line 8421, ../common-scss/w8.scss */
 .gritter-close:hover {
   color: white !important;
 }
 
-/* line 8424, ../common-scss/w8.scss */
+/* line 8425, ../common-scss/w8.scss */
 .gritter-title {
   text-shadow: none;
 }
 
-/* line 8429, ../common-scss/w8.scss */
+/* line 8430, ../common-scss/w8.scss */
 .gritter-light .gritter-item, .gritter-light .gritter-bottom, .gritter-light .gritter-top, .gritter-light .gritter-close {
   background-image: none;
   color: #444;
 }
-/* line 8433, ../common-scss/w8.scss */
+/* line 8434, ../common-scss/w8.scss */
 .gritter-light .gritter-title {
   text-shadow: none;
 }
-/* line 8436, ../common-scss/w8.scss */
+/* line 8437, ../common-scss/w8.scss */
 .gritter-light .gritter-close:hover {
   color: #8a3104 !important;
 }
 
-/* line 8441, ../common-scss/w8.scss */
+/* line 8442, ../common-scss/w8.scss */
 .ui-slider {
   background-color: #CCC;
 }
 
-/* line 8445, ../common-scss/w8.scss */
+/* line 8446, ../common-scss/w8.scss */
 .ui-slider-horizontal {
   height: 9px;
 }
 
-/* line 8449, ../common-scss/w8.scss */
+/* line 8450, ../common-scss/w8.scss */
 .ui-slider-vertical {
   width: 9px;
 }
 
-/* line 8453, ../common-scss/w8.scss */
+/* line 8454, ../common-scss/w8.scss */
 .ui-slider-handle {
   border-radius: 0;
   background-color: #f5f5f5;
   border: 1px solid;
 }
-/* line 8457, ../common-scss/w8.scss */
+/* line 8458, ../common-scss/w8.scss */
 .ui-slider-handle:before {
   display: inline-block;
   content: "|||";
@@ -9647,138 +9648,138 @@ td.td-actions a.td-action:hover {
   text-align: center;
   line-height: 14px;
 }
-/* line 8470, ../common-scss/w8.scss */
+/* line 8471, ../common-scss/w8.scss */
 .ui-slider-handle:hover {
   background-color: #FFF;
   outline: 0;
   box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.3);
   text-decoration: none;
 }
-/* line 8476, ../common-scss/w8.scss */
+/* line 8477, ../common-scss/w8.scss */
 .ui-slider-handle:focus, .ui-slider-handle:active {
   outline: 0;
   box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.3);
   text-decoration: none;
 }
-/* line 8481, ../common-scss/w8.scss */
+/* line 8482, ../common-scss/w8.scss */
 .ui-slider-handle:hover:before, .ui-slider-handle:focus:before, .ui-slider-handle:active:before {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
-/* line 8487, ../common-scss/w8.scss */
+/* line 8488, ../common-scss/w8.scss */
 .ui-slider-small.ui-slider-horizontal {
   height: 5px;
 }
-/* line 8490, ../common-scss/w8.scss */
+/* line 8491, ../common-scss/w8.scss */
 .ui-slider-small.ui-slider-vertical {
   width: 5px;
 }
-/* line 8493, ../common-scss/w8.scss */
+/* line 8494, ../common-scss/w8.scss */
 .ui-slider-small .ui-slider-handle {
   border-radius: 24px;
   width: 14px;
   height: 14px;
   top: -5px;
 }
-/* line 8498, ../common-scss/w8.scss */
+/* line 8499, ../common-scss/w8.scss */
 .ui-slider-small .ui-slider-handle:before {
   font-size: 6px;
   line-height: 13px;
 }
 
-/* line 8505, ../common-scss/w8.scss */
+/* line 8506, ../common-scss/w8.scss */
 .ui-slider-range {
   background-color: #4aa4ce;
 }
 
-/* line 8509, ../common-scss/w8.scss */
+/* line 8510, ../common-scss/w8.scss */
 .ui-slider-handle {
   outline: none !important;
   border-color: #4aa4ce;
   color: #4aa4ce;
 }
-/* line 8513, ../common-scss/w8.scss */
+/* line 8514, ../common-scss/w8.scss */
 .ui-slider-handle:hover, .ui-slider-handle:focus, .ui-slider-handle:active {
   border-color: #4aa4ce;
   color: #4aa4ce;
 }
 
-/* line 8520, ../common-scss/w8.scss */
+/* line 8521, ../common-scss/w8.scss */
 .ui-slider-green .ui-slider-range {
   background-color: #8bbc67;
 }
-/* line 8523, ../common-scss/w8.scss */
+/* line 8524, ../common-scss/w8.scss */
 .ui-slider-green .ui-slider-handle {
   border-color: #8bbc67;
   color: #8bbc67;
 }
-/* line 8526, ../common-scss/w8.scss */
+/* line 8527, ../common-scss/w8.scss */
 .ui-slider-green .ui-slider-handle:hover, .ui-slider-green .ui-slider-handle:focus, .ui-slider-green .ui-slider-handle:active {
   border-color: #8bbc67;
   color: #8bbc67;
 }
 
-/* line 8534, ../common-scss/w8.scss */
+/* line 8535, ../common-scss/w8.scss */
 .ui-slider-red .ui-slider-range {
   background-color: #d36e6e;
 }
-/* line 8537, ../common-scss/w8.scss */
+/* line 8538, ../common-scss/w8.scss */
 .ui-slider-red .ui-slider-handle {
   border-color: #d36e6e;
   color: #d36e6e;
 }
-/* line 8540, ../common-scss/w8.scss */
+/* line 8541, ../common-scss/w8.scss */
 .ui-slider-red .ui-slider-handle:hover, .ui-slider-red .ui-slider-handle:focus, .ui-slider-red .ui-slider-handle:active {
   border-color: #d36e6e;
   color: #d36e6e;
 }
 
-/* line 8548, ../common-scss/w8.scss */
+/* line 8549, ../common-scss/w8.scss */
 .ui-slider-purple .ui-slider-range {
   background-color: #ac68ba;
 }
-/* line 8551, ../common-scss/w8.scss */
+/* line 8552, ../common-scss/w8.scss */
 .ui-slider-purple .ui-slider-handle {
   border-color: #ac68ba;
   color: #ac68ba;
 }
-/* line 8554, ../common-scss/w8.scss */
+/* line 8555, ../common-scss/w8.scss */
 .ui-slider-purple .ui-slider-handle:hover, .ui-slider-purple .ui-slider-handle:focus, .ui-slider-purple .ui-slider-handle:active {
   border-color: #ac68ba;
   color: #ac68ba;
 }
 
-/* line 8562, ../common-scss/w8.scss */
+/* line 8563, ../common-scss/w8.scss */
 .ui-slider-orange .ui-slider-range {
   background-color: #efad62;
 }
-/* line 8565, ../common-scss/w8.scss */
+/* line 8566, ../common-scss/w8.scss */
 .ui-slider-orange .ui-slider-handle {
   border-color: #efad62;
   color: #efad62;
 }
-/* line 8568, ../common-scss/w8.scss */
+/* line 8569, ../common-scss/w8.scss */
 .ui-slider-orange .ui-slider-handle:hover, .ui-slider-orange .ui-slider-handle:focus, .ui-slider-orange .ui-slider-handle:active {
   border-color: #efad62;
   color: #efad62;
 }
 
-/* line 8576, ../common-scss/w8.scss */
+/* line 8577, ../common-scss/w8.scss */
 .ui-slider-dark .ui-slider-range {
   background-color: #606060;
 }
-/* line 8579, ../common-scss/w8.scss */
+/* line 8580, ../common-scss/w8.scss */
 .ui-slider-dark .ui-slider-handle {
   border-color: #606060;
   color: #606060;
 }
-/* line 8582, ../common-scss/w8.scss */
+/* line 8583, ../common-scss/w8.scss */
 .ui-slider-dark .ui-slider-handle:hover, .ui-slider-dark .ui-slider-handle:focus, .ui-slider-dark .ui-slider-handle:active {
   border-color: #606060;
   color: #606060;
 }
 
-/* line 8589, ../common-scss/w8.scss */
+/* line 8590, ../common-scss/w8.scss */
 .wysiwyg-editor {
   max-height: 250px;
   height: 250px;
@@ -9791,27 +9792,27 @@ td.td-actions a.td-action:hover {
   overflow-x: hidden;
   outline: 0;
 }
-/* line 8600, ../common-scss/w8.scss */
+/* line 8601, ../common-scss/w8.scss */
 .wysiwyg-editor:focus {
   background-color: #FFF;
 }
 
-/* line 8605, ../common-scss/w8.scss */
+/* line 8606, ../common-scss/w8.scss */
 .wysiwyg-toolbar {
   line-height: 32px;
   margin: 0 !important;
 }
-/* line 8608, ../common-scss/w8.scss */
+/* line 8609, ../common-scss/w8.scss */
 .wysiwyg-toolbar .dropdown-menu {
   text-align: left;
 }
-/* line 8611, ../common-scss/w8.scss */
+/* line 8612, ../common-scss/w8.scss */
 .wysiwyg-toolbar .btn-group > .btn {
   padding-left: 0;
   padding-right: 0;
   text-align: center;
 }
-/* line 8616, ../common-scss/w8.scss */
+/* line 8617, ../common-scss/w8.scss */
 .wysiwyg-toolbar .btn-group > .btn > [class*="icon-"]:first-child {
   font-size: 14px;
   width: 25px;
@@ -9819,11 +9820,11 @@ td.td-actions a.td-action:hover {
   display: inline-block;
   border-width: 1px !important;
 }
-/* line 8623, ../common-scss/w8.scss */
+/* line 8624, ../common-scss/w8.scss */
 .wysiwyg-toolbar .btn-group > .btn > [class*="icon-"]:last-child {
   margin-right: 4px;
 }
-/* line 8627, ../common-scss/w8.scss */
+/* line 8628, ../common-scss/w8.scss */
 .wysiwyg-toolbar .btn-group > .btn.active:after {
   border-color: transparent;
   border-style: solid;
@@ -9834,7 +9835,7 @@ td.td-actions a.td-action:hover {
   right: 0;
 }
 
-/* line 8639, ../common-scss/w8.scss */
+/* line 8640, ../common-scss/w8.scss */
 .wysiwyg-style1 .btn-group > .btn, .wysiwyg-style2 .btn-group > .btn {
   margin: 0 !important;
   background: white !important;
@@ -9843,22 +9844,22 @@ td.td-actions a.td-action:hover {
   text-shadow: none !important;
 }
 
-/* line 8647, ../common-scss/w8.scss */
+/* line 8648, ../common-scss/w8.scss */
 .wysiwyg-style1 .btn-group > .btn.active, .wysiwyg-style2 .btn-group > .btn.active {
   color: #5b80ce !important;
 }
 
-/* line 8651, ../common-scss/w8.scss */
+/* line 8652, ../common-scss/w8.scss */
 .wysiwyg-style1 .btn-group > .btn.active:after, .wysiwyg-style2 .btn-group > .btn.active:after {
   display: none;
 }
 
-/* line 8655, ../common-scss/w8.scss */
+/* line 8656, ../common-scss/w8.scss */
 .wysiwyg-style1 .btn-group, .wysiwyg-style2 .btn-group {
   position: relative;
 }
 
-/* line 8659, ../common-scss/w8.scss */
+/* line 8660, ../common-scss/w8.scss */
 .wysiwyg-style1 .btn-group:after, .wysiwyg-style2 .btn-group:after {
   display: block;
   content: "";
@@ -9871,20 +9872,20 @@ td.td-actions a.td-action:hover {
   border-left: 1px solid #e1e6ea;
 }
 
-/* line 8671, ../common-scss/w8.scss */
+/* line 8672, ../common-scss/w8.scss */
 .wysiwyg-style1 .btn-group:first-child:after {
   display: none;
 }
 
-/* line 8675, ../common-scss/w8.scss */
+/* line 8676, ../common-scss/w8.scss */
 .wysiwyg-style2 {
   background-color: #e5e5e5;
 }
-/* line 8677, ../common-scss/w8.scss */
+/* line 8678, ../common-scss/w8.scss */
 .wysiwyg-style2 .btn-group:first-child:after {
   display: none;
 }
-/* line 8680, ../common-scss/w8.scss */
+/* line 8681, ../common-scss/w8.scss */
 .wysiwyg-style2 .btn-group > .btn {
   margin: 0 1px 0 0 !important;
   background: white !important;
@@ -9892,23 +9893,23 @@ td.td-actions a.td-action:hover {
   color: #8d939e !important;
   text-shadow: none !important;
 }
-/* line 8686, ../common-scss/w8.scss */
+/* line 8687, ../common-scss/w8.scss */
 .wysiwyg-style2 .btn-group > .btn.active {
   color: white !important;
   background: #6aaedf !important;
 }
-/* line 8691, ../common-scss/w8.scss */
+/* line 8692, ../common-scss/w8.scss */
 .wysiwyg-style2 .btn-group:after {
   display: none;
 }
-/* line 8696, ../common-scss/w8.scss */
+/* line 8697, ../common-scss/w8.scss */
 .wysiwyg-style2 + .wysiwyg-editor {
   border-color: #DDD;
   background-color: #FFF;
   border-top: 0;
 }
 
-/* line 8704, ../common-scss/w8.scss */
+/* line 8705, ../common-scss/w8.scss */
 .wysiwyg-toolbar .btn-colorpicker {
   width: 24px;
   height: 24px;
@@ -9922,27 +9923,27 @@ td.td-actions a.td-action:hover {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CF3E73',endColorstr='#FFB752',GradientType=0);
   background: linear-gradient(top, #cf3e73 10%, #ffffff 20%, #2283c5 30%, #ffffff 40%, #87b87f 50%, #ffffff 60%, #ffb752 70%, #ffffff 80%, #d15b47 90%, #ffffff 100%);
 }
-/* line 8717, ../common-scss/w8.scss */
+/* line 8718, ../common-scss/w8.scss */
 .wysiwyg-toolbar input[type=file] {
   display: none;
 }
-/* line 8721, ../common-scss/w8.scss */
+/* line 8722, ../common-scss/w8.scss */
 .wysiwyg-toolbar .dropdown-menu input[type=text] {
   margin-left: 8px;
 }
-/* line 8724, ../common-scss/w8.scss */
+/* line 8725, ../common-scss/w8.scss */
 .wysiwyg-toolbar .dropdown-menu .btn {
   margin-right: 8px;
 }
 
-/* line 8730, ../common-scss/w8.scss */
+/* line 8731, ../common-scss/w8.scss */
 .wysiwyg-style1 .btn-colorpicker {
   width: 20px;
   height: 20px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
-  /* line 8736, ../common-scss/w8.scss */
+  /* line 8737, ../common-scss/w8.scss */
   .wysiwyg-toolbar input[type=file] {
     display: inline;
     visibility: hidden;
@@ -9952,27 +9953,27 @@ td.td-actions a.td-action:hover {
     max-height: 1px;
   }
 }
-/* line 8746, ../common-scss/w8.scss */
+/* line 8747, ../common-scss/w8.scss */
 .widget-header .wysiwyg-toolbar {
   background-color: transparent;
 }
-/* line 8748, ../common-scss/w8.scss */
+/* line 8749, ../common-scss/w8.scss */
 .widget-header .wysiwyg-toolbar .btn-group > .btn {
   border-color: transparent;
   background: rgba(255, 255, 255, 0.25) !important;
   color: white !important;
 }
-/* line 8752, ../common-scss/w8.scss */
+/* line 8753, ../common-scss/w8.scss */
 .widget-header .wysiwyg-toolbar .btn-group > .btn.active {
   background: rgba(0, 0, 0, 0.25) !important;
 }
 
-/* line 8758, ../common-scss/w8.scss */
+/* line 8759, ../common-scss/w8.scss */
 .widget-body .wysiwyg-editor {
   border: 0;
 }
 
-/* line 8762, ../common-scss/w8.scss */
+/* line 8763, ../common-scss/w8.scss */
 .wysiwyg-speech-input {
   width: 20px !important;
   color: transparent !important;
@@ -9988,19 +9989,19 @@ td.td-actions a.td-action:hover {
   box-shadow: none !important;
   cursor: pointer;
 }
-/* line 8776, ../common-scss/w8.scss */
+/* line 8777, ../common-scss/w8.scss */
 .wysiwyg-speech-input:focus {
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
 
-/* line 8784, ../common-scss/w8.scss */
+/* line 8785, ../common-scss/w8.scss */
 .widget-body .md-header {
   margin-top: -30px;
   margin-left: 9px;
 }
-/* line 8787, ../common-scss/w8.scss */
+/* line 8788, ../common-scss/w8.scss */
 .widget-body .md-header .btn {
   border-color: transparent;
   background: rgba(255, 255, 255, 0.25) !important;
@@ -10010,24 +10011,24 @@ td.td-actions a.td-action:hover {
   padding-right: 0;
   border-width: 1px !important;
 }
-/* line 8795, ../common-scss/w8.scss */
+/* line 8796, ../common-scss/w8.scss */
 .widget-body .md-header .btn > [class*="icon-"] {
   font-size: 14px;
   width: 25px;
   max-width: 25px;
   display: inline-block;
 }
-/* line 8802, ../common-scss/w8.scss */
+/* line 8803, ../common-scss/w8.scss */
 .widget-body .md-header .btn-inverse {
   background: rgba(0, 0, 0, 0.25) !important;
   padding-right: 5px;
 }
-/* line 8807, ../common-scss/w8.scss */
+/* line 8808, ../common-scss/w8.scss */
 .widget-body .md-preview {
   padding: 8px;
   min-height: 200px;
 }
-/* line 8811, ../common-scss/w8.scss */
+/* line 8812, ../common-scss/w8.scss */
 .widget-body .md-input {
   border: none !important;
   box-shadow: none !important;
@@ -10036,13 +10037,13 @@ td.td-actions a.td-action:hover {
   background-color: rgba(48, 126, 204, 0.07);
   padding: 8px;
 }
-/* line 8818, ../common-scss/w8.scss */
+/* line 8819, ../common-scss/w8.scss */
 .widget-body .md-input:focus {
   background-color: #FFF;
   box-shadow: none !important;
 }
 
-/* line 8825, ../common-scss/w8.scss */
+/* line 8826, ../common-scss/w8.scss */
 .icon-animated-bell {
   display: inline-block;
   -moz-animation: ringing 2.0s 5 ease 1.0s;
@@ -10058,234 +10059,234 @@ td.td-actions a.td-action:hover {
 }
 
 @-moz-keyframes ringing {
-  /* line 8840, ../common-scss/w8.scss */
+  /* line 8841, ../common-scss/w8.scss */
   0% {
     -moz-transform: rotate(-15deg);
   }
 
-  /* line 8843, ../common-scss/w8.scss */
+  /* line 8844, ../common-scss/w8.scss */
   2% {
     -moz-transform: rotate(15deg);
   }
 
-  /* line 8846, ../common-scss/w8.scss */
+  /* line 8847, ../common-scss/w8.scss */
   4% {
     -moz-transform: rotate(-18deg);
   }
 
-  /* line 8849, ../common-scss/w8.scss */
+  /* line 8850, ../common-scss/w8.scss */
   6% {
     -moz-transform: rotate(18deg);
   }
 
-  /* line 8852, ../common-scss/w8.scss */
+  /* line 8853, ../common-scss/w8.scss */
   8% {
     -moz-transform: rotate(-22deg);
   }
 
-  /* line 8855, ../common-scss/w8.scss */
+  /* line 8856, ../common-scss/w8.scss */
   10% {
     -moz-transform: rotate(22deg);
   }
 
-  /* line 8858, ../common-scss/w8.scss */
+  /* line 8859, ../common-scss/w8.scss */
   12% {
     -moz-transform: rotate(-18deg);
   }
 
-  /* line 8861, ../common-scss/w8.scss */
+  /* line 8862, ../common-scss/w8.scss */
   14% {
     -moz-transform: rotate(18deg);
   }
 
-  /* line 8864, ../common-scss/w8.scss */
+  /* line 8865, ../common-scss/w8.scss */
   16% {
     -moz-transform: rotate(-12deg);
   }
 
-  /* line 8867, ../common-scss/w8.scss */
+  /* line 8868, ../common-scss/w8.scss */
   18% {
     -moz-transform: rotate(12deg);
   }
 
-  /* line 8870, ../common-scss/w8.scss */
+  /* line 8871, ../common-scss/w8.scss */
   20% {
     -moz-transform: rotate(0deg);
   }
 }
 
 @-webkit-keyframes ringing {
-  /* line 8877, ../common-scss/w8.scss */
+  /* line 8878, ../common-scss/w8.scss */
   0% {
     -webkit-transform: rotate(-15deg);
   }
 
-  /* line 8880, ../common-scss/w8.scss */
+  /* line 8881, ../common-scss/w8.scss */
   2% {
     -webkit-transform: rotate(15deg);
   }
 
-  /* line 8883, ../common-scss/w8.scss */
+  /* line 8884, ../common-scss/w8.scss */
   4% {
     -webkit-transform: rotate(-18deg);
   }
 
-  /* line 8886, ../common-scss/w8.scss */
+  /* line 8887, ../common-scss/w8.scss */
   6% {
     -webkit-transform: rotate(18deg);
   }
 
-  /* line 8889, ../common-scss/w8.scss */
+  /* line 8890, ../common-scss/w8.scss */
   8% {
     -webkit-transform: rotate(-22deg);
   }
 
-  /* line 8892, ../common-scss/w8.scss */
+  /* line 8893, ../common-scss/w8.scss */
   10% {
     -webkit-transform: rotate(22deg);
   }
 
-  /* line 8895, ../common-scss/w8.scss */
+  /* line 8896, ../common-scss/w8.scss */
   12% {
     -webkit-transform: rotate(-18deg);
   }
 
-  /* line 8898, ../common-scss/w8.scss */
+  /* line 8899, ../common-scss/w8.scss */
   14% {
     -webkit-transform: rotate(18deg);
   }
 
-  /* line 8901, ../common-scss/w8.scss */
+  /* line 8902, ../common-scss/w8.scss */
   16% {
     -webkit-transform: rotate(-12deg);
   }
 
-  /* line 8904, ../common-scss/w8.scss */
+  /* line 8905, ../common-scss/w8.scss */
   18% {
     -webkit-transform: rotate(12deg);
   }
 
-  /* line 8907, ../common-scss/w8.scss */
+  /* line 8908, ../common-scss/w8.scss */
   20% {
     -webkit-transform: rotate(0deg);
   }
 }
 
 @-ms-keyframes ringing {
-  /* line 8914, ../common-scss/w8.scss */
+  /* line 8915, ../common-scss/w8.scss */
   0% {
     -ms-transform: rotate(-15deg);
   }
 
-  /* line 8917, ../common-scss/w8.scss */
+  /* line 8918, ../common-scss/w8.scss */
   2% {
     -ms-transform: rotate(15deg);
   }
 
-  /* line 8920, ../common-scss/w8.scss */
+  /* line 8921, ../common-scss/w8.scss */
   4% {
     -ms-transform: rotate(-18deg);
   }
 
-  /* line 8923, ../common-scss/w8.scss */
+  /* line 8924, ../common-scss/w8.scss */
   6% {
     -ms-transform: rotate(18deg);
   }
 
-  /* line 8926, ../common-scss/w8.scss */
+  /* line 8927, ../common-scss/w8.scss */
   8% {
     -ms-transform: rotate(-22deg);
   }
 
-  /* line 8929, ../common-scss/w8.scss */
+  /* line 8930, ../common-scss/w8.scss */
   10% {
     -ms-transform: rotate(22deg);
   }
 
-  /* line 8932, ../common-scss/w8.scss */
+  /* line 8933, ../common-scss/w8.scss */
   12% {
     -ms-transform: rotate(-18deg);
   }
 
-  /* line 8935, ../common-scss/w8.scss */
+  /* line 8936, ../common-scss/w8.scss */
   14% {
     -ms-transform: rotate(18deg);
   }
 
-  /* line 8938, ../common-scss/w8.scss */
+  /* line 8939, ../common-scss/w8.scss */
   16% {
     -ms-transform: rotate(-12deg);
   }
 
-  /* line 8941, ../common-scss/w8.scss */
+  /* line 8942, ../common-scss/w8.scss */
   18% {
     -ms-transform: rotate(12deg);
   }
 
-  /* line 8944, ../common-scss/w8.scss */
+  /* line 8945, ../common-scss/w8.scss */
   20% {
     -ms-transform: rotate(0deg);
   }
 }
 
 @keyframes ringing {
-  /* line 8951, ../common-scss/w8.scss */
+  /* line 8952, ../common-scss/w8.scss */
   0% {
     transform: rotate(-15deg);
   }
 
-  /* line 8954, ../common-scss/w8.scss */
+  /* line 8955, ../common-scss/w8.scss */
   2% {
     transform: rotate(15deg);
   }
 
-  /* line 8957, ../common-scss/w8.scss */
+  /* line 8958, ../common-scss/w8.scss */
   4% {
     transform: rotate(-18deg);
   }
 
-  /* line 8960, ../common-scss/w8.scss */
+  /* line 8961, ../common-scss/w8.scss */
   6% {
     transform: rotate(18deg);
   }
 
-  /* line 8963, ../common-scss/w8.scss */
+  /* line 8964, ../common-scss/w8.scss */
   8% {
     transform: rotate(-22deg);
   }
 
-  /* line 8966, ../common-scss/w8.scss */
+  /* line 8967, ../common-scss/w8.scss */
   10% {
     transform: rotate(22deg);
   }
 
-  /* line 8969, ../common-scss/w8.scss */
+  /* line 8970, ../common-scss/w8.scss */
   12% {
     transform: rotate(-18deg);
   }
 
-  /* line 8972, ../common-scss/w8.scss */
+  /* line 8973, ../common-scss/w8.scss */
   14% {
     transform: rotate(18deg);
   }
 
-  /* line 8975, ../common-scss/w8.scss */
+  /* line 8976, ../common-scss/w8.scss */
   16% {
     transform: rotate(-12deg);
   }
 
-  /* line 8978, ../common-scss/w8.scss */
+  /* line 8979, ../common-scss/w8.scss */
   18% {
     transform: rotate(12deg);
   }
 
-  /* line 8981, ../common-scss/w8.scss */
+  /* line 8982, ../common-scss/w8.scss */
   20% {
     transform: rotate(0deg);
   }
 }
 
-/* line 8987, ../common-scss/w8.scss */
+/* line 8988, ../common-scss/w8.scss */
 .icon-animated-vertical {
   display: inline-block;
   -moz-animation: vertical 2.0s 5 ease 2.0s;
@@ -10296,154 +10297,154 @@ td.td-actions a.td-action:hover {
 }
 
 @-moz-keyframes vertical {
-  /* line 8997, ../common-scss/w8.scss */
+  /* line 8998, ../common-scss/w8.scss */
   0% {
     -moz-transform: translate(0, -3px);
   }
 
-  /* line 9000, ../common-scss/w8.scss */
+  /* line 9001, ../common-scss/w8.scss */
   4% {
     -moz-transform: translate(0, 3px);
   }
 
-  /* line 9003, ../common-scss/w8.scss */
+  /* line 9004, ../common-scss/w8.scss */
   8% {
     -moz-transform: translate(0, -3px);
   }
 
-  /* line 9006, ../common-scss/w8.scss */
+  /* line 9007, ../common-scss/w8.scss */
   12% {
     -moz-transform: translate(0, 3px);
   }
 
-  /* line 9009, ../common-scss/w8.scss */
+  /* line 9010, ../common-scss/w8.scss */
   16% {
     -moz-transform: translate(0, -3px);
   }
 
-  /* line 9012, ../common-scss/w8.scss */
+  /* line 9013, ../common-scss/w8.scss */
   20% {
     -moz-transform: translate(0, 3px);
   }
 
-  /* line 9015, ../common-scss/w8.scss */
+  /* line 9016, ../common-scss/w8.scss */
   22% {
     -moz-transform: translate(0, 0);
   }
 }
 
 @-webkit-keyframes vertical {
-  /* line 9022, ../common-scss/w8.scss */
+  /* line 9023, ../common-scss/w8.scss */
   0% {
     -webkit-transform: translate(0, -3px);
   }
 
-  /* line 9025, ../common-scss/w8.scss */
+  /* line 9026, ../common-scss/w8.scss */
   4% {
     -webkit-transform: translate(0, 3px);
   }
 
-  /* line 9028, ../common-scss/w8.scss */
+  /* line 9029, ../common-scss/w8.scss */
   8% {
     -webkit-transform: translate(0, -3px);
   }
 
-  /* line 9031, ../common-scss/w8.scss */
+  /* line 9032, ../common-scss/w8.scss */
   12% {
     -webkit-transform: translate(0, 3px);
   }
 
-  /* line 9034, ../common-scss/w8.scss */
+  /* line 9035, ../common-scss/w8.scss */
   16% {
     -webkit-transform: translate(0, -3px);
   }
 
-  /* line 9037, ../common-scss/w8.scss */
+  /* line 9038, ../common-scss/w8.scss */
   20% {
     -webkit-transform: translate(0, 3px);
   }
 
-  /* line 9040, ../common-scss/w8.scss */
+  /* line 9041, ../common-scss/w8.scss */
   22% {
     -webkit-transform: translate(0, 0);
   }
 }
 
 @-ms-keyframes vertical {
-  /* line 9047, ../common-scss/w8.scss */
+  /* line 9048, ../common-scss/w8.scss */
   0% {
     -ms-transform: translate(0, -3px);
   }
 
-  /* line 9050, ../common-scss/w8.scss */
+  /* line 9051, ../common-scss/w8.scss */
   4% {
     -ms-transform: translate(0, 3px);
   }
 
-  /* line 9053, ../common-scss/w8.scss */
+  /* line 9054, ../common-scss/w8.scss */
   8% {
     -ms-transform: translate(0, -3px);
   }
 
-  /* line 9056, ../common-scss/w8.scss */
+  /* line 9057, ../common-scss/w8.scss */
   12% {
     -ms-transform: translate(0, 3px);
   }
 
-  /* line 9059, ../common-scss/w8.scss */
+  /* line 9060, ../common-scss/w8.scss */
   16% {
     -ms-transform: translate(0, -3px);
   }
 
-  /* line 9062, ../common-scss/w8.scss */
+  /* line 9063, ../common-scss/w8.scss */
   20% {
     -ms-transform: translate(0, 3px);
   }
 
-  /* line 9065, ../common-scss/w8.scss */
+  /* line 9066, ../common-scss/w8.scss */
   22% {
     -ms-transform: translate(0, 0);
   }
 }
 
 @keyframes vertical {
-  /* line 9072, ../common-scss/w8.scss */
+  /* line 9073, ../common-scss/w8.scss */
   0% {
     transform: translate(0, -3px);
   }
 
-  /* line 9075, ../common-scss/w8.scss */
+  /* line 9076, ../common-scss/w8.scss */
   4% {
     transform: translate(0, 3px);
   }
 
-  /* line 9078, ../common-scss/w8.scss */
+  /* line 9079, ../common-scss/w8.scss */
   8% {
     transform: translate(0, -3px);
   }
 
-  /* line 9081, ../common-scss/w8.scss */
+  /* line 9082, ../common-scss/w8.scss */
   12% {
     transform: translate(0, 3px);
   }
 
-  /* line 9084, ../common-scss/w8.scss */
+  /* line 9085, ../common-scss/w8.scss */
   16% {
     transform: translate(0, -3px);
   }
 
-  /* line 9087, ../common-scss/w8.scss */
+  /* line 9088, ../common-scss/w8.scss */
   20% {
     transform: translate(0, 3px);
   }
 
-  /* line 9090, ../common-scss/w8.scss */
+  /* line 9091, ../common-scss/w8.scss */
   22% {
     transform: translate(0, 0);
   }
 }
 
-/* line 9096, ../common-scss/w8.scss */
+/* line 9097, ../common-scss/w8.scss */
 .icon-animated-wrench {
   display: inline-block;
   -moz-animation: wrenching 2.5s 4 ease;
@@ -10459,391 +10460,391 @@ td.td-actions a.td-action:hover {
 }
 
 @-moz-keyframes wrenching {
-  /* line 9111, ../common-scss/w8.scss */
+  /* line 9112, ../common-scss/w8.scss */
   0% {
     -moz-transform: rotate(-12deg);
   }
 
-  /* line 9114, ../common-scss/w8.scss */
+  /* line 9115, ../common-scss/w8.scss */
   8% {
     -moz-transform: rotate(12deg);
   }
 
-  /* line 9117, ../common-scss/w8.scss */
+  /* line 9118, ../common-scss/w8.scss */
   10% {
     -moz-transform: rotate(24deg);
   }
 
-  /* line 9120, ../common-scss/w8.scss */
+  /* line 9121, ../common-scss/w8.scss */
   18% {
     -moz-transform: rotate(-24deg);
   }
 
-  /* line 9123, ../common-scss/w8.scss */
+  /* line 9124, ../common-scss/w8.scss */
   20% {
     -moz-transform: rotate(-24deg);
   }
 
-  /* line 9126, ../common-scss/w8.scss */
+  /* line 9127, ../common-scss/w8.scss */
   28% {
     -moz-transform: rotate(24deg);
   }
 
-  /* line 9129, ../common-scss/w8.scss */
+  /* line 9130, ../common-scss/w8.scss */
   30% {
     -moz-transform: rotate(24deg);
   }
 
-  /* line 9132, ../common-scss/w8.scss */
+  /* line 9133, ../common-scss/w8.scss */
   38% {
     -moz-transform: rotate(-24deg);
   }
 
-  /* line 9135, ../common-scss/w8.scss */
+  /* line 9136, ../common-scss/w8.scss */
   40% {
     -moz-transform: rotate(-24deg);
   }
 
-  /* line 9138, ../common-scss/w8.scss */
+  /* line 9139, ../common-scss/w8.scss */
   48% {
     -moz-transform: rotate(24deg);
   }
 
-  /* line 9141, ../common-scss/w8.scss */
+  /* line 9142, ../common-scss/w8.scss */
   50% {
     -moz-transform: rotate(24deg);
   }
 
-  /* line 9144, ../common-scss/w8.scss */
+  /* line 9145, ../common-scss/w8.scss */
   58% {
     -moz-transform: rotate(-24deg);
   }
 
-  /* line 9147, ../common-scss/w8.scss */
+  /* line 9148, ../common-scss/w8.scss */
   60% {
     -moz-transform: rotate(-24deg);
   }
 
-  /* line 9150, ../common-scss/w8.scss */
+  /* line 9151, ../common-scss/w8.scss */
   68% {
     -moz-transform: rotate(24deg);
   }
 
-  /* line 9153, ../common-scss/w8.scss */
+  /* line 9154, ../common-scss/w8.scss */
   75% {
     -moz-transform: rotate(0deg);
   }
 }
 
 @-webkit-keyframes wrenching {
-  /* line 9160, ../common-scss/w8.scss */
+  /* line 9161, ../common-scss/w8.scss */
   0% {
     -webkit-transform: rotate(-12deg);
   }
 
-  /* line 9163, ../common-scss/w8.scss */
+  /* line 9164, ../common-scss/w8.scss */
   8% {
     -webkit-transform: rotate(12deg);
   }
 
-  /* line 9166, ../common-scss/w8.scss */
+  /* line 9167, ../common-scss/w8.scss */
   10% {
     -webkit-transform: rotate(24deg);
   }
 
-  /* line 9169, ../common-scss/w8.scss */
+  /* line 9170, ../common-scss/w8.scss */
   18% {
     -webkit-transform: rotate(-24deg);
   }
 
-  /* line 9172, ../common-scss/w8.scss */
+  /* line 9173, ../common-scss/w8.scss */
   20% {
     -webkit-transform: rotate(-24deg);
   }
 
-  /* line 9175, ../common-scss/w8.scss */
+  /* line 9176, ../common-scss/w8.scss */
   28% {
     -webkit-transform: rotate(24deg);
   }
 
-  /* line 9178, ../common-scss/w8.scss */
+  /* line 9179, ../common-scss/w8.scss */
   30% {
     -webkit-transform: rotate(24deg);
   }
 
-  /* line 9181, ../common-scss/w8.scss */
+  /* line 9182, ../common-scss/w8.scss */
   38% {
     -webkit-transform: rotate(-24deg);
   }
 
-  /* line 9184, ../common-scss/w8.scss */
+  /* line 9185, ../common-scss/w8.scss */
   40% {
     -webkit-transform: rotate(-24deg);
   }
 
-  /* line 9187, ../common-scss/w8.scss */
+  /* line 9188, ../common-scss/w8.scss */
   48% {
     -webkit-transform: rotate(24deg);
   }
 
-  /* line 9190, ../common-scss/w8.scss */
+  /* line 9191, ../common-scss/w8.scss */
   50% {
     -webkit-transform: rotate(24deg);
   }
 
-  /* line 9193, ../common-scss/w8.scss */
+  /* line 9194, ../common-scss/w8.scss */
   58% {
     -webkit-transform: rotate(-24deg);
   }
 
-  /* line 9196, ../common-scss/w8.scss */
+  /* line 9197, ../common-scss/w8.scss */
   60% {
     -webkit-transform: rotate(-24deg);
   }
 
-  /* line 9199, ../common-scss/w8.scss */
+  /* line 9200, ../common-scss/w8.scss */
   68% {
     -webkit-transform: rotate(24deg);
   }
 
-  /* line 9202, ../common-scss/w8.scss */
+  /* line 9203, ../common-scss/w8.scss */
   75% {
     -webkit-transform: rotate(0deg);
   }
 }
 
 @-o-keyframes wrenching {
-  /* line 9209, ../common-scss/w8.scss */
+  /* line 9210, ../common-scss/w8.scss */
   0% {
     -o-transform: rotate(-12deg);
   }
 
-  /* line 9212, ../common-scss/w8.scss */
+  /* line 9213, ../common-scss/w8.scss */
   8% {
     -o-transform: rotate(12deg);
   }
 
-  /* line 9215, ../common-scss/w8.scss */
+  /* line 9216, ../common-scss/w8.scss */
   10% {
     -o-transform: rotate(24deg);
   }
 
-  /* line 9218, ../common-scss/w8.scss */
+  /* line 9219, ../common-scss/w8.scss */
   18% {
     -o-transform: rotate(-24deg);
   }
 
-  /* line 9221, ../common-scss/w8.scss */
+  /* line 9222, ../common-scss/w8.scss */
   20% {
     -o-transform: rotate(-24deg);
   }
 
-  /* line 9224, ../common-scss/w8.scss */
+  /* line 9225, ../common-scss/w8.scss */
   28% {
     -o-transform: rotate(24deg);
   }
 
-  /* line 9227, ../common-scss/w8.scss */
+  /* line 9228, ../common-scss/w8.scss */
   30% {
     -o-transform: rotate(24deg);
   }
 
-  /* line 9230, ../common-scss/w8.scss */
+  /* line 9231, ../common-scss/w8.scss */
   38% {
     -o-transform: rotate(-24deg);
   }
 
-  /* line 9233, ../common-scss/w8.scss */
+  /* line 9234, ../common-scss/w8.scss */
   40% {
     -o-transform: rotate(-24deg);
   }
 
-  /* line 9236, ../common-scss/w8.scss */
+  /* line 9237, ../common-scss/w8.scss */
   48% {
     -o-transform: rotate(24deg);
   }
 
-  /* line 9239, ../common-scss/w8.scss */
+  /* line 9240, ../common-scss/w8.scss */
   50% {
     -o-transform: rotate(24deg);
   }
 
-  /* line 9242, ../common-scss/w8.scss */
+  /* line 9243, ../common-scss/w8.scss */
   58% {
     -o-transform: rotate(-24deg);
   }
 
-  /* line 9245, ../common-scss/w8.scss */
+  /* line 9246, ../common-scss/w8.scss */
   60% {
     -o-transform: rotate(-24deg);
   }
 
-  /* line 9248, ../common-scss/w8.scss */
+  /* line 9249, ../common-scss/w8.scss */
   68% {
     -o-transform: rotate(24deg);
   }
 
-  /* line 9251, ../common-scss/w8.scss */
+  /* line 9252, ../common-scss/w8.scss */
   75% {
     -o-transform: rotate(0deg);
   }
 }
 
 @-ms-keyframes wrenching {
-  /* line 9258, ../common-scss/w8.scss */
+  /* line 9259, ../common-scss/w8.scss */
   0% {
     -ms-transform: rotate(-12deg);
   }
 
-  /* line 9261, ../common-scss/w8.scss */
+  /* line 9262, ../common-scss/w8.scss */
   8% {
     -ms-transform: rotate(12deg);
   }
 
-  /* line 9264, ../common-scss/w8.scss */
+  /* line 9265, ../common-scss/w8.scss */
   10% {
     -ms-transform: rotate(24deg);
   }
 
-  /* line 9267, ../common-scss/w8.scss */
+  /* line 9268, ../common-scss/w8.scss */
   18% {
     -ms-transform: rotate(-24deg);
   }
 
-  /* line 9270, ../common-scss/w8.scss */
+  /* line 9271, ../common-scss/w8.scss */
   20% {
     -ms-transform: rotate(-24deg);
   }
 
-  /* line 9273, ../common-scss/w8.scss */
+  /* line 9274, ../common-scss/w8.scss */
   28% {
     -ms-transform: rotate(24deg);
   }
 
-  /* line 9276, ../common-scss/w8.scss */
+  /* line 9277, ../common-scss/w8.scss */
   30% {
     -ms-transform: rotate(24deg);
   }
 
-  /* line 9279, ../common-scss/w8.scss */
+  /* line 9280, ../common-scss/w8.scss */
   38% {
     -ms-transform: rotate(-24deg);
   }
 
-  /* line 9282, ../common-scss/w8.scss */
+  /* line 9283, ../common-scss/w8.scss */
   40% {
     -ms-transform: rotate(-24deg);
   }
 
-  /* line 9285, ../common-scss/w8.scss */
+  /* line 9286, ../common-scss/w8.scss */
   48% {
     -ms-transform: rotate(24deg);
   }
 
-  /* line 9288, ../common-scss/w8.scss */
+  /* line 9289, ../common-scss/w8.scss */
   50% {
     -ms-transform: rotate(24deg);
   }
 
-  /* line 9291, ../common-scss/w8.scss */
+  /* line 9292, ../common-scss/w8.scss */
   58% {
     -ms-transform: rotate(-24deg);
   }
 
-  /* line 9294, ../common-scss/w8.scss */
+  /* line 9295, ../common-scss/w8.scss */
   60% {
     -ms-transform: rotate(-24deg);
   }
 
-  /* line 9297, ../common-scss/w8.scss */
+  /* line 9298, ../common-scss/w8.scss */
   68% {
     -ms-transform: rotate(24deg);
   }
 
-  /* line 9300, ../common-scss/w8.scss */
+  /* line 9301, ../common-scss/w8.scss */
   75% {
     -ms-transform: rotate(0deg);
   }
 }
 
 @keyframes wrenching {
-  /* line 9307, ../common-scss/w8.scss */
+  /* line 9308, ../common-scss/w8.scss */
   0% {
     transform: rotate(-12deg);
   }
 
-  /* line 9310, ../common-scss/w8.scss */
+  /* line 9311, ../common-scss/w8.scss */
   8% {
     transform: rotate(12deg);
   }
 
-  /* line 9313, ../common-scss/w8.scss */
+  /* line 9314, ../common-scss/w8.scss */
   10% {
     transform: rotate(24deg);
   }
 
-  /* line 9316, ../common-scss/w8.scss */
+  /* line 9317, ../common-scss/w8.scss */
   18% {
     transform: rotate(-24deg);
   }
 
-  /* line 9319, ../common-scss/w8.scss */
+  /* line 9320, ../common-scss/w8.scss */
   20% {
     transform: rotate(-24deg);
   }
 
-  /* line 9322, ../common-scss/w8.scss */
+  /* line 9323, ../common-scss/w8.scss */
   28% {
     transform: rotate(24deg);
   }
 
-  /* line 9325, ../common-scss/w8.scss */
+  /* line 9326, ../common-scss/w8.scss */
   30% {
     transform: rotate(24deg);
   }
 
-  /* line 9328, ../common-scss/w8.scss */
+  /* line 9329, ../common-scss/w8.scss */
   38% {
     transform: rotate(-24deg);
   }
 
-  /* line 9331, ../common-scss/w8.scss */
+  /* line 9332, ../common-scss/w8.scss */
   40% {
     transform: rotate(-24deg);
   }
 
-  /* line 9334, ../common-scss/w8.scss */
+  /* line 9335, ../common-scss/w8.scss */
   48% {
     transform: rotate(24deg);
   }
 
-  /* line 9337, ../common-scss/w8.scss */
+  /* line 9338, ../common-scss/w8.scss */
   50% {
     transform: rotate(24deg);
   }
 
-  /* line 9340, ../common-scss/w8.scss */
+  /* line 9341, ../common-scss/w8.scss */
   58% {
     transform: rotate(-24deg);
   }
 
-  /* line 9343, ../common-scss/w8.scss */
+  /* line 9344, ../common-scss/w8.scss */
   60% {
     transform: rotate(-24deg);
   }
 
-  /* line 9346, ../common-scss/w8.scss */
+  /* line 9347, ../common-scss/w8.scss */
   68% {
     transform: rotate(24deg);
   }
 
-  /* line 9349, ../common-scss/w8.scss */
+  /* line 9350, ../common-scss/w8.scss */
   75% {
     transform: rotate(0deg);
   }
 }
 
-/* line 9355, ../common-scss/w8.scss */
+/* line 9356, ../common-scss/w8.scss */
 #ace-settings-container {
   position: absolute;
   right: 0;
@@ -10851,7 +10852,7 @@ td.td-actions a.td-action:hover {
   z-index: 11;
 }
 
-/* line 9362, ../common-scss/w8.scss */
+/* line 9363, ../common-scss/w8.scss */
 #ace-settings-btn {
   float: left;
   display: inline-block;
@@ -10865,13 +10866,13 @@ td.td-actions a.td-action:hover {
   vertical-align: top;
   margin: 0;
 }
-/* line 9374, ../common-scss/w8.scss */
+/* line 9375, ../common-scss/w8.scss */
 #ace-settings-btn:hover, #ace-settings-btn.open {
   opacity: 1;
   filter: alpha(opacity=100);
 }
 
-/* line 9380, ../common-scss/w8.scss */
+/* line 9381, ../common-scss/w8.scss */
 #ace-settings-box {
   display: none;
   float: left;
@@ -10880,22 +10881,22 @@ td.td-actions a.td-action:hover {
   background-color: #FFF;
   border: 2px solid #ffb34b;
 }
-/* line 9387, ../common-scss/w8.scss */
+/* line 9388, ../common-scss/w8.scss */
 #ace-settings-box.open {
   display: inline-block;
 }
-/* line 9390, ../common-scss/w8.scss */
+/* line 9391, ../common-scss/w8.scss */
 #ace-settings-box > div {
   margin: 6px 0;
   color: #444;
   max-height: 24px;
 }
-/* line 9394, ../common-scss/w8.scss */
+/* line 9395, ../common-scss/w8.scss */
 #ace-settings-box > div > label {
   font-size: 13px;
 }
 
-/* line 9400, ../common-scss/w8.scss */
+/* line 9401, ../common-scss/w8.scss */
 #btn-scroll-up {
   border: 0;
   position: absolute;
@@ -10905,7 +10906,7 @@ td.td-actions a.td-action:hover {
   padding-bottom: 4px;
 }
 
-/* line 9409, ../common-scss/w8.scss */
+/* line 9410, ../common-scss/w8.scss */
 .grid3 {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -10917,12 +10918,12 @@ td.td-actions a.td-action:hover {
   float: left;
   border-left: 1px solid #e3e3e3;
 }
-/* line 9419, ../common-scss/w8.scss */
+/* line 9420, ../common-scss/w8.scss */
 .grid3:first-child {
   border-left: none;
 }
 
-/* line 9424, ../common-scss/w8.scss */
+/* line 9425, ../common-scss/w8.scss */
 .grid4 {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -10934,67 +10935,67 @@ td.td-actions a.td-action:hover {
   padding: 0 1%;
   border-left: 1px solid #e3e3e3;
 }
-/* line 9434, ../common-scss/w8.scss */
+/* line 9435, ../common-scss/w8.scss */
 .grid4:first-child {
   border-left: none;
 }
 
-/* line 9439, ../common-scss/w8.scss */
+/* line 9440, ../common-scss/w8.scss */
 .slimScrollBar, .slimScrollRail, .datepicker td, .daterangepicker td, .datepicker th, .daterangepicker th {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
 
-/* line 9445, ../common-scss/w8.scss */
+/* line 9446, ../common-scss/w8.scss */
 .datepicker td.active, .daterangepicker td.active, .datepicker td.active:hover, .daterangepicker td.active:hover {
   background: #2283c5 !important;
 }
 
-/* line 9449, ../common-scss/w8.scss */
+/* line 9450, ../common-scss/w8.scss */
 .datepicker td.active.disabled, .daterangepicker td.active.disabled, .datepicker td.active.disabled:hover, .daterangepicker td.active.disabled:hover {
   background: #8b9aa3 !important;
 }
 
-/* line 9453, ../common-scss/w8.scss */
+/* line 9454, ../common-scss/w8.scss */
 .bootstrap-timepicker-widget table td a:hover {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
 }
 
-/* line 9459, ../common-scss/w8.scss */
+/* line 9460, ../common-scss/w8.scss */
 .easyPieChart {
   position: relative;
   text-align: center;
 }
-/* line 9462, ../common-scss/w8.scss */
+/* line 9463, ../common-scss/w8.scss */
 .easyPieChart canvas {
   position: absolute;
   top: 0;
   left: 0;
 }
 
-/* line 9470, ../common-scss/w8.scss */
+/* line 9471, ../common-scss/w8.scss */
 .navbar .navbar-inner, .navbar .btn-navbar {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false) !important;
 }
 
-/* line 9475, ../common-scss/w8.scss */
+/* line 9476, ../common-scss/w8.scss */
 .dropdown-menu li > a, .dropdown-submenu > a, .btn {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false) !important;
 }
 
-/* line 9479, ../common-scss/w8.scss */
+/* line 9480, ../common-scss/w8.scss */
 .progress {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false) !important;
 }
-/* line 9481, ../common-scss/w8.scss */
+/* line 9482, ../common-scss/w8.scss */
 .progress .bar {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false) !important;
 }
 
-/* line 9486, ../common-scss/w8.scss */
+/* line 9487, ../common-scss/w8.scss */
 #spinner-preview {
   width: 100px;
   height: 100px;
@@ -11002,12 +11003,12 @@ td.td-actions a.td-action:hover {
   margin-top: 60px;
 }
 
-/* line 9493, ../common-scss/w8.scss */
+/* line 9494, ../common-scss/w8.scss */
 .dropdown-preview {
   margin: 0 5px;
   display: inline-block;
 }
-/* line 9496, ../common-scss/w8.scss */
+/* line 9497, ../common-scss/w8.scss */
 .dropdown-preview > .dropdown-menu {
   display: block;
   position: static;
