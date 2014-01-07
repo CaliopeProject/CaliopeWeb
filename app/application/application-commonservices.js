@@ -28,6 +28,20 @@ define(['angular'], function(angular) {
   });
 
 
+  moduleServices.directive('myFrame', function () {
+    return {
+      restrict: 'E',
+      require: '?ngModel',
+      replace: true,
+      transclude: true,
+      template: '<iframe width="100%" height="730" allowfullscreen webkitallowfullscreen frameborder="0"></iframe>',
+      link: function (scope, element, attrs) {
+        element.attr('src', attrs.iframeSrc);
+      }
+    };
+  });
+
+
   moduleServices.service('toolservices', ['$rootScope', function($rootScope) {
 
     function parseValue(objvalue){

@@ -68,14 +68,8 @@
 
         <!--PDF -->
         <div ng-switch-when="pdf">
-          <div class="btn-group">
-            <button class="btn btn-mini" ng-click="gotoPage(1)">|&lt;</button>
-            <button class="btn btn-mini" ng-click="prevPage()">&lt;</button>
-            <button class="btn btn-mini" ng-click="nextPage()">&gt;</button>
-            <button class="btn btn-mini" ng-click="gotoPage(totalPages)">&gt;|</button>
-          </div>
           <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>
-          <pdfviewer src="{{pdfURL}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
+          <my-frame data-iframe-src="{{server}}/libs-js-thirdparty/viewerjs/index.html#{{pdfURL}}.{{itemattach}}"></my-frame>
         </div>
         <!--PDF -->
 

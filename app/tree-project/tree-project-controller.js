@@ -16,6 +16,7 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
     ,function($scope, webSocket, contextService, pdf, ctempSrv, taskService, tool) {
         var WEBSOCKETS  = webSocket.WebSockets();
         var serverFile  = $caliope_constant.hyperion_server_address_d;
+        var serverUrl   = $caliope_constant.hyperion_server_localhost;
         $scope.form     = {};
 
 
@@ -249,6 +250,7 @@ define(['angular', 'application-constant', 'application-servicesWebSocket', 'con
                 break;
               case 'pdf':
                 $scope.itemattach = 'pdf';
+                $scope.server     = serverUrl;
                 $scope.pdfURL     = serverFile + obform.attachments[index].id;
                 $scope.instance   = pdf.Instance("viewer");
                 break;
